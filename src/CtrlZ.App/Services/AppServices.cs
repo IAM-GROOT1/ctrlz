@@ -36,7 +36,7 @@ public sealed class AppServices : IDisposable
     public InstallStateStore InstallStates { get; private init; } = null!;
     public InstallEngine InstallEngine { get; private init; } = null!;
     public WingetBootstrapService WingetBootstrap { get; private init; } = null!;
-    public ChromiumBrowserDetector BrowserDetector { get; private init; } = null!;
+    public BrowserDetector BrowserDetector { get; private init; } = null!;
     public BrowserProcessService BrowserProcesses { get; private init; } = null!;
     public BrowserBackupService BrowserBackups { get; private init; } = null!;
     public BrowserArchiveReader BrowserArchiveReader { get; private init; } = null!;
@@ -87,7 +87,7 @@ public sealed class AppServices : IDisposable
             InstallStates = installStates,
             InstallEngine = installEngine,
             WingetBootstrap = wingetBootstrap,
-            BrowserDetector = new ChromiumBrowserDetector(log),
+            BrowserDetector = new BrowserDetector(log),
             BrowserProcesses = browserProcesses,
             BrowserBackups = new BrowserBackupService(paths, log, browserProcesses),
             BrowserArchiveReader = archiveReader,

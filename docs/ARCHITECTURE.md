@@ -3,7 +3,7 @@
 ## Goals
 
 1. Rebuild a Windows app setup from a portable file.
-2. Back up and restore Chromium profiles without relying on browser sync.
+2. Back up and restore Chromium and Firefox profiles without relying on browser sync.
 3. Keep every long-running operation resumable, logged, and isolated.
 4. Stay fully local. No account or network service is required for core features.
 
@@ -69,20 +69,30 @@ the latest release again at install time.
 
 The browser code is a self-contained service group:
 
-- `ChromiumBrowserCatalog` — per-fork configuration (paths, process names, registry names)
-- `ChromiumBrowserDetector` — User Data + registry detection
+- `ChromiumBrowserCatalog` — Chromium per-fork configuration (paths, process names, registry names)
+- `FirefoxBrowserCatalog` — Firefox-family per-fork configuration (Firefox/ESR, Zen, LibreWolf,
+  Waterfox, Floorp, Mullvad, Tor)
+- `BrowserCatalog` — combined detector catalog
+- `BrowserDetector` — Chromium User Data / Firefox profile-root + registry detection
 - `ChromiumProfileReader` — Local State profile names, directory fallback, validation
-- `BrowserDataRules` / `BrowserBackupPlanner` — auditable whitelist/exclusions and size estimate
-- `BrowserBackupService` — sanitized Local State, sanitized Web Data, ZIP creation/encryption
-- `BrowserArchiveReader` — manifest validation, encrypted archive handling
-- `BrowserRestoreService` — conflict detection, restore-as-new, safety copy, Local State merge
+- `FirefoxProfileReader` / `FirefoxProfilesIni` — profiles.ini parsing, profile-root/single-profile
+  detection, safe profiles.ini updates
+- `BrowserDataRules` / `FirefoxDataRules` / `BrowserBackupPlanner` — auditable whitelist/exclusions
+  and size estimate, dispatched by browser family
+- `BrowserBackupService` — sanitized Local State/Web Data, ZIP creation/encryption, family-tagged
+  manifests
+- `BrowserArchiveReader` — manifest/format validation, encrypted archive handling
+- `BrowserRestoreService` — conflict detection, restore-as-new, safety copy, Local State or
+  profiles.ini registration, same-engine enforcement
 - `BrowserProcessService` — path-aware running detection and graceful/forced close
 - `VolumeShadowCopySession` — best-effort locked-file fallback
 
-The browser data policy is whitelist-first: only known profile files and directories are
-enumerated. Passwords and cookies are not just filtered at archive time; they are never
-planned in the first place, and restore refuses those paths if a foreign archive contains
-them.
+The browser data policy is whitelist-first for both engines: only known profile files and
+directories are enumerated. Passwords and cookies are not just filtered at archive time;
+they are never planned in the first place, and restore refuses those paths if a foreign
+archive contains them. Firefox archives never include `logins.json`, `key4.db`, `cookies.sqlite`,
+or `formhistory.sqlite`; Chromium archives never include `Login Data`, cookie stores, or
+`os_crypt` material.
 
 ## UI (`CtrlZ.App`)
 
@@ -128,7 +138,8 @@ dispatcher for installation logs.
 ## Extension points
 
 - **New install source**: implement `ISourceInstaller`, register it in `AppServices`.
-- **New Chromium fork**: add a `BrowserAppDefinition` entry.
+- **New Chromium or Firefox fork**: add a `BrowserAppDefinition` with the appropriate
+  `BrowserFamily`; no new backup/restore subclass is required.
 - **Settings backup module**: add a planner/service pair beside the browser planner, keep
   manifests compatible, and register a page in `MainViewModel`. No installer or profile
   schema rewrite is needed; add fields to `AppProfile` only if the new module needs

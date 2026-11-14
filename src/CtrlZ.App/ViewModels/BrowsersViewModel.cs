@@ -27,7 +27,7 @@ public sealed partial class BrowsersViewModel : PageViewModelBase
     private bool _loaded;
 
     public BrowsersViewModel(AppServices services, DialogService dialogs, MainViewModel main)
-        : base("Browsers", "Back up Chromium profiles, then restore tabs, bookmarks, extensions, and settings on a clean PC.")
+        : base("Browsers", "Back up Firefox and Chromium profiles, then restore tabs, bookmarks, extensions, and settings on a clean PC.")
     {
         _services = services;
         _dialogs = dialogs;
@@ -35,8 +35,7 @@ public sealed partial class BrowsersViewModel : PageViewModelBase
         _backupFolder = string.IsNullOrWhiteSpace(services.State.Settings.LastBackupFolder)
             ? services.Paths.DefaultBackupFolder
             : services.State.Settings.LastBackupFolder!;
-        _excludedSummary = string.Join(", ", BrowserDataRules.ExcludedDirectoryNames.Take(7))
-                           + ", saved passwords, cookies";
+        _excludedSummary = "Cache/Code Cache/GPUCache/ShaderCache, crash dumps, saved passwords, cookies";
         RestoreTargets = new ObservableCollection<BrowserItemViewModel>();
         RestoreProfiles = new ObservableCollection<RestoreProfileChoiceViewModel>();
         _archivePath = services.State.Settings.LastRestoreArchive ?? string.Empty;
@@ -53,7 +52,7 @@ public sealed partial class BrowsersViewModel : PageViewModelBase
     private bool _isLoading;
 
     [ObservableProperty]
-    private string _statusMessage = "Detecting Chromium browsers…";
+    private string _statusMessage = "Detecting Firefox and Chromium browsers…";
 
     [ObservableProperty]
     private string? _warningText;
@@ -142,10 +141,11 @@ public sealed partial class BrowsersViewModel : PageViewModelBase
     public bool ShowEmptyState => HasNoBrowsers && !IsLoading;
     public bool HasArchive => ArchiveInfo is not null;
     public bool CanBackup => !IsBackingUp && SelectedProfileCount > 0 && !string.IsNullOrWhiteSpace(BackupFolder);
-    public bool CanRestore => !IsRestoring && HasArchive && TargetBrowser is not null && SelectedRestoreCount > 0;
+    public bool CanRestore => !IsRestoring && HasArchive && TargetBrowser is not null && SelectedRestoreCount > 0 &&
+                              ArchiveInfo is not null && TargetBrowser.Family == ArchiveInfo.Manifest.Family;
     public bool IsBusy => IsBackingUp || IsRestoring || IsInspecting || IsLoading;
     public bool HasWarning => !string.IsNullOrWhiteSpace(WarningText);
-    public string DetectedSummary => $"{Browsers.Count} Chromium browser{(Browsers.Count == 1 ? string.Empty : "s")} detected";
+    public string DetectedSummary => $"{Browsers.Count} browser{(Browsers.Count == 1 ? string.Empty : "s")} detected";
     public string ArchiveContentsText => ArchiveInfo?.Manifest.Contents is { } contents
         ? string.Join(" · ", new[]
         {
@@ -203,7 +203,12 @@ public sealed partial class BrowsersViewModel : PageViewModelBase
 
     partial void OnSelectedRestoreCountChanged(int value) => OnPropertyChanged(nameof(CanRestore));
 
-    partial void OnArchiveInfoChanged(BrowserArchiveInfo? value) => OnPropertyChanged(nameof(CanRestore));
+    partial void OnArchiveInfoChanged(BrowserArchiveInfo? value)
+    {
+        OnPropertyChanged(nameof(HasArchive));
+        OnPropertyChanged(nameof(ArchiveContentsText));
+        OnPropertyChanged(nameof(CanRestore));
+    }
 
     partial void OnArchivePathChanged(string value)
     {
@@ -231,7 +236,7 @@ public sealed partial class BrowsersViewModel : PageViewModelBase
     {
         var dialog = new OpenFolderDialog
         {
-            Title = "Select the browser's User Data folder (it must contain Local State)"
+            Title = "Select the browser's profile root (Local State for Chromium, profiles.ini for Firefox)"
         };
         if (dialog.ShowDialog() != true)
         {
@@ -245,7 +250,7 @@ public sealed partial class BrowsersViewModel : PageViewModelBase
             if (existing is not null)
             {
                 existing.IsExpanded = true;
-                _dialogs.Info("That User Data folder is already in the list.");
+                _dialogs.Info("That profile folder is already in the list.");
                 return;
             }
 
@@ -266,7 +271,7 @@ public sealed partial class BrowsersViewModel : PageViewModelBase
         }
         catch (BrowserPathValidationException ex)
         {
-            _dialogs.Error(ex.Message, "Not a Chromium User Data folder");
+            _dialogs.Error(ex.Message, "Not a browser profile folder");
         }
         catch (Exception ex)
         {
@@ -481,19 +486,28 @@ public sealed partial class BrowsersViewModel : PageViewModelBase
                 RestoreProfiles.Add(choice);
             }
 
-            ArchiveSummary = $"{info.Manifest.BrowserName} {info.Manifest.BrowserVersion} · " +
+            var family = info.Manifest.Family == BrowserFamily.Firefox ? "Firefox" : "Chromium";
+            ArchiveSummary = $"{family} · {info.Manifest.BrowserName} {info.Manifest.BrowserVersion} · " +
                              $"{info.Manifest.CreatedUtc.ToLocalTime():MMM d, yyyy HH:mm} · " +
                              $"{info.Manifest.ProfileCount()} profile(s) · " +
                              $"{FileUtil.FormatBytes(info.Manifest.TotalBytes)}";
             SelectedRestoreCount = RestoreProfiles.Count(p => p.IsSelected);
-            var match = Browsers.FirstOrDefault(b =>
-                b.Id.Equals(info.Manifest.BrowserId, StringComparison.OrdinalIgnoreCase) && b.CanSelect);
-            TargetBrowser = match;
+            RestoreTargets.Clear();
+            foreach (var candidate in Browsers.Where(b => b.CanSelect && b.Family == info.Manifest.Family))
+            {
+                RestoreTargets.Add(candidate);
+            }
+
+            var match = RestoreTargets.FirstOrDefault(b =>
+                b.Id.Equals(info.Manifest.BrowserId, StringComparison.OrdinalIgnoreCase));
+            TargetBrowser = match ?? RestoreTargets.FirstOrDefault();
             _services.State.Settings.LastRestoreArchive = ArchivePath;
             _services.State.SaveSettings();
-            RestoreStatus = info.IsEncrypted
-                ? "Archive unlocked. Choose profiles and a target browser."
-                : "Archive ready. Choose profiles and a target browser.";
+            RestoreStatus = TargetBrowser is null
+                ? $"Archive loaded. No {info.Manifest.Family} browser is installed. Install one, then refresh and try again."
+                : info.IsEncrypted
+                    ? "Archive unlocked. Choose profiles and a target browser."
+                    : "Archive ready. Choose profiles and a target browser.";
             OnPropertyChanged(nameof(ArchiveContentsText));
             OnPropertyChanged(nameof(CanRestore));
         }
@@ -665,7 +679,7 @@ public sealed partial class BrowsersViewModel : PageViewModelBase
 
         IsLoading = true;
         WarningText = null;
-        StatusMessage = "Detecting Chromium browsers…";
+        StatusMessage = "Detecting Firefox and Chromium browsers…";
         try
         {
             var detected = await _services.BrowserDetector.DetectAsync(
@@ -690,11 +704,11 @@ public sealed partial class BrowsersViewModel : PageViewModelBase
             }
 
             StatusMessage = Browsers.Count == 0
-                ? "No Chromium browsers found. Add a custom User Data folder."
-                : $"{Browsers.Count} Chromium browser{(Browsers.Count == 1 ? string.Empty : "s")} found.";
+                ? "No Firefox or Chromium browsers found. Add a custom profile folder."
+                : $"{Browsers.Count} browser{(Browsers.Count == 1 ? string.Empty : "s")} found.";
             if (Browsers.Count == 0)
             {
-                WarningText = "Chromium browsers store profiles in a User Data folder. For lesser-known forks, add the folder manually.";
+                WarningText = "Firefox and Chromium store profiles in different folders. For lesser-known forks, add the profile root manually.";
             }
 
             OnPropertyChanged(nameof(HasBrowsers));

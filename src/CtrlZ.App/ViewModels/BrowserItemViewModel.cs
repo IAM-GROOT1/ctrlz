@@ -23,6 +23,8 @@ public sealed partial class BrowserItemViewModel : ObservableObject
     public ObservableCollection<BrowserProfileChoiceViewModel> Profiles { get; }
     public string Name => Browser.DisplayName;
     public string Id => Browser.Id;
+    public BrowserFamily Family => Browser.Family;
+    public string FamilyLabel => Browser.FamilyLabel;
     public string? IconPath => Browser.ExecutablePath;
     public string VersionText => string.IsNullOrWhiteSpace(Browser.Version) ? "Version unknown" : $"v{Browser.Version}";
     public string StatusText => Browser.StatusText;

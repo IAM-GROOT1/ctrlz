@@ -106,7 +106,8 @@ public class BrowserBackupTests
 
             var info = new BrowserArchiveReader().ReadInfo(result.ArchivePath, null);
             Assert.False(info.IsEncrypted);
-            Assert.Equal("chromium-profile-backup", info.Manifest.Format);
+            Assert.Equal("browser-profile-backup", info.Manifest.Format);
+            Assert.Equal(BrowserFamily.Chromium, info.Manifest.Family);
             var localStateEntry = zip.GetEntry("User Data/Local State")!;
             using var reader = new StreamReader(zip.GetInputStream(localStateEntry));
             Assert.DoesNotContain("secret", reader.ReadToEnd());

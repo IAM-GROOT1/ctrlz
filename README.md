@@ -5,10 +5,10 @@
 [github.com/IAM-GROOT1/ctrlz](https://github.com/IAM-GROOT1/ctrlz)
 
 CTRL+Z is a local-first Windows desktop app that rebuilds your app list and restores your
-Chromium browser profiles after a fresh install. It scans what is installed now, saves a
-portable JSON profile, and reinstalls it silently later — including apps winget does not
-carry. It also makes full Chromium profile backups for browsers without sync, with a focus
-on Helium and multiple profiles.
+Chromium and Firefox browser profiles after a fresh install. It scans what is installed now,
+saves a portable JSON profile, and reinstalls it silently later — including apps winget does
+not carry. It also makes full browser-profile backups for browsers without sync, with a
+focus on Helium, Zen, and multiple profiles.
 
 ![CTRL+Z app list](docs/screenshots/myapps-light.png)
 
@@ -62,31 +62,40 @@ emoji icons.
   verify a supplied SHA-256, and GitHub release asset digests are used automatically when
   present.
 
-### Chromium browser backup (included in v1)
+### Chromium and Firefox browser backup
 
-- Auto-detects Chrome, Edge, Brave, Vivaldi, Opera/Opera GX, **Helium**, Chromium, Thorium,
-  Yandex, Comet, Arc, and Whale from known User Data locations and the registry.
-- Custom User Data folder picker for any other Chromium fork, validated by **Local State**.
-- Reads real profile display names from Local State, with a directory fallback.
+- Auto-detects **Chromium** browsers: Chrome, Edge, Brave, Vivaldi, Opera/Opera GX, **Helium**,
+  Chromium, Thorium, Yandex, Comet, Arc, and Whale.
+- Auto-detects **Firefox-family** browsers: Firefox/ESR, **Zen**, LibreWolf, Waterfox, Floorp,
+  **Mullvad Browser**, and **Tor Browser**. Custom profile roots are supported for any fork.
+- Reads real profile display names: Chromium from `Local State`, Firefox from `profiles.ini`
+  (with a folder-name fallback for single-profile bundles).
 - Select browsers and individual profiles.
-- Backs up: **open tabs and sessions**, history, bookmarks, extensions and extension data,
-  preferences/flags (`Local State` + `Preferences`), search engines (sanitized `Web Data`),
-  and site permissions.
-- **Never backs up saved passwords or cookies.** `Login Data`, `Cookies`, `Network` cookie
-  stores, and related files are excluded; `Local State` has DPAPI-bound `os_crypt` material
-  removed.
-- Excludes caches, shader caches, crash dumps, service-worker caches, and temp files.
+- **Chromium backups include:** open tabs and sessions, history, bookmarks, extensions and
+  extension data, preferences/flags (`Local State` + `Preferences`), search engines (sanitized
+  `Web Data`), and site permissions.
+- **Firefox backups include:** `prefs.js`/`user.js`, `places.sqlite` (bookmarks and history),
+  `sessionstore.jsonlz4` and session backups, `extensions/` + extension metadata and storage,
+  search engines (`search.json.mozlz4`), `permissions.sqlite`, bookmark backups, and `chrome/`
+  customizations.
+- **Never backs up saved passwords or cookies.** Chromium `Login Data`, `Cookies`, `Network`
+  cookie stores, and related files are excluded; Firefox `logins.json`, `key4.db`, `cookies.sqlite`,
+  `formhistory.sqlite`, and related credential stores are excluded.
+- Excludes caches, shader caches, crash dumps, service-worker caches, thumbnails, and temp files.
 - Shows the estimated size before starting.
-- Detects a running browser and offers to close it gracefully or force-close it. Locked
-  files fall back to **Volume Shadow Copy** when the app is elevated and VSS is available.
-- One compressed ZIP per browser with a manifest (browser, version, profiles, date, file
-  list, contents, exclusions). Optional **AES-256 password encryption**.
-- Restore flow: inspect archive → choose profiles → choose target installed browser →
-  **restore as new profiles (recommended)** or merge into existing profiles after a warning.
-  Existing cookies/passwords are left untouched; a small safety copy of key current files
-  is made before writing.
-- Per-browser configuration is one entry in
-  [`ChromiumBrowserCatalog`](src/CtrlZ.Core/Services/ChromiumBrowserCatalog.cs).
+- Detects a running browser (Chromium or Firefox process) and offers to close it gracefully or
+  force-close it. Locked files fall back to **Volume Shadow Copy** when the app is elevated and
+  VSS is available.
+- One compressed ZIP per browser with a manifest (engine/family, browser, version, profiles,
+  date, file list, contents, exclusions). Optional **AES-256 password encryption**.
+- Restore flow: inspect archive → choose profiles → choose a target browser of the **same engine**
+  → **restore as new profiles (recommended)** or merge into existing profiles after a warning.
+  New Firefox profiles are registered in `profiles.ini`; new Chromium profiles in `Local State`.
+  Existing cookies/passwords are left untouched; a small safety copy of key current files is made
+  before writing.
+- Per-browser configuration lives in
+  [`ChromiumBrowserCatalog`](src/CtrlZ.Core/Services/ChromiumBrowserCatalog.cs) and
+  [`FirefoxBrowserCatalog`](src/CtrlZ.Core/Services/FirefoxBrowserCatalog.cs).
 
 ![Browser restore](docs/screenshots/browser-restore.png)
 
@@ -101,9 +110,9 @@ emoji icons.
 
 Download the latest build from [Releases](https://github.com/IAM-GROOT1/ctrlz/releases/latest). The release artifacts are (also copied to `dist/`):
 
-- `CTRL+Z-Portable-1.0.0.exe` — a single self-contained executable. Put it anywhere and
+- `CTRL+Z-Portable-1.1.0.exe` — a single self-contained executable. Put it anywhere and
   run it. No .NET install required.
-- `CTRL+Z-Setup-1.0.0.exe` — per-user Inno Setup installer (Start Menu shortcut, optional
+- `CTRL+Z-Setup-1.1.0.exe` — per-user Inno Setup installer (Start Menu shortcut, optional
   desktop shortcut, uninstaller). It does not require admin to install.
 
 The binaries are **not code-signed**, so SmartScreen may show an unknown-publisher prompt.
@@ -147,20 +156,21 @@ dotnet test
 ```
 
 The test suite covers: profile JSON round-tripping/import, winget name matching and table
-parsing, silent-switch detection, Chrome profile parsing, browser data exclusion planning,
-Local State sanitization, Web Data sanitization, archive creation/encryption, restore into
-new profiles, install-state resume/retry, and file/portable installer execution.
+parsing, silent-switch detection, Chromium and Firefox profile parsing, browser data exclusion
+planning, Local State/Web Data sanitization, Firefox credentials exclusions, archive
+creation/encryption, Firefox and Chromium restore into new profiles, install-state
+resume/retry, and file/portable installer execution.
 
 ### Build the portable single exe
 
 ```powershell
-.\build\publish.ps1 -Version 1.0.0
+.\build\publish.ps1 -Version 1.1.0
 ```
 
 Outputs:
 
 - `artifacts/publish/portable/CTRL+Z.exe`
-- `artifacts/CTRL+Z-Portable-1.0.0.exe`
+- `artifacts/CTRL+Z-Portable-1.1.0.exe`
 - README + LICENSE next to the portable build
 
 The script uses `dotnet` from `PATH`, or a local `.tools/dotnet/dotnet.exe` if present.
@@ -168,10 +178,10 @@ The script uses `dotnet` from `PATH`, or a local `.tools/dotnet/dotnet.exe` if p
 ### Build the installer
 
 ```powershell
-.\build\build-installer.ps1 -Version 1.0.0
+.\build\build-installer.ps1 -Version 1.1.0
 ```
 
-Output: `artifacts/installer/CTRL+Z-Setup-1.0.0.exe`.
+Output: `artifacts/installer/CTRL+Z-Setup-1.1.0.exe`.
 
 If you use Winget, verify that it installs Inno Setup 6.3+ (the 6.x line is free for commercial use). The vendor still publishes 6.7.4 alongside newer releases.
 
@@ -254,13 +264,14 @@ Key design decisions:
   resume even if the original profile file changes.
 - **Browser data policy is a whitelist** (`BrowserDataRules` + `BrowserBackupPlanner`). It is
   easy to audit what is and is not included.
-- **Browser forks are configuration**, not subclasses. A new Chromium fork is one entry.
+- **Browser engines are explicit** (`Chromium` / `Firefox`) and forks are configuration. A new
+  Chromium or Firefox fork is one catalog entry; the planner/restore pipeline dispatches by family.
 - **No PowerShell dependency**: the app calls winget and PowerShell's Appx cmdlets directly
   for OS integration, but never asks the user to run a script.
 
 ### Adding a settings-backup module later
 
-v1 deliberately does **not** back up general AppData/config folders. The code is separated
+The current release deliberately does **not** back up general AppData/config folders. The code is separated
 so this can be added without touching the installer or browser modules:
 
 1. Add a `SettingsBackupPlanner` that produces a list of file entries and exclusions, like
@@ -280,28 +291,30 @@ before relying on it for a critical profile.
 - **Saved passwords and cookies are not backed up.** Sites will ask you to sign in again.
   This is by design: those stores are DPAPI-bound and do not restore cleanly under another
   Windows account.
-- **Tab restore depends on Chromium's session behavior.** CTRL+Z restores `Sessions`,
-  `Current/Last Session`, and `Current/Last Tabs`; Chromium may only reopen them when
-  “Continue where you left off” is enabled. The setting is part of `Preferences` and is
-  restored, but restart behavior varies by version/fork.
-- **Some extensions require re-enabling or signing in.** Extension code and state are
-  copied, but Chromium verifies extension integrity and may disable sideloaded or unpacked
-  extensions. Chrome Web Store extensions normally return; enterprise policies can override
-  this.
-- **Local State is sanitized.** The DPAPI-bound `os_crypt` key is removed; the target
-  browser regenerates encryption material. Existing target `os_crypt` is preserved during a
-  merge. Restoring encrypted browser data from another account is not supported.
-- **Cross-fork restores are best-effort.** Restoring Chrome data into Helium (or vice versa)
-  usually works because it is all Chromium, but version-specific preferences may not.
-- **Opera uses a flat single-profile layout.** It can be restored, but CTRL+Z cannot add a
-  second Opera profile in that layout.
+- **Tab restore depends on browser session behavior.** Chromium uses `Sessions`,
+  `Current/Last Session`, and `Current/Last Tabs`; Firefox uses `sessionstore.jsonlz4` and
+  `sessionstore-backups`. Browsers may only reopen tabs when session restore is enabled, and
+  behavior varies by version/fork.
+- **Some extensions require re-enabling or signing in.** Extension code and state are copied,
+  but Chromium and Firefox verify extension integrity and may disable sideloaded, unpacked, or
+  unsigned extensions. Store extensions normally return; enterprise policies can override this.
+- **Credential-bound data is sanitized.** Chromium `Local State` has the DPAPI-bound `os_crypt`
+  key removed; Firefox archives never include `key4.db`, `logins.json`, or `cookies.sqlite`.
+  Existing target encryption material is preserved during a merge. Restoring encrypted
+  browser data from another Windows account is not supported.
+- **Cross-fork restores are same-engine only.** Chrome↔Helium and Firefox↔Zen generally work
+  within the same engine, but version-specific preferences may not. Chromium↔Firefox restores
+  are rejected.
+- **Single-profile layouts cannot add profiles.** Opera, Tor Browser, and some Mullvad layouts
+  expose one flat profile. CTRL+Z restores it in place and warns that a second profile cannot be
+  created.
+- **Firefox profiles must be inside the profile root.** Profiles.ini entries pointing outside
+  `%APPDATA%\Mozilla\Firefox` (or the fork's root) are skipped rather than copied blindly.
 - **VSS fallback requires administrator rights** and may be unavailable on some drives or
   systems. Close the browser when prompted; that is the normal, reliable path.
 - **Encrypted archives cannot be opened by Windows Explorer.** Use CTRL+Z to restore them.
   The password is never stored.
-- **Only Chromium browsers are covered.** Firefox/Zen profile restore is out of scope for
-  v1.
-- **General app settings are not backed up** in v1 (see extension notes above).
+- **General app settings are not backed up** yet (see extension notes above).
 
 ## Testing browser restore on a fresh VM
 
@@ -324,15 +337,13 @@ permissions, and the absence of cookies/passwords).
 - **Logs** — **Settings → Open logs**, or open
   `%LOCALAPPDATA%\CTRL+Z\logs\ctrlz-YYYY-MM-DD.log`.
 
-## Not in v1 / roadmap
+## Roadmap
 
 - General AppData/config settings backup/restore module (structured for later; see above).
-- Firefox/Zen browser profiles.
 - Portable app shortcut creation and update tracking.
 - Optional code signing / auto-update.
 - Per-app download resumption and mirror selection.
 
 ## License
 
-MIT. See [`LICENSE`](LICENSE). The LICENSE is intentionally a placeholder for the project
-name/author line — update the copyright holder before publishing if needed.
+MIT. See [`LICENSE`](LICENSE).

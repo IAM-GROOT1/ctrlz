@@ -23,8 +23,14 @@
                             <StackPanel Margin="9,0,8,0" VerticalAlignment="Center">
                                 <StackPanel Orientation="Horizontal">
                                     <TextBlock Text="{Binding Name}" FontWeight="SemiBold" FontSize="12.5" />
+                                    <Border Background="{DynamicResource Brush.AccentSoft}" CornerRadius="7" Padding="5,1"
+                                            Margin="7,0,0,0" VerticalAlignment="Center">
+                                        <TextBlock Text="{Binding FamilyLabel}" FontSize="9"
+                                                   Foreground="{DynamicResource Brush.Accent}" />
+                                    </Border>
                                     <Border Background="{DynamicResource Brush.InfoSoft}" CornerRadius="7" Padding="5,1"
-                                            Margin="7,0,0,0" Visibility="{Binding IsCustom, Converter={StaticResource BoolToVisibility}}">
+                                            Margin="5,0,0,0" VerticalAlignment="Center"
+                                            Visibility="{Binding IsCustom, Converter={StaticResource BoolToVisibility}}">
                                         <TextBlock Text="custom" FontSize="9" Foreground="{DynamicResource Brush.Info}" />
                                     </Border>
                                 </StackPanel>
@@ -51,7 +57,7 @@
                             <TextBlock Text="{StaticResource Icon.Warning}" FontFamily="{StaticResource Font.Icons}" FontSize="12"
                                        Foreground="{DynamicResource Brush.Warning}" Margin="0,0,7,0" VerticalAlignment="Top" />
                             <TextBlock Grid.Column="1"
-                                       Text="User Data folder not found. Use Add custom browser and point CTRL+Z to the folder that contains Local State."
+                                       Text="Profile folder not found. Use Add custom browser and point CTRL+Z to the folder containing Local State (Chromium) or profiles.ini (Firefox)."
                                        Style="{StaticResource Text.Caption}" TextWrapping="Wrap" />
                         </Grid>
                     </Border>
@@ -128,7 +134,7 @@
                     <Border Background="{DynamicResource Brush.SurfaceAlt}" Padding="12,8"
                             BorderBrush="{DynamicResource Brush.Border}" BorderThickness="0,0,0,1">
                         <Grid>
-                            <TextBlock Text="CHROMIUM BROWSERS" Style="{StaticResource Text.NavSection}" Margin="0" />
+                            <TextBlock Text="BROWSERS" Style="{StaticResource Text.NavSection}" Margin="0" />
                             <TextBlock Text="Choose a browser, then its profiles" Style="{StaticResource Text.Caption}"
                                        HorizontalAlignment="Right" />
                         </Grid>
@@ -142,9 +148,9 @@
                                     <TextBlock Text="{StaticResource Icon.Browser}" FontFamily="{StaticResource Font.Icons}"
                                                FontSize="28" Foreground="{DynamicResource Brush.TextTertiary}"
                                                HorizontalAlignment="Center" />
-                                    <TextBlock Text="No Chromium browsers detected" Style="{StaticResource Text.SectionTitle}"
+                                    <TextBlock Text="No Firefox or Chromium browsers detected" Style="{StaticResource Text.SectionTitle}"
                                                HorizontalAlignment="Center" Margin="0,10,0,4" />
-                                    <TextBlock Text="If you use a less common fork, point CTRL+Z at its User Data folder. It must contain a Local State file."
+                                    <TextBlock Text="If you use a less common fork, point CTRL+Z at its profile root: a Chromium Local State folder or a Firefox folder containing profiles.ini."
                                                Style="{StaticResource Text.Secondary}" TextAlignment="Center" TextWrapping="Wrap" />
                                     <Button Content="Add custom browser" Style="{StaticResource Button.Secondary}"
                                             HorizontalAlignment="Center" Margin="0,12,0,0"
@@ -218,7 +224,7 @@
                                 <TextBlock Text="{StaticResource Icon.Lock}" FontFamily="{StaticResource Font.Icons}" FontSize="13"
                                            Foreground="{DynamicResource Brush.TextTertiary}" Margin="0,0,8,0"
                                            VerticalAlignment="Top" />
-                                <TextBlock Grid.Column="1" Text="Passwords and cookies are never backed up. Close the browser when prompted so files are not locked."
+                                <TextBlock Grid.Column="1" Text="Passwords and cookies are never backed up. Firefox login/key databases and Chromium Login Data/Cookies are excluded. Close the browser when prompted so files are not locked."
                                            Style="{StaticResource Text.Caption}" TextWrapping="Wrap" />
                             </Grid>
                         </Border>
@@ -316,7 +322,7 @@
                                    Style="{StaticResource Text.Caption}" Margin="0,6,0,0" TextWrapping="Wrap" />
 
                         <CheckBox Content="Restore as new profiles" IsChecked="{Binding RestoreAsNewProfiles}" Margin="0,16,0,0" />
-                        <TextBlock Text="Recommended. New Profile folders are created and registered in Local State, so current profiles stay intact. Uncheck to merge into the original profile names."
+                        <TextBlock Text="Recommended. New profile folders are created and registered in the browser's profile list (Local State or profiles.ini), so current profiles stay intact. Uncheck to merge into the original profile names."
                                    Style="{StaticResource Text.Caption}" Margin="20,4,0,0" TextWrapping="Wrap" />
 
                         <Border Style="{StaticResource Border.Inset}" Padding="10,8" Margin="0,16,0,0"

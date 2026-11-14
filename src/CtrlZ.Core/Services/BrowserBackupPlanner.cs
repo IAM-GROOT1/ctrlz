@@ -32,9 +32,18 @@ public static class BrowserBackupPlanner
         DetectedBrowser browser,
         IReadOnlyList<BrowserProfile> selectedProfiles)
     {
+        return browser.Family == BrowserFamily.Firefox
+            ? FirefoxBackupPlanner.Build(browser, selectedProfiles)
+            : BuildChromium(browser, selectedProfiles);
+    }
+
+    private static BrowserBackupPlan BuildChromium(
+        DetectedBrowser browser,
+        IReadOnlyList<BrowserProfile> selectedProfiles)
+    {
         if (string.IsNullOrWhiteSpace(browser.UserDataPath))
         {
-            throw new BrowserBackupException("The browser's User Data folder is not configured.");
+            throw new BrowserBackupException("The browser's profile folder is not configured.");
         }
 
         var userData = browser.UserDataPath;
@@ -84,7 +93,7 @@ public static class BrowserBackupPlanner
 
             if (!profile.IsFlat && !FileUtil.IsUnderDirectory(profileDirectory, userData))
             {
-                warnings.Add($"Skipped profile outside the User Data folder: {profile.DirectoryName}");
+                warnings.Add($"Skipped profile outside the browser root: {profile.DirectoryName}");
                 continue;
             }
 
@@ -147,11 +156,13 @@ public static class BrowserBackupPlanner
 
     public static BrowserBackupEstimate Estimate(BrowserBackupPlan plan)
     {
+        var excluded = plan.Browser.Family == BrowserFamily.Firefox
+            ? FirefoxDataRules.ExcludedDirectoryNames.Concat(FirefoxDataRules.ForbiddenFileNames)
+            : BrowserDataRules.ExcludedDirectoryNames.Concat(BrowserDataRules.ForbiddenFileNames);
         return new BrowserBackupEstimate(
             plan.TotalBytes,
             plan.FileCount,
-            BrowserDataRules.ExcludedDirectoryNames
-                .Concat(BrowserDataRules.ForbiddenFileNames)
+            excluded
                 .Distinct(StringComparer.OrdinalIgnoreCase)
                 .OrderBy(name => name, StringComparer.CurrentCultureIgnoreCase)
                 .ToArray(),

@@ -173,7 +173,7 @@
                 <Grid Margin="12,10,12,4">
                     <TextBlock Text="Local-first · no account" FontSize="10.5"
                                Foreground="{DynamicResource Brush.TextTertiary}" />
-                    <TextBlock Text="v1.0" FontSize="10.5" HorizontalAlignment="Right"
+                    <TextBlock Text="{Binding AppVersion, StringFormat=v{0}}" FontSize="10.5" HorizontalAlignment="Right"
                                Foreground="{DynamicResource Brush.TextTertiary}" />
                 </Grid>
             </StackPanel>

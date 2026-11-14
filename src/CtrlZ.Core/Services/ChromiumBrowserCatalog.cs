@@ -189,7 +189,8 @@ public static class ChromiumBrowserCatalog
         return results.Distinct(StringComparer.OrdinalIgnoreCase).ToArray();
     }
 
-    public static BrowserAppDefinition CreateCustomDefinition(string id, string displayName) =>
+    public static BrowserAppDefinition CreateCustomDefinition(
+        string id, string displayName, BrowserFamily family = BrowserFamily.Chromium) =>
         new(id, displayName, Array.Empty<string>(), Array.Empty<string>(), Array.Empty<string>(),
-            Array.Empty<string>(), IsBuiltIn: false);
+            Array.Empty<string>(), IsBuiltIn: false, Family: family);
 }

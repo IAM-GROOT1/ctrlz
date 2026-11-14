@@ -1,8 +1,10 @@
 namespace CtrlZ.Core.Models;
 
 /// <summary>
-/// A Chromium fork is just configuration. Adding a new fork means adding one definition
-/// to <see cref="Services.ChromiumBrowserCatalog"/>; detector, backup, and restore need no changes.
+/// A browser fork is just configuration. Adding a new fork means adding one definition
+/// to <see cref="Services.ChromiumBrowserCatalog"/> or
+/// <see cref="Services.FirefoxBrowserCatalog"/>; detector, backup, and restore dispatch by
+/// <see cref="BrowserFamily"/>.
 /// </summary>
 public sealed record BrowserAppDefinition(
     string Id,
@@ -12,7 +14,8 @@ public sealed record BrowserAppDefinition(
     string[] ProcessNames,
     string[] RegistryNamePatterns,
     bool FlatProfileLayout = false,
-    bool IsBuiltIn = true);
+    bool IsBuiltIn = true,
+    BrowserFamily Family = BrowserFamily.Chromium);
 
 public sealed record BrowserProfile(
     string DirectoryName,
@@ -29,6 +32,8 @@ public sealed class DetectedBrowser
 {
     public BrowserAppDefinition Definition { get; init; } = null!;
     public string Id => Definition.Id;
+    public BrowserFamily Family => Definition.Family;
+    public string FamilyLabel => Family == BrowserFamily.Firefox ? "Firefox" : "Chromium";
     public string DisplayName { get; init; } = string.Empty;
     public string? UserDataPath { get; set; }
     public string? ExecutablePath { get; set; }
@@ -40,7 +45,7 @@ public sealed class DetectedBrowser
     public bool CanBackup => !NeedsUserDataPath && Profiles.Count > 0;
 
     public string StatusText => NeedsUserDataPath
-        ? "User Data folder not found"
+        ? "Profile folder not found"
         : Profiles.Count == 0
             ? "No profiles found"
             : $"{Profiles.Count} profile{(Profiles.Count == 1 ? string.Empty : "s")}";

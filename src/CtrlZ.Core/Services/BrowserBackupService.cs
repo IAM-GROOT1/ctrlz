@@ -62,7 +62,7 @@ public sealed class BrowserBackupService
         if (!string.IsNullOrWhiteSpace(request.Browser.UserDataPath) &&
             FileUtil.IsUnderDirectory(destinationFolder, request.Browser.UserDataPath))
         {
-            throw new BrowserBackupException("Choose a backup folder outside the browser's User Data folder.");
+            throw new BrowserBackupException("Choose a backup folder outside the browser's profile folder.");
         }
 
         Directory.CreateDirectory(destinationFolder);
@@ -331,7 +331,8 @@ public sealed class BrowserBackupService
     {
         return new BrowserBackupManifest
         {
-            AppVersion = typeof(BrowserBackupService).Assembly.GetName().Version?.ToString(3) ?? "1.0.0",
+            AppVersion = typeof(BrowserBackupService).Assembly.GetName().Version?.ToString(3) ?? "1.1.0",
+            Family = request.Browser.Family,
             BrowserId = request.Browser.Id,
             BrowserName = request.Browser.DisplayName,
             BrowserVersion = request.Browser.Version,
@@ -344,32 +345,37 @@ public sealed class BrowserBackupService
                 UserName = p.UserName,
                 IsDefault = p.IsDefault
             }).ToList(),
-            Contents = new BrowserBackupContents
-            {
-                LocalState = plan.Entries.Any(e => e.Kind == BrowserPlanEntryKind.LocalState),
-                Preferences = plan.Entries.Any(e => e.EntryPath.EndsWith("/Preferences", StringComparison.OrdinalIgnoreCase)),
-                Bookmarks = plan.Entries.Any(e => e.EntryPath.EndsWith("/Bookmarks", StringComparison.OrdinalIgnoreCase)),
-                History = plan.Entries.Any(e => e.EntryPath.EndsWith("/History", StringComparison.OrdinalIgnoreCase)),
-                Sessions = plan.Entries.Any(e => e.EntryPath.Contains("/Sessions/", StringComparison.OrdinalIgnoreCase) ||
-                                                 e.EntryPath.EndsWith("/Current Session", StringComparison.OrdinalIgnoreCase) ||
-                                                 e.EntryPath.EndsWith("/Last Session", StringComparison.OrdinalIgnoreCase)),
-                Extensions = plan.Entries.Any(e => e.EntryPath.Contains("/Extensions/", StringComparison.OrdinalIgnoreCase)),
-                SearchEngines = plan.Entries.Any(e => e.Kind == BrowserPlanEntryKind.WebData),
-                SitePermissions = plan.Entries.Any(e => e.EntryPath.EndsWith("/Preferences", StringComparison.OrdinalIgnoreCase)),
-                Excluded = BrowserDataRules.ExcludedDirectoryNames
-                    .Concat(BrowserDataRules.ForbiddenFileNames)
-                    .Concat(["saved passwords", "cookies"])
-                    .Distinct(StringComparer.OrdinalIgnoreCase)
-                    .OrderBy(s => s, StringComparer.CurrentCultureIgnoreCase)
-                    .ToList()
-            },
+            Contents = BuildContents(plan, plan.Entries.Select(entry => entry.EntryPath).ToHashSet(StringComparer.OrdinalIgnoreCase)),
             Warnings = warnings
         };
     }
 
     private static BrowserBackupContents BuildContents(BrowserBackupPlan plan, IReadOnlySet<string> written)
     {
-        _ = plan;
+        if (plan.Browser.Family == BrowserFamily.Firefox)
+        {
+            return new BrowserBackupContents
+            {
+                Preferences = written.Any(e => e.EndsWith("/prefs.js", StringComparison.OrdinalIgnoreCase) ||
+                                               e.EndsWith("/user.js", StringComparison.OrdinalIgnoreCase)),
+                Bookmarks = written.Any(e => e.EndsWith("/places.sqlite", StringComparison.OrdinalIgnoreCase)),
+                History = written.Any(e => e.EndsWith("/places.sqlite", StringComparison.OrdinalIgnoreCase)),
+                Sessions = written.Any(e => e.Contains("sessionstore", StringComparison.OrdinalIgnoreCase)),
+                Extensions = written.Any(e => e.Contains("/extensions/", StringComparison.OrdinalIgnoreCase) ||
+                                              e.EndsWith("/extensions.json", StringComparison.OrdinalIgnoreCase) ||
+                                              e.Contains("/moz-extension", StringComparison.OrdinalIgnoreCase)),
+                SearchEngines = written.Any(e => e.Contains("search.json", StringComparison.OrdinalIgnoreCase) ||
+                                                 e.EndsWith("/search.sqlite", StringComparison.OrdinalIgnoreCase)),
+                SitePermissions = written.Any(e => e.EndsWith("/permissions.sqlite", StringComparison.OrdinalIgnoreCase)),
+                Excluded = FirefoxDataRules.ExcludedDirectoryNames
+                    .Concat(FirefoxDataRules.ForbiddenFileNames)
+                    .Concat(["saved passwords", "cookies", "form history"])
+                    .Distinct(StringComparer.OrdinalIgnoreCase)
+                    .OrderBy(s => s, StringComparer.CurrentCultureIgnoreCase)
+                    .ToList()
+            };
+        }
+
         return new BrowserBackupContents
         {
             LocalState = written.Contains("User Data/Local State"),

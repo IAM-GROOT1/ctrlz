@@ -102,7 +102,7 @@ public static class ChromiumProfileReader
         error = string.Empty;
         if (string.IsNullOrWhiteSpace(path))
         {
-            error = "Choose a User Data folder.";
+            error = "Choose a Chromium User Data folder.";
             return false;
         }
 

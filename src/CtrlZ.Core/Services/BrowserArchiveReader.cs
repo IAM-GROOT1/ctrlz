@@ -54,7 +54,7 @@ public sealed class BrowserArchiveReader
 
             var manifest = JsonSerializer.Deserialize<BrowserBackupManifest>(manifestJson, JsonDefaults.Profile)
                            ?? throw new InvalidDataException("The archive manifest is empty.");
-            if (!string.Equals(manifest.Format, "chromium-profile-backup", StringComparison.Ordinal) ||
+            if (manifest.Format is not ("browser-profile-backup" or "chromium-profile-backup") ||
                 manifest.SchemaVersion > BrowserBackupManifest.CurrentSchemaVersion)
             {
                 throw new InvalidDataException(
@@ -102,6 +102,7 @@ public sealed class BrowserArchiveReader
 
         var fileName = parts.LastOrDefault() ?? normalized;
         return BrowserDataRules.IsForbiddenFile(fileName) ||
+               FirefoxDataRules.IsForbiddenFile(fileName) ||
                fileName.Equals("Cookies", StringComparison.OrdinalIgnoreCase) ||
                fileName.StartsWith("Login Data", StringComparison.OrdinalIgnoreCase);
     }

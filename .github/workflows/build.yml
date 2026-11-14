@@ -24,7 +24,7 @@ jobs:
         run: dotnet test --configuration Release --nologo
 
       - name: Publish portable
-        run: .\build\publish.ps1 -Version 1.0.0 -SkipTests
+        run: .\build\publish.ps1 -Version 1.1.0 -SkipTests
 
       - name: Upload portable artifact
         uses: actions/upload-artifact@v4

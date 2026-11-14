@@ -47,10 +47,17 @@ public sealed class BrowserRestoreService
     {
         if (string.IsNullOrWhiteSpace(request.Target.UserDataPath))
         {
-            throw new BrowserBackupException("Choose the target browser's User Data folder first.");
+            throw new BrowserBackupException("Choose the target browser's profile folder first.");
         }
 
-        if (!ChromiumProfileReader.ValidateUserDataFolder(request.Target.UserDataPath, out var pathError))
+        var pathError = request.Target.Family == BrowserFamily.Firefox
+            ? (FirefoxProfileReader.ValidateProfileRoot(request.Target.UserDataPath, out var firefoxError)
+                ? null
+                : firefoxError)
+            : (ChromiumProfileReader.ValidateUserDataFolder(request.Target.UserDataPath, out var chromiumError)
+                ? null
+                : chromiumError);
+        if (pathError is not null)
         {
             throw new BrowserBackupException(pathError);
         }
@@ -73,8 +80,21 @@ public sealed class BrowserRestoreService
         CancellationToken cancellationToken)
     {
         var userData = Path.GetFullPath(request.Target.UserDataPath!);
+        var flatProfile = request.Target.Profiles.FirstOrDefault(profile =>
+            profile.IsFlat && !string.IsNullOrWhiteSpace(profile.DirectoryPath));
+        if (flatProfile is not null)
+        {
+            userData = Path.GetFullPath(flatProfile.DirectoryPath!);
+        }
+
         var info = _reader.ReadInfo(request.ArchivePath, request.Password);
         var manifest = info.Manifest;
+        if (manifest.Family != request.Target.Family)
+        {
+            throw new BrowserBackupException(
+                $"This is a {manifest.Family} archive and cannot be restored into a {request.Target.Family} browser.");
+        }
+
         var selected = manifest.Profiles
             .Where(p => request.ProfileDirectoryNames.Contains(p.DirectoryName, StringComparer.OrdinalIgnoreCase))
             .ToList();
@@ -84,7 +104,16 @@ public sealed class BrowserRestoreService
         }
 
         var warnings = new List<string>();
-        var targetFlat = request.Target.Profiles.Any(p => p.IsFlat) || manifest.FlatProfileLayout;
+        var targetFlat = request.Target.Profiles.Any(p => p.IsFlat);
+        var archiveFlat = manifest.FlatProfileLayout ||
+                          selected.Any(p => p.DirectoryName is "." or "");
+        if (targetFlat != archiveFlat)
+        {
+            throw new BrowserBackupException(
+                "The archive and target browser use different profile layouts. " +
+                "A single-profile archive must be restored into the same single-profile layout.");
+        }
+
         var mappings = BuildMappings(request, selected, userData, targetFlat, warnings);
         var conflicts = mappings
             .Where(pair => !pair.Value.Equals(".", StringComparison.Ordinal))
@@ -104,8 +133,10 @@ public sealed class BrowserRestoreService
             warnings.Add($"This archive was created from {manifest.BrowserName}, not {request.Target.DisplayName}.");
         }
 
-        var safetyFolder = CreateSafetyBackup(userData, mappings, selected, warnings);
-        var archivedLocalState = ReadArchivedLocalState(info.ArchivePath, request.Password, cancellationToken);
+        var safetyFolder = CreateSafetyBackup(userData, mappings, selected, request.Target.Family, warnings);
+        var archivedLocalState = manifest.Family == BrowserFamily.Chromium
+            ? ReadArchivedLocalState(info.ArchivePath, request.Password, cancellationToken)
+            : null;
         var processed = 0;
         var total = CountFileEntries(info.ArchivePath, request.Password);
         progress?.Report(new BrowserRestoreProgress("Preparing restore…", 0, total, 0));
@@ -170,7 +201,15 @@ public sealed class BrowserRestoreService
                 total == 0 ? 0 : (double)processed / total));
         }
 
-        RestoreLocalState(userData, archivedLocalState, mappings, manifest, selected, targetFlat, warnings);
+        if (manifest.Family == BrowserFamily.Chromium)
+        {
+            RestoreLocalState(userData, archivedLocalState, mappings, manifest, selected, targetFlat, warnings);
+        }
+        else
+        {
+            RestoreFirefoxProfilesIni(userData, mappings, selected, targetFlat, warnings);
+        }
+
         progress?.Report(new BrowserRestoreProgress("Restore complete.", total, total, 1));
         _log.Write(LogLevel.Info,
             $"Restored {processed} files into {userData} for {request.Target.DisplayName}.");
@@ -205,7 +244,7 @@ public sealed class BrowserRestoreService
                 continue;
             }
 
-            if (!IsSafeProfileDirectoryName(profile.DirectoryName))
+            if (!IsSafeProfileRelativePath(profile.DirectoryName))
             {
                 warnings.Add($"Skipped profile with an unsafe folder name: {profile.DirectoryName}");
                 continue;
@@ -218,7 +257,10 @@ public sealed class BrowserRestoreService
                 continue;
             }
 
-            var target = NextProfileName(userData, used);
+            var target = NextProfileName(
+                userData,
+                used,
+                request.Target.Family == BrowserFamily.Firefox ? "Profiles" : null);
             used.Add(target);
             mappings[profile.DirectoryName] = target;
         }
@@ -226,12 +268,13 @@ public sealed class BrowserRestoreService
         return mappings;
     }
 
-    private static string NextProfileName(string userData, HashSet<string> reserved)
+    private static string NextProfileName(string userData, HashSet<string> reserved, string? parentFolder)
     {
         var number = 1;
         while (true)
         {
-            var candidate = $"Profile {number}";
+            var leaf = $"Profile {number}";
+            var candidate = parentFolder is null ? leaf : $"{parentFolder}/{leaf}";
             if (!Directory.Exists(Path.Combine(userData, candidate)) && reserved.Add(candidate))
             {
                 return candidate;
@@ -263,19 +306,24 @@ public sealed class BrowserRestoreService
             return normalized;
         }
 
-        var slash = normalized.IndexOf('/');
-        if (slash <= 0)
+        // Firefox profile directories can be nested ("Profiles/abc.default-release").
+        // Match the longest selected profile prefix rather than the first path segment.
+        var sourceProfile = mappings.Keys
+            .Where(key => normalized.Equals(key, StringComparison.OrdinalIgnoreCase) ||
+                          normalized.StartsWith(key + "/", StringComparison.OrdinalIgnoreCase))
+            .OrderByDescending(key => key.Length)
+            .FirstOrDefault();
+        if (sourceProfile is null || !mappings.TryGetValue(sourceProfile, out var targetProfile))
         {
             return null;
         }
 
-        var sourceProfile = normalized[..slash];
-        if (!mappings.TryGetValue(sourceProfile, out var targetProfile))
-        {
-            return null;
-        }
-
-        return Path.Combine(targetProfile, normalized[(slash + 1)..]);
+        var remainder = normalized.Length > sourceProfile.Length
+            ? normalized[(sourceProfile.Length + 1)..]
+            : string.Empty;
+        return string.IsNullOrEmpty(remainder)
+            ? null
+            : Path.Combine(targetProfile, remainder);
     }
 
     private static string? ResolveSafeTarget(string userData, string relative)
@@ -297,12 +345,18 @@ public sealed class BrowserRestoreService
         }
     }
 
-    private static bool IsSafeProfileDirectoryName(string directoryName)
+    private static bool IsSafeProfileRelativePath(string directoryName)
     {
-        return !string.IsNullOrWhiteSpace(directoryName) &&
-               directoryName is not ("." or "..") &&
-               directoryName.IndexOfAny(['/', '\\']) < 0 &&
-               directoryName.IndexOfAny(Path.GetInvalidFileNameChars()) < 0;
+        if (string.IsNullOrWhiteSpace(directoryName) || directoryName is "." or "..")
+        {
+            return false;
+        }
+
+        var segments = directoryName.Replace('\\', '/').Split('/', StringSplitOptions.RemoveEmptyEntries);
+        return segments.Length > 0 &&
+               segments.All(segment =>
+                   segment is not ("." or "..") &&
+                   segment.IndexOfAny(Path.GetInvalidFileNameChars()) < 0);
     }
 
     private string? ReadArchivedLocalState(string archivePath, string? password, CancellationToken cancellationToken)
@@ -430,21 +484,90 @@ public sealed class BrowserRestoreService
         }
     }
 
+    private static void RestoreFirefoxProfilesIni(
+        string userData,
+        IReadOnlyDictionary<string, string> mappings,
+        IReadOnlyList<BrowserBackupProfileManifest> selected,
+        bool targetFlat,
+        List<string> warnings)
+    {
+        if (targetFlat)
+        {
+            return;
+        }
+
+        try
+        {
+            var ini = FirefoxProfilesIni.Load(userData);
+            var existingNames = ini.ProfileSections
+                .Select(section => section.Get("Name"))
+                .Where(name => !string.IsNullOrWhiteSpace(name))
+                .ToHashSet(StringComparer.OrdinalIgnoreCase);
+
+            foreach (var source in selected)
+            {
+                if (!mappings.TryGetValue(source.DirectoryName, out var targetDir) || targetDir == ".")
+                {
+                    continue;
+                }
+
+                var displayName = string.IsNullOrWhiteSpace(source.DisplayName)
+                    ? Path.GetFileName(targetDir)
+                    : source.DisplayName;
+                var isNew = !targetDir.Equals(source.DirectoryName, StringComparison.OrdinalIgnoreCase);
+                var candidate = displayName;
+                if (isNew)
+                {
+                    candidate = $"{displayName} (restored)";
+                    var suffix = 2;
+                    while (existingNames.Contains(candidate))
+                    {
+                        candidate = $"{displayName} (restored {suffix++})";
+                    }
+                }
+
+                ini.AddOrUpdate(candidate, FirefoxProfilesIni.NormalizePath(targetDir));
+                existingNames.Add(candidate);
+            }
+
+            ini.Save();
+        }
+        catch (Exception ex)
+        {
+            warnings.Add($"Profile files were restored, but profiles.ini could not be updated: {ex.Message}");
+            throw new BrowserBackupException(
+                "Profile files were restored, but the Firefox profiles.ini could not be updated: " + ex.Message, ex);
+        }
+    }
+
     private string? CreateSafetyBackup(
         string userData,
         IReadOnlyDictionary<string, string> mappings,
         IReadOnlyList<BrowserBackupProfileManifest> selected,
+        BrowserFamily family,
         List<string> warnings)
     {
         try
         {
             var root = Path.Combine(
                 _paths.Root, "restore-backups", $"restore-{DateTime.Now:yyyyMMdd-HHmmss}");
-            var localState = Path.Combine(userData, "Local State");
-            if (File.Exists(localState))
+            if (family == BrowserFamily.Chromium)
             {
-                Directory.CreateDirectory(root);
-                File.Copy(localState, Path.Combine(root, "Local State"), overwrite: true);
+                var localState = Path.Combine(userData, "Local State");
+                if (File.Exists(localState))
+                {
+                    Directory.CreateDirectory(root);
+                    File.Copy(localState, Path.Combine(root, "Local State"), overwrite: true);
+                }
+            }
+            else
+            {
+                var ini = Path.Combine(userData, "profiles.ini");
+                if (File.Exists(ini))
+                {
+                    Directory.CreateDirectory(root);
+                    File.Copy(ini, Path.Combine(root, "profiles.ini"), overwrite: true);
+                }
             }
 
             foreach (var profile in selected)
@@ -461,7 +584,10 @@ public sealed class BrowserRestoreService
                 }
 
                 var destination = Path.Combine(root, targetDir);
-                foreach (var fileName in new[] { "Preferences", "Secure Preferences", "Bookmarks", "History" })
+                var keyFiles = family == BrowserFamily.Firefox
+                    ? new[] { "prefs.js", "places.sqlite", "sessionstore.jsonlz4", "permissions.sqlite" }
+                    : new[] { "Preferences", "Secure Preferences", "Bookmarks", "History" };
+                foreach (var fileName in keyFiles)
                 {
                     var source = Path.Combine(directory, fileName);
                     if (File.Exists(source))
@@ -489,7 +615,8 @@ public sealed class BrowserRestoreService
         }
 
         var name = Path.GetFileName(path);
-        if (name is not ("Preferences" or "Secure Preferences" or "Bookmarks" or "History" or "Local State"))
+        if (name is not ("Preferences" or "Secure Preferences" or "Bookmarks" or "History" or "Local State" or
+            "prefs.js" or "places.sqlite" or "sessionstore.jsonlz4" or "permissions.sqlite" or "profiles.ini"))
         {
             return;
         }

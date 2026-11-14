@@ -7,14 +7,15 @@ using CtrlZ.Core.Models;
 namespace CtrlZ.Core.Services;
 
 /// <summary>
-/// Finds browsers from known User Data locations and the uninstall registry. A browser is
-/// only considered backup-ready when its User Data folder contains a valid Local State.
+/// Finds Chromium- and Firefox-family browsers from known data locations and the
+/// uninstall registry. A browser is backup-ready only when its profile root validates
+/// (Local State for Chromium, profiles.ini or a profile folder for Firefox).
 /// </summary>
-public sealed class ChromiumBrowserDetector
+public sealed class BrowserDetector
 {
     private readonly IAppLog _log;
 
-    public ChromiumBrowserDetector(IAppLog log)
+    public BrowserDetector(IAppLog log)
     {
         _log = log;
     }
@@ -32,14 +33,14 @@ public sealed class ChromiumBrowserDetector
         var browsers = new List<DetectedBrowser>();
         var usedUserData = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
 
-        foreach (var definition in ChromiumBrowserCatalog.Definitions)
+        foreach (var definition in BrowserCatalog.Definitions)
         {
             cancellationToken.ThrowIfCancellationRequested();
             try
             {
                 var registryInfo = BrowserRegistryLookup.Match(registry, definition);
                 var userData = ChromiumBrowserCatalog.ExpandPaths(definition.UserDataCandidates)
-                    .FirstOrDefault(path => File.Exists(Path.Combine(path, "Local State")));
+                    .FirstOrDefault(path => ValidateRoot(path, definition.Family));
                 var executable = ChromiumBrowserCatalog.ExpandPaths(definition.ExecutableCandidates)
                     .FirstOrDefault(File.Exists) ?? registryInfo?.ExecutablePath;
 
@@ -50,7 +51,7 @@ public sealed class ChromiumBrowserDetector
 
                 var profiles = userData is null
                     ? new List<BrowserProfile>()
-                    : ChromiumProfileReader.ReadProfiles(userData, definition.FlatProfileLayout).ToList();
+                    : ReadProfiles(userData, definition).ToList();
                 var browser = new DetectedBrowser
                 {
                     Definition = definition,
@@ -94,33 +95,53 @@ public sealed class ChromiumBrowserDetector
             }
         }
 
-        _log.Write(LogLevel.Info, $"Detected {browsers.Count} Chromium browser(s).");
+        _log.Write(LogLevel.Info, $"Detected {browsers.Count} browser(s) across Chromium and Firefox families.");
         return browsers;
     }
 
     public DetectedBrowser CreateCustom(string userDataPath)
     {
         var normalized = Path.GetFullPath(userDataPath.Trim().Trim('"'));
-        if (!ChromiumProfileReader.ValidateUserDataFolder(normalized, out var error))
+        // Users often pick the Profiles subfolder rather than its parent. Normalize to the
+        // Firefox root so profiles.ini can be read and updated safely.
+        var parent = Directory.GetParent(normalized)?.FullName;
+        if (parent is not null &&
+            Path.GetFileName(normalized).Equals("Profiles", StringComparison.OrdinalIgnoreCase) &&
+            File.Exists(Path.Combine(parent, "profiles.ini")))
         {
-            throw new BrowserPathValidationException(error);
+            normalized = parent;
         }
 
-        var profiles = ChromiumProfileReader.ReadProfiles(normalized).ToList();
+        var hasChromium = File.Exists(Path.Combine(normalized, "Local State"));
+        var hasFirefox = FirefoxProfileReader.ValidateProfileRoot(normalized, out _);
+        if (!hasChromium && !hasFirefox)
+        {
+            throw new BrowserPathValidationException(
+                "That folder is not a recognized browser profile root. Choose a Chromium User Data folder " +
+                "(contains Local State) or a Firefox profile root (contains profiles.ini, or prefs.js for a single profile).");
+        }
+
+        var family = hasChromium ? BrowserFamily.Chromium : BrowserFamily.Firefox;
+        var profiles = family == BrowserFamily.Chromium
+            ? ChromiumProfileReader.ReadProfiles(normalized).ToList()
+            : FirefoxProfileReader.ReadProfiles(normalized).ToList();
         if (profiles.Count == 0)
         {
             throw new BrowserPathValidationException(
-                "Local State exists, but no Default/Profile folders were found. The path may be the wrong folder.");
+                "The profile root is valid, but no profile folders were found. The path may be the wrong folder.");
         }
 
-        var hint = ChromiumProfileReader.ReadBrowserDisplayNameHint(normalized);
-        var displayName = string.IsNullOrWhiteSpace(hint) || hint.Equals("User Data", StringComparison.OrdinalIgnoreCase)
-            ? "Custom Chromium browser"
+        var hint = family == BrowserFamily.Chromium
+            ? ChromiumProfileReader.ReadBrowserDisplayNameHint(normalized)
+            : BrowserDisplayNameFromFolder(normalized);
+        var displayName = string.IsNullOrWhiteSpace(hint)
+            ? "Custom browser"
             : $"{hint} (custom)";
         // A stable id keeps custom-browser archives matched across app restarts.
         var hash = Convert.ToHexString(SHA256.HashData(
-            Encoding.UTF8.GetBytes(normalized.ToLowerInvariant())))[..10].ToLowerInvariant();
-        var definition = ChromiumBrowserCatalog.CreateCustomDefinition("custom-" + hash, displayName);
+            Encoding.UTF8.GetBytes($"{family}:{normalized.ToLowerInvariant()}")))[..10].ToLowerInvariant();
+        var definition = ChromiumBrowserCatalog.CreateCustomDefinition(
+            "custom-" + hash, displayName, family);
         return new DetectedBrowser
         {
             Definition = definition,
@@ -131,6 +152,45 @@ public sealed class ChromiumBrowserDetector
             IsCustom = true,
             Profiles = profiles
         };
+    }
+
+    public static bool ValidateRoot(string path, BrowserFamily family)
+    {
+        if (!Directory.Exists(path))
+        {
+            return false;
+        }
+
+        return family switch
+        {
+            BrowserFamily.Firefox => FirefoxProfileReader.ValidateProfileRoot(path, out _),
+            _ => File.Exists(Path.Combine(path, "Local State"))
+        };
+    }
+
+    private static IReadOnlyList<BrowserProfile> ReadProfiles(string root, BrowserAppDefinition definition)
+    {
+        return definition.Family == BrowserFamily.Firefox
+            ? FirefoxProfileReader.ReadProfiles(root, definition.FlatProfileLayout)
+            : ChromiumProfileReader.ReadProfiles(root, definition.FlatProfileLayout);
+    }
+
+    private static string? BrowserDisplayNameFromFolder(string path)
+    {
+        try
+        {
+            var name = Path.GetFileName(path.TrimEnd(Path.DirectorySeparatorChar));
+            if (string.IsNullOrWhiteSpace(name) || name.Equals("User Data", StringComparison.OrdinalIgnoreCase))
+            {
+                return "Firefox";
+            }
+
+            return name;
+        }
+        catch
+        {
+            return null;
+        }
     }
 
     private static string? GetVersion(string? executablePath)

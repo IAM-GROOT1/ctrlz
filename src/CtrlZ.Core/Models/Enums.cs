@@ -36,6 +36,12 @@ public enum WingetMatchKind
     Manual
 }
 
+public enum BrowserFamily
+{
+    Chromium,
+    Firefox
+}
+
 public enum ThemeMode
 {
     System,

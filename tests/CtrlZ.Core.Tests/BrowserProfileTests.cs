@@ -92,7 +92,7 @@ public class ChromiumProfileTests
         using var temp = new TestDirectory();
         var appFolder = temp.CreateDirectory("Application");
         File.WriteAllText(Path.Combine(appFolder, "chrome.exe"), string.Empty);
-        var detector = new ChromiumBrowserDetector(TestFactory.Log);
+        var detector = new BrowserDetector(TestFactory.Log);
 
         Assert.Throws<BrowserPathValidationException>(() => detector.CreateCustom(appFolder));
     }
