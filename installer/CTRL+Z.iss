@@ -2,7 +2,7 @@
 ; The app itself is a single self-contained executable.
 
 #ifndef MyAppVersion
-  #define MyAppVersion "1.1.1"
+  #define MyAppVersion "1.1.2"
 #endif
 
 #define MyAppName "CTRL+Z"

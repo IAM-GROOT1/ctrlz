@@ -331,7 +331,7 @@ public sealed class BrowserBackupService
     {
         return new BrowserBackupManifest
         {
-            AppVersion = typeof(BrowserBackupService).Assembly.GetName().Version?.ToString(3) ?? "1.1.1",
+            AppVersion = typeof(BrowserBackupService).Assembly.GetName().Version?.ToString(3) ?? "1.1.2",
             Family = request.Browser.Family,
             BrowserId = request.Browser.Id,
             BrowserName = request.Browser.DisplayName,

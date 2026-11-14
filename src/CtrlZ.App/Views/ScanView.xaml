@@ -324,8 +324,12 @@
             <Grid>
                 <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
                     <TextBlock Text="{Binding SelectionText}" Style="{StaticResource Text.Secondary}" />
-                    <Button Content="Select matched" Style="{StaticResource Button.Link}" Margin="14,0,0,0"
-                            Command="{Binding SelectMatchedCommand}" />
+                    <Button Content="Select all" Style="{StaticResource Button.Link}" Margin="14,0,0,0"
+                            Command="{Binding SelectAllVisibleCommand}"
+                            ToolTip="Select every app visible under the current match filter" />
+                    <Button Content="Select matched" Style="{StaticResource Button.Link}" Margin="10,0,0,0"
+                            Command="{Binding SelectMatchedCommand}"
+                            ToolTip="Select matched apps visible under the current filters" />
                     <Button Content="Clear" Style="{StaticResource Button.Link}" Margin="10,0,0,0"
                             Command="{Binding ClearSelectionCommand}" />
                 </StackPanel>

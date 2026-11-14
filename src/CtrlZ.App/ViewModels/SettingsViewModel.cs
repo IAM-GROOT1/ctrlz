@@ -22,7 +22,7 @@ public sealed partial class SettingsViewModel : PageViewModelBase
         _dialogs = dialogs;
         _main = main;
         _themeService = theme;
-        AppVersion = typeof(SettingsViewModel).Assembly.GetName().Version?.ToString(3) ?? "1.1.1";
+        AppVersion = typeof(SettingsViewModel).Assembly.GetName().Version?.ToString(3) ?? "1.1.2";
         DataFolder = services.Paths.Root;
         LogsFolder = services.Paths.Logs;
         ProfilesFolder = services.Paths.Profiles;

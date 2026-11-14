@@ -202,7 +202,7 @@ public sealed partial class ScanViewModel : PageViewModelBase
     [RelayCommand]
     private void SelectMatched()
     {
-        foreach (var item in ItemsView.Cast<ScanItemViewModel>().Where(i => i.IsMatched))
+        foreach (var item in Items.Where(item => item.IsMatched && FilterItem(item)))
         {
             item.IsSelected = true;
         }
@@ -211,7 +211,7 @@ public sealed partial class ScanViewModel : PageViewModelBase
     [RelayCommand]
     private void SelectAllVisible()
     {
-        foreach (var item in ItemsView.Cast<ScanItemViewModel>())
+        foreach (var item in Items.Where(FilterItem))
         {
             item.IsSelected = true;
         }
