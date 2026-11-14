@@ -3,7 +3,7 @@
     <LangVersion>latest</LangVersion>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
-    <Version>1.1.0</Version>
+    <Version>1.1.1</Version>
     <Authors>IAM-GROOT1</Authors>
     <Product>CTRL+Z</Product>
     <Company>IAM-GROOT1</Company>

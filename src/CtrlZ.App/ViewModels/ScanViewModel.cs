@@ -33,11 +33,14 @@ public sealed partial class ScanViewModel : PageViewModelBase
         ItemsView.SortDescriptions.Add(new SortDescription(nameof(ScanItemViewModel.Name), ListSortDirection.Ascending));
         Categories = new ObservableCollection<string>(["All categories"]);
         SelectedCategory = "All categories";
+        MatchFilters = new ObservableCollection<string>(["All apps", "Matched", "Unmatched"]);
+        SelectedMatchFilter = "All apps";
     }
 
     public ObservableCollection<ScanItemViewModel> Items { get; } = new();
     public ICollectionView ItemsView { get; }
     public ObservableCollection<string> Categories { get; }
+    public ObservableCollection<string> MatchFilters { get; }
 
     [ObservableProperty]
     private string _searchText = string.Empty;
@@ -49,7 +52,7 @@ public sealed partial class ScanViewModel : PageViewModelBase
     private bool _groupBySource;
 
     [ObservableProperty]
-    private bool _showUnmatchedOnly;
+    private string _selectedMatchFilter;
 
     [ObservableProperty]
     private bool _isScanning;
@@ -102,7 +105,7 @@ public sealed partial class ScanViewModel : PageViewModelBase
 
     partial void OnSelectedCategoryChanged(string value) => ItemsView.Refresh();
 
-    partial void OnShowUnmatchedOnlyChanged(bool value) => ItemsView.Refresh();
+    partial void OnSelectedMatchFilterChanged(string value) => ItemsView.Refresh();
 
     partial void OnWarningTextChanged(string? value) => OnPropertyChanged(nameof(HasWarning));
 
@@ -336,7 +339,12 @@ public sealed partial class ScanViewModel : PageViewModelBase
             return false;
         }
 
-        if (ShowUnmatchedOnly && app.IsMatched)
+        if (SelectedMatchFilter == "Matched" && !app.IsMatched)
+        {
+            return false;
+        }
+
+        if (SelectedMatchFilter == "Unmatched" && app.IsMatched)
         {
             return false;
         }

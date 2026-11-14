@@ -141,7 +141,7 @@
                     Content="Cancel scan" Visibility="{Binding IsScanning, Converter={StaticResource BoolToVisibility}}" />
 
             <StackPanel Grid.Column="2" Orientation="Horizontal" VerticalAlignment="Center">
-                <Grid Width="230" Margin="0,0,8,0">
+                <Grid Width="190" Margin="0,0,8,0">
                     <TextBox x:Name="SearchBox" Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}"
                              Padding="30,7,10,7" MinHeight="34" AutomationProperties.Name="Search programs" />
                     <TextBlock Text="{StaticResource Icon.Search}" FontFamily="{StaticResource Font.Icons}" FontSize="12"
@@ -163,7 +163,7 @@
                 </Grid>
 
                 <ComboBox ItemsSource="{Binding Categories}" SelectedItem="{Binding SelectedCategory}"
-                          Width="134" Margin="0,0,8,0" AutomationProperties.Name="Filter by category" />
+                          Width="120" Margin="0,0,8,0" AutomationProperties.Name="Filter by category" />
 
                 <Border Style="{StaticResource Border.Inset}" Padding="2" Margin="0,0,8,0">
                     <StackPanel Orientation="Horizontal">
@@ -176,7 +176,9 @@
                     </StackPanel>
                 </Border>
 
-                <CheckBox Content="Unmatched" IsChecked="{Binding ShowUnmatchedOnly}" VerticalAlignment="Center" />
+                <ComboBox ItemsSource="{Binding MatchFilters}" SelectedItem="{Binding SelectedMatchFilter}"
+                          Width="106" VerticalAlignment="Center" AutomationProperties.Name="Filter by match status"
+                          ToolTip="Show all apps, only matched apps, or only unmatched apps" />
             </StackPanel>
         </Grid>
 

@@ -41,7 +41,8 @@ emoji icons.
   (Appx)** apps.
 - Match installed names to winget package ids with a conservative, tested matcher.
   Unmatched entries are grouped for manual fixing with a winget search dialog.
-- Searchable, filterable lists; group by category or source; multi-select.
+- Searchable, filterable lists; filter by **All apps / Matched / Unmatched**, filter by category,
+  group by category or source, and multi-select.
 - Save **multiple portable profiles** (`Work PC`, `Gaming PC`, …) as human-readable JSON;
   import/export them anywhere.
 - Add apps winget does not carry:
@@ -110,9 +111,9 @@ emoji icons.
 
 Download the latest build from [Releases](https://github.com/IAM-GROOT1/ctrlz/releases/latest). The release artifacts are (also copied to `dist/`):
 
-- `CTRL+Z-Portable-1.1.0.exe` — a single self-contained executable. Put it anywhere and
+- `CTRL+Z-Portable-1.1.1.exe` — a single self-contained executable. Put it anywhere and
   run it. No .NET install required.
-- `CTRL+Z-Setup-1.1.0.exe` — per-user Inno Setup installer (Start Menu shortcut, optional
+- `CTRL+Z-Setup-1.1.1.exe` — per-user Inno Setup installer (Start Menu shortcut, optional
   desktop shortcut, uninstaller). It does not require admin to install.
 
 The binaries are **not code-signed**, so SmartScreen may show an unknown-publisher prompt.
@@ -164,13 +165,13 @@ resume/retry, and file/portable installer execution.
 ### Build the portable single exe
 
 ```powershell
-.\build\publish.ps1 -Version 1.1.0
+.\build\publish.ps1 -Version 1.1.1
 ```
 
 Outputs:
 
 - `artifacts/publish/portable/CTRL+Z.exe`
-- `artifacts/CTRL+Z-Portable-1.1.0.exe`
+- `artifacts/CTRL+Z-Portable-1.1.1.exe`
 - README + LICENSE next to the portable build
 
 The script uses `dotnet` from `PATH`, or a local `.tools/dotnet/dotnet.exe` if present.
@@ -178,10 +179,10 @@ The script uses `dotnet` from `PATH`, or a local `.tools/dotnet/dotnet.exe` if p
 ### Build the installer
 
 ```powershell
-.\build\build-installer.ps1 -Version 1.1.0
+.\build\build-installer.ps1 -Version 1.1.1
 ```
 
-Output: `artifacts/installer/CTRL+Z-Setup-1.1.0.exe`.
+Output: `artifacts/installer/CTRL+Z-Setup-1.1.1.exe`.
 
 If you use Winget, verify that it installs Inno Setup 6.3+ (the 6.x line is free for commercial use). The vendor still publishes 6.7.4 alongside newer releases.
 

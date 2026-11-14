@@ -51,7 +51,7 @@ public sealed partial class MainViewModel : ObservableObject, IDisposable
     public DialogService Dialogs { get; }
     public ThemeService Theme => _theme;
     public string AppVersion { get; } =
-        typeof(MainViewModel).Assembly.GetName().Version?.ToString(3) ?? "1.1.0";
+        typeof(MainViewModel).Assembly.GetName().Version?.ToString(3) ?? "1.1.1";
     public ScanViewModel Scan { get; }
     public MyAppsViewModel MyApps { get; }
     public AddAppViewModel AddApp { get; }
