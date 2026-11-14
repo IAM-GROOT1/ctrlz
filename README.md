@@ -10,7 +10,7 @@ saves a portable JSON profile, and reinstalls it silently later — including ap
 not carry. It also makes full browser-profile backups for browsers without sync, with a
 focus on Helium, Zen, and multiple profiles.
 
-![CTRL+Z app list](docs/screenshots/myapps-light.png)
+![CTRL+Z app list](docs/screenshots/myapps-dark.png)
 
 | Scan | Add an app | Catalog |
 | --- | --- | --- |
