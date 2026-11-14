@@ -1,0 +1,29 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <ItemGroup>
+    <ProjectReference Include="..\CtrlZ.Core\CtrlZ.Core.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.0" />
+  </ItemGroup>
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net8.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <UseWPF>true</UseWPF>
+    <AssemblyName>CTRL+Z</AssemblyName>
+    <RootNamespace>CtrlZ.App</RootNamespace>
+    <ApplicationIcon>Assets\ctrlz.ico</ApplicationIcon>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+    <Description>Local-first Windows reinstall assistant and Chromium profile backup.</Description>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Resource Include="Assets\ctrlz.ico" />
+    <Resource Include="Assets\ctrlz.png" />
+  </ItemGroup>
+
+</Project>

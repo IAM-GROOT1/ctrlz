@@ -1,0 +1,179 @@
+<UserControl x:Class="CtrlZ.App.Views.CatalogView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:controls="clr-namespace:CtrlZ.App.Controls"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignHeight="620" d:DesignWidth="900">
+    <UserControl.Resources>
+        <DataTemplate x:Key="CatalogRowTemplate">
+            <Border BorderBrush="{DynamicResource Brush.Border}" BorderThickness="0,0,0,1" Padding="6,9">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="30" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="210" />
+                        <ColumnDefinition Width="54" />
+                    </Grid.ColumnDefinitions>
+                    <CheckBox IsChecked="{Binding IsSelected, Mode=TwoWay}" VerticalAlignment="Center"
+                              IsEnabled="{Binding CanInstall}" />
+                    <StackPanel Grid.Column="1" Orientation="Horizontal">
+                        <controls:AppIcon FallbackText="{Binding FallbackText}" Size="30" />
+                        <StackPanel Margin="10,0,12,0" VerticalAlignment="Center">
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="{Binding Name}" FontWeight="SemiBold" FontSize="12.5" />
+                                <TextBlock Text="open source" FontSize="9" Foreground="{DynamicResource Brush.Success}"
+                                           VerticalAlignment="Center" Margin="8,1,0,0"
+                                           Visibility="{Binding IsFoss, Converter={StaticResource BoolToVisibility}}" />
+                            </StackPanel>
+                            <TextBlock Text="{Binding Description}" Style="{StaticResource Text.Caption}"
+                                       TextTrimming="CharacterEllipsis" MaxWidth="440" Margin="0,2,0,0" />
+                        </StackPanel>
+                    </StackPanel>
+                    <Border Grid.Column="2" Style="{StaticResource Border.Pill}" HorizontalAlignment="Left">
+                        <TextBlock Text="{Binding IdText}" FontFamily="{StaticResource Font.Mono}" FontSize="10"
+                                   Foreground="{DynamicResource Brush.TextSecondary}" TextTrimming="CharacterEllipsis"
+                                   MaxWidth="194" />
+                    </Border>
+                    <Button Grid.Column="3" Style="{StaticResource Button.Icon}"
+                            HorizontalAlignment="Right" Command="{Binding DataContext.OpenLinkCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                            CommandParameter="{Binding Link}" ToolTip="Open project page">
+                        <TextBlock Text="{StaticResource Icon.OpenNew}" FontFamily="{StaticResource Font.Icons}" FontSize="12" />
+                    </Button>
+                </Grid>
+            </Border>
+        </DataTemplate>
+
+        <GroupStyle x:Key="CatalogGroupStyle">
+            <GroupStyle.HeaderTemplate>
+                <DataTemplate>
+                    <Grid Margin="4,12,4,5">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="{Binding Name}" FontSize="11" FontWeight="SemiBold"
+                                       Foreground="{DynamicResource Brush.TextSecondary}" />
+                            <Border Background="{DynamicResource Brush.SurfacePressed}" CornerRadius="8" Padding="6,1"
+                                    Margin="8,0,0,0" VerticalAlignment="Center">
+                                <TextBlock Text="{Binding ItemCount}" FontSize="9.5"
+                                           Foreground="{DynamicResource Brush.TextSecondary}" />
+                            </Border>
+                        </StackPanel>
+                    </Grid>
+                </DataTemplate>
+            </GroupStyle.HeaderTemplate>
+        </GroupStyle>
+    </UserControl.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <!-- toolbar -->
+        <Grid Grid.Row="0" Margin="0,0,0,10">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+            <Grid Width="270" HorizontalAlignment="Left">
+                <TextBox x:Name="SearchBox" Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}" Padding="30,7,10,7" />
+                <TextBlock Text="{StaticResource Icon.Search}" FontFamily="{StaticResource Font.Icons}" FontSize="12"
+                           Foreground="{DynamicResource Brush.TextTertiary}" Margin="10,0,0,0" VerticalAlignment="Center"
+                           IsHitTestVisible="False" />
+                <TextBlock Text="Search 300+ recommended apps" Foreground="{DynamicResource Brush.TextTertiary}" FontSize="12"
+                           Margin="31,0,0,0" VerticalAlignment="Center" IsHitTestVisible="False">
+                    <TextBlock.Style>
+                        <Style TargetType="TextBlock">
+                            <Setter Property="Visibility" Value="Collapsed" />
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding Text, ElementName=SearchBox}" Value="">
+                                    <Setter Property="Visibility" Value="Visible" />
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </TextBlock.Style>
+                </TextBlock>
+            </Grid>
+            <StackPanel Grid.Column="1" Orientation="Horizontal">
+                <Border Style="{StaticResource Border.Pill}" Margin="0,0,8,0">
+                    <StackPanel Orientation="Horizontal">
+                        <Ellipse Width="6" Height="6" Fill="{DynamicResource Brush.Success}" Margin="0,0,6,0" />
+                        <TextBlock Text="{Binding CatalogStatus}" FontSize="10.5" Foreground="{DynamicResource Brush.TextSecondary}" />
+                    </StackPanel>
+                </Border>
+                <ComboBox Width="150" ItemsSource="{Binding Categories}" SelectedItem="{Binding SelectedCategory}"
+                          Margin="0,0,8,0" />
+                <Button Content="Refresh" Style="{StaticResource Button.Secondary}" Command="{Binding RefreshCommand}"
+                        IsEnabled="{Binding IsLoading, Converter={StaticResource BoolNegation}}" />
+            </StackPanel>
+        </Grid>
+
+        <!-- warning / status -->
+        <Border Grid.Row="1" Style="{StaticResource Border.Inset}" Background="{DynamicResource Brush.WarningSoft}"
+                BorderBrush="{DynamicResource Brush.Warning}" Padding="11,7" Margin="0,0,0,10"
+                Visibility="{Binding HasWarning, Converter={StaticResource BoolToVisibility}}">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <TextBlock Text="{StaticResource Icon.Info}" FontFamily="{StaticResource Font.Icons}" FontSize="13"
+                           Foreground="{DynamicResource Brush.Warning}" Margin="0,0,8,0" VerticalAlignment="Top" />
+                <TextBlock Grid.Column="1" Text="{Binding WarningText}" FontSize="11.5"
+                           Foreground="{DynamicResource Brush.Warning}" TextWrapping="Wrap" />
+            </Grid>
+        </Border>
+
+        <!-- list -->
+        <Border Grid.Row="2" Style="{StaticResource Border.Card}" Padding="0">
+            <Grid>
+                <ListView ItemsSource="{Binding ItemsView}" ItemTemplate="{StaticResource CatalogRowTemplate}"
+                          ItemContainerStyle="{StaticResource {x:Type ListBoxItem}}"
+                          BorderThickness="0" Background="Transparent"
+                          ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                          VirtualizingPanel.IsVirtualizing="True"
+                          VirtualizingPanel.VirtualizationMode="Recycling"
+                          VirtualizingPanel.IsVirtualizingWhenGrouping="True"
+                          Visibility="{Binding HasItems, Converter={StaticResource BoolToVisibility}}">
+                    <ListView.GroupStyle>
+                        <StaticResource ResourceKey="CatalogGroupStyle" />
+                    </ListView.GroupStyle>
+                </ListView>
+                <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" MaxWidth="420"
+                            Visibility="{Binding HasItems, Converter={StaticResource InverseBoolToVisibility}}">
+                    <Border Width="50" Height="50" CornerRadius="25" Background="{DynamicResource Brush.AccentSoft}"
+                            HorizontalAlignment="Center">
+                        <TextBlock Text="{StaticResource Icon.Catalog}" FontFamily="{StaticResource Font.Icons}" FontSize="22"
+                                   Foreground="{DynamicResource Brush.Accent}" HorizontalAlignment="Center"
+                                   VerticalAlignment="Center" />
+                    </Border>
+                    <TextBlock Text="No catalog entries to show" Style="{StaticResource Text.SectionTitle}"
+                               HorizontalAlignment="Center" Margin="0,16,0,4" />
+                    <TextBlock Text="{Binding StatusMessage}" Style="{StaticResource Text.Secondary}"
+                               TextAlignment="Center" TextWrapping="Wrap" />
+                    <Button Content="Refresh catalog" Style="{StaticResource Button.Secondary}" HorizontalAlignment="Center"
+                            Margin="0,16,0,0" Command="{Binding RefreshCommand}" />
+                </StackPanel>
+            </Grid>
+        </Border>
+
+        <!-- footer -->
+        <Grid Grid.Row="3" Margin="0,12,0,0">
+            <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                <TextBlock Text="{Binding SelectionText}" Style="{StaticResource Text.Secondary}" />
+                <Button Content="Select all" Style="{StaticResource Button.Link}" Margin="14,0,0,0"
+                        Command="{Binding SelectAllVisibleCommand}" />
+                <Button Content="Clear" Style="{StaticResource Button.Link}" Margin="10,0,0,0"
+                        Command="{Binding ClearSelectionCommand}" />
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                <TextBlock Text="{Binding StatusMessage}" Style="{StaticResource Text.Caption}" VerticalAlignment="Center"
+                           Margin="0,0,12,0" MaxWidth="440" TextTrimming="CharacterEllipsis" />
+                <Button Content="Add selected" Style="{StaticResource Button.Primary}" MinWidth="118"
+                        Command="{Binding AddSelectedCommand}" IsEnabled="{Binding CanAdd}" />
+            </StackPanel>
+        </Grid>
+    </Grid>
+</UserControl>

@@ -1,0 +1,51 @@
+<Application x:Class="CtrlZ.App.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="clr-namespace:CtrlZ.App.ViewModels"
+             xmlns:views="clr-namespace:CtrlZ.App.Views"
+             xmlns:conv="clr-namespace:CtrlZ.App.Converters"
+             ShutdownMode="OnMainWindowClose">
+    <Application.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Themes/Colors.Light.xaml" />
+                <ResourceDictionary Source="Themes/Typography.xaml" />
+                <ResourceDictionary Source="Themes/Icons.xaml" />
+                <ResourceDictionary Source="Themes/Controls.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+
+            <conv:BoolToVisibilityConverter x:Key="BoolToVisibility" />
+            <conv:BoolToVisibilityConverter x:Key="InverseBoolToVisibility" Invert="True" />
+            <conv:NullToVisibilityConverter x:Key="NullToVisibility" />
+            <conv:NullToVisibilityConverter x:Key="NullToVisibilityInverse" Invert="True" />
+            <conv:CountToVisibilityConverter x:Key="CountToVisibility" />
+            <conv:CountToVisibilityConverter x:Key="CountToVisibilityInverse" Invert="True" />
+            <conv:StringToVisibilityConverter x:Key="StringToVisibility" />
+            <conv:StringToVisibilityConverter x:Key="StringToVisibilityInverse" Invert="True" />
+            <conv:EnumToBoolConverter x:Key="EnumToBool" />
+            <conv:BoolNegationConverter x:Key="BoolNegation" />
+
+            <DataTemplate DataType="{x:Type vm:ScanViewModel}">
+                <views:ScanView />
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type vm:MyAppsViewModel}">
+                <views:MyAppsView />
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type vm:AddAppViewModel}">
+                <views:AddAppView />
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type vm:CatalogViewModel}">
+                <views:CatalogView />
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type vm:BrowsersViewModel}">
+                <views:BrowsersView />
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type vm:InstallViewModel}">
+                <views:InstallView />
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type vm:SettingsViewModel}">
+                <views:SettingsView />
+            </DataTemplate>
+        </ResourceDictionary>
+    </Application.Resources>
+</Application>

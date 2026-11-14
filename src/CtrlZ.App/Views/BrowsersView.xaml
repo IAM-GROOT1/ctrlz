@@ -1,0 +1,351 @@
+<UserControl x:Class="CtrlZ.App.Views.BrowsersView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:controls="clr-namespace:CtrlZ.App.Controls"
+             xmlns:vm="clr-namespace:CtrlZ.App.ViewModels"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignHeight="620" d:DesignWidth="900">
+    <UserControl.Resources>
+        <DataTemplate x:Key="BrowserCardTemplate" DataType="{x:Type vm:BrowserItemViewModel}">
+            <Border Style="{StaticResource Border.Card}" Padding="12,10" Margin="0,0,0,8">
+                <StackPanel>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="28" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+                        <CheckBox IsChecked="{Binding IsSelected, Mode=TwoWay}" IsEnabled="{Binding CanSelect}"
+                                  VerticalAlignment="Center" />
+                        <StackPanel Grid.Column="1" Orientation="Horizontal">
+                            <controls:AppIcon IconPath="{Binding IconPath}" FallbackText="{Binding Name}" Size="28" />
+                            <StackPanel Margin="9,0,8,0" VerticalAlignment="Center">
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Text="{Binding Name}" FontWeight="SemiBold" FontSize="12.5" />
+                                    <Border Background="{DynamicResource Brush.InfoSoft}" CornerRadius="7" Padding="5,1"
+                                            Margin="7,0,0,0" Visibility="{Binding IsCustom, Converter={StaticResource BoolToVisibility}}">
+                                        <TextBlock Text="custom" FontSize="9" Foreground="{DynamicResource Brush.Info}" />
+                                    </Border>
+                                </StackPanel>
+                                <TextBlock Style="{StaticResource Text.Caption}" Margin="0,2,0,0">
+                                    <Run Text="{Binding VersionText, Mode=OneWay}" /><Run Text=" · " /><Run Text="{Binding StatusText, Mode=OneWay}" />
+                                </TextBlock>
+                            </StackPanel>
+                        </StackPanel>
+                        <StackPanel Grid.Column="2" Orientation="Horizontal" VerticalAlignment="Center">
+                            <TextBlock Text="{Binding EstimatedText}" Style="{StaticResource Text.Caption}"
+                                       VerticalAlignment="Center" Margin="0,0,8,0" />
+                            <Button Content="{Binding ProfileCountText}" Style="{StaticResource Button.Link}"
+                                    Command="{Binding ToggleExpandedCommand}" />
+                        </StackPanel>
+                    </Grid>
+
+                    <Border Style="{StaticResource Border.Inset}" Padding="9,7" Margin="28,8,0,0"
+                            Visibility="{Binding NeedsUserDataPath, Converter={StaticResource BoolToVisibility}}">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Text="{StaticResource Icon.Warning}" FontFamily="{StaticResource Font.Icons}" FontSize="12"
+                                       Foreground="{DynamicResource Brush.Warning}" Margin="0,0,7,0" VerticalAlignment="Top" />
+                            <TextBlock Grid.Column="1"
+                                       Text="User Data folder not found. Use Add custom browser and point CTRL+Z to the folder that contains Local State."
+                                       Style="{StaticResource Text.Caption}" TextWrapping="Wrap" />
+                        </Grid>
+                    </Border>
+
+                    <StackPanel Margin="28,8,0,0" Visibility="{Binding IsExpanded, Converter={StaticResource BoolToVisibility}}">
+                        <ItemsControl ItemsSource="{Binding Profiles}">
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate DataType="{x:Type vm:BrowserProfileChoiceViewModel}">
+                                    <CheckBox IsChecked="{Binding IsSelected, Mode=TwoWay}" Margin="0,4">
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBlock Text="{Binding Name}" FontSize="12" />
+                                            <TextBlock Text="{Binding Detail}" Style="{StaticResource Text.Caption}" Margin="8,0,0,0" />
+                                        </StackPanel>
+                                    </CheckBox>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                        <StackPanel Orientation="Horizontal" Margin="0,6,0,0">
+                            <Button Content="All profiles" Style="{StaticResource Button.Link}"
+                                    Command="{Binding SelectAllProfilesCommand}" />
+                            <Button Content="None" Style="{StaticResource Button.Link}" Margin="10,0,0,0"
+                                    Command="{Binding ClearProfilesCommand}" />
+                        </StackPanel>
+                    </StackPanel>
+                </StackPanel>
+            </Border>
+        </DataTemplate>
+    </UserControl.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <!-- mode bar -->
+        <Grid Grid.Row="0" Margin="0,0,0,12">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+            <Border Style="{StaticResource Border.Inset}" Padding="2">
+                <StackPanel Orientation="Horizontal">
+                    <ToggleButton Content="Back up" Style="{StaticResource Toggle.Pill}"
+                                  IsChecked="{Binding IsBackupTab, Mode=TwoWay}" />
+                    <ToggleButton Content="Restore" Style="{StaticResource Toggle.Pill}"
+                                  IsChecked="{Binding IsRestoreTab, Mode=TwoWay}" />
+                </StackPanel>
+            </Border>
+            <TextBlock Grid.Column="1" Text="{Binding DetectedSummary}" Style="{StaticResource Text.Secondary}"
+                       VerticalAlignment="Center" Margin="14,0,0,0" />
+            <StackPanel Grid.Column="2" Orientation="Horizontal">
+                <Button Content="Add custom browser" Style="{StaticResource Button.Secondary}"
+                        Command="{Binding AddCustomBrowserCommand}" Margin="0,0,8,0" />
+                <Button Content="Refresh" Style="{StaticResource Button.Ghost}" Command="{Binding RefreshBrowsersCommand}" />
+            </StackPanel>
+        </Grid>
+
+        <!-- backup mode -->
+        <Grid Grid.Row="1" Visibility="{Binding IsBackupMode, Converter={StaticResource BoolToVisibility}}">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1.55*" />
+                <ColumnDefinition Width="16" />
+                <ColumnDefinition Width="0.85*" />
+            </Grid.ColumnDefinitions>
+
+            <Border Grid.Column="0" Style="{StaticResource Border.Card}" Padding="0">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+                    <Border Background="{DynamicResource Brush.SurfaceAlt}" Padding="12,8"
+                            BorderBrush="{DynamicResource Brush.Border}" BorderThickness="0,0,0,1">
+                        <Grid>
+                            <TextBlock Text="CHROMIUM BROWSERS" Style="{StaticResource Text.NavSection}" Margin="0" />
+                            <TextBlock Text="Choose a browser, then its profiles" Style="{StaticResource Text.Caption}"
+                                       HorizontalAlignment="Right" />
+                        </Grid>
+                    </Border>
+                    <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto" Padding="12,10">
+                        <StackPanel>
+                            <ItemsControl ItemsSource="{Binding Browsers}" ItemTemplate="{StaticResource BrowserCardTemplate}" />
+                            <Border Style="{StaticResource Border.Inset}" Padding="24" Margin="0,4,0,0"
+                                    Visibility="{Binding ShowEmptyState, Converter={StaticResource BoolToVisibility}}">
+                                <StackPanel HorizontalAlignment="Center" MaxWidth="420">
+                                    <TextBlock Text="{StaticResource Icon.Browser}" FontFamily="{StaticResource Font.Icons}"
+                                               FontSize="28" Foreground="{DynamicResource Brush.TextTertiary}"
+                                               HorizontalAlignment="Center" />
+                                    <TextBlock Text="No Chromium browsers detected" Style="{StaticResource Text.SectionTitle}"
+                                               HorizontalAlignment="Center" Margin="0,10,0,4" />
+                                    <TextBlock Text="If you use a less common fork, point CTRL+Z at its User Data folder. It must contain a Local State file."
+                                               Style="{StaticResource Text.Secondary}" TextAlignment="Center" TextWrapping="Wrap" />
+                                    <Button Content="Add custom browser" Style="{StaticResource Button.Secondary}"
+                                            HorizontalAlignment="Center" Margin="0,12,0,0"
+                                            Command="{Binding AddCustomBrowserCommand}" />
+                                </StackPanel>
+                            </Border>
+                            <TextBlock Text="{Binding StatusMessage}" Style="{StaticResource Text.Caption}" Margin="4,6,4,0" />
+                        </StackPanel>
+                    </ScrollViewer>
+                </Grid>
+            </Border>
+
+            <Border Grid.Column="2" Style="{StaticResource Border.Card}" Padding="18,16">
+                <ScrollViewer VerticalScrollBarVisibility="Auto">
+                    <StackPanel>
+                        <TextBlock Text="BACKUP" Style="{StaticResource Text.NavSection}" Margin="0,0,0,10" />
+                        <TextBlock Text="Destination" Style="{StaticResource Text.Label}" />
+                        <Border Style="{StaticResource Border.Inset}" Padding="9,7">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Text="{Binding BackupFolder}" Style="{StaticResource Text.Caption}"
+                                           TextTrimming="CharacterEllipsis" VerticalAlignment="Center" />
+                                <Button Grid.Column="1" Style="{StaticResource Button.Icon}"
+                                        Command="{Binding OpenBackupFolderCommand}" ToolTip="Open folder">
+                                    <TextBlock Text="{StaticResource Icon.Folder}" FontFamily="{StaticResource Font.Icons}" FontSize="12" />
+                                </Button>
+                            </Grid>
+                        </Border>
+                        <StackPanel Orientation="Horizontal" Margin="0,6,0,0">
+                            <Button Content="Change folder" Style="{StaticResource Button.Link}"
+                                    Command="{Binding BrowseBackupFolderCommand}" />
+                        </StackPanel>
+
+                        <TextBlock Text="Password (optional)" Style="{StaticResource Text.Label}" Margin="0,16,0,6" />
+                        <PasswordBox x:Name="BackupPasswordBox" PasswordChanged="BackupPasswordBox_PasswordChanged" />
+                        <TextBlock Text="AES-256 encrypted ZIP. Windows Explorer cannot open encrypted archives; use CTRL+Z to restore. Leave blank for a normal ZIP."
+                                   Style="{StaticResource Text.Caption}" Margin="0,6,0,0" TextWrapping="Wrap" />
+
+                        <Border Style="{StaticResource Border.Inset}" Padding="12,10" Margin="0,16,0,0"
+                                Background="{DynamicResource Brush.AccentSoft}" BorderBrush="{DynamicResource Brush.AccentSoft}">
+                            <StackPanel>
+                                <TextBlock Text="{Binding EstimateText}" FontWeight="SemiBold" Foreground="{DynamicResource Brush.Accent}"
+                                           TextWrapping="Wrap" />
+                                <TextBlock Text="Estimated backup size. Actual ZIP size is usually smaller." Style="{StaticResource Text.Caption}"
+                                           Margin="0,4,0,0" />
+                            </StackPanel>
+                        </Border>
+
+                        <TextBlock Text="Excluded" Style="{StaticResource Text.Label}" Margin="0,16,0,6" />
+                        <TextBlock Text="{Binding ExcludedSummary}" Style="{StaticResource Text.Caption}" TextWrapping="Wrap" />
+
+                        <Button Content="Back up selected" Style="{StaticResource Button.Primary}" Margin="0,18,0,0"
+                                Command="{Binding BackupCommand}" IsEnabled="{Binding CanBackup}" MinHeight="38" />
+                        <ProgressBar Value="{Binding BackupProgress}" Maximum="100" Margin="0,12,0,0"
+                                     Visibility="{Binding IsBackingUp, Converter={StaticResource BoolToVisibility}}" />
+                        <TextBlock Text="{Binding BackupStatus}" Style="{StaticResource Text.Caption}" Margin="0,7,0,0"
+                                   TextWrapping="Wrap" />
+                        <Button Content="Cancel" Style="{StaticResource Button.Ghost}" Margin="0,4,0,0"
+                                HorizontalAlignment="Left" Command="{Binding CancelOperationCommand}"
+                                Visibility="{Binding IsBackingUp, Converter={StaticResource BoolToVisibility}}" />
+
+                        <Border Style="{StaticResource Border.Inset}" Padding="10,8" Margin="0,16,0,0">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Text="{StaticResource Icon.Lock}" FontFamily="{StaticResource Font.Icons}" FontSize="13"
+                                           Foreground="{DynamicResource Brush.TextTertiary}" Margin="0,0,8,0"
+                                           VerticalAlignment="Top" />
+                                <TextBlock Grid.Column="1" Text="Passwords and cookies are never backed up. Close the browser when prompted so files are not locked."
+                                           Style="{StaticResource Text.Caption}" TextWrapping="Wrap" />
+                            </Grid>
+                        </Border>
+                    </StackPanel>
+                </ScrollViewer>
+            </Border>
+        </Grid>
+
+        <!-- restore mode -->
+        <Grid Grid.Row="1" Visibility="{Binding IsRestoreMode, Converter={StaticResource BoolToVisibility}}">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1.05*" />
+                <ColumnDefinition Width="16" />
+                <ColumnDefinition Width="0.95*" />
+            </Grid.ColumnDefinitions>
+
+            <Border Grid.Column="0" Style="{StaticResource Border.Card}" Padding="18,16">
+                <ScrollViewer VerticalScrollBarVisibility="Auto">
+                    <StackPanel>
+                        <TextBlock Text="ARCHIVE" Style="{StaticResource Text.NavSection}" Margin="0,0,0,10" />
+                        <TextBlock Text="CTRL+Z browser backup" Style="{StaticResource Text.Label}" />
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                            <TextBox Text="{Binding ArchivePath, UpdateSourceTrigger=PropertyChanged}" />
+                            <Button Grid.Column="1" Content="Browse…" Style="{StaticResource Button.Secondary}"
+                                    Margin="8,0,0,0" Command="{Binding BrowseArchiveCommand}" />
+                        </Grid>
+                        <TextBlock Text="Password" Style="{StaticResource Text.Label}" Margin="0,12,0,6" />
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                            <PasswordBox x:Name="ArchivePasswordBox" PasswordChanged="ArchivePasswordBox_PasswordChanged" />
+                            <Button Grid.Column="1" Content="Inspect" Style="{StaticResource Button.Secondary}"
+                                    Margin="8,0,0,0" Command="{Binding InspectArchiveCommand}" />
+                        </Grid>
+                        <TextBlock Text="{Binding RestoreStatus}" Style="{StaticResource Text.Caption}" Margin="0,8,0,0"
+                                   TextWrapping="Wrap" />
+
+                        <Border Style="{StaticResource Border.Inset}" Padding="12,10" Margin="0,14,0,0"
+                                Visibility="{Binding HasArchive, Converter={StaticResource BoolToVisibility}}">
+                            <StackPanel>
+                                <TextBlock Text="{Binding ArchiveSummary}" FontWeight="SemiBold" FontSize="12" TextWrapping="Wrap" />
+                                <TextBlock Text="{Binding ArchiveContentsText}" Style="{StaticResource Text.Caption}" Margin="0,5,0,0"
+                                           TextWrapping="Wrap" />
+                            </StackPanel>
+                        </Border>
+
+                        <Border Style="{StaticResource Border.Card}" Padding="0" Margin="0,14,0,0"
+                                Visibility="{Binding HasArchive, Converter={StaticResource BoolToVisibility}}">
+                            <StackPanel>
+                                <Border Background="{DynamicResource Brush.SurfaceAlt}" Padding="12,7"
+                                        BorderBrush="{DynamicResource Brush.Border}" BorderThickness="0,0,0,1">
+                                    <Grid>
+                                        <TextBlock Text="PROFILES IN THIS ARCHIVE" Style="{StaticResource Text.NavSection}" Margin="0" />
+                                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                                            <Button Content="All" Style="{StaticResource Button.Link}"
+                                                    Command="{Binding SelectAllRestoreProfilesCommand}" />
+                                            <Button Content="None" Style="{StaticResource Button.Link}" Margin="8,0,0,0"
+                                                    Command="{Binding ClearRestoreProfilesCommand}" />
+                                        </StackPanel>
+                                    </Grid>
+                                </Border>
+                                <ItemsControl ItemsSource="{Binding RestoreProfiles}" Margin="12,7">
+                                    <ItemsControl.ItemTemplate>
+                                        <DataTemplate DataType="{x:Type vm:RestoreProfileChoiceViewModel}">
+                                            <CheckBox IsChecked="{Binding IsSelected, Mode=TwoWay}" Margin="0,4">
+                                                <StackPanel Orientation="Horizontal">
+                                                    <TextBlock Text="{Binding Name}" FontSize="12" />
+                                                    <TextBlock Text="{Binding Detail}" Style="{StaticResource Text.Caption}"
+                                                               Margin="8,0,0,0" />
+                                                </StackPanel>
+                                            </CheckBox>
+                                        </DataTemplate>
+                                    </ItemsControl.ItemTemplate>
+                                </ItemsControl>
+                            </StackPanel>
+                        </Border>
+                    </StackPanel>
+                </ScrollViewer>
+            </Border>
+
+            <Border Grid.Column="2" Style="{StaticResource Border.Card}" Padding="18,16">
+                <ScrollViewer VerticalScrollBarVisibility="Auto">
+                    <StackPanel>
+                        <TextBlock Text="RESTORE" Style="{StaticResource Text.NavSection}" Margin="0,0,0,10" />
+                        <TextBlock Text="Target browser" Style="{StaticResource Text.Label}" />
+                        <ComboBox ItemsSource="{Binding RestoreTargets}" SelectedItem="{Binding TargetBrowser}"
+                                  DisplayMemberPath="Name" />
+                        <TextBlock Text="The browser must be installed and closed. Existing profiles are never deleted; CTRL+Z only writes the files in the archive."
+                                   Style="{StaticResource Text.Caption}" Margin="0,6,0,0" TextWrapping="Wrap" />
+
+                        <CheckBox Content="Restore as new profiles" IsChecked="{Binding RestoreAsNewProfiles}" Margin="0,16,0,0" />
+                        <TextBlock Text="Recommended. New Profile folders are created and registered in Local State, so current profiles stay intact. Uncheck to merge into the original profile names."
+                                   Style="{StaticResource Text.Caption}" Margin="20,4,0,0" TextWrapping="Wrap" />
+
+                        <Border Style="{StaticResource Border.Inset}" Padding="10,8" Margin="0,16,0,0"
+                                Background="{DynamicResource Brush.WarningSoft}" BorderBrush="{DynamicResource Brush.WarningSoft}">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Text="{StaticResource Icon.Info}" FontFamily="{StaticResource Font.Icons}" FontSize="13"
+                                           Foreground="{DynamicResource Brush.Warning}" Margin="0,0,8,0"
+                                           VerticalAlignment="Top" />
+                                <TextBlock Grid.Column="1" Text="Cookies and saved passwords are not in the archive, so you will sign in again on the new PC. Extensions and their settings are restored."
+                                           Style="{StaticResource Text.Caption}" TextWrapping="Wrap" />
+                            </Grid>
+                        </Border>
+
+                        <Button Content="Restore selected profiles" Style="{StaticResource Button.Primary}" Margin="0,18,0,0"
+                                Command="{Binding RestoreCommand}" IsEnabled="{Binding CanRestore}" MinHeight="38" />
+                        <ProgressBar Value="{Binding RestoreProgress}" Maximum="100" Margin="0,12,0,0"
+                                     Visibility="{Binding IsRestoring, Converter={StaticResource BoolToVisibility}}" />
+                        <TextBlock Text="{Binding RestoreStatus}" Style="{StaticResource Text.Caption}" Margin="0,7,0,0"
+                                   TextWrapping="Wrap" />
+                        <Button Content="Cancel" Style="{StaticResource Button.Ghost}" Margin="0,4,0,0"
+                                HorizontalAlignment="Left" Command="{Binding CancelOperationCommand}"
+                                Visibility="{Binding IsRestoring, Converter={StaticResource BoolToVisibility}}" />
+                    </StackPanel>
+                </ScrollViewer>
+            </Border>
+        </Grid>
+    </Grid>
+</UserControl>

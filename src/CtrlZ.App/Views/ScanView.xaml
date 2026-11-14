@@ -1,0 +1,339 @@
+<UserControl x:Class="CtrlZ.App.Views.ScanView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:controls="clr-namespace:CtrlZ.App.Controls"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             d:DesignHeight="620" d:DesignWidth="900"
+             Focusable="False">
+    <UserControl.InputBindings>
+        <KeyBinding Key="F5" Command="{Binding ScanCommand}" />
+    </UserControl.InputBindings>
+
+    <UserControl.Resources>
+        <DataTemplate x:Key="ScanRowTemplate">
+            <Border BorderBrush="{DynamicResource Brush.Border}" BorderThickness="0,0,0,1" Padding="6,9">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="30" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="98" />
+                        <ColumnDefinition Width="172" />
+                        <ColumnDefinition Width="56" />
+                    </Grid.ColumnDefinitions>
+
+                    <CheckBox IsChecked="{Binding IsSelected, Mode=TwoWay}" VerticalAlignment="Center"
+                              AutomationProperties.Name="Include app" />
+
+                    <StackPanel Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center">
+                        <controls:AppIcon IconPath="{Binding IconPath}" FallbackText="{Binding Name}" Size="30"
+                                          VerticalAlignment="Center" />
+                        <StackPanel Margin="10,0,8,0" VerticalAlignment="Center">
+                            <TextBlock Text="{Binding Name}" FontWeight="SemiBold" FontSize="12.5"
+                                       TextTrimming="CharacterEllipsis" />
+                            <TextBlock Text="{Binding Meta}" Style="{StaticResource Text.Caption}" Margin="0,2,0,0"
+                                       TextTrimming="CharacterEllipsis" />
+                        </StackPanel>
+                    </StackPanel>
+
+                    <Border Grid.Column="2" Style="{StaticResource Border.Pill}" HorizontalAlignment="Left"
+                            Padding="8,2" ToolTip="{Binding PackageLabel}">
+                        <TextBlock Text="{Binding SourceLabel}" FontSize="10.5" Foreground="{DynamicResource Brush.TextSecondary}" />
+                    </Border>
+
+                    <StackPanel Grid.Column="3" VerticalAlignment="Center">
+                        <Border HorizontalAlignment="Left" CornerRadius="10" Padding="8,2" BorderThickness="1">
+                            <Border.Style>
+                                <Style TargetType="Border">
+                                    <Setter Property="Background" Value="{DynamicResource Brush.SuccessSoft}" />
+                                    <Setter Property="BorderBrush" Value="Transparent" />
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding MatchState}" Value="unmatched">
+                                            <Setter Property="Background" Value="{DynamicResource Brush.WarningSoft}" />
+                                        </DataTrigger>
+                                        <DataTrigger Binding="{Binding MatchState}" Value="weak">
+                                            <Setter Property="Background" Value="{DynamicResource Brush.WarningSoft}" />
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Border.Style>
+                            <TextBlock Text="{Binding MatchText}" FontSize="10.5" FontWeight="SemiBold">
+                                <TextBlock.Style>
+                                    <Style TargetType="TextBlock">
+                                        <Setter Property="Foreground" Value="{DynamicResource Brush.Success}" />
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding MatchState}" Value="unmatched">
+                                                <Setter Property="Foreground" Value="{DynamicResource Brush.Warning}" />
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding MatchState}" Value="weak">
+                                                <Setter Property="Foreground" Value="{DynamicResource Brush.Warning}" />
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </TextBlock.Style>
+                            </TextBlock>
+                        </Border>
+                        <TextBlock Text="{Binding PackageLabel}" Style="{StaticResource Text.Caption}"
+                                   FontFamily="{StaticResource Font.Mono}" FontSize="10" Margin="1,4,0,0"
+                                   TextTrimming="CharacterEllipsis" MaxWidth="165" />
+                    </StackPanel>
+
+                    <Button Grid.Column="4" Content="Fix" Style="{StaticResource Button.Link}"
+                            Command="{Binding DataContext.FixMatchCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                            CommandParameter="{Binding}"
+                            Visibility="{Binding NeedsReview, Converter={StaticResource BoolToVisibility}}"
+                            ToolTip="Assign a winget package id manually" />
+                </Grid>
+            </Border>
+        </DataTemplate>
+
+        <GroupStyle x:Key="ScanGroupStyle">
+            <GroupStyle.HeaderTemplate>
+                <DataTemplate>
+                    <Grid Margin="4,12,4,5">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="{Binding Name}" FontSize="11" FontWeight="SemiBold"
+                                       Foreground="{DynamicResource Brush.TextSecondary}" />
+                            <Border Background="{DynamicResource Brush.SurfacePressed}" CornerRadius="8" Padding="6,1"
+                                    Margin="8,0,0,0" VerticalAlignment="Center">
+                                <TextBlock Text="{Binding ItemCount}" FontSize="9.5"
+                                           Foreground="{DynamicResource Brush.TextSecondary}" />
+                            </Border>
+                        </StackPanel>
+                        <Border Grid.Column="1" Height="1" Width="70" Background="{DynamicResource Brush.Border}"
+                                VerticalAlignment="Center" />
+                    </Grid>
+                </DataTemplate>
+            </GroupStyle.HeaderTemplate>
+        </GroupStyle>
+    </UserControl.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <!-- toolbar -->
+        <Grid Grid.Row="0" Margin="0,0,0,12">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+
+            <Button Command="{Binding ScanCommand}" Style="{StaticResource Button.Primary}" MinWidth="116"
+                    Visibility="{Binding IsScanning, Converter={StaticResource InverseBoolToVisibility}}">
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="{StaticResource Icon.Refresh}" FontFamily="{StaticResource Font.Icons}"
+                               FontSize="13" Foreground="White" Margin="0,0,8,0" VerticalAlignment="Center" />
+                    <TextBlock Text="Scan this PC" Style="{StaticResource Text.Button}" Foreground="White" />
+                </StackPanel>
+            </Button>
+            <Button Command="{Binding CancelScanCommand}" Style="{StaticResource Button.Secondary}" MinWidth="116"
+                    Content="Cancel scan" Visibility="{Binding IsScanning, Converter={StaticResource BoolToVisibility}}" />
+
+            <StackPanel Grid.Column="2" Orientation="Horizontal" VerticalAlignment="Center">
+                <Grid Width="230" Margin="0,0,8,0">
+                    <TextBox x:Name="SearchBox" Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}"
+                             Padding="30,7,10,7" MinHeight="34" AutomationProperties.Name="Search programs" />
+                    <TextBlock Text="{StaticResource Icon.Search}" FontFamily="{StaticResource Font.Icons}" FontSize="12"
+                               Foreground="{DynamicResource Brush.TextTertiary}" Margin="10,0,0,0"
+                               VerticalAlignment="Center" IsHitTestVisible="False" />
+                    <TextBlock Text="Search programs" Foreground="{DynamicResource Brush.TextTertiary}" FontSize="12"
+                               Margin="31,0,0,0" VerticalAlignment="Center" IsHitTestVisible="False">
+                        <TextBlock.Style>
+                            <Style TargetType="TextBlock">
+                                <Setter Property="Visibility" Value="Collapsed" />
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding Text, ElementName=SearchBox}" Value="">
+                                        <Setter Property="Visibility" Value="Visible" />
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </TextBlock.Style>
+                    </TextBlock>
+                </Grid>
+
+                <ComboBox ItemsSource="{Binding Categories}" SelectedItem="{Binding SelectedCategory}"
+                          Width="134" Margin="0,0,8,0" AutomationProperties.Name="Filter by category" />
+
+                <Border Style="{StaticResource Border.Inset}" Padding="2" Margin="0,0,8,0">
+                    <StackPanel Orientation="Horizontal">
+                        <ToggleButton Content="Category" Style="{StaticResource Toggle.Pill}"
+                                      IsChecked="{Binding IsGroupedByCategory, Mode=OneWay}"
+                                      Command="{Binding SetGroupCategoryCommand}" />
+                        <ToggleButton Content="Source" Style="{StaticResource Toggle.Pill}"
+                                      IsChecked="{Binding GroupBySource, Mode=OneWay}"
+                                      Command="{Binding SetGroupSourceCommand}" />
+                    </StackPanel>
+                </Border>
+
+                <CheckBox Content="Unmatched" IsChecked="{Binding ShowUnmatchedOnly}" VerticalAlignment="Center" />
+            </StackPanel>
+        </Grid>
+
+        <!-- status strip -->
+        <Grid Grid.Row="1" Margin="0,0,0,12">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="{Binding ScanStatus}" Style="{StaticResource Text.Secondary}" VerticalAlignment="Center" />
+                <TextBlock Text="{Binding LastScanText}" Style="{StaticResource Text.Caption}" Margin="10,0,0,0"
+                           VerticalAlignment="Center" />
+            </StackPanel>
+            <StackPanel Grid.Column="1" Orientation="Horizontal">
+                <Border Style="{StaticResource Border.Pill}" Margin="0,0,6,0">
+                    <TextBlock FontSize="10.5" Foreground="{DynamicResource Brush.TextSecondary}">
+                        <Run Text="{Binding TotalCount, Mode=OneWay}" /><Run Text=" total" />
+                    </TextBlock>
+                </Border>
+                <Border Style="{StaticResource Border.Pill}" Margin="0,0,6,0" Background="{DynamicResource Brush.SuccessSoft}">
+                    <TextBlock FontSize="10.5" Foreground="{DynamicResource Brush.Success}">
+                        <Run Text="{Binding MatchedCount, Mode=OneWay}" /><Run Text=" matched" />
+                    </TextBlock>
+                </Border>
+                <Border Style="{StaticResource Border.Pill}" Background="{DynamicResource Brush.WarningSoft}">
+                    <TextBlock FontSize="10.5" Foreground="{DynamicResource Brush.Warning}">
+                        <Run Text="{Binding UnmatchedCount, Mode=OneWay}" /><Run Text=" unmatched" />
+                    </TextBlock>
+                </Border>
+            </StackPanel>
+        </Grid>
+
+        <!-- content -->
+        <Grid Grid.Row="2">
+            <!-- scanning -->
+            <Border Style="{StaticResource Border.Card}" Padding="30"
+                    Visibility="{Binding IsScanning, Converter={StaticResource BoolToVisibility}}">
+                <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" MaxWidth="460">
+                    <Border Width="54" Height="54" CornerRadius="27" Background="{DynamicResource Brush.AccentSoft}"
+                            HorizontalAlignment="Center">
+                        <TextBlock Text="{StaticResource Icon.Search}" FontFamily="{StaticResource Font.Icons}"
+                                   FontSize="24" Foreground="{DynamicResource Brush.Accent}"
+                                   HorizontalAlignment="Center" VerticalAlignment="Center" />
+                    </Border>
+                    <TextBlock Text="Reading installed programs" Style="{StaticResource Text.SectionTitle}"
+                               HorizontalAlignment="Center" Margin="0,18,0,6" />
+                    <TextBlock Text="{Binding ScanStatus}" Style="{StaticResource Text.Secondary}"
+                               HorizontalAlignment="Center" TextAlignment="Center" />
+                    <ProgressBar Value="{Binding ScanProgress}" Maximum="1" Margin="0,22,0,0" Width="340" />
+                    <Button Content="Cancel" Style="{StaticResource Button.Ghost}" HorizontalAlignment="Center"
+                            Margin="0,14,0,0" Command="{Binding CancelScanCommand}" />
+                </StackPanel>
+            </Border>
+
+            <!-- empty -->
+            <Border Style="{StaticResource Border.Card}" Padding="30"
+                    Visibility="{Binding HasScanned, Converter={StaticResource InverseBoolToVisibility}}">
+                <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" MaxWidth="520">
+                    <Border Width="52" Height="52" CornerRadius="26" Background="{DynamicResource Brush.AccentSoft}"
+                            HorizontalAlignment="Center">
+                        <TextBlock Text="{StaticResource Icon.PC}" FontFamily="{StaticResource Font.Icons}" FontSize="23"
+                                   Foreground="{DynamicResource Brush.Accent}" HorizontalAlignment="Center"
+                                   VerticalAlignment="Center" />
+                    </Border>
+                    <TextBlock Text="Start with this PC" Style="{StaticResource Text.SectionTitle}"
+                               HorizontalAlignment="Center" Margin="0,18,0,6" />
+                    <TextBlock Text="CTRL+Z reads winget, the Windows registry, and your Store apps, then finds winget package ids for each one. Nothing leaves this machine."
+                               Style="{StaticResource Text.Secondary}" TextAlignment="Center" TextWrapping="Wrap" />
+                    <Button Content="Scan this PC" Style="{StaticResource Button.Primary}" HorizontalAlignment="Center"
+                            Margin="0,20,0,0" MinWidth="130" Command="{Binding ScanCommand}" />
+                    <TextBlock Text="F5 also starts a scan" Style="{StaticResource Text.Caption}"
+                               HorizontalAlignment="Center" Margin="0,10,0,0" />
+                </StackPanel>
+            </Border>
+
+            <!-- results -->
+            <Border Style="{StaticResource Border.Card}" Padding="0"
+                    Visibility="{Binding HasScanned, Converter={StaticResource BoolToVisibility}}">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+
+                    <Border Grid.Row="0" Background="{DynamicResource Brush.SurfaceAlt}" Padding="10,8"
+                            BorderBrush="{DynamicResource Brush.Border}" BorderThickness="0,0,0,1"
+                            Visibility="{Binding HasApps, Converter={StaticResource BoolToVisibility}}">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="30" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="98" />
+                                <ColumnDefinition Width="172" />
+                                <ColumnDefinition Width="56" />
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Grid.Column="1" Text="PROGRAM" Style="{StaticResource Text.NavSection}" Margin="16,0,0,0" />
+                            <TextBlock Grid.Column="2" Text="SOURCE" Style="{StaticResource Text.NavSection}" Margin="0" />
+                            <TextBlock Grid.Column="3" Text="WINGET MATCH" Style="{StaticResource Text.NavSection}" Margin="0" />
+                        </Grid>
+                    </Border>
+
+                    <ListView Grid.Row="1" ItemsSource="{Binding ItemsView}"
+                              ItemTemplate="{StaticResource ScanRowTemplate}"
+                              ItemContainerStyle="{StaticResource {x:Type ListBoxItem}}"
+                              BorderThickness="0" Background="Transparent"
+                              ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                              VirtualizingPanel.IsVirtualizing="True"
+                              VirtualizingPanel.VirtualizationMode="Recycling"
+                              VirtualizingPanel.IsVirtualizingWhenGrouping="True"
+                              SelectionMode="Single">
+                        <ListView.GroupStyle>
+                            <StaticResource ResourceKey="ScanGroupStyle" />
+                        </ListView.GroupStyle>
+                    </ListView>
+
+                    <TextBlock Text="No programs match these filters." Style="{StaticResource Text.Secondary}"
+                               HorizontalAlignment="Center" VerticalAlignment="Center"
+                               Visibility="{Binding HasApps, Converter={StaticResource InverseBoolToVisibility}}" />
+                </Grid>
+            </Border>
+        </Grid>
+
+        <!-- warning -->
+        <Border Grid.Row="2" Style="{StaticResource Border.Inset}" Background="{DynamicResource Brush.WarningSoft}"
+                BorderBrush="{DynamicResource Brush.Warning}" Padding="12,8" VerticalAlignment="Bottom"
+                Margin="0,0,0,12" Visibility="{Binding HasWarning, Converter={StaticResource BoolToVisibility}}">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <TextBlock Text="{StaticResource Icon.Info}" FontFamily="{StaticResource Font.Icons}" FontSize="13"
+                           Foreground="{DynamicResource Brush.Warning}" Margin="0,0,8,0" VerticalAlignment="Top" />
+                <TextBlock Grid.Column="1" Text="{Binding WarningText}" FontSize="11.5"
+                           Foreground="{DynamicResource Brush.Warning}" TextWrapping="Wrap" />
+            </Grid>
+        </Border>
+
+        <!-- footer actions -->
+        <Border Grid.Row="3" Style="{StaticResource Border.Inset}" Padding="12,9" Margin="0,12,0,0"
+                Visibility="{Binding HasScanned, Converter={StaticResource BoolToVisibility}}">
+            <Grid>
+                <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                    <TextBlock Text="{Binding SelectionText}" Style="{StaticResource Text.Secondary}" />
+                    <Button Content="Select matched" Style="{StaticResource Button.Link}" Margin="14,0,0,0"
+                            Command="{Binding SelectMatchedCommand}" />
+                    <Button Content="Clear" Style="{StaticResource Button.Link}" Margin="10,0,0,0"
+                            Command="{Binding ClearSelectionCommand}" />
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                    <Button Content="Save as profile…" Style="{StaticResource Button.Secondary}" Margin="0,0,8,0"
+                            Command="{Binding SaveAsProfileCommand}" />
+                    <Button Content="Add to My Apps" Style="{StaticResource Button.Primary}" MinWidth="122"
+                            Command="{Binding AddSelectedCommand}" IsEnabled="{Binding CanAddSelection}" />
+                </StackPanel>
+            </Grid>
+        </Border>
+    </Grid>
+</UserControl>

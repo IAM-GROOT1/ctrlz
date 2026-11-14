@@ -1,0 +1,23 @@
+# Build output
+bin/
+obj/
+artifacts/
+dist/
+publish/
+*.user
+*.suo
+.vs/
+.idea/
+
+# Local toolchain and secrets
+.tools/
+.env
+.env.*
+*.pfx
+*.snk
+
+# Runtime data
+Data/
+*.log
+TestResults/
+coverage/

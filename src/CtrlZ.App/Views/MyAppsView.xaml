@@ -1,0 +1,290 @@
+<UserControl x:Class="CtrlZ.App.Views.MyAppsView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:controls="clr-namespace:CtrlZ.App.Controls"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignHeight="620" d:DesignWidth="900">
+    <UserControl.Resources>
+        <DataTemplate x:Key="ProfileAppTemplate">
+            <Border BorderBrush="{DynamicResource Brush.Border}" BorderThickness="0,0,0,1" Padding="6,8">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="30" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="96" />
+                        <ColumnDefinition Width="220" />
+                        <ColumnDefinition Width="124" />
+                    </Grid.ColumnDefinitions>
+
+                    <CheckBox IsChecked="{Binding IsIncluded, Mode=TwoWay}" VerticalAlignment="Center"
+                              ToolTip="Include in installs" AutomationProperties.Name="Include in installs" />
+
+                    <StackPanel Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center">
+                        <controls:AppIcon IconPath="{Binding IconPath}" FallbackText="{Binding Name}" Size="30" />
+                        <StackPanel Margin="10,0,10,0" VerticalAlignment="Center">
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="{Binding Name}" FontWeight="SemiBold" FontSize="12.5"
+                                           TextTrimming="CharacterEllipsis" />
+                                <Border Background="{DynamicResource Brush.WarningSoft}" CornerRadius="8" Padding="6,1"
+                                        Margin="8,0,0,0" VerticalAlignment="Center"
+                                        Visibility="{Binding NeedsAttention, Converter={StaticResource BoolToVisibility}}">
+                                    <TextBlock Text="Needs id" FontSize="9.5" Foreground="{DynamicResource Brush.Warning}" />
+                                </Border>
+                            </StackPanel>
+                            <TextBlock Text="{Binding Meta}" Style="{StaticResource Text.Caption}" Margin="0,2,0,0"
+                                       TextTrimming="CharacterEllipsis" />
+                        </StackPanel>
+                    </StackPanel>
+
+                    <Border Grid.Column="2" Style="{StaticResource Border.Pill}" HorizontalAlignment="Left">
+                        <TextBlock Text="{Binding SourceLabel}" FontSize="10.5" Foreground="{DynamicResource Brush.TextSecondary}" />
+                    </Border>
+
+                    <TextBlock Grid.Column="3" Text="{Binding InstallSummary}" Style="{StaticResource Text.Caption}"
+                               VerticalAlignment="Center" TextTrimming="CharacterEllipsis" Margin="0,0,10,0"
+                               ToolTip="{Binding InstallSummary}" />
+
+                    <StackPanel Grid.Column="4" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center">
+                        <Button Style="{StaticResource Button.Icon}" Width="26" Height="26"
+                                Command="{Binding DataContext.MoveUpCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                                CommandParameter="{Binding}" ToolTip="Move earlier">
+                            <TextBlock Text="{StaticResource Icon.Up}" FontFamily="{StaticResource Font.Icons}" FontSize="12" />
+                        </Button>
+                        <Button Style="{StaticResource Button.Icon}" Width="26" Height="26"
+                                Command="{Binding DataContext.MoveDownCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                                CommandParameter="{Binding}" ToolTip="Move later">
+                            <TextBlock Text="{StaticResource Icon.Down}" FontFamily="{StaticResource Font.Icons}" FontSize="12" />
+                        </Button>
+                        <Button Style="{StaticResource Button.Icon}" Width="26" Height="26"
+                                Command="{Binding DataContext.EditAppCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                                CommandParameter="{Binding}" ToolTip="Edit app">
+                            <TextBlock Text="{StaticResource Icon.Edit}" FontFamily="{StaticResource Font.Icons}" FontSize="12" />
+                        </Button>
+                        <Button Style="{StaticResource Button.Icon}" Width="26" Height="26"
+                                Command="{Binding DataContext.RemoveAppCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                                CommandParameter="{Binding}" ToolTip="Remove from profile">
+                            <TextBlock Text="{StaticResource Icon.Delete}" FontFamily="{StaticResource Font.Icons}" FontSize="12" />
+                        </Button>
+                    </StackPanel>
+                </Grid>
+            </Border>
+        </DataTemplate>
+
+        <GroupStyle x:Key="AppsGroupStyle">
+            <GroupStyle.HeaderTemplate>
+                <DataTemplate>
+                    <Grid Margin="4,12,4,5">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="{Binding Name}" FontSize="11" FontWeight="SemiBold"
+                                       Foreground="{DynamicResource Brush.TextSecondary}" />
+                            <Border Background="{DynamicResource Brush.SurfacePressed}" CornerRadius="8" Padding="6,1"
+                                    Margin="8,0,0,0" VerticalAlignment="Center">
+                                <TextBlock Text="{Binding ItemCount}" FontSize="9.5"
+                                           Foreground="{DynamicResource Brush.TextSecondary}" />
+                            </Border>
+                        </StackPanel>
+                    </Grid>
+                </DataTemplate>
+            </GroupStyle.HeaderTemplate>
+        </GroupStyle>
+    </UserControl.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <!-- profile bar -->
+        <Border Grid.Row="0" Style="{StaticResource Border.Card}" Padding="12,10" Margin="0,0,0,12">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+                <TextBlock Text="Profile" Style="{StaticResource Text.Label}" VerticalAlignment="Center" Margin="2,0,10,0" />
+                <ComboBox Grid.Column="1" Width="230" ItemsSource="{Binding Profiles}"
+                          SelectedItem="{Binding SelectedProfile, Mode=TwoWay}" MinHeight="34">
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Text="{Binding Name}" TextTrimming="CharacterEllipsis" />
+                                <TextBlock Grid.Column="1" Text="{Binding AppCount}" Style="{StaticResource Text.Caption}"
+                                           Margin="10,0,0,0" />
+                            </Grid>
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
+                </ComboBox>
+                <StackPanel Grid.Column="2" Orientation="Horizontal" Margin="10,0,0,0">
+                    <Button Style="{StaticResource Button.Icon}" Command="{Binding NewProfileCommand}"
+                            ToolTip="New profile" AutomationProperties.Name="New profile">
+                        <TextBlock Text="{StaticResource Icon.Add}" FontFamily="{StaticResource Font.Icons}" FontSize="12" />
+                    </Button>
+                    <Button Style="{StaticResource Button.Icon}" Command="{Binding RenameProfileCommand}"
+                            ToolTip="Rename profile" AutomationProperties.Name="Rename profile">
+                        <TextBlock Text="{StaticResource Icon.Edit}" FontFamily="{StaticResource Font.Icons}" FontSize="12" />
+                    </Button>
+                    <Button Style="{StaticResource Button.Icon}" Command="{Binding ImportProfileCommand}"
+                            ToolTip="Import profile" AutomationProperties.Name="Import profile">
+                        <TextBlock Text="{StaticResource Icon.Folder}" FontFamily="{StaticResource Font.Icons}" FontSize="12" />
+                    </Button>
+                    <Button Style="{StaticResource Button.Icon}" Command="{Binding ExportProfileCommand}"
+                            ToolTip="Export profile" AutomationProperties.Name="Export profile">
+                        <TextBlock Text="{StaticResource Icon.Save}" FontFamily="{StaticResource Font.Icons}" FontSize="12" />
+                    </Button>
+                    <Button Style="{StaticResource Button.Icon}" Command="{Binding DeleteProfileCommand}"
+                            Foreground="{DynamicResource Brush.Danger}" ToolTip="Delete profile"
+                            AutomationProperties.Name="Delete profile">
+                        <TextBlock Text="{StaticResource Icon.Delete}" FontFamily="{StaticResource Font.Icons}" FontSize="12" />
+                    </Button>
+                </StackPanel>
+                <StackPanel Grid.Column="3" Orientation="Horizontal" VerticalAlignment="Center">
+                    <Button Style="{StaticResource Button.Primary}" Command="{Binding InstallAppsCommand}"
+                            IsEnabled="{Binding CanInstall}" MinWidth="108">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="{StaticResource Icon.Install}" FontFamily="{StaticResource Font.Icons}"
+                                       FontSize="13" Foreground="White" Margin="0,0,7,0" />
+                            <TextBlock Text="Install" Style="{StaticResource Text.Button}" Foreground="White" />
+                        </StackPanel>
+                    </Button>
+                </StackPanel>
+            </Grid>
+        </Border>
+
+        <!-- filters -->
+        <Grid Grid.Row="1" Margin="0,0,0,10">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+            <StackPanel Orientation="Horizontal">
+                <Grid Width="270">
+                    <TextBox x:Name="SearchBox" Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}"
+                             Padding="30,7,10,7" />
+                    <TextBlock Text="{StaticResource Icon.Search}" FontFamily="{StaticResource Font.Icons}" FontSize="12"
+                               Foreground="{DynamicResource Brush.TextTertiary}" Margin="10,0,0,0"
+                               VerticalAlignment="Center" IsHitTestVisible="False" />
+                    <TextBlock Text="Search this profile" Foreground="{DynamicResource Brush.TextTertiary}" FontSize="12"
+                               Margin="31,0,0,0" VerticalAlignment="Center" IsHitTestVisible="False">
+                        <TextBlock.Style>
+                            <Style TargetType="TextBlock">
+                                <Setter Property="Visibility" Value="Collapsed" />
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding Text, ElementName=SearchBox}" Value="">
+                                        <Setter Property="Visibility" Value="Visible" />
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </TextBlock.Style>
+                    </TextBlock>
+                </Grid>
+                <TextBlock Text="{Binding SelectionText}" Style="{StaticResource Text.Secondary}" Margin="14,0,0,0"
+                           VerticalAlignment="Center" />
+            </StackPanel>
+            <StackPanel Grid.Column="1" Orientation="Horizontal">
+                <Border Style="{StaticResource Border.Inset}" Padding="2" Margin="0,0,10,0">
+                    <StackPanel Orientation="Horizontal">
+                        <ToggleButton Content="Source" Style="{StaticResource Toggle.Pill}"
+                                      IsChecked="{Binding GroupBySource, Mode=OneWay}"
+                                      Command="{Binding ToggleGroupingCommand}" CommandParameter="source" />
+                        <ToggleButton Content="Category"
+                                      Command="{Binding ToggleGroupingCommand}" CommandParameter="category">
+                            <ToggleButton.Style>
+                                <Style TargetType="ToggleButton" BasedOn="{StaticResource Toggle.Pill}">
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding GroupBySource}" Value="False">
+                                            <Setter Property="Background" Value="{DynamicResource Brush.AccentSoft}" />
+                                            <Setter Property="Foreground" Value="{DynamicResource Brush.Accent}" />
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </ToggleButton.Style>
+                        </ToggleButton>
+                    </StackPanel>
+                </Border>
+                <Button Content="Add app" Style="{StaticResource Button.Secondary}" Command="{Binding AddAppCommand}" />
+            </StackPanel>
+        </Grid>
+
+        <!-- list -->
+        <Border Grid.Row="2" Style="{StaticResource Border.Card}" Padding="0">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+                <Border Grid.Row="0" Background="{DynamicResource Brush.SurfaceAlt}" Padding="10,7"
+                        BorderBrush="{DynamicResource Brush.Border}" BorderThickness="0,0,0,1"
+                        Visibility="{Binding HasApps, Converter={StaticResource BoolToVisibility}}">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="30" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="96" />
+                            <ColumnDefinition Width="220" />
+                            <ColumnDefinition Width="124" />
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Grid.Column="1" Text="APP" Style="{StaticResource Text.NavSection}" Margin="16,0,0,0" />
+                        <TextBlock Grid.Column="2" Text="SOURCE" Style="{StaticResource Text.NavSection}" Margin="0" />
+                        <TextBlock Grid.Column="3" Text="INSTALL METHOD" Style="{StaticResource Text.NavSection}" Margin="0" />
+                    </Grid>
+                </Border>
+
+                <ListView Grid.Row="1" ItemsSource="{Binding AppsView}" ItemTemplate="{StaticResource ProfileAppTemplate}"
+                          ItemContainerStyle="{StaticResource {x:Type ListBoxItem}}"
+                          BorderThickness="0" Background="Transparent" Padding="0"
+                          ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                          VirtualizingPanel.IsVirtualizing="True"
+                          VirtualizingPanel.VirtualizationMode="Recycling"
+                          VirtualizingPanel.IsVirtualizingWhenGrouping="True"
+                          Visibility="{Binding HasApps, Converter={StaticResource BoolToVisibility}}">
+                    <ListView.GroupStyle>
+                        <StaticResource ResourceKey="AppsGroupStyle" />
+                    </ListView.GroupStyle>
+                </ListView>
+
+                <StackPanel Grid.RowSpan="2" VerticalAlignment="Center" HorizontalAlignment="Center" MaxWidth="460"
+                            Visibility="{Binding IsEmpty, Converter={StaticResource BoolToVisibility}}">
+                    <Border Width="52" Height="52" CornerRadius="26" Background="{DynamicResource Brush.AccentSoft}"
+                            HorizontalAlignment="Center">
+                        <TextBlock Text="{StaticResource Icon.Apps}" FontFamily="{StaticResource Font.Icons}" FontSize="22"
+                                   Foreground="{DynamicResource Brush.Accent}" HorizontalAlignment="Center"
+                                   VerticalAlignment="Center" />
+                    </Border>
+                    <TextBlock Text="This profile is empty" Style="{StaticResource Text.SectionTitle}"
+                               HorizontalAlignment="Center" Margin="0,16,0,4" />
+                    <TextBlock Text="Scan this PC to build the list automatically, or browse the catalog and add apps by hand."
+                               Style="{StaticResource Text.Secondary}" TextAlignment="Center" TextWrapping="Wrap" />
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,18,0,0">
+                        <Button Content="Scan this PC" Style="{StaticResource Button.Primary}" Command="{Binding ScanCommand}"
+                                Margin="0,0,8,0" />
+                        <Button Content="Browse catalog" Style="{StaticResource Button.Secondary}"
+                                Command="{Binding BrowseCatalogCommand}" />
+                    </StackPanel>
+                </StackPanel>
+            </Grid>
+        </Border>
+
+        <!-- footer -->
+        <Grid Grid.Row="3" Margin="0,12,0,0">
+            <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                <TextBlock Text="{Binding StatusMessage}" Style="{StaticResource Text.Caption}" />
+                <TextBlock Text=" · " Style="{StaticResource Text.Caption}" />
+                <Button Content="Select all" Style="{StaticResource Button.Link}" Command="{Binding SelectAllSourcesCommand}" />
+                <TextBlock Text=" · " Style="{StaticResource Text.Caption}" />
+                <Button Content="Add apps" Style="{StaticResource Button.Link}" Command="{Binding AddAppCommand}" />
+            </StackPanel>
+            <TextBlock Text="{Binding AppCountText}" Style="{StaticResource Text.Caption}" HorizontalAlignment="Right"
+                       VerticalAlignment="Center" />
+        </Grid>
+    </Grid>
+</UserControl>
