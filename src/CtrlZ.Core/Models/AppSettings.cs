@@ -11,4 +11,7 @@ public sealed class AppSettings
     public double WindowWidth { get; set; } = 1180;
     public double WindowHeight { get; set; } = 760;
     public bool HasCompletedOnboarding { get; set; }
+    public string? LicenseServerUrl { get; set; }
+    public string? ProPurchaseUrl { get; set; } = "https://example.com/ctrlz-pro";
+    public int LicenseGraceDays { get; set; } = 30;
 }
