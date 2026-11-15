@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" role="img" aria-labelledby="title">
+  <title id="title">CTRL+Z</title>
+  <rect x="64" y="64" width="896" height="896" rx="200" fill="#E06B3F"/>
+  <g fill="#FFFFFF">
+    <rect x="512" y="202" width="276" height="34" rx="17"/>
+    <path d="M202 340H581V375L235 650H581V685H167V650L512 375H202Z"/>
+  </g>
+</svg>
