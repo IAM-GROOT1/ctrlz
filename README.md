@@ -349,3 +349,9 @@ permissions, and the absence of cookies/passwords).
 ## License
 
 MIT. See [`LICENSE`](LICENSE).
+
+
+## Brand assets
+
+The standalone CTRL+Z logo — an ember rounded square with a white Z and a dash above it — is in
+[`branding/`](branding/). SVG, transparent PNG marks, and a multi-size Windows ICO are included.
