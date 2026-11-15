@@ -1,6 +1,8 @@
 using CtrlZ.Core.Install;
 using CtrlZ.Core.Infrastructure;
+using CtrlZ.Core.Licensing;
 using CtrlZ.Core.Logging;
+using CtrlZ.Core.Pro;
 using CtrlZ.Core.Services;
 
 namespace CtrlZ.App.Services;
@@ -42,6 +44,9 @@ public sealed class AppServices : IDisposable
     public BrowserArchiveReader BrowserArchiveReader { get; private init; } = null!;
     public BrowserRestoreService BrowserRestore { get; private init; } = null!;
     public WinUtilCatalogService Catalog { get; private init; } = null!;
+    public LicenseService License { get; private init; } = null!;
+    public ProModuleLoadResult ProModule { get; private init; } = null!;
+    public ProServiceRegistry ProServices { get; private init; } = null!;
 
     public static AppServices Create()
     {
@@ -75,6 +80,21 @@ public sealed class AppServices : IDisposable
         var browserProcesses = new BrowserProcessService(log);
         var archiveReader = new BrowserArchiveReader();
         var catalog = new WinUtilCatalogService(paths, downloads, log);
+        var license = new LicenseService(
+            paths, log, settingsStore, new LicenseStore(paths.LicenseFile, log));
+        var proModule = ProModuleLoader.Load(paths, log);
+        var proServices = new ProServiceRegistry(log);
+        if (proModule.Module is not null)
+        {
+            try
+            {
+                proModule.Module.RegisterServices(proServices);
+            }
+            catch (Exception ex)
+            {
+                log.Write(LogLevel.Error, "The Pro module failed while registering services.", ex);
+            }
+        }
 
         return new AppServices(paths, log, settingsStore, profiles, state)
         {
@@ -92,12 +112,16 @@ public sealed class AppServices : IDisposable
             BrowserBackups = new BrowserBackupService(paths, log, browserProcesses),
             BrowserArchiveReader = archiveReader,
             BrowserRestore = new BrowserRestoreService(paths, log, browserProcesses, archiveReader),
-            Catalog = catalog
+            Catalog = catalog,
+            License = license,
+            ProModule = proModule,
+            ProServices = proServices
         };
     }
 
     public void Dispose()
     {
+        License.Dispose();
         Log.Write(LogLevel.Info, "CTRL+Z shutting down.");
         Log.Dispose();
     }

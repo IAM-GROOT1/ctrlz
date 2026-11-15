@@ -32,6 +32,19 @@ public partial class App : Application
             MainWindow = window;
             window.Show();
             await _main.InitializeAsync();
+
+            // Revalidate quietly. Never block startup or show a popup for license errors.
+            _ = Task.Run(async () =>
+            {
+                try
+                {
+                    await _services.License.InitializeAsync();
+                }
+                catch (Exception ex)
+                {
+                    _services.Log.Write(LogLevel.Warning, "License startup check failed.", ex);
+                }
+            });
         }
         catch (Exception ex)
         {

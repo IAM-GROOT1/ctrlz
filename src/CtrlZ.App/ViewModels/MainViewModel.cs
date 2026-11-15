@@ -25,6 +25,7 @@ public sealed partial class MainViewModel : ObservableObject, IDisposable
         Browsers = new BrowsersViewModel(services, dialogs, this);
         Install = new InstallViewModel(services, dialogs, this);
         Settings = new SettingsViewModel(services, dialogs, this, theme);
+        Pro = new ProViewModel(services, dialogs, this);
         SettingsNav = new NavItem("settings", "Settings", "\uE713", Settings);
         SettingsNavItems = [SettingsNav];
 
@@ -43,6 +44,10 @@ public sealed partial class MainViewModel : ObservableObject, IDisposable
         [
             new NavItem("browsers", "Browsers", "\uE774", Browsers)
         ];
+        ProNav =
+        [
+            new NavItem("pro", "Pro", "\uE72E", Pro, "PRO")
+        ];
 
         _currentPage = autoInstall ? Install : Scan;
         SetCurrent(autoInstall ? WorkspaceNav[2] : WorkspaceNav[0]);
@@ -59,10 +64,12 @@ public sealed partial class MainViewModel : ObservableObject, IDisposable
     public BrowsersViewModel Browsers { get; }
     public InstallViewModel Install { get; }
     public SettingsViewModel Settings { get; }
+    public ProViewModel Pro { get; }
 
     public ObservableCollection<NavItem> WorkspaceNav { get; }
     public ObservableCollection<NavItem> DiscoverNav { get; }
     public ObservableCollection<NavItem> BrowsersNav { get; }
+    public ObservableCollection<NavItem> ProNav { get; }
     public ObservableCollection<NavItem> SettingsNavItems { get; }
     public bool AutoInstallOnStartup { get; }
     public AppState State => _services.State;
@@ -76,7 +83,8 @@ public sealed partial class MainViewModel : ObservableObject, IDisposable
     [ObservableProperty]
     private string _profileLabel = string.Empty;
 
-    public IEnumerable<NavItem> AllNav => WorkspaceNav.Concat(DiscoverNav).Concat(BrowsersNav).Append(SettingsNav);
+    public IEnumerable<NavItem> AllNav =>
+        WorkspaceNav.Concat(DiscoverNav).Concat(BrowsersNav).Concat(ProNav).Append(SettingsNav);
 
     public NavItem SettingsNav { get; }
 
@@ -180,6 +188,7 @@ public sealed partial class MainViewModel : ObservableObject, IDisposable
         }
 
         _disposed = true;
+        Pro.Dispose();
         _services.State.ActiveProfileChanged -= OnActiveProfileChanged;
         _services.State.ProfilesChanged -= OnProfilesChanged;
     }

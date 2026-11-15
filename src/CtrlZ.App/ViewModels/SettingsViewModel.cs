@@ -3,6 +3,7 @@ using System.IO;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using CtrlZ.App.Services;
+using CtrlZ.Core.Licensing;
 using CtrlZ.Core.Logging;
 using CtrlZ.Core.Models;
 
@@ -26,6 +27,11 @@ public sealed partial class SettingsViewModel : PageViewModelBase
         DataFolder = services.Paths.Root;
         LogsFolder = services.Paths.Logs;
         ProfilesFolder = services.Paths.Profiles;
+        _licenseServerUrl = services.State.Settings.LicenseServerUrl ?? string.Empty;
+        _proPurchaseUrl = services.State.Settings.ProPurchaseUrl ?? string.Empty;
+        _licenseGraceDays = services.State.Settings.LicenseGraceDays;
+        services.License.LicenseChanged += OnLicenseChanged;
+        RefreshLicense();
     }
 
     public string AppVersion { get; }
@@ -55,14 +61,47 @@ public sealed partial class SettingsViewModel : PageViewModelBase
     [ObservableProperty]
     private string? _statusMessage;
 
+    [ObservableProperty]
+    private string _licenseKey = string.Empty;
+
+    [ObservableProperty]
+    private string _licenseServerUrl;
+
+    [ObservableProperty]
+    private string _proPurchaseUrl;
+
+    [ObservableProperty]
+    private int _licenseGraceDays;
+
+    [ObservableProperty]
+    private string _licenseStatusTitle = "No Pro license";
+
+    [ObservableProperty]
+    private string _licenseDetailText = string.Empty;
+
+    [ObservableProperty]
+    private string _licenseLastCheckText = "No license check has been made.";
+
+    [ObservableProperty]
+    private string _licenseModuleText = "Pro module not installed";
+
+    [ObservableProperty]
+    private bool _isLicenseBusy;
+
     public bool IsSystemTheme => Theme == ThemeMode.System;
     public bool IsLightTheme => Theme == ThemeMode.Light;
     public bool IsDarkTheme => Theme == ThemeMode.Dark;
     public bool HasStatus => !string.IsNullOrWhiteSpace(StatusMessage);
+    public bool HasLicense => _services.License.Snapshot.Status != LicenseStatus.Missing;
+    public bool IsProActive => _services.License.Snapshot.IsProEnabled;
 
     public override async Task ActivateAsync()
     {
         Theme = _services.State.Settings.Theme;
+        LicenseServerUrl = _services.State.Settings.LicenseServerUrl ?? string.Empty;
+        ProPurchaseUrl = _services.State.Settings.ProPurchaseUrl ?? string.Empty;
+        LicenseGraceDays = _services.State.Settings.LicenseGraceDays;
+        RefreshLicense();
         LoadLogs();
         await CheckWingetAsync();
     }
@@ -110,6 +149,102 @@ public sealed partial class SettingsViewModel : PageViewModelBase
         LoadLogs();
         StatusMessage = "Log refreshed.";
     }
+
+    [RelayCommand]
+    private async Task ActivateLicenseAsync()
+    {
+        if (IsLicenseBusy)
+        {
+            return;
+        }
+
+        SaveLicenseSettingsInternal();
+        IsLicenseBusy = true;
+        StatusMessage = "Activating license…";
+        try
+        {
+            var snapshot = await _services.License.ActivateAsync(LicenseKey);
+            LicenseKey = string.Empty;
+            StatusMessage = snapshot.IsProEnabled
+                ? "Pro license activated."
+                : "The server returned a license that is not active.";
+            RefreshLicense();
+        }
+        catch (LicenseException ex)
+        {
+            StatusMessage = ex.Message;
+            _dialogs.Error(ex.Message, "License activation");
+        }
+        catch (Exception ex)
+        {
+            _services.Log.Write(LogLevel.Error, "License activation failed.", ex);
+            StatusMessage = "License activation failed.";
+            _dialogs.Error("License activation failed.\n\n" + ex.Message, "License activation");
+        }
+        finally
+        {
+            IsLicenseBusy = false;
+        }
+    }
+
+    [RelayCommand]
+    private async Task DeactivateLicenseAsync()
+    {
+        if (!HasLicense || IsLicenseBusy)
+        {
+            return;
+        }
+
+        if (!_dialogs.Confirm(
+                "Deactivate this PC?",
+                "This frees the license for another machine. Pro features will be unavailable here until the license is activated again.",
+                "Deactivate", "Cancel"))
+        {
+            return;
+        }
+
+        IsLicenseBusy = true;
+        StatusMessage = "Deactivating license…";
+        try
+        {
+            await _services.License.DeactivateAsync();
+            StatusMessage = "License deactivated on this PC.";
+            RefreshLicense();
+        }
+        catch (Exception ex)
+        {
+            StatusMessage = ex.Message;
+            _dialogs.Error(ex.Message, "License deactivation");
+        }
+        finally
+        {
+            IsLicenseBusy = false;
+        }
+    }
+
+    [RelayCommand]
+    private void SaveLicenseSettings()
+    {
+        SaveLicenseSettingsInternal();
+        StatusMessage = "License settings saved.";
+        RefreshLicense();
+    }
+
+    [RelayCommand]
+    private void OpenPurchasePage()
+    {
+        try
+        {
+            _services.License.OpenPurchasePage();
+        }
+        catch (Exception ex)
+        {
+            _dialogs.Error("The Pro purchase page could not be opened.\n\n" + ex.Message);
+        }
+    }
+
+    [RelayCommand]
+    private async Task OpenProPageAsync() => await _main.NavigateToAsync("pro");
 
     [RelayCommand]
     private async Task CheckWingetAsync()
@@ -192,6 +327,55 @@ public sealed partial class SettingsViewModel : PageViewModelBase
         {
             _dialogs.Info("CTRL+Z is released under the MIT License. See the LICENSE file in the project repository.",
                 "License");
+        }
+    }
+
+    private void RefreshLicense()
+    {
+        var snapshot = _services.License.Snapshot;
+        LicenseStatusTitle = snapshot.Status switch
+        {
+            LicenseStatus.Active => "Pro is active",
+            LicenseStatus.OfflineGrace => "Pro is active in offline grace",
+            LicenseStatus.MachineMismatch => "License belongs to another PC",
+            LicenseStatus.Expired => "License needs renewal",
+            LicenseStatus.Invalid => "License is not valid",
+            _ => "No Pro license"
+        };
+        LicenseDetailText = snapshot.Message;
+        LicenseLastCheckText = snapshot.LastCheckUtc is { } last
+            ? $"Last check: {last.ToLocalTime():g}"
+            : "No license check has been made.";
+        LicenseModuleText = _services.ProModule.IsLoaded
+            ? $"{_services.ProModule.Module!.DisplayName} {_services.ProModule.Module.Version} loaded"
+            : "Pro module not installed";
+        OnPropertyChanged(nameof(HasLicense));
+        OnPropertyChanged(nameof(IsProActive));
+    }
+
+    private void SaveLicenseSettingsInternal()
+    {
+        var settings = _services.State.Settings;
+        settings.LicenseServerUrl = string.IsNullOrWhiteSpace(LicenseServerUrl)
+            ? null
+            : LicenseServerUrl.Trim();
+        settings.ProPurchaseUrl = string.IsNullOrWhiteSpace(ProPurchaseUrl)
+            ? null
+            : ProPurchaseUrl.Trim();
+        settings.LicenseGraceDays = Math.Clamp(LicenseGraceDays, 1, 365);
+        _services.State.SaveSettings();
+    }
+
+    private void OnLicenseChanged(object? sender, EventArgs e)
+    {
+        var dispatcher = System.Windows.Application.Current?.Dispatcher;
+        if (dispatcher is null || dispatcher.CheckAccess())
+        {
+            RefreshLicense();
+        }
+        else
+        {
+            dispatcher.BeginInvoke(RefreshLicense);
         }
     }
 

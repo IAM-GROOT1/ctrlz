@@ -36,6 +36,71 @@
 
                 <Border Style="{StaticResource Border.Card}" Padding="18,16" Margin="0,14,0,0">
                     <StackPanel>
+                        <Grid>
+                            <TextBlock Text="PRO LICENSE" Style="{StaticResource Text.NavSection}" Margin="0" />
+                            <TextBlock Text="{Binding LicenseModuleText}" Style="{StaticResource Text.Caption}"
+                                       HorizontalAlignment="Right" />
+                        </Grid>
+                        <StackPanel Orientation="Horizontal" Margin="0,10,0,0">
+                            <TextBlock Text="{Binding LicenseStatusTitle}" FontWeight="SemiBold" FontSize="13" />
+                            <Border Background="{DynamicResource Brush.AccentSoft}" CornerRadius="7" Padding="6,1"
+                                    Margin="8,0,0,0" VerticalAlignment="Center">
+                                <TextBlock Text="PRO" FontSize="9" FontWeight="SemiBold"
+                                           Foreground="{DynamicResource Brush.Accent}" />
+                            </Border>
+                        </StackPanel>
+                        <TextBlock Text="{Binding LicenseDetailText}" Style="{StaticResource Text.Secondary}"
+                                   TextWrapping="Wrap" Margin="0,4,0,0" />
+                        <TextBlock Text="{Binding LicenseLastCheckText}" Style="{StaticResource Text.Caption}"
+                                   Margin="0,3,0,0" />
+                        <TextBlock Text="License key" Style="{StaticResource Text.Label}" Margin="0,12,0,0" />
+                        <Grid Margin="0,5,0,0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                            <TextBox Text="{Binding LicenseKey, UpdateSourceTrigger=PropertyChanged}"
+                                     AutomationProperties.Name="License key" />
+                            <Button Grid.Column="1" Content="Activate" Style="{StaticResource Button.Secondary}"
+                                    Margin="8,0,0,0" Command="{Binding ActivateLicenseCommand}"
+                                    IsEnabled="{Binding IsLicenseBusy, Converter={StaticResource BoolNegation}}" />
+                        </Grid>
+                        <WrapPanel Margin="0,8,0,0">
+                            <Button Content="Deactivate this PC" Style="{StaticResource Button.Ghost}"
+                                    Margin="0,0,8,0" Command="{Binding DeactivateLicenseCommand}"
+                                    Visibility="{Binding HasLicense, Converter={StaticResource BoolToVisibility}}"
+                                    IsEnabled="{Binding IsLicenseBusy, Converter={StaticResource BoolNegation}}" />
+                            <Button Content="Open Pro page" Style="{StaticResource Button.Ghost}"
+                                    Command="{Binding OpenProPageCommand}" />
+                        </WrapPanel>
+                        <TextBlock Text="License server URL" Style="{StaticResource Text.Label}" Margin="0,12,0,0" />
+                        <TextBox Text="{Binding LicenseServerUrl, UpdateSourceTrigger=PropertyChanged}"
+                                 AutomationProperties.Name="License server URL" Margin="0,5,0,0" />
+                        <TextBlock Text="Purchase URL" Style="{StaticResource Text.Label}" Margin="0,10,0,0" />
+                        <TextBox Text="{Binding ProPurchaseUrl, UpdateSourceTrigger=PropertyChanged}"
+                                 AutomationProperties.Name="Pro purchase URL" Margin="0,5,0,0" />
+                        <Grid Margin="0,10,0,0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Text="Offline grace" Style="{StaticResource Text.Label}" VerticalAlignment="Center" />
+                            <TextBox Grid.Column="1" Text="{Binding LicenseGraceDays}" Width="58" Margin="8,0,0,0"
+                                     AutomationProperties.Name="Offline grace days" />
+                            <TextBlock Grid.Column="2" Text="days past last check" Style="{StaticResource Text.Caption}"
+                                       VerticalAlignment="Center" Margin="6,0,0,0" />
+                            <Button Grid.Column="3" Content="Save URLs" Style="{StaticResource Button.Ghost}"
+                                    Command="{Binding SaveLicenseSettingsCommand}" />
+                        </Grid>
+                        <TextBlock Text="No telemetry. Only activation and revalidation contact the server URL above; network errors never disable an existing license during its offline grace period."
+                                   Style="{StaticResource Text.Caption}" TextWrapping="Wrap" Margin="0,10,0,0" />
+                    </StackPanel>
+                </Border>
+
+                <Border Style="{StaticResource Border.Card}" Padding="18,16" Margin="0,14,0,0">
+                    <StackPanel>
                         <TextBlock Text="LOCAL DATA" Style="{StaticResource Text.NavSection}" Margin="0,0,0,10" />
                         <TextBlock Text="Profiles, downloads, archives, and logs live under one folder. Nothing is uploaded." 
                                    Style="{StaticResource Text.Secondary}" TextWrapping="Wrap" />
