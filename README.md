@@ -106,7 +106,32 @@ emoji icons.
 - Clean empty states, inline errors, graceful per-item failure handling.
 - All logs written to `%LOCALAPPDATA%\CTRL+Z\logs` and openable from Settings.
 - Light/dark theme follows Windows by default.
-- No account, telemetry, or cloud service.
+- No telemetry. The only network calls are license activation/revalidation/deactivation to the server you configure; everything else stays local.
+
+## Open core
+
+The free core is MIT-licensed and fully functional without Pro. Pro features are optional,
+separately licensed extensions loaded through `CtrlZ.Core.Pro`; their implementation lives in
+a private repository and never in this public repo.
+
+- Without `CtrlZ.Pro.dll`, the app starts normally and every existing feature works.
+- The **Pro** page explains the optional module and links to the configured purchase URL.
+- No existing feature is paywalled.
+- The license client verifies signed tokens locally and keeps a previously activated license
+  usable offline for the configured grace period (default 30 days past the last check).
+- The license server is configurable under **Settings → Pro License**.
+
+See [LICENSING.md](LICENSING.md), [CONTRIBUTING.md](CONTRIBUTING.md), and the
+[reference license server](tools/license-server-reference/README.md). The reference server is
+an example only; the real server and Pro module belong in a private repository.
+
+## Privacy
+
+CTRL+Z has no telemetry and no analytics. The only added network calls are license activation,
+revalidation, and deactivation to the license server URL you configure. Activation sends the
+license key and a one-way SHA-256 machine hash, not raw hardware identifiers. The last successful
+license check is shown in Settings; network errors never disable an existing license during its
+offline grace period.
 
 ## Install from the built artifacts
 
@@ -348,7 +373,7 @@ permissions, and the absence of cookies/passwords).
 
 ## License
 
-MIT. See [`LICENSE`](LICENSE).
+MIT for the free core. See [`LICENSE`](LICENSE) and [`LICENSING.md`](LICENSING.md).
 
 
 ## Brand assets

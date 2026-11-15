@@ -44,6 +44,7 @@ public static class LicenseTokenCodec
                 return new LicenseTokenVerification { Error = "The license payload is incomplete." };
             }
 
+            payload.Features ??= new List<string>();
             return new LicenseTokenVerification { Payload = payload, IsValid = true };
         }
         catch (Exception ex) when (ex is FormatException or JsonException or CryptographicException)
@@ -62,18 +63,4 @@ public static class LicenseTokenCodec
         return Convert.FromBase64String(normalized);
     }
 
-    /// <summary>Used by tests and the reference server; the app never calls this.</summary>
-    public static string SignForDevelopment(
-        LicenseTokenPayload payload,
-        byte[] pkcs8PrivateKey)
-    {
-        var bytes = JsonSerializer.SerializeToUtf8Bytes(payload, JsonDefaults.Compact);
-        using var ecdsa = ECDsa.Create();
-        ecdsa.ImportPkcs8PrivateKey(pkcs8PrivateKey, out _);
-        var signature = ecdsa.SignData(bytes, HashAlgorithmName.SHA256);
-        return $"{Prefix}.{Base64UrlEncode(bytes)}.{Base64UrlEncode(signature)}";
-    }
-
-    public static string PayloadJson(LicenseTokenPayload payload) =>
-        Encoding.UTF8.GetString(JsonSerializer.SerializeToUtf8Bytes(payload, JsonDefaults.Compact));
 }

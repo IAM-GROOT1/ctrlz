@@ -122,7 +122,7 @@ public sealed partial class ProViewModel : PageViewModelBase, IDisposable
             return;
         }
 
-        foreach (var feature in module.Features)
+        foreach (var feature in module.Features ?? Array.Empty<IProFeature>())
         {
             Features.Add(new ProFeatureItemViewModel(feature));
         }

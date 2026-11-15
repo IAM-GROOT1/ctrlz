@@ -1,6 +1,7 @@
 using System.Net;
 using System.Security.Cryptography;
 using System.Text;
+using System.Text.Json;
 using CtrlZ.Core.Infrastructure;
 using CtrlZ.Core.Licensing;
 using CtrlZ.Core.Models;
@@ -11,6 +12,13 @@ namespace CtrlZ.Core.Tests;
 public class LicenseTests
 {
     private const string Machine = "sha256:test-machine";
+
+    private static string Sign(LicenseTokenPayload payload, ECDsa key)
+    {
+        var bytes = JsonSerializer.SerializeToUtf8Bytes(payload, JsonDefaults.Compact);
+        var signature = key.SignData(bytes, HashAlgorithmName.SHA256);
+        return $"CTRLZ1.{LicenseTokenCodec.Base64UrlEncode(bytes)}.{LicenseTokenCodec.Base64UrlEncode(signature)}";
+    }
 
     private static (ECDsa Key, string PublicKey) NewKey()
     {
@@ -38,7 +46,7 @@ public class LicenseTests
         var (key, publicKey) = NewKey();
         using (key)
         {
-            var token = LicenseTokenCodec.SignForDevelopment(Payload(), key.ExportPkcs8PrivateKey());
+            var token = Sign(Payload(), key);
             var result = LicenseTokenCodec.Verify(token, publicKey);
 
             Assert.True(result.IsValid);
@@ -53,7 +61,7 @@ public class LicenseTests
         var (key, publicKey) = NewKey();
         using (key)
         {
-            var token = LicenseTokenCodec.SignForDevelopment(Payload(), key.ExportPkcs8PrivateKey());
+            var token = Sign(Payload(), key);
             var parts = token.Split('.');
             var bytes = LicenseTokenCodec.Base64UrlDecode(parts[1]);
             var text = Encoding.UTF8.GetString(bytes).Replace("license-1", "license-2");
@@ -72,8 +80,7 @@ public class LicenseTests
         var (key, publicKey) = NewKey();
         using (key)
         {
-            var token = LicenseTokenCodec.SignForDevelopment(
-                Payload(machineId: "sha256:other"), key.ExportPkcs8PrivateKey());
+            var token = Sign(Payload(machineId: "sha256:other"), key);
             var verified = LicenseTokenCodec.Verify(token, publicKey);
 
             var snapshot = LicenseEvaluator.Evaluate(
@@ -90,8 +97,7 @@ public class LicenseTests
         var (key, publicKey) = NewKey();
         using (key)
         {
-            var token = LicenseTokenCodec.SignForDevelopment(
-                Payload(expires: DateTimeOffset.UtcNow.AddDays(-1)), key.ExportPkcs8PrivateKey());
+            var token = Sign(Payload(expires: DateTimeOffset.UtcNow.AddDays(-1)), key);
             var verified = LicenseTokenCodec.Verify(token, publicKey);
 
             var snapshot = LicenseEvaluator.Evaluate(
@@ -138,8 +144,7 @@ public class LicenseTests
         using (key)
         {
             var machineId = MachineIdProvider.GetMachineId();
-            var token = LicenseTokenCodec.SignForDevelopment(
-                new LicenseTokenPayload
+            var token = Sign(new LicenseTokenPayload
                 {
                     LicenseId = "activate-1",
                     Plan = "pro",
@@ -147,8 +152,7 @@ public class LicenseTests
                     MachineId = machineId,
                     IssuedUtc = DateTimeOffset.UtcNow,
                     ExpiresUtc = DateTimeOffset.UtcNow.AddDays(365)
-                },
-                key.ExportPkcs8PrivateKey());
+                }, key);
 
             var handler = new FakeLicenseHandler(token);
             var paths = new AppPaths(temp.PathOf("data"));
@@ -183,8 +187,7 @@ public class LicenseTests
         using (key)
         {
             var machineId = MachineIdProvider.GetMachineId();
-            var token = LicenseTokenCodec.SignForDevelopment(
-                new LicenseTokenPayload
+            var token = Sign(new LicenseTokenPayload
                 {
                     LicenseId = "offline-1",
                     Plan = "pro",
@@ -192,8 +195,7 @@ public class LicenseTests
                     MachineId = machineId,
                     IssuedUtc = DateTimeOffset.UtcNow,
                     ExpiresUtc = DateTimeOffset.UtcNow.AddDays(365)
-                },
-                key.ExportPkcs8PrivateKey());
+                }, key);
             var handler = new FakeLicenseHandler(token);
             var paths = new AppPaths(temp.PathOf("data"));
             paths.EnsureCreated();

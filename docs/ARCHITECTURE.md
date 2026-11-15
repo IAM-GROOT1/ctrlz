@@ -5,7 +5,7 @@
 1. Rebuild a Windows app setup from a portable file.
 2. Back up and restore Chromium and Firefox profiles without relying on browser sync.
 3. Keep every long-running operation resumable, logged, and isolated.
-4. Stay fully local. No account or network service is required for core features.
+4. Keep the core fully local. No account is required for core features; only the optional license flow contacts a configured server.
 
 ## Layers
 
@@ -20,6 +20,8 @@ The core is a normal class library. It has no WPF types and is covered by xUnit 
 | `Logging` | Thread-safe rolling file log with a line event for the UI |
 | `Services` | Scan, winget CLI/table parser/matcher, WinUtil catalog, GitHub releases, downloads, browser detection, backup/restore |
 | `Install` | Installer strategies and the sequential resumable `InstallEngine` |
+| `Pro` | Optional Pro module interfaces, isolated loader, and service registry |
+| `Licensing` | Signed-token verification, machine binding, offline grace, activation client |
 
 #### Scanning
 
@@ -93,6 +95,28 @@ they are never planned in the first place, and restore refuses those paths if a 
 archive contains them. Firefox archives never include `logins.json`, `key4.db`, `cookies.sqlite`,
 or `formhistory.sqlite`; Chromium archives never include `Login Data`, cookie stores, or
 `os_crypt` material.
+
+#### Pro extension boundary
+
+`CtrlZ.Core.Pro` defines `IProModule`, `IProFeature`, and `IProServiceRegistry`. The app's
+composition root loads an optional `CtrlZ.Pro.dll` from the app directory, `Pro/`, or the
+user data `pro/` folder. The loader uses a collectible `AssemblyLoadContext` and catches
+missing, corrupt, or incompatible assemblies; none of these stop the free app.
+
+The module registers services into `ProServiceRegistry` and contributes features with optional
+WPF pages through `CreatePage()`. The core only renders feature metadata until a valid license
+grants the feature id. Pro implementation code is never part of this public repository.
+
+#### Licensing
+
+`LicenseTokenCodec` verifies compact `CTRLZ1.<payload>.<signature>` tokens signed with ECDSA
+P-256/SHA-256. The app embeds only the public key. `LicenseEvaluator` applies machine binding,
+expiry, offline grace, and a conservative clock-rollback warning without a network call.
+`LicenseService` handles activation, quiet revalidation, deactivation, and storage under the
+user data folder. Network failures preserve the last good license and never cause a sudden lockout.
+
+The reference server in `tools/license-server-reference/` is an example only. Production
+signing keys and the real server belong in a private repository.
 
 ## UI (`CtrlZ.App`)
 

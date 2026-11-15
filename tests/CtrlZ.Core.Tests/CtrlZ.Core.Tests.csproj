@@ -22,6 +22,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\src\CtrlZ.Core\CtrlZ.Core.csproj" />
+    <ProjectReference Include="..\..\src\CtrlZ.App\CtrlZ.App.csproj" />
     <ProjectReference Include="..\CtrlZ.Pro.TestModule\CtrlZ.Pro.TestModule.csproj" />
   </ItemGroup>
 

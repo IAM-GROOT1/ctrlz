@@ -48,7 +48,7 @@ public sealed class AppServices : IDisposable
     public ProModuleLoadResult ProModule { get; private init; } = null!;
     public ProServiceRegistry ProServices { get; private init; } = null!;
 
-    public static AppServices Create()
+    public static AppServices Create(string? applicationDirectory = null)
     {
         var paths = AppPaths.CreateDefault();
         paths.EnsureCreated();
@@ -82,7 +82,7 @@ public sealed class AppServices : IDisposable
         var catalog = new WinUtilCatalogService(paths, downloads, log);
         var license = new LicenseService(
             paths, log, settingsStore, new LicenseStore(paths.LicenseFile, log));
-        var proModule = ProModuleLoader.Load(paths, log);
+        var proModule = ProModuleLoader.Load(paths, log, applicationDirectory);
         var proServices = new ProServiceRegistry(log);
         if (proModule.Module is not null)
         {

@@ -43,7 +43,7 @@ public sealed class LicenseSnapshot
 
     public bool HasFeature(string featureId) =>
         IsProEnabled &&
-        Payload?.Features.Any(id => id.Equals(featureId, StringComparison.OrdinalIgnoreCase)) == true;
+        Payload?.Features?.Any(id => id.Equals(featureId, StringComparison.OrdinalIgnoreCase)) == true;
 }
 
 public sealed class LicenseException : Exception
