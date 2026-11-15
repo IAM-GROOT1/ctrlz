@@ -18,6 +18,7 @@ public sealed class AppPaths
         Cache = Path.Combine(Root, "cache");
         Apps = Path.Combine(Root, "apps");
         Backups = Path.Combine(Root, "backups");
+        ProModules = Path.Combine(Root, "pro");
         SettingsFile = Path.Combine(Root, "settings.json");
     }
 
@@ -29,12 +30,14 @@ public sealed class AppPaths
     public string Cache { get; }
     public string Apps { get; }
     public string Backups { get; }
+    public string ProModules { get; }
     public string SettingsFile { get; }
 
     public string InstallStateFile => Path.Combine(State, "install-state.json");
     public string CatalogCacheFile => Path.Combine(Cache, "winutil-applications.json");
     public string CatalogMetadataFile => Path.Combine(Cache, "winutil-applications.meta.json");
     public string BrowserBackupStateFile => Path.Combine(State, "browser-backup-state.json");
+    public string LicenseFile => Path.Combine(Root, "license.json");
 
     public static AppPaths CreateDefault()
     {
@@ -58,7 +61,7 @@ public sealed class AppPaths
 
     public void EnsureCreated()
     {
-        foreach (var directory in new[] { Root, Profiles, Logs, State, Downloads, Cache, Apps, Backups })
+        foreach (var directory in new[] { Root, Profiles, Logs, State, Downloads, Cache, Apps, Backups, ProModules })
         {
             Directory.CreateDirectory(directory);
         }
