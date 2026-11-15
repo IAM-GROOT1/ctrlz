@@ -12,6 +12,10 @@ The CTRL+Z mark is a white **Z with a dash above it** on the ember rounded squar
 | Asset | Use |
 | --- | --- |
 | `ctrlz-logo.svg` | Canonical scalable app icon. |
+| `ctrlz-app-logo-dark-1024.png` / `-512` / `-256` | Exact in-app dark-theme logo (recommended). |
+| `ctrlz-app-logo-light-1024.png` | Exact in-app light-theme logo. |
+| `ctrlz-app-logo.ico` | Exact app icon, 16–256 px. |
+| `ctrlz-app-mark-white-1024.png` | Transparent white Z+dash mark. |
 | `ctrlz-logo-1024.png` / `512` / `256` | Full app icon on a transparent canvas. |
 | `ctrlz-logo.ico` | Windows multi-resolution icon (16–256 px). |
 | `ctrlz-logo-reference.svg` / `-1024` / `-512` / `-256` / `.ico` | Reference variant matching the supplied icon: right-offset dash, compact Z, `#E06B3F` square. |
