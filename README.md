@@ -354,4 +354,4 @@ MIT. See [`LICENSE`](LICENSE).
 ## Brand assets
 
 The standalone CTRL+Z logo — the exact ember rounded square with a white Z and a right-offset dash used by the app — is in
-[`branding/`](branding/). The app icon, window icon, header mark, Settings mark, and installer icon use this source. SVG, transparent PNG marks, and a multi-size Windows ICO are included.
+[`branding/`](branding/). The app icon, window icon, header mark, Settings mark, and installer icon use this source. High-resolution PNGs, a transparent mark, and a multi-size Windows ICO are included.
