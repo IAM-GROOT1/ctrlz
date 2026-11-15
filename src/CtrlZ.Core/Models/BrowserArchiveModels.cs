@@ -6,7 +6,7 @@ public sealed class BrowserBackupManifest
 
     public int SchemaVersion { get; set; } = CurrentSchemaVersion;
     public string App { get; set; } = "CTRL+Z";
-    public string AppVersion { get; set; } = "1.1.2";
+    public string AppVersion { get; set; } = "1.1.3";
     public string Format { get; set; } = "browser-profile-backup";
     public BrowserFamily Family { get; set; } = BrowserFamily.Chromium;
     public string BrowserId { get; set; } = string.Empty;

@@ -114,15 +114,8 @@
         <!-- brand -->
         <StackPanel Grid.Row="0" Grid.Column="0" Orientation="Horizontal" Margin="18,0,0,0"
                     VerticalAlignment="Center">
-            <Border Width="26" Height="26" CornerRadius="6" Background="{DynamicResource Brush.Accent}">
-                <Grid>
-                    <TextBlock Text="Z" FontFamily="{StaticResource Font.Display}" FontWeight="Bold" FontSize="15"
-                               Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center"
-                               Margin="0,-1,0,0" />
-                    <Border Width="10" Height="1.5" Background="White" CornerRadius="0.75"
-                            HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,4,4,0" Opacity="0.85" />
-                </Grid>
-            </Border>
+            <Image Width="26" Height="26" Source="Assets/ctrlz.png" Stretch="Uniform"
+                   RenderOptions.BitmapScalingMode="HighQuality" />
             <TextBlock Text="CTRL+Z" FontFamily="{StaticResource Font.Display}" FontWeight="SemiBold" FontSize="14"
                        Margin="9,0,0,0" VerticalAlignment="Center" />
         </StackPanel>

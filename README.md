@@ -112,9 +112,9 @@ emoji icons.
 
 Download the latest build from [Releases](https://github.com/IAM-GROOT1/ctrlz/releases/latest). The release artifacts are (also copied to `dist/`):
 
-- `CTRL+Z-Portable-1.1.2.exe` — a single self-contained executable. Put it anywhere and
+- `CTRL+Z-Portable-1.1.3.exe` — a single self-contained executable. Put it anywhere and
   run it. No .NET install required.
-- `CTRL+Z-Setup-1.1.2.exe` — per-user Inno Setup installer (Start Menu shortcut, optional
+- `CTRL+Z-Setup-1.1.3.exe` — per-user Inno Setup installer (Start Menu shortcut, optional
   desktop shortcut, uninstaller). It does not require admin to install.
 
 The binaries are **not code-signed**, so SmartScreen may show an unknown-publisher prompt.
@@ -166,13 +166,13 @@ resume/retry, and file/portable installer execution.
 ### Build the portable single exe
 
 ```powershell
-.\build\publish.ps1 -Version 1.1.2
+.\build\publish.ps1 -Version 1.1.3
 ```
 
 Outputs:
 
 - `artifacts/publish/portable/CTRL+Z.exe`
-- `artifacts/CTRL+Z-Portable-1.1.2.exe`
+- `artifacts/CTRL+Z-Portable-1.1.3.exe`
 - README + LICENSE next to the portable build
 
 The script uses `dotnet` from `PATH`, or a local `.tools/dotnet/dotnet.exe` if present.
@@ -180,10 +180,10 @@ The script uses `dotnet` from `PATH`, or a local `.tools/dotnet/dotnet.exe` if p
 ### Build the installer
 
 ```powershell
-.\build\build-installer.ps1 -Version 1.1.2
+.\build\build-installer.ps1 -Version 1.1.3
 ```
 
-Output: `artifacts/installer/CTRL+Z-Setup-1.1.2.exe`.
+Output: `artifacts/installer/CTRL+Z-Setup-1.1.3.exe`.
 
 If you use Winget, verify that it installs Inno Setup 6.3+ (the 6.x line is free for commercial use). The vendor still publishes 6.7.4 alongside newer releases.
 
@@ -353,5 +353,5 @@ MIT. See [`LICENSE`](LICENSE).
 
 ## Brand assets
 
-The standalone CTRL+Z logo — an ember rounded square with a white Z and a dash above it — is in
-[`branding/`](branding/). SVG, transparent PNG marks, and a multi-size Windows ICO are included.
+The standalone CTRL+Z logo — the exact ember rounded square with a white Z and a right-offset dash used by the app — is in
+[`branding/`](branding/). The app icon, window icon, header mark, Settings mark, and installer icon use this source. SVG, transparent PNG marks, and a multi-size Windows ICO are included.
