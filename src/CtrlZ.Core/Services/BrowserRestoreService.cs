@@ -1,3 +1,6 @@
+// SPDX-License-Identifier: AGPL-3.0-only
+// Copyright (c) 2026 iam-groot1
+
 using System.Text;
 using System.Text.Json;
 using System.Text.Json.Nodes;
