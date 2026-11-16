@@ -348,8 +348,7 @@ permissions, and the absence of cookies/passwords).
 
 ## License
 
-MIT. See [`LICENSE`](LICENSE).
-
+CTRL+Z is licensed under the GNU Affero General Public License v3.0 (see [`LICENSE`](LICENSE)). Versions up to and including v1.1.3 were released under the MIT License and remain available under those terms.
 
 ## Brand assets
 
