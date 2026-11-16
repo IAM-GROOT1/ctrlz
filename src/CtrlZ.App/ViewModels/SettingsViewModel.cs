@@ -13,6 +13,9 @@ namespace CtrlZ.App.ViewModels;
 
 public sealed partial class SettingsViewModel : PageViewModelBase
 {
+    /// <summary>Canonical public source location, surfaced in About for AGPL compliance.</summary>
+    public const string SourceUrl = "https://github.com/IAM-GROOT1/ctrlz";
+
     private readonly AppServices _services;
     private readonly DialogService _dialogs;
     private readonly MainViewModel _main;
@@ -193,8 +196,22 @@ public sealed partial class SettingsViewModel : PageViewModelBase
         }
         else
         {
-            _dialogs.Info("CTRL+Z is released under the MIT License. See the LICENSE file in the project repository.",
+            _dialogs.Info("CTRL+Z is released under the GNU Affero General Public License v3.0 " +
+                $"(AGPL-3.0-only). The full license text and the source code are at {SourceUrl}.",
                 "License");
+        }
+    }
+
+    [RelayCommand]
+    private void OpenSourceCode()
+    {
+        try
+        {
+            Process.Start(new ProcessStartInfo(SourceUrl) { UseShellExecute = true });
+        }
+        catch (Exception ex)
+        {
+            _dialogs.Error("Could not open the source link.\n\n" + ex.Message);
         }
     }
 
