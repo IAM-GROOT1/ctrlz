@@ -199,7 +199,13 @@ jobs:
             $heading = "Changes since $previous"
           }
 
-          $commits = git log --pretty=format:"- %s (%h)" $range
+          # Join into a single string: a bare array element would be stringified as
+          # "System.Object[]" when the notes body is joined.
+          $commits = (git log --pretty=format:"- %s (%h)" $range) -join "`n"
+          if ([string]::IsNullOrWhiteSpace($commits)) {
+            $commits = "_No commits between the previous tag and this one._"
+          }
+
           $version = $tag.TrimStart('v')
           $setupName = "CTRL+Z-Setup-$version.exe"
           $portableName = "CTRL+Z-Portable-$version.exe"
