@@ -158,6 +158,57 @@ CTRL+Z can check GitHub for a newer release and update itself.
   asset hosts stay fixed, and the value is rejected unless it is exactly `owner/name`. Release
   builds ignore the variable entirely and always use `IAM-GROOT1/ctrlz`.
 
+## Before you wipe
+
+Three checks help make sure a clean install does not lose anything.
+
+**Ready to wipe?** (Workspace → Ready to wipe) is a read-only report with a pass / warning / fail
+verdict. It sizes Desktop, Documents, Downloads, Pictures, Videos and Music (plus any other fixed
+drive), finds game launchers and the folders saves usually live in, notes developer material such
+as `~/.ssh`, `.gitconfig`, `.env` files and WSL distributions, checks how old each browser backup
+is, and lists the reminders only you can tick off — password-manager export, licence keys,
+deactivating software, saving Wi-Fi passwords and recovery keys. Items you mark **handled** or
+**ignore** are remembered on this PC.
+
+It never modifies, moves or deletes a file, makes **no network requests**, and writes only counts
+and sizes to the log — never the names of files in your personal folders. Large folders are walked
+with depth, file-count and time limits, junctions are skipped so a loop cannot hang the scan, and
+the check runs in the background with progress and a Cancel button.
+
+**Profile drift** (My Apps → Check drift) compares the saved profile with what is actually
+installed and groups the difference into Missing, Extra and Outdated. Apps are matched by winget
+package id first, then by name and publisher, and the confidence is shown per row; genuinely
+ambiguous matches are left as "uncertain" instead of guessed. Each row can add the app to your
+profile, remove it, install a missing app, or ignore it permanently.
+
+**Install preview** (on by default; Settings → Installing) shows what an install run will do —
+order, source, silent switches, whether admin is likely, and any warnings — and offers a **Dry
+run** that verifies every winget id, GitHub asset, download link and local installer without
+installing anything. The result can be exported as text. Only the dry run touches the network,
+and only to look things up.
+
+What these checks do **not** cover: files inside password-protected backup apps, cloud-only files
+that are not downloaded, and data that lives only in an online account.
+
+## Privacy
+
+CTRL+Z is local-first: no account, no telemetry, no analytics.
+
+- **The ready-to-wipe checklist and profile drift make no network requests at all.** They read
+  local state only — directory listings, registry keys, file timestamps and the app list.
+- **The install dry run is the only safety check that touches the network, and only when you
+  press Dry run.** It performs read-only lookups (a winget search, the GitHub release API, and a
+  HEAD request for direct links) to confirm each source exists. Opening the preview, or viewing
+  the checklist, never triggers a request.
+- **Logs contain counts and sizes only.** No file or folder name from your personal folders is
+  written to the application log or to the diagnostics copy.
+- **Checklist state contains no paths.** `state/safety-state.json` holds only checklist item ids,
+  handled/ignored flags and ignored drift keys.
+- **Private material is never read.** The developer check counts `.env` files and `~/.ssh`
+  entries by listing directories; it never opens them. A test holds those files open
+  exclusively and still expects the scan to succeed, which proves no read is attempted.
+- The updater is separate: see [Updates](#updates) for the single check it makes.
+
 ## Build and run
 
 ### Requirements

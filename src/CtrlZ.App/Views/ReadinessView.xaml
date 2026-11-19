@@ -1,0 +1,151 @@
+<!-- SPDX-License-Identifier: AGPL-3.0-only -->
+<!-- Copyright (c) 2026 iam-groot1 -->
+
+<UserControl x:Class="CtrlZ.App.Views.ReadinessView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             d:DesignHeight="620" d:DesignWidth="900"
+             Focusable="False">
+    <UserControl.Resources>
+        <Style x:Key="ReadinessStatusGlyph" TargetType="TextBlock">
+            <Setter Property="FontFamily" Value="{StaticResource Font.Icons}" />
+            <Setter Property="FontSize" Value="15" />
+            <Setter Property="VerticalAlignment" Value="Top" />
+            <Setter Property="Margin" Value="0,2,0,0" />
+            <Setter Property="Foreground" Value="{DynamicResource Brush.TextSecondary}" />
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding Status}" Value="Pass">
+                    <Setter Property="Foreground" Value="{DynamicResource Brush.Success}" />
+                </DataTrigger>
+                <DataTrigger Binding="{Binding Status}" Value="Warning">
+                    <Setter Property="Foreground" Value="{DynamicResource Brush.Warning}" />
+                </DataTrigger>
+                <DataTrigger Binding="{Binding Status}" Value="Fail">
+                    <Setter Property="Foreground" Value="{DynamicResource Brush.Danger}" />
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+
+        <Style x:Key="ReadinessCard" TargetType="Border" BasedOn="{StaticResource Border.Card}">
+            <Setter Property="Padding" Value="16,13" />
+            <Setter Property="Margin" Value="0,0,0,8" />
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding IsResolved}" Value="True">
+                    <Setter Property="Opacity" Value="0.55" />
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+
+        <DataTemplate x:Key="ReadinessRowTemplate">
+            <Border Style="{StaticResource ReadinessCard}">
+                <StackPanel>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="22" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+
+                        <TextBlock Text="{Binding StatusGlyph}" Style="{StaticResource ReadinessStatusGlyph}" />
+
+                        <StackPanel Grid.Column="1">
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="{Binding Title}" FontWeight="SemiBold" FontSize="13.5"
+                                           Foreground="{DynamicResource Brush.TextPrimary}" />
+                                <TextBlock Text="{Binding StatusLabel}" Style="{StaticResource Text.Caption}"
+                                           Margin="8,1,0,0" />
+                            </StackPanel>
+                            <TextBlock Text="{Binding Summary}" Style="{StaticResource Text.Secondary}"
+                                       TextWrapping="Wrap" Margin="0,2,0,0" />
+                        </StackPanel>
+
+                        <StackPanel Grid.Column="2" Orientation="Horizontal" VerticalAlignment="Top">
+                            <CheckBox Content="Handled" IsChecked="{Binding IsHandled, Mode=OneWay}"
+                                      Click="Handled_Click" VerticalAlignment="Center" />
+                            <Button Content="Ignore" Style="{StaticResource Button.Link}" Margin="12,0,0,0"
+                                    Click="Ignore_Click"
+                                    Visibility="{Binding IsIgnored, Converter={StaticResource InverseBoolToVisibility}}" />
+                            <Button Content="Un-ignore" Style="{StaticResource Button.Link}" Margin="12,0,0,0"
+                                    Click="Ignore_Click"
+                                    Visibility="{Binding IsIgnored, Converter={StaticResource BoolToVisibility}}" />
+                        </StackPanel>
+                    </Grid>
+
+                    <TextBlock Text="{Binding WhatItMeans}" Style="{StaticResource Text.Caption}"
+                               TextWrapping="Wrap" Margin="22,7,0,0" />
+
+                    <TextBlock Text="{Binding SuggestedAction}" Style="{StaticResource Text.Caption}"
+                               TextWrapping="Wrap" Margin="22,4,0,0"
+                               Foreground="{DynamicResource Brush.TextPrimary}"
+                               Visibility="{Binding HasSuggestedAction, Converter={StaticResource BoolToVisibility}}" />
+
+                    <ItemsControl ItemsSource="{Binding Details}" Margin="22,6,0,0"
+                                  Visibility="{Binding HasDetails, Converter={StaticResource BoolToVisibility}}">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding}" FontFamily="{StaticResource Font.Mono}" FontSize="10.5"
+                                           Foreground="{DynamicResource Brush.TextTertiary}" TextWrapping="Wrap"
+                                           Margin="0,1,0,0" />
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+
+                    <Button Content="Review drift in My Apps" Style="{StaticResource Button.Link}"
+                            HorizontalAlignment="Left" Margin="20,7,0,0" Click="Drift_Click"
+                            Visibility="{Binding LinksToDrift, Converter={StaticResource BoolToVisibility}}" />
+                </StackPanel>
+            </Border>
+        </DataTemplate>
+    </UserControl.Resources>
+
+    <ScrollViewer VerticalScrollBarVisibility="Auto">
+        <StackPanel>
+            <Border Style="{StaticResource Border.Card}" Padding="18,16">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+
+                    <StackPanel>
+                        <TextBlock Text="{Binding SummaryTitle}" FontSize="17" FontWeight="SemiBold"
+                                   Foreground="{DynamicResource Brush.TextPrimary}" TextWrapping="Wrap" />
+                        <TextBlock Text="{Binding SummaryDetail}" Style="{StaticResource Text.Secondary}"
+                                   TextWrapping="Wrap" Margin="0,6,0,0" />
+                        <TextBlock Text="{Binding CountsText}" Style="{StaticResource Text.Caption}" Margin="0,8,0,0" />
+                        <TextBlock Text="{Binding StatusLine}" Style="{StaticResource Text.Caption}" Margin="0,3,0,0" />
+                    </StackPanel>
+
+                    <StackPanel Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Top">
+                        <Button Content="Re-scan" Style="{StaticResource Button.Primary}"
+                                Command="{Binding ScanCommand}"
+                                IsEnabled="{Binding IsScanning, Converter={StaticResource BoolNegation}}" />
+                        <Button Content="Cancel" Style="{StaticResource Button.Secondary}" Margin="8,0,0,0"
+                                Command="{Binding CancelScanCommand}"
+                                Visibility="{Binding IsScanning, Converter={StaticResource BoolToVisibility}}" />
+                    </StackPanel>
+                </Grid>
+            </Border>
+
+            <StackPanel Orientation="Horizontal" Margin="2,12,0,4">
+                <CheckBox Content="Show handled and ignored" IsChecked="{Binding ShowHandled, Mode=TwoWay}" />
+                <TextBlock Text="Nothing here is uploaded, and no file is changed."
+                           Style="{StaticResource Text.Caption}" Margin="16,0,0,0" VerticalAlignment="Center" />
+            </StackPanel>
+
+            <ItemsControl ItemsSource="{Binding RowsView}" ItemTemplate="{StaticResource ReadinessRowTemplate}" />
+
+            <Border Style="{StaticResource Border.Inset}" Padding="14,12" Margin="0,4,0,0"
+                    Visibility="{Binding HasVisibleRows, Converter={StaticResource InverseBoolToVisibility}}">
+                <TextBlock Style="{StaticResource Text.Secondary}" TextWrapping="Wrap"
+                           Text="Nothing to show. Run a check, or turn on 'Show handled and ignored' to see items you already dealt with." />
+            </Border>
+
+            <TextBlock Style="{StaticResource Text.Caption}" TextWrapping="Wrap" Margin="2,14,0,12"
+                       Text="What this does not cover: CTRL+Z cannot see files inside password-protected backup apps, cloud-only files that are not downloaded, or data held only by an online account. It also does not back up anything itself on this page — use the Browsers page and your own external copies for that." />
+        </StackPanel>
+    </ScrollViewer>
+</UserControl>

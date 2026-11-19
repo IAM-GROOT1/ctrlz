@@ -215,6 +215,8 @@
                     </StackPanel>
                 </Border>
                 <Button Content="Add app" Style="{StaticResource Button.Secondary}" Command="{Binding AddAppCommand}" />
+                <Button Content="Check drift" Style="{StaticResource Button.Ghost}" Margin="8,0,0,0"
+                        Command="{Binding CheckDriftCommand}" />
             </StackPanel>
         </Grid>
 

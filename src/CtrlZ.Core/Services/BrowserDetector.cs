@@ -74,7 +74,11 @@ public sealed class BrowserDetector
             }
             catch (Exception ex)
             {
-                _log.Write(LogLevel.Warning, $"Could not inspect {definition.DisplayName}.", ex);
+                // The exception message is useful (access denied, IO error) but embeds the
+                // profile folder it failed on, so paths are redacted before logging.
+                _log.Write(
+                    LogLevel.Warning,
+                    $"Could not inspect {definition.DisplayName}: {LogPrivacy.Describe(ex)}.");
             }
         }
 
@@ -94,7 +98,7 @@ public sealed class BrowserDetector
             }
             catch (BrowserPathValidationException ex)
             {
-                _log.Write(LogLevel.Warning, $"Custom browser path rejected: {ex.Message}");
+                _log.Write(LogLevel.Warning, $"Custom browser path rejected: {LogPrivacy.Describe(ex)}");
             }
         }
 
