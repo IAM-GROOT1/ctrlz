@@ -152,6 +152,11 @@ CTRL+Z can check GitHub for a newer release and update itself.
   backup or restore is running; the prompt waits for the operation to finish.
 - **Privacy.** The release check and an update download are the only network requests this
   feature makes. They send no token and no identifiers, and CTRL+Z has no telemetry.
+- **Testing a fork (debug builds only).** A `DEBUG` build accepts the environment variable
+  `CTRLZ_UPDATE_REPO=owner/name` to point the release check at a fork. It can change *only* the
+  repository owner and name: the API host, the URL shape and the GitHub-only list of allowed
+  asset hosts stay fixed, and the value is rejected unless it is exactly `owner/name`. Release
+  builds ignore the variable entirely and always use `IAM-GROOT1/ctrlz`.
 
 ## Build and run
 
@@ -227,6 +232,12 @@ assemblies and the installer, builds the installer and the portable exe, writes 
 and publishes a GitHub release with those assets attached. It needs no release secrets: it uses
 only the built-in `GITHUB_TOKEN`. Code signing is deliberately not implemented yet; the workflow
 marks the place where it will go.
+
+Two details keep releases reproducible: the release workflow builds the whole solution
+(`CTRL+Z.sln`, so `CtrlZ.App` is compiled too) before running the tests, and Inno Setup is pinned
+to an exact version whose installer SHA-256 is verified before it runs
+([`build/install-inno-setup.ps1`](build/install-inno-setup.ps1)). The workflow fails rather than
+publish a release without `SHA256SUMS.txt`.
 
 A version containing a hyphen is published as a **pre-release**, which is what the updater's
 pre-release channel looks for:
@@ -403,10 +414,7 @@ permissions, and the absence of cookies/passwords).
 
 ## Roadmap
 
-- General AppData/config settings backup/restore module (structured for later; see above).
-- Portable app shortcut creation and update tracking.
-- Optional code signing (the release workflow has the placeholder for it).
-- Per-app download resumption and mirror selection.
+See [`ROADMAP.md`](ROADMAP.md) for planned work and later improvements.
 
 ## License
 
