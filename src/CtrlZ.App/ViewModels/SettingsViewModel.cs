@@ -8,6 +8,7 @@ using CommunityToolkit.Mvvm.Input;
 using CtrlZ.App.Services;
 using CtrlZ.Core.Logging;
 using CtrlZ.Core.Models;
+using CtrlZ.Core.Updates;
 
 namespace CtrlZ.App.ViewModels;
 
@@ -28,7 +29,7 @@ public sealed partial class SettingsViewModel : PageViewModelBase
         _dialogs = dialogs;
         _main = main;
         _themeService = theme;
-        AppVersion = typeof(SettingsViewModel).Assembly.GetName().Version?.ToString(3) ?? "1.1.3";
+        AppVersion = AppVersionInfo.Display;
         DataFolder = services.Paths.Root;
         LogsFolder = services.Paths.Logs;
         ProfilesFolder = services.Paths.Profiles;

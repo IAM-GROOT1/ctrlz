@@ -5,6 +5,7 @@ using System.Collections.ObjectModel;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using CtrlZ.App.Services;
+using CtrlZ.Core.Updates;
 
 namespace CtrlZ.App.ViewModels;
 
@@ -53,8 +54,7 @@ public sealed partial class MainViewModel : ObservableObject, IDisposable
 
     public DialogService Dialogs { get; }
     public ThemeService Theme => _theme;
-    public string AppVersion { get; } =
-        typeof(MainViewModel).Assembly.GetName().Version?.ToString(3) ?? "1.1.3";
+    public string AppVersion { get; } = AppVersionInfo.Display;
     public ScanViewModel Scan { get; }
     public MyAppsViewModel MyApps { get; }
     public AddAppViewModel AddApp { get; }

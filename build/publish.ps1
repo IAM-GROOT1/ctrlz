@@ -2,12 +2,17 @@
 # Copyright (c) 2026 iam-groot1
 
 param(
-    [string]$Version = "1.1.3",
+    [string]$Version,
     [switch]$SkipTests
 )
 
 $ErrorActionPreference = "Stop"
 $root = Split-Path -Parent $PSScriptRoot
+
+# The git tag (or an explicit -Version) is the single source of truth for the version.
+$Version = & (Join-Path $PSScriptRoot "version.ps1") -Version $Version
+# AssemblyVersion and FileVersion are strictly numeric, so a pre-release suffix is dropped.
+$numericVersion = ($Version -split '-')[0]
 
 $dotnet = if (Get-Command dotnet -ErrorAction SilentlyContinue) {
     (Get-Command dotnet).Source
@@ -42,8 +47,8 @@ New-Item -ItemType Directory -Force -Path $publishDir | Out-Null
     -p:DebugType=None `
     -p:DebugSymbols=false `
     -p:Version=$Version `
-    -p:AssemblyVersion="$Version.0" `
-    -p:FileVersion="$Version.0" `
+    -p:AssemblyVersion="$numericVersion.0" `
+    -p:FileVersion="$numericVersion.0" `
     -p:InformationalVersion=$Version `
     -o $publishDir
 if ($LASTEXITCODE -ne 0) { throw "dotnet publish failed." }
