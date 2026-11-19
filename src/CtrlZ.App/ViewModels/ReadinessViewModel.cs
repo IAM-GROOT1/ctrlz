@@ -207,7 +207,7 @@ public sealed partial class ReadinessViewModel : PageViewModelBase
     private void ToggleShowHandled() => ShowHandled = !ShowHandled;
 
     [RelayCommand]
-    private async Task OpenDriftAsync() => await _main.NavigateToAsync("apps");
+    private void OpenDrift() => _dialogs.ShowDrift(_services, _main);
 
     private void Persist(ReadinessRow row)
     {
