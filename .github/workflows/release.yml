@@ -1,0 +1,190 @@
+name: release
+
+# Runs only when a version tag is pushed:
+#   git tag v1.2.0 && git push origin v1.2.0
+# A tag whose version contains a hyphen (for example v1.3.0-beta.1) is published as a
+# GitHub pre-release, which is what the updater's pre-release channel looks for.
+on:
+  push:
+    tags:
+      - "v*"
+
+# Least privilege: read by default; only the release job may write.
+permissions:
+  contents: read
+
+jobs:
+  build:
+    name: Build and verify
+    runs-on: windows-latest
+    permissions:
+      contents: read
+    steps:
+      - name: Check out the tagged commit
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+
+      - name: Set up .NET
+        uses: actions/setup-dotnet@67a3573c9a986a3f9c594539f4ab511d57bb3ce9 # v4
+        with:
+          dotnet-version: 8.0.x
+
+      # The tag is the single source of truth for the version. build/version.ps1 strips
+      # the leading v and refuses anything that is not MAJOR.MINOR.PATCH[-pre.release].
+      - name: Resolve version from the tag
+        id: version
+        shell: pwsh
+        run: |
+          $ErrorActionPreference = "Stop"
+          $version = & ./build/version.ps1
+          $prerelease = $version.Contains('-')
+          Add-Content -Path $env:GITHUB_OUTPUT -Value "version=$version"
+          Add-Content -Path $env:GITHUB_OUTPUT -Value "prerelease=$($prerelease.ToString().ToLowerInvariant())"
+          Write-Host "Version: $version (pre-release: $prerelease)"
+
+      - name: Restore
+        run: dotnet restore CTRL+Z.sln
+
+      - name: Build (Release)
+        run: dotnet build CTRL+Z.sln -c Release --no-restore --nologo
+
+      - name: Test
+        run: dotnet test CTRL+Z.sln -c Release --no-build --nologo
+
+      - name: Install Inno Setup
+        shell: pwsh
+        run: choco install innosetup --no-progress -y
+
+      # --- Code signing (future roadmap step) ------------------------------------
+      # Signing is deliberately NOT implemented yet. When it is, add a signing step
+      # here, after the binaries are built and BEFORE the checksums are generated, so
+      # SHA256SUMS.txt covers the signed bytes:
+      #
+      #   - name: Sign binaries
+      #     if: ${{ env.SIGNING_CERTIFICATE != '' }}
+      #     shell: pwsh
+      #     run: ./build/sign.ps1 -Version "${{ steps.version.outputs.version }}"
+      #
+      # It will need a code-signing certificate kept in repository secrets and a new
+      # release-workflow permission to read it. No signing secrets exist today.
+      # ---------------------------------------------------------------------------
+
+      - name: Build the installer and the portable exe
+        shell: pwsh
+        run: ./build/build-installer.ps1 -Version "${{ steps.version.outputs.version }}" -SkipTests
+
+      - name: Generate SHA256SUMS.txt
+        shell: pwsh
+        run: |
+          $ErrorActionPreference = "Stop"
+          $assets = @()
+          $assets += Get-ChildItem ./artifacts/installer/CTRL+Z-Setup-*.exe -ErrorAction SilentlyContinue
+          $assets += Get-ChildItem ./artifacts/CTRL+Z-Portable-*.exe -ErrorAction SilentlyContinue
+          if ($assets.Count -eq 0) { throw "No release assets were produced." }
+
+          $lines = foreach ($asset in $assets) {
+            $hash = (Get-FileHash -Path $asset.FullName -Algorithm SHA256).Hash.ToLowerInvariant()
+            "{0}  {1}" -f $hash, $asset.Name
+          }
+
+          Set-Content -Path ./artifacts/SHA256SUMS.txt -Value $lines -Encoding utf8
+          Get-Content ./artifacts/SHA256SUMS.txt
+
+      - name: Stage release assets
+        shell: pwsh
+        run: |
+          $ErrorActionPreference = "Stop"
+          New-Item -ItemType Directory -Force ./artifacts/release | Out-Null
+          Copy-Item ./artifacts/installer/CTRL+Z-Setup-*.exe ./artifacts/release/
+          Copy-Item ./artifacts/CTRL+Z-Portable-*.exe ./artifacts/release/
+          Copy-Item ./artifacts/SHA256SUMS.txt ./artifacts/release/
+          Get-ChildItem ./artifacts/release | Select-Object Name, Length
+
+      - name: Upload release assets
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: release-assets
+          path: artifacts/release/*
+          if-no-files-found: error
+          retention-days: 7
+
+  release:
+    name: Publish GitHub release
+    needs: build
+    runs-on: windows-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Check out the tagged commit
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          fetch-depth: 0
+
+      - name: Download release assets
+        uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093 # v4
+        with:
+          name: release-assets
+          path: artifacts/release
+
+      - name: Generate release notes from commits
+        shell: pwsh
+        run: |
+          $ErrorActionPreference = "Stop"
+          $tag = $env:GITHUB_REF_NAME
+          $previous = git describe --tags --abbrev=0 "$tag^" 2>$null
+          if ($LASTEXITCODE -ne 0 -or [string]::IsNullOrWhiteSpace($previous)) {
+            $range = $tag
+            $heading = "All changes"
+          }
+          else {
+            $range = "$previous..$tag"
+            $heading = "Changes since $previous"
+          }
+
+          $commits = git log --pretty=format:"- %s (%h)" $range
+          $version = $tag.TrimStart('v')
+          $setupName = "CTRL+Z-Setup-$version.exe"
+          $portableName = "CTRL+Z-Portable-$version.exe"
+          $body = @(
+            "# CTRL+Z $tag",
+            "",
+            "## $heading",
+            "",
+            $commits,
+            "",
+            "## Downloads",
+            "",
+            "- $setupName - installer for installed copies",
+            "- $portableName - standalone portable exe",
+            "- SHA256SUMS.txt - SHA-256 for every asset above; the updater refuses an asset that does not match"
+          ) -join "`n"
+
+          Set-Content -Path release-notes.md -Value $body -Encoding utf8
+          Get-Content release-notes.md
+
+      - name: Create the release
+        shell: pwsh
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          $ErrorActionPreference = "Stop"
+          $tag = $env:GITHUB_REF_NAME
+          $version = $tag.TrimStart('v')
+
+          $arguments = @(
+            "release", "create", $tag,
+            "--verify-tag",
+            "--title", "CTRL+Z $version",
+            "--notes-file", "release-notes.md"
+          )
+
+          # A hyphen in the version marks a pre-release, so the updater's stable
+          # channel skips it and its pre-release channel offers it.
+          if ($version.Contains('-')) {
+            $arguments += "--prerelease"
+          }
+
+          $assets = Get-ChildItem ./artifacts/release/* | ForEach-Object { $_.FullName }
+          $arguments += $assets
+
+          Write-Host "gh $($arguments -join ' ')"
+          gh @arguments
