@@ -26,6 +26,7 @@ public sealed partial class MainViewModel : ObservableObject, IDisposable
 
         Scan = new ScanViewModel(services, dialogs, this);
         MyApps = new MyAppsViewModel(services, dialogs, this);
+        Readiness = new ReadinessViewModel(services, dialogs, this);
         AddApp = new AddAppViewModel(services, dialogs, this);
         Catalog = new CatalogViewModel(services, dialogs, this);
         Browsers = new BrowsersViewModel(services, dialogs, this);
@@ -38,6 +39,7 @@ public sealed partial class MainViewModel : ObservableObject, IDisposable
         [
             new NavItem("scan", "Scan", "\uE721", Scan),
             new NavItem("apps", "My Apps", "\uE71D", MyApps),
+            new NavItem("ready", "Ready to wipe", "\uE73E", Readiness),
             new NavItem("install", "Install", "\uE896", Install)
         ];
         DiscoverNav =
@@ -59,6 +61,7 @@ public sealed partial class MainViewModel : ObservableObject, IDisposable
     public string AppVersion { get; } = AppVersionInfo.Display;
     public ScanViewModel Scan { get; }
     public MyAppsViewModel MyApps { get; }
+    public ReadinessViewModel Readiness { get; }
     public AddAppViewModel AddApp { get; }
     public CatalogViewModel Catalog { get; }
     public BrowsersViewModel Browsers { get; }

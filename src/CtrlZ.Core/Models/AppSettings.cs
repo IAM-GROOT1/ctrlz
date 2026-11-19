@@ -15,6 +15,10 @@ public sealed class AppSettings
     public double WindowHeight { get; set; } = 760;
     public bool HasCompletedOnboarding { get; set; }
 
+    // ---- Ready-to-wipe checklist ----------------------------------------------------
+    /// <summary>Warn when a browser backup is at least this many days old. Zero disables it.</summary>
+    public int BackupWarningDays { get; set; } = 14;
+
     // ---- Updates -------------------------------------------------------------------
     /// <summary>Check GitHub for a newer release in the background at startup.</summary>
     public bool AutoCheckForUpdates { get; set; } = true;

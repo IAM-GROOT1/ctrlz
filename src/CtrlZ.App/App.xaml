@@ -34,6 +34,9 @@
             <DataTemplate DataType="{x:Type vm:MyAppsViewModel}">
                 <views:MyAppsView />
             </DataTemplate>
+            <DataTemplate DataType="{x:Type vm:ReadinessViewModel}">
+                <views:ReadinessView />
+            </DataTemplate>
             <DataTemplate DataType="{x:Type vm:AddAppViewModel}">
                 <views:AddAppView />
             </DataTemplate>

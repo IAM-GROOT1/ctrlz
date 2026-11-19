@@ -57,7 +57,7 @@ public sealed class ReadinessScanner
             cancellationToken.ThrowIfCancellationRequested();
             Report(folder.Label);
 
-            var usage = _folders.Scan(folder.Path, request.FolderOptions, cancellationToken);
+            var usage = _folders.Scan(folder.Path, folder.Options ?? request.FolderOptions, cancellationToken);
             checks.Add(BuildFolderCheck(folder, usage, request, now));
         }
 
