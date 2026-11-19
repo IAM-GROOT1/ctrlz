@@ -352,6 +352,8 @@ public sealed partial class InstallViewModel : PageViewModelBase
         _cts?.Dispose();
         _cts = new CancellationTokenSource();
         IsInstalling = true;
+        // Keeps the updater from prompting or applying while the queue is running.
+        using var activity = _services.Activity.Begin("Installing apps");
         _state = state;
         HasResume = false;
         HasReboot = false;

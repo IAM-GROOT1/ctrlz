@@ -62,6 +62,31 @@ public sealed partial class SettingsViewModel : PageViewModelBase
     [ObservableProperty]
     private string? _statusMessage;
 
+    [ObservableProperty]
+    private bool _autoCheckForUpdates;
+
+    [ObservableProperty]
+    private UpdateChannel _channel;
+
+    [ObservableProperty]
+    private bool _isCheckingForUpdates;
+
+    public string CurrentVersionText => $"CTRL+Z {AppVersion}";
+
+    public bool IsStableChannel => Channel == UpdateChannel.Stable;
+
+    public bool IsPreReleaseChannel => Channel == UpdateChannel.PreRelease;
+
+    public string ChannelDescription => Channel == UpdateChannel.Stable
+        ? "Only full releases are offered."
+        : "Full releases and pre-releases are offered; whichever is newest wins.";
+
+    public string LastUpdateCheckText => _services.State.Settings.LastUpdateCheckUtc is { } last
+        ? $"Last checked {last.ToLocalTime():yyyy-MM-dd HH:mm}"
+        : "Not checked yet";
+
+    public bool CanCheckForUpdates => !IsCheckingForUpdates;
+
     public bool IsSystemTheme => Theme == ThemeMode.System;
     public bool IsLightTheme => Theme == ThemeMode.Light;
     public bool IsDarkTheme => Theme == ThemeMode.Dark;
@@ -70,9 +95,28 @@ public sealed partial class SettingsViewModel : PageViewModelBase
     public override async Task ActivateAsync()
     {
         Theme = _services.State.Settings.Theme;
+        AutoCheckForUpdates = _services.State.Settings.AutoCheckForUpdates;
+        Channel = _services.State.Settings.UpdateChannel;
+        OnPropertyChanged(nameof(LastUpdateCheckText));
         LoadLogs();
         await CheckWingetAsync();
     }
+
+    partial void OnChannelChanged(UpdateChannel value)
+    {
+        OnPropertyChanged(nameof(IsStableChannel));
+        OnPropertyChanged(nameof(IsPreReleaseChannel));
+        OnPropertyChanged(nameof(ChannelDescription));
+    }
+
+    partial void OnAutoCheckForUpdatesChanged(bool value)
+    {
+        _services.State.Settings.AutoCheckForUpdates = value;
+        _services.State.SaveSettings();
+    }
+
+    partial void OnIsCheckingForUpdatesChanged(bool value) =>
+        OnPropertyChanged(nameof(CanCheckForUpdates));
 
     partial void OnThemeChanged(ThemeMode value)
     {
@@ -97,6 +141,39 @@ public sealed partial class SettingsViewModel : PageViewModelBase
         _services.State.SaveSettings();
         _themeService.Apply(Theme);
         StatusMessage = $"Theme: {ThemeDescription}.";
+    }
+
+    [RelayCommand]
+    private void SetUpdateChannel(string? channel)
+    {
+        Channel = string.Equals(channel, "prerelease", StringComparison.OrdinalIgnoreCase)
+            ? UpdateChannel.PreRelease
+            : UpdateChannel.Stable;
+
+        _services.State.Settings.UpdateChannel = Channel;
+        _services.State.SaveSettings();
+        StatusMessage = $"Update channel: {Channel}.";
+    }
+
+    [RelayCommand]
+    private async Task CheckForUpdatesAsync()
+    {
+        if (IsCheckingForUpdates)
+        {
+            return;
+        }
+
+        IsCheckingForUpdates = true;
+        StatusMessage = "Checking for updates\u2026";
+        try
+        {
+            await _main.Updates.CheckManuallyAsync();
+        }
+        finally
+        {
+            IsCheckingForUpdates = false;
+            OnPropertyChanged(nameof(LastUpdateCheckText));
+        }
     }
 
     [RelayCommand]

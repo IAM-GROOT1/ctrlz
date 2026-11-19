@@ -15,6 +15,7 @@ namespace CtrlZ.App.Services;
 public sealed class UpdateCoordinator
 {
     private static readonly TimeSpan RemindDelay = TimeSpan.FromHours(24);
+    private static readonly TimeSpan DeferralTimeout = TimeSpan.FromMinutes(30);
 
     private readonly AppServices _services;
     private readonly DialogService _dialogs;
@@ -57,16 +58,32 @@ public sealed class UpdateCoordinator
                 return;
             }
 
-            if (settings.UpdateRemindAfterUtc is { } remindAfter && DateTimeOffset.UtcNow < remindAfter)
+            var check = await CheckAsync(CancellationToken.None).ConfigureAwait(true);
+            if (!check.UpdateAvailable)
             {
                 return;
             }
 
-            var check = await CheckAsync(CancellationToken.None).ConfigureAwait(true);
-            if (check.UpdateAvailable)
+            var decision = UpdatePromptPolicy.Decide(
+                UpdatePromptState.FromSettings(settings),
+                check.Latest!.Version,
+                DateTimeOffset.UtcNow,
+                manual: false);
+
+            if (decision != UpdatePromptDecision.Show)
             {
-                await PromptAsync(check, manual: false).ConfigureAwait(true);
+                _services.Log.Write(LogLevel.Info, $"Startup update prompt suppressed: {decision}.");
+                return;
             }
+
+            // Never prompt over a running install queue, backup or restore.
+            if (!await ActivityWaiter.WaitForIdleAsync(_services.Activity, DeferralTimeout).ConfigureAwait(true))
+            {
+                _services.Log.Write(LogLevel.Info, "Update prompt deferred: another operation is still running.");
+                return;
+            }
+
+            await PromptAsync(check, manual: false).ConfigureAwait(true);
         }
         catch (UpdateCheckException ex)
         {
@@ -88,6 +105,14 @@ public sealed class UpdateCoordinator
 
             if (check.UpdateAvailable)
             {
+                if (!await ActivityWaiter.WaitForIdleAsync(_services.Activity, DeferralTimeout).ConfigureAwait(true))
+                {
+                    _dialogs.Info(
+                        "An install, backup or restore is still running, so the update prompt is deferred until it finishes.",
+                        "Update deferred");
+                    return;
+                }
+
                 await PromptAsync(check, manual: true).ConfigureAwait(true);
                 return;
             }
@@ -134,12 +159,22 @@ public sealed class UpdateCoordinator
         }
 
         var settings = _services.State.Settings;
+        var decision = UpdatePromptPolicy.Decide(
+            UpdatePromptState.FromSettings(settings),
+            release.Version,
+            DateTimeOffset.UtcNow,
+            manual);
 
-        // A skipped version is only skipped while it is still the newest one.
-        if (SemanticVersion.TryParse(settings.SkippedUpdateVersion, out var skipped) &&
-            skipped is not null &&
-            skipped.CompareTo(release.Version) >= 0)
+        if (decision != UpdatePromptDecision.Show)
         {
+            if (manual && decision == UpdatePromptDecision.Skipped)
+            {
+                _dialogs.Info(
+                    $"CTRL+Z {release.Version} is available, but you asked to skip that version. " +
+                    "A newer release will prompt again.",
+                    "This version is skipped");
+            }
+
             return;
         }
 
@@ -231,6 +266,14 @@ public sealed class UpdateCoordinator
             window.SetProgress(null, "Verifying\u2026");
             var actual = await UpdateVerifier.ComputeSha256Async(file.Path, cts.Token).ConfigureAwait(true);
             UpdateVerifier.EnsureHash(expectedHash, actual);
+
+            // A long operation may have started while the download ran; never interrupt it.
+            if (_services.Activity.IsBusy)
+            {
+                window.SetProgress(null, "Waiting for the current operation to finish\u2026");
+                _services.Log.Write(LogLevel.Info, "Update download finished; waiting for the running operation to finish.");
+                await ActivityWaiter.WaitForIdleAsync(_services.Activity, DeferralTimeout, cts.Token).ConfigureAwait(true);
+            }
 
             window.SetProgress(null, "Restarting to finish the update\u2026");
             LaunchHelper(file.Path, expectedHash, kind, release.Version.ToString());
