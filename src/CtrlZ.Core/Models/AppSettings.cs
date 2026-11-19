@@ -14,4 +14,20 @@ public sealed class AppSettings
     public double WindowWidth { get; set; } = 1180;
     public double WindowHeight { get; set; } = 760;
     public bool HasCompletedOnboarding { get; set; }
+
+    // ---- Updates -------------------------------------------------------------------
+    /// <summary>Check GitHub for a newer release in the background at startup.</summary>
+    public bool AutoCheckForUpdates { get; set; } = true;
+
+    /// <summary>Stable ignores pre-releases; PreRelease offers whichever is newest.</summary>
+    public UpdateChannel UpdateChannel { get; set; } = UpdateChannel.Stable;
+
+    /// <summary>Version the user asked never to be prompted about again.</summary>
+    public string? SkippedUpdateVersion { get; set; }
+
+    /// <summary>Last completed check, for the Settings page.</summary>
+    public DateTimeOffset? LastUpdateCheckUtc { get; set; }
+
+    /// <summary>"Remind me later" suppresses prompts until this moment.</summary>
+    public DateTimeOffset? UpdateRemindAfterUtc { get; set; }
 }

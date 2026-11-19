@@ -12,7 +12,13 @@ public sealed record DownloadProgress(long DownloadedBytes, long? TotalBytes, do
 
 public sealed class DownloadException : Exception
 {
-    public DownloadException(string message, Exception? inner = null) : base(message, inner) { }
+    public DownloadException(string message, Exception? inner = null, int? statusCode = null) : base(message, inner)
+    {
+        StatusCode = statusCode;
+    }
+
+    /// <summary>HTTP status code when the failure came from a response, otherwise null.</summary>
+    public int? StatusCode { get; }
 }
 
 public sealed class DownloadHashMismatchException : Exception
@@ -176,10 +182,12 @@ public sealed class DownloadService
                 response.Headers.TryGetValues("X-RateLimit-Remaining", out var remaining) &&
                 remaining.FirstOrDefault() == "0")
             {
-                throw new DownloadException("GitHub's anonymous API limit was reached. Try again later or set GITHUB_TOKEN.");
+                throw new DownloadException("GitHub's anonymous API limit was reached. Try again later or set GITHUB_TOKEN.",
+                    statusCode: (int)response.StatusCode);
             }
 
-            throw new DownloadException($"Request failed ({(int)response.StatusCode} {response.ReasonPhrase}).");
+            throw new DownloadException($"Request failed ({(int)response.StatusCode} {response.ReasonPhrase}).",
+                statusCode: (int)response.StatusCode);
         }
 
         return await response.Content.ReadAsStringAsync(cts.Token).ConfigureAwait(false);
