@@ -1,3 +1,6 @@
+# SPDX-License-Identifier: AGPL-3.0-only
+# Copyright (c) 2026 iam-groot1
+
 <#
 .SYNOPSIS
     Installs the exact Inno Setup compiler that the release workflow is pinned to.

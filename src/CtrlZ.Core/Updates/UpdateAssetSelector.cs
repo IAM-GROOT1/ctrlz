@@ -1,3 +1,6 @@
+// SPDX-License-Identifier: AGPL-3.0-only
+// Copyright (c) 2026 iam-groot1
+
 namespace CtrlZ.Core.Updates;
 
 /// <summary>Which artifact an update must download for the copy that is running.</summary>
