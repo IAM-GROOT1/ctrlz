@@ -5,6 +5,7 @@ using System.Collections.ObjectModel;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using CtrlZ.App.Services;
+using CtrlZ.Core.Updates;
 
 namespace CtrlZ.App.ViewModels;
 
@@ -20,6 +21,8 @@ public sealed partial class MainViewModel : ObservableObject, IDisposable
         _theme = theme;
         Dialogs = dialogs;
         AutoInstallOnStartup = autoInstall;
+
+        Updates = new UpdateCoordinator(services, dialogs, () => System.Windows.Application.Current?.MainWindow);
 
         Scan = new ScanViewModel(services, dialogs, this);
         MyApps = new MyAppsViewModel(services, dialogs, this);
@@ -53,8 +56,7 @@ public sealed partial class MainViewModel : ObservableObject, IDisposable
 
     public DialogService Dialogs { get; }
     public ThemeService Theme => _theme;
-    public string AppVersion { get; } =
-        typeof(MainViewModel).Assembly.GetName().Version?.ToString(3) ?? "1.1.3";
+    public string AppVersion { get; } = AppVersionInfo.Display;
     public ScanViewModel Scan { get; }
     public MyAppsViewModel MyApps { get; }
     public AddAppViewModel AddApp { get; }
@@ -62,6 +64,7 @@ public sealed partial class MainViewModel : ObservableObject, IDisposable
     public BrowsersViewModel Browsers { get; }
     public InstallViewModel Install { get; }
     public SettingsViewModel Settings { get; }
+    public UpdateCoordinator Updates { get; }
 
     public ObservableCollection<NavItem> WorkspaceNav { get; }
     public ObservableCollection<NavItem> DiscoverNav { get; }
@@ -98,6 +101,9 @@ public sealed partial class MainViewModel : ObservableObject, IDisposable
         {
             await CurrentPage.ActivateAsync();
         }
+
+        // Fire-and-forget: the update check must never delay the first paint.
+        _ = Updates.RunStartupCheckAsync();
     }
 
     [RelayCommand]

@@ -59,6 +59,35 @@
 
                 <Border Style="{StaticResource Border.Card}" Padding="18,16" Margin="0,14,0,0">
                     <StackPanel>
+                        <TextBlock Text="UPDATES" Style="{StaticResource Text.NavSection}" Margin="0,0,0,10" />
+                        <TextBlock Text="{Binding CurrentVersionText}" FontWeight="SemiBold" FontSize="13" />
+                        <TextBlock Text="{Binding LastUpdateCheckText}" Style="{StaticResource Text.Caption}" Margin="0,3,0,0" />
+                        <CheckBox Content="Check for updates automatically" Margin="0,12,0,0"
+                                  IsChecked="{Binding AutoCheckForUpdates, Mode=TwoWay}" />
+                        <TextBlock Text="Channel" Style="{StaticResource Text.Label}" Margin="0,12,0,6" />
+                        <Border Style="{StaticResource Border.Inset}" Padding="2" HorizontalAlignment="Left">
+                            <StackPanel Orientation="Horizontal">
+                                <ToggleButton Content="Stable" Style="{StaticResource Toggle.Pill}"
+                                              IsChecked="{Binding IsStableChannel, Mode=OneWay}"
+                                              Command="{Binding SetUpdateChannelCommand}" CommandParameter="stable" />
+                                <ToggleButton Content="Pre-release" Style="{StaticResource Toggle.Pill}"
+                                              IsChecked="{Binding IsPreReleaseChannel, Mode=OneWay}"
+                                              Command="{Binding SetUpdateChannelCommand}" CommandParameter="prerelease" />
+                            </StackPanel>
+                        </Border>
+                        <TextBlock Text="{Binding ChannelDescription}" Style="{StaticResource Text.Caption}"
+                                   TextWrapping="Wrap" Margin="0,8,0,0" />
+                        <Button Content="Check for updates" Style="{StaticResource Button.Secondary}"
+                                HorizontalAlignment="Left" Margin="0,12,0,0"
+                                Command="{Binding CheckForUpdatesCommand}"
+                                IsEnabled="{Binding CanCheckForUpdates}" />
+                        <TextBlock Text="Only the version check and an update download talk to GitHub. Nothing else is sent, and CTRL+Z has no telemetry."
+                                   Style="{StaticResource Text.Caption}" TextWrapping="Wrap" Margin="0,10,0,0" />
+                    </StackPanel>
+                </Border>
+
+                <Border Style="{StaticResource Border.Card}" Padding="18,16" Margin="0,14,0,0">
+                    <StackPanel>
                         <TextBlock Text="ABOUT" Style="{StaticResource Text.NavSection}" Margin="0,0,0,10" />
                         <StackPanel Orientation="Horizontal">
                             <Image Width="36" Height="36" Source="Assets/ctrlz.png" Stretch="Uniform"

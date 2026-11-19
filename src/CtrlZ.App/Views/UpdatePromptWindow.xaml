@@ -1,0 +1,102 @@
+<!-- SPDX-License-Identifier: AGPL-3.0-only -->
+<!-- Copyright (c) 2026 iam-groot1 -->
+
+<Window x:Class="CtrlZ.App.Views.UpdatePromptWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:shell="clr-namespace:System.Windows.Shell;assembly=PresentationFramework"
+        Title="CTRL+Z"
+        Width="520"
+        SizeToContent="Height"
+        MinHeight="220"
+        MaxHeight="760"
+        WindowStyle="None"
+        ResizeMode="NoResize"
+        WindowStartupLocation="CenterOwner"
+        ShowInTaskbar="False"
+        Background="{DynamicResource Brush.Surface}"
+        Foreground="{DynamicResource Brush.TextPrimary}"
+        FontFamily="{StaticResource Font.Text}">
+    <shell:WindowChrome.WindowChrome>
+        <shell:WindowChrome CaptionHeight="42" ResizeBorderThickness="0" GlassFrameThickness="0"
+                            UseAeroCaptionButtons="False" />
+    </shell:WindowChrome.WindowChrome>
+
+    <Border BorderBrush="{DynamicResource Brush.Border}" BorderThickness="1">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="42" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+
+            <Border Grid.Row="0" Background="{DynamicResource Brush.SurfaceAlt}"
+                    BorderBrush="{DynamicResource Brush.Border}" BorderThickness="0,0,0,1">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="46" />
+                    </Grid.ColumnDefinitions>
+                    <StackPanel Orientation="Horizontal" Margin="16,0,0,0" VerticalAlignment="Center">
+                        <TextBlock Text="&#xE896;" FontFamily="{StaticResource Font.Icons}"
+                                   FontSize="15" Foreground="{DynamicResource Brush.Accent}" Margin="0,0,9,0" />
+                        <TextBlock x:Name="TitleText" Text="Update available" FontSize="13" FontWeight="SemiBold"
+                                   VerticalAlignment="Center" />
+                    </StackPanel>
+                    <Button Grid.Column="1" Style="{StaticResource Button.Window}"
+                            Click="Close_Click" AutomationProperties.Name="Close"
+                            x:Name="CloseButton">
+                        <TextBlock Text="&#xE711;" FontFamily="{StaticResource Font.Icons}" FontSize="10" />
+                    </Button>
+                </Grid>
+            </Border>
+
+            <ScrollViewer Grid.Row="1" MaxHeight="460" VerticalScrollBarVisibility="Auto">
+                <StackPanel Margin="22,20,22,10">
+                    <TextBlock x:Name="HeadlineText" TextWrapping="Wrap" FontSize="17" FontWeight="SemiBold"
+                               Foreground="{DynamicResource Brush.TextPrimary}" />
+                    <TextBlock x:Name="SubText" TextWrapping="Wrap" Style="{StaticResource Text.Secondary}"
+                               Margin="0,4,0,0" />
+
+                    <Border x:Name="NotesPanel" Style="{StaticResource Border.Inset}" Padding="12,10" Margin="0,16,0,0">
+                        <ScrollViewer MaxHeight="220" VerticalScrollBarVisibility="Auto">
+                            <TextBlock x:Name="NotesText" TextWrapping="Wrap" FontSize="12.5" LineHeight="19"
+                                       Foreground="{DynamicResource Brush.TextSecondary}" />
+                        </ScrollViewer>
+                    </Border>
+
+                    <Button x:Name="ReleaseLinkButton" Content="View release on GitHub"
+                            Style="{StaticResource Button.Link}" HorizontalAlignment="Left" Margin="0,8,0,0"
+                            Click="ReleaseLink_Click" />
+
+                    <StackPanel x:Name="ProgressPanel" Margin="0,14,0,0" Visibility="Collapsed">
+                        <TextBlock x:Name="ProgressText" Style="{StaticResource Text.Caption}" />
+                        <ProgressBar x:Name="Progress" Height="4" Margin="0,8,0,0" Minimum="0" Maximum="1"
+                                     Foreground="{DynamicResource Brush.Accent}"
+                                     Background="{DynamicResource Brush.SurfaceAlt}" />
+                    </StackPanel>
+
+                    <TextBlock x:Name="ErrorText" TextWrapping="Wrap" Style="{StaticResource Text.Caption}"
+                               Foreground="{DynamicResource Brush.Danger}" Margin="0,14,0,0"
+                               Visibility="Collapsed" />
+                </StackPanel>
+            </ScrollViewer>
+
+            <Border Grid.Row="2" Padding="22,12,22,18" Background="{DynamicResource Brush.Surface}">
+                <Grid>
+                    <Button x:Name="SkipButton" Content="Skip this version" Style="{StaticResource Button.Link}"
+                            HorizontalAlignment="Left" VerticalAlignment="Center" Click="Skip_Click" />
+
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                        <Button x:Name="RemindButton" Content="Remind me later" Style="{StaticResource Button.Secondary}"
+                                Margin="0,0,8,0" MinWidth="118" Click="Remind_Click" />
+                        <Button x:Name="UpdateNowButton" Content="Update now" Style="{StaticResource Button.Primary}"
+                                MinWidth="118" IsDefault="True" Click="UpdateNow_Click" />
+                        <Button x:Name="CancelButton" Content="Cancel" Style="{StaticResource Button.Secondary}"
+                                MinWidth="96" Visibility="Collapsed" Click="Cancel_Click" />
+                    </StackPanel>
+                </Grid>
+            </Border>
+        </Grid>
+    </Border>
+</Window>

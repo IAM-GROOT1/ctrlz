@@ -349,6 +349,8 @@ public sealed partial class BrowsersViewModel : PageViewModelBase
         _cts?.Dispose();
         _cts = new CancellationTokenSource();
         IsBackingUp = true;
+        // Keeps the updater from prompting or applying during a backup.
+        using var activity = _services.Activity.Begin("Backing up browser profiles");
         BackupProgress = 0;
         var completed = new List<BrowserBackupResult>();
         var failures = new List<string>();
@@ -566,6 +568,8 @@ public sealed partial class BrowsersViewModel : PageViewModelBase
         _cts?.Dispose();
         _cts = new CancellationTokenSource();
         IsRestoring = true;
+        // Keeps the updater from prompting or applying during a restore.
+        using var activity = _services.Activity.Begin("Restoring browser profiles");
         RestoreProgress = 0;
         RestoreStatus = "Restoring…";
         try

@@ -130,6 +130,34 @@ file named `portable.flag` beside `CTRL+Z.exe` before launching. Data then lives
 Profiles are portable regardless: export them from **My Apps → Export** and keep the JSON
 with the installer or on a USB drive.
 
+## Updates
+
+CTRL+Z can check GitHub for a newer release and update itself.
+
+- **Where the version comes from.** The build stamps the version from the git tag into the
+  assemblies, the installer and the asset names, so the app, the release and the files always
+  agree. The tag is the single source of truth; nothing is hard-coded.
+- **What is checked.** CTRL+Z asks GitHub's public API for the releases of `IAM-GROOT1/ctrlz`,
+  picks the newest one for your channel (**Stable** ignores pre-releases, **Pre-release**
+  includes them) and compares it with the running version. Drafts are ignored, and an older
+  release is never offered as an update.
+- **What is downloaded.** An installed copy downloads `CTRL+Z-Setup-<version>.exe`; a portable
+  copy downloads `CTRL+Z-Portable-<version>.exe`. Only HTTPS assets from this repository's own
+  releases are accepted. Every download is checked against the release's `SHA256SUMS.txt` (or
+  the API digest); a file that does not match is deleted and never applied.
+- **Turning it off.** **Settings → Updates** has a *Check for updates automatically* toggle, a
+  channel switch and a manual **Check for updates** button. *Skip this version* keeps that
+  version quiet until a newer one ships.
+- **Interruptions.** CTRL+Z never prompts or applies an update while an install queue, browser
+  backup or restore is running; the prompt waits for the operation to finish.
+- **Privacy.** The release check and an update download are the only network requests this
+  feature makes. They send no token and no identifiers, and CTRL+Z has no telemetry.
+- **Testing a fork (debug builds only).** A `DEBUG` build accepts the environment variable
+  `CTRLZ_UPDATE_REPO=owner/name` to point the release check at a fork. It can change *only* the
+  repository owner and name: the API host, the URL shape and the GitHub-only list of allowed
+  asset hosts stay fixed, and the value is rejected unless it is exactly `owner/name`. Release
+  builds ignore the variable entirely and always use `IAM-GROOT1/ctrlz`.
+
 ## Build and run
 
 ### Requirements
@@ -166,13 +194,15 @@ resume/retry, and file/portable installer execution.
 ### Build the portable single exe
 
 ```powershell
-.\build\publish.ps1 -Version 1.1.3
+.\build\publish.ps1
 ```
+
+The version is derived from the newest git tag; pass `-Version 1.2.0` to override it.
 
 Outputs:
 
 - `artifacts/publish/portable/CTRL+Z.exe`
-- `artifacts/CTRL+Z-Portable-1.1.3.exe`
+- `artifacts/CTRL+Z-Portable-<version>.exe`
 - README + LICENSE next to the portable build
 
 The script uses `dotnet` from `PATH`, or a local `.tools/dotnet/dotnet.exe` if present.
@@ -180,12 +210,55 @@ The script uses `dotnet` from `PATH`, or a local `.tools/dotnet/dotnet.exe` if p
 ### Build the installer
 
 ```powershell
-.\build\build-installer.ps1 -Version 1.1.3
+.\build\build-installer.ps1
 ```
 
-Output: `artifacts/installer/CTRL+Z-Setup-1.1.3.exe`.
+Output: `artifacts/installer/CTRL+Z-Setup-<version>.exe`.
 
 If you use Winget, verify that it installs Inno Setup 6.3+ (the 6.x line is free for commercial use). The vendor still publishes 6.7.4 alongside newer releases.
+
+## Releasing
+
+Releases are produced by `.github/workflows/release.yml`, which runs only when a version tag is
+pushed:
+
+```powershell
+git tag v1.2.0
+git push origin v1.2.0
+```
+
+The workflow restores, builds in Release, runs the tests, stamps the version from the tag into the
+assemblies and the installer, builds the installer and the portable exe, writes `SHA256SUMS.txt`,
+and publishes a GitHub release with those assets attached. It needs no release secrets: it uses
+only the built-in `GITHUB_TOKEN`. Code signing is deliberately not implemented yet; the workflow
+marks the place where it will go.
+
+Two details keep releases reproducible: the release workflow builds the whole solution
+(`CTRL+Z.sln`, so `CtrlZ.App` is compiled too) before running the tests, and Inno Setup is pinned
+to an exact version whose installer SHA-256 is verified before it runs
+([`build/install-inno-setup.ps1`](build/install-inno-setup.ps1)). The workflow fails rather than
+publish a release without `SHA256SUMS.txt`.
+
+A version containing a hyphen is published as a **pre-release**, which is what the updater's
+pre-release channel looks for:
+
+```powershell
+git tag v1.3.0-beta.1
+git push origin v1.3.0-beta.1
+```
+
+### Asset naming
+
+The updater selects assets by exact name, so the naming is part of the contract:
+
+| Asset | Pattern | Used by |
+| --- | --- | --- |
+| Installer | `CTRL+Z-Setup-<version>.exe` | installed copies |
+| Portable | `CTRL+Z-Portable-<version>.exe` | portable copies |
+| Checksums | `SHA256SUMS.txt` | verification of both |
+
+`<version>` is the tag without its leading `v`, for example `1.2.0` or `1.3.0-beta.1`. Renaming an
+asset breaks automatic updates for that release: the updater will refuse to guess.
 
 ## Using CTRL+Z on a fresh Windows install
 
@@ -341,10 +414,7 @@ permissions, and the absence of cookies/passwords).
 
 ## Roadmap
 
-- General AppData/config settings backup/restore module (structured for later; see above).
-- Portable app shortcut creation and update tracking.
-- Optional code signing / auto-update.
-- Per-app download resumption and mirror selection.
+See [`ROADMAP.md`](ROADMAP.md) for planned work and later improvements.
 
 ## License
 

@@ -2,12 +2,15 @@
 # Copyright (c) 2026 iam-groot1
 
 param(
-    [string]$Version = "1.1.3",
+    [string]$Version,
     [switch]$SkipTests
 )
 
 $ErrorActionPreference = "Stop"
 $root = Split-Path -Parent $PSScriptRoot
+
+# Resolve once so the installer and the published binaries always agree.
+$Version = & (Join-Path $PSScriptRoot "version.ps1") -Version $Version
 
 & (Join-Path $PSScriptRoot "publish.ps1") -Version $Version -SkipTests:$SkipTests
 if ($LASTEXITCODE -ne 0) { throw "Publishing failed." }

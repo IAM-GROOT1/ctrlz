@@ -5,6 +5,7 @@ using CtrlZ.Core.Install;
 using CtrlZ.Core.Infrastructure;
 using CtrlZ.Core.Logging;
 using CtrlZ.Core.Services;
+using CtrlZ.Core.Updates;
 
 namespace CtrlZ.App.Services;
 
@@ -30,6 +31,9 @@ public sealed class AppServices : IDisposable
     public SettingsStore SettingsStore { get; }
     public ProfileStore Profiles { get; }
     public AppState State { get; }
+
+    /// <summary>Long-running work the updater must not interrupt.</summary>
+    public IAppActivityMonitor Activity { get; private init; } = null!;
     public ProcessRunner Runner { get; private init; } = null!;
     public WingetCli Winget { get; private init; } = null!;
     public DownloadService Downloads { get; private init; } = null!;
@@ -81,6 +85,7 @@ public sealed class AppServices : IDisposable
 
         return new AppServices(paths, log, settingsStore, profiles, state)
         {
+            Activity = new AppActivityMonitor(),
             Runner = runner,
             Winget = winget,
             Downloads = downloads,

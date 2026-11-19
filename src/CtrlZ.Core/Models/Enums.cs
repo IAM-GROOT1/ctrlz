@@ -74,6 +74,16 @@ public enum GitHubAssetKind
     PortableExecutable
 }
 
+/// <summary>Which releases the updater is allowed to offer.</summary>
+public enum UpdateChannel
+{
+    /// <summary>Only full releases; pre-releases are ignored.</summary>
+    Stable,
+
+    /// <summary>Full releases and pre-releases, whichever is newest.</summary>
+    PreRelease
+}
+
 public static class CategoryNames
 {
     public static string Display(this AppCategory category) => category switch
