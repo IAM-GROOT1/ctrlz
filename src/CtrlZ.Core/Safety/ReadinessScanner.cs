@@ -3,6 +3,7 @@
 
 using System.Text;
 using CtrlZ.Core.Infrastructure;
+using CtrlZ.Core.Logging;
 
 namespace CtrlZ.Core.Safety;
 
@@ -17,17 +18,20 @@ public sealed class ReadinessScanner
     private readonly DeveloperItemsProbe _developer;
     private readonly GameLibraryProbe _games;
     private readonly BrowserBackupInventory _backups;
+    private readonly IAppLog? _log;
 
     public ReadinessScanner(
         FolderUsageScanner? folders = null,
         DeveloperItemsProbe? developer = null,
         GameLibraryProbe? games = null,
-        BrowserBackupInventory? backups = null)
+        BrowserBackupInventory? backups = null,
+        IAppLog? log = null)
     {
         _folders = folders ?? new FolderUsageScanner();
         _developer = developer ?? new DeveloperItemsProbe();
         _games = games ?? new GameLibraryProbe();
         _backups = backups ?? new BrowserBackupInventory();
+        _log = log;
     }
 
     public Task<ReadinessReport> ScanAsync(
@@ -88,7 +92,12 @@ public sealed class ReadinessScanner
             });
         }
 
-        return new ReadinessReport { GeneratedUtc = now, Checks = checks };
+        var report = new ReadinessReport { GeneratedUtc = now, Checks = checks };
+
+        // Counts only: the log must never learn a personal folder or file name.
+        _log?.Write(LogLevel.Info, SafetyDiagnostics.Summary(report));
+
+        return report;
     }
 
     private static ReadinessCheck BuildFolderCheck(

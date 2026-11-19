@@ -74,7 +74,9 @@ public sealed class BrowserDetector
             }
             catch (Exception ex)
             {
-                _log.Write(LogLevel.Warning, $"Could not inspect {definition.DisplayName}.", ex);
+                // The exception message can embed the profile folder it failed on, so only the
+                // exception type is logged. The checklist runs this and must not log paths.
+                _log.Write(LogLevel.Warning, $"Could not inspect {definition.DisplayName} ({ex.GetType().Name}).");
             }
         }
 
@@ -94,7 +96,7 @@ public sealed class BrowserDetector
             }
             catch (BrowserPathValidationException ex)
             {
-                _log.Write(LogLevel.Warning, $"Custom browser path rejected: {ex.Message}");
+                _log.Write(LogLevel.Warning, $"Custom browser path rejected: {LogPrivacy.RedactPaths(ex.Message)}");
             }
         }
 

@@ -138,11 +138,22 @@ public sealed class DryRunRunner
                 $"Release {release.TagName} has no asset that matches this app.");
         }
 
-        return Result(
-            item,
-            PlanCheckStatus.Ready,
-            $"Release {release.TagName} publishes {asset.Name}.",
-            asset.Size > 0 ? asset.Size : null);
+        var size = asset.Size > 0 ? asset.Size : (long?)null;
+
+        // A silent substitution is exactly what happens at install time, but the user should
+        // know the recorded file is gone and something else will run instead.
+        if (!string.IsNullOrWhiteSpace(app.GitHubAsset) &&
+            !asset.Name.Equals(app.GitHubAsset, StringComparison.OrdinalIgnoreCase))
+        {
+            return Result(
+                item,
+                PlanCheckStatus.Warning,
+                $"The recorded asset '{app.GitHubAsset}' is not in release {release.TagName}; " +
+                $"the installer will fall back to '{asset.Name}'.",
+                size);
+        }
+
+        return Result(item, PlanCheckStatus.Ready, $"Release {release.TagName} publishes {asset.Name}.", size);
     }
 
     private async Task<DryRunItem> CheckUrlAsync(InstallPlanItem item, AppEntry app, CancellationToken cancellationToken)

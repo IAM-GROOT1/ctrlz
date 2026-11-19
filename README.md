@@ -190,6 +190,25 @@ and only to look things up.
 What these checks do **not** cover: files inside password-protected backup apps, cloud-only files
 that are not downloaded, and data that lives only in an online account.
 
+## Privacy
+
+CTRL+Z is local-first: no account, no telemetry, no analytics.
+
+- **The ready-to-wipe checklist and profile drift make no network requests at all.** They read
+  local state only — directory listings, registry keys, file timestamps and the app list.
+- **The install dry run is the only safety check that touches the network, and only when you
+  press Dry run.** It performs read-only lookups (a winget search, the GitHub release API, and a
+  HEAD request for direct links) to confirm each source exists. Opening the preview, or viewing
+  the checklist, never triggers a request.
+- **Logs contain counts and sizes only.** No file or folder name from your personal folders is
+  written to the application log or to the diagnostics copy.
+- **Checklist state contains no paths.** `state/safety-state.json` holds only checklist item ids,
+  handled/ignored flags and ignored drift keys.
+- **Private material is never read.** The developer check counts `.env` files and `~/.ssh`
+  entries by listing directories; it never opens them. A test holds those files open
+  exclusively and still expects the scan to succeed, which proves no read is attempted.
+- The updater is separate: see [Updates](#updates) for the single check it makes.
+
 ## Build and run
 
 ### Requirements

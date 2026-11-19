@@ -26,7 +26,7 @@ public sealed partial class ReadinessViewModel : PageViewModelBase
     private readonly DialogService _dialogs;
     private readonly MainViewModel _main;
     private readonly SafetyStateStore _stateStore;
-    private readonly ReadinessScanner _scanner = new();
+    private readonly ReadinessScanner _scanner;
 
     private CancellationTokenSource? _cts;
 
@@ -39,6 +39,9 @@ public sealed partial class ReadinessViewModel : PageViewModelBase
         _stateStore = new SafetyStateStore(
             Path.Combine(services.Paths.State, "safety-state.json"),
             services.Log);
+
+        // The scanner logs a counts-only summary itself; the page adds nothing path-bearing.
+        _scanner = new ReadinessScanner(log: services.Log);
 
         RowsView = CollectionViewSource.GetDefaultView(Rows);
         RowsView.Filter = FilterRow;
@@ -249,11 +252,6 @@ public sealed partial class ReadinessViewModel : PageViewModelBase
         }
 
         RefreshSummary();
-
-        // Counts only: no user folder names or file names reach the log.
-        _services.Log.Write(
-            LogLevel.Info,
-            $"Readiness check: {report.PassCount} pass, {report.WarningCount} warning, {report.FailCount} fail.");
     }
 
     private void RefreshSummary()

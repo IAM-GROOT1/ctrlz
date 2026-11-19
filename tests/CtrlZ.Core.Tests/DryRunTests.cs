@@ -162,18 +162,31 @@ public class DryRunTests
     }
 
     [Fact]
-    public async Task A_renamed_asset_falls_back_the_way_the_installer_does()
+    public async Task A_release_that_still_has_the_recorded_asset_is_ready()
+    {
+        var app = InstallPlannerTests.Entry("From GitHub", AppSource.GitHub, repo: "owner/repo");
+        var report = await Run([app], latest: _ => Release("v1.0.0", new GitHubAsset("setup.exe", "https://github.com/o/r/setup.exe", 10, null, null)));
+
+        var item = Assert.Single(report.Items);
+        Assert.Equal(PlanCheckStatus.Ready, item.Status);
+        Assert.Contains("setup.exe", item.Message);
+    }
+
+    [Fact]
+    public async Task A_renamed_asset_is_a_warning_that_names_both_assets()
     {
         var app = InstallPlannerTests.Entry("From GitHub", AppSource.GitHub, repo: "owner/repo");
         var report = await Run(
             [app],
             latest: _ => Release("v1.0.0", new GitHubAsset("setup-1.1.exe", "https://github.com/o/r/setup-1.1.exe", 10, null, null)));
 
-        // The installed behaviour picks another asset when the recorded name is gone, so the
-        // preview must predict that rather than reporting a failure the app would not hit.
+        // The install behaviour still falls back, but the preview must not report a plain pass:
+        // a different file will run than the one that was recorded.
         var item = Assert.Single(report.Items);
-        Assert.Equal(PlanCheckStatus.Ready, item.Status);
+        Assert.Equal(PlanCheckStatus.Warning, item.Status);
+        Assert.Contains("setup.exe", item.Message);
         Assert.Contains("setup-1.1.exe", item.Message);
+        Assert.False(report.HasFailures);
     }
 
     [Fact]

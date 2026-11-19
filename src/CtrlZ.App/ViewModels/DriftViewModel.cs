@@ -252,5 +252,8 @@ public sealed partial class DriftViewModel : ObservableObject
         OnPropertyChanged(nameof(HasExtra));
         OnPropertyChanged(nameof(HasOutdated));
         OnPropertyChanged(nameof(IsEmpty));
+
+        // Counts only: app names stay in the window, never in the log.
+        _services.Log.Write(LogLevel.Info, SafetyDiagnostics.DriftSummary(report));
     }
 }
