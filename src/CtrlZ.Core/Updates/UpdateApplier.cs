@@ -27,6 +27,7 @@ public sealed class UpdateApplier
 
     public async Task<UpdateApplyResult> ApplyAsync(UpdateApplyRequest request, CancellationToken cancellationToken = default)
     {
+        UpdateApplyResult result;
         try
         {
             _log.Write(LogLevel.Info, $"Applying {request.Kind} update to {request.Version ?? "unknown version"}.");
@@ -37,16 +38,24 @@ public sealed class UpdateApplier
                     .ConfigureAwait(false);
             }
 
-            return request.Kind.Equals(nameof(UpdateInstallKind.Installed), StringComparison.OrdinalIgnoreCase)
+            result = request.Kind.Equals(nameof(UpdateInstallKind.Installed), StringComparison.OrdinalIgnoreCase)
                 ? await ApplyInstalledAsync(request, cancellationToken).ConfigureAwait(false)
                 : await ApplyPortableAsync(request, cancellationToken).ConfigureAwait(false);
         }
         catch (Exception ex)
         {
             _log.Write(LogLevel.Error, "The update could not be applied.", ex);
-            TryStart(request.TargetExe);
-            return UpdateApplyResult.Failed("The update could not be applied: " + ex.Message);
+            result = UpdateApplyResult.Failed("The update could not be applied: " + ex.Message);
         }
+
+        if (!result.Success)
+        {
+            // Never leave the user without an app. On a rollback this starts the restored
+            // previous build; otherwise it starts whatever is still on disk.
+            TryStart(request.TargetExe);
+        }
+
+        return result;
     }
 
     private async Task<UpdateApplyResult> ApplyPortableAsync(UpdateApplyRequest request, CancellationToken cancellationToken)
@@ -76,7 +85,6 @@ public sealed class UpdateApplier
         {
             _log.Write(LogLevel.Error, "Could not place the new executable in the target folder.", ex);
             Restore(backup, target);
-            TryStart(target);
             return UpdateApplyResult.Failed("The new version could not be put in place. The previous version was restored.");
         }
 
@@ -84,7 +92,6 @@ public sealed class UpdateApplier
         if (started is null)
         {
             Restore(backup, target);
-            TryStart(target);
             return UpdateApplyResult.Failed("The new version could not be started. The previous version was restored.");
         }
 
@@ -104,7 +111,6 @@ public sealed class UpdateApplier
             }
 
             Restore(backup, target);
-            TryStart(target);
             return UpdateApplyResult.Failed(
                 "The new version closed unexpectedly, so CTRL+Z rolled back to the previous version.");
         }
@@ -134,7 +140,6 @@ public sealed class UpdateApplier
         using var installer = Process.Start(startInfo);
         if (installer is null)
         {
-            TryStart(request.TargetExe);
             return UpdateApplyResult.Failed("The installer could not be started. Your previous version is still installed.");
         }
 
@@ -143,7 +148,6 @@ public sealed class UpdateApplier
         if (installer.ExitCode != 0)
         {
             _log.Write(LogLevel.Error, $"The installer exited with code {installer.ExitCode}.");
-            TryStart(request.TargetExe);
             return UpdateApplyResult.Failed(
                 $"The installer reported an error (code {installer.ExitCode}). Your previous version is still installed.");
         }
