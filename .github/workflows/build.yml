@@ -31,8 +31,26 @@ jobs:
       - name: Restore
         run: dotnet restore CTRL+Z.sln
 
-      - name: Build
+      # Builds EVERY project in CTRL+Z.sln (CtrlZ.Core, CtrlZ.App, CtrlZ.Core.Tests).
+      # `dotnet test` alone would not build CtrlZ.App, because the test project does not
+      # reference it, so this step is what guarantees the app compiles.
+      - name: Build the whole solution
         run: dotnet build CTRL+Z.sln -c Release --no-restore --nologo
+
+      - name: Verify the whole solution was built
+        shell: pwsh
+        run: |
+          $ErrorActionPreference = "Stop"
+          $expected = @(
+            "src/CtrlZ.Core/bin/Release/net8.0-windows/CtrlZ.Core.dll",
+            "src/CtrlZ.App/bin/Release/net8.0-windows/CTRL+Z.dll",
+            "tests/CtrlZ.Core.Tests/bin/Release/net8.0-windows/CtrlZ.Core.Tests.dll"
+          )
+          $missing = @($expected | Where-Object { -not (Test-Path $_) })
+          if ($missing.Count -gt 0) {
+            throw "Build output is missing for: $($missing -join ', ')"
+          }
+          Write-Host "All solution projects were built."
 
       - name: Test
         run: dotnet test CTRL+Z.sln -c Release --no-build --nologo
