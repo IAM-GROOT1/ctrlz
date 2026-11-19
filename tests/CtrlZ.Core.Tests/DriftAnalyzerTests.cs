@@ -224,6 +224,26 @@ public class DriftAnalyzerTests
         Assert.Equal(0, summary.Outdated);
     }
 
+    [Fact]
+    public void Analysing_never_modifies_the_profile()
+    {
+        var profile = new AppProfile
+        {
+            Apps =
+            [
+                Saved("Keep", packageId: "Vendor.Keep", version: "1.0"),
+                Saved("Gone", packageId: "Vendor.Gone")
+            ]
+        };
+
+        var before = System.Text.Json.JsonSerializer.Serialize(profile, CtrlZ.Core.Infrastructure.JsonDefaults.Profile);
+
+        new DriftAnalyzer().Analyze(new DriftRequest { Profile = profile, Installed = [] });
+
+        var after = System.Text.Json.JsonSerializer.Serialize(profile, CtrlZ.Core.Infrastructure.JsonDefaults.Profile);
+        Assert.Equal(before, after);
+    }
+
     // ---- version comparison -------------------------------------------------------
 
     [Theory]
