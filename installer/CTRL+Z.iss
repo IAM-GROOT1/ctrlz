@@ -1,3 +1,6 @@
+; SPDX-License-Identifier: AGPL-3.0-only
+; Copyright (c) 2026 iam-groot1
+
 ; CTRL+Z installer — build with build\build-installer.ps1
 ; The app itself is a single self-contained executable.
 

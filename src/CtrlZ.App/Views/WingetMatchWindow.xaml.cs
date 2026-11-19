@@ -1,3 +1,6 @@
+// SPDX-License-Identifier: AGPL-3.0-only
+// Copyright (c) 2026 iam-groot1
+
 using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Input;

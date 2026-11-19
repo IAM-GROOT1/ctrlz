@@ -8,6 +8,7 @@
     <Product>CTRL+Z</Product>
     <Company>IAM-GROOT1</Company>
     <Copyright>Copyright (c) 2026 IAM-GROOT1</Copyright>
+    <PackageLicenseExpression>AGPL-3.0-only</PackageLicenseExpression>
     <NeutralLanguage>en-US</NeutralLanguage>
     <Deterministic>true</Deterministic>
     <DebugType>portable</DebugType>
