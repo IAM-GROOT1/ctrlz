@@ -234,6 +234,79 @@ public class SafetyPrivacyTests
         Assert.Empty(offenders);
     }
 
+    [Fact]
+    public void Describe_keeps_the_exception_type_and_redacts_the_path()
+    {
+        var exception = new UnauthorizedAccessException(
+            @"Access to the path 'C:\Users\bob\Documents\secret.txt' is denied.");
+
+        var text = LogPrivacy.Describe(exception);
+
+        Assert.StartsWith("UnauthorizedAccessException:", text);
+        Assert.Contains("<path>", text);
+        Assert.Contains("is denied", text);
+        Assert.DoesNotContain(@"C:\", text);
+        Assert.DoesNotContain("secret.txt", text);
+    }
+
+    [Fact]
+    public void A_tree_that_denies_access_logs_no_paths_and_reports_a_count()
+    {
+        using var workspace = new TestDirectory();
+        var logs = workspace.CreateDirectory("logs");
+        var tree = workspace.CreateDirectory("tree");
+        workspace.Write("tree/visible.txt", "ok");
+
+        var denied = new List<string>();
+        for (var index = 1; index <= 3; index++)
+        {
+            var folder = workspace.CreateDirectory($"tree/PrivateVault{index}");
+            workspace.Write($"tree/PrivateVault{index}/secret-{index}.txt", "sensitive");
+            if (TryDenyAccess(folder))
+            {
+                denied.Add(folder);
+            }
+        }
+
+        try
+        {
+            using var log = new FileAppLog(logs);
+            var scanner = new ReadinessScanner(log: log);
+
+            scanner.Scan(new ReadinessRequest
+            {
+                Environment = EnvironmentFor(workspace),
+                UserFolders = [new UserFolder("All folders", tree)],
+                Now = DateTimeOffset.UtcNow,
+                RecentDays = 0,
+                LargeFolderBytes = 0,
+                FolderOptions = new FolderUsageOptions { MaxDepth = 8, MaxFiles = 5_000, MaxDuration = TimeSpan.Zero }
+            });
+
+            log.Dispose();
+            var written = ReadAllLogs(logs);
+
+            Assert.Contains("Readiness check:", written);
+
+            foreach (var name in new[] { "PrivateVault1", "PrivateVault2", "PrivateVault3", "secret-1.txt" })
+            {
+                Assert.DoesNotContain(name, written, StringComparison.OrdinalIgnoreCase);
+            }
+
+            Assert.DoesNotContain(@"C:\", written, StringComparison.OrdinalIgnoreCase);
+
+            Assert.True(denied.Count > 0, "could not establish a denied folder; icacls unavailable");
+            Assert.Contains("unreadable", written, StringComparison.OrdinalIgnoreCase);
+        }
+        finally
+        {
+            foreach (var folder in denied)
+            {
+                TryRestoreAccess(folder);
+            }
+        }
+    }
+
     // ---- helpers ------------------------------------------------------------------
 
     private static SafetyEnvironment EnvironmentFor(TestDirectory workspace) => new()
@@ -261,5 +334,47 @@ public class SafetyPrivacyTests
             Directory.GetFiles(logsFolder)
                 .OrderBy(path => path)
                 .Select(File.ReadAllText));
+    }
+
+    /// <summary>Denies directory listing so the scan hits an access-denied folder.</summary>
+    private static bool TryDenyAccess(string path) =>
+        RunIcacls($"\"{path}\" /deny \"{CurrentUser}:(OI)(CI)(RD)\"");
+
+    private static void TryRestoreAccess(string path)
+    {
+        RunIcacls($"\"{path}\" /remove:d \"{CurrentUser}\"");
+        RunIcacls($"\"{path}\" /reset");
+    }
+
+    private static string CurrentUser => $"{Environment.UserDomainName}\\{Environment.UserName}";
+
+    private static bool RunIcacls(string arguments)
+    {
+        try
+        {
+            var start = new System.Diagnostics.ProcessStartInfo("icacls", arguments)
+            {
+                UseShellExecute = false,
+                CreateNoWindow = true,
+                RedirectStandardOutput = true,
+                RedirectStandardError = true
+            };
+
+            using var process = System.Diagnostics.Process.Start(start);
+            if (process is null)
+            {
+                return false;
+            }
+
+            // Drain both streams so the process cannot block on a full pipe.
+            process.StandardOutput.ReadToEnd();
+            process.StandardError.ReadToEnd();
+
+            return process.WaitForExit(15_000) && process.ExitCode == 0;
+        }
+        catch
+        {
+            return false;
+        }
     }
 }

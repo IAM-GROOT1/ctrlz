@@ -145,7 +145,7 @@ public sealed partial class PreviewViewModel : ObservableObject
         }
         catch (Exception ex)
         {
-            _services.Log.Write(LogLevel.Error, "The install dry run failed.", ex);
+            _services.Log.Write(LogLevel.Error, "The install dry run failed. " + LogPrivacy.Describe(ex));
             StatusLine = "The dry run could not finish.";
             _dialogs.Error("The dry run could not finish.\n\n" + ex.Message);
         }
@@ -183,7 +183,7 @@ public sealed partial class PreviewViewModel : ObservableObject
         }
         catch (Exception ex)
         {
-            _services.Log.Write(LogLevel.Error, "Could not save the dry-run report.", ex);
+            _services.Log.Write(LogLevel.Error, "Could not save the dry-run report. " + LogPrivacy.Describe(ex));
             _dialogs.Error("Could not save the report.\n\n" + ex.Message);
         }
     }

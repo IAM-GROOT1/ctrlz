@@ -10,9 +10,23 @@ namespace CtrlZ.Core.Safety;
 /// </summary>
 public static class SafetyDiagnostics
 {
-    /// <summary>One line summarising a readiness scan. Counts only, by construction.</summary>
-    public static string Summary(ReadinessReport report) =>
-        $"Readiness check: {report.PassCount} pass, {report.WarningCount} warning, {report.FailCount} fail.";
+    /// <summary>
+    /// One line summarising a readiness scan. Counts only, by construction: the number of
+    /// folders that could not be read is included so an access-denied scan is debuggable
+    /// without ever naming the folder.
+    /// </summary>
+    public static string Summary(ReadinessReport report, int unreadableFolders = 0)
+    {
+        var text = $"Readiness check: {report.PassCount} pass, {report.WarningCount} warning, " +
+                   $"{report.FailCount} fail";
+
+        if (unreadableFolders > 0)
+        {
+            text += $", {unreadableFolders} folder{(unreadableFolders == 1 ? string.Empty : "s")} unreadable";
+        }
+
+        return text + ".";
+    }
 
     /// <summary>One line summarising a drift comparison. Counts only.</summary>
     public static string DriftSummary(DriftReport report) =>

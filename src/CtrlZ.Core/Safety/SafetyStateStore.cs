@@ -62,7 +62,9 @@ public sealed class SafetyStateStore
             }
             catch (Exception ex)
             {
-                _log.Write(LogLevel.Warning, "Could not read safety state; using defaults.", ex);
+                _log.Write(
+                    LogLevel.Warning,
+                    "Could not read safety state; using defaults. " + LogPrivacy.Describe(ex));
             }
 
             _cached = new SafetyState();
@@ -81,7 +83,7 @@ public sealed class SafetyStateStore
             }
             catch (Exception ex)
             {
-                _log.Write(LogLevel.Error, "Could not save safety state.", ex);
+                _log.Write(LogLevel.Error, "Could not save safety state. " + LogPrivacy.Describe(ex));
             }
         }
     }

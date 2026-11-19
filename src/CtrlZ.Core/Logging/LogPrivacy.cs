@@ -23,6 +23,24 @@ public static partial class LogPrivacy
         return WindowsPath().Replace(text, "<path>");
     }
 
+    /// <summary>
+    /// Formats an exception for the log as <c>TypeName: redacted message</c>. The type keeps
+    /// the line debuggable; the message is kept but with any path replaced. Never pass the
+    /// exception object to the logger directly, because the logger appends
+    /// <c>Exception.ToString()</c>, which embeds the message and the stack unchanged.
+    /// </summary>
+    public static string Describe(Exception? exception)
+    {
+        if (exception is null)
+        {
+            return string.Empty;
+        }
+
+        var type = exception.GetType().Name;
+        var message = RedactPaths(exception.Message);
+        return string.IsNullOrWhiteSpace(message) ? type : type + ": " + message;
+    }
+
     [GeneratedRegex(@"[A-Za-z]:\\[^""'\r\n]*|\\\\[^\\\s""']+\\[^""'\r\n]*")]
     private static partial Regex WindowsPath();
 }

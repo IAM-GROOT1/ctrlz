@@ -116,7 +116,9 @@ public sealed partial class DriftViewModel : ObservableObject
             catch (Exception ex)
             {
                 // Versions are a bonus: drift still works without them.
-                _services.Log.Write(LogLevel.Warning, "Could not read winget versions for drift.", ex);
+                _services.Log.Write(
+                    LogLevel.Warning,
+                    "Could not read winget versions for drift. " + LogPrivacy.Describe(ex));
             }
 
             var state = _safety.Load();
@@ -133,7 +135,7 @@ public sealed partial class DriftViewModel : ObservableObject
         }
         catch (Exception ex)
         {
-            _services.Log.Write(LogLevel.Error, "Drift check failed.", ex);
+            _services.Log.Write(LogLevel.Error, "Drift check failed. " + LogPrivacy.Describe(ex));
             StatusLine = "The drift check could not finish.";
             _dialogs.Error("The drift check could not finish.\n\n" + ex.Message);
         }

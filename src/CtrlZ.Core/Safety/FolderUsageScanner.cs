@@ -107,7 +107,7 @@ public sealed class FolderUsageScanner
                     if (entry is DirectoryInfo child)
                     {
                         // A junction or symlink is skipped: following one can loop forever.
-                        if (!limits.FollowReparsePoints && IsReparsePoint(child))
+                        if (!limits.FollowReparsePoints && IsReparsePoint(child, ref accessDenied))
                         {
                             continue;
                         }
@@ -222,7 +222,7 @@ public sealed class FolderUsageScanner
         }
     }
 
-    private static bool IsReparsePoint(FileSystemInfo entry)
+    private static bool IsReparsePoint(FileSystemInfo entry, ref bool accessDenied)
     {
         try
         {
@@ -230,11 +230,14 @@ public sealed class FolderUsageScanner
         }
         catch (UnauthorizedAccessException)
         {
-            // Unknown attributes: do not descend, so a possible loop cannot be entered.
+            // The folder exists but cannot even be inspected: count it as unreadable and do
+            // not descend, so a possible loop cannot be entered.
+            accessDenied = true;
             return true;
         }
         catch (IOException)
         {
+            accessDenied = true;
             return true;
         }
     }

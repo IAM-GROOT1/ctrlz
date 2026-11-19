@@ -148,7 +148,7 @@ public sealed partial class ReadinessViewModel : PageViewModelBase
         }
         catch (Exception ex)
         {
-            _services.Log.Write(LogLevel.Error, "The readiness check failed.", ex);
+            _services.Log.Write(LogLevel.Error, "The readiness check failed. " + LogPrivacy.Describe(ex));
             StatusLine = "The check could not finish.";
             _dialogs.Error("The check could not finish.\n\n" + ex.Message);
         }
@@ -387,7 +387,9 @@ public sealed partial class ReadinessViewModel : PageViewModelBase
         }
         catch (Exception ex)
         {
-            _services.Log.Write(LogLevel.Warning, "Browser detection failed during the readiness check.", ex);
+            _services.Log.Write(
+                LogLevel.Warning,
+                "Browser detection failed during the readiness check. " + LogPrivacy.Describe(ex));
             return [];
         }
     }

@@ -55,6 +55,7 @@ public sealed class ReadinessScanner
                     + ReadinessReminders.All.Count;
         var step = 0;
         void Report(string name) => progress?.Report(new ReadinessProgress(name, ++step, total));
+        var unreadableFolders = 0;
 
         foreach (var folder in request.UserFolders)
         {
@@ -62,6 +63,11 @@ public sealed class ReadinessScanner
             Report(folder.Label);
 
             var usage = _folders.Scan(folder.Path, folder.Options ?? request.FolderOptions, cancellationToken);
+            if (usage.AccessDenied)
+            {
+                unreadableFolders++;
+            }
+
             checks.Add(BuildFolderCheck(folder, usage, request, now));
         }
 
@@ -95,7 +101,7 @@ public sealed class ReadinessScanner
         var report = new ReadinessReport { GeneratedUtc = now, Checks = checks };
 
         // Counts only: the log must never learn a personal folder or file name.
-        _log?.Write(LogLevel.Info, SafetyDiagnostics.Summary(report));
+        _log?.Write(LogLevel.Info, SafetyDiagnostics.Summary(report, unreadableFolders));
 
         return report;
     }
