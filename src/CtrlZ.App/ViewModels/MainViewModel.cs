@@ -22,6 +22,8 @@ public sealed partial class MainViewModel : ObservableObject, IDisposable
         Dialogs = dialogs;
         AutoInstallOnStartup = autoInstall;
 
+        Updates = new UpdateCoordinator(services, dialogs, () => System.Windows.Application.Current?.MainWindow);
+
         Scan = new ScanViewModel(services, dialogs, this);
         MyApps = new MyAppsViewModel(services, dialogs, this);
         AddApp = new AddAppViewModel(services, dialogs, this);
@@ -62,6 +64,7 @@ public sealed partial class MainViewModel : ObservableObject, IDisposable
     public BrowsersViewModel Browsers { get; }
     public InstallViewModel Install { get; }
     public SettingsViewModel Settings { get; }
+    public UpdateCoordinator Updates { get; }
 
     public ObservableCollection<NavItem> WorkspaceNav { get; }
     public ObservableCollection<NavItem> DiscoverNav { get; }
@@ -98,6 +101,9 @@ public sealed partial class MainViewModel : ObservableObject, IDisposable
         {
             await CurrentPage.ActivateAsync();
         }
+
+        // Fire-and-forget: the update check must never delay the first paint.
+        _ = Updates.RunStartupCheckAsync();
     }
 
     [RelayCommand]
