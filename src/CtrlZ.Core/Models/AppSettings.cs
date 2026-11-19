@@ -19,6 +19,10 @@ public sealed class AppSettings
     /// <summary>Warn when a browser backup is at least this many days old. Zero disables it.</summary>
     public int BackupWarningDays { get; set; } = 14;
 
+    // ---- Installing ------------------------------------------------------------------
+    /// <summary>Show the preview as a final confirmation before an install run starts.</summary>
+    public bool ShowInstallPreview { get; set; } = true;
+
     // ---- Updates -------------------------------------------------------------------
     /// <summary>Check GitHub for a newer release in the background at startup.</summary>
     public bool AutoCheckForUpdates { get; set; } = true;

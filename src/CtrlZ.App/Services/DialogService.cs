@@ -87,4 +87,23 @@ public sealed class DialogService
 
         window.ShowDialog();
     }
+
+    /// <summary>
+    /// Shows the install preview and returns true when the user chose to continue. Used as the
+    /// final confirmation before a run, and controllable from Settings.
+    /// </summary>
+    public bool ShowInstallPreview(AppServices services, CtrlZ.Core.Models.AppProfile profile)
+    {
+        var viewModel = new PreviewViewModel(services, this, profile, profile.Name);
+        var window = new PreviewWindow { DataContext = viewModel };
+
+        if (Application.Current.MainWindow is { IsVisible: true } owner && owner != window)
+        {
+            window.Owner = owner;
+            window.WindowStartupLocation = WindowStartupLocation.CenterOwner;
+        }
+
+        window.ShowDialog();
+        return viewModel.ProceedRequested;
+    }
 }
