@@ -30,7 +30,12 @@ if (-not $iscc) {
 
 $artifactDir = Join-Path $root "artifacts/installer"
 New-Item -ItemType Directory -Force -Path $artifactDir | Out-Null
-& $iscc "/DMyAppVersion=$Version" (Join-Path $root "installer/CTRL+Z.iss")
+
+# VersionInfoVersion in the .iss must be purely numeric, so a pre-release suffix is dropped
+# for it. AppVersion and the output file name keep the full string, so a pre-release still
+# produces CTRL+Z-Setup-<version>.exe with its suffix intact.
+$numericVersion = ($Version -split '-')[0]
+& $iscc "/DMyAppVersion=$Version" "/DMyAppVersionNumeric=$numericVersion" (Join-Path $root "installer/CTRL+Z.iss")
 if ($LASTEXITCODE -ne 0) { throw "Inno Setup compilation failed." }
 
 $setup = Join-Path $artifactDir "CTRL+Z-Setup-$Version.exe"

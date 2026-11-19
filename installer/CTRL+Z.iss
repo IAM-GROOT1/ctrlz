@@ -8,6 +8,12 @@
   #define MyAppVersion "1.1.3"
 #endif
 
+; VersionInfoVersion must be numeric (x.y.z[.w]), so pre-release tags pass a suffix-free
+; value here. AppVersion and the output file name keep the full version string.
+#ifndef MyAppVersionNumeric
+  #define MyAppVersionNumeric "1.1.3"
+#endif
+
 #define MyAppName "CTRL+Z"
 #define MyAppPublisher "IAM-GROOT1"
 #define MyAppExeName "CTRL+Z.exe"
@@ -21,7 +27,7 @@ AppPublisher={#MyAppPublisher}
 AppPublisherURL=https://github.com/IAM-GROOT1/ctrlz
 AppSupportURL=https://github.com/IAM-GROOT1/ctrlz/issues
 AppUpdatesURL=https://github.com/IAM-GROOT1/ctrlz/releases
-VersionInfoVersion={#MyAppVersion}.0
+VersionInfoVersion={#MyAppVersionNumeric}.0
 VersionInfoProductName={#MyAppName}
 VersionInfoDescription={#MyAppName} setup
 DefaultDirName={autopf}\CTRL+Z
