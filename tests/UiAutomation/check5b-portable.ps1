@@ -72,7 +72,7 @@ New-Item -ItemType Directory -Force $work, $data | Out-Null
 $exe = Join-Path $work 'CTRL+Z.exe'
 Copy-Item $PortableV120 $exe -Force
 $env:CTRLZ_DATA_DIR = $data
-Record "B1 portable starts at 1.2.0" ((Get-PortableVersion $exe) -like '1.2.0*') "version=$(Get-PortableVersion $exe)"
+Record "B1 portable starts at $ExpectedStartVersion" ((Get-PortableVersion $exe) -like "$ExpectedStartVersion*") "version=$(Get-PortableVersion $exe)"
 
 $proc = Start-Process -FilePath $exe -PassThru
 $main = Wait-AppWindow -ProcessId $proc.Id -TimeoutSec 60
@@ -120,12 +120,12 @@ Record "B5 app closes to apply" $closed "old process exited=$closed"
 $version = Get-PortableVersion $exe
 $deadline = (Get-Date).AddSeconds(180)
 $next = (Get-Date).AddSeconds(10)
-while ((Get-Date) -lt $deadline -and $version -notlike '1.3.0*') {
+while ((Get-Date) -lt $deadline -and $version -notlike "$ExpectedEndVersion*") {
     Start-Sleep -Seconds 1
     $version = Get-PortableVersion $exe
-    if ((Get-Date) -gt $next) { Write-Host "  ... waiting for the portable exe to become 1.3.0 (now $version)"; $next = (Get-Date).AddSeconds(10) }
+    if ((Get-Date) -gt $next) { Write-Host "  ... waiting for the portable exe to become 1.3.0 (now $version) of $ExpectedEndVersion"; $next = (Get-Date).AddSeconds(10) }
 }
-Record "B6 portable exe replaced with 1.3.0" ($version -like '1.3.0*') "version=$version"
+Record "B6 portable exe replaced with $ExpectedEndVersion" ($version -like "$ExpectedEndVersion*") "version=$version"
 
 Start-Sleep -Seconds 35
 $leftovers = @(Get-ChildItem $work -File | Where-Object { $_.Name -ne 'CTRL+Z.exe' } | ForEach-Object { $_.Name })
