@@ -27,6 +27,17 @@ function Record([string]$Name, [bool]$Pass, [string]$Detail) {
     if ($Pass) { Write-Host "[PASS] $Name :: $Detail" } else { Write-Host "[FAIL] $Name :: $Detail" }
 }
 
+# GitHub's anonymous quota is shared with the update check the app makes on start; when it is
+# exhausted the deferral scenario cannot run meaningfully.
+try {
+    $rate = Invoke-RestMethod -Uri 'https://api.github.com/rate_limit' -Headers @{ 'User-Agent' = 'ctrlz-ui-check' } -TimeoutSec 15
+    $remaining = [int]$rate.rate.remaining
+} catch { $remaining = -1 }
+if ($remaining -eq 0) {
+    Write-Host "[NOT VERIFIED] C0 GitHub anonymous API quota exhausted (X-RateLimit-Remaining=0); skipping the deferral check."
+    exit 0
+}
+
 # ---------------------------------------------------------------- isolated data with one fake app
 Get-Process -Name 'CTRL+Z' -ErrorAction SilentlyContinue | Stop-Process -Force
 Remove-Item $data, $marker -Recurse -Force -ErrorAction SilentlyContinue
@@ -36,7 +47,7 @@ $apps = @(@{ id = 'c1'; name = 'Slow Fake App'; source = 'localFile'; enabled = 
 $profile = [ordered]@{ schemaVersion = 1; id = $id; name = 'Deferral Test'; createdUtc = '2026-01-01T00:00:00+00:00'; updatedUtc = '2026-01-01T00:00:00+00:00'; apps = $apps }
 $enc = New-Object System.Text.UTF8Encoding($false)
 [System.IO.File]::WriteAllText((Join-Path $data "profiles\Deferral-$($id.Substring(0,8)).json"), (($profile | ConvertTo-Json -Depth 8) + "`n"), $enc)
-[System.IO.File]::WriteAllText((Join-Path $data 'settings.json'), ((@{ activeProfileId = $id; autoCheckForUpdates = $true; updateChannel = 'stable'; theme = 'dark' } | ConvertTo-Json) + "`n"), $enc)
+[System.IO.File]::WriteAllText((Join-Path $data 'settings.json'), ((@{ activeProfileId = $id; autoCheckForUpdates = $true; updateChannel = 'stable'; theme = 'dark'; showInstallPreview = $true } | ConvertTo-Json) + "`n"), $enc)
 
 $p = Start-Process -FilePath $SetupV120 -ArgumentList '/VERYSILENT', '/SUPPRESSMSGBOXES', '/NORESTART', '/CURRENTUSER' -PassThru -Wait
 Record "C1 install 1.2.0" ($p.ExitCode -eq 0) "installer exit=$($p.ExitCode)"

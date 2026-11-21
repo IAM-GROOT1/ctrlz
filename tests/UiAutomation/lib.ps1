@@ -29,7 +29,7 @@ public class CtrlZWin32 {
             uint pid; GetWindowThreadProcessId(h, out pid);
             if (pid == target && IsWindowVisible(h)) {
                 var t = new StringBuilder(512); GetWindowTextW(h, t, 512);
-                list.Add(h.ToInt64().ToString() + "|" + t.ToString());
+                list.Add(pid.ToString() + "|" + h.ToInt64().ToString() + "|" + t.ToString());
             }
             return true;
         }, IntPtr.Zero);
@@ -55,8 +55,8 @@ function Get-TopWindows {
     param([int]$ProcessId)
     $out = @()
     foreach ($entry in [CtrlZWin32]::Windows([uint32]$ProcessId)) {
-        $parts = $entry -split '\|', 2
-        $out += [pscustomobject]@{ Handle = [IntPtr][int64]$parts[0]; Title = $parts[1] }
+        $parts = $entry -split '\|', 3
+        $out += [pscustomobject]@{ ProcessId = [int]$parts[0]; Handle = [IntPtr][int64]$parts[1]; Title = $parts[2] }
     }
     return $out
 }
@@ -178,7 +178,7 @@ function Invoke-FailureDump {
     param([int]$ProcessId, [string]$Label, [string]$LogFolder, [string]$ShotDir)
     Write-Host "[FAILURE] $Label"
     Write-Host "  open windows:"
-    foreach ($window in (Get-TopWindows -ProcessId $ProcessId)) { Write-Host "    '$($window.Title)'" }
+    foreach ($window in (Get-TopWindows -ProcessId $ProcessId)) { Write-Host "    pid=$($window.ProcessId) '$($window.Title)'" }
     Write-Host "  log tail (redacted):"
     foreach ($line in (Get-RedactedLogTail -LogFolder $LogFolder)) { Write-Host "    $line" }
     if ($ShotDir) {
