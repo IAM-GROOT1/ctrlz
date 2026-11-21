@@ -187,7 +187,7 @@ public sealed class DriftAnalyzer
         }
 
         var targetPublisher = WingetMatcher.NormalizePublisher(saved.Publisher);
-        var scored = new List<(ScannedApp App, int Score, string Reason)>();
+        var scored = new List<(ScannedApp App, int Score, string Reason, bool Qualifies)>();
 
         foreach (var app in installed.Where(candidate => !claimed.Contains(candidate.Id)))
         {
@@ -200,17 +200,32 @@ public sealed class DriftAnalyzer
             int score;
             string reason;
 
+            bool qualifies;
+
             if (string.Equals(name, targetName, StringComparison.Ordinal))
             {
                 score = 100;
                 reason = "Same name";
+                qualifies = true;
             }
             else if (targetName.Length >= 4 &&
                      (name.Contains(targetName, StringComparison.Ordinal) ||
                       targetName.Contains(name, StringComparison.Ordinal)))
             {
                 score = 60;
-                reason = "Similar name";
+
+                // A single shared word must not be enough to claim an app, or "GitHub Source App"
+                // would match "GitHub CLI". Two shared words, or a near-identical full name with
+                // the same publisher, is.
+                var shared = SharedTokens(targetName, name);
+                var ratio = shared / (double)Math.Max(TokenCount(targetName), TokenCount(name));
+                var samePublisher = targetPublisher.Length > 0 && string.Equals(
+                    WingetMatcher.NormalizePublisher(app.Publisher),
+                    targetPublisher,
+                    StringComparison.Ordinal);
+
+                qualifies = shared >= 2 || (ratio >= 0.75 && samePublisher);
+                reason = qualifies ? "Similar name" : "Similar name (only one shared word)";
             }
             else
             {
@@ -232,7 +247,7 @@ public sealed class DriftAnalyzer
                 }
             }
 
-            scored.Add((app, score, reason));
+            scored.Add((app, score, reason, qualifies));
         }
 
         if (scored.Count == 0)
@@ -252,12 +267,36 @@ public sealed class DriftAnalyzer
             return new MatchResult(null, DriftConfidence.Weak, $"Ambiguous: {tied} installed apps look similar");
         }
 
+        // A candidate that does not qualify is reported as uncertain and named, never claimed as a
+        // match: claiming it would hide a genuinely missing app and could invent an "outdated" row.
+        if (!best.Qualifies)
+        {
+            return new MatchResult(
+                null,
+                DriftConfidence.Weak,
+                $"Uncertain: closest is '{best.App.Name}', but the names share only one word");
+        }
+
         var confidence = best.Score >= 120 ? DriftConfidence.Exact
             : best.Score >= 100 ? DriftConfidence.Strong
             : DriftConfidence.Weak;
 
         return new MatchResult(best.App, confidence, best.Reason);
     }
+
+    /// <summary>Number of distinct words the two normalised names have in common.</summary>
+    private static int SharedTokens(string first, string second)
+    {
+        var left = first.Split(' ', StringSplitOptions.RemoveEmptyEntries);
+        var right = new HashSet<string>(
+            second.Split(' ', StringSplitOptions.RemoveEmptyEntries),
+            StringComparer.Ordinal);
+
+        return left.Distinct(StringComparer.Ordinal).Count(right.Contains);
+    }
+
+    private static int TokenCount(string value) =>
+        value.Split(' ', StringSplitOptions.RemoveEmptyEntries).Length;
 
     private static string? FirstNonEmpty(params string?[] values)
     {

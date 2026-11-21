@@ -244,6 +244,40 @@ public class DriftAnalyzerTests
         Assert.Equal(before, after);
     }
 
+    [Fact]
+    public void A_single_shared_word_never_claims_an_app()
+    {
+        var report = Analyze(
+            profile: [Saved("GitHub Source App")],
+            installed: [Installed("GitHub CLI")]);
+
+        // Sharing "GitHub" must not claim the app. Claiming it would hide a genuinely missing app
+        // and could invent an outdated row.
+        Assert.Single(report.Missing);
+        Assert.Equal("GitHub Source App", report.Missing[0].Name);
+        Assert.Single(report.Extra);
+        Assert.Equal("GitHub CLI", report.Extra[0].Name);
+        Assert.Empty(report.Outdated);
+    }
+
+    [Fact]
+    public void A_one_word_name_that_overlaps_a_longer_one_is_uncertain_and_names_the_candidate()
+    {
+        var report = Analyze(
+            profile: [Saved("Alpha")],
+            installed: [Installed("Alpha Beta")]);
+
+        var missing = Assert.Single(report.Missing);
+        Assert.Equal(DriftConfidence.Weak, missing.Confidence);
+        Assert.Contains("Uncertain", missing.MatchReason, StringComparison.Ordinal);
+        Assert.Contains("Alpha Beta", missing.MatchReason, StringComparison.Ordinal);
+
+        // Still never claimed, so it stays visible as extra and is not offered as an update.
+        Assert.Empty(report.Outdated);
+        var extra = Assert.Single(report.Extra);
+        Assert.Equal("Alpha Beta", extra.Name);
+    }
+
     // ---- version comparison -------------------------------------------------------
 
     [Theory]
