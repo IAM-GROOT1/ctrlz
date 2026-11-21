@@ -187,3 +187,49 @@ function Invoke-FailureDump {
         Write-Host "  screenshot: $shot (saved=$ok)"
     }
 }
+
+if (-not ('CtrlZMouse' -as [type])) {
+    Add-Type @"
+using System;
+using System.Runtime.InteropServices;
+public class CtrlZMouse {
+    [DllImport("user32.dll")] public static extern bool SetCursorPos(int x, int y);
+    [DllImport("user32.dll")] public static extern void mouse_event(uint f, uint dx, uint dy, uint d, IntPtr e);
+    public static void Click(int x, int y) {
+        SetCursorPos(x, y);
+        System.Threading.Thread.Sleep(120);
+        mouse_event(0x0002, 0, 0, 0, IntPtr.Zero);
+        System.Threading.Thread.Sleep(60);
+        mouse_event(0x0004, 0, 0, 0, IntPtr.Zero);
+    }
+}
+"@
+}
+
+function Click-ElementCenter {
+    param($Element)
+    if (-not $Element) { throw "Cannot click a null element" }
+    $rect = $Element.Current.BoundingRectangle
+    if ($rect.Width -le 0 -or $rect.Height -le 0) { throw "Element has no clickable bounds" }
+    $x = [int]($rect.X + $rect.Width / 2)
+    $y = [int]($rect.Y + $rect.Height / 2)
+    [CtrlZMouse]::Click($x, $y)
+    return $true
+}
+
+function Activate-Element {
+    param($Element)
+    foreach ($pattern in @(
+        [System.Windows.Automation.InvokePattern]::Pattern,
+        [System.Windows.Automation.TogglePattern]::Pattern,
+        [System.Windows.Automation.SelectionItemPattern]::Pattern)) {
+        try {
+            $p = $Element.GetCurrentPattern($pattern)
+            if ($pattern -eq [System.Windows.Automation.InvokePattern]::Pattern) { $p.Invoke(); return 'invoke' }
+            if ($pattern -eq [System.Windows.Automation.TogglePattern]::Pattern) { $p.Toggle(); return 'toggle' }
+            $p.Select(); return 'select'
+        } catch { }
+    }
+    Click-ElementCenter $Element | Out-Null
+    return 'mouse'
+}
