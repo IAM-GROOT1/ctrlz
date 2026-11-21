@@ -126,6 +126,20 @@ if ($Phase -ne 'Main') {
     Wait-AppWindow -ProcessId $again.Id -TimeoutSec 60 | Out-Null
     $rePrompted = Wait-Prompt -ProcessId $again.Id -TimeoutSec 45
     Record "$Phase no prompt after restart" (-not $rePrompted) "prompted again=$rePrompted"
+
+    if ($Phase -eq 'Remind') {
+        # Age the reminder so the next start must prompt again.
+        Get-Process -Name 'CTRL+Z' -ErrorAction SilentlyContinue | Stop-Process -Force
+        $settingsPath = Join-Path $env:LOCALAPPDATA 'CTRL+Z\settings.json'
+        $json = Get-Content $settingsPath -Raw | ConvertFrom-Json
+        $json | Add-Member -NotePropertyName lastUpdateCheckUtc -NotePropertyValue '2000-01-01T00:00:00+00:00' -Force
+        $json | Add-Member -NotePropertyName skippedUpdateVersion -NotePropertyValue $null -Force
+        [System.IO.File]::WriteAllText($settingsPath, ($json | ConvertTo-Json -Depth 8), (New-Object System.Text.UTF8Encoding($false)))
+        $aged = Start-App
+        Wait-AppWindow -ProcessId $aged.Id -TimeoutSec 60 | Out-Null
+        $promptedAgain = Wait-Prompt -ProcessId $aged.Id -TimeoutSec 90
+        Record "Remind prompt returns once the reminder has expired" $promptedAgain "prompted again=$promptedAgain"
+    }
     Get-Process -Name 'CTRL+Z' -ErrorAction SilentlyContinue | Stop-Process -Force
 } else {
     # Progress should be observable before the app closes.
