@@ -31,9 +31,24 @@ function Record([string]$Name, [bool]$Pass, [string]$Detail) {
     if ($Pass) { Write-Host "[PASS] $Name :: $Detail" } else { Write-Host "[FAIL] $Name :: $Detail" }
 }
 
+function Reset-UpdateState {
+    # Reinstalling the app does not touch %LOCALAPPDATA%\CTRL+Z, so a "skip" from a previous phase
+    # would suppress the next phase's prompt. Clear the remembered skip and move the last check far
+    # into the past so this run always checks again.
+    $settingsPath = Join-Path $env:LOCALAPPDATA 'CTRL+Z\settings.json'
+    if (-not (Test-Path $settingsPath)) { return }
+    $json = Get-Content $settingsPath -Raw | ConvertFrom-Json
+    $json | Add-Member -NotePropertyName skippedUpdateVersion -NotePropertyValue $null -Force
+    $json | Add-Member -NotePropertyName lastUpdateCheckUtc -NotePropertyValue '2000-01-01T00:00:00+00:00' -Force
+    $json | Add-Member -NotePropertyName autoCheckForUpdates -NotePropertyValue $true -Force
+    [System.IO.File]::WriteAllText($settingsPath, ($json | ConvertTo-Json -Depth 8), (New-Object System.Text.UTF8Encoding($false)))
+    Write-Host "  reset update state (cleared remembered skip, moved last check into the past)"
+}
+
 function Install-Version([string]$Setup) {
     Get-Process -Name 'CTRL+Z' -ErrorAction SilentlyContinue | Stop-Process -Force
     $p = Start-Process -FilePath $Setup -ArgumentList '/VERYSILENT', '/SUPPRESSMSGBOXES', '/NORESTART', '/CURRENTUSER' -PassThru -Wait
+    if ($p.ExitCode -eq 0) { Reset-UpdateState }
     return $p.ExitCode
 }
 
