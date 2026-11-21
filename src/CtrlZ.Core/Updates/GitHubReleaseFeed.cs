@@ -51,6 +51,13 @@ public sealed class GitHubReleaseFeed : IReleaseFeed
             ["Accept"] = "application/vnd.github+json",
             ["X-GitHub-Api-Version"] = "2022-11-28"
         };
+        // Debug-only, for automated tests: the GitHub API over HTTPS may receive the test token.
+        // Release builds compile the whole path out; no other host can ever see it.
+        var testToken = UpdateFeedAuthorization.For(ReleasesUri);
+        if (testToken is not null)
+        {
+            headers["Authorization"] = "Bearer " + testToken;
+        }
 
         try
         {
@@ -68,7 +75,7 @@ public sealed class GitHubReleaseFeed : IReleaseFeed
         }
         catch (DownloadException ex) when (ex.StatusCode is 403 or 429)
         {
-            throw new UpdateCheckException(UpdateFailureKind.RateLimited, ex.Message, ex);
+            throw new UpdateCheckException(UpdateFailureKind.RateLimited, UpdateFailureMessages.RateLimited, ex);
         }
         catch (DownloadException ex) when (ex.StatusCode == 404)
         {

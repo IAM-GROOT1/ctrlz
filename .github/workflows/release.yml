@@ -269,3 +269,32 @@ jobs:
           if ($names -notcontains "SHA256SUMS.txt") {
             throw "The published release for $tag is missing SHA256SUMS.txt."
           }
+
+      # Must run last: the release exists and its assets are verified, so the site can safely read
+      # the new version. Deliberately non-blocking - a website rebuild is never a reason to mark a
+      # good release as failed. See docs/website-hook.md.
+      - name: Ask the website to rebuild (Cloudflare Pages)
+        shell: bash
+        continue-on-error: true
+        env:
+          DEPLOY_HOOK: ${{ secrets.CLOUDFLARE_PAGES_DEPLOY_HOOK }}
+        run: |
+          set -u
+
+          if [ -z "${DEPLOY_HOOK:-}" ]; then
+            echo "::notice::CLOUDFLARE_PAGES_DEPLOY_HOOK is not set in this repository; skipping the website rebuild."
+            exit 0
+          fi
+
+          for attempt in 1 2 3; do
+            # --silent keeps the hook URL out of the log.
+            if curl --fail --silent --show-error --max-time 20 -X POST "$DEPLOY_HOOK"; then
+              echo "::notice::Website rebuild triggered (attempt $attempt)."
+              exit 0
+            fi
+            echo "Hook call failed on attempt $attempt; retrying in 5s."
+            sleep 5
+          done
+
+          echo "::warning::The website rebuild hook could not be reached after 3 attempts. The release itself is unaffected."
+          exit 0

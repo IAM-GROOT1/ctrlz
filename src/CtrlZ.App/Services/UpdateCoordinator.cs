@@ -281,10 +281,16 @@ public sealed class UpdateCoordinator
             window.SetProgress(null, "Restarting to finish the update\u2026");
             LaunchHelper(file.Path, expectedHash, kind, release.Version.ToString());
         }
-        catch (OperationCanceledException)
+        catch (OperationCanceledException) when (cts.IsCancellationRequested)
         {
             _services.Log.Write(LogLevel.Info, "The update download was cancelled by the user.");
-            window.ShowError("The update was cancelled. Nothing was changed.");
+            window.ShowError(UpdateFailureMessages.ForCancellation(userRequested: true));
+        }
+        catch (OperationCanceledException)
+        {
+            // A request timeout or a dropped connection lands here, not a user cancellation.
+            _services.Log.Write(LogLevel.Warning, "The update download timed out.");
+            window.ShowError(UpdateFailureMessages.ForCancellation(userRequested: false));
         }
         catch (Exception ex) when (ex is UpdateVerificationException or UpdateCheckException or IOException or UnauthorizedAccessException)
         {

@@ -1,0 +1,56 @@
+name: rebuild-site
+
+# The marketing site lives in a separate repository and is deployed by Cloudflare Pages, which
+# rebuilds when its own repository changes. It also shows the latest release, the changelog and the
+# roadmap from this repository, so a merge here that touches those files must ask the site to
+# rebuild. See docs/website-hook.md.
+#
+# Releases are handled inside release.yml instead of here: a workflow triggered by the "release
+# published" event does not run for releases created with the built-in GITHUB_TOKEN.
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "README.md"
+      - "ROADMAP.md"
+      - "CHANGELOG*"
+      - "docs/**"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+# Rapid pushes would otherwise stack deploys of stale content; only the newest matters.
+concurrency:
+  group: rebuild-site
+  cancel-in-progress: true
+
+jobs:
+  notify-site:
+    name: Ask Cloudflare Pages to rebuild
+    runs-on: ubuntu-latest
+    steps:
+      # No checkout: this job only makes one HTTP request.
+      - name: Trigger the deploy hook
+        shell: bash
+        env:
+          DEPLOY_HOOK: ${{ secrets.CLOUDFLARE_PAGES_DEPLOY_HOOK }}
+        run: |
+          set -u
+
+          if [ -z "${DEPLOY_HOOK:-}" ]; then
+            echo "::notice::CLOUDFLARE_PAGES_DEPLOY_HOOK is not set in this repository; skipping the website rebuild."
+            exit 0
+          fi
+
+          # --silent keeps the URL out of the log; retries cover a transient Cloudflare error.
+          if curl --fail --silent --show-error --max-time 20 \
+                  --retry 3 --retry-delay 5 --retry-all-errors \
+                  -X POST "$DEPLOY_HOOK"; then
+            echo "::notice::Website rebuild triggered."
+            exit 0
+          fi
+
+          echo "::warning::The website rebuild hook could not be reached. The repository is unchanged; rebuild the site manually if needed."
+          exit 0
