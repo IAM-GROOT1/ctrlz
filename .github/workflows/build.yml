@@ -13,6 +13,19 @@ permissions:
   contents: read
 
 jobs:
+  roadmap-sync:
+    name: README roadmap block is in sync
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+
+      # The README "What's coming" block is generated from ROADMAP.md. Editing a status line
+      # without re-running the script would leave the two disagreeing, so fail here instead.
+      - name: Verify the README block matches ROADMAP.md
+        shell: pwsh
+        run: "& ./build/sync-readme-roadmap.ps1 -Check"
+
   test-and-publish:
     runs-on: windows-latest
     steps:
