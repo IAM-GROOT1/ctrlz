@@ -14,7 +14,9 @@ param(
     [Parameter(Mandatory = $true)][string]$PortableV120,
     [Parameter(Mandatory = $true)][string]$ShotDir,
     [int]$PromptTimeoutSec = 120,
-    [int]$VerifyTimeoutSec = 120
+    [int]$VerifyTimeoutSec = 120,
+    [string]$ExpectedStartVersion = '1.2.0',
+    [string]$ExpectedEndVersion = '1.3.0'
 )
 
 Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass -Force
