@@ -108,12 +108,7 @@ Record "B9 log records apply" ($log -match 'appl') "mentions apply=$([bool]($log
 Write-Host "[NOT VERIFIED] B10 Pre-release channel offering pre-releases: only the stable v1.3.0 is published, so the two channels cannot be distinguished."
 
 # ---------------------------------------------------------------- cleanup
-# The freshly updated build may still hold its own file; stop it before deleting anything.
-$alive = Get-Process -Name 'CTRL+Z' -ErrorAction SilentlyContinue
-if ($alive) {
-    $alive | Stop-Process -Force -ErrorAction SilentlyContinue
-    Start-Sleep -Seconds 3
-}
+Get-Process -Name 'CTRL+Z' -ErrorAction SilentlyContinue | Stop-Process -Force
 Remove-Item $work, $data -Recurse -Force -ErrorAction SilentlyContinue
 Remove-Item Env:\CTRLZ_DATA_DIR -ErrorAction SilentlyContinue
 Record "B11 cleanup removed the working folders" (-not (Test-Path $work) -and -not (Test-Path $data)) "work/data removed"
