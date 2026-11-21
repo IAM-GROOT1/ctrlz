@@ -145,6 +145,36 @@ public sealed class DownloadService
         }
     }
 
+    /// <summary>
+    /// Sends a HEAD request so a preview or dry run can confirm a download exists and learn
+    /// its size without transferring it. Returns the declared length when the server sends one.
+    /// </summary>
+    public async Task<long?> HeadAsync(string url, TimeSpan timeout, CancellationToken cancellationToken = default)
+    {
+        if (!Uri.TryCreate(url, UriKind.Absolute, out var uri) ||
+            (uri.Scheme != Uri.UriSchemeHttps && uri.Scheme != Uri.UriSchemeHttp))
+        {
+            throw new DownloadException("The URL must be an absolute http(s) URL.");
+        }
+
+        using var cts = CancellationTokenSource.CreateLinkedTokenSource(cancellationToken);
+        cts.CancelAfter(timeout);
+
+        using var request = new HttpRequestMessage(HttpMethod.Head, uri);
+        using var response = await Client
+            .SendAsync(request, HttpCompletionOption.ResponseHeadersRead, cts.Token)
+            .ConfigureAwait(false);
+
+        if (!response.IsSuccessStatusCode)
+        {
+            throw new DownloadException(
+                $"Request failed ({(int)response.StatusCode} {response.ReasonPhrase}).",
+                statusCode: (int)response.StatusCode);
+        }
+
+        return response.Content.Headers.ContentLength;
+    }
+
     public async Task<byte[]> GetBytesAsync(string url, TimeSpan timeout, CancellationToken cancellationToken = default)
     {
         using var cts = CancellationTokenSource.CreateLinkedTokenSource(cancellationToken);

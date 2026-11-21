@@ -71,6 +71,9 @@ public sealed partial class SettingsViewModel : PageViewModelBase
     [ObservableProperty]
     private bool _isCheckingForUpdates;
 
+    [ObservableProperty]
+    private bool _showInstallPreview;
+
     public string CurrentVersionText => $"CTRL+Z {AppVersion}";
 
     public bool IsStableChannel => Channel == UpdateChannel.Stable;
@@ -97,6 +100,7 @@ public sealed partial class SettingsViewModel : PageViewModelBase
         Theme = _services.State.Settings.Theme;
         AutoCheckForUpdates = _services.State.Settings.AutoCheckForUpdates;
         Channel = _services.State.Settings.UpdateChannel;
+        ShowInstallPreview = _services.State.Settings.ShowInstallPreview;
         OnPropertyChanged(nameof(LastUpdateCheckText));
         LoadLogs();
         await CheckWingetAsync();
@@ -117,6 +121,12 @@ public sealed partial class SettingsViewModel : PageViewModelBase
 
     partial void OnIsCheckingForUpdatesChanged(bool value) =>
         OnPropertyChanged(nameof(CanCheckForUpdates));
+
+    partial void OnShowInstallPreviewChanged(bool value)
+    {
+        _services.State.Settings.ShowInstallPreview = value;
+        _services.State.SaveSettings();
+    }
 
     partial void OnThemeChanged(ThemeMode value)
     {

@@ -2,6 +2,7 @@
 // Copyright (c) 2026 iam-groot1
 
 using System.Windows;
+using CtrlZ.App.ViewModels;
 using CtrlZ.App.Views;
 
 namespace CtrlZ.App.Services;
@@ -71,5 +72,38 @@ public sealed class DialogService
     public void Info(string message, string title = "CTRL+Z")
     {
         Show(title, message, "Close", null);
+    }
+
+    /// <summary>Opens the profile drift window and returns when it closes.</summary>
+    public void ShowDrift(AppServices services, MainViewModel main)
+    {
+        var window = new DriftWindow { DataContext = new DriftViewModel(services, this, main) };
+
+        if (Application.Current.MainWindow is { IsVisible: true } owner && owner != window)
+        {
+            window.Owner = owner;
+            window.WindowStartupLocation = WindowStartupLocation.CenterOwner;
+        }
+
+        window.ShowDialog();
+    }
+
+    /// <summary>
+    /// Shows the install preview and returns true when the user chose to continue. Used as the
+    /// final confirmation before a run, and controllable from Settings.
+    /// </summary>
+    public bool ShowInstallPreview(AppServices services, CtrlZ.Core.Models.AppProfile profile)
+    {
+        var viewModel = new PreviewViewModel(services, this, profile, profile.Name);
+        var window = new PreviewWindow { DataContext = viewModel };
+
+        if (Application.Current.MainWindow is { IsVisible: true } owner && owner != window)
+        {
+            window.Owner = owner;
+            window.WindowStartupLocation = WindowStartupLocation.CenterOwner;
+        }
+
+        window.ShowDialog();
+        return viewModel.ProceedRequested;
     }
 }
