@@ -137,15 +137,42 @@ public class SafetyPrivacyTests
 
         var json = File.ReadAllText(statePath);
 
-        Assert.DoesNotContain(@"\", json);
-        Assert.DoesNotContain("/", json);
-        Assert.DoesNotContain(@"C:", json, StringComparison.OrdinalIgnoreCase);
-        Assert.DoesNotContain(workspace.Root, json, StringComparison.OrdinalIgnoreCase);
+        // Real package identifiers can contain a backslash (for example a Store identity), so the
+        // guarantee is "no drive-qualified or user-profile path", not "no backslash".
+        AssertNoPersonalPath(json);
 
         // And the ids that are stored are the checklist's own synthetic ids.
         var reloaded = JsonSerializer.Deserialize<SafetyState>(json, JsonDefaults.Profile);
         Assert.NotNull(reloaded);
         Assert.Contains("folder.desktop", reloaded!.HandledChecks);
+    }
+
+    [Fact]
+    public void A_package_identity_with_a_backslash_is_allowed()
+    {
+        // A Windows package identity is not a path: no drive and no user profile segment.
+        var json = """{"schemaVersion":1,"ignoredDriftKeys":["extra:microsoft.windowscalculator_8wekyb3d8bbwe!app\\shell"]}""";
+
+        AssertNoPersonalPath(json);
+    }
+
+    [Theory]
+    [InlineData("""{"handledChecks":["folder.desktop","C:\\Users\\bob\\Desktop"]}""")]
+    [InlineData("""{"ignoredDriftKeys":["missing:D:\\Archive\\setup.exe"]}""")]
+    [InlineData("""{"ignoredChecks":["\\\\server\\share\\file"]}""")]
+    public void The_path_assertion_rejects_state_that_contains_a_path(string json)
+    {
+        // Proves the assertion has teeth: a real path must make it fail.
+        Assert.ThrowsAny<Exception>(() => AssertNoPersonalPath(json));
+    }
+
+    [Fact]
+    public void The_path_assertion_rejects_the_current_users_profile_path()
+    {
+        var profile = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
+        var json = JsonSerializer.Serialize(new { handledChecks = new[] { profile } });
+
+        Assert.ThrowsAny<Exception>(() => AssertNoPersonalPath(json));
     }
 
     // ---- (c) .env and .ssh are never opened ---------------------------------------
@@ -308,6 +335,65 @@ public class SafetyPrivacyTests
     }
 
     // ---- helpers ------------------------------------------------------------------
+
+    /// <summary>
+    /// Fails when any string value in the JSON is a drive-qualified path, a UNC path, or contains
+    /// the current user's profile folder. A bare backslash is allowed, because Windows package
+    /// identities legitimately contain one.
+    /// </summary>
+    private static void AssertNoPersonalPath(string json)
+    {
+        using var document = System.Text.Json.JsonDocument.Parse(json);
+        var profile = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
+
+        foreach (var value in EnumerateStrings(document.RootElement))
+        {
+            Assert.False(
+                System.Text.RegularExpressions.Regex.IsMatch(value, @"[A-Za-z]:[\\/]"),
+                "state contains a drive-qualified path");
+
+            Assert.False(
+                value.StartsWith(@"\\", StringComparison.Ordinal) && value.Length > 2 && value[2] != '\\',
+                "state contains a UNC path");
+
+            if (!string.IsNullOrWhiteSpace(profile))
+            {
+                Assert.DoesNotContain(profile, value, StringComparison.OrdinalIgnoreCase);
+            }
+        }
+    }
+
+    private static IEnumerable<string> EnumerateStrings(System.Text.Json.JsonElement element)
+    {
+        switch (element.ValueKind)
+        {
+            case System.Text.Json.JsonValueKind.String:
+                yield return element.GetString() ?? string.Empty;
+                break;
+
+            case System.Text.Json.JsonValueKind.Array:
+                foreach (var item in element.EnumerateArray())
+                {
+                    foreach (var text in EnumerateStrings(item))
+                    {
+                        yield return text;
+                    }
+                }
+
+                break;
+
+            case System.Text.Json.JsonValueKind.Object:
+                foreach (var property in element.EnumerateObject())
+                {
+                    foreach (var text in EnumerateStrings(property.Value))
+                    {
+                        yield return text;
+                    }
+                }
+
+                break;
+        }
+    }
 
     private static SafetyEnvironment EnvironmentFor(TestDirectory workspace) => new()
     {
