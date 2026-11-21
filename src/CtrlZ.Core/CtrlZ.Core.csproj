@@ -16,4 +16,7 @@
     <EmbeddedResource Include="Resources\winutil-applications.json" />
   </ItemGroup>
 
+  <ItemGroup>
+    <EmbeddedResource Include="Install\Dependencies\dependency-catalog.json" />
+  </ItemGroup>
 </Project>
