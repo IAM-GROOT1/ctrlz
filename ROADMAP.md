@@ -2,6 +2,16 @@
 
 Forward-looking work. Nothing here is committed to a release, and none of it is implemented yet.
 
+## Done
+
+- [x] **Ready to wipe? checklist** — read-only pre-wipe report: folders and drives, games and
+      launchers, developer material, browser backup age, profile freshness and hand-hold
+      reminders, with handled/ignored state kept locally.
+- [x] **Profile drift** — Missing / Extra / Outdated between the saved profile and this PC, with
+      match confidence and per-row actions (add, remove, ignore permanently, install).
+- [x] **Install preview and dry run** — plan every app before installing, then verify each source
+      without installing anything, with an exportable report.
+
 ## Next
 
 - General AppData/config settings backup/restore module (structured for later; see the README).

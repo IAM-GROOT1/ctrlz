@@ -191,6 +191,13 @@ public sealed partial class InstallViewModel : PageViewModelBase
             _state = state;
             ProfileName = profile.Name;
             BuildRowsFromState(state);
+
+            // Final confirmation before anything runs; the user can turn this off in Settings.
+            if (_services.State.Settings.ShowInstallPreview &&
+                !_dialogs.ShowInstallPreview(_services, profile))
+            {
+                return;
+            }
         }
 
         if (state is null)

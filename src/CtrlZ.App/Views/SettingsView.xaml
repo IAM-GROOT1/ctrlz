@@ -59,6 +59,16 @@
 
                 <Border Style="{StaticResource Border.Card}" Padding="18,16" Margin="0,14,0,0">
                     <StackPanel>
+                        <TextBlock Text="INSTALLING" Style="{StaticResource Text.NavSection}" Margin="0,0,0,10" />
+                        <CheckBox Content="Show a preview before installing" Margin="0,0,0,0"
+                                  IsChecked="{Binding ShowInstallPreview, Mode=TwoWay}" />
+                        <TextBlock Text="The preview lists each app, its source, switches and warnings, and can dry-run the whole list without installing anything."
+                                   Style="{StaticResource Text.Caption}" TextWrapping="Wrap" Margin="0,8,0,0" />
+                    </StackPanel>
+                </Border>
+
+                <Border Style="{StaticResource Border.Card}" Padding="18,16" Margin="0,14,0,0">
+                    <StackPanel>
                         <TextBlock Text="UPDATES" Style="{StaticResource Text.NavSection}" Margin="0,0,0,10" />
                         <TextBlock Text="{Binding CurrentVersionText}" FontWeight="SemiBold" FontSize="13" />
                         <TextBlock Text="{Binding LastUpdateCheckText}" Style="{StaticResource Text.Caption}" Margin="0,3,0,0" />

@@ -250,6 +250,9 @@ public sealed partial class MyAppsViewModel : PageViewModelBase
     private async Task InstallAppsAsync() => await _main.NavigateToAsync("install");
 
     [RelayCommand]
+    private void CheckDrift() => _dialogs.ShowDrift(_services, _main);
+
+    [RelayCommand]
     private void RemoveApp(ProfileAppRow? row)
     {
         if (row is null)
