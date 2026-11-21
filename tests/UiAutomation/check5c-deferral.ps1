@@ -59,7 +59,14 @@ if (-not $main) { Invoke-FailureDump -ProcessId $proc.Id -Label 'no window' -Log
 Invoke-Element (Wait-NameIn -ProcessId $proc.Id -Name 'Install' -TimeoutSec 20)
 Start-Sleep -Seconds 2
 Invoke-Element (Wait-NameIn -ProcessId $proc.Id -Name 'Install everything' -TimeoutSec 20)
-Invoke-Element (Wait-NameIn -ProcessId $proc.Id -Name 'Install now' -TimeoutSec 30)
+$installNow = Wait-NameIn -ProcessId $proc.Id -Name 'Install now' -TimeoutSec 45
+if (-not $installNow) {
+    Invoke-FailureDump -ProcessId $proc.Id -Label 'preview never appeared after Install everything' -LogFolder (Join-Path $data 'logs') -ShotDir $ShotDir
+    Record "C1b preview appears after Install everything" $false 'no preview within 45 s'
+    exit 1
+}
+Record "C1b preview appears after Install everything" $true 'preview shown'
+Invoke-Element $installNow
 $admin = Wait-NameIn -ProcessId $proc.Id -Name 'Continue without admin' -TimeoutSec 30
 if ($admin) { Invoke-Element $admin }
 
