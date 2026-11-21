@@ -239,4 +239,48 @@ public class UpdateCheckTests
 
         public Task<string> GetReleasesJsonAsync(CancellationToken cancellationToken = default) => _get();
     }
-}
+
+    // ---- Channel switching ---------------------------------------------------------
+
+    [Fact]
+    public async Task A_channel_switch_applies_to_the_very_next_check()
+    {
+        // The same service instance, the same feed: only the channel argument changes, which is what
+        // the Settings page supplies on each check. Stable must ignore the beta, PreRelease must
+        // offer it, and switching back must stop offering it again.
+        var json = Json(
+            Rel("v0.0.2"),
+            Rel("v0.0.3-beta.1", pre: true));
+        var service = CreateService(json);
+        var current = SemanticVersion.Parse("0.0.1");
+
+        var stable = await service.CheckAsync(current, UpdateChannel.Stable);
+        var pre = await service.CheckAsync(current, UpdateChannel.PreRelease);
+        var stableAgain = await service.CheckAsync(current, UpdateChannel.Stable);
+
+        Assert.Equal("0.0.2", stable.Latest!.Version.ToString());
+        Assert.False(stable.Latest.IsPreRelease);
+
+        Assert.Equal("0.0.3-beta.1", pre.Latest!.Version.ToString());
+        Assert.True(pre.Latest.IsPreRelease);
+
+        Assert.Equal("0.0.2", stableAgain.Latest!.Version.ToString());
+        Assert.False(stableAgain.Latest.IsPreRelease);
+    }
+
+    [Fact]
+    public void The_update_channel_survives_a_settings_round_trip()
+    {
+        // What the Settings page writes must be what the next launch reads back, so a chosen channel
+        // is not silently reset to Stable.
+        var settings = new AppSettings { UpdateChannel = UpdateChannel.PreRelease };
+
+        var json = System.Text.Json.JsonSerializer.Serialize(settings, CtrlZ.Core.Infrastructure.JsonDefaults.Profile);
+        var reloaded = System.Text.Json.JsonSerializer.Deserialize<AppSettings>(
+            json,
+            CtrlZ.Core.Infrastructure.JsonDefaults.Profile);
+
+        Assert.NotNull(reloaded);
+        Assert.Equal(UpdateChannel.PreRelease, reloaded!.UpdateChannel);
+        Assert.Contains("prerelease", json, StringComparison.OrdinalIgnoreCase);
+    }}
