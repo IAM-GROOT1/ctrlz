@@ -15,6 +15,8 @@ param(
     [Parameter(Mandatory = $true)][string]$SetupV120,
     [Parameter(Mandatory = $true)][string]$ShotDir,
     [ValidateSet('Main', 'Skip', 'Remind')][string]$Phase = 'Main',
+    [string]$ExpectedStartVersion = '1.2.0',
+    [string]$ExpectedEndVersion = '1.3.0',
     [int]$PromptTimeoutSec = 120
 )
 
@@ -85,7 +87,7 @@ function Wait-Prompt([int]$ProcessId, [int]$TimeoutSec) {
 # ---------------------------------------------------------------- install 1.2.0
 Write-Host "phase: $Phase"
 $exit = Install-Version $SetupV120
-Record "$Phase install 1.2.0" ($exit -eq 0 -and (Get-InstalledVersion) -like '1.2.0*') "installer exit=$exit version=$(Get-InstalledVersion)"
+Record "$Phase install $ExpectedStartVersion" ($exit -eq 0 -and (Get-InstalledVersion) -like "$ExpectedStartVersion*") "installer exit=$exit version=$(Get-InstalledVersion)"
 
 $proc = Start-App
 $main = Wait-AppWindow -ProcessId $proc.Id -TimeoutSec 60
@@ -166,12 +168,12 @@ if ($Phase -ne 'Main') {
     $version = Get-InstalledVersion
     $deadline = (Get-Date).AddSeconds(90)
     $next = (Get-Date).AddSeconds(10)
-    while ((Get-Date) -lt $deadline -and $version -notlike '1.3.0*') {
+    while ((Get-Date) -lt $deadline -and $version -notlike "$ExpectedEndVersion*") {
         Start-Sleep -Milliseconds 700
         $version = Get-InstalledVersion
         if ((Get-Date) -gt $next) { Write-Host "  ... waiting for the new exe (now $version)"; $next = (Get-Date).AddSeconds(10) }
     }
-    Record "$Phase exe is now 1.3.0" ($version -like '1.3.0*') "installed version=$version"
+    Record "$Phase exe is now $ExpectedEndVersion" ($version -like "$ExpectedEndVersion*") "installed version=$version"
 
     $log = (Get-RedactedLogTail -LogFolder $logFolder -Lines 400) -join "`n"
     Record "$Phase log records verification" ($log -match 'verif') "log mentions verify=$([bool]($log -match 'verif'))"

@@ -145,7 +145,12 @@ Record "B9 channel setting readable" (-not [string]::IsNullOrWhiteSpace($channel
 
 Write-Host "[NOT VERIFIED] B10 Pre-release channel offering pre-releases: only stable releases are published to the production repo."
 
-Get-Process -Name 'CTRL+Z' -ErrorAction SilentlyContinue | Stop-Process -Force
+# The updated build may still hold its own file; stop it before deleting anything.
+$alive = Get-Process -Name 'CTRL+Z' -ErrorAction SilentlyContinue
+if ($alive) {
+    $alive | Stop-Process -Force -ErrorAction SilentlyContinue
+    Start-Sleep -Seconds 3
+}
 Remove-Item $work, $data -Recurse -Force -ErrorAction SilentlyContinue
 Remove-Item Env:\CTRLZ_DATA_DIR -ErrorAction SilentlyContinue
 Record "B11 cleanup removed the working folders" (-not (Test-Path $work) -and -not (Test-Path $data)) 'work/data removed'
