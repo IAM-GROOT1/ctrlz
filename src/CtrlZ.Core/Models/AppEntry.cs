@@ -59,6 +59,15 @@ public sealed class AppEntry
 
     public string? Notes { get; set; }
 
+    /// <summary>Ids of apps this one must install after. A cycle is reported, never guessed away.</summary>
+    public List<string> AfterAppIds { get; set; } = new();
+
+    /// <summary>True when the planner added this entry for a dependency, so the user can remove it.</summary>
+    public bool IsAutoDependency { get; set; }
+
+    /// <summary>Optional command that runs after a successful install. Never silent.</summary>
+    public PostInstallCommand? PostInstall { get; set; }
+
     [JsonIgnore]
     public string SourceLabel => Source.Display();
 

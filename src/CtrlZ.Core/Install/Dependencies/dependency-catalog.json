@@ -1,0 +1,50 @@
+{
+  "$comment": "Known dependencies and the apps that need them. Data, not code: edit this file to add a dependency. matched by winget package id first, then by a whole-word match on the app name.",
+  "dependencies": [
+    {
+      "id": "vcredist.x64",
+      "label": "Visual C++ 2015-2022 Redistributable (x64)",
+      "packageId": "Microsoft.VCRedist.2015+.x64",
+      "neededBy": {
+        "packageIds": ["Valve.Steam", "OBSProject.OBSStudio", "Discord.Discord", "Spotify.Spotify"],
+        "nameWords": ["steam", "obs studio", "discord", "spotify"]
+      }
+    },
+    {
+      "id": "vcredist.x86",
+      "label": "Visual C++ 2015-2022 Redistributable (x86)",
+      "packageId": "Microsoft.VCRedist.2015+.x86",
+      "neededBy": {
+        "packageIds": ["Valve.Steam"],
+        "nameWords": ["steam"]
+      }
+    },
+    {
+      "id": "dotnet.desktop.8",
+      "label": ".NET Desktop Runtime 8",
+      "packageId": "Microsoft.DotNet.DesktopRuntime.8",
+      "neededBy": {
+        "packageIds": ["Microsoft.VisualStudioCode", "Obsidian.Obsidian"],
+        "nameWords": ["visual studio code", "obsidian"]
+      }
+    },
+    {
+      "id": "java.temurin.21",
+      "label": "Eclipse Temurin JDK 21",
+      "packageId": "EclipseAdoptium.Temurin.21.JDK",
+      "neededBy": {
+        "packageIds": ["JetBrains.IntelliJIDEA.Community", "MinecraftLauncher"],
+        "nameWords": ["intellij", "minecraft"]
+      }
+    },
+    {
+      "id": "webview2",
+      "label": "Microsoft Edge WebView2 Runtime",
+      "packageId": "Microsoft.EdgeWebView2Runtime",
+      "neededBy": {
+        "packageIds": ["Microsoft.PowerToys", "Notion.Notion"],
+        "nameWords": ["power toys", "powertoys", "notion"]
+      }
+    }
+  ]
+}
