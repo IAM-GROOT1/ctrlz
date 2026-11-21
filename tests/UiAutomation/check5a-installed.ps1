@@ -16,7 +16,6 @@ param(
     [Parameter(Mandatory = $true)][string]$ShotDir,
     [ValidateSet('Main', 'Skip', 'Remind')][string]$Phase = 'Main',
     [string]$ExpectedEndVersion = '1.3.0',
-    [string]$ExpectedStartVersion = '1.2.0',
     [int]$PromptTimeoutSec = 120
 )
 
@@ -87,7 +86,7 @@ function Wait-Prompt([int]$ProcessId, [int]$TimeoutSec) {
 # ---------------------------------------------------------------- install 1.2.0
 Write-Host "phase: $Phase"
 $exit = Install-Version $SetupV120
-Record "$Phase install $ExpectedStartVersion" ($exit -eq 0 -and (Get-InstalledVersion) -like "$ExpectedStartVersion*") "installer exit=$exit version=$(Get-InstalledVersion)"
+Record "$Phase install 1.2.0" ($exit -eq 0 -and (Get-InstalledVersion) -like '1.2.0*') "installer exit=$exit version=$(Get-InstalledVersion)"
 
 $proc = Start-App
 $main = Wait-AppWindow -ProcessId $proc.Id -TimeoutSec 60
