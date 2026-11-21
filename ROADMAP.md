@@ -61,6 +61,14 @@ Create Start menu shortcuts for portable apps and notice when their source has a
 Sign the installer and portable exe so SmartScreen stops warning about an unsigned download. The
 release workflow already marks where the step goes.
 
+Reliability and security follow-ups are tracked under this section:
+
+- **Redact personal paths and names from logs and saved state.** The startup, profile and
+  install-log lines currently record a drive-qualified data folder path (which includes the Windows
+  account name), and `state/install-state.json` stores `logPath`, `installLocation` and `iconPath`
+  for every app in the profile. The safety checks themselves log counts only. Tracked in
+  [#8](https://github.com/IAM-GROOT1/ctrlz/issues/8).
+
 ### 5. Per-app download resumption and mirror selection
 
 Resume an interrupted download instead of starting over, and fall back to a mirror when a source is
