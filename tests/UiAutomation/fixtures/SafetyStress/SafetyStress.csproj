@@ -1,0 +1,17 @@
+<!-- SPDX-License-Identifier: AGPL-3.0-only -->
+<!-- Copyright (c) 2026 iam-groot1 -->
+
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net8.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <AssemblyName>SafetyStress</AssemblyName>
+    <RootNamespace>SafetyStress</RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\src\ctrlz\src\CtrlZ.Core\CtrlZ.Core.csproj" />
+  </ItemGroup>
+</Project>
+
