@@ -37,6 +37,19 @@ scripts use `;`. New files need the header; generated output under `bin/` and `o
 
 5. Open a pull request with a short summary and the test evidence. Do not merge it yourself.
 
+## Keeping the README roadmap in sync
+
+`README.md` has a "What's coming" block that is **generated** from the "Sections" list in
+`ROADMAP.md`. Do not edit the lines between `<!-- roadmap:start -->` and `<!-- roadmap:end -->`
+by hand. Change the status or title in `ROADMAP.md`, then regenerate:
+
+```powershell
+pwsh -File build/sync-readme-roadmap.ps1
+```
+
+On Windows PowerShell use `powershell -File build/sync-readme-roadmap.ps1` instead. CI runs the same
+script with `-Check` and fails the pull request if the block is stale.
+
 ## What not to submit
 
 - Secrets of any kind: private keys, signing secrets, certificates, tokens, or real license keys.

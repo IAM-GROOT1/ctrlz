@@ -6,7 +6,7 @@
 
 CTRL+Z is a local-first Windows desktop app that rebuilds your app list and restores your
 Chromium and Firefox browser profiles after a fresh install. It scans what is installed now,
-saves a portable JSON profile, and reinstalls it silently later — including apps winget does
+saves a portable JSON profile, and reinstalls it silently later â€” including apps winget does
 not carry. It also makes full browser-profile backups for browsers without sync, with a
 focus on Helium, Zen, and multiple profiles.
 
@@ -24,13 +24,13 @@ I chose **.NET 8 + WPF** with a custom Fluent-inspired theme rather than Tauri/E
   `.exe` runs on a clean Windows 10/11 install.
 - **Native Windows integration** for UAC relaunch, registry, shell icons, App Installer,
   process control, and Volume Shadow Copy.
-- **A real GUI** that can be a proper Windows citizen — custom chrome, rounded
+- **A real GUI** that can be a proper Windows citizen â€” custom chrome, rounded
   corners, system light/dark themes, keyboard navigation, and native file dialogs.
 - **Testable core.** `CtrlZ.Core` is a plain .NET class library; the installer, scan,
   winget matching, profile, and browser archive logic have no WPF dependency.
 
 The UI deliberately uses a restrained ember accent, a small type scale, 8px surfaces, and
-Segoe Fluent Icons — not a dashboard template. There are no gradients, glass panels, or
+Segoe Fluent Icons â€” not a dashboard template. There are no gradients, glass panels, or
 emoji icons.
 
 ## Features
@@ -44,7 +44,7 @@ emoji icons.
 - Searchable, filterable lists; filter by **All apps / Matched / Unmatched**, filter by category,
   group by category or source, and multi-select. **Select all** selects every app visible under the
   active filter; **Select matched** is the matched-only shortcut.
-- Save **multiple portable profiles** (`Work PC`, `Gaming PC`, …) as human-readable JSON;
+- Save **multiple portable profiles** (`Work PC`, `Gaming PC`, â€¦) as human-readable JSON;
   import/export them anywhere.
 - Add apps winget does not carry:
   - **Direct download URL** with silent switches and optional SHA-256.
@@ -90,8 +90,8 @@ emoji icons.
   VSS is available.
 - One compressed ZIP per browser with a manifest (engine/family, browser, version, profiles,
   date, file list, contents, exclusions). Optional **AES-256 password encryption**.
-- Restore flow: inspect archive → choose profiles → choose a target browser of the **same engine**
-  → **restore as new profiles (recommended)** or merge into existing profiles after a warning.
+- Restore flow: inspect archive â†’ choose profiles â†’ choose a target browser of the **same engine**
+  â†’ **restore as new profiles (recommended)** or merge into existing profiles after a warning.
   New Firefox profiles are registered in `profiles.ini`; new Chromium profiles in `Local State`.
   Existing cookies/passwords are left untouched; a small safety copy of key current files is made
   before writing.
@@ -112,9 +112,9 @@ emoji icons.
 
 Download the latest build from [Releases](https://github.com/IAM-GROOT1/ctrlz/releases/latest). The release artifacts are (also copied to `dist/`):
 
-- `CTRL+Z-Portable-1.1.3.exe` — a single self-contained executable. Put it anywhere and
+- `CTRL+Z-Portable-1.1.3.exe` â€” a single self-contained executable. Put it anywhere and
   run it. No .NET install required.
-- `CTRL+Z-Setup-1.1.3.exe` — per-user Inno Setup installer (Start Menu shortcut, optional
+- `CTRL+Z-Setup-1.1.3.exe` â€” per-user Inno Setup installer (Start Menu shortcut, optional
   desktop shortcut, uninstaller). It does not require admin to install.
 
 The binaries are **not code-signed**, so SmartScreen may show an unknown-publisher prompt.
@@ -127,7 +127,7 @@ By default the portable exe still keeps profiles, logs, and settings under
 file named `portable.flag` beside `CTRL+Z.exe` before launching. Data then lives in
 `.\Data\`. You can also set `CTRLZ_DATA_DIR` to an explicit folder.
 
-Profiles are portable regardless: export them from **My Apps → Export** and keep the JSON
+Profiles are portable regardless: export them from **My Apps â†’ Export** and keep the JSON
 with the installer or on a USB drive.
 
 ## Updates
@@ -145,7 +145,7 @@ CTRL+Z can check GitHub for a newer release and update itself.
   copy downloads `CTRL+Z-Portable-<version>.exe`. Only HTTPS assets from this repository's own
   releases are accepted. Every download is checked against the release's `SHA256SUMS.txt` (or
   the API digest); a file that does not match is deleted and never applied.
-- **Turning it off.** **Settings → Updates** has a *Check for updates automatically* toggle, a
+- **Turning it off.** **Settings â†’ Updates** has a *Check for updates automatically* toggle, a
   channel switch and a manual **Check for updates** button. *Skip this version* keeps that
   version quiet until a newer one ships.
 - **Interruptions.** CTRL+Z never prompts or applies an update while an install queue, browser
@@ -260,10 +260,34 @@ The updater selects assets by exact name, so the naming is part of the contract:
 `<version>` is the tag without its leading `v`, for example `1.2.0` or `1.3.0-beta.1`. Renaming an
 asset breaks automatic updates for that release: the updater will refuse to guess.
 
+### Website rebuild hook
+
+The site in the separate website repository shows the latest release, the changelog and this
+roadmap, so it has to rebuild when this repository changes. Two places ask Cloudflare Pages to
+rebuild through a deploy hook:
+
+- the final step of `release.yml`, after the release is published and its assets verified; and
+- `rebuild-site.yml`, on a push to `main` that touches `README.md`, `ROADMAP.md`, `CHANGELOG*` or
+  `docs/**`.
+
+Both read the URL from the `CLOUDFLARE_PAGES_DEPLOY_HOOK` repository secret. Without the secret they
+print a notice and skip, and a failed call only produces a warning: a website rebuild never fails a
+release. Call the hook from inside the release workflow rather than from a `release` event, because
+releases created with the built-in `GITHUB_TOKEN` do not trigger other workflows.
+
+To set it up, create a deploy hook named `app-repo-release` for the production branch under
+**Workers & Pages** > project > **Settings** > **Builds** > **Deploy hooks**, then store the URL:
+
+```powershell
+gh secret set CLOUDFLARE_PAGES_DEPLOY_HOOK --repo IAM-GROOT1/ctrlz
+```
+
+See [`docs/website-hook.md`](docs/website-hook.md) for the details and failure behaviour.
+
 ## Using CTRL+Z on a fresh Windows install
 
 1. Copy the portable exe or run the setup **and your exported profile JSON**.
-2. Launch CTRL+Z. Open **My Apps → Import** and choose your profile (or use the profile
+2. Launch CTRL+Z. Open **My Apps â†’ Import** and choose your profile (or use the profile
    already on the machine if you copied the data folder).
 3. Review enabled apps and install order. Use **Add App** for custom sources, or **Catalog**
    for recommended apps.
@@ -271,7 +295,7 @@ asset breaks automatic updates for that release: the updater will refuse to gues
    elevated; the app automatically resumes the saved queue after the relaunch.
 5. If an installer needs a restart, CTRL+Z records it. Restart Windows and reopen CTRL+Z;
    the install queue resumes at the next unfinished app.
-6. Open **Browsers → Restore**, inspect your archive, choose profiles and the target browser,
+6. Open **Browsers â†’ Restore**, inspect your archive, choose profiles and the target browser,
    and restore as new profiles (recommended) or merge into existing ones.
 
 ## Profile JSON
@@ -281,7 +305,7 @@ Profiles are intentionally simple and diffable:
 ```json
 {
   "schemaVersion": 1,
-  "id": "…",
+  "id": "â€¦",
   "name": "Work PC",
   "apps": [
     {
@@ -294,9 +318,9 @@ Profiles are intentionally simple and diffable:
     {
       "name": "Notion",
       "source": "directUrl",
-      "downloadUrl": "https://…",
+      "downloadUrl": "https://â€¦",
       "silentArgs": "--silent",
-      "expectedSha256": "…"
+      "expectedSha256": "â€¦"
     },
     {
       "name": "Obsidian",
@@ -310,7 +334,7 @@ Profiles are intentionally simple and diffable:
 ```
 
 Paths for local installers are absolute by design; reconnect the same USB drive or edit the
-path in **My Apps → Edit**.
+path in **My Apps â†’ Edit**.
 
 ## Architecture
 
@@ -333,7 +357,7 @@ Key design decisions:
 - **Profile state lives in `AppState`**, and every page goes through it. A profile is just
   JSON; there is no database.
 - **Install sources are strategies** (`ISourceInstaller`). `InstallEngine` never knows how a
-  winget, GitHub, URL, or local app is installed — it owns ordering, status, persistence,
+  winget, GitHub, URL, or local app is installed â€” it owns ordering, status, persistence,
   retry, and logs.
 - **The install profile is snapshotted into the state file**, so a reboot or app restart can
   resume even if the original profile file changes.
@@ -377,8 +401,8 @@ before relying on it for a critical profile.
   key removed; Firefox archives never include `key4.db`, `logins.json`, or `cookies.sqlite`.
   Existing target encryption material is preserved during a merge. Restoring encrypted
   browser data from another Windows account is not supported.
-- **Cross-fork restores are same-engine only.** Chrome↔Helium and Firefox↔Zen generally work
-  within the same engine, but version-specific preferences may not. Chromium↔Firefox restores
+- **Cross-fork restores are same-engine only.** Chromeâ†”Helium and Firefoxâ†”Zen generally work
+  within the same engine, but version-specific preferences may not. Chromiumâ†”Firefox restores
   are rejected.
 - **Single-profile layouts cannot add profiles.** Opera, Tor Browser, and some Mullvad layouts
   expose one flat profile. CTRL+Z restores it in place and warns that a second profile cannot be
@@ -399,22 +423,45 @@ permissions, and the absence of cookies/passwords).
 
 ## Troubleshooting
 
-- **winget missing/outdated on a fresh PC** — CTRL+Z offers to install/update Microsoft App
+- **winget missing/outdated on a fresh PC** â€” CTRL+Z offers to install/update Microsoft App
   Installer. If the automatic bootstrap fails, install it manually from
   <https://aka.ms/getwinget> and retry.
-- **A winget app opens a GUI instead of installing silently** — some packages ignore
+- **A winget app opens a GUI instead of installing silently** â€” some packages ignore
   `--silent`. Test the installer switches from **Add App**, or use the vendor's direct
   installer with the correct switches in the profile.
-- **Browser backup says a file is locked** — close the browser gracefully; if needed use
+- **Browser backup says a file is locked** â€” close the browser gracefully; if needed use
   **Force close**, or run CTRL+Z as administrator so the VSS fallback can be used.
-- **GitHub release lookup fails** — anonymous GitHub API limits are 60 requests/hour. Set a
+- **GitHub release lookup fails** â€” anonymous GitHub API limits are 60 requests/hour. Set a
   `GITHUB_TOKEN` environment variable before launching CTRL+Z for a higher limit.
-- **Logs** — **Settings → Open logs**, or open
+- **Logs** â€” **Settings â†’ Open logs**, or open
   `%LOCALAPPDATA%\CTRL+Z\logs\ctrlz-YYYY-MM-DD.log`.
 
-## Roadmap
+## What's coming
 
-See [`ROADMAP.md`](ROADMAP.md) for planned work and later improvements.
+The work is split into numbered sections, built one at a time and shipped as they land.
+
+<!-- roadmap:start -->
+<!-- Generated from ROADMAP.md by build/sync-readme-roadmap.ps1. Do not edit by hand. -->
+
+- [x] **0.** Self-update and tag-driven releases
+- [x] **1.** Safety checks before a wipe
+- [ ] **2.** AppData and settings backup and restore - **next**
+- [ ] **3.** Portable app shortcuts and update tracking
+- [ ] **4.** Optional code signing
+- [ ] **5.** Per-app download resumption and mirror selection
+- [ ] **6.** Backup verification and restore drills
+- [ ] **7.** Multiple profiles and moving a profile between PCs
+- [ ] **8.** Scheduled and recurring backups
+- [ ] **9.** Keyboard-first navigation and accessibility
+- [ ] **10.** Translations
+- [ ] **11.** Offline diagnostics without telemetry
+- [ ] **12.** Restore from a browser backup without reinstalling
+- [ ] **13.** Packaging and distribution improvements
+
+See [ROADMAP.md](ROADMAP.md) for the detail behind each section.
+<!-- roadmap:end -->
+
+See [`ROADMAP.md`](ROADMAP.md) for the detail behind each section.
 
 ## License
 
@@ -422,5 +469,5 @@ CTRL+Z is licensed under the GNU Affero General Public License v3.0 (see [`LICEN
 
 ## Brand assets
 
-The standalone CTRL+Z logo — the exact ember rounded square with a white Z and a right-offset dash used by the app — is in
+The standalone CTRL+Z logo â€” the exact ember rounded square with a white Z and a right-offset dash used by the app â€” is in
 [`branding/`](branding/). The app icon, window icon, header mark, Settings mark, and installer icon use this source. High-resolution PNGs, a transparent mark, and a multi-size Windows ICO are included.
