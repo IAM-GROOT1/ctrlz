@@ -81,6 +81,16 @@ public static class ProfileOriginRecorder
         return profile;
     }
 
+    /// <summary>A profile that arrived from outside this machine: imported, file open, drag and drop, CLI.</summary>
+    public static AppProfile RecordImported(ProfileOriginStore origins, AppProfile profile)
+    {
+        ArgumentNullException.ThrowIfNull(origins);
+        ArgumentNullException.ThrowIfNull(profile);
+
+        origins.Set(profile.Id, ProfileOrigin.Imported, null);
+        return profile;
+    }
+
     /// <summary>The user explicitly confirmed this profile is theirs. Requires the confirmation flag.</summary>
     public static AppProfile MarkAsLocal(ProfileOriginStore origins, AppProfile profile, bool userConfirmed)
     {

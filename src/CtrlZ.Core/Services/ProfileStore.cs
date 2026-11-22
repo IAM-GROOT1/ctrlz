@@ -24,6 +24,9 @@ public sealed class ProfileStore
 
     public string ProfilesFolder => _paths.Profiles;
 
+    /// <summary>Where machine-local bookkeeping (profile origins) lives.</summary>
+    public string StateFolder => _paths.State;
+
     public IReadOnlyList<ProfileSummary> List()
     {
         lock (_gate)
