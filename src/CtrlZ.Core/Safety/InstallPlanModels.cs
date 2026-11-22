@@ -79,6 +79,9 @@ public sealed record DryRunReport
     public string ProfileName { get; init; } = string.Empty;
     public IReadOnlyList<DryRunItem> Items { get; init; } = [];
 
+    /// <summary>Every post-install command with its state. Listed only; the dry run never runs one.</summary>
+    public IReadOnlyList<Install.CommandPreviewLine> Commands { get; init; } = [];
+
     public int ReadyCount => Items.Count(item => item.Status == PlanCheckStatus.Ready);
 
     public int WarningCount => Items.Count(item => item.Status == PlanCheckStatus.Warning);
@@ -121,6 +124,19 @@ public sealed record DryRunReport
         if (KnownBytes > 0)
         {
             builder.AppendLine($"Known download size: {Infrastructure.FileUtil.FormatBytes(KnownBytes)}");
+        }
+
+        if (Commands.Count > 0)
+        {
+            builder.AppendLine();
+            builder.AppendLine("Post-install commands");
+            foreach (var command in Commands)
+            {
+                builder.AppendLine($"  {command.Order}. {command.AppName}: {command.CommandText}");
+                builder.AppendLine($"       {command.StateText}");
+            }
+
+            builder.AppendLine("No post-install command was run by this check.");
         }
 
         builder.AppendLine("Nothing was installed, downloaded to disk, or changed by this check.");
