@@ -73,6 +73,8 @@ public sealed partial class SettingsViewModel : PageViewModelBase
 
     [ObservableProperty]
     private bool _showInstallPreview;
+    [ObservableProperty]
+    private bool _includeNotesInReports;
 
     public string CurrentVersionText => $"CTRL+Z {AppVersion}";
 
@@ -101,6 +103,7 @@ public sealed partial class SettingsViewModel : PageViewModelBase
         AutoCheckForUpdates = _services.State.Settings.AutoCheckForUpdates;
         Channel = _services.State.Settings.UpdateChannel;
         ShowInstallPreview = _services.State.Settings.ShowInstallPreview;
+        IncludeNotesInReports = _services.State.Settings.IncludeNotesInReports;
         OnPropertyChanged(nameof(LastUpdateCheckText));
         LoadLogs();
         await CheckWingetAsync();
@@ -121,6 +124,12 @@ public sealed partial class SettingsViewModel : PageViewModelBase
 
     partial void OnIsCheckingForUpdatesChanged(bool value) =>
         OnPropertyChanged(nameof(CanCheckForUpdates));
+
+    partial void OnIncludeNotesInReportsChanged(bool value)
+    {
+        _services.State.Settings.IncludeNotesInReports = value;
+        _services.State.SaveSettings();
+    }
 
     partial void OnShowInstallPreviewChanged(bool value)
     {
