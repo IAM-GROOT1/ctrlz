@@ -136,7 +136,41 @@ public sealed class DownloadService
     {
         _log.Write(LogLevel.Info, $"Downloading {uri.Host}{uri.AbsolutePath}");
         string? fileName = suggestedFileName is null ? null : FileUtil.SafeFileName(suggestedFileName, fallback: "download.bin");
+        var name = new NameHolder { Value = fileName };
+        try
+        {
+            return await DownloadAttemptsAsync(uri, name, expectedSha256, progress, cancellationToken).ConfigureAwait(false);
+        }
+        catch (OperationCanceledException) when (cancellationToken.IsCancellationRequested)
+        {
+            // A cancel the user asked for removes the partial file, whichever step it interrupted.
+            if (name.Value is not null)
+            {
+                PartialDownload.Delete(PartPath(name.Value));
+            }
+
+            throw;
+        }
+    }
+
+    /// <summary>The file name, which may only become known from the server's response.</summary>
+    private sealed class NameHolder
+    {
+        public string? Value { get; set; }
+    }
+
+    private async Task<DownloadedFile> DownloadAttemptsAsync(
+        Uri uri,
+        NameHolder name,
+        string? expectedSha256,
+        IProgress<DownloadProgress>? progress,
+        CancellationToken cancellationToken)
+    {
+        var fileName = name.Value;
         DownloadException? failure = null;
+        var resumeAllowed = true;
+        var freeRestart = true;
+        var retriedFromZero = false;
 
         for (var attempt = 1; attempt <= MaxAttemptsPerUrl; attempt++)
         {
@@ -145,7 +179,7 @@ public sealed class DownloadService
                 await Task.Delay(RetryDelay(attempt - 1), cancellationToken).ConfigureAwait(false);
             }
 
-            var resume = fileName is null ? null : PartialDownload.TryLoad(PartPath(fileName), uri);
+            var resume = fileName is null || !resumeAllowed ? null : PartialDownload.TryLoad(PartPath(fileName), uri);
             using var request = new HttpRequestMessage(HttpMethod.Get, uri);
             if (resume is not null)
             {
@@ -171,6 +205,7 @@ public sealed class DownloadService
                 {
                     PartialDownload.Delete(PartPath(fileName));
                     failure = new DownloadException("The partial download no longer matches the server's file.");
+                    attempt -= FreeRestart(ref freeRestart);
                     continue;
                 }
 
@@ -194,13 +229,16 @@ public sealed class DownloadService
                     fileName += ExtensionFromContentType(response.Content.Headers.ContentType?.MediaType);
                 }
 
+                name.Value = fileName;
+
                 var targetPath = Path.Combine(_paths.Downloads, fileName);
                 var partPath = PartPath(fileName);
                 var offset = ResumeOffset(response, resume);
                 if (offset < 0)
                 {
                     PartialDownload.Delete(partPath);
-                    failure = new DownloadException("The server answered the resume request with a different range.");
+                    failure = new DownloadException("The server's answer to the resume request did not match the saved part.");
+                    attempt -= FreeRestart(ref freeRestart);
                     continue;
                 }
 
@@ -216,23 +254,16 @@ public sealed class DownloadService
                 long? totalBytes = response.StatusCode == HttpStatusCode.PartialContent
                     ? response.Content.Headers.ContentRange?.Length
                     : response.Content.Headers.ContentLength;
-                PartialDownload.Save(partPath, uri, Validator(response));
-
                 long downloaded;
                 try
                 {
-                    downloaded = await CopyAsync(response, partPath, offset, totalBytes, progress, cancellationToken)
+                    downloaded = await CopyAsync(response, uri, partPath, offset, totalBytes, progress, cancellationToken)
                         .ConfigureAwait(false);
                 }
                 catch (Exception ex) when (IsTransient(ex, cancellationToken))
                 {
                     failure = new DownloadException("The download was interrupted: " + ex.Message, ex);
                     continue;
-                }
-                catch (OperationCanceledException)
-                {
-                    PartialDownload.Delete(partPath);
-                    throw;
                 }
 
                 if (totalBytes is > 0 && downloaded != totalBytes)
@@ -253,6 +284,16 @@ public sealed class DownloadService
                     if (!expected.Equals(actualHash, StringComparison.OrdinalIgnoreCase))
                     {
                         TryDelete(targetPath);
+                        if (offset > 0 && !retriedFromZero)
+                        {
+                            // The kept part may have been bad; one clean download from byte zero decides.
+                            _log.Write(LogLevel.Warning, $"{fileName} failed its SHA-256 after resuming; downloading it again from the start.");
+                            retriedFromZero = true;
+                            resumeAllowed = false;
+                            attempt--;
+                            continue;
+                        }
+
                         throw new DownloadHashMismatchException(expected, actualHash);
                     }
 
@@ -265,6 +306,18 @@ public sealed class DownloadService
         }
 
         throw failure ?? new DownloadException("The download failed.");
+    }
+
+    /// <summary>1 the first time (the restart does not use up an attempt), then 0.</summary>
+    private static int FreeRestart(ref bool available)
+    {
+        if (!available)
+        {
+            return 0;
+        }
+
+        available = false;
+        return 1;
     }
 
     private string PartPath(string fileName) => Path.Combine(_paths.Downloads, fileName + ".part");
@@ -280,9 +333,19 @@ public sealed class DownloadService
             return 0;
         }
 
-        // A 206 nobody asked for, or for another range, cannot be appended safely.
+        // Appended only when it is exactly the rest of the same file: the range we asked for, to the
+        // end, with a known size, and the same validator as the saved part. That last check does not
+        // trust the server to honour If-Range; some ignore it and send the new file's tail.
         var range = response.Content.Headers.ContentRange;
-        if (resume is null || range?.From != resume.Length || response.Content.Headers.ContentEncoding.Count > 0)
+        if (resume is null ||
+            range is null ||
+            !string.Equals(range.Unit, "bytes", StringComparison.OrdinalIgnoreCase) ||
+            range.From != resume.Length ||
+            range.Length is not { } total ||
+            range.To != total - 1 ||
+            response.Content.Headers.ContentLength != total - resume.Length ||
+            response.Content.Headers.ContentEncoding.Count > 0 ||
+            Validator(response) != resume.Validator)
         {
             return -1;
         }
@@ -290,10 +353,14 @@ public sealed class DownloadService
         return resume.Length;
     }
 
-    /// <summary>A strong ETag, else Last-Modified; null when the response cannot be resumed safely.</summary>
+    /// <summary>
+    /// A strong ETag, else Last-Modified; null when the response cannot be resumed safely. A response
+    /// with no Content-Length is never resumable: automatic decompression removes that header (and
+    /// Content-Encoding), so this also keeps compressed transfers from being resumed by byte offset.
+    /// </summary>
     private static string? Validator(HttpResponseMessage response)
     {
-        if (response.Content.Headers.ContentEncoding.Count > 0)
+        if (response.Content.Headers.ContentEncoding.Count > 0 || response.Content.Headers.ContentLength is null)
         {
             return null;
         }
@@ -308,6 +375,7 @@ public sealed class DownloadService
 
     private async Task<long> CopyAsync(
         HttpResponseMessage response,
+        Uri uri,
         string partPath,
         long offset,
         long? totalBytes,
@@ -315,12 +383,20 @@ public sealed class DownloadService
         CancellationToken cancellationToken)
     {
         using var stall = CancellationTokenSource.CreateLinkedTokenSource(cancellationToken);
+        if (offset == 0)
+        {
+            // The old record goes first: old bytes must never sit next to a new validator.
+            PartialDownload.DeleteRecord(partPath);
+        }
+
         await using var source = await response.Content.ReadAsStreamAsync(cancellationToken).ConfigureAwait(false);
         await using var target = new FileStream(partPath, offset > 0 ? FileMode.Append : FileMode.Create, FileAccess.Write,
             FileShare.None, 81920, FileOptions.Asynchronous | FileOptions.SequentialScan);
         if (offset == 0)
         {
             target.SetLength(0);
+            target.Flush(flushToDisk: true);
+            PartialDownload.Save(partPath, uri, Validator(response));
         }
 
         var buffer = new byte[81920];
@@ -547,6 +623,11 @@ internal sealed record PartialDownload(string Url, string Validator, long Length
         {
             // Without the record the download still works; it just cannot be continued later.
         }
+    }
+
+    public static void DeleteRecord(string partPath)
+    {
+        try { if (File.Exists(MetaPath(partPath))) File.Delete(MetaPath(partPath)); } catch (Exception ex) when (ex is IOException or UnauthorizedAccessException) { }
     }
 
     public static void Delete(string partPath)

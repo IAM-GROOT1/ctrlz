@@ -299,6 +299,135 @@ public sealed class DownloadResumeTests : IDisposable
         Assert.Empty(Directory.GetFiles(_paths.Downloads));
     }
 
+    private void PlantPart(int length, string validator, byte[]? bytes = null)
+    {
+        var part = Path.Combine(_paths.Downloads, "setup.exe.part");
+        File.WriteAllBytes(part, bytes ?? Payload[..length]);
+        File.WriteAllText(part + ".meta", System.Text.Json.JsonSerializer.Serialize(new { Url, Validator = validator }));
+    }
+
+    private sealed class FailingContent : HttpContent
+    {
+        protected override Task SerializeToStreamAsync(Stream stream, TransportContext? context) => throw new IOException("reset");
+        protected override Task<Stream> CreateContentReadStreamAsync() => throw new IOException("reset");
+        protected override bool TryComputeLength(out long length) { length = Payload.Length; return true; }
+    }
+
+    [Fact]
+    public async Task A_206_for_a_different_version_is_not_appended_even_when_if_range_is_ignored()
+    {
+        PlantPart(70_000, "\"v1\"");
+        var server = new Server((request, _) => request.Headers.Range is not null ? Partial(70_000, etag: "\"v2\"") : Full());
+
+        var file = await Service(server).DownloadAsync(Url, "setup.exe", PayloadHash);
+
+        AssertDownloaded(file);
+        Assert.Null(server.Requests[^1].Headers.Range);
+    }
+
+    [Fact]
+    public async Task A_206_without_its_length_is_not_appended()
+    {
+        PlantPart(70_000, "\"v1\"");
+        var server = new Server((request, _) =>
+        {
+            if (request.Headers.Range is null)
+            {
+                return Full();
+            }
+
+            var response = Partial(70_000);
+            response.Content.Headers.ContentRange = new ContentRangeHeaderValue(70_000, Payload.Length - 1);
+            return response;
+        });
+
+        AssertDownloaded(await Service(server).DownloadAsync(Url, "setup.exe", PayloadHash));
+        Assert.Null(server.Requests[^1].Headers.Range);
+    }
+
+    [Fact]
+    public async Task Old_bytes_never_sit_next_to_a_new_validator()
+    {
+        PlantPart(70_000, "\"v1\"");
+        var server = new Server((request, n) =>
+        {
+            if (n == 1)
+            {
+                var replaced = new HttpResponseMessage(HttpStatusCode.OK) { Content = new FailingContent() };
+                replaced.Headers.ETag = new EntityTagHeaderValue("\"v2\"");
+                return replaced;
+            }
+
+            return request.Headers.Range is not null ? Partial(70_000, etag: "\"v2\"") : Full();
+        });
+
+        AssertDownloaded(await Service(server).DownloadAsync(Url, "setup.exe", PayloadHash));
+        Assert.Null(server.Requests[1].Headers.Range);
+    }
+
+    [Fact]
+    public async Task A_resumed_file_that_fails_its_hash_is_downloaded_once_more_from_zero()
+    {
+        var corrupt = Payload[..70_000].ToArray();
+        corrupt[10] ^= 0xFF;
+        PlantPart(70_000, "\"v1\"", corrupt);
+        var server = new Server((request, _) => Honest(request));
+
+        AssertDownloaded(await Service(server).DownloadAsync(Url, "setup.exe", PayloadHash));
+        Assert.Equal(2, server.Requests.Count);
+        Assert.Null(server.Requests[1].Headers.Range);
+    }
+
+    [Fact]
+    public async Task A_real_mismatch_still_fails_after_the_clean_retry()
+    {
+        PlantPart(70_000, "\"v1\"");
+        var server = new Server((request, _) => Honest(request));
+
+        await Assert.ThrowsAsync<DownloadHashMismatchException>(() =>
+            Service(server).DownloadAsync(Url, "setup.exe", new string('0', 64)));
+        Assert.Equal(2, server.Requests.Count);
+    }
+
+    [Fact]
+    public async Task Cancelling_during_the_wait_before_a_retry_removes_the_partial_file()
+    {
+        using var cts = new CancellationTokenSource();
+        var server = new Server((_, _) => Full(new BreakingStream(Payload, 60_000)));
+        var service = new DownloadService(_paths, TestFactory.Log, new HttpClient(server))
+        {
+            RetryDelay = _ =>
+            {
+                cts.Cancel();
+                return TimeSpan.FromSeconds(30);
+            }
+        };
+
+        await Assert.ThrowsAnyAsync<OperationCanceledException>(() =>
+            service.DownloadAsync(Url, "setup.exe", PayloadHash, cancellationToken: cts.Token));
+
+        Assert.Empty(Directory.GetFiles(_paths.Downloads));
+    }
+
+    [Fact]
+    public async Task A_full_answer_without_a_length_is_never_resumed()
+    {
+        var server = new Server((_, n) =>
+        {
+            var response = n == 1 ? Full(new BreakingStream(Payload, 50_000)) : Full();
+            if (n == 1)
+            {
+                response.Content.Headers.ContentLength = null;
+            }
+
+            return response;
+        });
+
+        await Service(server).DownloadAsync(Url, "setup.exe", null);
+
+        Assert.Null(server.Requests[1].Headers.Range);
+    }
+
     [Fact]
     public async Task Invalid_urls_are_refused_before_anything_is_fetched()
     {
