@@ -138,6 +138,15 @@ restoring a browser profile from an existing backup on a machine that never had 
 Code signing so SmartScreen stops warning about an unsigned download, a winget listing for CTRL+Z
 itself, smaller artifacts, a proper uninstall path, and a short demo.
 
+- [x] **A. Smaller artifacts.** The portable app drops the unused translated framework resources
+  (70.1 MB to 64.6 MB); the UI is English-only until translations land.
+- [x] **B. Uninstall.** The uninstaller asks whether to also delete CTRL+Z's data (default: keep
+  it), and the README explains how to remove a portable copy. CI now builds the installer on
+  every pull request.
+- [ ] **C. Code signing.** Later.
+- [ ] **D. A winget listing for CTRL+Z.** After the next stable release.
+- [ ] **E. A short demo.** Later.
+
 ### 9 to 12. Optional extras
 
 Scheduled and local backups, settings backup, and later an optional encrypted backup that leaves
