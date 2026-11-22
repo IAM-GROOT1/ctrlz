@@ -237,7 +237,38 @@ public sealed class InstallEngine
             }
 
             _stateStore.Save(state);
-            sessionLog.Report(item, item.Status, item.Detail, item.Status == InstallStatus.Success ? 1 : null);
+// Post-install commands: decided here, at execution time, straight from the stores on disk.
+            if (item.Status is InstallStatus.Success or InstallStatus.RebootRequired && app.PostInstall is { } postInstall)
+            {
+                var gate = new PostInstallCommandGate(
+                    new ProfileOriginStore(Path.Combine(_paths.State, "profile-origins.json"), _log),
+                    new PostInstallApprovalStore(Path.Combine(_paths.State, "post-install-approvals.json")));
+                var verdict = gate.EvaluateCommand(profile, app, postInstall);
+
+                if (!verdict.MayRun)
+                {
+                    item.Detail = $"Installed; command not run ({verdict.Decision}).";
+                    sessionLog.Line($"[{item.Name}] post-install command not run ({verdict.Decision}).");
+                }
+                else
+                {
+                    var run = await new PostInstallRunner(_log).RunAsync(app, postInstall, cancellationToken).ConfigureAwait(false);
+                    if (!run.Succeeded)
+                    {
+                        item.Status = InstallStatus.PostInstallFailed;
+                        item.Error = run.TimedOut ? "Post-install command timed out." : $"Post-install command failed ({run.ExitCode}).";
+                        item.Detail = $"Installed, post-install failed ({run.Label}).";
+                        sessionLog.Line($"[{item.Name}] installed, post-install failed ({run.Label}).");
+                    }
+                    else
+                    {
+                        item.Detail = "Installed; post-install command ok.";
+                        sessionLog.Line($"[{item.Name}] post-install command ok.");
+                    }
+                }
+            }
+
+                        sessionLog.Report(item, item.Status, item.Detail, item.Status == InstallStatus.Success ? 1 : null);
         }
 
         state.IsFinished = true;
