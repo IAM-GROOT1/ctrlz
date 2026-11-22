@@ -55,7 +55,8 @@ public sealed partial class PreviewViewModel : ObservableObject
     {
         _services = services;
         _dialogs = dialogs;
-        _plan = new InstallPlanner().Build(profile, profileName);
+        // Same catalog and order as the install engine, so the preview shows the real run.
+        _plan = new InstallPlanner(catalog: CtrlZ.Core.Install.DependencyCatalog.LoadEmbedded()).Build(profile, profileName);
 
         foreach (var item in _plan.Items)
         {

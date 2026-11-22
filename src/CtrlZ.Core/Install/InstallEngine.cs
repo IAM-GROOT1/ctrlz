@@ -21,6 +21,7 @@ public sealed partial class InstallEngine
     private readonly ProfileStore _profiles;
     private readonly WingetBootstrapService _wingetBootstrap;
     private readonly IAppLog _log;
+    private readonly DependencyCatalog _catalog;
 
     public InstallEngine(
         AppPaths paths,
@@ -28,8 +29,10 @@ public sealed partial class InstallEngine
         InstallStateStore stateStore,
         ProfileStore profiles,
         WingetBootstrapService wingetBootstrap,
-        IAppLog log)
+        IAppLog log,
+        DependencyCatalog? catalog = null)
     {
+        _catalog = catalog ?? DependencyCatalog.Empty;
         _paths = paths;
         _installers = installers;
         _stateStore = stateStore;
@@ -38,24 +41,53 @@ public sealed partial class InstallEngine
         _log = log;
     }
 
+    /// <summary>The order and dependencies the engine uses; the preview builds the same plan.</summary>
+    public InstallOrderResult PlanOrder(AppProfile profile) => new InstallOrderPlanner(_catalog).Plan(profile);
+
     public InstallState CreateState(AppProfile profile, string? profilePath)
     {
+        var plan = PlanOrder(profile);
+
+        // The snapshot carries any dependency the planner added, so the run can find it by id.
+        var snapshot = profile.Clone();
+        foreach (var added in plan.AutoAdded.Where(added => snapshot.Apps.All(app => app.Id != added.Id)))
+        {
+            snapshot.Apps.Insert(0, added.Clone());
+        }
+
+        var items = plan.Ordered
+            .Select(app => new InstallItemState
+            {
+                AppId = app.Id,
+                Name = app.Name,
+                Source = app.Source,
+                Status = InstallStatus.Queued
+            })
+            .ToList();
+
+        // Apps the planner cannot place (install-order loop, or needing one) are listed as needing
+        // attention with the reason, never silently dropped.
+        foreach (var skipped in plan.Skipped)
+        {
+            var app = snapshot.Apps.FirstOrDefault(candidate => candidate.Id == skipped.AppId);
+            items.Add(new InstallItemState
+            {
+                AppId = skipped.AppId,
+                Name = skipped.Name,
+                Source = app?.Source ?? AppSource.Winget,
+                Status = InstallStatus.Failed,
+                Error = "Not attempted: " + skipped.Reason,
+                Detail = "Not attempted: " + skipped.Reason
+            });
+        }
+
         var state = new InstallState
         {
             ProfileId = profile.Id,
             ProfileName = profile.Name,
             ProfilePath = profilePath,
-            ProfileSnapshot = profile.Clone(),
-            Items = profile.Apps
-                .Where(app => app.Enabled)
-                .Select(app => new InstallItemState
-                {
-                    AppId = app.Id,
-                    Name = app.Name,
-                    Source = app.Source,
-                    Status = InstallStatus.Queued
-                })
-                .ToList()
+            ProfileSnapshot = snapshot,
+            Items = items
         };
         _stateStore.Save(state);
         _log.Write(LogLevel.Info, $"Created install session for '{profile.Name}' with {state.Items.Count} apps.");
@@ -137,6 +169,8 @@ public sealed partial class InstallEngine
             }
         }
 
+        var plan = PlanOrder(profile);
+        var loopReasons = plan.Skipped.ToDictionary(skipped => skipped.AppId, skipped => skipped.Reason, StringComparer.Ordinal);
         var total = state.Items.Count;
         var index = 0;
         foreach (var item in state.Items)
@@ -160,6 +194,24 @@ public sealed partial class InstallEngine
                 item.Status = InstallStatus.Skipped;
                 item.Detail = "Removed from the profile.";
                 _stateStore.Save(state);
+                continue;
+            }
+
+            // A dependency that did not install stops the apps that need it (transitively, because
+            // a stopped app is itself marked failed before its dependents are reached).
+            var blocker = BlockingDependency(state, plan, item.AppId);
+            var notAttempted = blocker is not null
+                ? $"Not attempted: needs {blocker.Name}, which did not install."
+                : loopReasons.TryGetValue(item.AppId, out var loopReason) ? "Not attempted: " + loopReason : null;
+            if (notAttempted is not null)
+            {
+                item.Status = InstallStatus.Failed;
+                item.Error = notAttempted;
+                item.Detail = notAttempted;
+                item.UpdatedUtc = DateTimeOffset.UtcNow;
+                _stateStore.Save(state);
+                sessionLog.Line($"[{item.Name}] {notAttempted}");
+                sessionLog.Report(item, item.Status, item.Detail, null);
                 continue;
             }
 
@@ -285,6 +337,27 @@ public sealed partial class InstallEngine
         }
 
         return state;
+    }
+
+    /// <summary>The first dependency of <paramref name="appId"/> that ended without installing, if any.</summary>
+    private static InstallItemState? BlockingDependency(InstallState state, InstallOrderResult plan, string appId)
+    {
+        if (!plan.Dependencies.TryGetValue(appId, out var dependencies))
+        {
+            return null;
+        }
+
+        foreach (var dependency in dependencies)
+        {
+            var dependencyItem = state.Items.FirstOrDefault(candidate => candidate.AppId == dependency);
+            if (dependencyItem?.Status is InstallStatus.Failed or InstallStatus.NeedsManualAction
+                or InstallStatus.Cancelled or InstallStatus.Skipped)
+            {
+                return dependencyItem;
+            }
+        }
+
+        return null;
     }
 
     private void ReconcileItems(InstallState state, AppProfile profile)

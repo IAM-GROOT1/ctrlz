@@ -15,28 +15,53 @@ public sealed class InstallPlanner
 {
     private readonly Func<string, bool> _fileExists;
     private readonly Func<string, bool?> _isSigned;
+    private readonly Install.DependencyCatalog _catalog;
 
-    public InstallPlanner(Func<string, bool>? fileExists = null, Func<string, bool?>? isSigned = null)
+    public InstallPlanner(
+        Func<string, bool>? fileExists = null,
+        Func<string, bool?>? isSigned = null,
+        Install.DependencyCatalog? catalog = null)
     {
         _fileExists = fileExists ?? SafeFileExists;
         _isSigned = isSigned ?? ProbeSignature;
+        _catalog = catalog ?? Install.DependencyCatalog.Empty;
     }
 
+    /// <summary>Describes the run in exactly the order the install engine uses.</summary>
     public InstallPlan Build(AppProfile profile, string profileName)
     {
         var items = new List<InstallPlanItem>();
+        var plan = new Install.InstallOrderPlanner(_catalog).Plan(profile);
         var order = 0;
 
-        foreach (var app in profile.Apps.Where(app => app.Enabled))
+        foreach (var app in plan.Ordered)
         {
             order++;
-            items.Add(BuildItem(app, order));
+            var item = BuildItem(app, order);
+            if (app.IsAutoDependency)
+            {
+                var neededBy = plan.Dependencies
+                    .Where(pair => pair.Value.Contains(app.Id))
+                    .Select(pair => plan.Ordered.FirstOrDefault(other => other.Id == pair.Key)?.Name)
+                    .Where(name => name is not null)
+                    .ToList();
+                item = item with
+                {
+                    Notes = [.. item.Notes, "Added automatically" + (neededBy.Count > 0 ? " because " + string.Join(", ", neededBy) + " need" + (neededBy.Count == 1 ? "s" : string.Empty) + " it." : ".")]
+                };
+            }
+
+            items.Add(item);
         }
 
         var planWarnings = new List<string>
         {
-            "Apps install one after another in the order below; CTRL+Z does not resolve dependencies between them."
+            "Apps install one after another in the order below. Known dependencies install first, and an app whose dependency fails is not attempted."
         };
+
+        planWarnings.AddRange(plan.Cycles.Select(cycle => $"Install-order loop: {cycle}."));
+        planWarnings.AddRange(plan.MissingReferences);
+        planWarnings.AddRange(plan.Skipped.Select(skipped => $"{skipped.Name} will not install: {skipped.Reason}"));
 
         if (items.Count == 0)
         {
