@@ -171,6 +171,7 @@ public sealed class DownloadService
         var resumeAllowed = true;
         var freeRestart = true;
         var retriedFromZero = false;
+        DownloadHashMismatchException? hashFailure = null;
 
         for (var attempt = 1; attempt <= MaxAttemptsPerUrl; attempt++)
         {
@@ -290,6 +291,8 @@ public sealed class DownloadService
                             _log.Write(LogLevel.Warning, $"{fileName} failed its SHA-256 after resuming; downloading it again from the start.");
                             retriedFromZero = true;
                             resumeAllowed = false;
+                            // Kept so that running out of attempts reports the mismatch, never a network error a caller might send to a mirror.
+                            hashFailure = new DownloadHashMismatchException(expected, actualHash);
                             attempt--;
                             continue;
                         }
@@ -303,6 +306,11 @@ public sealed class DownloadService
                 return new DownloadedFile(targetPath, fileName, downloaded, actualHash,
                     HashVerified: !string.IsNullOrWhiteSpace(expectedSha256));
             }
+        }
+
+        if (hashFailure is not null)
+        {
+            throw hashFailure;
         }
 
         throw failure ?? new DownloadException("The download failed.");
@@ -627,7 +635,12 @@ internal sealed record PartialDownload(string Url, string Validator, long Length
 
     public static void DeleteRecord(string partPath)
     {
-        try { if (File.Exists(MetaPath(partPath))) File.Delete(MetaPath(partPath)); } catch (Exception ex) when (ex is IOException or UnauthorizedAccessException) { }
+        // Throws if the old record cannot be removed: the attempt then fails (and is retried) rather than truncating
+        // the part while a stale validator could still describe it.
+        if (File.Exists(MetaPath(partPath)))
+        {
+            File.Delete(MetaPath(partPath));
+        }
     }
 
     public static void Delete(string partPath)

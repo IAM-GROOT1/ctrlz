@@ -390,6 +390,19 @@ public sealed class DownloadResumeTests : IDisposable
     }
 
     [Fact]
+    public async Task A_mismatch_followed_by_network_failures_is_still_reported_as_a_mismatch()
+    {
+        var corrupt = Payload[..70_000].ToArray();
+        corrupt[10] ^= 0xFF;
+        PlantPart(70_000, "\"v1\"", corrupt);
+        var server = new Server((request, n) => n == 1 ? Honest(request) : new HttpResponseMessage(HttpStatusCode.ServiceUnavailable));
+
+        await Assert.ThrowsAsync<DownloadHashMismatchException>(() =>
+            Service(server).DownloadAsync([Url, Mirror], "setup.exe", PayloadHash));
+        Assert.DoesNotContain(server.Requests, request => request.RequestUri!.Host == "mirror.invalid");
+    }
+
+    [Fact]
     public async Task Cancelling_during_the_wait_before_a_retry_removes_the_partial_file()
     {
         using var cts = new CancellationTokenSource();
