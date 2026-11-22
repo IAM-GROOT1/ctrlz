@@ -96,6 +96,7 @@ public class XamlSmokeTests
         _ = new AppUpdatesView();
         _ = new BrowsersView();
         _ = new MyAppsView();
+        _ = new WelcomeWindow();
         _ = new InstallRowViewModel("Tool", AppSource.Winget, null) { Note = "n", Status = InstallStatus.Failed };
     }
 

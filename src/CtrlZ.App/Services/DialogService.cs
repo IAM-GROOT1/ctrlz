@@ -76,6 +76,23 @@ public sealed class DialogService
     }
 
     /// <summary>Opens the profile drift window and returns when it closes.</summary>
+    /// <summary>Shows the first-run guide and returns where the user wants to start.</summary>
+    public WelcomeChoice ShowWelcome()
+    {
+        var window = new WelcomeWindow();
+        if (Application.Current.MainWindow is { IsVisible: true } owner && owner != window)
+        {
+            window.Owner = owner;
+        }
+        else
+        {
+            window.WindowStartupLocation = WindowStartupLocation.CenterScreen;
+        }
+
+        window.ShowDialog();
+        return window.Choice;
+    }
+
     public void ShowDrift(AppServices services, MainViewModel main)
     {
         var window = new DriftWindow { DataContext = new DriftViewModel(services, this, main) };
