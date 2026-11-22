@@ -205,33 +205,38 @@ public sealed partial class GitHubReleaseService
         GitHubAsset asset,
         CancellationToken cancellationToken = default)
     {
-        var checksum = ReleaseChecksums.FindFor(release, asset);
-        if (checksum is null)
+        // A few candidates at most: a list that covers other platforms does not end the search.
+        foreach (var checksum in ReleaseChecksums.CandidatesFor(release, asset).Take(MaxChecksumFiles))
         {
-            return null;
+            byte[] bytes;
+            try
+            {
+                bytes = await _downloads.GetBytesAsync(checksum.DownloadUrl, TimeSpan.FromSeconds(20), cancellationToken)
+                    .ConfigureAwait(false);
+            }
+            catch (Exception ex) when (ex is not OperationCanceledException || !cancellationToken.IsCancellationRequested)
+            {
+                _log.Write(LogLevel.Warning, $"Could not fetch {checksum.Name}: {LogPrivacy.Describe(ex)}");
+                continue;
+            }
+
+            if (bytes.Length > ReleaseChecksums.MaxFileBytes)
+            {
+                continue;
+            }
+
+            var hash = ReleaseChecksums.Parse(
+                ReleaseChecksums.Decode(bytes), asset.Name, ReleaseChecksums.IsForAsset(checksum, asset));
+            if (hash is not null)
+            {
+                return (hash, checksum.Name);
+            }
         }
 
-        byte[] bytes;
-        try
-        {
-            bytes = await _downloads.GetBytesAsync(checksum.DownloadUrl, TimeSpan.FromSeconds(20), cancellationToken)
-                .ConfigureAwait(false);
-        }
-        catch (Exception ex) when (ex is not OperationCanceledException || !cancellationToken.IsCancellationRequested)
-        {
-            _log.Write(LogLevel.Warning, $"Could not fetch {checksum.Name}: {LogPrivacy.Describe(ex)}");
-            return null;
-        }
-
-        if (bytes.Length > ReleaseChecksums.MaxFileBytes)
-        {
-            return null;
-        }
-
-        var hash = ReleaseChecksums.Parse(
-            System.Text.Encoding.UTF8.GetString(bytes), asset.Name, ReleaseChecksums.IsForAsset(checksum, asset));
-        return hash is null ? null : (hash, checksum.Name);
+        return null;
     }
+
+    private const int MaxChecksumFiles = 3;
 
     public IReadOnlyList<GitHubAsset> RankWindowsAssets(GitHubRelease release)
     {

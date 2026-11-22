@@ -35,6 +35,8 @@ public class InstallerSignatureTests
     [InlineData(unchecked((int)0x800B0109), SignatureStatus.Untrusted)]
     [InlineData(unchecked((int)0x800B0101), SignatureStatus.Untrusted)]
     [InlineData(unchecked((int)0x800B0003), SignatureStatus.NotChecked)]
+    [InlineData(unchecked((int)0x8009200D), SignatureStatus.NotChecked)] // CRYPT_E_BAD_MSG: malformed, not "intact"
+    [InlineData(unchecked((int)0x800B010A), SignatureStatus.Untrusted)]
     public void Codes_map_to_statuses(int code, SignatureStatus expected) =>
         Assert.Equal(expected, AuthenticodeVerifier.Classify(code));
 
@@ -215,6 +217,40 @@ public class ReleaseChecksumsTests
     public void Two_hashes_for_the_same_file_are_a_conflict() =>
         Assert.Throws<FormatException>(() =>
             ReleaseChecksums.Parse(Hash + "  setup.exe\n" + Other + "  setup.exe\n", "setup.exe", false));
+
+    [Fact]
+    public void A_checksum_of_a_longer_name_is_not_the_assets_own_file()
+    {
+        var exe = Asset("app.exe", 5_000_000);
+        var zipSum = Asset("app.exe.zip.sha256sum");
+
+        Assert.False(ReleaseChecksums.IsForAsset(zipSum, exe));
+        Assert.True(ReleaseChecksums.IsForAsset(Asset("app.exe.sha256"), exe));
+        Assert.Null(ReleaseChecksums.Parse(Hash + "\n", "app.exe", ReleaseChecksums.IsForAsset(zipSum, exe)));
+    }
+
+    [Fact]
+    public void Every_candidate_list_is_offered_in_order()
+    {
+        var setup = Asset("setup.exe", 5_000_000);
+        var release = Release(setup, Asset("tool-windows-sha256sums.txt"), Asset("checksums.txt"), Asset("setup.exe.sha256"));
+
+        Assert.Equal(["setup.exe.sha256", "checksums.txt", "tool-windows-sha256sums.txt"],
+            ReleaseChecksums.CandidatesFor(release, setup).Select(asset => asset.Name));
+    }
+
+    [Fact]
+    public void Utf8_bom_and_utf16_files_are_decoded()
+    {
+        var line = Hash + "  setup.exe\r\n";
+        var utf8Bom = System.Text.Encoding.UTF8.GetPreamble().Concat(System.Text.Encoding.UTF8.GetBytes(line)).ToArray();
+        var utf16 = System.Text.Encoding.Unicode.GetPreamble().Concat(System.Text.Encoding.Unicode.GetBytes(line)).ToArray();
+
+        Assert.Equal(Hash, ReleaseChecksums.Parse(ReleaseChecksums.Decode(utf8Bom), "setup.exe", false));
+        Assert.Equal(Hash, ReleaseChecksums.Parse(ReleaseChecksums.Decode(utf16), "setup.exe", false));
+        Assert.Equal(Hash, ReleaseChecksums.Parse(ReleaseChecksums.Decode(
+            System.Text.Encoding.UTF8.GetPreamble().Concat(System.Text.Encoding.ASCII.GetBytes(Hash)).ToArray()), "setup.exe", true));
+    }
 
     [Fact]
     public void A_list_without_the_asset_gives_nothing() =>

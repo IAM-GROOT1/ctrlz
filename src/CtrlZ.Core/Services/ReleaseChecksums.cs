@@ -21,11 +21,18 @@ public static partial class ReleaseChecksums
         "checksum.txt", "sha256.txt", "hashes.txt"
     ];
 
+    private static readonly string[] OwnSuffixes = [".sha256", ".sha256sum", ".sha256.txt"];
+
+    /// <summary>Most likely checksum asset for <paramref name="asset"/>; see <see cref="CandidatesFor"/>.</summary>
+    public static GitHubAsset? FindFor(GitHubRelease release, GitHubAsset asset) =>
+        CandidatesFor(release, asset).FirstOrDefault();
+
     /// <summary>
-    /// The checksum asset for <paramref name="asset"/>: one named after it (<c>.sha256</c>,
-    /// <c>.sha256sum</c>, <c>.sha256.txt</c>) first, then a release-wide list.
+    /// Checksum assets that may list <paramref name="asset"/>, most specific first: one named after
+    /// it (<c>.sha256</c>, <c>.sha256sum</c>, <c>.sha256.txt</c>), then well-known list names, then
+    /// other <c>*-checksums.txt</c>-style lists. Each is at most <see cref="MaxFileBytes"/>.
     /// </summary>
-    public static GitHubAsset? FindFor(GitHubRelease release, GitHubAsset asset)
+    public static IReadOnlyList<GitHubAsset> CandidatesFor(GitHubRelease release, GitHubAsset asset)
     {
         ArgumentNullException.ThrowIfNull(release);
         ArgumentNullException.ThrowIfNull(asset);
@@ -33,27 +40,31 @@ public static partial class ReleaseChecksums
             .Where(candidate => candidate.Size is > 0 and <= MaxFileBytes && candidate != asset)
             .ToList();
 
-        foreach (var suffix in new[] { ".sha256", ".sha256sum", ".sha256.txt" })
+        var ordered = new List<GitHubAsset>();
+        foreach (var suffix in OwnSuffixes)
         {
-            var own = candidates.FirstOrDefault(candidate =>
-                candidate.Name.Equals(asset.Name + suffix, StringComparison.OrdinalIgnoreCase));
-            if (own is not null)
-            {
-                return own;
-            }
+            ordered.AddRange(candidates.Where(candidate =>
+                candidate.Name.Equals(asset.Name + suffix, StringComparison.OrdinalIgnoreCase)));
         }
 
         foreach (var listName in ListNames)
         {
-            var list = candidates.FirstOrDefault(candidate => candidate.Name.Equals(listName, StringComparison.OrdinalIgnoreCase));
-            if (list is not null)
-            {
-                return list;
-            }
+            ordered.AddRange(candidates.Where(candidate => candidate.Name.Equals(listName, StringComparison.OrdinalIgnoreCase)));
         }
 
-        return candidates.FirstOrDefault(candidate =>
-            ListSuffix().IsMatch(candidate.Name));
+        ordered.AddRange(candidates.Where(candidate => ListSuffix().IsMatch(candidate.Name)));
+        return ordered.Distinct().ToList();
+    }
+
+    /// <summary>
+    /// Reads a checksum file's bytes: UTF-8 (with or without a BOM) or UTF-16 with a BOM, as written
+    /// by Windows PowerShell 5. A leading byte-order mark is never left in the text.
+    /// </summary>
+    public static string Decode(byte[] bytes)
+    {
+        ArgumentNullException.ThrowIfNull(bytes);
+        using var reader = new StreamReader(new MemoryStream(bytes), System.Text.Encoding.UTF8, detectEncodingFromByteOrderMarks: true);
+        return reader.ReadToEnd().Replace(((char)0xFEFF).ToString(), string.Empty, StringComparison.Ordinal);
     }
 
     /// <summary>
@@ -117,7 +128,7 @@ public static partial class ReleaseChecksums
 
     /// <summary>True when the checksum asset is named after this one asset rather than being a list.</summary>
     public static bool IsForAsset(GitHubAsset checksum, GitHubAsset asset) =>
-        checksum.Name.StartsWith(asset.Name + ".", StringComparison.OrdinalIgnoreCase);
+        OwnSuffixes.Any(suffix => checksum.Name.Equals(asset.Name + suffix, StringComparison.OrdinalIgnoreCase));
 
     private static bool SameFile(string listed, string assetName)
     {

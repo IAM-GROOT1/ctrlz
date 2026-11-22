@@ -32,9 +32,11 @@ public sealed record SignatureCheck(SignatureStatus Status, string? Publisher, i
     {
         SignatureStatus.Valid => $"Signature valid: signed by {Publisher ?? "an unnamed publisher"}.",
         SignatureStatus.Unsigned => "The installer is not signed. Its SHA-256 is the only check.",
-        SignatureStatus.Untrusted => $"Signed by {Publisher ?? "an unnamed publisher"}, but the certificate is not trusted on this PC (0x{Code:X8}). The file itself is intact.",
-        SignatureStatus.Broken => $"The installer's signature is broken (0x{Code:X8}): the file was changed after it was signed, or its certificate was revoked. CTRL+Z will not run it.",
-        _ => "The installer's signature could not be checked."
+        SignatureStatus.Untrusted => $"Signed by {Publisher ?? "an unnamed publisher"}, and the file matches its signature, but the certificate is not trusted on this PC (0x{Code:X8}).",
+        SignatureStatus.Broken => $"The installer's signature is broken (0x{Code:X8}): the file was changed after it was signed, or its certificate is distrusted on this PC. CTRL+Z will not run it.",
+        _ => Code == 0
+            ? "The installer's signature could not be checked."
+            : $"The installer's signature could not be verified (0x{Code:X8})."
     };
 }
 
@@ -48,17 +50,17 @@ public interface IInstallerSignatureVerifier
 /// broken signature (a file changed after signing, a revoked or distrusted certificate) stops the
 /// install; unsigned or untrusted-but-intact files are reported in the install log. The check is
 /// offline: no revocation lookup and only cached certificate downloads, so it adds no network call.
+/// Because revocation is not fetched, a revoked certificate is caught only when Windows already
+/// knows it (the Disallowed store). Without a published hash, an unsigned or re-signed file still
+/// runs: the signature check catches tampering with a signed file, not a replaced one.
 /// </summary>
 public sealed class AuthenticodeVerifier : IInstallerSignatureVerifier
 {
     private const int TrustENoSignature = unchecked((int)0x800B0100);
-    private const int TrustESubjectFormUnknown = unchecked((int)0x800B0003);
-    private const int TrustEProviderUnknown = unchecked((int)0x800B0001);
     private const int TrustEBadDigest = unchecked((int)0x80096010);
     private const int TrustECertSignature = unchecked((int)0x80096004);
     private const int CertERevoked = unchecked((int)0x800B010C);
     private const int TrustEExplicitDistrust = unchecked((int)0x800B0111);
-    private const int CryptEFileError = unchecked((int)0x80092003);
 
     public static AuthenticodeVerifier Instance { get; } = new();
 
@@ -68,9 +70,25 @@ public sealed class AuthenticodeVerifier : IInstallerSignatureVerifier
         0 => SignatureStatus.Valid,
         TrustENoSignature => SignatureStatus.Unsigned,
         TrustEBadDigest or TrustECertSignature or CertERevoked or TrustEExplicitDistrust => SignatureStatus.Broken,
-        TrustESubjectFormUnknown or TrustEProviderUnknown or CryptEFileError => SignatureStatus.NotChecked,
-        _ => SignatureStatus.Untrusted
+        _ when UntrustedChainCodes.Contains(code) => SignatureStatus.Untrusted,
+        // Subject or provider unknown, file errors, malformed signature blobs and anything unlisted.
+        _ => SignatureStatus.NotChecked
     };
+
+    // Chain and time problems only: the file's digest was checked and matched.
+    private static readonly HashSet<int> UntrustedChainCodes =
+    [
+        unchecked((int)0x800B0109), // CERT_E_UNTRUSTEDROOT
+        unchecked((int)0x800B0101), // CERT_E_EXPIRED
+        unchecked((int)0x800B010A), // CERT_E_CHAINING
+        unchecked((int)0x800B010D), // CERT_E_UNTRUSTEDTESTROOT
+        unchecked((int)0x800B0112), // CERT_E_UNTRUSTEDCA
+        unchecked((int)0x800B0110), // CERT_E_WRONG_USAGE
+        unchecked((int)0x800B0102), // CERT_E_VALIDITYPERIODNESTING
+        unchecked((int)0x80092013), // CRYPT_E_REVOCATION_OFFLINE
+        unchecked((int)0x80092012), // CRYPT_E_NO_REVOCATION_CHECK
+        unchecked((int)0x80096005)  // TRUST_E_TIME_STAMP
+    ];
 
     public SignatureCheck Check(string path)
     {
@@ -130,9 +148,11 @@ public sealed class AuthenticodeVerifier : IInstallerSignatureVerifier
             pcwszFilePath = path
         };
         var fileInfoPtr = Marshal.AllocHGlobal(Marshal.SizeOf<WinTrustFileInfo>());
+        var written = false;
         try
         {
             Marshal.StructureToPtr(fileInfo, fileInfoPtr, false);
+            written = true;
             var data = new WinTrustData
             {
                 cbStruct = (uint)Marshal.SizeOf<WinTrustData>(),
@@ -145,14 +165,24 @@ public sealed class AuthenticodeVerifier : IInstallerSignatureVerifier
             };
 
             var action = GenericVerifyV2;
-            var result = WinVerifyTrust(IntPtr.Zero, ref action, ref data);
-            data.dwStateAction = WtdStateActionClose;
-            _ = WinVerifyTrust(IntPtr.Zero, ref action, ref data);
-            return result;
+            try
+            {
+                return WinVerifyTrust(IntPtr.Zero, ref action, ref data);
+            }
+            finally
+            {
+                // Always release the state WinVerifyTrust may have opened.
+                data.dwStateAction = WtdStateActionClose;
+                _ = WinVerifyTrust(IntPtr.Zero, ref action, ref data);
+            }
         }
         finally
         {
-            Marshal.DestroyStructure<WinTrustFileInfo>(fileInfoPtr);
+            if (written)
+            {
+                Marshal.DestroyStructure<WinTrustFileInfo>(fileInfoPtr);
+            }
+
             Marshal.FreeHGlobal(fileInfoPtr);
         }
     }

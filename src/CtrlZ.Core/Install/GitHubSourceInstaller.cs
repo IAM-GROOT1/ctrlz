@@ -81,7 +81,7 @@ public sealed class GitHubSourceInstaller : ISourceInstaller
             }
             else if (string.IsNullOrWhiteSpace(expectedHash))
             {
-                context.Line("This release publishes no SHA-256 for the asset; the download is checked by signature only.");
+                context.Line("This release publishes no SHA-256 for the asset; its integrity cannot be checked against a published hash. Add a SHA-256 to the app entry to pin it.");
             }
 
             var download = await _downloads.DownloadAsync(

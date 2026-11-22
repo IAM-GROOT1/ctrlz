@@ -75,7 +75,10 @@ emoji icons.
   checks its Authenticode signature, and the result and signer appear in the install log. A
   **broken** signature (the file was changed after signing, or the certificate was revoked or is
   distrusted) stops the install. Unsigned installers still run, and the log says so. The check
-  works offline and adds no network request.
+  works offline and adds no network request, so revocation is not looked up: a revoked certificate
+  is caught only if Windows already distrusts it. The signature catches a signed file that was
+  altered, not a file replaced by an unsigned or differently signed one. For that, a published or
+  saved SHA-256 is the check.
 
 ### Chromium and Firefox browser backup
 
