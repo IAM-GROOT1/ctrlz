@@ -49,6 +49,14 @@ public partial class MainWindow : Window
     {
         if (e.PropertyName == nameof(MainViewModel.CurrentPage))
         {
+            // Respect "Animation effects" being off in Windows settings: switch pages without a fade.
+            if (!SystemParameters.ClientAreaAnimation)
+            {
+                PageHost.BeginAnimation(OpacityProperty, null);
+                PageHost.Opacity = 1;
+                return;
+            }
+
             var animation = new DoubleAnimation(0, 1, TimeSpan.FromMilliseconds(150))
             {
                 EasingFunction = new QuadraticEase { EasingMode = EasingMode.EaseOut }

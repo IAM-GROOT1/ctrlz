@@ -64,6 +64,12 @@ public partial class AppEditorWindow : Window
         EnabledBox.IsChecked = app.Enabled;
         LoadCommand(app.PostInstall);
         UpdatePanels();
+        Loaded += (_, _) =>
+        {
+            // Keyboard users start in the first field.
+            NameBox.Focus();
+            NameBox.SelectAll();
+        };
     }
 
     private void LoadCommand(PostInstallCommand? command)
