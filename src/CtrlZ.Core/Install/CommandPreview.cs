@@ -14,7 +14,8 @@ public sealed record CommandPreviewLine(
     CommandRunState State,
     bool Risky,
     bool WillRun,
-    string StateText);
+    string StateText,
+    string Hash);
 
 /// <summary>
 /// Builds the command lines shown before an install. It only describes: it never runs anything and
@@ -38,9 +39,8 @@ public static class CommandPreview
             return null;
         }
 
-        var approvedHashes = approved
-            ? new[] { PostInstallApprovalStore.HashOf(command) }
-            : Array.Empty<string>();
+        var hash = PostInstallApprovalStore.HashOf(command);
+        var approvedHashes = approved ? new[] { hash } : Array.Empty<string>();
 
         var resolution = CommandStateResolver.Resolve(origin, approvedHashes, command);
         var allowed = CommandStateResolver.MayRun(resolution.State);
@@ -51,7 +51,7 @@ public static class CommandPreview
             : resolution.Text;
 
         return new CommandPreviewLine(
-            app.Id, app.Name, order, command.Describe(), resolution.State, resolution.Risky, willRun, text);
+            app.Id, app.Name, order, command.Describe(), resolution.State, resolution.Risky, willRun, text, hash);
     }
 
     /// <summary>Lines for every enabled app with a command, numbered like the install plan.</summary>
