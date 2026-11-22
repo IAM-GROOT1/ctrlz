@@ -75,7 +75,8 @@ See which installed apps have updates and apply them from one place.
 ### 4. Reliability and security
 
 - Installer verification beyond SHA-256 where a source publishes more.
-- Backup verification and restore drills, so a backup is proven readable before it is needed.
+- Done: **Verify** on the Browsers page reads every file of a browser backup (decrypting and
+  checking each one) and reports whether it can be restored, without changing anything.
 - A local diagnostics bundle, created only on request, with counts and versions and no personal
   file names.
 - Import app lists from winget, Scoop and Chocolatey.

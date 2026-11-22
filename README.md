@@ -90,6 +90,10 @@ emoji icons.
   VSS is available.
 - One compressed ZIP per browser with a manifest (engine/family, browser, version, profiles,
   date, file list, contents, exclusions). Optional **AES-256 password encryption**.
+- **Verify** a backup before you wipe: it reads every file in the archive with its password,
+  checks each one (checksum or AES authentication), confirms every listed profile is present and
+  that no passwords or cookies were added, and reports whether it can be restored. Nothing is
+  written.
 - Restore flow: inspect archive â†’ choose profiles â†’ choose a target browser of the **same engine**
   â†’ **restore as new profiles (recommended)** or merge into existing profiles after a warning.
   New Firefox profiles are registered in `profiles.ini`; new Chromium profiles in `Local State`.
