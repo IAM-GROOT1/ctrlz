@@ -75,6 +75,9 @@ public sealed class UpdateApplier
             UpdateVerifier.EnsureHash(request.ExpectedSha256!, actual);
         }
 
+        // Verified before anything on disk changes; a bad companion stops the whole update.
+        var companion = await PortableCompanion.PrepareAsync(request, _log, cancellationToken).ConfigureAwait(false);
+
         var target = request.TargetExe;
         var backup = target + ".old";
         TryDelete(backup);
@@ -87,13 +90,17 @@ public sealed class UpdateApplier
         catch (Exception ex)
         {
             _log.Write(LogLevel.Error, "Could not place the new executable in the target folder.", ex);
+            companion?.Restore();
             Restore(backup, target);
             return UpdateApplyResult.Failed("The new version could not be put in place. The previous version was restored.");
         }
 
+        companion?.Swap();
+
         var started = TryStart(target);
         if (started is null)
         {
+            companion?.Restore();
             Restore(backup, target);
             return UpdateApplyResult.Failed("The new version could not be started. The previous version was restored.");
         }
@@ -113,11 +120,13 @@ public sealed class UpdateApplier
                 // Already gone.
             }
 
+            companion?.Restore();
             Restore(backup, target);
             return UpdateApplyResult.Failed(
                 "The new version closed unexpectedly, so CTRL+Z rolled back to the previous version.");
         }
 
+        companion?.Commit();
         TryDelete(backup);
         _log.Write(LogLevel.Info, $"Update to {request.Version} applied and the previous build was removed.");
         return UpdateApplyResult.Ok(request.Version);
