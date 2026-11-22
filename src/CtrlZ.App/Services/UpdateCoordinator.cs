@@ -289,10 +289,10 @@ public sealed class UpdateCoordinator
 
             // From here to the helper launch everything runs on the UI thread, so no in-app
             // operation can start in between. The install lock also covers a command-line install
-            // in another process; it stays held until this process exits.
+            // in another process; it stays held until this process exits, unless the helper launch fails.
             if (_services.Activity.IsBusy || !TryHoldInstallLockUntilExit())
             {
-                _services.Log.Write(LogLevel.Info, "Update postponed: an install is running.");
+                _services.Log.Write(LogLevel.Info, "Update postponed: an install or backup is running.");
                 window.ShowError("An install or backup is running (in the app or from the command line), so the update was not applied. Check for updates again when it has finished.");
                 return;
             }
