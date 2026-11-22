@@ -65,7 +65,14 @@ emoji icons.
 - Silent, ordered installation with **per-app status, progress, live logs, retry, pause,
   resume after reboot, failed-app isolation, and UAC relaunch**.
 - winget bootstrap: if winget is missing, CTRL+Z downloads Microsoft App Installer; if it
-  is old, it attempts an App Installer upgrade.
+  is old, it attempts an App Installer upgrade. If Microsoft's short link fails, the same bundle
+  is fetched from Microsoft's own winget-cli releases.
+- Resilient downloads: a dropped connection continues where it stopped instead of starting over.
+  This uses a range request that only succeeds while the server still has the same file (same
+  ETag or Last-Modified), so a file that changed is downloaded fresh, never stitched together.
+  Server errors and transfers that stall for a minute are retried up to 3 times, and the SHA-256,
+  when known, is always checked over the whole file. A partial download that cannot be resumed
+  safely is restarted.
 - Download verification: winget verifies its own manifests; direct/GitHub/local downloads
   verify a supplied SHA-256, and GitHub release asset digests are used automatically when
   present. When GitHub has no digest for an asset, a checksum file published in the same release

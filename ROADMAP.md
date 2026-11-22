@@ -84,8 +84,11 @@ See which installed apps have updates and apply them from one place.
 - Done: **Import list** on My Apps adds apps from a `winget export`, `scoop export` or Chocolatey
   `packages.config` file, matching Scoop and Chocolatey names through the catalog on this PC and
   listing what could not be matched.
-- ARM64 builds.
-- Download resumption and mirror fallback.
+- Later: ARM64 builds (deferred; not a priority for this release).
+- Done: downloads resume after a dropped connection (an HTTP range request guarded by the
+  server's ETag or Last-Modified, so a changed file starts over), retry server errors and stalled
+  transfers, and fall back to a mirror where one exists. The winget bootstrap tries aka.ms, then
+  Microsoft's own winget-cli release.
 - Done: personal paths and names are kept out of logs and saved state. Logs write personal
   folders as `%USERPROFILE%`-style tokens and hide the account and PC names; the install state file
   stores the same tokens and expands them on load
