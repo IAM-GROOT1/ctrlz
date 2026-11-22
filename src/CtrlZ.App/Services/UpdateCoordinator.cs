@@ -279,11 +279,35 @@ public sealed class UpdateCoordinator
             {
                 window.SetProgress(null, "Waiting for the current operation to finish\u2026");
                 _services.Log.Write(LogLevel.Info, "Update download finished; waiting for the running operation to finish.");
-                await ActivityWaiter.WaitForIdleAsync(_services.Activity, DeferralTimeout, cts.Token).ConfigureAwait(true);
+                if (!await ActivityWaiter.WaitForIdleAsync(_services.Activity, DeferralTimeout, cts.Token).ConfigureAwait(true))
+                {
+                    _services.Log.Write(LogLevel.Info, "Update postponed: an operation is still running after the deferral window.");
+                    window.ShowError("An install or backup is still running, so the update was not applied. Check for updates again when it has finished.");
+                    return;
+                }
+            }
+
+            // From here to the helper launch everything runs on the UI thread, so no in-app
+            // operation can start in between. The install lock also covers a command-line install
+            // in another process; it stays held until this process exits, unless the helper launch fails.
+            if (_services.Activity.IsBusy || !TryHoldInstallLockUntilExit())
+            {
+                _services.Log.Write(LogLevel.Info, "Update postponed: an install or backup is running.");
+                window.ShowError("An install or backup is running (in the app or from the command line), so the update was not applied. Check for updates again when it has finished.");
+                return;
             }
 
             window.SetProgress(null, "Restarting to finish the update\u2026");
-            LaunchHelper(file.Path, expectedHash, kind, release.Version.ToString(), companion);
+            try
+            {
+                LaunchHelper(file.Path, expectedHash, kind, release.Version.ToString(), companion);
+            }
+            catch
+            {
+                // The app keeps running: never keep installs blocked.
+                ReleaseUpdateLock();
+                throw;
+            }
         }
         catch (OperationCanceledException) when (cts.IsCancellationRequested)
         {
@@ -301,6 +325,21 @@ public sealed class UpdateCoordinator
             _services.Log.Write(LogLevel.Error, "The update could not be applied.", ex);
             window.ShowError(ex.Message);
         }
+    }
+
+    private CtrlZ.Core.Install.InstallLock? _updateLock;
+
+    /// <summary>Takes the install lock for the rest of this process's life, so no install starts during the update.</summary>
+    private bool TryHoldInstallLockUntilExit()
+    {
+        _updateLock ??= CtrlZ.Core.Install.InstallLock.TryAcquire();
+        return _updateLock is not null;
+    }
+
+    private void ReleaseUpdateLock()
+    {
+        _updateLock?.Dispose();
+        _updateLock = null;
     }
 
     /// <summary>
