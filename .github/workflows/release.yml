@@ -102,8 +102,9 @@ jobs:
           $assets = @()
           $assets += Get-ChildItem ./artifacts/installer/CTRL+Z-Setup-*.exe -ErrorAction SilentlyContinue
           $assets += Get-ChildItem ./artifacts/CTRL+Z-Portable-*.exe -ErrorAction SilentlyContinue
-          if ($assets.Count -lt 2) {
-            throw "Expected both the installer and the portable exe; found $($assets.Count)."
+          $assets += Get-ChildItem ./artifacts/ctrlz-*.exe -ErrorAction SilentlyContinue
+          if ($assets.Count -lt 3) {
+            throw "Expected the installer, the portable exe and the command line exe; found $($assets.Count)."
           }
 
           $lines = foreach ($asset in $assets) {
@@ -136,6 +137,7 @@ jobs:
           New-Item -ItemType Directory -Force $releaseDir | Out-Null
           Copy-Item ./artifacts/installer/CTRL+Z-Setup-*.exe $releaseDir
           Copy-Item ./artifacts/CTRL+Z-Portable-*.exe $releaseDir
+          Copy-Item ./artifacts/ctrlz-*.exe $releaseDir
           Copy-Item ./artifacts/SHA256SUMS.txt $releaseDir
 
           if (-not (Test-Path (Join-Path $releaseDir "SHA256SUMS.txt"))) {

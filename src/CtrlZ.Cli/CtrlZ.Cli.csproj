@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <ItemGroup>
+    <ProjectReference Include="..\CtrlZ.Core\CtrlZ.Core.csproj" />
+  </ItemGroup>
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net8.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <AssemblyName>ctrlz</AssemblyName>
+    <RootNamespace>CtrlZ.Cli</RootNamespace>
+    <Description>Command line for CTRL+Z: install, dry-run and list profiles.</Description>
+  </PropertyGroup>
+
+</Project>

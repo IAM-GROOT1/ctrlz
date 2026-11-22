@@ -380,6 +380,38 @@ See [`docs/website-hook.md`](docs/website-hook.md) for the details and failure b
 6. Open **Browsers â†’ Restore**, inspect your archive, choose profiles and the target browser,
    and restore as new profiles (recommended) or merge into existing ones.
 
+## Command line
+
+`ctrlz.exe` is installed next to `CTRL+Z.exe` and uses the same data folder (including portable
+mode). The portable release ships it as `ctrlz-<version>.exe`; put it next to the portable exe.
+
+```powershell
+# On a fresh Windows install, from a terminal in the folder with your profile and ctrlz.exe:
+.\ctrlz.exe dry-run .\my-apps.json            # checks every source, installs nothing
+.\ctrlz.exe install .\my-apps.json            # prints the full plan, installs nothing
+.\ctrlz.exe install .\my-apps.json --yes      # installs after you read the plan
+.\ctrlz.exe list                              # profiles saved in the app
+```
+
+The command line follows the app's safety rules:
+
+- **Nothing installs without `--yes`.** Without it the plan is printed, including every
+  post-install command in full, and the exit code is 5.
+- **Commands from outside this PC stay blocked.** A profile file is loaded like any import, so its
+  post-install commands do not run with `--yes` alone. `--allow-commands --yes` is your explicit
+  consent for exactly the commands printed above it: they are approved on this PC, as the review
+  screen would. Risky commands additionally need `--allow-risky`, on every run.
+- **Admin rights are checked first.** If an app or command likely needs administrator rights and
+  the terminal is not elevated, nothing is installed (exit code 6). Run from an elevated terminal,
+  or add `--continue-without-admin`.
+- **One install at a time.** If the app or another `ctrlz` is installing, the run stops (exit 7).
+- `--json <path>` writes a report; app notes appear in it only when **Include notes in exports**
+  is on. `--silent` prints the plan and the summary only.
+
+Exit codes: 0 success, 1 usage, 2 some apps failed, 3 invalid profile, 4 a dependency failed, 5 not
+confirmed or cancelled, 6 needs administrator rights, 7 another install is running. Checks run in
+this order: risky commands, administrator rights, then `--yes`.
+
 ## Profile JSON
 
 Profiles are intentionally simple and diffable:
