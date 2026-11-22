@@ -282,7 +282,7 @@ public sealed class UpdateCoordinator
                 if (!await ActivityWaiter.WaitForIdleAsync(_services.Activity, DeferralTimeout, cts.Token).ConfigureAwait(true))
                 {
                     _services.Log.Write(LogLevel.Info, "Update postponed: an operation is still running after the deferral window.");
-                    window.ShowError("An install or backup is still running, so the update was not applied. It will be offered again.");
+                    window.ShowError("An install or backup is still running, so the update was not applied. Check for updates again when it has finished.");
                     return;
                 }
             }
@@ -293,12 +293,21 @@ public sealed class UpdateCoordinator
             if (_services.Activity.IsBusy || !TryHoldInstallLockUntilExit())
             {
                 _services.Log.Write(LogLevel.Info, "Update postponed: an install is running.");
-                window.ShowError("An install is running (in the app or from the command line), so the update was not applied. It will be offered again.");
+                window.ShowError("An install or backup is running (in the app or from the command line), so the update was not applied. Check for updates again when it has finished.");
                 return;
             }
 
             window.SetProgress(null, "Restarting to finish the update\u2026");
-            LaunchHelper(file.Path, expectedHash, kind, release.Version.ToString(), companion);
+            try
+            {
+                LaunchHelper(file.Path, expectedHash, kind, release.Version.ToString(), companion);
+            }
+            catch
+            {
+                // The app keeps running: never keep installs blocked.
+                ReleaseUpdateLock();
+                throw;
+            }
         }
         catch (OperationCanceledException) when (cts.IsCancellationRequested)
         {
@@ -325,6 +334,12 @@ public sealed class UpdateCoordinator
     {
         _updateLock ??= CtrlZ.Core.Install.InstallLock.TryAcquire();
         return _updateLock is not null;
+    }
+
+    private void ReleaseUpdateLock()
+    {
+        _updateLock?.Dispose();
+        _updateLock = null;
     }
 
     /// <summary>
