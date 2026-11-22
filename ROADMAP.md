@@ -26,12 +26,12 @@ promise of a date, and a section can be reordered if a bug matters more.
 - [ ] **8. Release and distribution** - planned
 - [ ] **9. Optional extra: scheduled and local backups** - planned
 - [ ] **10. Optional extra: settings backup** - planned
-- [ ] **11. Optional extras: how to get them** - planned
+- [ ] **11. Optional extras: availability** - planned
 - [ ] **12. Optional extra: encrypted backup off this PC** - later
 - [ ] **13. Post-install tweaks** - later
 
 Optional extras planned (sections 9 to 12). The free app stays local, complete and useful on its
-own: nothing that is free today moves behind a paywall.
+own, and everything free today stays free.
 
 ## Section detail
 

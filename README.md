@@ -536,7 +536,7 @@ The work is split into numbered sections, built one at a time and shipped as the
 - [ ] **8.** Release and distribution
 - [ ] **9.** Optional extra: scheduled and local backups
 - [ ] **10.** Optional extra: settings backup
-- [ ] **11.** Optional extras: how to get them
+- [ ] **11.** Optional extras: availability
 - [ ] **12.** Optional extra: encrypted backup off this PC
 - [ ] **13.** Post-install tweaks
 

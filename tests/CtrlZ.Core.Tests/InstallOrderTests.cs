@@ -171,6 +171,35 @@ public class InstallOrderTests
     }
 
     [Fact]
+    public void A_disabled_entry_holding_a_dependency_id_is_never_shadowed_by_a_new_one()
+    {
+        // For example the catalog renamed the package after the user turned the dependency off, or
+        // an imported file planted the id with a different package.
+        var planted = App("dep:vcredist.x64", "Something else", "Other.Package");
+        planted.Enabled = false;
+
+        var result = new InstallOrderPlanner(Catalog()).Plan(Profile(App("steam", "Steam", "Valve.Steam"), planted));
+
+        Assert.DoesNotContain(result.AutoAdded, app => app.Id == "dep:vcredist.x64");
+        Assert.DoesNotContain(result.Ordered, app => app.Id == "dep:vcredist.x64");
+        Assert.DoesNotContain("dep:vcredist.x64", result.Dependencies["steam"]);
+    }
+
+    [Fact]
+    public void An_enabled_copy_of_the_package_wins_over_a_turned_off_one()
+    {
+        var off = App("old", "Old VC x64", "Microsoft.VCRedist.2015+.x64");
+        off.Enabled = false;
+
+        var result = new InstallOrderPlanner(Catalog()).Plan(Profile(
+            off,
+            App("steam", "Steam", "Valve.Steam"),
+            App("mine", "My VC x64", "Microsoft.VCRedist.2015+.x64")));
+
+        Assert.Contains("mine", result.Dependencies["steam"]);
+    }
+
+    [Fact]
     public void Auto_added_dependencies_are_marked_and_listed_once()
     {
         var result = new InstallOrderPlanner(Catalog()).Plan(Profile(

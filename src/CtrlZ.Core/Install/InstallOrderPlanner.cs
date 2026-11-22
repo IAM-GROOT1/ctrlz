@@ -69,9 +69,18 @@ public sealed class InstallOrderPlanner
         {
             foreach (var dependency in _catalog.For(app))
             {
-                var existing = profile.Apps.FirstOrDefault(candidate =>
-                    !ReferenceEquals(candidate, app) &&
-                    string.Equals(candidate.PackageId, dependency.PackageId, StringComparison.OrdinalIgnoreCase));
+                // An entry that already uses this dependency's id, enabled or not, is the dependency:
+                // a disabled one was turned off by the user and is never shadowed by a new entry.
+                // Otherwise an app with the same package satisfies it, preferring an enabled one.
+                var autoId = AutoDependencyIdPrefix + dependency.Id;
+                var existing =
+                    profile.Apps.FirstOrDefault(candidate => candidate.Id == autoId) ??
+                    profile.Apps
+                        .Where(candidate =>
+                            !ReferenceEquals(candidate, app) &&
+                            string.Equals(candidate.PackageId, dependency.PackageId, StringComparison.OrdinalIgnoreCase))
+                        .OrderByDescending(candidate => candidate.Enabled)
+                        .FirstOrDefault();
 
                 string? target;
                 if (existing is not null)
@@ -80,7 +89,7 @@ public sealed class InstallOrderPlanner
                 }
                 else
                 {
-                    target = AutoDependencyIdPrefix + dependency.Id;
+                    target = autoId;
                     if (!nodes.ContainsKey(target))
                     {
                         var entry = new AppEntry
@@ -184,6 +193,20 @@ public sealed class InstallOrderPlanner
             StringComparer.Ordinal);
 
         return new InstallOrderResult(ordered, autoAdded, cycles, missing, skipped) { Dependencies = dependencies };
+    }
+
+    /// <summary>
+    /// True only for an entry the planner itself would create: the flag alone comes from the profile
+    /// file, so an imported profile cannot borrow the "added automatically" label for its own apps.
+    /// </summary>
+    public static bool IsKnownAutoDependency(AppEntry app, DependencyCatalog catalog)
+    {
+        ArgumentNullException.ThrowIfNull(app);
+        ArgumentNullException.ThrowIfNull(catalog);
+
+        return app.IsAutoDependency && catalog.Dependencies.Any(dependency =>
+            app.Id == AutoDependencyIdPrefix + dependency.Id &&
+            string.Equals(app.PackageId, dependency.PackageId, StringComparison.OrdinalIgnoreCase));
     }
 
     /// <summary>Every node that sits on a cycle (strongly connected, Tarjan), with a readable description of each cycle.</summary>

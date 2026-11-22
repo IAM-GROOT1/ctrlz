@@ -41,6 +41,9 @@ public sealed record InstallPlanItem
 
     /// <summary>Things the user should know before running: missing file, no hash, unsigned.</summary>
     public IReadOnlyList<string> Warnings { get; init; } = [];
+
+    /// <summary>Set when the plan will not install this app (install-order loop), with the reason.</summary>
+    public string? NotInstalledReason { get; init; }
 }
 
 /// <summary>Everything the install button will do, described before it does it.</summary>

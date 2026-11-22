@@ -80,8 +80,37 @@ public sealed class AutoDependencyTests : IDisposable
     [Fact]
     public void My_apps_marks_an_auto_added_dependency()
     {
-        var row = new ProfileAppRow(new AppEntry { Name = "VC++", IsAutoDependency = true, Publisher = "Microsoft" }, 1, _ => { });
+        var row = new ProfileAppRow(new AppEntry { Id = "dep:vcredist.x64", Name = "VC++", PackageId = "Microsoft.VCRedist.2015+.x64", IsAutoDependency = true, Publisher = "Microsoft" }, 1, _ => { });
 
         Assert.StartsWith("Added automatically", row.Meta);
+    }
+
+    [Theory]
+    [InlineData("my-own-app", "Vendor.Tool")]
+    [InlineData("dep:vcredist.x64", "Vendor.Tool")]
+    public void A_flag_from_the_file_alone_does_not_earn_the_auto_dependency_label(string id, string packageId)
+    {
+        var row = new ProfileAppRow(new AppEntry { Id = id, Name = "Tool", PackageId = packageId, IsAutoDependency = true }, 1, _ => { });
+
+        Assert.False(row.IsAutoDependency);
+        Assert.DoesNotContain("Added automatically", row.Meta);
+    }
+
+    [Fact]
+    public void Adding_and_turning_off_dependencies_keeps_an_imported_profile_imported()
+    {
+        var (state, _) = NewState();
+        Directory.CreateDirectory(_root);
+        var file = Path.Combine(_root, "shared.json");
+        File.WriteAllText(file, JsonSerializer.Serialize(
+            new AppProfile { Name = "Shared", Apps = [new AppEntry { Id = "steam", Name = "Steam", PackageId = "Valve.Steam" }] },
+            JsonDefaults.Profile));
+        var imported = state.ImportProfile(file);
+
+        state.AddAutoDependencies(Plan(state.ActiveProfile).AutoAdded);
+        Assert.Equal(ProfileOrigin.Imported, state.OriginOf(imported));
+
+        state.DisableApp(state.ActiveProfile.Apps.First(app => app.IsAutoDependency));
+        Assert.Equal(ProfileOrigin.Imported, state.OriginOf(imported));
     }
 }

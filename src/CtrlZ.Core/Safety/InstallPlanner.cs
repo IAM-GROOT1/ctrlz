@@ -38,7 +38,7 @@ public sealed class InstallPlanner
         {
             order++;
             var item = BuildItem(app, order);
-            if (app.IsAutoDependency)
+            if (Install.InstallOrderPlanner.IsKnownAutoDependency(app, _catalog))
             {
                 var neededBy = plan.Dependencies
                     .Where(pair => pair.Value.Contains(app.Id))
@@ -54,6 +54,24 @@ public sealed class InstallPlanner
             items.Add(item);
         }
 
+        // Listed at the end, exactly like the engine's queue, with the reason they will not install.
+        foreach (var skipped in plan.Skipped)
+        {
+            var app = profile.Apps.FirstOrDefault(candidate => candidate.Id == skipped.AppId);
+            if (app is null)
+            {
+                continue;
+            }
+
+            order++;
+            var item = BuildItem(app, order);
+            items.Add(item with
+            {
+                NotInstalledReason = skipped.Reason,
+                Warnings = [.. item.Warnings, "Will not install: " + skipped.Reason]
+            });
+        }
+
         var planWarnings = new List<string>
         {
             "Apps install one after another in the order below. Known dependencies install first, and an app whose dependency fails is not attempted."
@@ -61,7 +79,6 @@ public sealed class InstallPlanner
 
         planWarnings.AddRange(plan.Cycles.Select(cycle => $"Install-order loop: {cycle}."));
         planWarnings.AddRange(plan.MissingReferences);
-        planWarnings.AddRange(plan.Skipped.Select(skipped => $"{skipped.Name} will not install: {skipped.Reason}"));
 
         if (items.Count == 0)
         {

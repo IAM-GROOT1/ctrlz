@@ -96,7 +96,7 @@ public static class CommandPreview
         ArgumentNullException.ThrowIfNull(isApproved);
 
         var lines = new List<CommandPreviewLine>();
-        foreach (var item in plan.Items)
+        foreach (var item in plan.Items.Where(item => item.NotInstalledReason is null))
         {
             var app = profile.Apps.FirstOrDefault(candidate => candidate.Id == item.AppId);
             if (app?.PostInstall is { } command &&

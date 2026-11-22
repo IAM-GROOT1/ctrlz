@@ -139,6 +139,50 @@ public class InstallEngineOrderTests
     }
 
     [Fact]
+    public async Task A_skipped_dependency_counts_as_complete_and_does_not_block()
+    {
+        using var temp = new TestDirectory();
+        var installer = new FakeInstaller(AppSource.LocalFile);
+        var engine = Engine(temp, installer);
+        var state = engine.CreateState(new AppProfile { Apps = [Local("app", "runtime"), Local("runtime")] }, null);
+        state.Items.Single(item => item.AppId == "runtime").Status = InstallStatus.Skipped;
+
+        var result = await engine.RunAsync(state, new FakeInstallLogSink());
+
+        Assert.Equal(new[] { "app" }, installer.Installed);
+        Assert.Equal(InstallStatus.Success, result.Items.Single(item => item.AppId == "app").Status);
+    }
+
+    [Fact]
+    public async Task A_resumed_session_in_an_old_order_still_installs_dependencies_first()
+    {
+        using var temp = new TestDirectory();
+        var installer = new FakeInstaller(AppSource.LocalFile);
+        var engine = Engine(temp, installer);
+        var state = engine.CreateState(new AppProfile { Apps = [Local("app", "runtime"), Local("runtime")] }, null);
+        state.Items.Reverse();   // as saved by an older version: dependent first
+        Assert.Equal("app", state.Items[0].AppId);
+
+        await engine.RunAsync(state, new FakeInstallLogSink());
+
+        Assert.Equal(new[] { "runtime", "app" }, installer.Installed);
+    }
+
+    [Fact]
+    public void Preview_items_match_the_engine_queue_including_apps_that_will_not_install()
+    {
+        using var temp = new TestDirectory();
+        var engine = Engine(temp, new FakeInstaller(AppSource.LocalFile));
+        var profile = new AppProfile { Apps = [Local("a", "b"), Local("b", "a"), Local("c")] };
+
+        var queue = engine.CreateState(profile, null).Items.Select(item => item.AppId);
+        var plan = new CtrlZ.Core.Safety.InstallPlanner(_ => true, _ => true, engine.Catalog).Build(profile, "P");
+
+        Assert.Equal(queue, plan.Items.Select(item => item.AppId));
+        Assert.All(plan.Items.Where(item => item.AppId is "a" or "b"), item => Assert.NotNull(item.NotInstalledReason));
+    }
+
+    [Fact]
     public void Preview_plan_and_engine_queue_have_the_same_order()
     {
         using var temp = new TestDirectory();

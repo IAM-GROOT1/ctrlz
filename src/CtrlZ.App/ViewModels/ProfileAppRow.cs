@@ -30,7 +30,13 @@ public sealed partial class ProfileAppRow : ObservableObject
     public string InstallSummary => App.InstallSummary;
     public bool NeedsAttention => App.Source is AppSource.Winget or AppSource.MicrosoftStore &&
                                   string.IsNullOrWhiteSpace(App.PackageId);
-    public string Meta => string.Join(" · ", new[] { App.IsAutoDependency ? "Added automatically as a dependency" : null, Publisher, Version }
+    private static readonly Lazy<CtrlZ.Core.Install.DependencyCatalog> Catalog =
+        new(CtrlZ.Core.Install.DependencyCatalog.LoadEmbedded);
+
+    /// <summary>Only an entry the planner itself would create; the flag alone comes from the file.</summary>
+    public bool IsAutoDependency => CtrlZ.Core.Install.InstallOrderPlanner.IsKnownAutoDependency(App, Catalog.Value);
+
+    public string Meta => string.Join(" · ", new[] { IsAutoDependency ? "Added automatically as a dependency" : null, Publisher, Version }
         .Where(value => !string.IsNullOrWhiteSpace(value)));
 
     [ObservableProperty]

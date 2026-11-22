@@ -261,7 +261,7 @@ public sealed partial class MyAppsViewModel : PageViewModelBase
             return;
         }
 
-        if (row.App.IsAutoDependency)
+        if (row.IsAutoDependency)
         {
             // Deleting it would only let the planner add it again; turning it off is remembered.
             if (!_dialogs.Confirm("Remove dependency",

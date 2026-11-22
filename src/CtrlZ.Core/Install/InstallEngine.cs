@@ -41,6 +41,9 @@ public sealed partial class InstallEngine
         _log = log;
     }
 
+    /// <summary>The dependency catalog the engine plans with; the preview must use the same one.</summary>
+    public DependencyCatalog Catalog => _catalog;
+
     /// <summary>The order and dependencies the engine uses; the preview builds the same plan.</summary>
     public InstallOrderResult PlanOrder(AppProfile profile) => new InstallOrderPlanner(_catalog).Plan(profile);
 
@@ -171,6 +174,15 @@ public sealed partial class InstallEngine
 
         var plan = PlanOrder(profile);
         var loopReasons = plan.Skipped.ToDictionary(skipped => skipped.AppId, skipped => skipped.Reason, StringComparer.Ordinal);
+
+        // A resumed or reconciled session may hold items in an older order; run them in plan order
+        // so a dependency always comes before the apps that need it. The sort is stable.
+        var rank = plan.Ordered
+            .Select((app, position) => (app.Id, position))
+            .ToDictionary(pair => pair.Id, pair => pair.position, StringComparer.Ordinal);
+        state.Items = state.Items
+            .OrderBy(item => rank.TryGetValue(item.AppId, out var position) ? position : int.MaxValue)
+            .ToList();
         var total = state.Items.Count;
         var index = 0;
         foreach (var item in state.Items)
@@ -350,8 +362,9 @@ public sealed partial class InstallEngine
         foreach (var dependency in dependencies)
         {
             var dependencyItem = state.Items.FirstOrDefault(candidate => candidate.AppId == dependency);
+            // Skipped counts as complete everywhere else in the app, so it does not block.
             if (dependencyItem?.Status is InstallStatus.Failed or InstallStatus.NeedsManualAction
-                or InstallStatus.Cancelled or InstallStatus.Skipped)
+                or InstallStatus.Cancelled)
             {
                 return dependencyItem;
             }
