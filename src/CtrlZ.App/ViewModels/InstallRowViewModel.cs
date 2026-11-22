@@ -65,8 +65,19 @@ public sealed partial class InstallRowViewModel : ObservableObject
     public bool ShowsProgress => Status is InstallStatus.Downloading or InstallStatus.Installing or InstallStatus.Preparing;
     public bool IsDone => Status is InstallStatus.Success or InstallStatus.Skipped or InstallStatus.RebootRequired;
 
+    /// <summary>The app's own note. Shown on this screen only, never written to the log.</summary>
+    public string? Note { get; init; }
+
+    /// <summary>The note matters when the user has to act, so it appears for failed and manual apps.</summary>
+    public bool ShowsNote => !string.IsNullOrWhiteSpace(Note) &&
+                             Status is InstallStatus.Failed or InstallStatus.NeedsManualAction;
+
+    public string NoteText => ShowsNote ? "Your note: " + Note : string.Empty;
+
     partial void OnStatusChanged(InstallStatus value)
     {
+        OnPropertyChanged(nameof(ShowsNote));
+        OnPropertyChanged(nameof(NoteText));
         OnPropertyChanged(nameof(StatusText));
         OnPropertyChanged(nameof(Tone));
         OnPropertyChanged(nameof(ShowsProgress));

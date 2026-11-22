@@ -234,7 +234,8 @@ public sealed partial class PreviewViewModel : ObservableObject
 
         try
         {
-            File.WriteAllText(dialog.FileName, _lastReport.ToText());
+            var export = _lastReport.WithExportNotes(_profile.Apps, _services.State.Settings);
+            File.WriteAllText(dialog.FileName, export.ToText());
             StatusLine = "Report saved.";
         }
         catch (Exception ex)

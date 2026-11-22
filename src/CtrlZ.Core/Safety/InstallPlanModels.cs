@@ -82,6 +82,27 @@ public sealed record DryRunReport
     /// <summary>Every post-install command with its state. Listed only; the dry run never runs one.</summary>
     public IReadOnlyList<Install.CommandPreviewLine> Commands { get; init; } = [];
 
+    /// <summary>
+    /// Note text per app id for the export, already passed through
+    /// <see cref="Install.NotesPrivacy.ForExport"/>. Empty unless the caller filled it.
+    /// </summary>
+    public IReadOnlyDictionary<string, string> ExportNotes { get; init; } = new Dictionary<string, string>();
+
+    /// <summary>Fills <see cref="ExportNotes"/> through the notes chokepoint, so opt-in is decided in one place.</summary>
+    public DryRunReport WithExportNotes(IEnumerable<AppEntry> apps, AppSettings settings)
+    {
+        var notes = new Dictionary<string, string>(StringComparer.Ordinal);
+        foreach (var app in apps)
+        {
+            if (Install.NotesPrivacy.ForExport(app.Notes, settings) is { } text)
+            {
+                notes[app.Id] = text;
+            }
+        }
+
+        return this with { ExportNotes = notes };
+    }
+
     public int ReadyCount => Items.Count(item => item.Status == PlanCheckStatus.Ready);
 
     public int WarningCount => Items.Count(item => item.Status == PlanCheckStatus.Warning);
@@ -113,6 +134,10 @@ public sealed record DryRunReport
 
             builder.AppendLine($"[{mark}] {item.Name} ({item.Source.Display()})");
             builder.AppendLine($"       {item.Message}");
+            if (ExportNotes.TryGetValue(item.AppId, out var note))
+            {
+                builder.AppendLine($"       note: {note}");
+            }
             if (item.DownloadBytes is > 0)
             {
                 builder.AppendLine($"       size: {Infrastructure.FileUtil.FormatBytes(item.DownloadBytes.Value)}");
