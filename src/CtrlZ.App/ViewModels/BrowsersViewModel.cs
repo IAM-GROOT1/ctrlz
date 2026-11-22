@@ -206,8 +206,108 @@ public sealed partial class BrowsersViewModel : PageViewModelBase
 
     partial void OnSelectedRestoreCountChanged(int value) => OnPropertyChanged(nameof(CanRestore));
 
+    /// <summary>
+    /// Offers only browsers of the archive's engine, prefers the archive's own browser, and notes when
+    /// that browser is missing. Run after inspecting and again after a refresh, so a browser installed
+    /// in between shows up.
+    /// </summary>
+    private void ApplyArchiveTargets(BrowserBackupManifest manifest)
+    {
+        RestoreTargets.Clear();
+        foreach (var candidate in Browsers.Where(b => b.CanSelect && b.Family == manifest.Family))
+        {
+            RestoreTargets.Add(candidate);
+        }
+
+        var match = RestoreTargets.FirstOrDefault(b => b.Id.Equals(manifest.BrowserId, StringComparison.OrdinalIgnoreCase));
+        TargetBrowser = match ?? RestoreTargets.FirstOrDefault();
+        MissingBrowser = BrowserInstallHelp.For(manifest, Browsers.Where(b => b.CanSelect).Select(b => b.Id));
+    }
+
+    /// <summary>Set when the archive's own browser is not installed here; drives the install offer.</summary>
+    [ObservableProperty]
+    [NotifyPropertyChangedFor(nameof(HasMissingBrowser), nameof(MissingBrowserText), nameof(InstallMissingBrowserLabel),
+        nameof(MissingBrowserInstallable), nameof(CanInstallMissingBrowser))]
+    private MissingBrowserAdvice? _missingBrowser;
+
+    [ObservableProperty]
+    [NotifyPropertyChangedFor(nameof(CanInstallMissingBrowser))]
+    private bool _isInstallingBrowser;
+
+    public bool HasMissingBrowser => MissingBrowser is not null;
+
+    public bool MissingBrowserInstallable => MissingBrowser?.CanInstall == true;
+
+    public bool CanInstallMissingBrowser => MissingBrowserInstallable && !IsInstallingBrowser;
+
+    public string MissingBrowserText => MissingBrowser is not { } missing
+        ? string.Empty
+        : missing.CanInstall
+            ? $"This backup is from {missing.BrowserName}, which is not installed on this PC. Install it here, then: {missing.NextSteps}"
+            : $"This backup is from {missing.BrowserName}, which is not installed on this PC. Install it from its website, then: {missing.NextSteps}";
+
+    public string InstallMissingBrowserLabel => MissingBrowser is { } missing ? $"Install {missing.BrowserName}" : string.Empty;
+
+    /// <summary>Installs the archive's browser with winget, then explains the first-start step.</summary>
+    [RelayCommand]
+    private async Task InstallMissingBrowserAsync()
+    {
+        if (MissingBrowser is not { CanInstall: true } missing || IsInstallingBrowser)
+        {
+            return;
+        }
+
+        if (!_dialogs.Confirm($"Install {missing.BrowserName}",
+                $"CTRL+Z will install {missing.BrowserName} with winget ({missing.WingetId}). Windows may ask for permission.\n\n" +
+                "After it installs: " + missing.NextSteps,
+                $"Install {missing.BrowserName}", "Cancel"))
+        {
+            return;
+        }
+
+        IsInstallingBrowser = true;
+        RestoreStatus = $"Installing {missing.BrowserName}…";
+        try
+        {
+            if (!await _services.Winget.IsAvailableAsync())
+            {
+                _dialogs.Error("winget is not available on this PC yet. Install App Installer from Settings, then try again.");
+                RestoreStatus = "winget is not available.";
+                return;
+            }
+
+            var result = await _services.Winget.InstallAsync(missing.WingetId!, "winget", null);
+            _services.Log.Write(LogLevel.Info, $"Installed {missing.BrowserName} for a restore: exit code {result.ExitCode}.");
+            if (result.ExitCode == 0)
+            {
+                RestoreStatus = $"{missing.BrowserName} is installed. {missing.NextSteps}";
+                _dialogs.Info($"{missing.BrowserName} is installed.\n\n{missing.NextSteps}", "Almost ready to restore");
+            }
+            else
+            {
+                RestoreStatus = $"{missing.BrowserName} could not be installed (winget exit code {result.ExitCode}).";
+                _dialogs.Error($"{missing.BrowserName} could not be installed (winget exit code {result.ExitCode}). Install it from its website, then press Refresh.");
+            }
+        }
+        catch (Exception ex)
+        {
+            _services.Log.Write(LogLevel.Warning, $"Browser install failed: {LogPrivacy.Describe(ex)}");
+            RestoreStatus = $"{missing.BrowserName} could not be installed.";
+            _dialogs.Error($"{missing.BrowserName} could not be installed.\n\n" + ex.Message);
+        }
+        finally
+        {
+            IsInstallingBrowser = false;
+        }
+    }
+
     partial void OnArchiveInfoChanged(BrowserArchiveInfo? value)
     {
+        if (value is null)
+        {
+            MissingBrowser = null;
+        }
+
         OnPropertyChanged(nameof(HasArchive));
         OnPropertyChanged(nameof(ArchiveContentsText));
         OnPropertyChanged(nameof(CanRestore));
@@ -497,15 +597,7 @@ public sealed partial class BrowsersViewModel : PageViewModelBase
                              $"{info.Manifest.ProfileCount()} profile(s) · " +
                              $"{FileUtil.FormatBytes(info.Manifest.TotalBytes)}";
             SelectedRestoreCount = RestoreProfiles.Count(p => p.IsSelected);
-            RestoreTargets.Clear();
-            foreach (var candidate in Browsers.Where(b => b.CanSelect && b.Family == info.Manifest.Family))
-            {
-                RestoreTargets.Add(candidate);
-            }
-
-            var match = RestoreTargets.FirstOrDefault(b =>
-                b.Id.Equals(info.Manifest.BrowserId, StringComparison.OrdinalIgnoreCase));
-            TargetBrowser = match ?? RestoreTargets.FirstOrDefault();
+            ApplyArchiveTargets(info.Manifest);
             _services.State.Settings.LastRestoreArchive = ArchivePath;
             _services.State.SaveSettings();
             RestoreStatus = TargetBrowser is null
@@ -770,6 +862,11 @@ public sealed partial class BrowsersViewModel : PageViewModelBase
             OnPropertyChanged(nameof(HasNoBrowsers));
             OnPropertyChanged(nameof(DetectedSummary));
             TargetBrowser = RestoreTargets.FirstOrDefault();
+            if (ArchiveInfo is { } archive)
+            {
+                ApplyArchiveTargets(archive.Manifest);
+            }
+
             RecalculateEstimate();
         }
         catch (Exception ex)

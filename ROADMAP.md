@@ -22,8 +22,8 @@ promise of a date, and a section can be reordered if a bug matters more.
 - [x] **4. Reliability and security** - done, shipping in v1.4.0 (ARM64 builds deferred)
 - [ ] **5. Foundation for optional extras** - planned
 - [x] **6. UI polish and motion** - done, shipping in v1.4.0 (translations later)
-- [ ] **7. Onboarding and sharing profiles** - **next**
-- [ ] **8. Release and distribution** - planned
+- [x] **7. Onboarding and sharing profiles** - done, shipping in v1.4.0
+- [ ] **8. Release and distribution** - **next**
 - [ ] **9. Optional extra: scheduled and local backups** - planned
 - [ ] **10. Optional extra: settings backup** - planned
 - [ ] **11. Optional extras: availability** - planned
@@ -127,7 +127,11 @@ restoring a browser profile from an existing backup on a machine that never had 
   carries and what needs attention there (apps installed from a local file, post-install commands
   that stay blocked until reviewed on the new PC), and leaves notes out unless you tick *Include
   my notes*.
-- [ ] **D. Restoring for a browser that is not installed yet.**
+- [x] **D. Restoring for a browser that is not installed yet.** When a backup's browser is not on
+  this PC, the restore panel says so and offers to install it with winget (Chrome, Edge, Brave,
+  Vivaldi, Firefox, LibreWolf, Waterfox, Zen). The browser creates its own data folder on its
+  first start; after that, Refresh and restore as usual. CTRL+Z does not build a browser's folder
+  by hand.
 
 ### 8. Release and distribution
 
