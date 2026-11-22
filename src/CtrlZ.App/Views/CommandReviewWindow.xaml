@@ -1,0 +1,93 @@
+<!-- SPDX-License-Identifier: AGPL-3.0-only -->
+<!-- Copyright (c) 2026 iam-groot1 -->
+
+<Window x:Class="CtrlZ.App.Views.CommandReviewWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:shell="clr-namespace:System.Windows.Shell;assembly=PresentationFramework"
+        Title="Review commands"
+        Width="680"
+        SizeToContent="Height"
+        MinHeight="240"
+        MaxHeight="720"
+        WindowStyle="None"
+        ResizeMode="NoResize"
+        WindowStartupLocation="CenterOwner"
+        ShowInTaskbar="False"
+        Background="{DynamicResource Brush.Surface}"
+        Foreground="{DynamicResource Brush.TextPrimary}"
+        FontFamily="{StaticResource Font.Text}">
+    <shell:WindowChrome.WindowChrome>
+        <shell:WindowChrome CaptionHeight="42" ResizeBorderThickness="0" GlassFrameThickness="0"
+                            UseAeroCaptionButtons="False" />
+    </shell:WindowChrome.WindowChrome>
+
+    <Border BorderBrush="{DynamicResource Brush.Border}" BorderThickness="1">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="42" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+
+            <Border Grid.Row="0" Background="{DynamicResource Brush.SurfaceAlt}"
+                    BorderBrush="{DynamicResource Brush.Border}" BorderThickness="0,0,0,1">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="46" />
+                    </Grid.ColumnDefinitions>
+                    <StackPanel Orientation="Horizontal" Margin="16,0,0,0" VerticalAlignment="Center">
+                        <TextBlock Text="&#xE72E;" FontFamily="{StaticResource Font.Icons}" FontSize="15"
+                                   Foreground="{DynamicResource Brush.Accent}" Margin="0,0,9,0" />
+                        <TextBlock Text="Review post-install commands" FontSize="13" FontWeight="SemiBold" VerticalAlignment="Center" />
+                    </StackPanel>
+                    <Button Grid.Column="1" Style="{StaticResource Button.Window}" Command="{Binding CloseCommand}"
+                            AutomationProperties.Name="Close">
+                        <TextBlock Text="&#xE711;" FontFamily="{StaticResource Font.Icons}" FontSize="10" />
+                    </Button>
+                </Grid>
+            </Border>
+
+            <StackPanel Grid.Row="1" Margin="20,16,20,8">
+                <TextBlock FontSize="13.5" FontWeight="SemiBold" TextWrapping="Wrap"
+                           Text="This profile did not originate on this PC. Its commands stay blocked until you approve each one." />
+                <TextBlock Style="{StaticResource Text.Caption}" TextWrapping="Wrap" Margin="0,4,0,0"
+                           Text="An approval is stored on this PC only, never in the profile file. Editing a command later blocks it again." />
+
+                <TextBlock Text="{Binding PositionText}" Style="{StaticResource Text.Caption}" Margin="0,14,0,4" />
+                <Border BorderBrush="{DynamicResource Brush.Border}" BorderThickness="1" Padding="12,10"
+                        Background="{DynamicResource Brush.SurfaceAlt}" DataContext="{Binding Current}">
+                    <StackPanel>
+                        <TextBlock Text="{Binding AppName}" FontWeight="SemiBold" FontSize="12.5" TextWrapping="Wrap" />
+                        <TextBlock Text="{Binding CommandText}" FontFamily="{StaticResource Font.Mono}" TextWrapping="Wrap"
+                                   Margin="0,6,0,0" Foreground="{DynamicResource Brush.TextPrimary}" />
+                        <TextBlock Text="{Binding DetailsText}" Style="{StaticResource Text.Caption}" TextWrapping="Wrap" Margin="0,6,0,0" />
+                        <TextBlock Text="{Binding RisksText}" Style="{StaticResource Text.Caption}" TextWrapping="Wrap" Margin="0,4,0,0"
+                                   Foreground="{DynamicResource Brush.Warning}"
+                                   Visibility="{Binding IsRisky, Converter={StaticResource BoolToVisibility}}" />
+                        <TextBlock Text="{Binding StateText}" Style="{StaticResource Text.Caption}" TextWrapping="Wrap" Margin="0,4,0,0" />
+                    </StackPanel>
+                </Border>
+            </StackPanel>
+
+            <Border Grid.Row="2" Padding="20,12,20,18">
+                <Grid>
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
+                        <Button Content="Previous" Style="{StaticResource Button.Secondary}" Command="{Binding PreviousCommand}" />
+                        <Button Content="Next" Style="{StaticResource Button.Secondary}" Margin="8,0,0,0" Command="{Binding NextCommand}" />
+                        <Button Content="This profile is mine…" Style="{StaticResource Button.Link}" Margin="12,0,0,0"
+                                VerticalAlignment="Center" Command="{Binding MarkAsLocalCommand}"
+                                Visibility="{Binding IsLocal, Converter={StaticResource InverseBoolToVisibility}}" />
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                        <Button Content="Done" Style="{StaticResource Button.Secondary}" MinWidth="96"
+                                IsCancel="True" Command="{Binding CloseCommand}" />
+                        <Button Content="Approve this command" Style="{StaticResource Button.Primary}" MinWidth="160"
+                                Margin="8,0,0,0" Command="{Binding ApproveCommand}" />
+                    </StackPanel>
+                </Grid>
+            </Border>
+        </Grid>
+    </Border>
+</Window>

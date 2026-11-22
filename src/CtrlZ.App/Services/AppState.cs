@@ -42,6 +42,16 @@ public sealed class AppState : ObservableObject
     /// <summary>Read-only view of where a profile came from, for the preview and review screens.</summary>
     public ProfileOrigin OriginOf(AppProfile profile) => _origins.Get(profile.Id);
 
+    /// <summary>
+    /// Records the active profile as created here. Only the review screen calls this, and only after
+    /// the user confirmed an explicit dialog; without that flag nothing changes.
+    /// </summary>
+    public void MarkActiveAsLocal(bool userConfirmed)
+    {
+        ProfileOriginRecorder.MarkAsLocal(_origins, _activeProfile, userConfirmed);
+        ProfileContentChanged?.Invoke(this, EventArgs.Empty);
+    }
+
     public event EventHandler? ActiveProfileChanged;
     public event EventHandler? ProfileContentChanged;
     public event EventHandler? ProfilesChanged;

@@ -145,6 +145,9 @@
                                 IsEnabled="{Binding IsDryRunning, Converter={StaticResource BoolNegation}}" />
                         <Button Content="Export report" Style="{StaticResource Button.Link}" Margin="12,0,0,0"
                                 Command="{Binding ExportReportCommand}" VerticalAlignment="Center" />
+                        <Button Content="Review commands" Style="{StaticResource Button.Link}" Margin="12,0,0,0"
+                                Command="{Binding ReviewCommandsCommand}" VerticalAlignment="Center"
+                                Visibility="{Binding HasCommandsToReview, Converter={StaticResource BoolToVisibility}}" />
                     </StackPanel>
 
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">

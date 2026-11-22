@@ -183,6 +183,20 @@ public class ProfileRouteOriginTests : IDisposable
         Assert.False(PostInstallCommandForm.CanEdit(state.OriginOf(state.ActiveProfile)));
     }
 
+    [Theory]
+    [InlineData(false, ProfileOrigin.Imported)]
+    [InlineData(true, ProfileOrigin.Local)]
+    public void MarkActiveAsLocal_changes_origin_only_with_confirmation(bool confirmed, ProfileOrigin expected)
+    {
+        var source = WriteExternalProfile("mine-" + confirmed);
+        var (state, Origin) = NewState();
+        var imported = state.ImportProfile(source);
+
+        state.MarkActiveAsLocal(confirmed);
+
+        Assert.Equal(expected, Origin(imported.Id));
+    }
+
     [Fact]
     public void Editing_an_app_command_in_a_local_profile_keeps_it_local_and_editable()
     {

@@ -61,22 +61,15 @@ public sealed partial class PreviewViewModel : ObservableObject
     private readonly AppServices _services;
     private readonly DialogService _dialogs;
     private readonly InstallPlan _plan;
+    private readonly AppProfile _profile;
 
     public PreviewViewModel(AppServices services, DialogService dialogs, AppProfile profile, string profileName)
     {
         _services = services;
         _dialogs = dialogs;
+        _profile = profile;
         _plan = new InstallPlanner().Build(profile, profileName);
-
-        // Read-only: the preview describes commands and never writes an approval.
-        var approvals = new PostInstallApprovalStore(Path.Combine(services.Paths.State, PostInstallStep.ApprovalsFileName));
-        Commands = CommandPreview.ForProfile(profile, services.State.OriginOf(profile), approvals);
-        var commandByApp = Commands.ToDictionary(line => line.AppId, StringComparer.Ordinal);
-
-        foreach (var item in _plan.Items)
-        {
-            Items.Add(new PreviewRow(item, commandByApp.GetValueOrDefault(item.AppId)));
-        }
+        LoadCommands();
 
         SummaryText = _plan.IsEmpty
             ? "There is nothing enabled to install."
@@ -89,7 +82,51 @@ public sealed partial class PreviewViewModel : ObservableObject
     public ObservableCollection<PreviewRow> Items { get; } = new();
 
     /// <summary>Every post-install command in this run, in install order.</summary>
-    public IReadOnlyList<CommandPreviewLine> Commands { get; }
+    public IReadOnlyList<CommandPreviewLine> Commands { get; private set; } = [];
+
+    /// <summary>True when some command is blocked until it is reviewed.</summary>
+    public bool HasCommandsToReview => Commands.Any(line => !CommandStateResolver.MayRun(line.State));
+
+    /// <summary>Reads approvals and origin fresh and rebuilds the rows. Never writes anything.</summary>
+    private void LoadCommands()
+    {
+        var approvals = new PostInstallApprovalStore(Path.Combine(_services.Paths.State, PostInstallStep.ApprovalsFileName));
+        Commands = CommandPreview.ForProfile(_profile, _services.State.OriginOf(_profile), approvals);
+        var commandByApp = Commands
+            .GroupBy(line => line.AppId, StringComparer.Ordinal)
+            .ToDictionary(group => group.Key, group => group.First(), StringComparer.Ordinal);
+
+        Items.Clear();
+        foreach (var item in _plan.Items)
+        {
+            var row = new PreviewRow(item, commandByApp.GetValueOrDefault(item.AppId));
+            if (_lastReport?.Items.FirstOrDefault(result => result.AppId == item.AppId) is { } result)
+            {
+                row.DryRunStatus = result.Status;
+                row.DryRunText = result.Message;
+            }
+
+            Items.Add(row);
+        }
+
+        if (_lastReport is not null)
+        {
+            _lastReport = _lastReport with { Commands = Commands };
+        }
+
+        OnPropertyChanged(nameof(Commands));
+        OnPropertyChanged(nameof(HasCommandsToReview));
+    }
+
+    [RelayCommand]
+    private void ReviewCommands()
+    {
+        if (_dialogs.ShowCommandReview(_services, _profile))
+        {
+            LoadCommands();
+            StatusLine = "Command review saved on this PC. The list below is up to date.";
+        }
+    }
 
     public IReadOnlyList<string> PlanWarnings { get; }
 
