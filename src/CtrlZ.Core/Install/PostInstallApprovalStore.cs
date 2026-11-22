@@ -75,18 +75,17 @@ public sealed class PostInstallApprovalStore
     {
         var hash = HashOf(command);
 
+        // Once a slot has its own record it alone decides: an old pre-slot hash can never override
+        // "this slot changed since it was approved".
         if (_slots.TryGetValue(profileId, out var slots) &&
             slots.TryGetValue(SlotKey(appId, command), out var approved))
         {
-            if (string.Equals(approved, hash, StringComparison.Ordinal))
-            {
-                return ApprovalState.Current;
-            }
-
-            // A pre-slot record for the exact text still counts; otherwise the slot was edited.
-            return LegacyContains(profileId, hash) ? ApprovalState.Current : ApprovalState.Outdated;
+            return string.Equals(approved, hash, StringComparison.Ordinal)
+                ? ApprovalState.Current
+                : ApprovalState.Outdated;
         }
 
+        // Pre-slot records approve exactly their text, as they did before slots existed.
         return LegacyContains(profileId, hash) ? ApprovalState.Current : ApprovalState.None;
     }
 
@@ -119,6 +118,13 @@ public sealed class PostInstallApprovalStore
         }
     }
 
+    private static Dictionary<string, List<string>> WithoutNulls(Dictionary<string, List<string>>? source) =>
+        new(
+            (source ?? new())
+                .Where(pair => pair.Value is not null)
+                .ToDictionary(pair => pair.Key, pair => pair.Value.Where(hash => hash is not null).ToList()),
+            StringComparer.Ordinal);
+
     private bool LegacyContains(string profileId, string hash) =>
         _legacy.TryGetValue(profileId, out var hashes) && hashes.Contains(hash, StringComparer.Ordinal);
 
@@ -135,26 +141,32 @@ public sealed class PostInstallApprovalStore
             using var document = JsonDocument.Parse(json);
 
             if (document.RootElement.ValueKind == JsonValueKind.Object &&
-                document.RootElement.TryGetProperty("version", out var version) &&
-                version.ValueKind == JsonValueKind.Number)
+                document.RootElement.TryGetProperty("version", out var version))
             {
+                // Only the version this code writes is understood; anything else approves nothing.
+                if (version.ValueKind != JsonValueKind.Number || !version.TryGetInt32(out var number) || number != CurrentVersion)
+                {
+                    return;
+                }
+
                 var file = JsonSerializer.Deserialize<ApprovalFile>(json, CtrlZ.Core.Infrastructure.JsonDefaults.Profile);
                 _slots = new Dictionary<string, Dictionary<string, string>>(
-                    (file?.Slots ?? new()).ToDictionary(
-                        pair => pair.Key,
-                        pair => new Dictionary<string, string>(pair.Value ?? new(), StringComparer.Ordinal),
-                        StringComparer.Ordinal),
+                    (file?.Slots ?? new())
+                        .Where(pair => pair.Value is not null)
+                        .ToDictionary(
+                            pair => pair.Key,
+                            pair => new Dictionary<string, string>(
+                                pair.Value!.Where(slot => slot.Value is not null).ToDictionary(slot => slot.Key, slot => slot.Value),
+                                StringComparer.Ordinal),
+                            StringComparer.Ordinal),
                     StringComparer.Ordinal);
-                _legacy = new Dictionary<string, List<string>>(file?.Legacy ?? new(), StringComparer.Ordinal);
+                _legacy = WithoutNulls(file?.Legacy);
                 return;
             }
 
-            // Version 1: { profileId: [hashes] }. Kept as is, read-only, until each hash mismatches.
-            var flat = JsonSerializer.Deserialize<Dictionary<string, List<string>>>(json, CtrlZ.Core.Infrastructure.JsonDefaults.Profile);
-            if (flat is not null)
-            {
-                _legacy = new Dictionary<string, List<string>>(flat, StringComparer.Ordinal);
-            }
+            // Version 1: { profileId: [hashes] }. Kept read-only: each hash approves exactly its text.
+            _legacy = WithoutNulls(JsonSerializer.Deserialize<Dictionary<string, List<string>>>(
+                json, CtrlZ.Core.Infrastructure.JsonDefaults.Profile));
         }
         catch (Exception)
         {

@@ -162,11 +162,58 @@ public sealed class PostInstallApprovalSlotTests : IDisposable
     public void A_profile_without_command_ids_keeps_its_content_hash()
     {
         // Commands saved before ids existed have no "id" in JSON, so a Local profile stays Local.
+        // ContentHash serializes with JsonDefaults.Profile; the command object must have no "id" key.
         var profile = new AppProfile { Id = "p", Apps = [new AppEntry { Id = "a", PostInstall = Command() }] };
         var json = JsonSerializer.Serialize(profile, CtrlZ.Core.Infrastructure.JsonDefaults.Profile);
+        using var document = JsonDocument.Parse(json);
+        var app = document.RootElement.EnumerateObject()
+            .First(property => property.Name.Equals("apps", StringComparison.OrdinalIgnoreCase))
+            .Value[0];
+        var command = app.EnumerateObject()
+            .First(property => property.Name.Equals("postInstall", StringComparison.OrdinalIgnoreCase))
+            .Value;
 
-        Assert.DoesNotContain("\"id\":null", json.Replace(" ", string.Empty), StringComparison.OrdinalIgnoreCase);
-        Assert.Equal(ProfileOriginRecorder.ContentHash(profile), ProfileOriginRecorder.ContentHash(profile.Clone()));
+        Assert.DoesNotContain(command.EnumerateObject(), property => property.Name.Equals("id", StringComparison.OrdinalIgnoreCase));
+    }
+
+    [Theory]
+    [InlineData("{\"version\": 1, \"slots\": {}}")]
+    [InlineData("{\"version\": 99, \"slots\": {}}")]
+    [InlineData("{\"version\": \"2\"}")]
+    public void A_record_with_an_unknown_version_approves_nothing(string content)
+    {
+        Directory.CreateDirectory(_folder);
+        var command = Command();
+        var withSlot = content.Replace("{}", "{\"p1\": {\"" + PostInstallApprovalStore.SlotKey("app", command).Replace("\\", "\\\\") + "\": \"" + PostInstallApprovalStore.HashOf(command) + "\"}}");
+        File.WriteAllText(StorePath, withSlot);
+
+        Assert.Equal(ApprovalState.None, new PostInstallApprovalStore(StorePath).StateOf("p1", "app", command));
+    }
+
+    [Theory]
+    [InlineData("{\"p1\": null}")]
+    [InlineData("{\"version\": 2, \"legacy\": {\"p1\": null}, \"slots\": {\"p1\": null}}")]
+    public void Null_lists_load_safely_and_approve_nothing(string content)
+    {
+        Directory.CreateDirectory(_folder);
+        File.WriteAllText(StorePath, content);
+
+        Assert.Equal(ApprovalState.None, new PostInstallApprovalStore(StorePath).StateOf("p1", "app", Command()));
+    }
+
+    [Fact]
+    public void A_slot_record_overrides_an_old_version_1_record_for_that_slot()
+    {
+        Directory.CreateDirectory(_folder);
+        var original = Command("a.reg", id: "c1");
+        File.WriteAllText(StorePath, JsonSerializer.Serialize(
+            new Dictionary<string, List<string>> { ["p1"] = [PostInstallApprovalStore.HashOf(original)] }));
+        var store = new PostInstallApprovalStore(StorePath);
+        var edited = Command("b.reg", id: "c1");
+        store.Approve("p1", "app", edited);
+
+        // Editing back to the v1-approved text is a change since the last approval of this slot.
+        Assert.Equal(ApprovalState.Outdated, store.StateOf("p1", "app", original));
     }
 
     [Fact]
