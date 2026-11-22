@@ -108,4 +108,77 @@ public class InstallOrderTests
         Assert.DoesNotContain(result.Ordered, app => app.Name == "Steam");
         Assert.Contains(result.Skipped, skipped => skipped.Reason.Contains("failed", StringComparison.OrdinalIgnoreCase));
     }
+
+    [Fact]
+    public void A_cycle_stops_its_members_and_their_dependents_but_not_unrelated_apps()
+    {
+        var result = new InstallOrderPlanner().Plan(Profile(
+            App("a", "A", after: "b"),
+            App("b", "B", after: "a"),
+            App("c", "C", after: "a"),
+            App("d", "D")));
+
+        Assert.Equal(new[] { "D" }, result.Ordered.Select(app => app.Name));
+        Assert.Equal(new[] { "a", "b", "c" }, result.Skipped.Select(skipped => skipped.AppId).OrderBy(id => id));
+        Assert.Single(result.Cycles);
+    }
+
+    [Fact]
+    public void A_self_reference_is_a_cycle()
+    {
+        var result = new InstallOrderPlanner().Plan(Profile(App("a", "A", after: "a")));
+
+        Assert.False(result.IsOrderable);
+        Assert.Empty(result.Ordered);
+    }
+
+    [Fact]
+    public void A_failure_skips_dependents_transitively()
+    {
+        var result = new InstallOrderPlanner().Plan(
+            Profile(App("c", "C"), App("b", "B", after: "c"), App("a", "A", after: "b"), App("x", "X")),
+            failedAppIds: new[] { "c" });
+
+        Assert.Equal(new[] { "a", "b" }, result.Skipped.Select(skipped => skipped.AppId).OrderBy(id => id));
+        Assert.Contains(result.Ordered, app => app.Id == "x");
+    }
+
+    [Fact]
+    public void An_app_already_in_the_profile_satisfies_a_dependency_instead_of_a_duplicate()
+    {
+        var result = new InstallOrderPlanner(Catalog()).Plan(Profile(
+            App("steam", "Steam", "Valve.Steam"),
+            App("mine", "My VC++ x64", "Microsoft.VCRedist.2015+.x64")));
+
+        Assert.DoesNotContain(result.AutoAdded, app => app.PackageId == "Microsoft.VCRedist.2015+.x64");
+        Assert.Contains("mine", result.Dependencies["steam"]);
+        var names = result.Ordered.Select(app => app.Id).ToList();
+        Assert.True(names.IndexOf("mine") < names.IndexOf("steam"));
+    }
+
+    [Fact]
+    public void A_disabled_dependency_counts_as_removed_and_is_not_added_back()
+    {
+        var removed = App("dep:vcredist.x64", "Visual C++ x64", "Microsoft.VCRedist.2015+.x64");
+        removed.IsAutoDependency = true;
+        removed.Enabled = false;
+
+        var result = new InstallOrderPlanner(Catalog()).Plan(Profile(App("steam", "Steam", "Valve.Steam"), removed));
+
+        Assert.DoesNotContain(result.Ordered, app => app.PackageId == "Microsoft.VCRedist.2015+.x64");
+        Assert.DoesNotContain("dep:vcredist.x64", result.Dependencies["steam"]);
+        Assert.Contains(result.Ordered, app => app.Id == "steam");
+    }
+
+    [Fact]
+    public void Auto_added_dependencies_are_marked_and_listed_once()
+    {
+        var result = new InstallOrderPlanner(Catalog()).Plan(Profile(
+            App("steam", "Steam", "Valve.Steam"),
+            App("obs", "OBS Studio", "OBSProject.OBSStudio")));
+
+        Assert.All(result.AutoAdded, app => Assert.True(app.IsAutoDependency));
+        Assert.Equal(result.AutoAdded.Count, result.AutoAdded.Select(app => app.PackageId).Distinct().Count());
+        Assert.Equal(result.AutoAdded.Count + 2, result.Ordered.Count);
+    }
 }
