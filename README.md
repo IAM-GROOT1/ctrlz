@@ -198,15 +198,15 @@ settings file. Commands are built to be safe to share profiles with:
 - **No shell.** The program and each argument are passed separately; nothing is concatenated into
   a command line. A command that runs too long is stopped together with everything it started.
 - **Shown in full.** The install preview and the dry-run report list every command with its state:
-  *Runs after install*, *Approved - runs after install*, *Blocked - imported profile, review
-  required*, or *Off in profile - will not run*. Commands matching a risky pattern (for example
-  downloading and executing a script) are flagged.
+  *Runs after install*, *Approved - runs after install*, *Edited since approval - needs review*,
+  *Blocked - imported profile, review required*, or *Off in profile - will not run*. Commands
+  matching a risky pattern (for example downloading and executing a script) are flagged.
 - **Imported profiles are blocked.** A profile that did not originate on this PC (opened from a
   file, imported, or with no local record) never runs a command until you approve that exact
   command in **Review commands** in the install preview. The preview is on by default; with it
   turned off in Settings there is no review, so imported commands simply stay blocked. Approvals
-  are stored on this PC only, never in the profile file. Editing a command changes it, so it is
-  blocked again until reviewed.
+  are stored on this PC only, never in the profile file, and each one belongs to one command of one
+  app. Editing a command changes it, so it needs review again before it can run.
 - **Only your own profiles can edit commands.** The app editor shows the command fields only for a
   profile created on this PC. *This profile is mine* in the review screen marks an imported profile
   as yours, after an explicit confirmation.

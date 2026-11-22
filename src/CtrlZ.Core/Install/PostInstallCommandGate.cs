@@ -69,11 +69,18 @@ public sealed class PostInstallCommandGate
     {
         var profileOrigin = origin ?? _origins.Get(profile.Id);
         var risks = PostInstallCommandRisk.Scan(command);
-        var approved = _approvals.IsApproved(profile.Id, command);
+        var approval = _approvals.StateOf(profile.Id, app.Id, command);
+        var approved = approval == ApprovalState.Current;
 
         // Order matters: an untrusted profile is blocked first, so no stored flag can rescue it.
         if (profileOrigin != ProfileOrigin.Local && !approved)
         {
+            if (approval == ApprovalState.Outdated)
+            {
+                return new CommandVerdict(app, command, CommandDecision.NeedsReview,
+                    "This command changed after it was approved. Review it again to enable it.", risks);
+            }
+
             var reason = profileOrigin == ProfileOrigin.Imported
                 ? "This profile came from outside this PC. Review the command to enable it."
                 : "This profile has no local origin record, so its commands stay disabled.";

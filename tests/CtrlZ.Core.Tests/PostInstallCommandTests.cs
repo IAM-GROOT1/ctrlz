@@ -76,7 +76,9 @@ public class PostInstallCommandTests
         var profile = ProfileWith(AppWith(command));
         origins.Set(profile.Id, ProfileOrigin.Imported);
 
-        Assert.Equal(CommandDecision.BlockedUntrusted, gate.Evaluate(profile).Single().Decision);
+        var verdict = gate.Evaluate(profile).Single();
+        Assert.Equal(CommandDecision.BlockedUntrusted, verdict.Decision);
+        Assert.False(verdict.MayRun);
     }
 
         [Fact]
@@ -89,7 +91,7 @@ public class PostInstallCommandTests
         var command = Command("cmd.exe", "/c", "echo", "hi");
         var profile = ProfileWith(AppWith(command));
         origins.Set(profile.Id, ProfileOrigin.Imported);
-        approvals.Approve(profile.Id, command);
+        approvals.Approve(profile.Id, profile.Apps[0].Id, command);
 
         Assert.Equal(CommandDecision.Run, gate.Evaluate(profile).Single().Decision);
     }
@@ -104,11 +106,13 @@ public class PostInstallCommandTests
         var command = Command("cmd.exe", "/c", "echo", "hi");
         var profile = ProfileWith(AppWith(command));
         origins.Set(profile.Id, ProfileOrigin.Imported);
-        approvals.Approve(profile.Id, command);
+        approvals.Approve(profile.Id, profile.Apps[0].Id, command);
 
         command.Arguments.Add("--extra");
 
-        Assert.Equal(CommandDecision.BlockedUntrusted, gate.Evaluate(profile).Single().Decision);
+        var verdict = gate.Evaluate(profile).Single();
+        Assert.Equal(CommandDecision.NeedsReview, verdict.Decision);
+        Assert.False(verdict.MayRun);
     }
 
         // ---- runner --------------------------------------------------------------------

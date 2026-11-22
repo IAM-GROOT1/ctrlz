@@ -35,10 +35,10 @@ public sealed partial class CommandReviewItem : ObservableObject
     [ObservableProperty]
     private string _stateText = string.Empty;
 
-    internal void Refresh(ProfileOrigin origin, bool approved)
+    internal void Refresh(ProfileOrigin origin, ApprovalState approval)
     {
-        IsApproved = approved;
-        StateText = CommandPreview.ForApp(App, 1, origin, approved)?.StateText ?? string.Empty;
+        IsApproved = approval == ApprovalState.Current;
+        StateText = CommandPreview.ForApp(App, 1, origin, approval)?.StateText ?? string.Empty;
     }
 }
 
@@ -133,9 +133,9 @@ public sealed partial class CommandReviewViewModel : ObservableObject
             return;
         }
 
-        _approvals.Approve(_profile.Id, item.Command);
+        _approvals.Approve(_profile.Id, item.App.Id, item.Command);
         Changed = true;
-        item.Refresh(_origin, _approvals.IsApproved(_profile.Id, item.Command));
+        item.Refresh(_origin, _approvals.StateOf(_profile.Id, item.App.Id, item.Command));
         ApproveCommand.NotifyCanExecuteChanged();
 
         if (CanNext())
@@ -178,7 +178,7 @@ public sealed partial class CommandReviewViewModel : ObservableObject
     {
         foreach (var item in Items)
         {
-            item.Refresh(_origin, _approvals.IsApproved(_profile.Id, item.Command));
+            item.Refresh(_origin, _approvals.StateOf(_profile.Id, item.App.Id, item.Command));
         }
     }
 }
