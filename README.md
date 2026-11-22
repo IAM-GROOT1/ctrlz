@@ -45,7 +45,9 @@ emoji icons.
   group by category or source, and multi-select. **Select all** selects every app visible under the
   active filter; **Select matched** is the matched-only shortcut.
 - Save **multiple portable profiles** (`Work PC`, `Gaming PC`, …) as human-readable JSON;
-  import/export them anywhere.
+  import/export them anywhere. **Export** says what needs attention on the other PC (local
+  installers to copy along, post-install commands that stay blocked until reviewed there) and
+  leaves app notes out of the file unless you tick *Include my notes*.
 - **Import an app list** from another package manager: **My Apps → Import list** reads the file
   from `winget export -o apps.json`, `scoop export > apps.json` (or its older text output) or
   `choco export` (`packages.config`). winget and Store ids are added as they are. Scoop and

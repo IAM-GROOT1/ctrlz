@@ -170,9 +170,9 @@ public sealed class AppState : ObservableObject
         OnPropertyChanged(nameof(ActiveProfileName));
     }
 
-    public void ExportActive(string destinationPath)
+    public void ExportActive(string destinationPath, bool includeNotes = true)
     {
-        _profileStore.SaveAs(_activeProfile, destinationPath);
+        _profileStore.SaveAs(CtrlZ.Core.Services.ProfileExport.ForExport(_activeProfile, includeNotes), destinationPath);
     }
 
     public void SaveActive()

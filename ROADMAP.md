@@ -123,7 +123,10 @@ restoring a browser profile from an existing backup on a machine that never had 
   interrupted, and Settings can open it again.
 - [x] **B. Multiple profiles.** Already in place: create, rename, switch, delete, import and
   export profiles in My Apps.
-- [ ] **C. Moving a profile to another PC.** A guided export that says what will not carry over.
+- [x] **C. Moving a profile to another PC.** **Export** in My Apps first says what the file
+  carries and what needs attention there (apps installed from a local file, post-install commands
+  that stay blocked until reviewed on the new PC), and leaves notes out unless you tick *Include
+  my notes*.
 - [ ] **D. Restoring for a browser that is not installed yet.**
 
 ### 8. Release and distribution

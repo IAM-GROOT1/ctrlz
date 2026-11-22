@@ -191,6 +191,20 @@ public sealed partial class MyAppsViewModel : PageViewModelBase
     [RelayCommand]
     private void ExportProfile()
     {
+        // Say what carries over before writing anything, and let notes stay behind.
+        var summary = ProfileExport.Summarize(_services.State.ActiveProfile);
+        var choice = _dialogs.Show(
+            "Export for another PC",
+            summary.Describe(),
+            primary: "Choose where to save",
+            secondary: "Cancel",
+            checkText: summary.HasNotes ? "Include my notes in the file" : null);
+        if (choice.Outcome != Views.DialogOutcome.Primary)
+        {
+            return;
+        }
+
+        var includeNotes = summary.HasNotes && choice.IsChecked;
         var dialog = new Microsoft.Win32.SaveFileDialog
         {
             Title = "Export profile",
@@ -207,9 +221,10 @@ public sealed partial class MyAppsViewModel : PageViewModelBase
 
         try
         {
-            _services.State.ExportActive(dialog.FileName);
+            _services.State.ExportActive(dialog.FileName, includeNotes);
             ShowStatus($"Exported to {dialog.FileName}");
-            _dialogs.Info($"Profile exported.\n\n{dialog.FileName}", "Profile exported");
+            _dialogs.Info($"Profile exported{(summary.HasNotes && !includeNotes ? " without notes" : string.Empty)}.\n\n{dialog.FileName}\n\n" +
+                "Copy it to a USB drive or another PC, along with your browser backups.", "Profile exported");
         }
         catch (Exception ex)
         {
