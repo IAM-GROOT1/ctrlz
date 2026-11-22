@@ -34,6 +34,9 @@
         <KeyBinding Modifiers="Control" Key="D4" Command="{Binding NavigateKeyCommand}" CommandParameter="add" />
         <KeyBinding Modifiers="Control" Key="D5" Command="{Binding NavigateKeyCommand}" CommandParameter="catalog" />
         <KeyBinding Modifiers="Control" Key="D6" Command="{Binding NavigateKeyCommand}" CommandParameter="browsers" />
+        <KeyBinding Modifiers="Control" Key="D7" Command="{Binding NavigateKeyCommand}" CommandParameter="ready" />
+        <KeyBinding Modifiers="Control" Key="D8" Command="{Binding NavigateKeyCommand}" CommandParameter="updates" />
+        <KeyBinding Modifiers="Control" Key="OemComma" Command="{Binding NavigateKeyCommand}" CommandParameter="settings" />
     </Window.InputBindings>
 
     <Window.Resources>

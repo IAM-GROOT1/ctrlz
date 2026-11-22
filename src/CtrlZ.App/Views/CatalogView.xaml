@@ -18,7 +18,7 @@
                         <ColumnDefinition Width="210" />
                         <ColumnDefinition Width="54" />
                     </Grid.ColumnDefinitions>
-                    <CheckBox IsChecked="{Binding IsSelected, Mode=TwoWay}" VerticalAlignment="Center"
+                    <CheckBox AutomationProperties.Name="{Binding Name, StringFormat='Select {0}'}" IsChecked="{Binding IsSelected, Mode=TwoWay}" VerticalAlignment="Center"
                               IsEnabled="{Binding CanInstall}" />
                     <StackPanel Grid.Column="1" Orientation="Horizontal">
                         <controls:AppIcon FallbackText="{Binding FallbackText}" Size="30" />
@@ -38,7 +38,7 @@
                                    Foreground="{DynamicResource Brush.TextSecondary}" TextTrimming="CharacterEllipsis"
                                    MaxWidth="194" />
                     </Border>
-                    <Button Grid.Column="3" Style="{StaticResource Button.Icon}"
+                    <Button AutomationProperties.Name="{Binding Name, StringFormat='Open the {0} website'}" Grid.Column="3" Style="{StaticResource Button.Icon}"
                             HorizontalAlignment="Right" Command="{Binding DataContext.OpenLinkCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
                             CommandParameter="{Binding Link}" ToolTip="Open project page">
                         <TextBlock Text="{StaticResource Icon.OpenNew}" FontFamily="{StaticResource Font.Icons}" FontSize="12" />
@@ -81,7 +81,7 @@
                 <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
             <Grid Width="270" HorizontalAlignment="Left">
-                <TextBox x:Name="SearchBox" Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}" Padding="30,7,10,7" />
+                <TextBox AutomationProperties.Name="Search the catalog" x:Name="SearchBox" Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}" Padding="30,7,10,7" />
                 <TextBlock Text="{StaticResource Icon.Search}" FontFamily="{StaticResource Font.Icons}" FontSize="12"
                            Foreground="{DynamicResource Brush.TextTertiary}" Margin="10,0,0,0" VerticalAlignment="Center"
                            IsHitTestVisible="False" />
@@ -106,7 +106,7 @@
                         <TextBlock Text="{Binding CatalogStatus}" FontSize="10.5" Foreground="{DynamicResource Brush.TextSecondary}" />
                     </StackPanel>
                 </Border>
-                <ComboBox Width="150" ItemsSource="{Binding Categories}" SelectedItem="{Binding SelectedCategory}"
+                <ComboBox AutomationProperties.Name="Category" Width="150" ItemsSource="{Binding Categories}" SelectedItem="{Binding SelectedCategory}"
                           Margin="0,0,8,0" />
                 <Button Content="Refresh" Style="{StaticResource Button.Secondary}" Command="{Binding RefreshCommand}"
                         IsEnabled="{Binding IsLoading, Converter={StaticResource BoolNegation}}" />

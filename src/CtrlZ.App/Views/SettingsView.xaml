@@ -167,7 +167,7 @@
                                 </StackPanel>
                             </Grid>
                         </Border>
-                        <TextBox Grid.Row="1" Text="{Binding LogText}" Style="{StaticResource Text.LogBox}"
+                        <TextBox AutomationProperties.Name="Application log" Grid.Row="1" Text="{Binding LogText}" Style="{StaticResource Text.LogBox}"
                                  BorderThickness="0" VerticalScrollBarVisibility="Auto"
                                  HorizontalScrollBarVisibility="Disabled" TextWrapping="NoWrap" />
                     </Grid>

@@ -56,17 +56,17 @@
                                Foreground="{DynamicResource Brush.TextPrimary}" />
                     <StackPanel x:Name="InputPanel" Margin="0,16,0,0" Visibility="Collapsed">
                         <TextBlock x:Name="InputLabel" Style="{StaticResource Text.Label}" />
-                        <TextBox x:Name="InputBox" />
+                        <TextBox AutomationProperties.Name="{Binding Text, ElementName=InputLabel}" x:Name="InputBox" />
                     </StackPanel>
-                    <CheckBox x:Name="ExtraCheckBox" Margin="0,16,0,0" Visibility="Collapsed" />
+                    <CheckBox AutomationProperties.Name="{Binding Content, RelativeSource={RelativeSource Self}}" x:Name="ExtraCheckBox" Margin="0,16,0,0" Visibility="Collapsed" />
                 </StackPanel>
             </ScrollViewer>
 
             <Border Grid.Row="2" Padding="22,12,22,18" Background="{DynamicResource Brush.Surface}">
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-                    <Button x:Name="SecondaryButton" Style="{StaticResource Button.Secondary}" Margin="0,0,8,0"
+                    <Button AutomationProperties.Name="{Binding Content, RelativeSource={RelativeSource Self}}" x:Name="SecondaryButton" Style="{StaticResource Button.Secondary}" Margin="0,0,8,0"
                             Click="Secondary_Click" MinWidth="86" />
-                    <Button x:Name="PrimaryButton" Style="{StaticResource Button.Primary}" Click="Primary_Click"
+                    <Button AutomationProperties.Name="{Binding Content, RelativeSource={RelativeSource Self}}" x:Name="PrimaryButton" Style="{StaticResource Button.Primary}" Click="Primary_Click"
                             MinWidth="96" IsDefault="True" />
                 </StackPanel>
             </Border>

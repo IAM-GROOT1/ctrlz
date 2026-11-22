@@ -47,7 +47,7 @@
                     <StackPanel>
                         <TextBlock Text="APP DETAILS" Style="{StaticResource Text.NavSection}" Margin="0,0,0,10" />
                         <TextBlock Text="Name" Style="{StaticResource Text.Label}" />
-                        <TextBox Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}" />
+                        <TextBox AutomationProperties.Name="Name" Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}" />
 
                         <Grid Margin="0,12,0,0">
                             <Grid.ColumnDefinitions>
@@ -57,11 +57,11 @@
                             </Grid.ColumnDefinitions>
                             <StackPanel>
                                 <TextBlock Text="Publisher (optional)" Style="{StaticResource Text.Label}" />
-                                <TextBox Text="{Binding Publisher, UpdateSourceTrigger=PropertyChanged}" />
+                                <TextBox AutomationProperties.Name="Publisher (optional)" Text="{Binding Publisher, UpdateSourceTrigger=PropertyChanged}" />
                             </StackPanel>
                             <StackPanel Grid.Column="2">
                                 <TextBlock Text="Category" Style="{StaticResource Text.Label}" />
-                                <ComboBox ItemsSource="{Binding Categories}" SelectedItem="{Binding SelectedCategory}"
+                                <ComboBox AutomationProperties.Name="Category" ItemsSource="{Binding Categories}" SelectedItem="{Binding SelectedCategory}"
                                           DisplayMemberPath="Label" />
                             </StackPanel>
                         </Grid>
@@ -70,9 +70,9 @@
 
                         <StackPanel Visibility="{Binding IsDirect, Converter={StaticResource BoolToVisibility}}">
                             <TextBlock Text="Download URL" Style="{StaticResource Text.Label}" />
-                            <TextBox Text="{Binding Url, UpdateSourceTrigger=PropertyChanged}" />
+                            <TextBox AutomationProperties.Name="Download URL" Text="{Binding Url, UpdateSourceTrigger=PropertyChanged}" />
                             <TextBlock Text="Save as file name (optional)" Style="{StaticResource Text.Label}" Margin="0,12,0,6" />
-                            <TextBox Text="{Binding FileName, UpdateSourceTrigger=PropertyChanged}" />
+                            <TextBox AutomationProperties.Name="Save as file name (optional)" Text="{Binding FileName, UpdateSourceTrigger=PropertyChanged}" />
                             <TextBlock Text="The app downloads at install time. Add switches on the right so it installs silently."
                                        Style="{StaticResource Text.Caption}" Margin="0,6,0,0" TextWrapping="Wrap" />
                         </StackPanel>
@@ -84,7 +84,7 @@
                                     <ColumnDefinition Width="*" />
                                     <ColumnDefinition Width="Auto" />
                                 </Grid.ColumnDefinitions>
-                                <TextBox Text="{Binding Repo, UpdateSourceTrigger=PropertyChanged}" />
+                                <TextBox AutomationProperties.Name="GitHub repository" Text="{Binding Repo, UpdateSourceTrigger=PropertyChanged}" />
                                 <Button Grid.Column="1" Content="Find latest" Style="{StaticResource Button.Secondary}"
                                         Margin="8,0,0,0" Command="{Binding FindReleaseCommand}"
                                         IsEnabled="{Binding IsLoadingRelease, Converter={StaticResource BoolNegation}}" />
@@ -122,7 +122,7 @@
                                 </Grid>
                             </Border>
                             <TextBlock Text="Asset handling" Style="{StaticResource Text.Label}" Margin="0,12,0,6" />
-                            <ComboBox ItemsSource="{Binding AssetKinds}" SelectedItem="{Binding SelectedAssetKind}"
+                            <ComboBox AutomationProperties.Name="Asset handling" ItemsSource="{Binding AssetKinds}" SelectedItem="{Binding SelectedAssetKind}"
                                       DisplayMemberPath="Label" />
                             <TextBlock Text="The latest release is checked again at install time; the chosen asset type is reused, not the stale version."
                                        Style="{StaticResource Text.Caption}" Margin="0,6,0,0" TextWrapping="Wrap" />
@@ -136,7 +136,7 @@
                                     <ColumnDefinition Width="Auto" />
                                     <ColumnDefinition Width="Auto" />
                                 </Grid.ColumnDefinitions>
-                                <TextBox Text="{Binding LocalPath, UpdateSourceTrigger=PropertyChanged}" />
+                                <TextBox AutomationProperties.Name="Installer path" Text="{Binding LocalPath, UpdateSourceTrigger=PropertyChanged}" />
                                 <Button Grid.Column="1" Content="File…" Style="{StaticResource Button.Secondary}"
                                         Margin="8,0,0,0" Command="{Binding BrowseLocalCommand}" />
                                 <Button Grid.Column="2" Content="Folder…" Style="{StaticResource Button.Ghost}"
@@ -147,7 +147,7 @@
                         </StackPanel>
 
                         <TextBlock Text="NOTES" Style="{StaticResource Text.NavSection}" Margin="0,20,0,10" />
-                        <TextBox Text="{Binding Notes, UpdateSourceTrigger=PropertyChanged}" Height="64" AcceptsReturn="True"
+                        <TextBox AutomationProperties.Name="Notes" Text="{Binding Notes, UpdateSourceTrigger=PropertyChanged}" Height="64" AcceptsReturn="True"
                                  TextWrapping="Wrap" VerticalContentAlignment="Top" VerticalScrollBarVisibility="Auto" />
                     </StackPanel>
                 </ScrollViewer>
@@ -170,7 +170,7 @@
                         </Border>
 
                         <TextBlock Text="Silent switches" Style="{StaticResource Text.Label}" Margin="0,14,0,6" />
-                        <TextBox Text="{Binding SilentArgs, UpdateSourceTrigger=PropertyChanged}" FontFamily="{StaticResource Font.Mono}" />
+                        <TextBox AutomationProperties.Name="Silent switches" Text="{Binding SilentArgs, UpdateSourceTrigger=PropertyChanged}" FontFamily="{StaticResource Font.Mono}" />
                         <WrapPanel Margin="0,8,0,0">
                             <Button Content="Inspect installer" Style="{StaticResource Button.Secondary}"
                                     Command="{Binding DetectInstallerCommand}" Margin="0,0,6,6" />
@@ -192,13 +192,13 @@
                         </Border>
 
                         <TextBlock Text="SHA-256 (optional)" Style="{StaticResource Text.Label}" Margin="0,14,0,6" />
-                        <TextBox Text="{Binding Hash, UpdateSourceTrigger=PropertyChanged}" FontFamily="{StaticResource Font.Mono}" />
+                        <TextBox AutomationProperties.Name="SHA-256 (optional)" Text="{Binding Hash, UpdateSourceTrigger=PropertyChanged}" FontFamily="{StaticResource Font.Mono}" />
                         <TextBlock Text="GitHub release digests are filled automatically when available. winget verifies its own manifests."
                                    Style="{StaticResource Text.Caption}" Margin="0,6,0,0" TextWrapping="Wrap" />
 
                         <StackPanel Margin="0,16,0,0" Visibility="{Binding HasTestLog, Converter={StaticResource BoolToVisibility}}">
                             <TextBlock Text="Test output" Style="{StaticResource Text.Label}" />
-                            <TextBox Text="{Binding TestLog}" Style="{StaticResource Text.LogBox}" IsReadOnly="True"
+                            <TextBox AutomationProperties.Name="Test output" Text="{Binding TestLog}" Style="{StaticResource Text.LogBox}" IsReadOnly="True"
                                      Height="150" VerticalScrollBarVisibility="Auto" />
                         </StackPanel>
 

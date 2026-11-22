@@ -146,6 +146,13 @@ get a Start menu shortcut under **CTRL+Z apps**; turn this off in **Settings →
 - All logs written to `%LOCALAPPDATA%\CTRL+Z\logs` and openable from Settings.
 - Light/dark theme follows Windows by default.
 - No account, telemetry, or cloud service.
+- **Keyboard and screen readers:**
+  - **Ctrl+1 to Ctrl+8** open Scan, My Apps, Install, Add App, Catalog, Browsers, Ready to wipe
+    and Updates, and **Ctrl+,** opens Settings.
+  - In every window, Enter accepts and Esc closes, and dialogs start with focus in their first
+    field.
+  - Every control has a name a screen reader can read.
+  - With Windows' *Animation effects* turned off, pages switch without a fade.
 
 ## Install from the built artifacts
 
@@ -616,10 +623,10 @@ The work is split into numbered sections, built one at a time and shipped as the
 - [x] **1.** Safety checks before a wipe
 - [x] **2.** Install improvements
 - [x] **3.** App updates through winget
-- [ ] **4.** Reliability and security - **next**
+- [x] **4.** Reliability and security
 - [ ] **5.** Foundation for optional extras
-- [ ] **6.** UI polish and motion
-- [ ] **7.** Onboarding and sharing profiles
+- [x] **6.** UI polish and motion
+- [ ] **7.** Onboarding and sharing profiles - **next**
 - [ ] **8.** Release and distribution
 - [ ] **9.** Optional extra: scheduled and local backups
 - [ ] **10.** Optional extra: settings backup

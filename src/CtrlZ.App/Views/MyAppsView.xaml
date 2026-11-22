@@ -54,22 +54,22 @@
                                ToolTip="{Binding InstallSummary}" />
 
                     <StackPanel Grid.Column="4" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center">
-                        <Button Style="{StaticResource Button.Icon}" Width="26" Height="26"
+                        <Button AutomationProperties.Name="{Binding Name, StringFormat='Move {0} up'}" Style="{StaticResource Button.Icon}" Width="26" Height="26"
                                 Command="{Binding DataContext.MoveUpCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
                                 CommandParameter="{Binding}" ToolTip="Move earlier">
                             <TextBlock Text="{StaticResource Icon.Up}" FontFamily="{StaticResource Font.Icons}" FontSize="12" />
                         </Button>
-                        <Button Style="{StaticResource Button.Icon}" Width="26" Height="26"
+                        <Button AutomationProperties.Name="{Binding Name, StringFormat='Move {0} down'}" Style="{StaticResource Button.Icon}" Width="26" Height="26"
                                 Command="{Binding DataContext.MoveDownCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
                                 CommandParameter="{Binding}" ToolTip="Move later">
                             <TextBlock Text="{StaticResource Icon.Down}" FontFamily="{StaticResource Font.Icons}" FontSize="12" />
                         </Button>
-                        <Button Style="{StaticResource Button.Icon}" Width="26" Height="26"
+                        <Button AutomationProperties.Name="{Binding Name, StringFormat='Edit {0}'}" Style="{StaticResource Button.Icon}" Width="26" Height="26"
                                 Command="{Binding DataContext.EditAppCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
                                 CommandParameter="{Binding}" ToolTip="Edit app">
                             <TextBlock Text="{StaticResource Icon.Edit}" FontFamily="{StaticResource Font.Icons}" FontSize="12" />
                         </Button>
-                        <Button Style="{StaticResource Button.Icon}" Width="26" Height="26"
+                        <Button AutomationProperties.Name="{Binding Name, StringFormat='Remove {0}'}" Style="{StaticResource Button.Icon}" Width="26" Height="26"
                                 Command="{Binding DataContext.RemoveAppCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
                                 CommandParameter="{Binding}" ToolTip="Remove from profile">
                             <TextBlock Text="{StaticResource Icon.Delete}" FontFamily="{StaticResource Font.Icons}" FontSize="12" />
@@ -116,7 +116,7 @@
                     <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
                 <TextBlock Text="Profile" Style="{StaticResource Text.Label}" VerticalAlignment="Center" Margin="2,0,10,0" />
-                <ComboBox Grid.Column="1" Width="230" ItemsSource="{Binding Profiles}"
+                <ComboBox AutomationProperties.Name="Profile" Grid.Column="1" Width="230" ItemsSource="{Binding Profiles}"
                           SelectedItem="{Binding SelectedProfile, Mode=TwoWay}" MinHeight="34">
                     <ComboBox.ItemTemplate>
                         <DataTemplate>
@@ -176,7 +176,7 @@
             </Grid.ColumnDefinitions>
             <StackPanel Orientation="Horizontal">
                 <Grid Width="270">
-                    <TextBox x:Name="SearchBox" Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}"
+                    <TextBox AutomationProperties.Name="Search apps" x:Name="SearchBox" Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}"
                              Padding="30,7,10,7" />
                     <TextBlock Text="{StaticResource Icon.Search}" FontFamily="{StaticResource Font.Icons}" FontSize="12"
                                Foreground="{DynamicResource Brush.TextTertiary}" Margin="10,0,0,0"

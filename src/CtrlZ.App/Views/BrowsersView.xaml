@@ -19,7 +19,7 @@
                             <ColumnDefinition Width="*" />
                             <ColumnDefinition Width="Auto" />
                         </Grid.ColumnDefinitions>
-                        <CheckBox IsChecked="{Binding IsSelected, Mode=TwoWay}" IsEnabled="{Binding CanSelect}"
+                        <CheckBox AutomationProperties.Name="{Binding Name, StringFormat='Back up {0}'}" IsChecked="{Binding IsSelected, Mode=TwoWay}" IsEnabled="{Binding CanSelect}"
                                   VerticalAlignment="Center" />
                         <StackPanel Grid.Column="1" Orientation="Horizontal">
                             <controls:AppIcon IconPath="{Binding IconPath}" FallbackText="{Binding Name}" Size="28" />
@@ -179,7 +179,7 @@
                                 </Grid.ColumnDefinitions>
                                 <TextBlock Text="{Binding BackupFolder}" Style="{StaticResource Text.Caption}"
                                            TextTrimming="CharacterEllipsis" VerticalAlignment="Center" />
-                                <Button Grid.Column="1" Style="{StaticResource Button.Icon}"
+                                <Button AutomationProperties.Name="Open the backup folder" Grid.Column="1" Style="{StaticResource Button.Icon}"
                                         Command="{Binding OpenBackupFolderCommand}" ToolTip="Open folder">
                                     <TextBlock Text="{StaticResource Icon.Folder}" FontFamily="{StaticResource Font.Icons}" FontSize="12" />
                                 </Button>
@@ -191,7 +191,7 @@
                         </StackPanel>
 
                         <TextBlock Text="Password (optional)" Style="{StaticResource Text.Label}" Margin="0,16,0,6" />
-                        <PasswordBox x:Name="BackupPasswordBox" PasswordChanged="BackupPasswordBox_PasswordChanged" />
+                        <PasswordBox AutomationProperties.Name="Backup password (optional)" x:Name="BackupPasswordBox" PasswordChanged="BackupPasswordBox_PasswordChanged" />
                         <TextBlock Text="AES-256 encrypted ZIP. Windows Explorer cannot open encrypted archives; use CTRL+Z to restore. Leave blank for a normal ZIP."
                                    Style="{StaticResource Text.Caption}" Margin="0,6,0,0" TextWrapping="Wrap" />
 
@@ -254,7 +254,7 @@
                                 <ColumnDefinition Width="*" />
                                 <ColumnDefinition Width="Auto" />
                             </Grid.ColumnDefinitions>
-                            <TextBox Text="{Binding ArchivePath, UpdateSourceTrigger=PropertyChanged}" />
+                            <TextBox AutomationProperties.Name="Backup archive to restore" Text="{Binding ArchivePath, UpdateSourceTrigger=PropertyChanged}" />
                             <Button Grid.Column="1" Content="Browse…" Style="{StaticResource Button.Secondary}"
                                     Margin="8,0,0,0" Command="{Binding BrowseArchiveCommand}" />
                         </Grid>
@@ -265,7 +265,7 @@
                                 <ColumnDefinition Width="Auto" />
                                 <ColumnDefinition Width="Auto" />
                             </Grid.ColumnDefinitions>
-                            <PasswordBox x:Name="ArchivePasswordBox" PasswordChanged="ArchivePasswordBox_PasswordChanged" />
+                            <PasswordBox AutomationProperties.Name="Archive password" x:Name="ArchivePasswordBox" PasswordChanged="ArchivePasswordBox_PasswordChanged" />
                             <Button Grid.Column="1" Content="Inspect" Style="{StaticResource Button.Secondary}"
                                     Margin="8,0,0,0" Command="{Binding InspectArchiveCommand}" />
                             <Button Grid.Column="2" Content="Verify" Style="{StaticResource Button.Secondary}"
@@ -323,7 +323,7 @@
                     <StackPanel>
                         <TextBlock Text="RESTORE" Style="{StaticResource Text.NavSection}" Margin="0,0,0,10" />
                         <TextBlock Text="Target browser" Style="{StaticResource Text.Label}" />
-                        <ComboBox ItemsSource="{Binding RestoreTargets}" SelectedItem="{Binding TargetBrowser}"
+                        <ComboBox AutomationProperties.Name="Target browser" ItemsSource="{Binding RestoreTargets}" SelectedItem="{Binding TargetBrowser}"
                                   DisplayMemberPath="Name" />
                         <TextBlock Text="The browser must be installed and closed. Existing profiles are never deleted; CTRL+Z only writes the files in the archive."
                                    Style="{StaticResource Text.Caption}" Margin="0,6,0,0" TextWrapping="Wrap" />

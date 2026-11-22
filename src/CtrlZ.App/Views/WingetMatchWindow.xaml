@@ -35,7 +35,7 @@
                                    Foreground="{DynamicResource Brush.Accent}" Margin="0,0,9,0" />
                         <TextBlock Text="Match to winget" FontSize="13" FontWeight="SemiBold" />
                     </StackPanel>
-                    <Button Style="{StaticResource Button.Window}" HorizontalAlignment="Right" Click="Close_Click">
+                    <Button AutomationProperties.Name="Close" Style="{StaticResource Button.Window}" HorizontalAlignment="Right" Click="Close_Click">
                         <TextBlock Text="{StaticResource Icon.Close}" FontFamily="{StaticResource Font.Icons}" FontSize="10" />
                     </Button>
                 </Grid>
@@ -49,7 +49,7 @@
                         <ColumnDefinition Width="*" />
                         <ColumnDefinition Width="Auto" />
                     </Grid.ColumnDefinitions>
-                    <TextBox x:Name="SearchBox" MinHeight="36" KeyDown="SearchBox_KeyDown" />
+                    <TextBox AutomationProperties.Name="Search winget" x:Name="SearchBox" MinHeight="36" KeyDown="SearchBox_KeyDown" />
                     <Button Grid.Column="1" Content="Search" Style="{StaticResource Button.Secondary}"
                             Margin="8,0,0,0" Click="Search_Click" MinWidth="82" />
                 </Grid>
@@ -99,7 +99,7 @@
                         </Grid.ColumnDefinitions>
                         <TextBlock Text="Package id" Style="{StaticResource Text.Label}" Margin="0,0,12,0"
                                    VerticalAlignment="Center" />
-                        <TextBox x:Name="PackageIdBox" Grid.Column="1" />
+                        <TextBox AutomationProperties.Name="Package id" x:Name="PackageIdBox" Grid.Column="1" />
                     </Grid>
                     <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,12,0,0">
                         <Button Content="Cancel" Style="{StaticResource Button.Secondary}" MinWidth="84"

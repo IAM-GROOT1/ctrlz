@@ -35,7 +35,7 @@
                                    Foreground="{DynamicResource Brush.Accent}" Margin="0,0,9,0" />
                         <TextBlock Text="Edit app" FontSize="13" FontWeight="SemiBold" />
                     </StackPanel>
-                    <Button Style="{StaticResource Button.Window}" HorizontalAlignment="Right" Click="Close_Click">
+                    <Button AutomationProperties.Name="Close" Style="{StaticResource Button.Window}" HorizontalAlignment="Right" Click="Close_Click">
                         <TextBlock Text="{StaticResource Icon.Close}" FontFamily="{StaticResource Font.Icons}" FontSize="10" />
                     </Button>
                 </Grid>
@@ -45,7 +45,7 @@
                 <StackPanel Margin="24,20,24,12">
                     <TextBlock Text="IDENTITY" Style="{StaticResource Text.NavSection}" Margin="0,0,0,10" />
                     <TextBlock Text="Name" Style="{StaticResource Text.Label}" />
-                    <TextBox x:Name="NameBox" />
+                    <TextBox AutomationProperties.Name="Name" x:Name="NameBox" />
 
                     <Grid Margin="0,14,0,0">
                         <Grid.ColumnDefinitions>
@@ -55,36 +55,36 @@
                         </Grid.ColumnDefinitions>
                         <StackPanel>
                             <TextBlock Text="Publisher" Style="{StaticResource Text.Label}" />
-                            <TextBox x:Name="PublisherBox" />
+                            <TextBox AutomationProperties.Name="Publisher" x:Name="PublisherBox" />
                         </StackPanel>
                         <StackPanel Grid.Column="2">
                             <TextBlock Text="Category" Style="{StaticResource Text.Label}" />
-                            <ComboBox x:Name="CategoryBox" DisplayMemberPath="Label" />
+                            <ComboBox AutomationProperties.Name="Category" x:Name="CategoryBox" DisplayMemberPath="Label" />
                         </StackPanel>
                     </Grid>
 
                     <TextBlock Text="SOURCE" Style="{StaticResource Text.NavSection}" Margin="0,20,0,10" />
                     <TextBlock Text="Install from" Style="{StaticResource Text.Label}" />
-                    <ComboBox x:Name="SourceBox" DisplayMemberPath="Label"
+                    <ComboBox AutomationProperties.Name="Install from" x:Name="SourceBox" DisplayMemberPath="Label"
                               SelectionChanged="SourceBox_SelectionChanged" />
 
                     <StackPanel x:Name="WingetPanel" Margin="0,14,0,0">
                         <TextBlock Text="winget package id" Style="{StaticResource Text.Label}" />
-                        <TextBox x:Name="PackageIdBox" FontFamily="{StaticResource Font.Mono}" />
+                        <TextBox AutomationProperties.Name="winget package id" x:Name="PackageIdBox" FontFamily="{StaticResource Font.Mono}" />
                         <TextBlock Text="Use the exact id, for example Mozilla.Firefox or 7zip.7zip."
                                    Style="{StaticResource Text.Caption}" Margin="0,5,0,0" />
                     </StackPanel>
 
                     <StackPanel x:Name="DirectPanel" Margin="0,14,0,0" Visibility="Collapsed">
                         <TextBlock Text="Download URL" Style="{StaticResource Text.Label}" />
-                        <TextBox x:Name="UrlBox" />
+                        <TextBox AutomationProperties.Name="Download URL" x:Name="UrlBox" />
                         <TextBlock Text="File name override (optional)" Style="{StaticResource Text.Label}" Margin="0,12,0,6" />
-                        <TextBox x:Name="FileNameBox" />
+                        <TextBox AutomationProperties.Name="File name override (optional)" x:Name="FileNameBox" />
                     </StackPanel>
 
                     <StackPanel x:Name="GitHubPanel" Margin="0,14,0,0" Visibility="Collapsed">
                         <TextBlock Text="Repository (owner/project)" Style="{StaticResource Text.Label}" />
-                        <TextBox x:Name="RepoBox" />
+                        <TextBox AutomationProperties.Name="Repository (owner/project)" x:Name="RepoBox" />
                         <Grid Margin="0,12,0,0">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="*" />
@@ -93,11 +93,11 @@
                             </Grid.ColumnDefinitions>
                             <StackPanel>
                                 <TextBlock Text="Asset name (blank = best Windows asset)" Style="{StaticResource Text.Label}" />
-                                <TextBox x:Name="AssetBox" />
+                                <TextBox AutomationProperties.Name="Asset name (blank means the best Windows asset)" x:Name="AssetBox" />
                             </StackPanel>
                             <StackPanel Grid.Column="2">
                                 <TextBlock Text="Asset type" Style="{StaticResource Text.Label}" />
-                                <ComboBox x:Name="AssetKindBox" DisplayMemberPath="Label" />
+                                <ComboBox AutomationProperties.Name="Asset type" x:Name="AssetKindBox" DisplayMemberPath="Label" />
                             </StackPanel>
                         </Grid>
                     </StackPanel>
@@ -109,7 +109,7 @@
                                 <ColumnDefinition Width="*" />
                                 <ColumnDefinition Width="Auto" />
                             </Grid.ColumnDefinitions>
-                            <TextBox x:Name="LocalPathBox" />
+                            <TextBox AutomationProperties.Name="Local installer path" x:Name="LocalPathBox" />
                             <Button Grid.Column="1" Content="Browse…" Style="{StaticResource Button.Secondary}"
                                     Margin="8,0,0,0" Click="Browse_Click" />
                         </Grid>
@@ -117,11 +117,11 @@
 
                     <TextBlock Text="INSTALL BEHAVIOUR" Style="{StaticResource Text.NavSection}" Margin="0,20,0,10" />
                     <TextBlock Text="Silent switches (blank = auto-detect at install time)" Style="{StaticResource Text.Label}" />
-                    <TextBox x:Name="SilentArgsBox" FontFamily="{StaticResource Font.Mono}" />
+                    <TextBox AutomationProperties.Name="Silent switches (blank means auto-detect at install time)" x:Name="SilentArgsBox" FontFamily="{StaticResource Font.Mono}" />
                     <TextBlock Text="SHA-256 (optional, direct/GitHub/local downloads)" Style="{StaticResource Text.Label}" Margin="0,12,0,6" />
-                    <TextBox x:Name="HashBox" FontFamily="{StaticResource Font.Mono}" />
+                    <TextBox AutomationProperties.Name="SHA-256 (optional)" x:Name="HashBox" FontFamily="{StaticResource Font.Mono}" />
                     <TextBlock Text="Notes" Style="{StaticResource Text.Label}" Margin="0,12,0,6" />
-                    <TextBox x:Name="NotesBox" Height="64" AcceptsReturn="True" TextWrapping="Wrap"
+                    <TextBox AutomationProperties.Name="Notes" x:Name="NotesBox" Height="64" AcceptsReturn="True" TextWrapping="Wrap"
                              VerticalContentAlignment="Top" VerticalScrollBarVisibility="Auto" />
                     <TextBlock Text="Stored as plain text in the profile file. Do not put passwords here."
                                Style="{StaticResource Text.Caption}" TextWrapping="Wrap" Margin="0,4,0,0" />
@@ -130,9 +130,9 @@
                     <TextBlock Text="AFTER INSTALL" Style="{StaticResource Text.NavSection}" Margin="0,20,0,10" />
                     <StackPanel x:Name="CommandEditPanel">
                         <TextBlock Text="Program to run (blank = no command)" Style="{StaticResource Text.Label}" />
-                        <TextBox x:Name="CommandExeBox" FontFamily="{StaticResource Font.Mono}" />
+                        <TextBox AutomationProperties.Name="Program to run (blank means no command)" x:Name="CommandExeBox" FontFamily="{StaticResource Font.Mono}" />
                         <TextBlock Text="Arguments, one per line (no shell is used)" Style="{StaticResource Text.Label}" Margin="0,12,0,6" />
-                        <TextBox x:Name="CommandArgsBox" Height="64" AcceptsReturn="True" TextWrapping="NoWrap"
+                        <TextBox AutomationProperties.Name="Arguments, one per line" x:Name="CommandArgsBox" Height="64" AcceptsReturn="True" TextWrapping="NoWrap"
                                  FontFamily="{StaticResource Font.Mono}"
                                  VerticalContentAlignment="Top" VerticalScrollBarVisibility="Auto" />
                         <Grid Margin="0,12,0,0">
@@ -143,11 +143,11 @@
                             </Grid.ColumnDefinitions>
                             <StackPanel>
                                 <TextBlock Text="Working directory (optional)" Style="{StaticResource Text.Label}" />
-                                <TextBox x:Name="CommandDirBox" FontFamily="{StaticResource Font.Mono}" />
+                                <TextBox AutomationProperties.Name="Working directory (optional)" x:Name="CommandDirBox" FontFamily="{StaticResource Font.Mono}" />
                             </StackPanel>
                             <StackPanel Grid.Column="2">
                                 <TextBlock Text="Timeout (seconds)" Style="{StaticResource Text.Label}" />
-                                <TextBox x:Name="CommandTimeoutBox" />
+                                <TextBox AutomationProperties.Name="Timeout in seconds" x:Name="CommandTimeoutBox" />
                             </StackPanel>
                         </Grid>
                         <CheckBox x:Name="CommandElevatedBox" Content="Run this command as administrator" Margin="0,12,0,0" />
@@ -170,7 +170,7 @@
             <Border Grid.Row="2" Background="{DynamicResource Brush.SurfaceAlt}" BorderBrush="{DynamicResource Brush.Border}"
                     BorderThickness="0,1,0,0" Padding="24,14">
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-                    <Button Content="Cancel" Style="{StaticResource Button.Secondary}" MinWidth="84" Margin="0,0,8,0"
+                    <Button Content="Cancel" Style="{StaticResource Button.Secondary}" MinWidth="84" Margin="0,0,8,0" IsCancel="True"
                             Click="Close_Click" />
                     <Button Content="Save changes" Style="{StaticResource Button.Primary}" MinWidth="110"
                             Click="Save_Click" IsDefault="True" />

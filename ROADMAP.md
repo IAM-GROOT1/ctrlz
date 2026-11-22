@@ -19,10 +19,10 @@ promise of a date, and a section can be reordered if a bug matters more.
 - [x] **1. Safety checks before a wipe** - done, shipped in v1.3.0
 - [x] **2. Install improvements** - done, shipping in v1.4.0
 - [x] **3. App updates through winget** - done, shipping in v1.4.0
-- [ ] **4. Reliability and security** - **next**
+- [x] **4. Reliability and security** - done, shipping in v1.4.0 (ARM64 builds deferred)
 - [ ] **5. Foundation for optional extras** - planned
-- [ ] **6. UI polish and motion** - planned
-- [ ] **7. Onboarding and sharing profiles** - planned
+- [x] **6. UI polish and motion** - done, shipping in v1.4.0 (translations later)
+- [ ] **7. Onboarding and sharing profiles** - **next**
 - [ ] **8. Release and distribution** - planned
 - [ ] **9. Optional extra: scheduled and local backups** - planned
 - [ ] **10. Optional extra: settings backup** - planned
@@ -103,6 +103,15 @@ relicensed to AGPL-3.0-only for this (versions up to v1.1.3 remain MIT).
 
 Calm, Windows 11 style polish and motion across every page, full keyboard operation, sensible focus
 order and screen-reader labels, and translations later.
+
+- [x] **A. Screen readers.** Every button, check box, field and list a user can reach has a name
+  a screen reader can read; row buttons name their app ("Move Steam up"). A test reads every
+  window and page and fails the build if a new control has no name.
+- [x] **B. Keyboard.** Ctrl+1 to Ctrl+8 open each page and Ctrl+, opens Settings; Enter accepts and
+  Esc closes every window (checked by a test); dialogs and the app editor open with focus in
+  their first field.
+- [x] **C. Motion.** The page fade is skipped when Windows' *Animation effects* setting is off.
+- [ ] **D. Translations.** Later.
 
 ### 7. Onboarding and sharing profiles
 
