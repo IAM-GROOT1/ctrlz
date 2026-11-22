@@ -190,6 +190,29 @@ and only to look things up.
 What these checks do **not** cover: files inside password-protected backup apps, cloud-only files
 that are not downloaded, and data that lives only in an online account.
 
+## Post-install commands
+
+An app can carry one optional command that runs after it installs, for example importing a
+settings file. Commands are built to be safe to share profiles with:
+
+- **No shell.** The program and each argument are passed separately; nothing is concatenated into
+  a command line. A command that runs too long is stopped together with everything it started.
+- **Shown in full.** The install preview and the dry-run report list every command with its state:
+  *Runs after install*, *Approved - runs after install*, *Blocked - imported profile, review
+  required*, or *Off in profile - will not run*. Commands matching a risky pattern (for example
+  downloading and executing a script) are flagged.
+- **Imported profiles are blocked.** A profile that did not originate on this PC (opened from a
+  file, imported, or with no local record) never runs a command until you approve that exact
+  command in **Review commands** (in the install preview, which is on by default in Settings). Approvals are stored on this PC only,
+  never in the profile file. Editing a command changes it, so it is blocked again until reviewed.
+- **Only your own profiles can edit commands.** The app editor shows the command fields only for a
+  profile created on this PC. *This profile is mine* in the review screen marks an imported profile
+  as yours, after an explicit confirmation.
+- **You confirm before anything runs.** Before the first run on this PC, CTRL+Z lists every command
+  the profile will run and asks once. A risky command asks again on every run, and a risky command
+  needs a second confirmation when you save it. Declining starts nothing.
+- The dry run never runs a command.
+
 ## Privacy
 
 CTRL+Z is local-first: no account, no telemetry, no analytics.
@@ -207,6 +230,11 @@ CTRL+Z is local-first: no account, no telemetry, no analytics.
 - **Private material is never read.** The developer check counts `.env` files and `~/.ssh`
   entries by listing directories; it never opens them. A test holds those files open
   exclusively and still expects the scan to succeed, which proves no read is attempted.
+- **App notes stay on this PC unless you opt in.** Notes are stored as plain text in the profile
+  file, so never put passwords in them. They are never written to the log. Exports (such as the
+  dry-run report) show *(note hidden)* unless **Include notes in logs and exports** is turned on in
+  Settings. The diagnostics copy holds no profile data at all. On the install screen, an app's note
+  is shown when that app failed or needs manual action.
 - The updater is separate: see [Updates](#updates) for the single check it makes.
 
 ## Build and run
