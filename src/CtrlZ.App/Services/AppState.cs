@@ -55,6 +55,7 @@ public sealed class AppState : ObservableObject
         if (summaries.Count == 0)
         {
             var profile = _profileStore.Create("My apps");
+            ProfileOriginRecorder.RecordCreated(_origins, profile);
             summaries = _profileStore.List().ToList();
             _log.Write(LogLevel.Info, $"Created initial profile '{profile.Name}'.");
         }
@@ -70,7 +71,7 @@ public sealed class AppState : ObservableObject
         var summaries = _profileStore.List().ToList();
         if (summaries.Count == 0)
         {
-            _profileStore.Create("My apps");
+            ProfileOriginRecorder.RecordCreated(_origins, _profileStore.Create("My apps"));
             summaries = _profileStore.List().ToList();
         }
 
@@ -120,7 +121,7 @@ public sealed class AppState : ObservableObject
         var summaries = _profileStore.List().ToList();
         if (summaries.Count == 0)
         {
-            _profileStore.Create("My apps");
+            ProfileOriginRecorder.RecordCreated(_origins, _profileStore.Create("My apps"));
             summaries = _profileStore.List().ToList();
         }
 
