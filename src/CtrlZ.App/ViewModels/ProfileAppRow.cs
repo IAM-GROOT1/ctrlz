@@ -30,7 +30,7 @@ public sealed partial class ProfileAppRow : ObservableObject
     public string InstallSummary => App.InstallSummary;
     public bool NeedsAttention => App.Source is AppSource.Winget or AppSource.MicrosoftStore &&
                                   string.IsNullOrWhiteSpace(App.PackageId);
-    public string Meta => string.Join(" · ", new[] { Publisher, Version }
+    public string Meta => string.Join(" · ", new[] { App.IsAutoDependency ? "Added automatically as a dependency" : null, Publisher, Version }
         .Where(value => !string.IsNullOrWhiteSpace(value)));
 
     [ObservableProperty]
