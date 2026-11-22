@@ -9,6 +9,7 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using CtrlZ.App.Services;
 using CtrlZ.App.Views;
+using CtrlZ.Core.Install;
 using CtrlZ.Core.Models;
 
 namespace CtrlZ.App.ViewModels;
@@ -302,7 +303,8 @@ public sealed partial class MyAppsViewModel : PageViewModelBase
             return;
         }
 
-        var window = new AppEditorWindow(row.App)
+        var canEditCommand = PostInstallCommandForm.CanEdit(_services.State.OriginOf(_services.State.ActiveProfile));
+        var window = new AppEditorWindow(row.App, canEditCommand, ConfirmRiskyCommand)
         {
             Owner = _main.GetWindow()
         };
@@ -313,6 +315,15 @@ public sealed partial class MyAppsViewModel : PageViewModelBase
             ShowStatus($"Updated {window.Result.Name}.");
         }
     }
+
+    /// <summary>Second, explicit confirmation before a risky command is saved.</summary>
+    private bool ConfirmRiskyCommand(PostInstallCommand command) => _dialogs.Confirm(
+        "Save a risky command?",
+        "This command matches a risky pattern (" + string.Join(", ", PostInstallCommandRisk.Scan(command)) + "):\n\n" +
+        command.Describe() + "\n\nSave it only if you wrote it and understand exactly what it does.",
+        "Save risky command",
+        "Go back",
+        danger: true);
 
     [RelayCommand]
     private void SelectAllSources()

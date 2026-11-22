@@ -4,6 +4,7 @@
 using System.IO;
 using System.Windows;
 using System.Windows.Controls;
+using CtrlZ.Core.Install;
 using CtrlZ.Core.Models;
 
 namespace CtrlZ.App.Views;
@@ -27,10 +28,17 @@ public partial class AppEditorWindow : Window
     ];
 
     private readonly AppEntry _working;
+    private readonly bool _canEditCommand;
+    private readonly Func<PostInstallCommand, bool>? _confirmRisky;
 
-    public AppEditorWindow(AppEntry app)
+    /// <param name="app">The app to edit; a copy is edited.</param>
+    /// <param name="canEditCommand">True only for a profile that originated on this PC.</param>
+    /// <param name="confirmRisky">Second confirmation for a risky command; without it risky commands cannot be saved.</param>
+    public AppEditorWindow(AppEntry app, bool canEditCommand = false, Func<PostInstallCommand, bool>? confirmRisky = null)
     {
         _working = app.Clone();
+        _canEditCommand = canEditCommand;
+        _confirmRisky = confirmRisky;
         InitializeComponent();
         SourceBox.ItemsSource = SourceOptions;
         SourceBox.SelectedItem = SourceOptions.FirstOrDefault(s => s.Source == app.Source);
@@ -54,7 +62,58 @@ public partial class AppEditorWindow : Window
         HashBox.Text = app.ExpectedSha256 ?? string.Empty;
         NotesBox.Text = app.Notes ?? string.Empty;
         EnabledBox.IsChecked = app.Enabled;
+        LoadCommand(app.PostInstall);
         UpdatePanels();
+    }
+
+    private void LoadCommand(PostInstallCommand? command)
+    {
+        CommandEditPanel.Visibility = _canEditCommand ? Visibility.Visible : Visibility.Collapsed;
+        CommandReadOnlyPanel.Visibility = _canEditCommand ? Visibility.Collapsed : Visibility.Visible;
+        CommandReadOnlyText.Text = command?.Describe() ?? "No command.";
+
+        var input = PostInstallCommandForm.From(command);
+        CommandExeBox.Text = input.Executable;
+        CommandArgsBox.Text = input.ArgumentsText;
+        CommandDirBox.Text = input.WorkingDirectory;
+        CommandTimeoutBox.Text = input.TimeoutText;
+        CommandElevatedBox.IsChecked = input.RequiresElevation;
+        CommandEnabledBox.IsChecked = input.Enabled;
+    }
+
+    /// <summary>Reads the command fields. Returns false with an error shown when they are invalid or not confirmed.</summary>
+    private bool TryReadCommand(out PostInstallCommand? command)
+    {
+        command = _working.PostInstall;
+        if (!_canEditCommand)
+        {
+            // Untrusted profiles keep their command untouched; it is reviewed elsewhere.
+            return true;
+        }
+
+        var parsed = PostInstallCommandForm.Parse(new PostInstallCommandInput(
+            CommandExeBox.Text,
+            CommandArgsBox.Text,
+            CommandDirBox.Text,
+            CommandTimeoutBox.Text,
+            CommandElevatedBox.IsChecked == true,
+            CommandEnabledBox.IsChecked == true));
+
+        if (!parsed.IsValid)
+        {
+            ShowError(parsed.Error!);
+            return false;
+        }
+
+        if (PostInstallCommandForm.NeedsRiskConfirmation(_working.PostInstall, parsed.Command) &&
+            _confirmRisky?.Invoke(parsed.Command!) != true)
+        {
+            ShowError("The command was not saved: it matches a risky pattern and was not confirmed.");
+            return false;
+        }
+
+        command = parsed.Command;
+        return true;
     }
 
     public AppEntry? Result { get; private set; }
@@ -143,6 +202,13 @@ public partial class AppEditorWindow : Window
             ShowError("Choose the local installer file.");
             return;
         }
+
+        if (!TryReadCommand(out var command))
+        {
+            return;
+        }
+
+        _working.PostInstall = command;
 
         _working.Name = NameBox.Text.Trim();
         _working.Publisher = NullIfEmpty(PublisherBox.Text);

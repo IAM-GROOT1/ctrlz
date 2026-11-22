@@ -126,6 +126,42 @@
                     <TextBlock Text="Stored as plain text in the profile file. Do not put passwords here."
                                Style="{StaticResource Text.Caption}" TextWrapping="Wrap" Margin="0,4,0,0" />
                     <CheckBox x:Name="EnabledBox" Content="Include this app in installs" Margin="0,16,0,0" />
+
+                    <TextBlock Text="AFTER INSTALL" Style="{StaticResource Text.NavSection}" Margin="0,20,0,10" />
+                    <StackPanel x:Name="CommandEditPanel">
+                        <TextBlock Text="Program to run (blank = no command)" Style="{StaticResource Text.Label}" />
+                        <TextBox x:Name="CommandExeBox" FontFamily="{StaticResource Font.Mono}" />
+                        <TextBlock Text="Arguments, one per line (no shell is used)" Style="{StaticResource Text.Label}" Margin="0,12,0,6" />
+                        <TextBox x:Name="CommandArgsBox" Height="64" AcceptsReturn="True" TextWrapping="NoWrap"
+                                 FontFamily="{StaticResource Font.Mono}"
+                                 VerticalContentAlignment="Top" VerticalScrollBarVisibility="Auto" />
+                        <Grid Margin="0,12,0,0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="14" />
+                                <ColumnDefinition Width="120" />
+                            </Grid.ColumnDefinitions>
+                            <StackPanel>
+                                <TextBlock Text="Working directory (optional)" Style="{StaticResource Text.Label}" />
+                                <TextBox x:Name="CommandDirBox" FontFamily="{StaticResource Font.Mono}" />
+                            </StackPanel>
+                            <StackPanel Grid.Column="2">
+                                <TextBlock Text="Timeout (seconds)" Style="{StaticResource Text.Label}" />
+                                <TextBox x:Name="CommandTimeoutBox" />
+                            </StackPanel>
+                        </Grid>
+                        <CheckBox x:Name="CommandElevatedBox" Content="Run this command as administrator" Margin="0,12,0,0" />
+                        <CheckBox x:Name="CommandEnabledBox" Content="Run this command after the app installs" Margin="0,8,0,0" />
+                        <TextBlock Text="Commands run without a shell and are shown in full in the install preview."
+                                   Style="{StaticResource Text.Caption}" TextWrapping="Wrap" Margin="0,4,0,0" />
+                    </StackPanel>
+                    <StackPanel x:Name="CommandReadOnlyPanel" Visibility="Collapsed">
+                        <TextBlock x:Name="CommandReadOnlyText" Style="{StaticResource Text.Caption}" TextWrapping="Wrap"
+                                   FontFamily="{StaticResource Font.Mono}" Foreground="{DynamicResource Brush.TextPrimary}" />
+                        <TextBlock Text="This profile did not originate on this PC, so its commands cannot be edited here. Review them from the review screen before they can run."
+                                   Style="{StaticResource Text.Caption}" TextWrapping="Wrap" Margin="0,4,0,0" />
+                    </StackPanel>
+
                     <TextBlock x:Name="ErrorText" Foreground="{DynamicResource Brush.Danger}" FontSize="11.5"
                                TextWrapping="Wrap" Margin="0,12,0,0" Visibility="Collapsed" />
                 </StackPanel>

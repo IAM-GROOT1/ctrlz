@@ -167,6 +167,39 @@ public class ProfileRouteOriginTests : IDisposable
         Assert.Equal(ProfileOrigin.Local, Origin(id));
     }
 
+    [Fact]
+    public void Editing_an_app_command_in_an_imported_profile_keeps_it_imported_and_locked()
+    {
+        var source = WriteExternalProfile("edit-me");
+        var (state, Origin) = NewState();
+        var imported = state.ImportProfile(source);
+        var app = state.ActiveProfile.Apps[0];
+        var edited = app.Clone();
+        edited.PostInstall = new PostInstallCommand { Executable = "reg.exe", Arguments = ["import", "a.reg"], Enabled = true };
+
+        state.ReplaceApp(app, edited);
+
+        Assert.Equal(ProfileOrigin.Imported, Origin(imported.Id));
+        Assert.False(PostInstallCommandForm.CanEdit(state.OriginOf(state.ActiveProfile)));
+    }
+
+    [Fact]
+    public void Editing_an_app_command_in_a_local_profile_keeps_it_local_and_editable()
+    {
+        var (state, Origin) = NewState();
+        state.Initialize();
+        state.AddApps([new AppEntry { Id = "x", Name = "Tool" }]);
+        var app = state.ActiveProfile.Apps.First(item => item.Id == "x");
+        var edited = app.Clone();
+        edited.PostInstall = new PostInstallCommand { Executable = "reg.exe", Arguments = ["import", "a.reg"], Enabled = true };
+
+        state.ReplaceApp(app, edited);
+
+        Assert.Equal(ProfileOrigin.Local, Origin(state.ActiveProfile.Id));
+        Assert.True(PostInstallCommandForm.CanEdit(state.OriginOf(state.ActiveProfile)));
+        Assert.NotNull(state.ActiveProfile.Apps.First(item => item.Id == "x").PostInstall);
+    }
+
     /// <summary>Writes a profile the way a shared file would arrive: created elsewhere, no local history.</summary>
     private string WriteExternalProfile(string name)
     {

@@ -99,7 +99,10 @@ public sealed class AppEntry
         ExpectedSha256 = ExpectedSha256,
         InstallLocation = InstallLocation,
         IconPath = IconPath,
-        Notes = Notes
+        Notes = Notes,
+        AfterAppIds = new List<string>(AfterAppIds ?? new List<string>()),
+        IsAutoDependency = IsAutoDependency,
+        PostInstall = PostInstall?.Clone()
     };
 
     /// <summary>
