@@ -16,22 +16,22 @@ promise of a date, and a section can be reordered if a bug matters more.
 ## Sections
 
 - [x] **0. Self-update and tag-driven releases** - done, shipped in v1.2.0
-- [x] **1. Safety checks before a wipe** - done, shipping in v1.3.0
-- [ ] **2. AppData and settings backup and restore** - **next**
-- [ ] **3. Portable app shortcuts and update tracking** - planned
-- [ ] **4. Optional code signing** - planned
-- [ ] **5. Per-app download resumption and mirror selection** - planned
-- [ ] **6. Backup verification and restore drills** - planned
-- [ ] **7. Multiple profiles and moving a profile between PCs** - planned
-- [ ] **8. Scheduled and recurring backups** - planned
-- [ ] **9. Keyboard-first navigation and accessibility** - planned
-- [ ] **10. Translations** - planned
-- [ ] **11. Offline diagnostics without telemetry** - planned
-- [ ] **12. Restore from a browser backup without reinstalling** - planned
-- [ ] **13. Packaging and distribution improvements** - planned
+- [x] **1. Safety checks before a wipe** - done, shipped in v1.3.0
+- [ ] **2. Install improvements** - **next**
+- [ ] **3. App updates through winget** - planned
+- [ ] **4. Reliability and security** - planned
+- [ ] **5. Foundation for optional extras** - planned
+- [ ] **6. UI polish and motion** - planned
+- [ ] **7. Onboarding and sharing profiles** - planned
+- [ ] **8. Release and distribution** - planned
+- [ ] **9. Optional extra: scheduled and local backups** - planned
+- [ ] **10. Optional extra: settings backup** - planned
+- [ ] **11. Optional extras: how to get them** - planned
+- [ ] **12. Optional extra: encrypted backup off this PC** - later
+- [ ] **13. Post-install tweaks** - later
 
-Optional extras planned: a hosted sync option and a few conveniences for people who manage several
-PCs. The free app stays local, complete and useful on its own.
+Optional extras planned (sections 9 to 12). The free app stays local, complete and useful on its
+own: nothing that is free today moves behind a paywall.
 
 ## Section detail
 
@@ -44,71 +44,69 @@ prompts only when the main window is idle. Releases are produced by pushing a ve
 ### 1. Safety checks before a wipe
 
 Pre-wipe checklist, profile drift detection and an install preview with a dry run. Described in the
-README under "Before you wipe". Shipping in v1.3.0.
+README under "Before you wipe". Shipped in v1.3.0.
 
-### 2. AppData and settings backup and restore
+### 2. Install improvements
 
-The next piece of work, and the one the app is missing most: a structured module that backs up and
-restores application settings and per-app data folders, so a clean install can bring more than the
-app list across.
+- [x] **A. Dependency ordering.** Known dependencies (for example the Visual C++ runtimes) are added
+  automatically and install first; "install after" links are honoured; an install-order loop is
+  reported; an app whose dependency fails is not attempted. Added dependencies are marked in My
+  Apps and can be turned off.
+- [x] **B. Post-install commands.** One optional command per app, run without a shell, shown in full
+  in the preview. Commands from imported profiles stay blocked until each one is reviewed and
+  approved on this PC. See the README for the full safety model.
+- [x] **C. Notes.** A private note per app, shown when an app fails or needs manual action, and
+  never logged; exports include notes only when you opt in.
+- [ ] **D. Command line.** Install, dry-run and list profiles from a terminal on a fresh Windows
+  install, with the same safety rules as the app.
 
-### 3. Portable app shortcuts and update tracking
+### 3. App updates through winget
 
-Create Start menu shortcuts for portable apps and notice when their source has a newer version.
+See which installed apps have updates and apply them from one place. Portable apps get shortcuts
+and update tracking.
 
-### 4. Optional code signing
+### 4. Reliability and security
 
-Sign the installer and portable exe so SmartScreen stops warning about an unsigned download. The
-release workflow already marks where the step goes.
-
-Reliability and security follow-ups are tracked under this section:
-
-- **Redact personal paths and names from logs and saved state.** The startup, profile and
-  install-log lines currently record a drive-qualified data folder path (which includes the Windows
-  account name), and `state/install-state.json` stores `logPath`, `installLocation` and `iconPath`
-  for every app in the profile. The safety checks themselves log counts only. Tracked in
+- Installer verification beyond SHA-256 where a source publishes more.
+- Backup verification and restore drills, so a backup is proven readable before it is needed.
+- A local diagnostics bundle, created only on request, with counts and versions and no personal
+  file names.
+- Import app lists from winget, Scoop and Chocolatey.
+- ARM64 builds.
+- Download resumption and mirror fallback.
+- Redact personal paths and names from logs and saved state. The startup, profile and install-log
+  lines currently record a drive-qualified data folder path (which includes the Windows account
+  name), and `state/install-state.json` stores paths for every app in the profile. Tracked in
   [#8](https://github.com/IAM-GROOT1/ctrlz/issues/8).
 
-### 5. Per-app download resumption and mirror selection
+### 5. Foundation for optional extras
 
-Resume an interrupted download instead of starting over, and fall back to a mirror when a source is
-slow or unavailable.
+A clean boundary so optional extras can be added without changing the free core. The app was
+relicensed to AGPL-3.0-only for this (versions up to v1.1.3 remain MIT).
 
-### 6. Backup verification and restore drills
+### 6. UI polish and motion
 
-Prove a browser backup can actually be restored before it is needed, rather than discovering it is
-unreadable on the new machine.
+Calm, Windows 11 style polish and motion across every page, full keyboard operation, sensible focus
+order and screen-reader labels, and translations later.
 
-### 7. Multiple profiles and moving a profile between PCs
+### 7. Onboarding and sharing profiles
 
-Keep separate profiles for different machines or roles, and move one between PCs without hand-editing
-JSON.
+A first-run guide, multiple profiles, moving a profile between PCs without hand-editing JSON, and
+restoring a browser profile from an existing backup on a machine that never had that browser.
 
-### 8. Scheduled and recurring backups
+### 8. Release and distribution
 
-Back up on a schedule instead of only when the app is opened.
+Code signing so SmartScreen stops warning about an unsigned download, a winget listing for CTRL+Z
+itself, smaller artifacts, a proper uninstall path, and a short demo.
 
-### 9. Keyboard-first navigation and accessibility
+### 9 to 12. Optional extras
 
-Full keyboard operation, sensible focus order and screen-reader labels across every page.
+Scheduled and local backups, settings backup, and later an optional encrypted backup that leaves
+this PC. Details will be published when each one is ready.
 
-### 10. Translations
+### 13. Post-install tweaks
 
-Localise the interface, starting with the languages the project already has contributors for.
-
-### 11. Offline diagnostics without telemetry
-
-Let a user produce a diagnostic bundle locally, by choice, with counts and versions only and no
-personal file names.
-
-### 12. Restore from a browser backup without reinstalling
-
-Point the app at an existing CTRL+Z backup and restore a browser profile on a machine that never had
-that browser installed.
-
-### 13. Packaging and distribution improvements
-
-Smaller artifacts, a proper uninstall path and cleaner upgrade handling.
+Small, reversible Windows tweaks after a reinstall. Later.
 
 ## Later improvements
 
