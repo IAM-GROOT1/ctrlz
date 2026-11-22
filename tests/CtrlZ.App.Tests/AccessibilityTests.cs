@@ -90,7 +90,7 @@ public class AccessibilityTests
     public void Every_page_has_a_keyboard_shortcut()
     {
         var xaml = File.ReadAllText(Path.Combine(AppFolder(), "MainWindow.xaml"));
-        foreach (var page in new[] { "scan", "apps", "install", "add", "catalog", "browsers", "ready", "updates", "settings" })
+        foreach (var page in new[] { "scan", "apps", "install", "add", "catalog", "browsers", "ready", "updates", "tweaks", "settings" })
         {
             Assert.Contains($"CommandParameter=\"{page}\"", xaml);
         }
