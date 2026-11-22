@@ -239,7 +239,10 @@ CTRL+Z is local-first: no account, no telemetry, no analytics.
   HEAD request for direct links) to confirm each source exists. Opening the preview, or viewing
   the checklist, never triggers a request.
 - **Logs contain counts and sizes only.** No file or folder name from your personal folders is
-  written to the application log or to the diagnostics copy.
+  written to the application log or to the diagnostics copy. Every log line, including install
+  logs, writes your personal folders as `%USERPROFILE%`, `%LOCALAPPDATA%`, `%APPDATA%` or `%TEMP%`
+  and replaces your Windows account and PC names, and `state/install-state.json` stores the same
+  tokens.
 - **Checklist state contains no paths.** `state/safety-state.json` holds only checklist item ids,
   handled/ignored flags and ignored drift keys.
 - **Private material is never read.** The developer check counts `.env` files and `~/.ssh`

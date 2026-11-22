@@ -34,7 +34,8 @@ public sealed class InstallStateStore
                 return null;
             }
 
-            var json = File.ReadAllText(_path);
+            // Personal folders are stored as tokens (see PathPrivacy) and expanded for this user.
+            var json = PathPrivacy.Current.Expand(File.ReadAllText(_path), json: true);
             var state = JsonSerializer.Deserialize<InstallState>(json, JsonDefaults.Profile);
             if (state is null)
             {
@@ -62,7 +63,7 @@ public sealed class InstallStateStore
         try
         {
             state.UpdatedUtc = DateTimeOffset.UtcNow;
-            FileUtil.AtomicWriteAllText(_path, JsonSerializer.Serialize(state, JsonDefaults.Profile));
+            FileUtil.AtomicWriteAllText(_path, PathPrivacy.Current.Tokenize(JsonSerializer.Serialize(state, JsonDefaults.Profile)));
         }
         catch (Exception ex)
         {
