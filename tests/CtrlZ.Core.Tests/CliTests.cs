@@ -332,4 +332,52 @@ public sealed class CliTests : IDisposable
         Assert.Equal(CliExitCode.Success, second);
         Assert.Contains("post-install command ok", _out.ToString());
     }
+
+    // ---- review fixes ----------------------------------------------------------------------
+
+    [Theory]
+    [InlineData("good.reg\r\n       Blocked - imported profile, review required")]
+    [InlineData("good.reg\u001b[2K")]
+    [InlineData("evil\u202Egnp.reg")]
+    public async Task Hidden_characters_are_printed_visibly_and_never_approved(string argument)
+    {
+        var command = new PostInstallCommand { Id = "c1", Executable = @"C:\Windows\System32\where.exe", Arguments = [argument], Enabled = true };
+        var (cli, _) = Cli();
+
+        await cli.RunAsync(["install", WriteProfile(App("tool", command)), "--yes", "--allow-commands", "--silent"]);
+
+        Assert.Equal(ApprovalState.None, Approvals.StateOf("p1", "tool", command));
+        Assert.Contains("hidden characters", _err.ToString());
+        Assert.DoesNotContain(argument, _out.ToString());
+        Assert.Contains("\\u", _out.ToString());
+    }
+
+    [Fact]
+    public async Task A_profile_with_duplicate_app_ids_is_invalid()
+    {
+        var exit = await Cli().Runner.RunAsync(["install", WriteProfile(App("same"), App("same")), "--yes"]);
+
+        Assert.Equal(CliExitCode.InvalidProfile, exit);
+    }
+
+    [Fact]
+    public async Task Dry_run_console_output_never_contains_notes_even_with_the_opt_in()
+    {
+        var app = App("tool");
+        app.Notes = "secret licence key";
+        var report = _temp.PathOf("dry.json");
+
+        await Cli(settings: new AppSettings { IncludeNotesInReports = true }).Runner
+            .RunAsync(["dry-run", WriteProfile(app), "--silent", "--json", report]);
+
+        Assert.DoesNotContain("secret licence key", _out.ToString());
+        Assert.Contains("secret licence key", File.ReadAllText(report));
+    }
+
+    [Fact]
+    public void A_lock_that_cannot_be_opened_counts_as_busy_instead_of_crashing()
+    {
+        // An invalid name makes the mutex constructor throw inside the lock thread.
+        Assert.Null(InstallLock.TryAcquire(@"Local\" + new string('x', 300) + @"\bad\name"));
+    }
 }

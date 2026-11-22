@@ -31,27 +31,49 @@ public sealed class InstallLock : IDisposable
 
         var thread = new Thread(() =>
         {
-            using var mutex = new Mutex(false, name);
-            bool owned;
+            Mutex? mutex = null;
+            var owned = false;
             try
             {
-                owned = mutex.WaitOne(0);
+                mutex = new Mutex(false, name);
+                try
+                {
+                    owned = mutex.WaitOne(0);
+                }
+                catch (AbandonedMutexException)
+                {
+                    // The previous holder crashed; the lock is ours now.
+                    owned = true;
+                }
             }
-            catch (AbandonedMutexException)
+            catch (Exception)
             {
-                // The previous holder crashed; the lock is ours now.
-                owned = true;
+                // For example an elevated holder's mutex that this process may not open: someone
+                // holds it, so this is "busy". Never let this thread take the process down.
+                owned = false;
+            }
+            finally
+            {
+                success = owned;
+                acquired.Set();
             }
 
-            success = owned;
-            acquired.Set();
-            if (!owned)
+            try
             {
-                return;
+                if (owned)
+                {
+                    holder!._release.Wait();
+                    mutex!.ReleaseMutex();
+                }
             }
-
-            holder!._release.Wait();
-            mutex.ReleaseMutex();
+            catch (Exception)
+            {
+                // Releasing is best effort; the OS releases the mutex when this thread ends.
+            }
+            finally
+            {
+                mutex?.Dispose();
+            }
         })
         {
             IsBackground = true,

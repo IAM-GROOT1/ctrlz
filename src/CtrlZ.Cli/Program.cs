@@ -57,10 +57,25 @@ var environment = new CliEnvironment
 using var cancel = new CancellationTokenSource();
 Console.CancelKeyPress += (_, eventArgs) =>
 {
-    eventArgs.Cancel = true;
-    cancel.Cancel();
+    // First Ctrl+C stops after the current installer; a second one ends the process.
+    if (!cancel.IsCancellationRequested)
+    {
+        eventArgs.Cancel = true;
+        cancel.Cancel();
+    }
 };
 
-var exitCode = await new CliRunner(environment).RunAsync(args, cancel.Token);
+int exitCode;
+try
+{
+    exitCode = await new CliRunner(environment).RunAsync(args, cancel.Token);
+}
+catch (Exception ex)
+{
+    log.Write(LogLevel.Error, "The command line failed unexpectedly.", ex);
+    Console.Error.WriteLine("CTRL+Z hit an unexpected error: " + ex.Message);
+    Console.Error.WriteLine("Details are in the log: " + log.LogFilePath);
+    exitCode = CliExitCode.Unexpected;
+}
 log.Write(LogLevel.Info, $"CTRL+Z command line finished with exit code {exitCode}.");
 return exitCode;

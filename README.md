@@ -409,7 +409,8 @@ The command line follows the app's safety rules:
   is on. `--silent` prints the plan and the summary only.
 
 Exit codes: 0 success, 1 usage, 2 some apps failed, 3 invalid profile, 4 a dependency failed, 5 not
-confirmed or cancelled, 6 needs administrator rights, 7 another install is running. Checks run in
+confirmed or cancelled, 6 needs administrator rights, 7 another install is running, 8 unexpected
+error (details in the log). Checks run in
 this order: risky commands, administrator rights, then `--yes`.
 
 ## Profile JSON

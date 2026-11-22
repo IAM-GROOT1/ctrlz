@@ -14,6 +14,7 @@ public static class CliExitCode
     public const int Cancelled = 5;
     public const int NeedsAdmin = 6;
     public const int Busy = 7;
+    public const int Unexpected = 8;
 }
 
 public enum CliCommand
@@ -61,7 +62,8 @@ public static class CliParser
         --json <path>    Also writes a machine-readable report.
 
         Exit codes: 0 success, 1 usage, 2 some apps failed, 3 invalid profile, 4 a dependency failed,
-        5 not confirmed or cancelled, 6 needs administrator rights, 7 another install is running.
+        5 not confirmed or cancelled, 6 needs administrator rights, 7 another install is running,
+        8 unexpected error (see the log).
         """;
 
     public static CliParseResult Parse(IReadOnlyList<string> args)

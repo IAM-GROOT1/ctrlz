@@ -106,6 +106,13 @@ public sealed class CliRunner
                 return null;
             }
 
+            // Every app must be unambiguous: the printed plan and the approvals are matched by id.
+            if (profile.Apps.GroupBy(app => app.Id, StringComparer.Ordinal).Any(group => group.Count() > 1))
+            {
+                _env.Error.WriteLine("The profile lists the same app id more than once. Fix the file and try again.");
+                return null;
+            }
+
             return profile;
         }
         catch (Exception ex)
@@ -126,29 +133,29 @@ public sealed class CliRunner
         var origin = _env.Origins.Get(profile.Id) == ProfileOrigin.Local
             ? "created on this PC"
             : "from outside this PC: its commands need your approval";
-        _env.Out.WriteLine($"Profile: {profile.Name} ({origin})");
+        _env.Out.WriteLine($"Profile: {CliText.Safe(profile.Name)} ({origin})");
         _env.Out.WriteLine($"Plan: {plan.Count} app{(plan.Count == 1 ? string.Empty : "s")}, {plan.AdminCount} may need admin");
 
         var byApp = commands.GroupBy(line => line.AppId, StringComparer.Ordinal).ToDictionary(group => group.Key, group => group.First(), StringComparer.Ordinal);
         foreach (var item in plan.Items)
         {
             var admin = item.RequiresAdmin ? "  [may need admin]" : string.Empty;
-            _env.Out.WriteLine($"  {item.Order}. {item.Name} - {item.SourceDescription}{admin}");
+            _env.Out.WriteLine($"  {item.Order}. {CliText.Safe(item.Name)} - {CliText.Safe(item.SourceDescription)}{admin}");
             if (item.NotInstalledReason is not null)
             {
-                _env.Out.WriteLine($"       will not install: {item.NotInstalledReason}");
+                _env.Out.WriteLine($"       will not install: {CliText.Safe(item.NotInstalledReason)}");
             }
 
             if (byApp.TryGetValue(item.AppId, out var line))
             {
-                _env.Out.WriteLine($"       after install runs: {line.CommandText}");
+                _env.Out.WriteLine($"       after install runs: {CliText.Safe(line.CommandText)}");
                 _env.Out.WriteLine($"       {line.StateText}");
             }
         }
 
         foreach (var warning in plan.PlanWarnings.Skip(1))
         {
-            _env.Out.WriteLine($"  note: {warning}");
+            _env.Out.WriteLine($"  note: {CliText.Safe(warning)}");
         }
     }
 
@@ -175,7 +182,8 @@ public sealed class CliRunner
             .RunAsync(plan, profile.Apps.ToDictionary(app => app.Id), progress, cancellationToken)
             .ConfigureAwait(false)) with { Commands = commands };
 
-        var text = report.WithExportNotes(profile.Apps, _env.Settings).ToText();
+        // Console output never carries notes, even with the export opt-in; only --json does.
+        var text = report.ToText();
         _env.Out.WriteLine();
         _env.Out.Write(text);
 
@@ -187,17 +195,18 @@ public sealed class CliRunner
 
     private async Task<int> InstallAsync(CliOptions options, CancellationToken cancellationToken)
     {
-        var profile = Load(options.ProfilePath!);
-        if (profile is null)
-        {
-            return CliExitCode.InvalidProfile;
-        }
-
+        // Lock first, so loading (which records the profile's origin) never races another run.
         using var runLock = _env.AcquireLock();
         if (runLock is null)
         {
             _env.Error.WriteLine("Another CTRL+Z install is running on this PC. Try again when it has finished.");
             return CliExitCode.Busy;
+        }
+
+        var profile = Load(options.ProfilePath!);
+        if (profile is null)
+        {
+            return CliExitCode.InvalidProfile;
         }
 
         var plan = Plan(profile);
@@ -217,6 +226,13 @@ public sealed class CliRunner
                          line.State is CommandRunState.Blocked or CommandRunState.NeedsReview &&
                          (!line.Risky || options.AllowRisky)))
             {
+                if (CliText.HasHidden(line.CommandText) || CliText.HasHidden(line.AppName))
+                {
+                    // What the terminal showed may not be what the command is: never approve it here.
+                    _env.Error.WriteLine($"Not approved: {CliText.Safe(line.AppName)} has hidden characters in its command. Review it in the app.");
+                    continue;
+                }
+
                 var app = profile.Apps.First(candidate => candidate.Id == line.AppId);
                 if (app.PostInstall is { Enabled: true } command &&
                     PostInstallApprovalStore.HashOf(command) == line.Hash)
@@ -245,7 +261,7 @@ public sealed class CliRunner
             _env.Error.WriteLine("These commands match a risky pattern and would run:");
             foreach (var line in risky)
             {
-                _env.Error.WriteLine($"  {line.AppName}: {line.CommandText}");
+                _env.Error.WriteLine($"  {CliText.Safe(line.AppName)}: {CliText.Safe(line.CommandText)}");
             }
 
             _env.Error.WriteLine("Nothing was installed. Re-run with --allow-risky only if you understand them.");
@@ -304,7 +320,7 @@ public sealed class CliRunner
         }
 
         var dependency = finished.Items.Any(item =>
-            item.Status == InstallStatus.Failed && (item.Error ?? string.Empty).StartsWith("Not attempted:", StringComparison.Ordinal));
+            item.Status == InstallStatus.Failed && (item.Error ?? string.Empty).StartsWith(InstallEngine.NotAttemptedPrefix, StringComparison.Ordinal));
         var failed = finished.Items.Any(item =>
             item.Status is InstallStatus.Failed or InstallStatus.NeedsManualAction or InstallStatus.PostInstallFailed);
         var exit = dependency ? CliExitCode.DependencyFailure : failed ? CliExitCode.PartialFailure : CliExitCode.Success;
@@ -313,7 +329,7 @@ public sealed class CliRunner
         foreach (var item in finished.Items)
         {
             var detail = string.IsNullOrEmpty(item.Error) ? item.Detail : item.Error;
-            _env.Out.WriteLine($"  [{item.Status}] {item.Name}{(string.IsNullOrEmpty(detail) ? string.Empty : " - " + detail)}");
+            _env.Out.WriteLine($"  [{item.Status}] {CliText.Safe(item.Name)}{(string.IsNullOrEmpty(detail) ? string.Empty : " - " + CliText.Safe(detail))}");
         }
 
         _env.Out.WriteLine($"Finished: {finished.CompletedCount} complete, {finished.FailedCount} need attention.");

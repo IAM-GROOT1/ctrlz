@@ -41,6 +41,9 @@ public sealed partial class InstallEngine
         _log = log;
     }
 
+    /// <summary>Start of the error of an app that was not attempted because of its dependencies.</summary>
+    public const string NotAttemptedPrefix = "Not attempted: ";
+
     /// <summary>The dependency catalog the engine plans with; the preview must use the same one.</summary>
     public DependencyCatalog Catalog => _catalog;
 
@@ -79,8 +82,8 @@ public sealed partial class InstallEngine
                 Name = skipped.Name,
                 Source = app?.Source ?? AppSource.Winget,
                 Status = InstallStatus.Failed,
-                Error = "Not attempted: " + skipped.Reason,
-                Detail = "Not attempted: " + skipped.Reason
+                Error = NotAttemptedPrefix + skipped.Reason,
+                Detail = NotAttemptedPrefix + skipped.Reason
             });
         }
 
@@ -213,8 +216,8 @@ public sealed partial class InstallEngine
             // a stopped app is itself marked failed before its dependents are reached).
             var blocker = BlockingDependency(state, plan, item.AppId);
             var notAttempted = blocker is not null
-                ? $"Not attempted: needs {blocker.Name}, which did not install."
-                : loopReasons.TryGetValue(item.AppId, out var loopReason) ? "Not attempted: " + loopReason : null;
+                ? $"{NotAttemptedPrefix}needs {blocker.Name}, which did not install."
+                : loopReasons.TryGetValue(item.AppId, out var loopReason) ? NotAttemptedPrefix + loopReason : null;
             if (notAttempted is not null)
             {
                 item.Status = InstallStatus.Failed;
