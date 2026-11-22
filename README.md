@@ -172,6 +172,16 @@ Download the latest build from [Releases](https://github.com/IAM-GROOT1/ctrlz/re
 The binaries are **not code-signed**, so SmartScreen may show an unknown-publisher prompt.
 Build from source or sign the executable if you distribute it broadly.
 
+### Removing CTRL+Z
+
+- **Installed copy:** uninstall from *Settings → Apps*. The uninstaller asks whether to also
+  delete your CTRL+Z data in `%LOCALAPPDATA%\CTRL+Z`: profiles, settings, logs, install state
+  and any portable apps CTRL+Z installed, along with their *CTRL+Z apps* Start menu shortcuts.
+  The default is **No**, so reinstalling picks up where you left off. A silent uninstall always
+  keeps the data. Browser backups and exported profiles you saved elsewhere are never touched.
+- **Portable copy:** delete the exe (and `ctrlz.exe` beside it). To remove its data too, delete
+  `%LOCALAPPDATA%\CTRL+Z`, or the `Data` folder beside the exe if you used `portable.flag`.
+
 ### Portable data
 
 By default the portable exe still keeps profiles, logs, and settings under

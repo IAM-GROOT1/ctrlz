@@ -68,11 +68,18 @@ jobs:
       - name: Test
         run: dotnet test CTRL+Z.sln -c Release --no-build --nologo
 
-      # Version comes from the newest git tag via build/version.ps1, so CI output is
-      # never labelled with a hard-coded number.
-      - name: Publish portable
+      # Same pinned, hash-verified compiler as the release workflow, so a broken installer
+      # script (including the uninstaller's [Code]) fails here, not when a version is tagged.
+      - name: Install Inno Setup (pinned, hash-verified)
         shell: pwsh
-        run: ./build/publish.ps1 -SkipTests
+        run: ./build/install-inno-setup.ps1
+
+      # Version comes from the newest git tag via build/version.ps1, so CI output is
+      # never labelled with a hard-coded number. This publishes the portable exe and the
+      # command line, then compiles the installer from them.
+      - name: Publish portable and build the installer
+        shell: pwsh
+        run: ./build/build-installer.ps1 -SkipTests
 
       - name: Upload portable artifact
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
