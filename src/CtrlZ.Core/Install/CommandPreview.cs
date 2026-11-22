@@ -27,11 +27,11 @@ public static class CommandPreview
     public const string OffInProfileText = "Off in profile - will not run";
 
     /// <summary>The line for one app, or null when the app has no command.</summary>
-    /// <remarks>
-    /// The approval store keeps hashes per profile, not per command slot, so an edited command
-    /// cannot yet be told apart from one never approved: both show as Blocked, which fails safe.
-    /// </remarks>
-    public static CommandPreviewLine? ForApp(AppEntry app, int order, ProfileOrigin origin, bool approved)
+    public static CommandPreviewLine? ForApp(AppEntry app, int order, ProfileOrigin origin, bool approved) =>
+        ForApp(app, order, origin, approved ? ApprovalState.Current : ApprovalState.None);
+
+    /// <summary>The line for one app from its slot's approval state, or null when it has no command.</summary>
+    public static CommandPreviewLine? ForApp(AppEntry app, int order, ProfileOrigin origin, ApprovalState approval)
     {
         ArgumentNullException.ThrowIfNull(app);
         if (app.PostInstall is not { } command)
@@ -40,7 +40,15 @@ public static class CommandPreview
         }
 
         var hash = PostInstallApprovalStore.HashOf(command);
-        var approvedHashes = approved ? new[] { hash } : Array.Empty<string>();
+
+        // The resolver only needs to know whether this slot holds the current hash, another hash
+        // (edited since approval) or nothing.
+        var approvedHashes = approval switch
+        {
+            ApprovalState.Current => new[] { hash },
+            ApprovalState.Outdated => new[] { "outdated:" + hash },
+            _ => Array.Empty<string>()
+        };
 
         var resolution = CommandStateResolver.Resolve(origin, approvedHashes, command);
         var allowed = CommandStateResolver.MayRun(resolution.State);
@@ -54,12 +62,20 @@ public static class CommandPreview
             app.Id, app.Name, order, command.Describe(), resolution.State, resolution.Risky, willRun, text, hash);
     }
 
-    /// <summary>Lines for every enabled app with a command, numbered like the install plan.</summary>
+    /// <summary>Lines for every enabled app with a command, numbered in profile order.</summary>
     public static IReadOnlyList<CommandPreviewLine> ForProfile(
         AppProfile profile, ProfileOrigin origin, Func<PostInstallCommand, bool> isApproved)
     {
-        ArgumentNullException.ThrowIfNull(profile);
         ArgumentNullException.ThrowIfNull(isApproved);
+        return ForProfile(profile, origin, (_, command) => isApproved(command) ? ApprovalState.Current : ApprovalState.None);
+    }
+
+    /// <summary>Lines for every enabled app with a command, from each slot's approval state.</summary>
+    public static IReadOnlyList<CommandPreviewLine> ForProfile(
+        AppProfile profile, ProfileOrigin origin, Func<AppEntry, PostInstallCommand, ApprovalState> approvalOf)
+    {
+        ArgumentNullException.ThrowIfNull(profile);
+        ArgumentNullException.ThrowIfNull(approvalOf);
 
         var lines = new List<CommandPreviewLine>();
         var order = 0;
@@ -67,7 +83,7 @@ public static class CommandPreview
         {
             order++;
             if (app.PostInstall is { } command &&
-                ForApp(app, order, origin, isApproved(command)) is { } line)
+                ForApp(app, order, origin, approvalOf(app, command)) is { } line)
             {
                 lines.Add(line);
             }
@@ -81,7 +97,23 @@ public static class CommandPreview
         AppProfile profile, ProfileOrigin origin, PostInstallApprovalStore approvals)
     {
         ArgumentNullException.ThrowIfNull(approvals);
-        return ForProfile(profile, origin, command => approvals.IsApproved(profile.Id, command));
+        return ForProfile(profile, origin, (app, command) => approvals.StateOf(profile.Id, app.Id, command));
+    }
+
+    /// <summary>Plan-ordered lines reading approvals from the store; read-only.</summary>
+    public static IReadOnlyList<CommandPreviewLine> ForPlan(
+        Safety.InstallPlan plan, AppProfile profile, ProfileOrigin origin, PostInstallApprovalStore approvals)
+    {
+        ArgumentNullException.ThrowIfNull(approvals);
+        return ForPlan(plan, profile, origin, (app, command) => approvals.StateOf(profile.Id, app.Id, command));
+    }
+
+    /// <summary>Plan-ordered lines from a plain approved/not-approved answer.</summary>
+    public static IReadOnlyList<CommandPreviewLine> ForPlan(
+        Safety.InstallPlan plan, AppProfile profile, ProfileOrigin origin, Func<PostInstallCommand, bool> isApproved)
+    {
+        ArgumentNullException.ThrowIfNull(isApproved);
+        return ForPlan(plan, profile, origin, (_, command) => isApproved(command) ? ApprovalState.Current : ApprovalState.None);
     }
 
     /// <summary>
@@ -89,18 +121,18 @@ public static class CommandPreview
     /// have no line, because their command cannot run either.
     /// </summary>
     public static IReadOnlyList<CommandPreviewLine> ForPlan(
-        Safety.InstallPlan plan, AppProfile profile, ProfileOrigin origin, Func<PostInstallCommand, bool> isApproved)
+        Safety.InstallPlan plan, AppProfile profile, ProfileOrigin origin, Func<AppEntry, PostInstallCommand, ApprovalState> approvalOf)
     {
         ArgumentNullException.ThrowIfNull(plan);
         ArgumentNullException.ThrowIfNull(profile);
-        ArgumentNullException.ThrowIfNull(isApproved);
+        ArgumentNullException.ThrowIfNull(approvalOf);
 
         var lines = new List<CommandPreviewLine>();
         foreach (var item in plan.Items.Where(item => item.NotInstalledReason is null))
         {
             var app = profile.Apps.FirstOrDefault(candidate => candidate.Id == item.AppId);
             if (app?.PostInstall is { } command &&
-                ForApp(app, item.Order, origin, isApproved(command)) is { } line)
+                ForApp(app, item.Order, origin, approvalOf(app, command)) is { } line)
             {
                 lines.Add(line);
             }

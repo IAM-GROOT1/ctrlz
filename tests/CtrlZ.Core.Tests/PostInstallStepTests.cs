@@ -140,7 +140,7 @@ public class PostInstallStepTests
     {
         var f = Create(args: new[] { "/c", "exit", "0" });
         ProfileOriginRecorder.RecordImported(f.Origins, f.Profile);
-        f.Approvals.Approve(f.Profile.Id, f.App.PostInstall!);
+        f.Approvals.Approve(f.Profile.Id, f.App.Id, f.App.PostInstall!);
 
         Assert.Equal(PostInstallOutcomeKind.Ran, (await Run(f)).Kind);
     }
@@ -150,12 +150,12 @@ public class PostInstallStepTests
     {
         var f = Create(args: new[] { "/c", "exit", "0" });
         ProfileOriginRecorder.RecordImported(f.Origins, f.Profile);
-        f.Approvals.Approve(f.Profile.Id, f.App.PostInstall!);
+        f.Approvals.Approve(f.Profile.Id, f.App.Id, f.App.PostInstall!);
         f.App.PostInstall!.Arguments.Add("--changed");
 
         Assert.Equal(PostInstallOutcomeKind.Blocked, (await Run(f)).Kind);
 
-        f.Approvals.Approve(f.Profile.Id, f.App.PostInstall!);
+        f.Approvals.Approve(f.Profile.Id, f.App.Id, f.App.PostInstall!);
         Assert.Equal(PostInstallOutcomeKind.Ran, (await Run(f)).Kind);
     }
 
@@ -164,7 +164,7 @@ public class PostInstallStepTests
     {
         var f = Create(args: new[] { "/c", "exit", "0" });
         ProfileOriginRecorder.RecordImported(f.Origins, f.Profile);
-        f.Approvals.Approve(f.Profile.Id, f.App.PostInstall!);
+        f.Approvals.Approve(f.Profile.Id, f.App.Id, f.App.PostInstall!);
 
         // Someone rewrites the profile after the approval and before the step runs.
         f.App.PostInstall!.Arguments.Clear();

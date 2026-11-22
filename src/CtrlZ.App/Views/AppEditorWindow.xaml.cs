@@ -105,7 +105,7 @@ public partial class AppEditorWindow : Window
             return true;
         }
 
-        var parsed = PostInstallCommandForm.Parse(input);
+        var parsed = PostInstallCommandForm.Parse(input, _working.PostInstall?.Id);
 
         if (!parsed.IsValid)
         {

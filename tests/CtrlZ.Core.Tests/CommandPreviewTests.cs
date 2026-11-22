@@ -96,7 +96,7 @@ public sealed class CommandPreviewTests : IDisposable
 
         if (approved)
         {
-            approvals.Approve(profile.Id, command);
+            approvals.Approve(profile.Id, app.Id, command);
         }
 
         var verdict = new PostInstallCommandGate(origins, approvals).EvaluateCommand(profile, app, command);

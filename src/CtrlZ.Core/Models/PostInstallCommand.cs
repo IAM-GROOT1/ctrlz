@@ -10,6 +10,13 @@ namespace CtrlZ.Core.Models;
 /// </summary>
 public sealed class PostInstallCommand
 {
+    /// <summary>
+    /// Stable id of this command slot, so an approval belongs to one command of one app. Not part
+    /// of the command's hash: editing the text keeps the id and invalidates the approval. Null for
+    /// commands saved before ids existed (omitted from JSON, so those profiles keep their hash).
+    /// </summary>
+    public string? Id { get; set; }
+
     /// <summary>Executable to start. No shell is involved.</summary>
     public string Executable { get; set; } = string.Empty;
 
@@ -39,6 +46,7 @@ public sealed class PostInstallCommand
 
     public PostInstallCommand Clone() => new()
     {
+        Id = Id,
         Executable = Executable,
         Arguments = new List<string>(Arguments),
         WorkingDirectory = WorkingDirectory,

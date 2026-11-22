@@ -94,7 +94,7 @@ public sealed partial class PreviewViewModel : ObservableObject
     {
         var approvals = new PostInstallApprovalStore(Path.Combine(_services.Paths.State, PostInstallStep.ApprovalsFileName));
         Commands = CommandPreview.ForPlan(
-            _plan, _profile, _services.State.OriginOf(_profile), command => approvals.IsApproved(_profile.Id, command));
+            _plan, _profile, _services.State.OriginOf(_profile), approvals);
         var commandByApp = Commands
             .GroupBy(line => line.AppId, StringComparer.Ordinal)
             .ToDictionary(group => group.Key, group => group.First(), StringComparer.Ordinal);

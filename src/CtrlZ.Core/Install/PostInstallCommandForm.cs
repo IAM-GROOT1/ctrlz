@@ -50,7 +50,8 @@ public static class PostInstallCommandForm
     public static bool IsUnchanged(PostInstallCommand? stored, PostInstallCommandInput input) =>
         From(stored).Equals(input with { ArgumentsText = input.ArgumentsText?.Replace("\r\n", "\n").Replace("\n", Environment.NewLine) ?? string.Empty });
 
-    public static PostInstallCommandParse Parse(PostInstallCommandInput input)
+    /// <param name="existingId">The slot id of the command being edited; a new command gets a new id.</param>
+    public static PostInstallCommandParse Parse(PostInstallCommandInput input, string? existingId = null)
     {
         ArgumentNullException.ThrowIfNull(input);
 
@@ -91,6 +92,7 @@ public static class PostInstallCommandForm
 
         return new PostInstallCommandParse(new PostInstallCommand
         {
+            Id = string.IsNullOrWhiteSpace(existingId) ? Guid.NewGuid().ToString("n") : existingId,
             Executable = executable,
             Arguments = arguments,
             WorkingDirectory = directory.Length == 0 ? null : directory,

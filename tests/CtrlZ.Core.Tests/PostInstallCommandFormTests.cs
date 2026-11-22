@@ -88,12 +88,12 @@ public sealed class PostInstallCommandFormTests : IDisposable
     {
         var approvals = new PostInstallApprovalStore(Path.Combine(_folder, "approvals.json"));
         var original = PostInstallCommandForm.Parse(Input()).Command!;
-        approvals.Approve("p1", original);
+        approvals.Approve("p1", "app", original);
 
         var edited = PostInstallCommandForm.Parse(Input(args: "import\nother.reg")).Command!;
 
-        Assert.True(approvals.IsApproved("p1", original));
-        Assert.False(approvals.IsApproved("p1", edited));
+        Assert.True(approvals.IsApproved("p1", "app", original));
+        Assert.False(approvals.IsApproved("p1", "app", edited));
     }
 
     [Theory]

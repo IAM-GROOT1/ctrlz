@@ -65,8 +65,8 @@ public sealed class CommandReviewViewModelTests : IDisposable
 
         review.ApproveCommand.Execute(null);
 
-        Assert.True(approvals.IsApproved("p1", profile.Apps[0].PostInstall!));
-        Assert.True(Approvals().IsApproved("p1", profile.Apps[0].PostInstall!));
+        Assert.True(approvals.IsApproved("p1", "a", profile.Apps[0].PostInstall!));
+        Assert.True(Approvals().IsApproved("p1", "a", profile.Apps[0].PostInstall!));
         Assert.Equal(before, JsonSerializer.Serialize(profile, JsonDefaults.Profile));
         Assert.True(review.Items[0].IsApproved);
         Assert.Equal("Approved - runs after install", review.Items[0].StateText);
@@ -82,7 +82,7 @@ public sealed class CommandReviewViewModelTests : IDisposable
 
         review.ApproveCommand.Execute(null);
 
-        Assert.False(approvals.IsApproved("p1", profile.Apps[2].PostInstall!));
+        Assert.False(approvals.IsApproved("p1", "r", profile.Apps[2].PostInstall!));
         Assert.False(review.Items[1].IsApproved);
     }
 
@@ -131,10 +131,13 @@ public sealed class CommandReviewViewModelTests : IDisposable
         review.NextCommand.Execute(null);   // command 3 of 3: "C"
         review.ApproveCommand.Execute(null);
 
-        var stored = JsonSerializer.Deserialize<Dictionary<string, List<string>>>(
-            File.ReadAllText(Path.Combine(_folder, "approvals.json")), JsonDefaults.Profile)!;
-        Assert.Equal(new[] { "p1" }, stored.Keys);
-        Assert.Equal(new[] { PostInstallApprovalStore.HashOf(profile.Apps[3].PostInstall!) }, stored["p1"]);
+        using var stored = JsonDocument.Parse(File.ReadAllText(Path.Combine(_folder, "approvals.json")));
+        var slots = stored.RootElement.GetProperty("slots");
+        Assert.Equal(new[] { "p1" }, slots.EnumerateObject().Select(p => p.Name));
+        var only = Assert.Single(slots.GetProperty("p1").EnumerateObject());
+        Assert.Equal(PostInstallApprovalStore.SlotKey("c", profile.Apps[3].PostInstall!), only.Name);
+        Assert.Equal(PostInstallApprovalStore.HashOf(profile.Apps[3].PostInstall!), only.Value.GetString());
+        Assert.False(stored.RootElement.TryGetProperty("legacy", out _));
         Assert.Equal(before, File.ReadAllBytes(profilePath));
         Assert.Equal(new[] { "approvals.json", "profile.json" }, FilesInFolder());
         Assert.Equal(new[] { false, false, true }, review.Items.Select(item => item.IsApproved));
@@ -187,5 +190,25 @@ public sealed class CommandReviewViewModelTests : IDisposable
         Assert.True(review.IsLocal);
         Assert.Equal("Runs after install", review.Items[0].StateText);
         Assert.False(review.ApproveCommand.CanExecute(null));
+    }
+
+    [Fact]
+    public void A_command_edited_after_approval_shows_needs_review_and_can_be_approved_again()
+    {
+        var profile = Profile();
+        var approvals = Approvals();
+        Review(profile, approvals).ApproveCommand.Execute(null);
+
+        profile.Apps[0].PostInstall!.Arguments.Add("--edited");
+        var review = Review(profile, approvals);
+
+        Assert.False(review.Items[0].IsApproved);
+        Assert.Equal("Edited since approval - needs review", review.Items[0].StateText);
+        Assert.True(review.ApproveCommand.CanExecute(null));
+
+        review.ApproveCommand.Execute(null);
+
+        Assert.True(review.Items[0].IsApproved);
+        Assert.True(approvals.IsApproved("p1", "a", profile.Apps[0].PostInstall!));
     }
 }
