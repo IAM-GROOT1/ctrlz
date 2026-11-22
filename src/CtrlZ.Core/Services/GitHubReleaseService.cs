@@ -194,6 +194,50 @@ public sealed partial class GitHubReleaseService
         }
     }
 
+    /// <summary>
+    /// The SHA-256 a release's own checksum file gives for <paramref name="asset"/>, and that file's
+    /// name; null when the release publishes none or does not list the asset. A file that cannot be
+    /// fetched also gives null (the install then has no published hash, as before). A file that lists
+    /// the asset with two different hashes throws <see cref="FormatException"/>.
+    /// </summary>
+    public async Task<(string Sha256, string FileName)?> GetPublishedChecksumAsync(
+        GitHubRelease release,
+        GitHubAsset asset,
+        CancellationToken cancellationToken = default)
+    {
+        // A few candidates at most: a list that covers other platforms does not end the search.
+        foreach (var checksum in ReleaseChecksums.CandidatesFor(release, asset).Take(MaxChecksumFiles))
+        {
+            byte[] bytes;
+            try
+            {
+                bytes = await _downloads.GetBytesAsync(checksum.DownloadUrl, TimeSpan.FromSeconds(20), cancellationToken)
+                    .ConfigureAwait(false);
+            }
+            catch (Exception ex) when (ex is not OperationCanceledException || !cancellationToken.IsCancellationRequested)
+            {
+                _log.Write(LogLevel.Warning, $"Could not fetch {checksum.Name}: {LogPrivacy.Describe(ex)}");
+                continue;
+            }
+
+            if (bytes.Length > ReleaseChecksums.MaxFileBytes)
+            {
+                continue;
+            }
+
+            var hash = ReleaseChecksums.Parse(
+                ReleaseChecksums.Decode(bytes), asset.Name, ReleaseChecksums.IsForAsset(checksum, asset));
+            if (hash is not null)
+            {
+                return (hash, checksum.Name);
+            }
+        }
+
+        return null;
+    }
+
+    private const int MaxChecksumFiles = 3;
+
     public IReadOnlyList<GitHubAsset> RankWindowsAssets(GitHubRelease release)
     {
         return release.Assets

@@ -74,7 +74,9 @@ See which installed apps have updates and apply them from one place.
 
 ### 4. Reliability and security
 
-- Installer verification beyond SHA-256 where a source publishes more.
+- Done: installer verification beyond SHA-256. A GitHub release's own checksum file is used when
+  GitHub has no digest, and every `.exe`/`.msi` has its Authenticode signature checked offline
+  before it runs. A broken signature stops the install.
 - Done: **Verify** on the Browsers page reads every file of a browser backup (decrypting and
   checking each one) and reports whether it can be restored, without changing anything.
 - Done: **Save diagnostics** in Settings writes a ZIP, only when you ask, with versions, settings

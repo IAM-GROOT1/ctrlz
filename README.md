@@ -68,7 +68,17 @@ emoji icons.
   is old, it attempts an App Installer upgrade.
 - Download verification: winget verifies its own manifests; direct/GitHub/local downloads
   verify a supplied SHA-256, and GitHub release asset digests are used automatically when
-  present.
+  present. When GitHub has no digest for an asset, a checksum file published in the same release
+  (`setup.exe.sha256`, `SHA256SUMS`, `checksums.txt`, …) is used instead; only SHA-256 entries
+  count, and a file that lists the asset twice with different hashes stops the install.
+- Signature check: before CTRL+Z runs an `.exe` or `.msi`, or copies a portable `.exe`, Windows
+  checks its Authenticode signature, and the result and signer appear in the install log. A
+  **broken** signature (the file was changed after signing, or the certificate was revoked or is
+  distrusted) stops the install. Unsigned installers still run, and the log says so. The check
+  works offline and adds no network request, so revocation is not looked up: a revoked certificate
+  is caught only if Windows already distrusts it. The signature catches a signed file that was
+  altered, not a file replaced by an unsigned or differently signed one. For that, a published or
+  saved SHA-256 is the check.
 
 ### Chromium and Firefox browser backup
 

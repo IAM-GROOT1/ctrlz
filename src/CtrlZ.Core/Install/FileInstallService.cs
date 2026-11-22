@@ -21,21 +21,53 @@ public sealed class FileInstallService
     private readonly IAppLog _log;
     private readonly CtrlZ.Core.AppUpdates.IShortcutWriter? _shortcuts;
     private readonly Func<bool> _shortcutsEnabled;
+    private readonly IInstallerSignatureVerifier _signatures;
 
     /// <param name="shortcuts">Creates Start menu shortcuts for portable apps; null for none.</param>
     /// <param name="shortcutsEnabled">Read at install time, so the Settings toggle applies at once.</param>
+    /// <param name="signatures">Authenticode check before an .exe or .msi runs; Windows' own by default.</param>
     public FileInstallService(
         AppPaths paths,
         ProcessRunner runner,
         IAppLog log,
         CtrlZ.Core.AppUpdates.IShortcutWriter? shortcuts = null,
-        Func<bool>? shortcutsEnabled = null)
+        Func<bool>? shortcutsEnabled = null,
+        IInstallerSignatureVerifier? signatures = null)
     {
         _paths = paths;
         _runner = runner;
         _log = log;
         _shortcuts = shortcuts;
         _shortcutsEnabled = shortcutsEnabled ?? (() => true);
+        _signatures = signatures ?? AuthenticodeVerifier.Instance;
+    }
+
+    /// <summary>
+    /// Checks the file's signature and writes the result to the install log. Returns a failure only
+    /// when the signature is broken; unsigned and untrusted files continue.
+    /// </summary>
+    private InstallResult? RefuseBrokenSignature(AppEntry app, string path, InstallContext context)
+    {
+        SignatureCheck check;
+        try
+        {
+            check = _signatures.Check(path);
+        }
+        catch (Exception ex)
+        {
+            _log.Write(LogLevel.Warning, "Signature check failed: " + LogPrivacy.Describe(ex));
+            check = new SignatureCheck(SignatureStatus.NotChecked, null, 0);
+        }
+
+        context.Line(check.Describe());
+        if (!check.BlocksInstall)
+        {
+            return null;
+        }
+
+        _log.Write(LogLevel.Warning, $"Refused {app.Name}: broken installer signature (0x{check.Code:X8}).");
+        context.Report(app, InstallStatus.Failed, "Installer signature is broken.");
+        return InstallResult.Fail(check.Describe());
     }
 
     /// <summary>Adds a Start menu shortcut for a portable app when enabled; never fails the install.</summary>
@@ -102,6 +134,11 @@ public sealed class FileInstallService
         {
             return InstallResult.NeedsAction(
                 $"CTRL+Z cannot run {extension} files automatically. Use the installer .exe/.msi, or add the app as a portable archive.");
+        }
+
+        if (RefuseBrokenSignature(app, installerPath, context) is { } refused)
+        {
+            return refused;
         }
 
         var custom = app.SilentArgs?.Trim();
@@ -246,6 +283,12 @@ public sealed class FileInstallService
 
     private InstallResult CopyPortable(AppEntry app, string filePath, InstallContext context)
     {
+        if (Path.GetExtension(filePath).Equals(".exe", StringComparison.OrdinalIgnoreCase) &&
+            RefuseBrokenSignature(app, filePath, context) is { } refused)
+        {
+            return refused;
+        }
+
         try
         {
             var destinationDirectory = Path.Combine(_paths.Apps, FileUtil.Slug(app.Name));
