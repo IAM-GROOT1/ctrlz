@@ -63,6 +63,8 @@ public enum InstallStatus
     NeedsManualAction,
     RebootRequired,
     Skipped,
+    /// <summary>Installed, but its optional post-install command failed. Never blocks the queue.</summary>
+    PostInstallFailed,
     Cancelled
 }
 

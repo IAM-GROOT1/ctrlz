@@ -1,3 +1,5 @@
+using System.IO;
+using CtrlZ.Core.Install;
 // SPDX-License-Identifier: AGPL-3.0-only
 // Copyright (c) 2026 iam-groot1
 
@@ -20,6 +22,7 @@ public sealed class AppState : ObservableObject
     private readonly IAppLog _log;
     private AppProfile _activeProfile = new();
     private bool _initialized;
+    private readonly ProfileOriginStore _origins;
 
     public AppState(ProfileStore profileStore, SettingsStore settingsStore, AppSettings settings, IAppLog log)
     {
@@ -27,6 +30,7 @@ public sealed class AppState : ObservableObject
         _settingsStore = settingsStore;
         Settings = settings;
         _log = log;
+        _origins = new ProfileOriginStore(Path.Combine(profileStore.StateFolder, "profile-origins.json"), log);
     }
 
     public AppSettings Settings { get; }
@@ -51,6 +55,7 @@ public sealed class AppState : ObservableObject
         if (summaries.Count == 0)
         {
             var profile = _profileStore.Create("My apps");
+            ProfileOriginRecorder.RecordCreated(_origins, profile);
             summaries = _profileStore.List().ToList();
             _log.Write(LogLevel.Info, $"Created initial profile '{profile.Name}'.");
         }
@@ -66,7 +71,7 @@ public sealed class AppState : ObservableObject
         var summaries = _profileStore.List().ToList();
         if (summaries.Count == 0)
         {
-            _profileStore.Create("My apps");
+            ProfileOriginRecorder.RecordCreated(_origins, _profileStore.Create("My apps"));
             summaries = _profileStore.List().ToList();
         }
 
@@ -91,6 +96,7 @@ public sealed class AppState : ObservableObject
     public AppProfile CreateProfile(string name, string? description = null)
     {
         var profile = _profileStore.Create(name, description);
+        ProfileOriginRecorder.RecordCreated(_origins, profile);
         var summaries = _profileStore.List().ToList();
         ReplaceProfiles(summaries);
         var summary = summaries.First(s => s.Id == profile.Id);
@@ -101,6 +107,7 @@ public sealed class AppState : ObservableObject
     public AppProfile ImportProfile(string sourcePath)
     {
         var profile = _profileStore.Import(sourcePath);
+        ProfileOriginRecorder.RecordImported(_origins, profile);
         var summaries = _profileStore.List().ToList();
         ReplaceProfiles(summaries);
         var summary = summaries.First(s => s.Id == profile.Id);
@@ -114,7 +121,7 @@ public sealed class AppState : ObservableObject
         var summaries = _profileStore.List().ToList();
         if (summaries.Count == 0)
         {
-            _profileStore.Create("My apps");
+            ProfileOriginRecorder.RecordCreated(_origins, _profileStore.Create("My apps"));
             summaries = _profileStore.List().ToList();
         }
 
@@ -150,6 +157,7 @@ public sealed class AppState : ObservableObject
         }
 
         _profileStore.SaveToStore(_activeProfile);
+        ProfileOriginRecorder.RecordSaved(_origins, _activeProfile);
         ReloadProfiles();
         OnPropertyChanged(nameof(ActiveProfileName));
         OnPropertyChanged(nameof(ActiveAppCount));
@@ -250,7 +258,7 @@ public sealed class AppState : ObservableObject
     {
         try
         {
-            _activeProfile = _profileStore.Load(summary.Path);
+            _activeProfile = ProfileOriginRecorder.LoadForUse(_origins, _profileStore.Load(summary.Path));
         }
         catch (Exception ex)
         {

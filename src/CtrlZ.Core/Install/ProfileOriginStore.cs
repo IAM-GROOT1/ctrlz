@@ -7,22 +7,37 @@ namespace CtrlZ.Core.Install;
 /// cannot claim to be local.</summary>
 public enum ProfileOrigin
 {
-    /// <summary>Created or edited on this machine.</summary>
+    /// <summary>Created or last saved on this machine, and its content still matches that save.</summary>
     Local = 0,
 
-    /// <summary>Imported from a file, a link, or a catalog: its post-install commands start disabled.</summary>
-    Imported = 1
+    /// <summary>Imported from a file, a link, a catalog or a command line: commands start disabled.</summary>
+    Imported = 1,
+
+    /// <summary>
+    /// No usable record: missing entry, missing file, unreadable or corrupt file, or a profile id that
+    /// was never recorded. Treated exactly like <see cref="Imported"/> by the gate, i.e. blocked.
+    /// </summary>
+    Unknown = 2
+}
+
+/// <summary>One remembered profile: its origin and the hash of the content that was last saved locally.</summary>
+public sealed class ProfileOriginEntry
+{
+    public ProfileOrigin Origin { get; set; } = ProfileOrigin.Unknown;
+
+    /// <summary>SHA-256 of the profile JSON as this machine last wrote it. Null when never saved here.</summary>
+    public string? LastSavedHash { get; set; }
 }
 
 /// <summary>
 /// Remembers the origin of each profile on this machine. The value lives in the app's state folder,
-/// not in the profile JSON, so flipping a flag inside an imported file has no effect.
+/// never in the profile JSON, so flipping a flag inside an imported file has no effect.
 /// </summary>
 public sealed class ProfileOriginStore
 {
     private readonly string _path;
     private readonly CtrlZ.Core.Logging.IAppLog? _log;
-    private Dictionary<string, ProfileOrigin> _origins = new(StringComparer.Ordinal);
+    private Dictionary<string, ProfileOriginEntry> _entries = new(StringComparer.Ordinal);
 
     public ProfileOriginStore(string path, CtrlZ.Core.Logging.IAppLog? log = null)
     {
@@ -31,12 +46,28 @@ public sealed class ProfileOriginStore
         Load();
     }
 
-    public ProfileOrigin Get(string profileId) =>
-        _origins.TryGetValue(profileId, out var origin) ? origin : ProfileOrigin.Local;
+    /// <summary>True only when an entry exists and is readable.</summary>
+    public bool HasEntry(string profileId) => _entries.ContainsKey(profileId);
 
-    public void Set(string profileId, ProfileOrigin origin)
+    /// <summary>
+    /// The origin. Anything other than an explicit <see cref="ProfileOrigin.Local"/> entry is unknown:
+    /// a missing id, a deleted file, or a corrupt file all land here.
+    /// </summary>
+    public ProfileOrigin Get(string profileId) =>
+        _entries.TryGetValue(profileId, out var entry) ? entry.Origin : ProfileOrigin.Unknown;
+
+    /// <summary>The hash recorded when this profile was last saved locally, if any.</summary>
+    public string? GetLastSavedHash(string profileId) =>
+        _entries.TryGetValue(profileId, out var entry) ? entry.LastSavedHash : null;
+
+    public void Set(string profileId, ProfileOrigin origin, string? lastSavedHash = null)
     {
-        _origins[profileId] = origin;
+        if (string.IsNullOrWhiteSpace(profileId))
+        {
+            return;
+        }
+
+        _entries[profileId] = new ProfileOriginEntry { Origin = origin, LastSavedHash = lastSavedHash };
         Save();
     }
 
@@ -50,17 +81,20 @@ public sealed class ProfileOriginStore
             }
 
             var json = File.ReadAllText(_path);
-            var loaded = System.Text.Json.JsonSerializer.Deserialize<Dictionary<string, ProfileOrigin>>(
+            var loaded = System.Text.Json.JsonSerializer.Deserialize<Dictionary<string, ProfileOriginEntry>>(
                 json,
                 CtrlZ.Core.Infrastructure.JsonDefaults.Profile);
+
             if (loaded is not null)
             {
-                _origins = new Dictionary<string, ProfileOrigin>(loaded, StringComparer.Ordinal);
+                _entries = new Dictionary<string, ProfileOriginEntry>(loaded, StringComparer.Ordinal);
             }
         }
         catch (Exception)
         {
-            _log?.Write(CtrlZ.Core.Logging.LogLevel.Warning, "Could not read profile origins; treating all profiles as local.");
+            // A corrupt or unreadable file leaves no entries, which means Unknown for every profile.
+            _entries = new Dictionary<string, ProfileOriginEntry>(StringComparer.Ordinal);
+            _log?.Write(CtrlZ.Core.Logging.LogLevel.Warning, "Could not read profile origins; every profile is treated as untrusted.");
         }
     }
 
@@ -76,11 +110,11 @@ public sealed class ProfileOriginStore
 
             File.WriteAllText(
                 _path,
-                System.Text.Json.JsonSerializer.Serialize(_origins, CtrlZ.Core.Infrastructure.JsonDefaults.Profile));
+                System.Text.Json.JsonSerializer.Serialize(_entries, CtrlZ.Core.Infrastructure.JsonDefaults.Profile));
         }
-        catch
+        catch (Exception)
         {
-            // Origin tracking must never take the app down; worst case a profile is treated as local.
+            // Origin tracking must never take the app down; worst case the profile is untrusted.
         }
     }
 }

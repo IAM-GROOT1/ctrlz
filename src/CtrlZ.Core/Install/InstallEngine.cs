@@ -13,7 +13,7 @@ namespace CtrlZ.Core.Install;
 /// Sequential, fault-isolated install runner. Every state transition is persisted, so a
 /// crash, failed installer, or reboot never loses the position in the queue.
 /// </summary>
-public sealed class InstallEngine
+public sealed partial class InstallEngine
 {
     private readonly AppPaths _paths;
     private readonly IReadOnlyList<ISourceInstaller> _installers;
@@ -237,7 +237,38 @@ public sealed class InstallEngine
             }
 
             _stateStore.Save(state);
-            sessionLog.Report(item, item.Status, item.Detail, item.Status == InstallStatus.Success ? 1 : null);
+// Post-install commands: one code path, decided and run by PostInstallStep at this moment.
+            if (item.Status is InstallStatus.Success or InstallStatus.RebootRequired)
+            {
+                var outcome = await RunPostInstallAsync(profile, app, cancellationToken).ConfigureAwait(false);
+
+                switch (outcome.Kind)
+                {
+                    case PostInstallOutcomeKind.Blocked:
+                        item.Detail = $"Installed; command not run ({outcome.Reason}).";
+                        sessionLog.Line($"[{item.Name}] post-install command not run: {outcome.Reason}");
+                        break;
+
+                    case PostInstallOutcomeKind.Ran:
+                        item.Detail = "Installed; post-install command ok.";
+                        sessionLog.Line($"[{item.Name}] post-install command ok.");
+                        break;
+
+                    case PostInstallOutcomeKind.Failed:
+                    case PostInstallOutcomeKind.TimedOut:
+                        item.Status = InstallStatus.PostInstallFailed;
+                        item.Error = outcome.Kind == PostInstallOutcomeKind.TimedOut
+                            ? "Post-install command timed out."
+                            : $"Post-install command failed ({outcome.ExitCode}).";
+                        item.Detail = "Installed, post-install failed.";
+                        sessionLog.Line($"[{item.Name}] installed, post-install failed ({outcome.Kind}).");
+                        break;
+                }
+            }
+
+            
+
+                        sessionLog.Report(item, item.Status, item.Detail, item.Status == InstallStatus.Success ? 1 : null);
         }
 
         state.IsFinished = true;
