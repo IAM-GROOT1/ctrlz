@@ -257,6 +257,12 @@ CTRL+Z is local-first: no account, no telemetry, no analytics.
   dry-run report) show *(note hidden)* unless **Include notes in exports** is turned on in
   Settings. The diagnostics copy holds no profile data at all. On the install screen, an app's note
   is shown when that app failed or needs manual action.
+- **Diagnostics are made only when you ask, and never sent.** **Copy diagnostics** in Settings
+  copies a summary of versions, settings switches and counts. **Save diagnostics** writes that
+  summary and your last 7 CTRL+Z logs to a ZIP you choose. In the logs, file paths become
+  `<path>`, personal folders keep only their token, and the account and PC names are hidden. No
+  profile, app list, note, post-install command or browser data goes in. App names can appear in
+  log lines, so open the ZIP before you share it.
 - The updater is separate: see [Updates](#updates) for the single check it makes.
 
 ## Build and run

@@ -9,6 +9,7 @@ using CtrlZ.App.Services;
 using CtrlZ.Core.Logging;
 using CtrlZ.Core.Models;
 using CtrlZ.Core.Updates;
+using InstallState = CtrlZ.Core.Models.InstallState;
 
 namespace CtrlZ.App.ViewModels;
 
@@ -282,15 +283,95 @@ public sealed partial class SettingsViewModel : PageViewModelBase
     {
         try
         {
-            var text = $"CTRL+Z {AppVersion}\nWindows {Environment.OSVersion.VersionString}\n" +
-                       $"Data: {DataFolder}\nwinget: {WingetStatus}\nLog: {LogFile}\n";
-            System.Windows.Clipboard.SetText(text);
-            StatusMessage = "Diagnostics copied to the clipboard.";
+            System.Windows.Clipboard.SetText(DiagnosticsBundle.Summary(DiagnosticsFacts()));
+            StatusMessage = "Diagnostics summary copied to the clipboard. It holds versions, switches and counts only.";
         }
         catch (Exception ex)
         {
             _dialogs.Error("Could not copy diagnostics: " + ex.Message);
         }
+    }
+
+    [ObservableProperty]
+    private bool _isSavingDiagnostics;
+
+    /// <summary>Writes a diagnostics ZIP where the user chooses. Nothing is sent anywhere.</summary>
+    [RelayCommand]
+    private async Task SaveDiagnosticsAsync()
+    {
+        if (IsSavingDiagnostics)
+        {
+            return;
+        }
+
+        var dialog = new Microsoft.Win32.SaveFileDialog
+        {
+            Title = "Save diagnostics",
+            Filter = "ZIP archive (*.zip)|*.zip",
+            FileName = $"ctrlz-diagnostics-{DateTime.Now:yyyyMMdd-HHmm}.zip",
+            InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments)
+        };
+        if (dialog.ShowDialog() != true)
+        {
+            return;
+        }
+
+        IsSavingDiagnostics = true;
+        StatusMessage = "Saving diagnostics…";
+        try
+        {
+            var facts = DiagnosticsFacts();
+            var path = dialog.FileName;
+            await Task.Run(() => DiagnosticsBundle.Write(path, facts, LogsFolder, PathPrivacy.Current));
+            _services.Log.Write(LogLevel.Info, "Diagnostics bundle saved on request.");
+            StatusMessage = "Diagnostics saved. Nothing was sent; open the ZIP to check it before you share it.";
+            OpenPath(path);
+        }
+        catch (Exception ex)
+        {
+            _services.Log.Write(LogLevel.Error, "Diagnostics bundle failed: " + LogPrivacy.Describe(ex));
+            _dialogs.Error("Could not save diagnostics.\n\n" + ex.Message);
+            StatusMessage = null;
+        }
+        finally
+        {
+            IsSavingDiagnostics = false;
+        }
+    }
+
+    private DiagnosticsInput DiagnosticsFacts()
+    {
+        InstallState? lastInstall = null;
+        try
+        {
+            lastInstall = _services.InstallStates.Load();
+        }
+        catch (Exception ex) when (ex is IOException or UnauthorizedAccessException or System.Text.Json.JsonException)
+        {
+            // A missing or unreadable state file only means the summary has no last run.
+        }
+
+        return new DiagnosticsInput
+        {
+            AppVersion = AppVersion,
+            DataLocation = DataLocationKind(),
+            WingetStatus = WingetStatus,
+            Settings = _services.State.Settings,
+            ProfileCount = _services.State.Profiles.Count,
+            ActiveProfile = _services.State.ActiveProfile,
+            LastInstall = lastInstall
+        };
+    }
+
+    private static string DataLocationKind()
+    {
+        if (!string.IsNullOrWhiteSpace(Environment.GetEnvironmentVariable("CTRLZ_DATA_DIR")))
+        {
+            return "custom folder (CTRLZ_DATA_DIR)";
+        }
+
+        var exeFolder = Path.GetDirectoryName(Environment.ProcessPath) ?? AppContext.BaseDirectory;
+        return File.Exists(Path.Combine(exeFolder, "portable.flag")) ? "portable" : "installed";
     }
 
     [RelayCommand]
