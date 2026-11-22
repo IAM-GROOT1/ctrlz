@@ -11,6 +11,7 @@ using CtrlZ.App.Services;
 using CtrlZ.App.Views;
 using CtrlZ.Core.Install;
 using CtrlZ.Core.Models;
+using CtrlZ.Core.Services;
 
 namespace CtrlZ.App.ViewModels;
 
@@ -252,6 +253,70 @@ public sealed partial class MyAppsViewModel : PageViewModelBase
 
     [RelayCommand]
     private void CheckDrift() => _dialogs.ShowDrift(_services, _main);
+
+    /// <summary>
+    /// Adds apps from a winget, Scoop or Chocolatey export to the open profile. Matching uses the
+    /// catalog already on this PC (no network), and the user sees what will be added first.
+    /// </summary>
+    [RelayCommand]
+    private void ImportPackageList()
+    {
+        var dialog = new Microsoft.Win32.OpenFileDialog
+        {
+            Title = "Import an app list from winget, Scoop or Chocolatey",
+            Filter = "App lists (*.json;*.config;*.txt)|*.json;*.config;*.txt|All files (*.*)|*.*",
+            CheckFileExists = true
+        };
+        if (dialog.ShowDialog() != true)
+        {
+            return;
+        }
+
+        PackageListImport import;
+        try
+        {
+            var catalog = _services.Catalog.TryLoadCache() ?? _services.Catalog.LoadBundled();
+            import = PackageListImporter.FromFile(dialog.FileName, catalog.Items);
+        }
+        catch (Exception ex) when (ex is FormatException or IOException or UnauthorizedAccessException)
+        {
+            _dialogs.Error("That file could not be read as an app list.\n\n" + ex.Message +
+                "\n\nUse the file from \"winget export -o apps.json\", \"scoop export > apps.json\" or \"choco export\".",
+                "Import app list");
+            return;
+        }
+
+        if (import.Apps.Count == 0)
+        {
+            _dialogs.Info($"No apps in that {import.KindName} list could be matched to winget or the Microsoft Store." +
+                UnmatchedText(import.Unmatched), "Import app list");
+            return;
+        }
+
+        var names = string.Join("\n", import.Apps.Take(15).Select(app => "• " + app.Name)) +
+                    (import.Apps.Count > 15 ? $"\n• …and {import.Apps.Count - 15} more" : string.Empty);
+        if (!_dialogs.Confirm("Import app list",
+                $"Add {import.Apps.Count} app{(import.Apps.Count == 1 ? string.Empty : "s")} from this {import.KindName} list to \"{_services.State.ActiveProfile.Name}\"?\n\n" +
+                names + UnmatchedText(import.Unmatched) +
+                "\n\nApps already in the profile are skipped. You can review or remove any of them afterwards.",
+                "Add apps", "Cancel"))
+        {
+            return;
+        }
+
+        var (added, skipped) = _services.State.AddApps(import.Apps);
+        _services.Log.Write(CtrlZ.Core.Logging.LogLevel.Info,
+            $"Imported a {import.KindName} list: {added} added, {skipped} already present, {import.Unmatched.Count} not matched.");
+        ReloadApps();
+        ShowStatus($"Added {added} app{(added == 1 ? string.Empty : "s")} from the {import.KindName} list" +
+                   (skipped > 0 ? $" · {skipped} already present" : string.Empty) +
+                   (import.Unmatched.Count > 0 ? $" · {import.Unmatched.Count} not matched" : string.Empty) + ".");
+    }
+
+    private static string UnmatchedText(IReadOnlyList<string> unmatched) => unmatched.Count == 0
+        ? string.Empty
+        : $"\n\nNot matched ({unmatched.Count}), add these by hand if you need them:\n" +
+          string.Join(", ", unmatched.Take(20)) + (unmatched.Count > 20 ? ", …" : string.Empty);
 
     [RelayCommand]
     private void RemoveApp(ProfileAppRow? row)

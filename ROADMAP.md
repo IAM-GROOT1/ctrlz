@@ -79,7 +79,9 @@ See which installed apps have updates and apply them from one place.
   checking each one) and reports whether it can be restored, without changing anything.
 - Done: **Save diagnostics** in Settings writes a ZIP, only when you ask, with versions, settings
   switches, counts and recent logs with paths and names removed. Nothing is sent anywhere.
-- Import app lists from winget, Scoop and Chocolatey.
+- Done: **Import list** on My Apps adds apps from a `winget export`, `scoop export` or Chocolatey
+  `packages.config` file, matching Scoop and Chocolatey names through the catalog on this PC and
+  listing what could not be matched.
 - ARM64 builds.
 - Download resumption and mirror fallback.
 - Done: personal paths and names are kept out of logs and saved state. Logs write personal
