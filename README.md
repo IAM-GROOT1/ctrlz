@@ -119,6 +119,10 @@ emoji icons.
   checks each one (checksum or AES authentication), confirms every listed profile is present and
   that no passwords or cookies were added, and reports whether it can be restored. Nothing is
   written.
+- **Restoring on a PC that never had the browser:** if the backup's browser isn't installed,
+  the restore panel offers to install it with winget (Chrome, Edge, Brave, Vivaldi, Firefox,
+  LibreWolf, Waterfox, Zen). Open it once so it creates its own data folder, close it, press
+  **Refresh**, and restore.
 - Restore flow: inspect archive → choose profiles → choose a target browser of the **same engine**
   → **restore as new profiles (recommended)** or merge into existing profiles after a warning.
   New Firefox profiles are registered in `profiles.ini`; new Chromium profiles in `Local State`.
@@ -631,8 +635,8 @@ The work is split into numbered sections, built one at a time and shipped as the
 - [x] **4.** Reliability and security
 - [ ] **5.** Foundation for optional extras
 - [x] **6.** UI polish and motion
-- [ ] **7.** Onboarding and sharing profiles - **next**
-- [ ] **8.** Release and distribution
+- [x] **7.** Onboarding and sharing profiles
+- [ ] **8.** Release and distribution - **next**
 - [ ] **9.** Optional extra: scheduled and local backups
 - [ ] **10.** Optional extra: settings backup
 - [ ] **11.** Optional extras: availability
