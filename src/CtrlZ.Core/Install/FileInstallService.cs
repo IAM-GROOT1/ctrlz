@@ -101,8 +101,10 @@ public sealed class FileInstallService
         }
         else
         {
+            // Arguments only: the runner already puts the program first. Including the path here
+            // handed every installer its own path as an extra first argument.
             fileName = installerPath;
-            commandLine = $"{Quote(installerPath)} {arguments}";
+            commandLine = arguments;
         }
 
         context.Line($"Detected {type.DisplayName()}; running: {SilentInstallerCatalog.BuildDisplayCommand(installerPath, arguments)}");
