@@ -51,7 +51,15 @@ var environment = new CliEnvironment
     CreateDryRun = () => new DryRunRunner(
         (id, token) => winget.SearchAsync(id, token),
         (repo, token) => github.GetLatestAsync(repo, token),
-        (url, token) => downloads.HeadAsync(url, TimeSpan.FromSeconds(10), token))
+        (url, token) => downloads.HeadAsync(url, TimeSpan.FromSeconds(10), token)),
+    ListUpdates = token => winget.ListUpgradesAsync(token),
+    Upgrade = async (id, onLine, token) =>
+    {
+        var result = await winget.UpgradeAsync(id, line => onLine(line.Text), token);
+        return (result.ExitCode, result.CombinedOutput);
+    },
+    UpdateIgnores = new CtrlZ.Core.AppUpdates.AppUpdateIgnoreStore(
+        Path.Combine(paths.State, CtrlZ.Core.AppUpdates.AppUpdateIgnoreStore.FileName))
 };
 
 using var cancel = new CancellationTokenSource();

@@ -69,7 +69,8 @@ See which installed apps have updates and apply them from one place.
   newer one appears.
 - [ ] **B. Portable apps.** Start menu shortcuts for portable apps and a check for newer versions
   of apps installed from GitHub releases.
-- [ ] **C. Command line.** `ctrlz updates` to list and apply app updates from a terminal.
+- [x] **C. Command line.** `ctrlz updates` lists app updates; `--all --yes` or `--id <id> --yes`
+  applies them.
 
 ### 4. Reliability and security
 
