@@ -134,15 +134,9 @@ public sealed class DialogService
     /// Asks for the confirmations the commands in this run need: once per command text on this PC,
     /// and again on every run for a risky command. False means the install must not start.
     /// </summary>
-    public bool ConfirmPostInstallCommands(AppServices services, CtrlZ.Core.Models.AppProfile profile)
-    {
-        var approvals = new PostInstallApprovalStore(
-            System.IO.Path.Combine(services.Paths.State, PostInstallStep.ApprovalsFileName));
-        var firstRun = new PostInstallFirstRunStore(
-            System.IO.Path.Combine(services.Paths.State, PostInstallFirstRunStore.FileName));
-        var lines = CommandPreview.ForProfile(profile, services.State.OriginOf(profile), approvals);
-
-        return PostInstallConsent.Ask(lines, profile.Id, firstRun,
-            (title, message, danger) => Confirm(title, message, danger ? "Run it" : "Run them", "Cancel install", danger));
-    }
+    public bool ConfirmPostInstallCommands(AppServices services, CtrlZ.Core.Models.AppProfile profile) =>
+        InstallStartGuard.CommandConsent(
+            services.Paths.State,
+            services.State.OriginOf,
+            (title, message, danger) => Confirm(title, message, danger ? "Run it" : "Run them", "Cancel install", danger))(profile);
 }

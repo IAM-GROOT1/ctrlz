@@ -113,6 +113,72 @@ public sealed class CommandReviewViewModelTests : IDisposable
         Assert.Equal(confirm, review.IsLocal);
     }
 
+    private string[] FilesInFolder() =>
+        Directory.Exists(_folder) ? Directory.GetFiles(_folder).Select(file => Path.GetFileName(file)).OrderBy(n => n).ToArray() : [];
+
+    [Fact]
+    public void Approving_command_N_writes_only_command_Ns_current_hash_and_leaves_the_profile_file_untouched()
+    {
+        Directory.CreateDirectory(_folder);
+        var profile = Profile();
+        profile.Apps.Add(new AppEntry { Id = "c", Name = "C", PostInstall = new PostInstallCommand { Executable = "reg.exe", Arguments = ["import", "c.reg"], Enabled = true } });
+        var profilePath = Path.Combine(_folder, "profile.json");
+        File.WriteAllText(profilePath, JsonSerializer.Serialize(profile, JsonDefaults.Profile));
+        var before = File.ReadAllBytes(profilePath);
+        var review = Review(profile, Approvals());
+
+        review.NextCommand.Execute(null);
+        review.NextCommand.Execute(null);   // command 3 of 3: "C"
+        review.ApproveCommand.Execute(null);
+
+        var stored = JsonSerializer.Deserialize<Dictionary<string, List<string>>>(
+            File.ReadAllText(Path.Combine(_folder, "approvals.json")), JsonDefaults.Profile)!;
+        Assert.Equal(new[] { "p1" }, stored.Keys);
+        Assert.Equal(new[] { PostInstallApprovalStore.HashOf(profile.Apps[3].PostInstall!) }, stored["p1"]);
+        Assert.Equal(before, File.ReadAllBytes(profilePath));
+        Assert.Equal(new[] { "approvals.json", "profile.json" }, FilesInFolder());
+        Assert.Equal(new[] { false, false, true }, review.Items.Select(item => item.IsApproved));
+    }
+
+    [Fact]
+    public void Closing_without_approving_writes_nothing()
+    {
+        var review = Review(Profile(), Approvals());
+
+        review.NextCommand.Execute(null);
+        review.PreviousCommand.Execute(null);
+        review.CloseCommand.Execute(null);
+
+        Assert.Empty(FilesInFolder());
+        Assert.False(review.Changed);
+    }
+
+    [Fact]
+    public void Cancelling_the_risky_approval_dialog_writes_nothing()
+    {
+        var review = Review(Profile(), Approvals(), confirm: false);
+        review.NextCommand.Execute(null);
+
+        review.ApproveCommand.Execute(null);
+
+        Assert.Empty(FilesInFolder());
+        Assert.False(review.Changed);
+    }
+
+    [Fact]
+    public void Cancelling_the_mark_as_local_dialog_writes_nothing()
+    {
+        var called = false;
+        var review = Review(Profile(), Approvals(), confirm: false, markAsLocal: () => called = true);
+
+        review.MarkAsLocalCommand.Execute(null);
+
+        Assert.False(called);
+        Assert.Empty(FilesInFolder());
+        Assert.False(review.Changed);
+        Assert.Equal("Blocked - imported profile, review required", review.Items[0].StateText);
+    }
+
     [Fact]
     public void Local_profile_review_needs_no_approval()
     {

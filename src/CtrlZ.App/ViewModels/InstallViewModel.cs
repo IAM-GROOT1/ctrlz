@@ -357,13 +357,10 @@ public sealed partial class InstallViewModel : PageViewModelBase
 
         // Every run passes here (new, resume, retry, elevated auto-start). Resolve the exact profile
         // the engine will run, then ask for the command confirmations it needs before anything starts.
-        if (state.ProfileSnapshot is null && !string.IsNullOrWhiteSpace(state.ProfilePath) && File.Exists(state.ProfilePath))
-        {
-            state.ProfileSnapshot = _services.Profiles.Load(state.ProfilePath);
-        }
-
-        if (state.ProfileSnapshot is { } runProfile &&
-            !_dialogs.ConfirmPostInstallCommands(_services, runProfile))
+        if (!InstallStartGuard.MayStart(
+                state,
+                _services.Profiles.Load,
+                profile => _dialogs.ConfirmPostInstallCommands(_services, profile)))
         {
             StatusMessage = "Install not started: the post-install commands were not confirmed. Nothing ran.";
             return;
