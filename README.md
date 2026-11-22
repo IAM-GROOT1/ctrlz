@@ -423,8 +423,11 @@ See [`docs/website-hook.md`](docs/website-hook.md) for the details and failure b
 
 ## Using CTRL+Z on a fresh Windows install
 
+On first launch, a short welcome guide walks through both halves (before you reinstall, and on
+the fresh install) and opens the right page. Open it again with **Settings → Welcome guide**.
+
 1. Copy the portable exe or run the setup **and your exported profile JSON**.
-2. Launch CTRL+Z. Open **My Apps â†’ Import** and choose your profile (or use the profile
+2. Launch CTRL+Z. Open **My Apps → Import** and choose your profile (or use the profile
    already on the machine if you copied the data folder).
 3. Review enabled apps and install order. Use **Add App** for custom sources, or **Catalog**
    for recommended apps.

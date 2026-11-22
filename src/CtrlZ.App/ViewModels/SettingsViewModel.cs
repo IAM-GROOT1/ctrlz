@@ -292,6 +292,9 @@ public sealed partial class SettingsViewModel : PageViewModelBase
         }
     }
 
+    [RelayCommand]
+    private Task ShowWelcomeAsync() => _main.ShowWelcomeAsync();
+
     [ObservableProperty]
     private bool _isSavingDiagnostics;
 

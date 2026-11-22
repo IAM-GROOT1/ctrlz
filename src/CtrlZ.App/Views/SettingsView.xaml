@@ -126,6 +126,8 @@
                             <Button Content="Save diagnostics…" Style="{StaticResource Button.Ghost}" Margin="6,0,0,6"
                                     Command="{Binding SaveDiagnosticsCommand}"
                                     ToolTip="Saves a ZIP with versions, settings switches, counts and recent logs with paths and names removed. Nothing is sent." />
+                            <Button Content="Welcome guide" Style="{StaticResource Button.Ghost}" Margin="6,0,0,6"
+                                    Command="{Binding ShowWelcomeCommand}" />
                         </WrapPanel>
                     </StackPanel>
                 </Border>

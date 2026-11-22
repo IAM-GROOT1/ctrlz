@@ -118,6 +118,14 @@ order and screen-reader labels, and translations later.
 A first-run guide, multiple profiles, moving a profile between PCs without hand-editing JSON, and
 restoring a browser profile from an existing backup on a machine that never had that browser.
 
+- [x] **A. First-run guide.** A short welcome on first launch: what to do before reinstalling and
+  on the fresh install, with buttons to start on Scan or My Apps. Existing users are not
+  interrupted, and Settings can open it again.
+- [x] **B. Multiple profiles.** Already in place: create, rename, switch, delete, import and
+  export profiles in My Apps.
+- [ ] **C. Moving a profile to another PC.** A guided export that says what will not carry over.
+- [ ] **D. Restoring for a browser that is not installed yet.**
+
 ### 8. Release and distribution
 
 Code signing so SmartScreen stops warning about an unsigned download, a winget listing for CTRL+Z

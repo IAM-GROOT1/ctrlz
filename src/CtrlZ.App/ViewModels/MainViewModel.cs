@@ -110,8 +110,42 @@ public sealed partial class MainViewModel : ObservableObject, IDisposable
             await CurrentPage.ActivateAsync();
         }
 
+        await RunOnboardingAsync();
+
         // Fire-and-forget: the update check must never delay the first paint.
         _ = Updates.RunStartupCheckAsync();
+    }
+
+    private async Task RunOnboardingAsync()
+    {
+        var settings = _services.State.Settings;
+        var decision = OnboardingPolicy.Decide(settings, _services.State.Profiles.Count,
+            _services.State.ActiveAppCount, AutoInstallOnStartup);
+        if (decision == OnboardingDecision.None)
+        {
+            return;
+        }
+
+        settings.HasCompletedOnboarding = true;
+        _services.State.SaveSettings();
+        if (decision == OnboardingDecision.Show)
+        {
+            await ShowWelcomeAsync();
+        }
+    }
+
+    /// <summary>Shows the first-run guide and opens the page the user picked.</summary>
+    public async Task ShowWelcomeAsync()
+    {
+        switch (Dialogs.ShowWelcome())
+        {
+            case Views.WelcomeChoice.Scan:
+                await NavigateToAsync("scan");
+                break;
+            case Views.WelcomeChoice.FreshInstall:
+                await NavigateToAsync("apps");
+                break;
+        }
     }
 
     [RelayCommand]
