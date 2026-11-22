@@ -39,6 +39,32 @@ public sealed class AppState : ObservableObject
     public string ActiveProfileName => _activeProfile.Name;
     public int ActiveAppCount => _activeProfile.Apps.Count;
 
+    /// <summary>Read-only view of where a profile came from, for the preview and review screens.</summary>
+    public ProfileOrigin OriginOf(AppProfile profile) => _origins.Get(profile.Id);
+
+    /// <summary>
+    /// Records exactly the reviewed profile as created here. Only the review screen calls this, and
+    /// only after the user confirmed an explicit dialog; without that flag nothing changes.
+    /// </summary>
+    public void MarkAsLocal(AppProfile profile, bool userConfirmed)
+    {
+        ArgumentNullException.ThrowIfNull(profile);
+        if (!userConfirmed)
+        {
+            return;
+        }
+
+        ProfileOriginRecorder.MarkAsLocal(_origins, profile, userConfirmed);
+        ProfileContentChanged?.Invoke(this, EventArgs.Empty);
+    }
+
+    /// <summary>
+    /// Loads the profile of a resumed install session through the origin recorder, so a file that
+    /// changed since its last local save is treated as imported.
+    /// </summary>
+    public AppProfile LoadForRun(string path) =>
+        ProfileOriginRecorder.LoadForUse(_origins, _profileStore.Load(path));
+
     public event EventHandler? ActiveProfileChanged;
     public event EventHandler? ProfileContentChanged;
     public event EventHandler? ProfilesChanged;

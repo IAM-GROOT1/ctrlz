@@ -19,6 +19,10 @@ public sealed class AppSettings
     /// <summary>Warn when a browser backup is at least this many days old. Zero disables it.</summary>
     public int BackupWarningDays { get; set; } = 14;
 
+    // ---- Notes -------------------------------------------------------------------------
+    /// <summary>Include per-app notes in exports (through NotesPrivacy.ForExport). Off by default. Notes are never logged.</summary>
+    public bool IncludeNotesInReports { get; set; }
+
     // ---- Installing ------------------------------------------------------------------
     /// <summary>Show the preview as a final confirmation before an install run starts.</summary>
     public bool ShowInstallPreview { get; set; } = true;

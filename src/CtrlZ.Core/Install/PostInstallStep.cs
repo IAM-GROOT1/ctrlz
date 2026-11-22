@@ -51,10 +51,13 @@ public sealed class PostInstallStep
         _runner = runner;
     }
 
+    /// <summary>File name of the approval record inside the state folder.</summary>
+    public const string ApprovalsFileName = "post-install-approvals.json";
+
     /// <summary>Production wiring: both stores live in the app's state folder.</summary>
     public static PostInstallStep ForState(AppPaths paths, IAppLog log) => new(
         new ProfileOriginStore(Path.Combine(paths.State, "profile-origins.json"), log),
-        new PostInstallApprovalStore(Path.Combine(paths.State, "post-install-approvals.json")),
+        new PostInstallApprovalStore(Path.Combine(paths.State, ApprovalsFileName)),
         new PostInstallRunner(log));
 
     public async Task<PostInstallOutcome> RunAfterInstallAsync(

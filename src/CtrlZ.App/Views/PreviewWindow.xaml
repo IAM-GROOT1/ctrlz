@@ -61,6 +61,24 @@
                     <TextBlock Text="{Binding WarningText}" Style="{StaticResource Text.Caption}" TextWrapping="Wrap"
                                Margin="26,4,0,0" Foreground="{DynamicResource Brush.Warning}"
                                Visibility="{Binding HasWarnings, Converter={StaticResource BoolToVisibility}}" />
+
+                    <StackPanel Margin="26,6,0,0"
+                                Visibility="{Binding HasCommand, Converter={StaticResource BoolToVisibility}}">
+                        <TextBlock Text="After install, runs:" Style="{StaticResource Text.Caption}" />
+                        <TextBlock Text="{Binding CommandText}" Style="{StaticResource Text.Caption}" TextWrapping="Wrap"
+                                   Foreground="{DynamicResource Brush.TextPrimary}" />
+                        <TextBlock Text="{Binding CommandStateText}" TextWrapping="Wrap">
+                            <TextBlock.Style>
+                                <Style TargetType="TextBlock" BasedOn="{StaticResource Text.Caption}">
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding CommandNeedsAttention}" Value="True">
+                                            <Setter Property="Foreground" Value="{DynamicResource Brush.Warning}" />
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </TextBlock.Style>
+                        </TextBlock>
+                    </StackPanel>
                 </StackPanel>
             </Border>
         </DataTemplate>
@@ -127,6 +145,9 @@
                                 IsEnabled="{Binding IsDryRunning, Converter={StaticResource BoolNegation}}" />
                         <Button Content="Export report" Style="{StaticResource Button.Link}" Margin="12,0,0,0"
                                 Command="{Binding ExportReportCommand}" VerticalAlignment="Center" />
+                        <Button Content="Review commands" Style="{StaticResource Button.Link}" Margin="12,0,0,0"
+                                Command="{Binding ReviewCommandsCommand}" VerticalAlignment="Center"
+                                Visibility="{Binding HasCommandsToReview, Converter={StaticResource BoolToVisibility}}" />
                     </StackPanel>
 
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">

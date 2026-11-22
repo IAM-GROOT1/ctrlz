@@ -59,6 +59,10 @@ public sealed class AppEntry
 
     public string? Notes { get; set; }
 
+    /// <summary>True when the app carries a note, so the list can show an indicator.</summary>
+    [JsonIgnore]
+    public bool HasNotes => !string.IsNullOrWhiteSpace(Notes);
+
     /// <summary>Ids of apps this one must install after. A cycle is reported, never guessed away.</summary>
     public List<string> AfterAppIds { get; set; } = new();
 
@@ -95,7 +99,10 @@ public sealed class AppEntry
         ExpectedSha256 = ExpectedSha256,
         InstallLocation = InstallLocation,
         IconPath = IconPath,
-        Notes = Notes
+        Notes = Notes,
+        AfterAppIds = new List<string>(AfterAppIds ?? new List<string>()),
+        IsAutoDependency = IsAutoDependency,
+        PostInstall = PostInstall?.Clone()
     };
 
     /// <summary>

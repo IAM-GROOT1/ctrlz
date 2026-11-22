@@ -355,6 +355,17 @@ public sealed partial class InstallViewModel : PageViewModelBase
             return;
         }
 
+        // Every run passes here (new, resume, retry, elevated auto-start). Resolve the exact profile
+        // the engine will run, then ask for the command confirmations it needs before anything starts.
+        if (!InstallStartGuard.MayStart(
+                state,
+                _services.State.LoadForRun,
+                profile => _dialogs.ConfirmPostInstallCommands(_services, profile)))
+        {
+            StatusMessage = "Install not started: the post-install commands were not confirmed. Nothing ran.";
+            return;
+        }
+
         _starting = true;
         _cts?.Dispose();
         _cts = new CancellationTokenSource();
@@ -417,6 +428,7 @@ public sealed partial class InstallViewModel : PageViewModelBase
         {
             var row = new InstallRowViewModel(app.Name, app.Source, app.IconPath)
             {
+                Note = app.Notes,
                 Status = InstallStatus.Queued,
                 Detail = "Queued"
             };
@@ -442,6 +454,7 @@ public sealed partial class InstallViewModel : PageViewModelBase
             var app = profile?.Apps.FirstOrDefault(a => a.Id == item.AppId);
             var row = new InstallRowViewModel(item.Name, item.Source, app?.IconPath)
             {
+                Note = app?.Notes,
                 Status = item.Status,
                 Detail = item.Detail ?? item.Error ?? item.Status.ToString(),
                 Error = item.Error,
