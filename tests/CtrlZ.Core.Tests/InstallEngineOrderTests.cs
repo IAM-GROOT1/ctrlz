@@ -180,6 +180,13 @@ public class InstallEngineOrderTests
 
         Assert.Equal(queue, plan.Items.Select(item => item.AppId));
         Assert.All(plan.Items.Where(item => item.AppId is "a" or "b"), item => Assert.NotNull(item.NotInstalledReason));
+        Assert.Equal(1, plan.Count);
+        Assert.False(plan.IsEmpty);
+
+        var onlyLoop = new CtrlZ.Core.Safety.InstallPlanner(_ => true, _ => true, engine.Catalog)
+            .Build(new AppProfile { Apps = [Local("a", "b"), Local("b", "a")] }, "P");
+        Assert.True(onlyLoop.IsEmpty);
+        Assert.Contains(onlyLoop.PlanWarnings, warning => warning.Contains("nothing enabled", StringComparison.OrdinalIgnoreCase));
     }
 
     [Fact]

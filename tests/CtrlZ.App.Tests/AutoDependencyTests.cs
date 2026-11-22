@@ -106,6 +106,7 @@ public sealed class AutoDependencyTests : IDisposable
             new AppProfile { Name = "Shared", Apps = [new AppEntry { Id = "steam", Name = "Steam", PackageId = "Valve.Steam" }] },
             JsonDefaults.Profile));
         var imported = state.ImportProfile(file);
+        Assert.Equal(imported.Id, state.ActiveProfile.Id);
 
         state.AddAutoDependencies(Plan(state.ActiveProfile).AutoAdded);
         Assert.Equal(ProfileOrigin.Imported, state.OriginOf(imported));

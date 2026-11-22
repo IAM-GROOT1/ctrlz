@@ -80,7 +80,7 @@ public sealed class InstallPlanner
         planWarnings.AddRange(plan.Cycles.Select(cycle => $"Install-order loop: {cycle}."));
         planWarnings.AddRange(plan.MissingReferences);
 
-        if (items.Count == 0)
+        if (items.All(item => item.NotInstalledReason is not null))
         {
             planWarnings.Add("There is nothing enabled to install.");
         }

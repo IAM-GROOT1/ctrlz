@@ -55,13 +55,14 @@ public sealed record InstallPlan
     /// <summary>Plan-wide notes, for example that order is literal and dependencies are not resolved.</summary>
     public IReadOnlyList<string> PlanWarnings { get; init; } = [];
 
-    public int Count => Items.Count;
+    /// <summary>Apps that will actually be installed (items listed only with a reason are excluded).</summary>
+    public int Count => Items.Count(item => item.NotInstalledReason is null);
 
     public int WarningCount => Items.Count(item => item.Warnings.Count > 0);
 
-    public int AdminCount => Items.Count(item => item.RequiresAdmin);
+    public int AdminCount => Items.Count(item => item.NotInstalledReason is null && item.RequiresAdmin);
 
-    public bool IsEmpty => Items.Count == 0;
+    public bool IsEmpty => Count == 0;
 }
 
 /// <summary>Result for one app after a dry run.</summary>
