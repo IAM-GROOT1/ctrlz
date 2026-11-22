@@ -344,7 +344,9 @@ public sealed class CliTests : IDisposable
         var command = new PostInstallCommand { Id = "c1", Executable = @"C:\Windows\System32\where.exe", Arguments = [argument], Enabled = true };
         var (cli, _) = Cli();
 
-        await cli.RunAsync(["install", WriteProfile(App("tool", command)), "--yes", "--allow-commands", "--silent"]);
+        var exit = await cli.RunAsync(["install", WriteProfile(App("tool", command)), "--yes", "--allow-commands", "--silent"]);
+
+        Assert.Equal(CliExitCode.PartialFailure, exit);
 
         Assert.Equal(ApprovalState.None, Approvals.StateOf("p1", "tool", command));
         Assert.Contains("hidden characters", _err.ToString());

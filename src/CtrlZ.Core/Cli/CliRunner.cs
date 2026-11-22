@@ -219,6 +219,7 @@ public sealed class CliRunner
         // without --allow-risky. Every check below runs on that prospective state, and the
         // approvals are written only once all checks have passed, so a refused run changes nothing.
         var toApprove = new List<(AppEntry App, PostInstallCommand Command)>();
+        var refusedHidden = false;
         if (options.AllowCommands && options.Yes)
         {
             foreach (var line in commands.Where(line =>
@@ -230,6 +231,7 @@ public sealed class CliRunner
                 {
                     // What the terminal showed may not be what the command is: never approve it here.
                     _env.Error.WriteLine($"Not approved: {CliText.Safe(line.AppName)} has hidden characters in its command. Review it in the app.");
+                    refusedHidden = true;
                     continue;
                 }
 
@@ -321,8 +323,9 @@ public sealed class CliRunner
 
         var dependency = finished.Items.Any(item =>
             item.Status == InstallStatus.Failed && (item.Error ?? string.Empty).StartsWith(InstallEngine.NotAttemptedPrefix, StringComparison.Ordinal));
-        var failed = finished.Items.Any(item =>
-            item.Status is InstallStatus.Failed or InstallStatus.NeedsManualAction or InstallStatus.PostInstallFailed);
+        // Anything that did not complete counts, and so does a command refused for hidden characters.
+        var failed = refusedHidden || finished.Items.Any(item =>
+            item.Status is not (InstallStatus.Success or InstallStatus.RebootRequired or InstallStatus.Skipped));
         var exit = dependency ? CliExitCode.DependencyFailure : failed ? CliExitCode.PartialFailure : CliExitCode.Success;
 
         _env.Out.WriteLine();
