@@ -90,6 +90,7 @@ public sealed class UpdateApplier
         catch (Exception ex)
         {
             _log.Write(LogLevel.Error, "Could not place the new executable in the target folder.", ex);
+            companion?.Restore();
             Restore(backup, target);
             return UpdateApplyResult.Failed("The new version could not be put in place. The previous version was restored.");
         }

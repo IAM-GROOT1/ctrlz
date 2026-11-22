@@ -7,20 +7,28 @@ namespace CtrlZ.Core.Updates;
 
 /// <summary>
 /// The portable <c>ctrlz.exe</c> next to a portable <c>CTRL+Z.exe</c>, replaced together with it.
-/// Verified before anything moves, swapped with a <c>.old</c> backup, and either committed (backup
-/// deleted) or restored together with the app. A companion that cannot be placed never blocks the
-/// app's own update: the old command line stays and the log says so.
+/// <para>
+/// The target is always <c>ctrlz.exe</c> in the app's own folder, never a path from the request
+/// file. The download is first moved next to it as <c>ctrlz.exe.new</c> and verified there, so
+/// the bytes that get renamed into place are the bytes that were hashed. It is then swapped with a
+/// <c>.old</c> backup and either committed (backup removed) or restored together with the app. A
+/// hash mismatch stops the whole update before anything moves; any other problem only skips the
+/// command line and the app still updates.
+/// </para>
 /// </summary>
 public sealed class PortableCompanion
 {
-    private readonly string _downloaded;
+    public const string FileName = "ctrlz.exe";
+
+    private readonly string _staged;
     private readonly string _target;
     private readonly IAppLog _log;
+    private bool _backupMade;
     private bool _swapped;
 
-    private PortableCompanion(string downloaded, string target, IAppLog log)
+    private PortableCompanion(string staged, string target, IAppLog log)
     {
-        _downloaded = downloaded;
+        _staged = staged;
         _target = target;
         _log = log;
     }
@@ -28,22 +36,28 @@ public sealed class PortableCompanion
     private string Backup => _target + ".old";
 
     /// <summary>
-    /// Returns the companion to swap, or null when the request has none or its download is gone.
-    /// Throws <see cref="UpdateVerificationException"/> when the download does not match its hash,
-    /// before anything on disk has changed.
+    /// Returns the companion to swap, or null when there is none or it cannot be prepared.
+    /// Throws <see cref="UpdateVerificationException"/> on a hash mismatch, before any file of the
+    /// app or the command line has changed.
     /// </summary>
     public static async Task<PortableCompanion?> PrepareAsync(
         UpdateApplyRequest request, IAppLog log, CancellationToken cancellationToken = default)
     {
-        if (string.IsNullOrWhiteSpace(request.CompanionDownloadedFile) ||
-            string.IsNullOrWhiteSpace(request.CompanionTargetExe))
+        if (string.IsNullOrWhiteSpace(request.CompanionDownloadedFile) || string.IsNullOrWhiteSpace(request.TargetExe))
         {
             return null;
         }
 
-        if (!File.Exists(request.CompanionDownloadedFile))
+        var folder = Path.GetDirectoryName(request.TargetExe);
+        if (string.IsNullOrEmpty(folder))
         {
-            log.Write(LogLevel.Warning, "The downloaded command line is missing; ctrlz.exe is left as it was.");
+            return null;
+        }
+
+        // Only an existing command line beside the app is ever replaced.
+        var target = Path.Combine(folder, FileName);
+        if (!File.Exists(target))
+        {
             return null;
         }
 
@@ -52,45 +66,55 @@ public sealed class PortableCompanion
             throw new UpdateVerificationException("The command line update has no SHA-256 to verify against.");
         }
 
-        var actual = await UpdateVerifier.ComputeSha256Async(request.CompanionDownloadedFile, cancellationToken)
-            .ConfigureAwait(false);
-        UpdateVerifier.EnsureHash(request.CompanionExpectedSha256!, actual);
+        var staged = target + ".new";
+        string actual;
+        try
+        {
+            if (!File.Exists(request.CompanionDownloadedFile))
+            {
+                log.Write(LogLevel.Warning, "The downloaded command line is missing; ctrlz.exe is left as it was.");
+                return null;
+            }
 
-        return new PortableCompanion(request.CompanionDownloadedFile, request.CompanionTargetExe, log);
+            File.Move(request.CompanionDownloadedFile, staged, overwrite: true);
+            actual = await UpdateVerifier.ComputeSha256Async(staged, cancellationToken).ConfigureAwait(false);
+        }
+        catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
+        {
+            log.Write(LogLevel.Warning, "The command line update could not be prepared; ctrlz.exe is left as it was.", ex);
+            TryDelete(staged);
+            return null;
+        }
+
+        try
+        {
+            UpdateVerifier.EnsureHash(request.CompanionExpectedSha256!, actual);
+        }
+        catch
+        {
+            TryDelete(staged);
+            throw;
+        }
+
+        return new PortableCompanion(staged, target, log);
     }
 
-    /// <summary>Moves the new command line into place. False (and nothing changed) when it cannot.</summary>
+    /// <summary>Renames the verified command line into place. False when it could not.</summary>
     public bool Swap()
     {
         try
         {
-            TryDelete(Backup);
-            if (File.Exists(_target))
-            {
-                File.Move(_target, Backup);
-            }
-
-            try
-            {
-                File.Move(_downloaded, _target);
-            }
-            catch
-            {
-                if (File.Exists(Backup))
-                {
-                    File.Move(Backup, _target);
-                }
-
-                throw;
-            }
-
+            File.Move(_target, Backup, overwrite: true);
+            _backupMade = true;
+            File.Move(_staged, _target);
             _swapped = true;
             return true;
         }
         catch (Exception ex)
         {
-            // For example ctrlz.exe is running in a terminal. The app still updates.
-            _log.Write(LogLevel.Warning, "The command line could not be replaced; ctrlz.exe is left as it was.", ex);
+            _log.Write(LogLevel.Warning, "The command line could not be replaced; putting the previous one back.", ex);
+            PutBackupBack();
+            TryDelete(_staged);
             return false;
         }
     }
@@ -98,25 +122,12 @@ public sealed class PortableCompanion
     /// <summary>Puts the previous command line back, together with the app's rollback.</summary>
     public void Restore()
     {
-        if (!_swapped)
+        if (_swapped || _backupMade)
         {
-            return;
+            PutBackupBack();
         }
 
-        try
-        {
-            if (File.Exists(Backup))
-            {
-                TryDelete(_target);
-                File.Move(Backup, _target);
-            }
-
-            _swapped = false;
-        }
-        catch (Exception ex)
-        {
-            _log.Write(LogLevel.Error, $"The previous command line could not be restored. It is at '{Backup}'.", ex);
-        }
+        TryDelete(_staged);
     }
 
     /// <summary>The app passed its health window: drop the backup.</summary>
@@ -124,7 +135,29 @@ public sealed class PortableCompanion
     {
         if (_swapped)
         {
+            // A ctrlz.exe that was running keeps its old file locked as .old; the next update
+            // replaces that leftover.
             TryDelete(Backup);
+            _backupMade = false;
+        }
+    }
+
+    private void PutBackupBack()
+    {
+        if (!_backupMade)
+        {
+            return;
+        }
+
+        try
+        {
+            File.Move(Backup, _target, overwrite: true);
+            _backupMade = false;
+            _swapped = false;
+        }
+        catch (Exception ex)
+        {
+            _log.Write(LogLevel.Error, $"The previous command line could not be put back; it is kept as {FileName}.old next to the app.", ex);
         }
     }
 
@@ -139,7 +172,7 @@ public sealed class PortableCompanion
         }
         catch
         {
-            // Best effort; a locked file only leaves a stray .old.
+            // Best effort.
         }
     }
 }
