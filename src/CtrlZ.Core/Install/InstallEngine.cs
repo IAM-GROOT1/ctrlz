@@ -13,7 +13,7 @@ namespace CtrlZ.Core.Install;
 /// Sequential, fault-isolated install runner. Every state transition is persisted, so a
 /// crash, failed installer, or reboot never loses the position in the queue.
 /// </summary>
-public sealed class InstallEngine
+public sealed partial class InstallEngine
 {
     private readonly AppPaths _paths;
     private readonly IReadOnlyList<ISourceInstaller> _installers;
