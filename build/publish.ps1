@@ -44,6 +44,7 @@ New-Item -ItemType Directory -Force -Path $publishDir | Out-Null
     -p:IncludeNativeLibrariesForSelfExtract=true `
     -p:IncludeAllContentForSelfExtract=true `
     -p:EnableCompressionInSingleFile=true `
+    -p:SatelliteResourceLanguages=en `
     -p:DebugType=None `
     -p:DebugSymbols=false `
     -p:Version=$Version `
@@ -62,6 +63,7 @@ $cliProject = Join-Path $root "src/CtrlZ.Cli/CtrlZ.Cli.csproj"
     -p:PublishSingleFile=true `
     -p:IncludeNativeLibrariesForSelfExtract=true `
     -p:EnableCompressionInSingleFile=true `
+    -p:SatelliteResourceLanguages=en `
     -p:DebugType=None `
     -p:DebugSymbols=false `
     -p:Version=$Version `

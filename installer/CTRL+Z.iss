@@ -72,5 +72,54 @@ Name: "{autodesktop}\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}"; Tasks: de
 Filename: "{app}\{#MyAppExeName}"; Description: "{cm:LaunchProgram,{#StringChange(MyAppName, '&', '&&')}}"; Flags: nowait postinstall skipifsilent
 
 [UninstallDelete]
-; User data under LocalAppData\CTRL+Z is intentionally preserved on uninstall.
+; User data under LocalAppData\CTRL+Z is kept unless the user chooses to delete it (see [Code]).
 Type: filesandordirs; Name: "{app}\Data"
+
+[Code]
+var
+  DeleteUserData: Boolean;
+
+function UserDataFolder(): String;
+begin
+  Result := ExpandConstant('{localappdata}\CTRL+Z');
+end;
+
+function PortableShortcutsFolder(): String;
+begin
+  Result := ExpandConstant('{userprograms}\CTRL+Z apps');
+end;
+
+{ Guards DelTree: only a folder that really is CTRL+Z's, never a root or an empty path. }
+function IsSafeToDelete(Path: String): Boolean;
+begin
+  Result := (Length(Path) > 12) and
+            ((Pos('\CTRL+Z', Path) = Length(Path) - 6) or (Pos('\CTRL+Z apps', Path) = Length(Path) - 11)) and
+            DirExists(Path);
+end;
+
+procedure CurUninstallStepChanged(CurUninstallStep: TUninstallStep);
+begin
+  if CurUninstallStep = usUninstall then
+  begin
+    DeleteUserData := False;
+    { A silent uninstall always keeps the data. }
+    if (not UninstallSilent()) and DirExists(UserDataFolder()) then
+      DeleteUserData := MsgBox(
+        'Also delete your CTRL+Z data?' + #13#10 + #13#10 +
+        UserDataFolder() + #13#10 + #13#10 +
+        'It holds your app lists (profiles), settings, logs and install state, and any portable apps ' +
+        'CTRL+Z installed for you. Browser backups and exported profiles saved elsewhere are not touched.' + #13#10 + #13#10 +
+        'Choose No to keep it, for example if you plan to install CTRL+Z again.',
+        mbConfirmation, MB_YESNO or MB_DEFBUTTON2) = IDYES;
+  end;
+
+  if (CurUninstallStep = usPostUninstall) and DeleteUserData then
+  begin
+    if IsSafeToDelete(UserDataFolder()) and not DelTree(UserDataFolder(), True, True, True) then
+      MsgBox('Some CTRL+Z data could not be deleted. You can remove ' + UserDataFolder() + ' yourself.',
+        mbInformation, MB_OK);
+    { The portable apps are gone with the data, so their Start menu shortcuts go too. }
+    if IsSafeToDelete(PortableShortcutsFolder()) then
+      DelTree(PortableShortcutsFolder(), True, True, True);
+  end;
+end;
