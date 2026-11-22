@@ -33,6 +33,52 @@ public static class PostInstallConsent
         var risky = willRun.Where(line => line.Risky).ToList();
         return new PostInstallConsentRequest(willRun, firstRun, risky);
     }
+
+    /// <summary>
+    /// Asks every confirmation the run needs, in order, and records the first-run answer. Returns
+    /// false as soon as one is declined; the caller must then start nothing.
+    /// </summary>
+    /// <param name="confirm">Shows (title, message, danger) and returns true only on an explicit yes.</param>
+    public static bool Ask(
+        IReadOnlyList<CommandPreviewLine> lines,
+        string profileId,
+        PostInstallFirstRunStore firstRun,
+        Func<string, string, bool, bool> confirm)
+    {
+        ArgumentNullException.ThrowIfNull(firstRun);
+        ArgumentNullException.ThrowIfNull(confirm);
+
+        var consent = Required(lines, firstRun.ConfirmedFor(profileId));
+
+        if (consent.NeedsFirstRunConfirmation)
+        {
+            var list = string.Join("\n", consent.WillRun.Select(line => $"• {line.AppName}: {line.CommandText}"));
+            var count = consent.WillRun.Count;
+            if (!confirm(
+                    "Run post-install commands?",
+                    $"This profile will run {count} command{(count == 1 ? string.Empty : "s")} on this PC after their apps install:\n\n{list}",
+                    false))
+            {
+                return false;
+            }
+
+            firstRun.Record(profileId, consent.WillRun.Select(line => line.Hash));
+        }
+
+        foreach (var risky in consent.Risky)
+        {
+            if (!confirm(
+                    "Run a risky command?",
+                    $"{risky.AppName} will run a command that matches a risky pattern:\n\n{risky.CommandText}\n\n" +
+                    "This is asked on every run.",
+                    true))
+            {
+                return false;
+            }
+        }
+
+        return true;
+    }
 }
 
 /// <summary>

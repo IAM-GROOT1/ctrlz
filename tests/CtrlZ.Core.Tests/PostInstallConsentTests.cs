@@ -83,6 +83,54 @@ public sealed class PostInstallConsentTests : IDisposable
     }
 
     [Fact]
+    public void Ask_records_first_run_only_after_yes_and_asks_risky_every_time()
+    {
+        var store = new PostInstallFirstRunStore(Path.Combine(_folder, "fr.json"));
+        var lines = new[] { Line("a"), Line("r", risky: true) };
+        var asked = new List<(string Title, bool Danger)>();
+
+        var first = PostInstallConsent.Ask(lines, "p1", store, (title, _, danger) => { asked.Add((title, danger)); return true; });
+        var second = PostInstallConsent.Ask(lines, "p1", store, (title, _, danger) => { asked.Add((title, danger)); return true; });
+
+        Assert.True(first);
+        Assert.True(second);
+        Assert.Equal(new[] { (false), true, true }, asked.Select(item => item.Danger));
+    }
+
+    [Fact]
+    public void Ask_declined_first_run_records_nothing_and_stops()
+    {
+        var store = new PostInstallFirstRunStore(Path.Combine(_folder, "fr.json"));
+        var calls = 0;
+
+        var result = PostInstallConsent.Ask([Line("a"), Line("r", risky: true)], "p1", store, (_, _, _) => { calls++; return false; });
+
+        Assert.False(result);
+        Assert.Equal(1, calls);
+        Assert.Empty(store.ConfirmedFor("p1"));
+    }
+
+    [Fact]
+    public void Ask_declined_risky_stops_the_run()
+    {
+        var store = new PostInstallFirstRunStore(Path.Combine(_folder, "fr.json"));
+
+        var result = PostInstallConsent.Ask([Line("r", risky: true)], "p1", store, (_, _, danger) => !danger);
+
+        Assert.False(result);
+    }
+
+    [Fact]
+    public void Ask_with_nothing_runnable_asks_nothing()
+    {
+        var store = new PostInstallFirstRunStore(Path.Combine(_folder, "fr.json"));
+
+        var result = PostInstallConsent.Ask([Line("b", origin: ProfileOrigin.Imported)], "p1", store, (_, _, _) => throw new InvalidOperationException());
+
+        Assert.True(result);
+    }
+
+    [Fact]
     public void First_run_store_round_trips_and_fails_safe()
     {
         var path = Path.Combine(_folder, "first-run.json");

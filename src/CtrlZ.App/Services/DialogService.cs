@@ -141,35 +141,8 @@ public sealed class DialogService
         var firstRun = new PostInstallFirstRunStore(
             System.IO.Path.Combine(services.Paths.State, PostInstallFirstRunStore.FileName));
         var lines = CommandPreview.ForProfile(profile, services.State.OriginOf(profile), approvals);
-        var consent = PostInstallConsent.Required(lines, firstRun.ConfirmedFor(profile.Id));
 
-        if (consent.NeedsFirstRunConfirmation)
-        {
-            var list = string.Join("\n", consent.WillRun.Select(line => $"• {line.AppName}: {line.CommandText}"));
-            var count = consent.WillRun.Count;
-            if (!Confirm(
-                    "Run post-install commands?",
-                    $"This profile will run {count} command{(count == 1 ? string.Empty : "s")} on this PC after their apps install:\n\n{list}",
-                    "Run them", "Cancel install"))
-            {
-                return false;
-            }
-
-            firstRun.Record(profile.Id, consent.WillRun.Select(line => line.Hash));
-        }
-
-        foreach (var risky in consent.Risky)
-        {
-            if (!Confirm(
-                    "Run a risky command?",
-                    $"{risky.AppName} will run a command that matches a risky pattern:\n\n{risky.CommandText}\n\n" +
-                    "This is asked on every run.",
-                    "Run it", "Cancel install", danger: true))
-            {
-                return false;
-            }
-        }
-
-        return true;
+        return PostInstallConsent.Ask(lines, profile.Id, firstRun,
+            (title, message, danger) => Confirm(title, message, danger ? "Run it" : "Run them", "Cancel install", danger));
     }
 }
