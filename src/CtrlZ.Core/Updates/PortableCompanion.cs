@@ -67,7 +67,7 @@ public sealed class PortableCompanion
         }
 
         var staged = target + ".new";
-        string actual;
+        var verified = false;
         try
         {
             if (!File.Exists(request.CompanionDownloadedFile))
@@ -76,27 +76,30 @@ public sealed class PortableCompanion
                 return null;
             }
 
-            File.Move(request.CompanionDownloadedFile, staged, overwrite: true);
-            actual = await UpdateVerifier.ComputeSha256Async(staged, cancellationToken).ConfigureAwait(false);
-        }
-        catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
-        {
-            log.Write(LogLevel.Warning, "The command line update could not be prepared; ctrlz.exe is left as it was.", ex);
-            TryDelete(staged);
-            return null;
-        }
+            string actual;
+            try
+            {
+                File.Move(request.CompanionDownloadedFile, staged, overwrite: true);
+                actual = await UpdateVerifier.ComputeSha256Async(staged, cancellationToken).ConfigureAwait(false);
+            }
+            catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
+            {
+                log.Write(LogLevel.Warning, "The command line update could not be prepared; ctrlz.exe is left as it was.", ex);
+                return null;
+            }
 
-        try
-        {
             UpdateVerifier.EnsureHash(request.CompanionExpectedSha256!, actual);
+            verified = true;
+            return new PortableCompanion(staged, target, log);
         }
-        catch
+        finally
         {
-            TryDelete(staged);
-            throw;
+            // Nothing unverified stays beside the app, whatever ended the preparation.
+            if (!verified)
+            {
+                TryDelete(staged);
+            }
         }
-
-        return new PortableCompanion(staged, target, log);
     }
 
     /// <summary>Renames the verified command line into place. False when it could not.</summary>
