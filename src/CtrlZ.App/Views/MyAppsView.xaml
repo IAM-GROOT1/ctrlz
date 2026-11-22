@@ -220,6 +220,9 @@
                     </StackPanel>
                 </Border>
                 <Button Content="Add app" Style="{StaticResource Button.Secondary}" Command="{Binding AddAppCommand}" />
+                <Button Content="Import list" Style="{StaticResource Button.Ghost}" Margin="8,0,0,0"
+                        Command="{Binding ImportPackageListCommand}"
+                        ToolTip="Add apps from a winget, Scoop or Chocolatey export file" />
                 <Button Content="Check drift" Style="{StaticResource Button.Ghost}" Margin="8,0,0,0"
                         Command="{Binding CheckDriftCommand}" />
             </StackPanel>

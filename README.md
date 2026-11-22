@@ -46,6 +46,12 @@ emoji icons.
   active filter; **Select matched** is the matched-only shortcut.
 - Save **multiple portable profiles** (`Work PC`, `Gaming PC`, â€¦) as human-readable JSON;
   import/export them anywhere.
+- **Import an app list** from another package manager: **My Apps → Import list** reads the file
+  from `winget export -o apps.json`, `scoop export > apps.json` (or its older text output) or
+  `choco export` (`packages.config`). winget and Store ids are added as they are. Scoop and
+  Chocolatey names are matched to winget through the catalog already on this PC, with no network
+  lookup, and anything that could not be matched is listed for you to add by hand. You see the
+  list before anything is added. Imported apps carry only a package id and a name.
 - Add apps winget does not carry:
   - **Direct download URL** with silent switches and optional SHA-256.
   - **GitHub release** with latest-release asset selection (`.exe`, `.msi`, `.zip`,
