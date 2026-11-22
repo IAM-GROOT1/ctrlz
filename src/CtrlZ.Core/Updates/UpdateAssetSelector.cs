@@ -48,12 +48,30 @@ public static class UpdateAssetSelector
         ReleaseInfo release,
         UpdateInstallKind kind,
         out UpdateAssetSelection? selection,
+        out string error) =>
+        TrySelectByName(release, ExpectedName(kind, release.Version), out selection, out error);
+
+    public const string CliPrefix = "ctrlz-";
+
+    /// <summary>File name of the command line's release asset, <c>ctrlz-&lt;version&gt;.exe</c>.</summary>
+    public static string CliName(SemanticVersion version) => $"{CliPrefix}{version}.exe";
+
+    /// <summary>
+    /// The command line asset of this exact release, with the same checks as the app's own asset.
+    /// Used to update a portable <c>ctrlz.exe</c> that sits next to the portable app.
+    /// </summary>
+    public static bool TrySelectCli(ReleaseInfo release, out UpdateAssetSelection? selection, out string error) =>
+        TrySelectByName(release, CliName(release.Version), out selection, out error);
+
+    private static bool TrySelectByName(
+        ReleaseInfo release,
+        string expected,
+        out UpdateAssetSelection? selection,
         out string error)
     {
         selection = null;
         error = string.Empty;
 
-        var expected = ExpectedName(kind, release.Version);
         var asset = release.Assets.FirstOrDefault(candidate =>
             string.Equals(candidate.Name, expected, StringComparison.OrdinalIgnoreCase));
 

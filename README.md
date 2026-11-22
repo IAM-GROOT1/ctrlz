@@ -383,7 +383,9 @@ See [`docs/website-hook.md`](docs/website-hook.md) for the details and failure b
 ## Command line
 
 `ctrlz.exe` is installed next to `CTRL+Z.exe` and uses the same data folder (including portable
-mode). The portable release ships it as `ctrlz-<version>.exe`; put it next to the portable exe.
+mode). The portable release ships it as `ctrlz-<version>.exe`: save it as `ctrlz.exe` next to the
+portable exe, and the app's updater keeps it current (checked against `SHA256SUMS.txt`, rolled back
+together with the app). If it is running during an update, it is left as it was.
 
 ```powershell
 # On a fresh Windows install, from a terminal in the folder with your profile and ctrlz.exe:

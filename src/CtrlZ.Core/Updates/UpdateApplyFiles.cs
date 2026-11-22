@@ -15,6 +15,15 @@ public sealed class UpdateApplyRequest
     public string? ExpectedSha256 { get; set; }
     public string? Version { get; set; }
     public int WaitForProcessId { get; set; }
+
+    /// <summary>Portable only: the downloaded <c>ctrlz-&lt;version&gt;.exe</c>, or null when not updating it.</summary>
+    public string? CompanionDownloadedFile { get; set; }
+
+    /// <summary>Portable only: the <c>ctrlz.exe</c> next to the app that the companion replaces.</summary>
+    public string? CompanionTargetExe { get; set; }
+
+    /// <summary>The SHA-256 the companion must match, from the release's SHA256SUMS.txt.</summary>
+    public string? CompanionExpectedSha256 { get; set; }
 }
 
 /// <summary>Written by the helper; the restarted app shows the message when it failed.</summary>

@@ -270,6 +270,10 @@ public sealed class UpdateCoordinator
             var actual = await UpdateVerifier.ComputeSha256Async(file.Path, cts.Token).ConfigureAwait(true);
             UpdateVerifier.EnsureHash(expectedHash, actual);
 
+            var companion = kind == UpdateInstallKind.Portable
+                ? await TryDownloadCompanionAsync(release, cts.Token).ConfigureAwait(true)
+                : null;
+
             // A long operation may have started while the download ran; never interrupt it.
             if (_services.Activity.IsBusy)
             {
@@ -279,7 +283,7 @@ public sealed class UpdateCoordinator
             }
 
             window.SetProgress(null, "Restarting to finish the update\u2026");
-            LaunchHelper(file.Path, expectedHash, kind, release.Version.ToString());
+            LaunchHelper(file.Path, expectedHash, kind, release.Version.ToString(), companion);
         }
         catch (OperationCanceledException) when (cts.IsCancellationRequested)
         {
@@ -300,10 +304,56 @@ public sealed class UpdateCoordinator
     }
 
     /// <summary>
+    /// A portable copy with <c>ctrlz.exe</c> beside it also gets this release's command line,
+    /// verified against SHA256SUMS.txt. Any problem only skips the command line, never the app.
+    /// </summary>
+    private async Task<(string Path, string Sha256, string Target)?> TryDownloadCompanionAsync(
+        ReleaseInfo release, CancellationToken cancellationToken)
+    {
+        var appExe = Environment.ProcessPath ?? Path.Combine(AppContext.BaseDirectory, "CTRL+Z.exe");
+        var cliTarget = Path.Combine(Path.GetDirectoryName(appExe) ?? AppContext.BaseDirectory, "ctrlz.exe");
+        if (!File.Exists(cliTarget))
+        {
+            return null;
+        }
+
+        if (!UpdateAssetSelector.TrySelectCli(release, out var selection, out var error))
+        {
+            _services.Log.Write(LogLevel.Warning, "ctrlz.exe is not updated with this release: " + error);
+            return null;
+        }
+
+        try
+        {
+            var hash = await _downloader.ResolveExpectedHashAsync(release, selection!.Asset, cancellationToken)
+                .ConfigureAwait(true);
+            var file = await _downloader.DownloadAsync(release, selection.Asset, hash, null, cancellationToken)
+                .ConfigureAwait(true);
+            var actual = await UpdateVerifier.ComputeSha256Async(file.Path, cancellationToken).ConfigureAwait(true);
+            UpdateVerifier.EnsureHash(hash, actual);
+            return (file.Path, hash, cliTarget);
+        }
+        catch (OperationCanceledException) when (cancellationToken.IsCancellationRequested)
+        {
+            throw;
+        }
+        catch (Exception ex)
+        {
+            _services.Log.Write(LogLevel.Warning, "ctrlz.exe is not updated with this release; the app still updates.", ex);
+            return null;
+        }
+    }
+
+    /// <summary>
     /// Copies the running exe to a temp folder and relaunches it in <c>--apply-update</c>
     /// mode, because a portable build is a single exe and cannot ship a separate helper.
     /// </summary>
-    private void LaunchHelper(string downloadedFile, string expectedSha256, UpdateInstallKind kind, string version)
+    private void LaunchHelper(
+        string downloadedFile,
+        string expectedSha256,
+        UpdateInstallKind kind,
+        string version,
+        (string Path, string Sha256, string Target)? companion = null)
     {
         var target = Environment.ProcessPath
             ?? Path.Combine(AppContext.BaseDirectory, "CTRL+Z.exe");
@@ -321,7 +371,10 @@ public sealed class UpdateCoordinator
             TargetExe = target,
             ExpectedSha256 = expectedSha256,
             Version = version,
-            WaitForProcessId = Environment.ProcessId
+            WaitForProcessId = Environment.ProcessId,
+            CompanionDownloadedFile = companion?.Path,
+            CompanionExpectedSha256 = companion?.Sha256,
+            CompanionTargetExe = companion?.Target
         });
 
         var helper = Path.Combine(tempDir, "CTRL+Z-updater.exe");
