@@ -7,6 +7,7 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using CtrlZ.App.Services;
 using CtrlZ.Core.Infrastructure;
+using CtrlZ.Core.Install;
 using CtrlZ.Core.Logging;
 using CtrlZ.Core.Models;
 using CtrlZ.Core.Safety;
@@ -16,11 +17,21 @@ namespace CtrlZ.App.ViewModels;
 /// <summary>One app in the install preview, with its optional dry-run result.</summary>
 public sealed partial class PreviewRow : ObservableObject
 {
-    public PreviewRow(InstallPlanItem item)
+    public PreviewRow(InstallPlanItem item, CommandPreviewLine? command = null)
     {
         Item = item;
+        Command = command;
         WarningText = string.Join(" ", item.Warnings);
     }
+
+    /// <summary>The post-install command for this app, shown in full, or null.</summary>
+    public CommandPreviewLine? Command { get; }
+    public bool HasCommand => Command is not null;
+    public string CommandText => Command?.CommandText ?? string.Empty;
+    public string CommandStateText => Command?.StateText ?? string.Empty;
+
+    /// <summary>True when the command will not run or matches a risky pattern.</summary>
+    public bool CommandNeedsAttention => Command is { } line && (!line.WillRun || line.Risky);
 
     public InstallPlanItem Item { get; }
     public string Name => Item.Name;
@@ -57,9 +68,14 @@ public sealed partial class PreviewViewModel : ObservableObject
         _dialogs = dialogs;
         _plan = new InstallPlanner().Build(profile, profileName);
 
+        // Read-only: the preview describes commands and never writes an approval.
+        var approvals = new PostInstallApprovalStore(Path.Combine(services.Paths.State, PostInstallStep.ApprovalsFileName));
+        Commands = CommandPreview.ForProfile(profile, services.State.OriginOf(profile), approvals);
+        var commandByApp = Commands.ToDictionary(line => line.AppId, StringComparer.Ordinal);
+
         foreach (var item in _plan.Items)
         {
-            Items.Add(new PreviewRow(item));
+            Items.Add(new PreviewRow(item, commandByApp.GetValueOrDefault(item.AppId)));
         }
 
         SummaryText = _plan.IsEmpty
@@ -71,6 +87,9 @@ public sealed partial class PreviewViewModel : ObservableObject
     }
 
     public ObservableCollection<PreviewRow> Items { get; } = new();
+
+    /// <summary>Every post-install command in this run, in install order.</summary>
+    public IReadOnlyList<CommandPreviewLine> Commands { get; }
 
     public IReadOnlyList<string> PlanWarnings { get; }
 
@@ -117,7 +136,7 @@ public sealed partial class PreviewViewModel : ObservableObject
             var byId = _services.State.ActiveProfile.Apps.ToDictionary(app => app.Id);
             var progress = new Progress<string>(message => StatusLine = message);
 
-            _lastReport = await runner.RunAsync(_plan, byId, progress, CancellationToken.None);
+            _lastReport = (await runner.RunAsync(_plan, byId, progress, CancellationToken.None)) with { Commands = Commands };
 
             foreach (var row in Items)
             {

@@ -39,6 +39,9 @@ public sealed class AppState : ObservableObject
     public string ActiveProfileName => _activeProfile.Name;
     public int ActiveAppCount => _activeProfile.Apps.Count;
 
+    /// <summary>Read-only view of where a profile came from, for the preview and review screens.</summary>
+    public ProfileOrigin OriginOf(AppProfile profile) => _origins.Get(profile.Id);
+
     public event EventHandler? ActiveProfileChanged;
     public event EventHandler? ProfileContentChanged;
     public event EventHandler? ProfilesChanged;
