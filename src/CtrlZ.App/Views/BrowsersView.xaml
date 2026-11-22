@@ -263,10 +263,14 @@
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="*" />
                                 <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="Auto" />
                             </Grid.ColumnDefinitions>
                             <PasswordBox x:Name="ArchivePasswordBox" PasswordChanged="ArchivePasswordBox_PasswordChanged" />
                             <Button Grid.Column="1" Content="Inspect" Style="{StaticResource Button.Secondary}"
                                     Margin="8,0,0,0" Command="{Binding InspectArchiveCommand}" />
+                            <Button Grid.Column="2" Content="Verify" Style="{StaticResource Button.Secondary}"
+                                    Margin="8,0,0,0" Command="{Binding VerifyArchiveCommand}"
+                                    ToolTip="Reads every file in the backup and checks it, without restoring anything." />
                         </Grid>
                         <TextBlock Text="{Binding RestoreStatus}" Style="{StaticResource Text.Caption}" Margin="0,8,0,0"
                                    TextWrapping="Wrap" />

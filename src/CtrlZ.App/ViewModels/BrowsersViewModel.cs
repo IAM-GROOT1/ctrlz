@@ -535,6 +535,54 @@ public sealed partial class BrowsersViewModel : PageViewModelBase
         }
     }
 
+    /// <summary>
+    /// Reads the whole archive the way a restore would (every file decrypted and checksum-checked)
+    /// without writing anything, so a damaged backup is found before the PC is wiped.
+    /// </summary>
+    [RelayCommand]
+    private async Task VerifyArchiveAsync()
+    {
+        if (string.IsNullOrWhiteSpace(ArchivePath) || IsInspecting)
+        {
+            return;
+        }
+
+        IsInspecting = true;
+        RestoreStatus = "Verifying the backup: reading every file…";
+        var path = ArchivePath;
+        var password = NullIfEmpty(ArchivePassword);
+        try
+        {
+            var result = await Task.Run(() => new BrowserArchiveVerifier().Verify(path, password));
+            RestoreStatus = result.IsRestorable
+                ? $"{result.Summary} {FileUtil.FormatBytes(result.BytesChecked)} verified. Nothing was changed."
+                : result.Summary;
+            _services.Log.Write(result.IsRestorable ? LogLevel.Info : LogLevel.Warning,
+                $"Backup verification: {(result.IsRestorable ? "restorable" : "not restorable")}, " +
+                $"{result.FilesChecked} files, {result.Problems.Count} problems.");
+            if (!result.IsRestorable)
+            {
+                _dialogs.Error("This backup cannot be fully restored:\n\n" +
+                               string.Join("\n", result.Problems.Take(6).Select(problem => "• " + problem)) +
+                               (result.Problems.Count > 6 ? $"\n…and {result.Problems.Count - 6} more." : string.Empty) +
+                               "\n\nMake a new backup before you wipe this PC.");
+            }
+        }
+        catch (BrowserArchivePasswordException ex)
+        {
+            RestoreStatus = ex.Message;
+        }
+        catch (Exception ex)
+        {
+            _services.Log.Write(LogLevel.Warning, "Backup verification failed. " + LogPrivacy.Describe(ex));
+            RestoreStatus = "The backup could not be verified.";
+        }
+        finally
+        {
+            IsInspecting = false;
+        }
+    }
+
     [RelayCommand]
     private async Task RestoreAsync()
     {

@@ -10,7 +10,7 @@ namespace CtrlZ.Core.Tests;
 
 public class BrowserBackupTests
 {
-    private static (TestDirectory Temp, string Root, DetectedBrowser Browser) CreateProfileTree()
+    internal static (TestDirectory Temp, string Root, DetectedBrowser Browser) CreateProfileTree()
     {
         var temp = new TestDirectory();
         var root = temp.CreateDirectory("User Data");
@@ -45,7 +45,7 @@ public class BrowserBackupTests
         return (temp, root, browser);
     }
 
-    private static BrowserBackupService CreateService(TestDirectory temp)
+    internal static BrowserBackupService CreateService(TestDirectory temp)
     {
         var paths = new AppPaths(temp.PathOf("appdata"));
         paths.EnsureCreated();
