@@ -19,6 +19,17 @@ public sealed class WingetBootstrapException : Exception
 public sealed partial class WingetBootstrapService
 {
     private static readonly Version MinimumRecommendedVersion = new(1, 6);
+
+    /// <summary>
+    /// Microsoft's short link first, then the same bundle from Microsoft's own winget-cli releases
+    /// on GitHub if the short link fails. Both are Microsoft-published; Windows checks the bundle's
+    /// signature when it is registered.
+    /// </summary>
+    public static readonly IReadOnlyList<string> AppInstallerUrls =
+    [
+        "https://aka.ms/getwinget",
+        "https://github.com/microsoft/winget-cli/releases/latest/download/Microsoft.DesktopAppInstaller_8wekyb3d8bbwe.msixbundle"
+    ];
     private readonly WingetCli _winget;
     private readonly DownloadService _downloads;
     private readonly ProcessRunner _runner;
@@ -68,7 +79,7 @@ public sealed partial class WingetBootstrapService
         try
         {
             var download = await _downloads.DownloadAsync(
-                "https://aka.ms/getwinget",
+                AppInstallerUrls,
                 "Microsoft.DesktopAppInstaller.msixbundle",
                 expectedSha256: null,
                 progress: null,
