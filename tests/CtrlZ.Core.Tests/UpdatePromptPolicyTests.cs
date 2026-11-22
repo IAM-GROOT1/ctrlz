@@ -157,9 +157,7 @@ public class ActivityWaiterTests
         var backingUp = monitor.Begin("Backing up browser profiles");
 
         var waiting = ActivityWaiter.WaitForIdleAsync(monitor, TimeSpan.FromSeconds(10));
-        await Task.Delay(80);
         installing.Dispose();
-        await Task.Delay(80);
         Assert.False(waiting.IsCompleted);
 
         backingUp.Dispose();

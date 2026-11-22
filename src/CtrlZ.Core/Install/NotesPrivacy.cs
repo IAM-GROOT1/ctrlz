@@ -22,6 +22,16 @@ public static class NotesPrivacy
         return includeNotes ? note : Redacted;
     }
 
+    /// <summary>
+    /// The single chokepoint for any export that leaves the app (dry-run export today, any future
+    /// diagnostics bundle): the note is included only when the user turned the setting on.
+    /// </summary>
+    public static string? ForExport(string? note, CtrlZ.Core.Models.AppSettings settings)
+    {
+        ArgumentNullException.ThrowIfNull(settings);
+        return ForReport(note, settings.IncludeNotesInReports);
+    }
+
     /// <summary>True when the app has a note worth showing an indicator for.</summary>
     public static bool HasNote(string? note) => !string.IsNullOrWhiteSpace(note);
 

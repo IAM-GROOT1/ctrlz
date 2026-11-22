@@ -4,6 +4,7 @@
 using System.Windows;
 using CtrlZ.App.ViewModels;
 using CtrlZ.App.Views;
+using CtrlZ.Core.Install;
 
 namespace CtrlZ.App.Services;
 
@@ -106,4 +107,36 @@ public sealed class DialogService
         window.ShowDialog();
         return viewModel.ProceedRequested;
     }
+
+    /// <summary>Opens the command review screen for the active profile. True when anything changed.</summary>
+    public bool ShowCommandReview(AppServices services, CtrlZ.Core.Models.AppProfile profile)
+    {
+        var approvals = new PostInstallApprovalStore(
+            System.IO.Path.Combine(services.Paths.State, PostInstallStep.ApprovalsFileName));
+        var viewModel = new CommandReviewViewModel(
+            profile,
+            services.State.OriginOf(profile),
+            approvals,
+            (title, message) => Confirm(title, message, "Yes, I understand", "Cancel", danger: true),
+            () => services.State.MarkAsLocal(profile, userConfirmed: true));
+
+        var window = new CommandReviewWindow { DataContext = viewModel };
+        if (Application.Current.MainWindow is { IsVisible: true } owner && owner != window)
+        {
+            window.Owner = owner;
+        }
+
+        window.ShowDialog();
+        return viewModel.Changed;
+    }
+
+    /// <summary>
+    /// Asks for the confirmations the commands in this run need: once per command text on this PC,
+    /// and again on every run for a risky command. False means the install must not start.
+    /// </summary>
+    public bool ConfirmPostInstallCommands(AppServices services, CtrlZ.Core.Models.AppProfile profile) =>
+        InstallStartGuard.CommandConsent(
+            services.Paths.State,
+            services.State.OriginOf,
+            (title, message, danger) => Confirm(title, message, danger ? "Run it" : "Run them", "Cancel install", danger))(profile);
 }

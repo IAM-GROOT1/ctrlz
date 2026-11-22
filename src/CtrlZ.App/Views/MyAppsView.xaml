@@ -25,6 +25,11 @@
 
                     <StackPanel Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center">
                         <controls:AppIcon IconPath="{Binding IconPath}" FallbackText="{Binding Name}" Size="30" />
+                        <TextBlock Text="&#xE70B;" FontFamily="{StaticResource Font.Icons}" FontSize="11"
+                                   VerticalAlignment="Center" Margin="6,0,0,0"
+                                   Foreground="{DynamicResource Brush.TextTertiary}"
+                                   ToolTip="This app has a note"
+                                   Visibility="{Binding HasNotes, Converter={StaticResource BoolToVisibility}}" />
                         <StackPanel Margin="10,0,10,0" VerticalAlignment="Center">
                             <StackPanel Orientation="Horizontal">
                                 <TextBlock Text="{Binding Name}" FontWeight="SemiBold" FontSize="12.5"
