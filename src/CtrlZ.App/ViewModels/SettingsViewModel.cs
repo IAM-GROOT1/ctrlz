@@ -103,6 +103,7 @@ public sealed partial class SettingsViewModel : PageViewModelBase
         AutoCheckForUpdates = _services.State.Settings.AutoCheckForUpdates;
         Channel = _services.State.Settings.UpdateChannel;
         ShowInstallPreview = _services.State.Settings.ShowInstallPreview;
+        CreatePortableShortcuts = _services.State.Settings.CreatePortableShortcuts;
         IncludeNotesInReports = _services.State.Settings.IncludeNotesInReports;
         OnPropertyChanged(nameof(LastUpdateCheckText));
         LoadLogs();
@@ -134,6 +135,15 @@ public sealed partial class SettingsViewModel : PageViewModelBase
     partial void OnShowInstallPreviewChanged(bool value)
     {
         _services.State.Settings.ShowInstallPreview = value;
+        _services.State.SaveSettings();
+    }
+
+    [ObservableProperty]
+    private bool _createPortableShortcuts = true;
+
+    partial void OnCreatePortableShortcutsChanged(bool value)
+    {
+        _services.State.Settings.CreatePortableShortcuts = value;
         _services.State.SaveSettings();
     }
 

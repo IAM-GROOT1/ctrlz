@@ -86,6 +86,41 @@
                 <TextBlock Style="{StaticResource Text.Secondary}" TextWrapping="Wrap"
                            Text="No updates to show. Apps that winget does not know, or whose version it cannot read, are not listed here." />
             </Border>
+
+            <StackPanel Visibility="{Binding HasGitHubRows, Converter={StaticResource BoolToVisibility}}" Margin="0,8,0,12">
+                <TextBlock Text="FROM GITHUB RELEASES" Style="{StaticResource Text.NavSection}" Margin="2,0,0,8" />
+                <ItemsControl ItemsSource="{Binding GitHubRows}">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <Border Style="{StaticResource Border.Card}" Padding="16,12" Margin="0,0,0,8">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="Auto" />
+                                    </Grid.ColumnDefinitions>
+                                    <StackPanel>
+                                        <TextBlock Text="{Binding Name}" FontWeight="SemiBold" FontSize="13.5"
+                                                   Foreground="{DynamicResource Brush.TextPrimary}" />
+                                        <TextBlock Style="{StaticResource Text.Caption}" Margin="0,3,0,0">
+                                            <Run Text="{Binding VersionsText, Mode=OneWay}" />
+                                            <Run Text="  ·  " />
+                                            <Run Text="{Binding Repository, Mode=OneWay}" FontFamily="{StaticResource Font.Mono}" />
+                                        </TextBlock>
+                                        <TextBlock Text="{Binding Status}" Style="{StaticResource Text.Secondary}"
+                                                   TextWrapping="Wrap" Margin="0,4,0,0" />
+                                    </StackPanel>
+                                    <Button Grid.Column="1" Content="Update" Style="{StaticResource Button.Secondary}"
+                                            VerticalAlignment="Top"
+                                            Command="{Binding DataContext.UpdateGitHubCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                                            CommandParameter="{Binding}" />
+                                </Grid>
+                            </Border>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+                <TextBlock Style="{StaticResource Text.Caption}" TextWrapping="Wrap" Margin="2,2,0,0"
+                           Text="Apps installed from a GitHub release by CTRL+Z, compared with the repository's latest release." />
+            </StackPanel>
         </StackPanel>
     </ScrollViewer>
 </UserControl>

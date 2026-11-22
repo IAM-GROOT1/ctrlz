@@ -109,6 +109,10 @@ Apps winget marks as pinned are only updated when you pick them, never by **Upda
 **Ignore this version** hides one version of one app until a newer one appears. Updates share the
 install lock, so they never run while an install queue or the command line is installing.
 
+Apps CTRL+Z installs from a GitHub release are remembered with their release, and the same page
+offers a newer release when the repository publishes one. Portable apps (a single exe or a ZIP)
+get a Start menu shortcut under **CTRL+Z apps**; turn this off in **Settings → Installing**.
+
 ### Everything else
 
 - Clean empty states, inline errors, graceful per-item failure handling.
@@ -575,8 +579,8 @@ The work is split into numbered sections, built one at a time and shipped as the
 - [x] **0.** Self-update and tag-driven releases
 - [x] **1.** Safety checks before a wipe
 - [x] **2.** Install improvements
-- [ ] **3.** App updates through winget - **next**
-- [ ] **4.** Reliability and security
+- [x] **3.** App updates through winget
+- [ ] **4.** Reliability and security - **next**
 - [ ] **5.** Foundation for optional extras
 - [ ] **6.** UI polish and motion
 - [ ] **7.** Onboarding and sharing profiles

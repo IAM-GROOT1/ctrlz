@@ -19,12 +19,37 @@ public sealed class FileInstallService
     private readonly AppPaths _paths;
     private readonly ProcessRunner _runner;
     private readonly IAppLog _log;
+    private readonly CtrlZ.Core.AppUpdates.IShortcutWriter? _shortcuts;
+    private readonly Func<bool> _shortcutsEnabled;
 
-    public FileInstallService(AppPaths paths, ProcessRunner runner, IAppLog log)
+    /// <param name="shortcuts">Creates Start menu shortcuts for portable apps; null for none.</param>
+    /// <param name="shortcutsEnabled">Read at install time, so the Settings toggle applies at once.</param>
+    public FileInstallService(
+        AppPaths paths,
+        ProcessRunner runner,
+        IAppLog log,
+        CtrlZ.Core.AppUpdates.IShortcutWriter? shortcuts = null,
+        Func<bool>? shortcutsEnabled = null)
     {
         _paths = paths;
         _runner = runner;
         _log = log;
+        _shortcuts = shortcuts;
+        _shortcutsEnabled = shortcutsEnabled ?? (() => true);
+    }
+
+    /// <summary>Adds a Start menu shortcut for a portable app when enabled; never fails the install.</summary>
+    private void TryAddShortcut(AppEntry app, string? executable, InstallContext context)
+    {
+        if (_shortcuts is null || executable is null || !_shortcutsEnabled())
+        {
+            return;
+        }
+
+        if (_shortcuts.Create(app.Name, executable) is not null)
+        {
+            context.Line($"Added {app.Name} to the Start menu.");
+        }
     }
 
     public async Task<InstallResult> InstallAsync(
@@ -207,6 +232,7 @@ public sealed class FileInstallService
             ZipFile.ExtractToDirectory(archivePath, destination, overwriteFiles: true);
             var executable = FindPortableExecutable(destination);
             var detail = executable is null ? $"Extracted to {destination}" : $"Extracted to {destination} ({Path.GetFileName(executable)})";
+            TryAddShortcut(app, executable, context);
             context.Report(app, InstallStatus.Success, detail, 1);
             return InstallResult.Ok(detail);
         }
@@ -227,6 +253,7 @@ public sealed class FileInstallService
             var destination = Path.Combine(destinationDirectory, Path.GetFileName(filePath));
             File.Copy(filePath, destination, overwrite: true);
             context.Line($"Copied portable app to {destination}");
+            TryAddShortcut(app, destination, context);
             context.Report(app, InstallStatus.Success, $"Portable app copied to {destination}", 1);
             return InstallResult.Ok($"Portable app copied to {destination}");
         }
