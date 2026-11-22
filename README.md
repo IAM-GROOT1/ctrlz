@@ -6,7 +6,7 @@
 
 CTRL+Z is a local-first Windows desktop app that rebuilds your app list and restores your
 Chromium and Firefox browser profiles after a fresh install. It scans what is installed now,
-saves a portable JSON profile, and reinstalls it silently later â€” including apps winget does
+saves a portable JSON profile, and reinstalls it silently later — including apps winget does
 not carry. It also makes full browser-profile backups for browsers without sync, with a
 focus on Helium, Zen, and multiple profiles.
 
@@ -24,13 +24,13 @@ I chose **.NET 8 + WPF** with a custom Fluent-inspired theme rather than Tauri/E
   `.exe` runs on a clean Windows 10/11 install.
 - **Native Windows integration** for UAC relaunch, registry, shell icons, App Installer,
   process control, and Volume Shadow Copy.
-- **A real GUI** that can be a proper Windows citizen â€” custom chrome, rounded
+- **A real GUI** that can be a proper Windows citizen — custom chrome, rounded
   corners, system light/dark themes, keyboard navigation, and native file dialogs.
 - **Testable core.** `CtrlZ.Core` is a plain .NET class library; the installer, scan,
   winget matching, profile, and browser archive logic have no WPF dependency.
 
 The UI deliberately uses a restrained ember accent, a small type scale, 8px surfaces, and
-Segoe Fluent Icons â€” not a dashboard template. There are no gradients, glass panels, or
+Segoe Fluent Icons — not a dashboard template. There are no gradients, glass panels, or
 emoji icons.
 
 ## Features
@@ -44,7 +44,7 @@ emoji icons.
 - Searchable, filterable lists; filter by **All apps / Matched / Unmatched**, filter by category,
   group by category or source, and multi-select. **Select all** selects every app visible under the
   active filter; **Select matched** is the matched-only shortcut.
-- Save **multiple portable profiles** (`Work PC`, `Gaming PC`, â€¦) as human-readable JSON;
+- Save **multiple portable profiles** (`Work PC`, `Gaming PC`, …) as human-readable JSON;
   import/export them anywhere.
 - **Import an app list** from another package manager: **My Apps → Import list** reads the file
   from `winget export -o apps.json`, `scoop export > apps.json` (or its older text output) or
@@ -117,8 +117,8 @@ emoji icons.
   checks each one (checksum or AES authentication), confirms every listed profile is present and
   that no passwords or cookies were added, and reports whether it can be restored. Nothing is
   written.
-- Restore flow: inspect archive â†’ choose profiles â†’ choose a target browser of the **same engine**
-  â†’ **restore as new profiles (recommended)** or merge into existing profiles after a warning.
+- Restore flow: inspect archive → choose profiles → choose a target browser of the **same engine**
+  → **restore as new profiles (recommended)** or merge into existing profiles after a warning.
   New Firefox profiles are registered in `profiles.ini`; new Chromium profiles in `Local State`.
   Existing cookies/passwords are left untouched; a small safety copy of key current files is made
   before writing.
@@ -158,9 +158,9 @@ get a Start menu shortcut under **CTRL+Z apps**; turn this off in **Settings →
 
 Download the latest build from [Releases](https://github.com/IAM-GROOT1/ctrlz/releases/latest). The release artifacts are (also copied to `dist/`):
 
-- `CTRL+Z-Portable-1.1.3.exe` â€” a single self-contained executable. Put it anywhere and
+- `CTRL+Z-Portable-1.1.3.exe` — a single self-contained executable. Put it anywhere and
   run it. No .NET install required.
-- `CTRL+Z-Setup-1.1.3.exe` â€” per-user Inno Setup installer (Start Menu shortcut, optional
+- `CTRL+Z-Setup-1.1.3.exe` — per-user Inno Setup installer (Start Menu shortcut, optional
   desktop shortcut, uninstaller). It does not require admin to install.
 
 The binaries are **not code-signed**, so SmartScreen may show an unknown-publisher prompt.
@@ -173,7 +173,7 @@ By default the portable exe still keeps profiles, logs, and settings under
 file named `portable.flag` beside `CTRL+Z.exe` before launching. Data then lives in
 `.\Data\`. You can also set `CTRLZ_DATA_DIR` to an explicit folder.
 
-Profiles are portable regardless: export them from **My Apps â†’ Export** and keep the JSON
+Profiles are portable regardless: export them from **My Apps → Export** and keep the JSON
 with the installer or on a USB drive.
 
 ## Updates
@@ -191,7 +191,7 @@ CTRL+Z can check GitHub for a newer release and update itself.
   copy downloads `CTRL+Z-Portable-<version>.exe`. Only HTTPS assets from this repository's own
   releases are accepted. Every download is checked against the release's `SHA256SUMS.txt` (or
   the API digest); a file that does not match is deleted and never applied.
-- **Turning it off.** **Settings â†’ Updates** has a *Check for updates automatically* toggle, a
+- **Turning it off.** **Settings → Updates** has a *Check for updates automatically* toggle, a
   channel switch and a manual **Check for updates** button. *Skip this version* keeps that
   version quiet until a newer one ships.
 - **Interruptions.** CTRL+Z never prompts or applies an update while an install queue, browser
@@ -435,7 +435,7 @@ the fresh install) and opens the right page. Open it again with **Settings → W
    elevated; the app automatically resumes the saved queue after the relaunch.
 5. If an installer needs a restart, CTRL+Z records it. Restart Windows and reopen CTRL+Z;
    the install queue resumes at the next unfinished app.
-6. Open **Browsers â†’ Restore**, inspect your archive, choose profiles and the target browser,
+6. Open **Browsers → Restore**, inspect your archive, choose profiles and the target browser,
    and restore as new profiles (recommended) or merge into existing ones.
 
 ## Command line
@@ -484,7 +484,7 @@ Profiles are intentionally simple and diffable:
 ```json
 {
   "schemaVersion": 1,
-  "id": "â€¦",
+  "id": "…",
   "name": "Work PC",
   "apps": [
     {
@@ -497,9 +497,9 @@ Profiles are intentionally simple and diffable:
     {
       "name": "Notion",
       "source": "directUrl",
-      "downloadUrl": "https://â€¦",
+      "downloadUrl": "https://…",
       "silentArgs": "--silent",
-      "expectedSha256": "â€¦"
+      "expectedSha256": "…"
     },
     {
       "name": "Obsidian",
@@ -513,7 +513,7 @@ Profiles are intentionally simple and diffable:
 ```
 
 Paths for local installers are absolute by design; reconnect the same USB drive or edit the
-path in **My Apps â†’ Edit**.
+path in **My Apps → Edit**.
 
 ## Architecture
 
@@ -536,7 +536,7 @@ Key design decisions:
 - **Profile state lives in `AppState`**, and every page goes through it. A profile is just
   JSON; there is no database.
 - **Install sources are strategies** (`ISourceInstaller`). `InstallEngine` never knows how a
-  winget, GitHub, URL, or local app is installed â€” it owns ordering, status, persistence,
+  winget, GitHub, URL, or local app is installed — it owns ordering, status, persistence,
   retry, and logs.
 - **The install profile is snapshotted into the state file**, so a reboot or app restart can
   resume even if the original profile file changes.
@@ -580,8 +580,8 @@ before relying on it for a critical profile.
   key removed; Firefox archives never include `key4.db`, `logins.json`, or `cookies.sqlite`.
   Existing target encryption material is preserved during a merge. Restoring encrypted
   browser data from another Windows account is not supported.
-- **Cross-fork restores are same-engine only.** Chromeâ†”Helium and Firefoxâ†”Zen generally work
-  within the same engine, but version-specific preferences may not. Chromiumâ†”Firefox restores
+- **Cross-fork restores are same-engine only.** Chrome↔Helium and Firefox↔Zen generally work
+  within the same engine, but version-specific preferences may not. Chromium↔Firefox restores
   are rejected.
 - **Single-profile layouts cannot add profiles.** Opera, Tor Browser, and some Mullvad layouts
   expose one flat profile. CTRL+Z restores it in place and warns that a second profile cannot be
@@ -602,17 +602,17 @@ permissions, and the absence of cookies/passwords).
 
 ## Troubleshooting
 
-- **winget missing/outdated on a fresh PC** â€” CTRL+Z offers to install/update Microsoft App
+- **winget missing/outdated on a fresh PC** — CTRL+Z offers to install/update Microsoft App
   Installer. If the automatic bootstrap fails, install it manually from
   <https://aka.ms/getwinget> and retry.
-- **A winget app opens a GUI instead of installing silently** â€” some packages ignore
+- **A winget app opens a GUI instead of installing silently** — some packages ignore
   `--silent`. Test the installer switches from **Add App**, or use the vendor's direct
   installer with the correct switches in the profile.
-- **Browser backup says a file is locked** â€” close the browser gracefully; if needed use
+- **Browser backup says a file is locked** — close the browser gracefully; if needed use
   **Force close**, or run CTRL+Z as administrator so the VSS fallback can be used.
-- **GitHub release lookup fails** â€” anonymous GitHub API limits are 60 requests/hour. Set a
+- **GitHub release lookup fails** — anonymous GitHub API limits are 60 requests/hour. Set a
   `GITHUB_TOKEN` environment variable before launching CTRL+Z for a higher limit.
-- **Logs** â€” **Settings â†’ Open logs**, or open
+- **Logs** — **Settings → Open logs**, or open
   `%LOCALAPPDATA%\CTRL+Z\logs\ctrlz-YYYY-MM-DD.log`.
 
 ## What's coming
@@ -648,5 +648,5 @@ CTRL+Z is licensed under the GNU Affero General Public License v3.0 (see [`LICEN
 
 ## Brand assets
 
-The standalone CTRL+Z logo â€” the exact ember rounded square with a white Z and a right-offset dash used by the app â€” is in
+The standalone CTRL+Z logo — the exact ember rounded square with a white Z and a right-offset dash used by the app — is in
 [`branding/`](branding/). The app icon, window icon, header mark, Settings mark, and installer icon use this source. High-resolution PNGs, a transparent mark, and a multi-size Windows ICO are included.
