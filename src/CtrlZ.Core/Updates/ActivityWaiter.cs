@@ -18,18 +18,27 @@ public static class ActivityWaiter
         TimeSpan timeout,
         CancellationToken cancellationToken = default)
     {
-        var deadline = DateTime.UtcNow + timeout;
+        // A monotonic clock: DateTime.UtcNow can be adjusted under a loaded CI runner.
+        var elapsed = System.Diagnostics.Stopwatch.StartNew();
 
         while (monitor.IsBusy)
         {
-            var remaining = deadline - DateTime.UtcNow;
+            var remaining = timeout - elapsed.Elapsed;
             if (remaining <= TimeSpan.Zero)
             {
                 return false;
             }
 
             var idle = new TaskCompletionSource(TaskCreationOptions.RunContinuationsAsynchronously);
-            EventHandler handler = (_, _) => idle.TrySetResult();
+            EventHandler handler = (_, _) =>
+            {
+                // Only waking up when the monitor is actually idle removes any doubt about a
+                // transition that fires while we are not looking.
+                if (!monitor.IsBusy)
+                {
+                    idle.TrySetResult();
+                }
+            };
             monitor.BusyChanged += handler;
 
             try
