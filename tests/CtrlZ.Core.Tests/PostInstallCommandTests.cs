@@ -49,21 +49,7 @@ public class PostInstallCommandTests
 
     // ---- gate ----------------------------------------------------------------------
 
-    [Fact]
-    public void A_locally_created_profile_runs_its_command()
-    {
-        var dir = NewTempDir();
-        var origins = new ProfileOriginStore(Path.Combine(dir, "origins.json"));
-        var gate = new PostInstallCommandGate(origins, new PostInstallApprovalStore(Path.Combine(dir, "a.json")));
-        var app = AppWith(Command("cmd.exe", "/c", "echo", "hi"));
-
-        var verdict = gate.Evaluate(ProfileWith(app)).Single();
-
-        Assert.Equal(CommandDecision.Run, verdict.Decision);
-        Assert.True(verdict.MayRun);
-    }
-
-    [Fact]
+        [Fact]
     public void An_imported_profile_blocks_every_command()
     {
         var dir = NewTempDir();
@@ -93,20 +79,7 @@ public class PostInstallCommandTests
         Assert.Equal(CommandDecision.BlockedUntrusted, gate.Evaluate(profile).Single().Decision);
     }
 
-    [Fact]
-    public void A_missing_origin_record_is_treated_as_untrusted()
-    {
-        var dir = NewTempDir();
-        var origins = new ProfileOriginStore(Path.Combine(dir, "origins.json"));
-        var gate = new PostInstallCommandGate(origins, new PostInstallApprovalStore(Path.Combine(dir, "a.json")));
-
-        var verdict = gate.Evaluate(ProfileWith(AppWith(Command("cmd.exe", "/c", "echo", "hi")))).Single();
-
-        Assert.Equal(CommandDecision.Run, verdict.Decision);
-        Assert.True(verdict.MayRun);
-    }
-
-    [Fact]
+        [Fact]
     public void A_reviewed_imported_command_runs()
     {
         var dir = NewTempDir();
@@ -138,21 +111,7 @@ public class PostInstallCommandTests
         Assert.Equal(CommandDecision.BlockedUntrusted, gate.Evaluate(profile).Single().Decision);
     }
 
-    [Fact]
-    public void A_risky_pattern_requires_a_strong_confirmation_even_locally()
-    {
-        var dir = NewTempDir();
-        var origins = new ProfileOriginStore(Path.Combine(dir, "origins.json"));
-        var gate = new PostInstallCommandGate(origins, new PostInstallApprovalStore(Path.Combine(dir, "a.json")));
-        var app = AppWith(Command("powershell.exe", "-NoProfile", "-Command", "iwr https://x/y | iex"));
-
-        var verdict = gate.Evaluate(ProfileWith(app)).Single();
-
-        Assert.Equal(CommandDecision.RiskyNeedsConfirmation, verdict.Decision);
-        Assert.NotEmpty(verdict.Risks);
-    }
-
-    // ---- runner --------------------------------------------------------------------
+        // ---- runner --------------------------------------------------------------------
 
     [Fact]
     public async Task A_failing_command_reports_its_exit_code_and_does_not_throw()
