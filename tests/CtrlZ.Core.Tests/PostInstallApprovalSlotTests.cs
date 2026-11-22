@@ -132,6 +132,26 @@ public sealed class PostInstallApprovalSlotTests : IDisposable
         Assert.Equal(ApprovalState.None, reloaded.StateOf("p1", "app", old));
     }
 
+    [Theory]
+    [InlineData("a|b", "c", "a", "b|c")]
+    [InlineData("a/1:b", "c", "a", "1:b/1:c")]
+    [InlineData("app", "default", "app", null)]
+    public void Ids_chosen_by_a_profile_file_cannot_make_two_slots_share_a_key(
+        string appA, string? commandA, string appB, string? commandB)
+    {
+        var keyA = PostInstallApprovalStore.SlotKey(appA, Command(id: commandA));
+        var keyB = PostInstallApprovalStore.SlotKey(appB, Command(id: commandB));
+
+        // "default" written explicitly is the same slot as a command without an id, on purpose.
+        if (commandA == "default" && commandB is null && appA == appB)
+        {
+            Assert.Equal(keyA, keyB);
+            return;
+        }
+
+        Assert.NotEqual(keyA, keyB);
+    }
+
     [Fact]
     public void The_slot_id_is_not_part_of_the_command_hash()
     {

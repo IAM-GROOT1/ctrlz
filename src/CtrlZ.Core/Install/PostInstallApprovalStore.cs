@@ -57,9 +57,15 @@ public sealed class PostInstallApprovalStore
         return Convert.ToHexString(SHA256.HashData(Encoding.UTF8.GetBytes(text))).ToLowerInvariant();
     }
 
-    /// <summary>The key of one command slot within a profile.</summary>
-    public static string SlotKey(string appId, PostInstallCommand command) =>
-        appId + "|" + (string.IsNullOrWhiteSpace(command.Id) ? DefaultCommandId : command.Id);
+    /// <summary>
+    /// The key of one command slot within a profile. Both ids come from the profile file, so they
+    /// are length-prefixed: no choice of ids can make two different slots share a key.
+    /// </summary>
+    public static string SlotKey(string appId, PostInstallCommand command)
+    {
+        var commandId = string.IsNullOrWhiteSpace(command.Id) ? DefaultCommandId : command.Id;
+        return $"{appId.Length}:{appId}/{commandId.Length}:{commandId}";
+    }
 
     /// <summary>True only when this exact text was approved for this slot (or by a pre-slot record).</summary>
     public bool IsApproved(string profileId, string appId, PostInstallCommand command) =>
