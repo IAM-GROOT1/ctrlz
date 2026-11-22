@@ -130,7 +130,7 @@ public sealed partial class InstallEngine
 
         using var sessionLog = new SessionLog(_paths, state, _log, sink);
         sessionLog.Line($"CTRL+Z install session · profile '{profile.Name}' · {state.Items.Count} apps");
-        sessionLog.Line($"Running {(ElevationService.IsElevated ? "elevated" : "without elevation")} on {Environment.MachineName}.");
+        sessionLog.Line($"Running {(ElevationService.IsElevated ? "elevated" : "without elevation")}.");
 
         ReconcileItems(state, profile);
         if (retryFailed)
@@ -470,7 +470,7 @@ public sealed partial class InstallEngine
                 lock (_gate)
                 {
                     File.AppendAllText(_path,
-                        $"{DateTimeOffset.Now:yyyy-MM-dd HH:mm:ss}  {message}{Environment.NewLine}",
+                        $"{DateTimeOffset.Now:yyyy-MM-dd HH:mm:ss}  {PathPrivacy.Current.ForLog(message)}{Environment.NewLine}",
                         Encoding.UTF8);
                 }
             }

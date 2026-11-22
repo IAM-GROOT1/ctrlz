@@ -81,10 +81,10 @@ See which installed apps have updates and apply them from one place.
 - Import app lists from winget, Scoop and Chocolatey.
 - ARM64 builds.
 - Download resumption and mirror fallback.
-- Redact personal paths and names from logs and saved state. The startup, profile and install-log
-  lines currently record a drive-qualified data folder path (which includes the Windows account
-  name), and `state/install-state.json` stores paths for every app in the profile. Tracked in
-  [#8](https://github.com/IAM-GROOT1/ctrlz/issues/8).
+- Done: personal paths and names are kept out of logs and saved state. Logs write personal
+  folders as `%USERPROFILE%`-style tokens and hide the account and PC names; the install state file
+  stores the same tokens and expands them on load
+  ([#8](https://github.com/IAM-GROOT1/ctrlz/issues/8)).
 
 ### 5. Foundation for optional extras
 

@@ -69,15 +69,15 @@ public sealed class FileAppLog : IAppLog, IDisposable
             .Append("  ")
             .Append(level.ToString().ToUpperInvariant().PadRight(5))
             .Append("  ")
-            .Append(message);
+            .Append(PathPrivacy.Current.ForLog(message));
 
         if (exception is not null)
         {
-            text.AppendLine().Append(exception);
+            text.AppendLine().Append(PathPrivacy.Current.ForLog(exception.ToString()));
         }
 
         var line = text.ToString();
-        var evt = new LogLine(timestamp, level, message);
+        var evt = new LogLine(timestamp, level, PathPrivacy.Current.ForLog(message));
         lock (_gate)
         {
             if (_disposed)
