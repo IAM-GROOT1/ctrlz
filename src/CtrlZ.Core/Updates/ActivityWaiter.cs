@@ -53,7 +53,10 @@ public static class ActivityWaiter
             }
             catch (TimeoutException)
             {
-                return false;
+                // The idle signal and the timeout both complete on the thread pool; on a starved
+                // machine the timeout can be observed after the monitor already went idle. The
+                // answer is the actual state, not which callback ran first.
+                return !monitor.IsBusy;
             }
             finally
             {
