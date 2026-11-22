@@ -370,6 +370,14 @@ public sealed partial class InstallViewModel : PageViewModelBase
             return;
         }
 
+        // Shared with the command line: only one install run on this PC at a time.
+        using var runLock = InstallLock.TryAcquire();
+        if (runLock is null)
+        {
+            StatusMessage = "Another CTRL+Z install is running on this PC (for example from the command line). Try again when it has finished.";
+            return;
+        }
+
         _starting = true;
         _cts?.Dispose();
         _cts = new CancellationTokenSource();

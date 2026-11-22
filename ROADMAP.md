@@ -57,8 +57,8 @@ README under "Before you wipe". Shipped in v1.3.0.
   approved on this PC. See the README for the full safety model.
 - [x] **C. Notes.** A private note per app, shown when an app fails or needs manual action, and
   never logged; exports include notes only when you opt in.
-- [ ] **D. Command line.** Install, dry-run and list profiles from a terminal on a fresh Windows
-  install, with the same safety rules as the app.
+- [x] **D. Command line.** `ctrlz install`, `ctrlz dry-run` and `ctrlz list` from a terminal on a
+  fresh Windows install, with the same safety rules as the app. See the README.
 
 ### 3. App updates through winget
 

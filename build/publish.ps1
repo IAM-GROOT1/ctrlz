@@ -53,6 +53,25 @@ New-Item -ItemType Directory -Force -Path $publishDir | Out-Null
     -o $publishDir
 if ($LASTEXITCODE -ne 0) { throw "dotnet publish failed." }
 
+# The command line (ctrlz.exe) ships next to CTRL+Z.exe and shares its data folder.
+$cliProject = Join-Path $root "src/CtrlZ.Cli/CtrlZ.Cli.csproj"
+& $dotnet publish $cliProject `
+    -c Release `
+    -r win-x64 `
+    --self-contained true `
+    -p:PublishSingleFile=true `
+    -p:IncludeNativeLibrariesForSelfExtract=true `
+    -p:EnableCompressionInSingleFile=true `
+    -p:DebugType=None `
+    -p:DebugSymbols=false `
+    -p:Version=$Version `
+    -p:AssemblyVersion="$numericVersion.0" `
+    -p:FileVersion="$numericVersion.0" `
+    -p:InformationalVersion=$Version `
+    -o $publishDir
+if ($LASTEXITCODE -ne 0) { throw "dotnet publish of the command line failed." }
+Copy-Item (Join-Path $publishDir "ctrlz.exe") (Join-Path $artifactRoot "ctrlz-$Version.exe") -Force
+
 Copy-Item (Join-Path $root "README.md") $publishDir -Force
 Copy-Item (Join-Path $root "LICENSE") $publishDir -Force
 $portableName = "CTRL+Z-Portable-$Version.exe"
