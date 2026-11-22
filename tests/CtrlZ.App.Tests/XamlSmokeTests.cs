@@ -93,6 +93,7 @@ public class XamlSmokeTests
         // Install row with a note, and the settings and install views.
         _ = new InstallView();
         _ = new SettingsView();
+        _ = new AppUpdatesView();
         _ = new InstallRowViewModel("Tool", AppSource.Winget, null) { Note = "n", Status = InstallStatus.Failed };
     }
 

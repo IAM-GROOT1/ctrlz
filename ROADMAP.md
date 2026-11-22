@@ -17,8 +17,8 @@ promise of a date, and a section can be reordered if a bug matters more.
 
 - [x] **0. Self-update and tag-driven releases** - done, shipped in v1.2.0
 - [x] **1. Safety checks before a wipe** - done, shipped in v1.3.0
-- [ ] **2. Install improvements** - **next**
-- [ ] **3. App updates through winget** - planned
+- [x] **2. Install improvements** - done, shipping in v1.4.0
+- [ ] **3. App updates through winget** - **next**
 - [ ] **4. Reliability and security** - planned
 - [ ] **5. Foundation for optional extras** - planned
 - [ ] **6. UI polish and motion** - planned
@@ -62,8 +62,14 @@ README under "Before you wipe". Shipped in v1.3.0.
 
 ### 3. App updates through winget
 
-See which installed apps have updates and apply them from one place. Portable apps get shortcuts
-and update tracking.
+See which installed apps have updates and apply them from one place.
+
+- [x] **A. Updates page.** Lists the apps winget can update, updates the chosen ones or all of them
+  one after another, keeps pinned apps out of "Update all", and can ignore one version until a
+  newer one appears.
+- [ ] **B. Portable apps.** Start menu shortcuts for portable apps and a check for newer versions
+  of apps installed from GitHub releases.
+- [ ] **C. Command line.** `ctrlz updates` to list and apply app updates from a terminal.
 
 ### 4. Reliability and security
 

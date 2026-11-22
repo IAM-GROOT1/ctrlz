@@ -31,7 +31,8 @@ public sealed partial class MainViewModel : ObservableObject, IDisposable
         Catalog = new CatalogViewModel(services, dialogs, this);
         Browsers = new BrowsersViewModel(services, dialogs, this);
         Install = new InstallViewModel(services, dialogs, this);
-        Settings = new SettingsViewModel(services, dialogs, this, theme);
+        AppUpdates = new AppUpdatesViewModel(services, dialogs);
+        Settings =new SettingsViewModel(services, dialogs, this, theme);
         SettingsNav = new NavItem("settings", "Settings", "\uE713", Settings);
         SettingsNavItems = [SettingsNav];
 
@@ -40,7 +41,8 @@ public sealed partial class MainViewModel : ObservableObject, IDisposable
             new NavItem("scan", "Scan", "\uE721", Scan),
             new NavItem("apps", "My Apps", "\uE71D", MyApps),
             new NavItem("ready", "Ready to wipe", "\uE73E", Readiness),
-            new NavItem("install", "Install", "\uE896", Install)
+            new NavItem("install", "Install", "\uE896", Install),
+            new NavItem("updates", "Updates", "\uE895", AppUpdates)
         ];
         DiscoverNav =
         [
@@ -53,7 +55,7 @@ public sealed partial class MainViewModel : ObservableObject, IDisposable
         ];
 
         _currentPage = autoInstall ? Install : Scan;
-        SetCurrent(autoInstall ? WorkspaceNav[2] : WorkspaceNav[0]);
+        SetCurrent(autoInstall ? WorkspaceNav[3] : WorkspaceNav[0]);
     }
 
     public DialogService Dialogs { get; }
@@ -66,6 +68,9 @@ public sealed partial class MainViewModel : ObservableObject, IDisposable
     public CatalogViewModel Catalog { get; }
     public BrowsersViewModel Browsers { get; }
     public InstallViewModel Install { get; }
+
+    /// <summary>The Updates page: app updates through winget (not CTRL+Z's own updater).</summary>
+    public AppUpdatesViewModel AppUpdates { get; }
     public SettingsViewModel Settings { get; }
     public UpdateCoordinator Updates { get; }
 

@@ -155,6 +155,36 @@ public sealed class WingetCli
         return RunAsync(args, TimeSpan.FromMinutes(45), onLine, cancellationToken);
     }
 
+    /// <summary>Apps winget can update, from <c>winget upgrade</c>. Pinned ones are marked, not dropped.</summary>
+    public async Task<IReadOnlyList<CtrlZ.Core.AppUpdates.AppUpdate>> ListUpgradesAsync(CancellationToken cancellationToken = default)
+    {
+        if (await EnsureDiscoveredAsync(cancellationToken).ConfigureAwait(false) is null)
+        {
+            return Array.Empty<CtrlZ.Core.AppUpdates.AppUpdate>();
+        }
+
+        var result = await RunAsync(
+            ["upgrade", "--accept-source-agreements", "--disable-interactivity"],
+            TimeSpan.FromMinutes(5),
+            _ => { },
+            cancellationToken).ConfigureAwait(false);
+
+        var updates = CtrlZ.Core.AppUpdates.AppUpdateParser.Parse(result.CombinedOutput);
+        _log.Write(LogLevel.Info, $"winget reported {updates.Count} available app updates.");
+        return updates;
+    }
+
+    /// <summary>Updates one package by exact id, silently, accepting agreements like an install does.</summary>
+    public Task<ProcessResult> UpgradeAsync(string packageId, Action<ProcessLine>? onLine, CancellationToken cancellationToken = default)
+    {
+        return RunAsync(
+            ["upgrade", "--id", packageId, "--exact", "--silent", "--accept-package-agreements",
+             "--accept-source-agreements", "--disable-interactivity"],
+            TimeSpan.FromMinutes(45),
+            onLine,
+            cancellationToken);
+    }
+
     public Task<ProcessResult> UpgradeAppInstallerAsync(Action<ProcessLine>? onLine, CancellationToken cancellationToken = default)
     {
         return RunAsync(

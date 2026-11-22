@@ -1,0 +1,91 @@
+<!-- SPDX-License-Identifier: AGPL-3.0-only -->
+<!-- Copyright (c) 2026 iam-groot1 -->
+
+<UserControl x:Class="CtrlZ.App.Views.AppUpdatesView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             Focusable="False">
+    <UserControl.Resources>
+        <DataTemplate x:Key="AppUpdateRowTemplate">
+            <Border Style="{StaticResource Border.Card}" Padding="16,12" Margin="0,0,0,8">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+
+                    <CheckBox IsChecked="{Binding IsSelected, Mode=TwoWay}" VerticalAlignment="Top" Margin="0,2,12,0"
+                              AutomationProperties.Name="{Binding Name}" />
+
+                    <StackPanel Grid.Column="1">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="{Binding Name}" FontWeight="SemiBold" FontSize="13.5"
+                                       Foreground="{DynamicResource Brush.TextPrimary}" />
+                            <TextBlock Text="Pinned" Style="{StaticResource Text.Caption}" Margin="8,1,0,0"
+                                       Visibility="{Binding IsPinned, Converter={StaticResource BoolToVisibility}}" />
+                        </StackPanel>
+                        <TextBlock Style="{StaticResource Text.Caption}" Margin="0,3,0,0">
+                            <Run Text="{Binding VersionsText, Mode=OneWay}" />
+                            <Run Text="  ·  " />
+                            <Run Text="{Binding Id, Mode=OneWay}" FontFamily="{StaticResource Font.Mono}" />
+                        </TextBlock>
+                        <TextBlock Text="{Binding Status}" Style="{StaticResource Text.Secondary}" TextWrapping="Wrap"
+                                   Margin="0,4,0,0" />
+                    </StackPanel>
+
+                    <Button Grid.Column="2" Content="Ignore this version" Style="{StaticResource Button.Link}"
+                            VerticalAlignment="Top"
+                            Command="{Binding DataContext.IgnoreCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                            CommandParameter="{Binding}" />
+                </Grid>
+            </Border>
+        </DataTemplate>
+    </UserControl.Resources>
+
+    <ScrollViewer VerticalScrollBarVisibility="Auto">
+        <StackPanel>
+            <Border Style="{StaticResource Border.Card}" Padding="18,16">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+
+                    <StackPanel>
+                        <TextBlock Text="{Binding SummaryTitle}" FontSize="17" FontWeight="SemiBold"
+                                   Foreground="{DynamicResource Brush.TextPrimary}" TextWrapping="Wrap" />
+                        <TextBlock Text="{Binding StatusLine}" Style="{StaticResource Text.Secondary}"
+                                   TextWrapping="Wrap" Margin="0,6,0,0" />
+                    </StackPanel>
+
+                    <StackPanel Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Top">
+                        <Button Content="Check again" Style="{StaticResource Button.Secondary}"
+                                Command="{Binding CheckCommand}" />
+                        <Button Content="Update selected" Style="{StaticResource Button.Secondary}" Margin="8,0,0,0"
+                                Command="{Binding UpdateSelectedCommand}" />
+                        <Button Content="Update all" Style="{StaticResource Button.Primary}" Margin="8,0,0,0"
+                                Command="{Binding UpdateAllCommand}" />
+                        <Button Content="Cancel" Style="{StaticResource Button.Secondary}" Margin="8,0,0,0"
+                                Command="{Binding CancelCommand}"
+                                Visibility="{Binding IsBusy, Converter={StaticResource BoolToVisibility}}" />
+                    </StackPanel>
+                </Grid>
+            </Border>
+
+            <StackPanel Orientation="Horizontal" Margin="2,12,0,4">
+                <CheckBox Content="Show ignored versions" IsChecked="{Binding ShowIgnored, Mode=TwoWay}" />
+                <TextBlock Text="Updates come from winget. Pinned apps are never part of Update all."
+                           Style="{StaticResource Text.Caption}" Margin="16,0,0,0" VerticalAlignment="Center" />
+            </StackPanel>
+
+            <ItemsControl ItemsSource="{Binding Rows}" ItemTemplate="{StaticResource AppUpdateRowTemplate}" />
+
+            <Border Style="{StaticResource Border.Inset}" Padding="14,12" Margin="0,4,0,12"
+                    Visibility="{Binding HasRows, Converter={StaticResource InverseBoolToVisibility}}">
+                <TextBlock Style="{StaticResource Text.Secondary}" TextWrapping="Wrap"
+                           Text="No updates to show. Apps that winget does not know, or whose version it cannot read, are not listed here." />
+            </Border>
+        </StackPanel>
+    </ScrollViewer>
+</UserControl>

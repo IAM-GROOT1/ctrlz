@@ -101,6 +101,14 @@ emoji icons.
 
 ![Browser restore](docs/screenshots/browser-restore.png)
 
+### App updates
+
+The **Updates** page asks winget which installed apps have a newer version and lists them with the
+installed and available versions. Update the ones you tick, or all of them, one after another.
+Apps winget marks as pinned are only updated when you pick them, never by **Update all**, and
+**Ignore this version** hides one version of one app until a newer one appears. Updates share the
+install lock, so they never run while an install queue or the command line is installing.
+
 ### Everything else
 
 - Clean empty states, inline errors, graceful per-item failure handling.
@@ -563,8 +571,8 @@ The work is split into numbered sections, built one at a time and shipped as the
 
 - [x] **0.** Self-update and tag-driven releases
 - [x] **1.** Safety checks before a wipe
-- [ ] **2.** Install improvements - **next**
-- [ ] **3.** App updates through winget
+- [x] **2.** Install improvements
+- [ ] **3.** App updates through winget - **next**
 - [ ] **4.** Reliability and security
 - [ ] **5.** Foundation for optional extras
 - [ ] **6.** UI polish and motion
