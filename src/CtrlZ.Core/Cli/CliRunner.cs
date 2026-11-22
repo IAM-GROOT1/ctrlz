@@ -25,6 +25,15 @@ public sealed class CliEnvironment
     public required Func<DryRunRunner> CreateDryRun { get; init; }
     public Func<string, bool>? FileExists { get; init; }
     public Func<string, bool?>? IsSigned { get; init; }
+
+    /// <summary>Lists app updates (winget upgrade). Needed for the updates command.</summary>
+    public Func<CancellationToken, Task<IReadOnlyList<CtrlZ.Core.AppUpdates.AppUpdate>>>? ListUpdates { get; init; }
+
+    /// <summary>Updates one package by id; returns exit code and output.</summary>
+    public Func<string, Action<string>, CancellationToken, Task<(int ExitCode, string Output)>>? Upgrade { get; init; }
+
+    /// <summary>Versions the user chose to ignore in the app; honoured by --all.</summary>
+    public CtrlZ.Core.AppUpdates.AppUpdateIgnoreStore? UpdateIgnores { get; init; }
 }
 
 /// <summary>
@@ -59,6 +68,7 @@ public sealed class CliRunner
             CliCommand.Help => Help(),
             CliCommand.List => List(),
             CliCommand.DryRun => await DryRunAsync(options, cancellationToken).ConfigureAwait(false),
+            CliCommand.Updates => await UpdatesAsync(options, cancellationToken).ConfigureAwait(false),
             _ => await InstallAsync(options, cancellationToken).ConfigureAwait(false)
         };
     }
@@ -157,6 +167,106 @@ public sealed class CliRunner
         {
             _env.Out.WriteLine($"  note: {CliText.Safe(warning)}");
         }
+    }
+
+    /// <summary>
+    /// Lists app updates; with --all or --id and --yes, applies them one after another under the
+    /// install lock. --all leaves out pinned apps and versions ignored in the app.
+    /// </summary>
+    private async Task<int> UpdatesAsync(CliOptions options, CancellationToken cancellationToken)
+    {
+        if (_env.ListUpdates is null || _env.Upgrade is null)
+        {
+            _env.Error.WriteLine("App updates are not available in this build.");
+            return CliExitCode.Unexpected;
+        }
+
+        var all = await _env.ListUpdates(cancellationToken).ConfigureAwait(false);
+        bool Ignored(CtrlZ.Core.AppUpdates.AppUpdate update) => _env.UpdateIgnores?.IsIgnored(update) ?? false;
+
+        if (all.Count == 0)
+        {
+            _env.Out.WriteLine("Your apps are up to date (as far as winget can tell).");
+        }
+
+        foreach (var update in all)
+        {
+            var marks = (update.RequiresExplicit ? "  [pinned]" : string.Empty) + (Ignored(update) ? "  [ignored]" : string.Empty);
+            _env.Out.WriteLine(
+                $"  {CliText.Safe(update.Name)}  {CliText.Safe(update.Id)}  " +
+                $"{CliText.Safe(update.InstalledVersion ?? "unknown")} -> {CliText.Safe(update.AvailableVersion)}{marks}");
+        }
+
+        if (!options.UpdateAll && options.UpdateIds is null)
+        {
+            if (all.Count > 0)
+            {
+                _env.Out.WriteLine($"{all.Count} update{(all.Count == 1 ? string.Empty : "s")} available. " +
+                                   "Apply with --all --yes, or --id <id> --yes.");
+            }
+
+            return CliExitCode.Success;
+        }
+
+        List<CtrlZ.Core.AppUpdates.AppUpdate> chosen;
+        if (options.UpdateAll)
+        {
+            chosen = all.Where(update => !update.RequiresExplicit && !Ignored(update)).ToList();
+        }
+        else
+        {
+            var unknown = options.UpdateIds!
+                .Where(id => all.All(update => !string.Equals(update.Id, id, StringComparison.OrdinalIgnoreCase)))
+                .ToList();
+            if (unknown.Count > 0)
+            {
+                _env.Error.WriteLine("No update is available for: " + string.Join(", ", unknown.Select(CliText.Safe)) + ".");
+                return CliExitCode.Usage;
+            }
+
+            chosen = all.Where(update => options.UpdateIds!.Contains(update.Id, StringComparer.OrdinalIgnoreCase)).ToList();
+        }
+
+        if (chosen.Count == 0)
+        {
+            _env.Out.WriteLine("Nothing to update.");
+            return CliExitCode.Success;
+        }
+
+        if (!options.Yes)
+        {
+            _env.Out.WriteLine($"Nothing was updated. Re-run with --yes to update {chosen.Count} app{(chosen.Count == 1 ? string.Empty : "s")}.");
+            return CliExitCode.Cancelled;
+        }
+
+        using var runLock = _env.AcquireLock();
+        if (runLock is null)
+        {
+            _env.Error.WriteLine("Another CTRL+Z install or update is running on this PC. Try again when it has finished.");
+            return CliExitCode.Busy;
+        }
+
+        var runner = new CtrlZ.Core.AppUpdates.AppUpdateRunner(_env.Upgrade);
+        var progress = new SynchronousProgress<CtrlZ.Core.AppUpdates.AppUpdateOutcome>(outcome =>
+            _env.Out.WriteLine($"  [{outcome.Kind}] {CliText.Safe(outcome.Update.Name)} - {outcome.Message}"));
+        var outcomes = await runner.RunAsync(
+            chosen,
+            progress,
+            options.Silent ? null : line => _env.Out.WriteLine("    " + CliText.Safe(line)),
+            cancellationToken).ConfigureAwait(false);
+
+        var failed = outcomes.Count(outcome => outcome.Kind == CtrlZ.Core.AppUpdates.AppUpdateOutcomeKind.Failed);
+        var cancelled = outcomes.Any(outcome => outcome.Kind == CtrlZ.Core.AppUpdates.AppUpdateOutcomeKind.Cancelled);
+        var restart = outcomes.Any(outcome => outcome.Kind == CtrlZ.Core.AppUpdates.AppUpdateOutcomeKind.UpdatedRestartNeeded);
+        _env.Out.WriteLine($"Finished: {outcomes.Count - failed} done, {failed} failed." + (restart ? " Restart Windows to finish." : string.Empty));
+
+        return failed > 0 ? CliExitCode.PartialFailure : cancelled ? CliExitCode.Cancelled : CliExitCode.Success;
+    }
+
+    /// <summary>Reports on the caller's thread, so console lines keep their order.</summary>
+    private sealed class SynchronousProgress<T>(Action<T> report) : IProgress<T>
+    {
+        public void Report(T value) => report(value);
     }
 
     private async Task<int> DryRunAsync(CliOptions options, CancellationToken cancellationToken)

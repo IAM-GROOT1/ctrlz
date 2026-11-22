@@ -402,6 +402,9 @@ old copy is removed by the next update.
 .\ctrlz.exe install .\my-apps.json            # prints the full plan, installs nothing
 .\ctrlz.exe install .\my-apps.json --yes      # installs after you read the plan
 .\ctrlz.exe list                              # profiles saved in the app
+.\ctrlz.exe updates                           # app updates winget can apply, changes nothing
+.\ctrlz.exe updates --all --yes               # updates them, except pinned and ignored apps
+.\ctrlz.exe updates --id Mozilla.Firefox --yes
 ```
 
 The command line follows the app's safety rules:

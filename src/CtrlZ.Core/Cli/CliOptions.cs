@@ -22,7 +22,8 @@ public enum CliCommand
     Help,
     Install,
     DryRun,
-    List
+    List,
+    Updates
 }
 
 /// <summary>Parsed command line.</summary>
@@ -34,7 +35,9 @@ public sealed record CliOptions(
     bool AllowCommands = false,
     bool AllowRisky = false,
     string? JsonPath = null,
-    bool ContinueWithoutAdmin = false);
+    bool ContinueWithoutAdmin = false,
+    bool UpdateAll = false,
+    IReadOnlyList<string>? UpdateIds = null);
 
 public sealed record CliParseResult(CliOptions? Options, string? Error)
 {
@@ -50,6 +53,7 @@ public static class CliParser
                         [--continue-without-admin] [--json <report.json>]
           ctrlz dry-run <profile.json> [--silent] [--json <report.json>]
           ctrlz list
+          ctrlz updates [--all | --id <winget id> ...] [--yes] [--silent]
           ctrlz help
 
         install          Prints the full plan, including every post-install command. Installs only with --yes.
@@ -60,6 +64,9 @@ public static class CliParser
         --continue-without-admin  Installs without administrator rights; machine-wide installers may fail.
         --silent         Prints the plan and the summary only, no progress lines.
         --json <path>    Also writes a machine-readable report.
+
+        updates          Lists app updates winget can apply. With --all (everything except pinned and
+                         ignored apps) or --id, updates them one after another, only with --yes.
 
         Exit codes: 0 success, 1 usage, 2 some apps failed, 3 invalid profile, 4 a dependency failed,
         5 not confirmed or cancelled, 6 needs administrator rights, 7 another install is running,
@@ -79,6 +86,7 @@ public static class CliParser
             "install" => CliCommand.Install,
             "dry-run" or "dryrun" => CliCommand.DryRun,
             "list" => CliCommand.List,
+            "updates" => CliCommand.Updates,
             "help" or "--help" or "-h" or "/?" => CliCommand.Help,
             _ => (CliCommand?)null
         };
@@ -90,6 +98,8 @@ public static class CliParser
 
         string? path = null;
         bool silent = false, yes = false, allowCommands = false, allowRisky = false, noAdmin = false;
+        var updateAll = false;
+        var updateIds = new List<string>();
         string? json = null;
 
         for (var index = 1; index < args.Count; index++)
@@ -109,6 +119,17 @@ public static class CliParser
                     break;
                 case "--continue-without-admin":
                     noAdmin = true;
+                    break;
+                case "--all":
+                    updateAll = true;
+                    break;
+                case "--id":
+                    if (index + 1 >= args.Count || args[index + 1].StartsWith('-'))
+                    {
+                        return Fail("--id needs a winget package id.");
+                    }
+
+                    updateIds.Add(args[++index]);
                     break;
                 case "--allow-risky":
                     allowRisky = true;
@@ -147,12 +168,38 @@ public static class CliParser
             return Fail($"'{args[0]}' takes no profile or options.");
         }
 
+        if (command != CliCommand.Updates && (updateAll || updateIds.Count > 0))
+        {
+            return Fail("--all and --id apply to updates only.");
+        }
+
+        if (command == CliCommand.Updates)
+        {
+            if (path is not null || allowCommands || allowRisky || noAdmin)
+            {
+                return Fail("updates takes no profile file and no install options.");
+            }
+
+            if (updateAll && updateIds.Count > 0)
+            {
+                return Fail("Use either --all or --id, not both.");
+            }
+
+            if (yes && !updateAll && updateIds.Count == 0)
+            {
+                return Fail("--yes needs --all or --id to say what to update.");
+            }
+        }
+
         if (command == CliCommand.DryRun && (yes || allowCommands || allowRisky || noAdmin))
         {
             return Fail("--yes, --allow-commands and --allow-risky apply to install only; a dry run never installs or runs anything.");
         }
 
-        return new CliParseResult(new CliOptions(command.Value, path, silent, yes, allowCommands, allowRisky, json, noAdmin), null);
+        return new CliParseResult(
+            new CliOptions(command.Value, path, silent, yes, allowCommands, allowRisky, json, noAdmin, updateAll,
+                updateIds.Count == 0 ? null : updateIds),
+            null);
     }
 
     private static CliParseResult Fail(string error) => new(null, error);
