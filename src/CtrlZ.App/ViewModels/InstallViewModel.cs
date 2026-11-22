@@ -359,7 +359,7 @@ public sealed partial class InstallViewModel : PageViewModelBase
         // the engine will run, then ask for the command confirmations it needs before anything starts.
         if (!InstallStartGuard.MayStart(
                 state,
-                _services.Profiles.Load,
+                _services.State.LoadForRun,
                 profile => _dialogs.ConfirmPostInstallCommands(_services, profile)))
         {
             StatusMessage = "Install not started: the post-install commands were not confirmed. Nothing ran.";

@@ -83,6 +83,14 @@ public sealed partial class CommandReviewViewModel : ObservableObject
 
     public bool IsLocal => _origin == ProfileOrigin.Local;
 
+    public string HeaderText => IsLocal
+        ? "This profile is yours. Its commands run after install without a per-command review."
+        : "This profile did not originate on this PC. Its commands stay blocked until you approve each one.";
+
+    public string SubheaderText => IsLocal
+        ? "You will still be asked to confirm before commands first run on this PC."
+        : "An approval is stored on this PC only, never in the profile file. Editing a command later blocks it again.";
+
     /// <summary>True once anything was approved or the origin changed, so callers can refresh.</summary>
     public bool Changed { get; private set; }
 
@@ -158,6 +166,8 @@ public sealed partial class CommandReviewViewModel : ObservableObject
         Changed = true;
         RefreshAll();
         OnPropertyChanged(nameof(IsLocal));
+        OnPropertyChanged(nameof(HeaderText));
+        OnPropertyChanged(nameof(SubheaderText));
         ApproveCommand.NotifyCanExecuteChanged();
     }
 

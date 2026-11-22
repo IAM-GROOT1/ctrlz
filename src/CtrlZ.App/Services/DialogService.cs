@@ -118,7 +118,7 @@ public sealed class DialogService
             services.State.OriginOf(profile),
             approvals,
             (title, message) => Confirm(title, message, "Yes, I understand", "Cancel", danger: true),
-            () => services.State.MarkActiveAsLocal(userConfirmed: true));
+            () => services.State.MarkAsLocal(profile, userConfirmed: true));
 
         var window = new CommandReviewWindow { DataContext = viewModel };
         if (Application.Current.MainWindow is { IsVisible: true } owner && owner != window)

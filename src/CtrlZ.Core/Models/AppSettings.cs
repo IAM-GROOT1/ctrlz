@@ -20,7 +20,7 @@ public sealed class AppSettings
     public int BackupWarningDays { get; set; } = 14;
 
     // ---- Notes -------------------------------------------------------------------------
-    /// <summary>Include per-app notes in logs, diagnostics and exports. Off by default.</summary>
+    /// <summary>Include per-app notes in exports (through NotesPrivacy.ForExport). Off by default. Notes are never logged.</summary>
     public bool IncludeNotesInReports { get; set; }
 
     // ---- Installing ------------------------------------------------------------------

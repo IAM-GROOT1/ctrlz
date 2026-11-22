@@ -46,6 +46,10 @@ public static class PostInstallCommandForm
             command.RequiresElevation,
             command.Enabled);
 
+    /// <summary>True when the editor fields still show the stored command exactly.</summary>
+    public static bool IsUnchanged(PostInstallCommand? stored, PostInstallCommandInput input) =>
+        From(stored).Equals(input with { ArgumentsText = input.ArgumentsText?.Replace("\r\n", "\n").Replace("\n", Environment.NewLine) ?? string.Empty });
+
     public static PostInstallCommandParse Parse(PostInstallCommandInput input)
     {
         ArgumentNullException.ThrowIfNull(input);

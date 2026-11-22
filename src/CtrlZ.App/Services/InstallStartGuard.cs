@@ -15,6 +15,7 @@ namespace CtrlZ.App.Services;
 public static class InstallStartGuard
 {
     /// <summary>True when the run may start. False means nothing may run.</summary>
+    /// <param name="loadProfile">Must load through ProfileOriginRecorder.LoadForUse (AppState.LoadForRun).</param>
     public static bool MayStart(
         InstallState state,
         Func<string, AppProfile> loadProfile,
@@ -29,6 +30,8 @@ public static class InstallStartGuard
             state.ProfileSnapshot = loadProfile(state.ProfilePath);
         }
 
+        // No profile at all: the engine refuses to run ("profile is missing"), so nothing can run and
+        // there is nothing to confirm.
         return state.ProfileSnapshot is not { } profile || confirmCommands(profile);
     }
 

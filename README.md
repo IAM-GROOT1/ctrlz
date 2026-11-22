@@ -203,14 +203,17 @@ settings file. Commands are built to be safe to share profiles with:
   downloading and executing a script) are flagged.
 - **Imported profiles are blocked.** A profile that did not originate on this PC (opened from a
   file, imported, or with no local record) never runs a command until you approve that exact
-  command in **Review commands** (in the install preview, which is on by default in Settings). Approvals are stored on this PC only,
-  never in the profile file. Editing a command changes it, so it is blocked again until reviewed.
+  command in **Review commands** in the install preview. The preview is on by default; with it
+  turned off in Settings there is no review, so imported commands simply stay blocked. Approvals
+  are stored on this PC only, never in the profile file. Editing a command changes it, so it is
+  blocked again until reviewed.
 - **Only your own profiles can edit commands.** The app editor shows the command fields only for a
   profile created on this PC. *This profile is mine* in the review screen marks an imported profile
   as yours, after an explicit confirmation.
-- **You confirm before anything runs.** Before the first run on this PC, CTRL+Z lists every command
-  the profile will run and asks once. A risky command asks again on every run, and a risky command
-  needs a second confirmation when you save it. Declining starts nothing.
+- **You confirm before anything runs.** Before a command first runs on this PC, CTRL+Z lists every
+  command the profile will run and asks; it asks again whenever a command's text is new or changed.
+  A risky command asks again on every run, and needs a second confirmation when you save it.
+  Declining starts nothing and records nothing.
 - The dry run never runs a command.
 
 ## Privacy
@@ -232,7 +235,7 @@ CTRL+Z is local-first: no account, no telemetry, no analytics.
   exclusively and still expects the scan to succeed, which proves no read is attempted.
 - **App notes stay on this PC unless you opt in.** Notes are stored as plain text in the profile
   file, so never put passwords in them. They are never written to the log. Exports (such as the
-  dry-run report) show *(note hidden)* unless **Include notes in logs and exports** is turned on in
+  dry-run report) show *(note hidden)* unless **Include notes in exports** is turned on in
   Settings. The diagnostics copy holds no profile data at all. On the install screen, an app's note
   is shown when that app failed or needs manual action.
 - The updater is separate: see [Updates](#updates) for the single check it makes.

@@ -50,10 +50,8 @@
             </Border>
 
             <StackPanel Grid.Row="1" Margin="20,16,20,8">
-                <TextBlock FontSize="13.5" FontWeight="SemiBold" TextWrapping="Wrap"
-                           Text="This profile did not originate on this PC. Its commands stay blocked until you approve each one." />
-                <TextBlock Style="{StaticResource Text.Caption}" TextWrapping="Wrap" Margin="0,4,0,0"
-                           Text="An approval is stored on this PC only, never in the profile file. Editing a command later blocks it again." />
+                <TextBlock FontSize="13.5" FontWeight="SemiBold" TextWrapping="Wrap" Text="{Binding HeaderText}" />
+                <TextBlock Style="{StaticResource Text.Caption}" TextWrapping="Wrap" Margin="0,4,0,0" Text="{Binding SubheaderText}" />
 
                 <TextBlock Text="{Binding PositionText}" Style="{StaticResource Text.Caption}" Margin="0,14,0,4" />
                 <Border BorderBrush="{DynamicResource Brush.Border}" BorderThickness="1" Padding="12,10"

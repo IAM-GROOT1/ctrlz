@@ -91,13 +91,21 @@ public partial class AppEditorWindow : Window
             return true;
         }
 
-        var parsed = PostInstallCommandForm.Parse(new PostInstallCommandInput(
+        var input = new PostInstallCommandInput(
             CommandExeBox.Text,
             CommandArgsBox.Text,
             CommandDirBox.Text,
             CommandTimeoutBox.Text,
             CommandElevatedBox.IsChecked == true,
-            CommandEnabledBox.IsChecked == true));
+            CommandEnabledBox.IsChecked == true);
+
+        // Untouched fields keep the stored command exactly as it was (same hash, no re-validation).
+        if (PostInstallCommandForm.IsUnchanged(_working.PostInstall, input))
+        {
+            return true;
+        }
+
+        var parsed = PostInstallCommandForm.Parse(input);
 
         if (!parsed.IsValid)
         {

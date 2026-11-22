@@ -118,6 +118,16 @@ public sealed class PostInstallCommandFormTests : IDisposable
         Assert.False(PostInstallCommandForm.NeedsRiskConfirmation(before, null));
     }
 
+    [Fact]
+    public void An_untouched_command_counts_as_unchanged_even_when_it_would_not_validate()
+    {
+        var stored = new PostInstallCommand { Executable = "tool.exe", Arguments = [" keep spaces ", "x"], TimeoutSeconds = 0, Enabled = true };
+
+        Assert.True(PostInstallCommandForm.IsUnchanged(stored, PostInstallCommandForm.From(stored)));
+        Assert.False(PostInstallCommandForm.IsUnchanged(stored, PostInstallCommandForm.From(stored) with { TimeoutText = "30" }));
+        Assert.True(PostInstallCommandForm.IsUnchanged(null, PostInstallCommandForm.Empty));
+    }
+
     [Theory]
     [InlineData(ProfileOrigin.Local, true)]
     [InlineData(ProfileOrigin.Imported, false)]

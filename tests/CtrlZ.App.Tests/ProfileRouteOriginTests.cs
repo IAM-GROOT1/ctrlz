@@ -186,15 +186,72 @@ public class ProfileRouteOriginTests : IDisposable
     [Theory]
     [InlineData(false, ProfileOrigin.Imported)]
     [InlineData(true, ProfileOrigin.Local)]
-    public void MarkActiveAsLocal_changes_origin_only_with_confirmation(bool confirmed, ProfileOrigin expected)
+    public void MarkAsLocal_changes_origin_only_with_confirmation(bool confirmed, ProfileOrigin expected)
     {
         var source = WriteExternalProfile("mine-" + confirmed);
         var (state, Origin) = NewState();
         var imported = state.ImportProfile(source);
 
-        state.MarkActiveAsLocal(confirmed);
+        state.MarkAsLocal(imported, confirmed);
 
         Assert.Equal(expected, Origin(imported.Id));
+    }
+
+    [Fact]
+    public void MarkAsLocal_changes_only_the_reviewed_profile_never_the_active_one()
+    {
+        var (state, Origin) = NewState();
+        var first = state.ImportProfile(WriteExternalProfile("reviewed"));
+        var active = state.ImportProfile(WriteExternalProfile("active"));
+        Assert.Equal(active.Id, state.ActiveProfile.Id);
+
+        state.MarkAsLocal(first, userConfirmed: true);
+
+        Assert.Equal(ProfileOrigin.Local, Origin(first.Id));
+        Assert.Equal(ProfileOrigin.Imported, Origin(active.Id));
+    }
+
+    [Fact]
+    public void A_profile_whose_origin_record_was_lost_loads_as_imported_and_stays_imported_after_an_edit()
+    {
+        var (state, Origin) = NewState("lost");
+        state.Initialize();
+        var created = state.CreateProfile("Mine");
+        var summary = state.Profiles.First(item => item.Id == created.Id);
+
+        // The origin record disappears (deleted or corrupt), then the app starts again.
+        File.WriteAllText(Path.Combine(_root, "lost", "state", "profile-origins.json"), "{ not json");
+        var (restarted, _) = NewState("lost");
+        restarted.Initialize();
+        restarted.SetActive(restarted.Profiles.First(item => item.Id == created.Id));
+        var app = new AppEntry { Id = "x", Name = "Tool" };
+        restarted.AddApps([app]);
+        var stored = restarted.ActiveProfile.Apps.First(item => item.Id == "x");
+        var edited = stored.Clone();
+        edited.PostInstall = new PostInstallCommand { Executable = "reg.exe", Arguments = ["import", "a.reg"], Enabled = true };
+        restarted.ReplaceApp(stored, edited);
+
+        Assert.NotEqual(ProfileOrigin.Local, Origin(created.Id));
+        Assert.NotEqual(ProfileOrigin.Unknown, restarted.OriginOf(restarted.ActiveProfile));
+        Assert.False(PostInstallCommandForm.CanEdit(restarted.OriginOf(restarted.ActiveProfile)));
+        _ = summary;
+    }
+
+    [Fact]
+    public void LoadForRun_treats_a_file_changed_since_its_local_save_as_imported()
+    {
+        var (state, Origin) = NewState();
+        state.Initialize();
+        var created = state.CreateProfile("Resume");
+        var path = state.Profiles.First(item => item.Id == created.Id).Path;
+        var stored = JsonSerializer.Deserialize<AppProfile>(File.ReadAllText(path), JsonDefaults.Profile)!;
+        stored.Apps.Add(new AppEntry { Id = "z", Name = "Added elsewhere" });
+        File.WriteAllText(path, JsonSerializer.Serialize(stored, JsonDefaults.Profile));
+
+        var loaded = state.LoadForRun(path);
+
+        Assert.Equal(created.Id, loaded.Id);
+        Assert.Equal(ProfileOrigin.Imported, Origin(created.Id));
     }
 
     [Fact]

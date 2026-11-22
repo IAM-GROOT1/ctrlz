@@ -61,8 +61,6 @@ public static class PostInstallConsent
             {
                 return false;
             }
-
-            firstRun.Record(profileId, consent.WillRun.Select(line => line.Hash));
         }
 
         foreach (var risky in consent.Risky)
@@ -75,6 +73,12 @@ public static class PostInstallConsent
             {
                 return false;
             }
+        }
+
+        // Recorded only once every prompt was accepted, so a declined run leaves no trace.
+        if (consent.NeedsFirstRunConfirmation)
+        {
+            firstRun.Record(profileId, consent.WillRun.Select(line => line.Hash));
         }
 
         return true;

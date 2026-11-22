@@ -118,6 +118,8 @@ public sealed class PostInstallConsentTests : IDisposable
         var result = PostInstallConsent.Ask([Line("r", risky: true)], "p1", store, (_, _, danger) => !danger);
 
         Assert.False(result);
+        Assert.Empty(store.ConfirmedFor("p1"));
+        Assert.False(File.Exists(Path.Combine(_folder, "fr.json")));
     }
 
     [Fact]
