@@ -167,10 +167,10 @@ public class PostInstallStepTests
         f.Approvals.Approve(f.Profile.Id, f.App.PostInstall!);
 
         // Someone rewrites the profile after the approval and before the step runs.
-        f.App.PostInstall.Arguments.Clear();
-        f.App.PostInstall.Arguments.Add("/c");
-        f.App.PostInstall.Arguments.Add("exit");
-        f.App.PostInstall.Arguments.Add("9");
+        f.App.PostInstall!.Arguments.Clear();
+        f.App.PostInstall!.Arguments.Add("/c");
+        f.App.PostInstall!.Arguments.Add("exit");
+        f.App.PostInstall!.Arguments.Add("9");
 
         Assert.Equal(PostInstallOutcomeKind.Blocked, (await Run(f)).Kind);
     }

@@ -237,36 +237,36 @@ public sealed partial class InstallEngine
             }
 
             _stateStore.Save(state);
-// Post-install commands: decided here, at execution time, straight from the stores on disk.
-            if (item.Status is InstallStatus.Success or InstallStatus.RebootRequired && app.PostInstall is { } postInstall)
+// Post-install commands: one code path, decided and run by PostInstallStep at this moment.
+            if (item.Status is InstallStatus.Success or InstallStatus.RebootRequired)
             {
-                var gate = new PostInstallCommandGate(
-                    new ProfileOriginStore(Path.Combine(_paths.State, "profile-origins.json"), _log),
-                    new PostInstallApprovalStore(Path.Combine(_paths.State, "post-install-approvals.json")));
-                var verdict = gate.EvaluateCommand(profile, app, postInstall);
+                var outcome = await RunPostInstallAsync(profile, app, cancellationToken).ConfigureAwait(false);
 
-                if (!verdict.MayRun)
+                switch (outcome.Kind)
                 {
-                    item.Detail = $"Installed; command not run ({verdict.Decision}).";
-                    sessionLog.Line($"[{item.Name}] post-install command not run ({verdict.Decision}).");
-                }
-                else
-                {
-                    var run = await new PostInstallRunner(_log).RunAsync(app, postInstall, cancellationToken).ConfigureAwait(false);
-                    if (!run.Succeeded)
-                    {
-                        item.Status = InstallStatus.PostInstallFailed;
-                        item.Error = run.TimedOut ? "Post-install command timed out." : $"Post-install command failed ({run.ExitCode}).";
-                        item.Detail = $"Installed, post-install failed ({run.Label}).";
-                        sessionLog.Line($"[{item.Name}] installed, post-install failed ({run.Label}).");
-                    }
-                    else
-                    {
+                    case PostInstallOutcomeKind.Blocked:
+                        item.Detail = $"Installed; command not run ({outcome.Reason}).";
+                        sessionLog.Line($"[{item.Name}] post-install command not run: {outcome.Reason}");
+                        break;
+
+                    case PostInstallOutcomeKind.Ran:
                         item.Detail = "Installed; post-install command ok.";
                         sessionLog.Line($"[{item.Name}] post-install command ok.");
-                    }
+                        break;
+
+                    case PostInstallOutcomeKind.Failed:
+                    case PostInstallOutcomeKind.TimedOut:
+                        item.Status = InstallStatus.PostInstallFailed;
+                        item.Error = outcome.Kind == PostInstallOutcomeKind.TimedOut
+                            ? "Post-install command timed out."
+                            : $"Post-install command failed ({outcome.ExitCode}).";
+                        item.Detail = "Installed, post-install failed.";
+                        sessionLog.Line($"[{item.Name}] installed, post-install failed ({outcome.Kind}).");
+                        break;
                 }
             }
+
+            
 
                         sessionLog.Report(item, item.Status, item.Detail, item.Status == InstallStatus.Success ? 1 : null);
         }
