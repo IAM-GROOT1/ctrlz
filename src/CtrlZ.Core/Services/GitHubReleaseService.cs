@@ -194,6 +194,45 @@ public sealed partial class GitHubReleaseService
         }
     }
 
+    /// <summary>
+    /// The SHA-256 a release's own checksum file gives for <paramref name="asset"/>, and that file's
+    /// name; null when the release publishes none or does not list the asset. A file that cannot be
+    /// fetched also gives null (the install then has no published hash, as before). A file that lists
+    /// the asset with two different hashes throws <see cref="FormatException"/>.
+    /// </summary>
+    public async Task<(string Sha256, string FileName)?> GetPublishedChecksumAsync(
+        GitHubRelease release,
+        GitHubAsset asset,
+        CancellationToken cancellationToken = default)
+    {
+        var checksum = ReleaseChecksums.FindFor(release, asset);
+        if (checksum is null)
+        {
+            return null;
+        }
+
+        byte[] bytes;
+        try
+        {
+            bytes = await _downloads.GetBytesAsync(checksum.DownloadUrl, TimeSpan.FromSeconds(20), cancellationToken)
+                .ConfigureAwait(false);
+        }
+        catch (Exception ex) when (ex is not OperationCanceledException || !cancellationToken.IsCancellationRequested)
+        {
+            _log.Write(LogLevel.Warning, $"Could not fetch {checksum.Name}: {LogPrivacy.Describe(ex)}");
+            return null;
+        }
+
+        if (bytes.Length > ReleaseChecksums.MaxFileBytes)
+        {
+            return null;
+        }
+
+        var hash = ReleaseChecksums.Parse(
+            System.Text.Encoding.UTF8.GetString(bytes), asset.Name, ReleaseChecksums.IsForAsset(checksum, asset));
+        return hash is null ? null : (hash, checksum.Name);
+    }
+
     public IReadOnlyList<GitHubAsset> RankWindowsAssets(GitHubRelease release)
     {
         return release.Assets

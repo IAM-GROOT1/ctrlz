@@ -49,16 +49,39 @@ public sealed class GitHubSourceInstaller : ISourceInstaller
 
             context.Line($"Release {release.TagName}: downloading {asset.Name} ({asset.SizeLabel}).");
             var expectedHash = app.ExpectedSha256;
-            if (!string.IsNullOrWhiteSpace(asset.Sha256))
+            var publishedHash = asset.Sha256;
+            if (string.IsNullOrWhiteSpace(publishedHash))
+            {
+                // GitHub reports no digest for this asset: use the release's own checksum file if it has one.
+                try
+                {
+                    if (await _github.GetPublishedChecksumAsync(release, asset, cancellationToken).ConfigureAwait(false) is { } listed)
+                    {
+                        publishedHash = listed.Sha256;
+                        context.Line($"SHA-256 for {asset.Name} taken from {listed.FileName} in the release.");
+                    }
+                }
+                catch (FormatException ex)
+                {
+                    context.Report(app, InstallStatus.Failed, "The release's checksum file is inconsistent.");
+                    return InstallResult.Fail(ex.Message);
+                }
+            }
+
+            if (!string.IsNullOrWhiteSpace(publishedHash))
             {
                 if (!string.IsNullOrWhiteSpace(expectedHash) &&
-                    !DownloadService.NormalizeHash(expectedHash).Equals(asset.Sha256, StringComparison.OrdinalIgnoreCase))
+                    !DownloadService.NormalizeHash(expectedHash).Equals(publishedHash, StringComparison.OrdinalIgnoreCase))
                 {
                     return InstallResult.Fail(
                         "The saved SHA-256 does not match the latest GitHub release. Review the app entry.");
                 }
 
-                expectedHash = asset.Sha256;
+                expectedHash = publishedHash;
+            }
+            else if (string.IsNullOrWhiteSpace(expectedHash))
+            {
+                context.Line("This release publishes no SHA-256 for the asset; the download is checked by signature only.");
             }
 
             var download = await _downloads.DownloadAsync(
