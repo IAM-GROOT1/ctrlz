@@ -39,6 +39,12 @@ public sealed class AppServices : IDisposable
     public DownloadService Downloads { get; private init; } = null!;
     public GitHubReleaseService GitHub { get; private init; } = null!;
     public FileInstallService FileInstaller { get; private init; } = null!;
+
+    /// <summary>Which GitHub release each app was installed from.</summary>
+    public CtrlZ.Core.AppUpdates.GitHubReleaseTracker GitHubReleases { get; private init; } = null!;
+
+    /// <summary>Installs (and updates) apps from GitHub releases, recording the release.</summary>
+    public GitHubSourceInstaller GitHubInstaller { get; private init; } = null!;
     public AppScanner Scanner { get; private init; } = null!;
     public InstallStateStore InstallStates { get; private init; } = null!;
     public InstallEngine InstallEngine { get; private init; } = null!;
@@ -67,14 +73,18 @@ public sealed class AppServices : IDisposable
         var winget = new WingetCli(runner, log);
         var downloads = new DownloadService(paths, log);
         var github = new GitHubReleaseService(downloads, log);
-        var fileInstaller = new FileInstallService(paths, runner, log);
+        var githubReleases = new CtrlZ.Core.AppUpdates.GitHubReleaseTracker(
+            System.IO.Path.Combine(paths.State, CtrlZ.Core.AppUpdates.GitHubReleaseTracker.FileName));
+        var fileInstaller = new FileInstallService(
+            paths, runner, log, new CtrlZ.Core.AppUpdates.StartMenuShortcutWriter(log), () => settings.CreatePortableShortcuts);
         var installStates = new InstallStateStore(paths.InstallStateFile, log);
         var wingetBootstrap = new WingetBootstrapService(winget, downloads, runner, paths, log);
+        var githubInstaller = new GitHubSourceInstaller(github, downloads, fileInstaller, githubReleases);
         var installers = new ISourceInstaller[]
         {
             new WingetSourceInstaller(winget),
             new DirectUrlSourceInstaller(downloads, fileInstaller),
-            new GitHubSourceInstaller(github, downloads, fileInstaller),
+            githubInstaller,
             new LocalFileSourceInstaller(fileInstaller)
         };
         var installEngine = new InstallEngine(
@@ -91,6 +101,8 @@ public sealed class AppServices : IDisposable
             Winget = winget,
             Downloads = downloads,
             GitHub = github,
+            GitHubReleases = githubReleases,
+            GitHubInstaller = githubInstaller,
             FileInstaller = fileInstaller,
             Scanner = scanner,
             InstallStates = installStates,

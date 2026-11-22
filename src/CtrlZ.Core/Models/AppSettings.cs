@@ -27,6 +27,9 @@ public sealed class AppSettings
     /// <summary>Show the preview as a final confirmation before an install run starts.</summary>
     public bool ShowInstallPreview { get; set; } = true;
 
+    /// <summary>Add a Start menu shortcut ("CTRL+Z apps") when a portable app is installed.</summary>
+    public bool CreatePortableShortcuts { get; set; } = true;
+
     // ---- Updates -------------------------------------------------------------------
     /// <summary>Check GitHub for a newer release in the background at startup.</summary>
     public bool AutoCheckForUpdates { get; set; } = true;

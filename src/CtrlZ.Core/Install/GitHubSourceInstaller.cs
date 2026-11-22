@@ -11,12 +11,19 @@ public sealed class GitHubSourceInstaller : ISourceInstaller
     private readonly GitHubReleaseService _github;
     private readonly DownloadService _downloads;
     private readonly FileInstallService _files;
+    private readonly CtrlZ.Core.AppUpdates.GitHubReleaseTracker? _tracker;
 
-    public GitHubSourceInstaller(GitHubReleaseService github, DownloadService downloads, FileInstallService files)
+    /// <param name="tracker">Records the release each app was installed from, for update offers.</param>
+    public GitHubSourceInstaller(
+        GitHubReleaseService github,
+        DownloadService downloads,
+        FileInstallService files,
+        CtrlZ.Core.AppUpdates.GitHubReleaseTracker? tracker = null)
     {
         _github = github;
         _downloads = downloads;
         _files = files;
+        _tracker = tracker;
     }
 
     public bool CanHandle(AppSource source) => source == AppSource.GitHub;
@@ -68,7 +75,13 @@ public sealed class GitHubSourceInstaller : ISourceInstaller
                 context.Line("Asset is a ZIP; CTRL+Z will look for a bundled installer.");
             }
 
-            return await _files.InstallAsync(app, download.Path, kind, context, cancellationToken).ConfigureAwait(false);
+            var result = await _files.InstallAsync(app, download.Path, kind, context, cancellationToken).ConfigureAwait(false);
+            if (result.Success || result.Status == InstallStatus.RebootRequired)
+            {
+                _tracker?.Record(app.Id, app.GitHubRepo!, release.TagName);
+            }
+
+            return result;
         }
         catch (OperationCanceledException)
         {

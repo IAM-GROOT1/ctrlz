@@ -34,6 +34,23 @@ public sealed partial class AppUpdateRow : ObservableObject
     private string _status = string.Empty;
 }
 
+/// <summary>An app from the profile installed from a GitHub release that has a newer release.</summary>
+public sealed partial class GitHubUpdateRow : ObservableObject
+{
+    public GitHubUpdateRow(GitHubAppUpdate update)
+    {
+        Update = update;
+    }
+
+    public GitHubAppUpdate Update { get; }
+    public string Name => Update.App.Name;
+    public string Repository => Update.App.GitHubRepo ?? string.Empty;
+    public string VersionsText => $"{Update.InstalledTag} → {Update.LatestTag}";
+
+    [ObservableProperty]
+    private string _status = string.Empty;
+}
+
 /// <summary>
 /// Apps on this PC that winget can update. Nothing updates until the user chooses; pinned apps are
 /// never part of "Update all"; a version can be ignored until a newer one appears. Shares the
@@ -59,6 +76,11 @@ public sealed partial class AppUpdatesViewModel : PageViewModelBase
     public ObservableCollection<AppUpdateRow> Rows { get; } = new();
 
     public bool HasRows => Rows.Count > 0;
+
+    /// <summary>Apps of the active profile installed from a GitHub release with a newer release.</summary>
+    public ObservableCollection<GitHubUpdateRow> GitHubRows { get; } = new();
+
+    public bool HasGitHubRows => GitHubRows.Count > 0;
 
     [ObservableProperty]
     private string _summaryTitle = "Check for app updates";
@@ -97,6 +119,7 @@ public sealed partial class AppUpdatesViewModel : PageViewModelBase
             _cts = new CancellationTokenSource();
             _all = await _services.Winget.ListUpgradesAsync(_cts.Token);
             Rebuild();
+            await CheckGitHubAsync(_cts.Token);
             StatusLine = $"Checked {DateTime.Now:HH:mm}. Pinned apps are only updated when you pick them.";
         }
         catch (OperationCanceledException)
@@ -137,6 +160,95 @@ public sealed partial class AppUpdatesViewModel : PageViewModelBase
 
     [RelayCommand]
     private void Cancel() => _cts?.Cancel();
+
+    private async Task CheckGitHubAsync(CancellationToken cancellationToken)
+    {
+        try
+        {
+            var updates = await GitHubUpdateChecker.CheckAsync(
+                _services.State.ActiveProfile.Apps,
+                _services.GitHubReleases,
+                async (repository, token) => (await _services.GitHub.GetLatestAsync(repository, token)).TagName,
+                cancellationToken);
+
+            GitHubRows.Clear();
+            foreach (var update in updates)
+            {
+                GitHubRows.Add(new GitHubUpdateRow(update));
+            }
+        }
+        catch (OperationCanceledException)
+        {
+            throw;
+        }
+        catch (Exception ex)
+        {
+            _services.Log.Write(LogLevel.Warning, "Checking GitHub releases for updates failed.", ex);
+        }
+        finally
+        {
+            OnPropertyChanged(nameof(HasGitHubRows));
+        }
+    }
+
+    /// <summary>Installs the newer release over the app, the way it was first installed. No post-install command runs.</summary>
+    [RelayCommand]
+    private async Task UpdateGitHubAsync(GitHubUpdateRow? row)
+    {
+        if (row is null || IsBusy)
+        {
+            return;
+        }
+
+        if (!_dialogs.Confirm("Update from GitHub",
+                $"Download {row.Name} {row.Update.LatestTag} from {row.Repository} and install it over {row.Update.InstalledTag}?\n\n" +
+                "Close the app first. The download is checked against the release's SHA-256 when the release publishes one.",
+                "Update", "Cancel"))
+        {
+            return;
+        }
+
+        using var runLock = InstallLock.TryAcquire();
+        if (runLock is null)
+        {
+            StatusLine = "Another install or update is running on this PC. Try again when it has finished.";
+            return;
+        }
+
+        IsBusy = true;
+        using var activity = _services.Activity.Begin("Updating apps");
+        _cts?.Dispose();
+        _cts = new CancellationTokenSource();
+        row.Status = "Updating…";
+        try
+        {
+            var context = new InstallContext(
+                _services.Paths, NullInstallLogSink.Instance, _services.Log, CtrlZ.Core.Services.ElevationService.IsElevated);
+            var result = await _services.GitHubInstaller.InstallAsync(row.Update.App, context, _cts.Token);
+            row.Status = result.Success
+                ? $"Updated to {row.Update.LatestTag}."
+                : result.Error ?? result.Detail ?? "The update did not finish.";
+            if (result.Success)
+            {
+                GitHubRows.Remove(row);
+                OnPropertyChanged(nameof(HasGitHubRows));
+                StatusLine = $"{row.Name} updated to {row.Update.LatestTag}.";
+            }
+        }
+        catch (OperationCanceledException)
+        {
+            row.Status = "Cancelled.";
+        }
+        catch (Exception ex)
+        {
+            _services.Log.Write(LogLevel.Error, $"Updating {row.Name} from GitHub failed.", ex);
+            row.Status = "The update failed: " + ex.Message;
+        }
+        finally
+        {
+            IsBusy = false;
+        }
+    }
 
     private async Task RunAsync(IReadOnlyList<AppUpdate> chosen, string title)
     {

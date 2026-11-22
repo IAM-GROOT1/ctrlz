@@ -18,8 +18,8 @@ promise of a date, and a section can be reordered if a bug matters more.
 - [x] **0. Self-update and tag-driven releases** - done, shipped in v1.2.0
 - [x] **1. Safety checks before a wipe** - done, shipped in v1.3.0
 - [x] **2. Install improvements** - done, shipping in v1.4.0
-- [ ] **3. App updates through winget** - **next**
-- [ ] **4. Reliability and security** - planned
+- [x] **3. App updates through winget** - done, shipping in v1.4.0
+- [ ] **4. Reliability and security** - **next**
 - [ ] **5. Foundation for optional extras** - planned
 - [ ] **6. UI polish and motion** - planned
 - [ ] **7. Onboarding and sharing profiles** - planned
@@ -67,7 +67,7 @@ See which installed apps have updates and apply them from one place.
 - [x] **A. Updates page.** Lists the apps winget can update, updates the chosen ones or all of them
   one after another, keeps pinned apps out of "Update all", and can ignore one version until a
   newer one appears.
-- [ ] **B. Portable apps.** Start menu shortcuts for portable apps and a check for newer versions
+- [x] **B. Portable apps.** Start menu shortcuts for portable apps and a check for newer versions
   of apps installed from GitHub releases.
 - [x] **C. Command line.** `ctrlz updates` lists app updates; `--all --yes` or `--id <id> --yes`
   applies them.

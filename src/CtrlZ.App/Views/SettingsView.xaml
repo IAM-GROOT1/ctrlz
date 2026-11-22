@@ -64,6 +64,10 @@
                                   IsChecked="{Binding ShowInstallPreview, Mode=TwoWay}" />
                         <TextBlock Text="The preview lists each app, its source, switches and warnings, and can dry-run the whole list without installing anything."
                                    Style="{StaticResource Text.Caption}" TextWrapping="Wrap" Margin="0,8,0,0" />
+                        <CheckBox Content="Add portable apps to the Start menu" Margin="0,14,0,0"
+                                  IsChecked="{Binding CreatePortableShortcuts, Mode=TwoWay}" />
+                        <TextBlock Text="Portable apps get a shortcut in the Start menu under CTRL+Z apps, in your own user profile."
+                                   Style="{StaticResource Text.Caption}" TextWrapping="Wrap" Margin="0,8,0,0" />
                         <CheckBox Content="Include notes in exports" Margin="0,14,0,0"
                                   IsChecked="{Binding IncludeNotesInReports, Mode=TwoWay}" />
                         <TextBlock Text="Off by default. When off, exported reports show (note hidden) instead of your app notes. Notes are never written to the application log."

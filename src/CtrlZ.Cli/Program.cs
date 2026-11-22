@@ -20,14 +20,17 @@ var runner = new ProcessRunner();
 var winget = new WingetCli(runner, log);
 var downloads = new DownloadService(paths, log);
 var github = new GitHubReleaseService(downloads, log);
-var fileInstaller = new FileInstallService(paths, runner, log);
+var githubReleases = new CtrlZ.Core.AppUpdates.GitHubReleaseTracker(
+    Path.Combine(paths.State, CtrlZ.Core.AppUpdates.GitHubReleaseTracker.FileName));
+var fileInstaller = new FileInstallService(
+    paths, runner, log, new CtrlZ.Core.AppUpdates.StartMenuShortcutWriter(log), () => settings.CreatePortableShortcuts);
 var engine = new InstallEngine(
     paths,
     new ISourceInstaller[]
     {
         new WingetSourceInstaller(winget),
         new DirectUrlSourceInstaller(downloads, fileInstaller),
-        new GitHubSourceInstaller(github, downloads, fileInstaller),
+        new GitHubSourceInstaller(github, downloads, fileInstaller, githubReleases),
         new LocalFileSourceInstaller(fileInstaller)
     },
     new InstallStateStore(paths.InstallStateFile, log),
