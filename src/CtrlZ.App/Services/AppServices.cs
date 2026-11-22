@@ -77,7 +77,8 @@ public sealed class AppServices : IDisposable
             new GitHubSourceInstaller(github, downloads, fileInstaller),
             new LocalFileSourceInstaller(fileInstaller)
         };
-        var installEngine = new InstallEngine(paths, installers, installStates, profiles, wingetBootstrap, log);
+        var installEngine = new InstallEngine(
+            paths, installers, installStates, profiles, wingetBootstrap, log, DependencyCatalog.LoadEmbedded());
         var scanner = new AppScanner(winget, new RegistryAppScanner(log), new StoreAppScanner(runner, log), log);
         var browserProcesses = new BrowserProcessService(log);
         var archiveReader = new BrowserArchiveReader();

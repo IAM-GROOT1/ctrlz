@@ -527,18 +527,18 @@ The work is split into numbered sections, built one at a time and shipped as the
 
 - [x] **0.** Self-update and tag-driven releases
 - [x] **1.** Safety checks before a wipe
-- [ ] **2.** AppData and settings backup and restore - **next**
-- [ ] **3.** Portable app shortcuts and update tracking
-- [ ] **4.** Optional code signing
-- [ ] **5.** Per-app download resumption and mirror selection
-- [ ] **6.** Backup verification and restore drills
-- [ ] **7.** Multiple profiles and moving a profile between PCs
-- [ ] **8.** Scheduled and recurring backups
-- [ ] **9.** Keyboard-first navigation and accessibility
-- [ ] **10.** Translations
-- [ ] **11.** Offline diagnostics without telemetry
-- [ ] **12.** Restore from a browser backup without reinstalling
-- [ ] **13.** Packaging and distribution improvements
+- [ ] **2.** Install improvements - **next**
+- [ ] **3.** App updates through winget
+- [ ] **4.** Reliability and security
+- [ ] **5.** Foundation for optional extras
+- [ ] **6.** UI polish and motion
+- [ ] **7.** Onboarding and sharing profiles
+- [ ] **8.** Release and distribution
+- [ ] **9.** Optional extra: scheduled and local backups
+- [ ] **10.** Optional extra: settings backup
+- [ ] **11.** Optional extras: availability
+- [ ] **12.** Optional extra: encrypted backup off this PC
+- [ ] **13.** Post-install tweaks
 
 See [ROADMAP.md](ROADMAP.md) for the detail behind each section.
 <!-- roadmap:end -->

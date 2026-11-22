@@ -68,7 +68,9 @@ public sealed partial class PreviewViewModel : ObservableObject
         _services = services;
         _dialogs = dialogs;
         _profile = profile;
-        _plan = new InstallPlanner().Build(profile, profileName);
+
+        // Same catalog and order as the install engine, so the preview shows the real run.
+        _plan = new InstallPlanner(catalog: services.InstallEngine.Catalog).Build(profile, profileName);
         LoadCommands();
 
         SummaryText = _plan.IsEmpty
@@ -91,7 +93,8 @@ public sealed partial class PreviewViewModel : ObservableObject
     private void LoadCommands()
     {
         var approvals = new PostInstallApprovalStore(Path.Combine(_services.Paths.State, PostInstallStep.ApprovalsFileName));
-        Commands = CommandPreview.ForProfile(_profile, _services.State.OriginOf(_profile), approvals);
+        Commands = CommandPreview.ForPlan(
+            _plan, _profile, _services.State.OriginOf(_profile), command => approvals.IsApproved(_profile.Id, command));
         var commandByApp = Commands
             .GroupBy(line => line.AppId, StringComparer.Ordinal)
             .ToDictionary(group => group.Key, group => group.First(), StringComparer.Ordinal);

@@ -261,6 +261,22 @@ public sealed partial class MyAppsViewModel : PageViewModelBase
             return;
         }
 
+        if (row.IsAutoDependency)
+        {
+            // Deleting it would only let the planner add it again; turning it off is remembered.
+            if (!_dialogs.Confirm("Remove dependency",
+                    $"\"{row.Name}\" was added because another app needs it. Turn it off so it is not installed or added again?",
+                    "Turn off", "Cancel", danger: true))
+            {
+                return;
+            }
+
+            _services.State.DisableApp(row.App);
+            ReloadApps();
+            ShowStatus($"{row.Name} is turned off and will not be added again.");
+            return;
+        }
+
         if (!_dialogs.Confirm("Remove app", $"Remove \"{row.Name}\" from this profile?", "Remove", "Cancel", danger: true))
         {
             return;

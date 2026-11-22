@@ -187,6 +187,10 @@ public sealed partial class InstallViewModel : PageViewModelBase
                 }
             }
 
+            // Known dependencies become visible, marked entries in the profile, so they can be
+            // reviewed and turned off in My Apps; the plan then finds them instead of adding copies.
+            _services.State.AddAutoDependencies(_services.InstallEngine.PlanOrder(profile).AutoAdded);
+
             state = _services.InstallEngine.CreateState(profile, null);
             _state = state;
             ProfileName = profile.Name;

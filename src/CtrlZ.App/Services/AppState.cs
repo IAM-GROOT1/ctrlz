@@ -216,6 +216,40 @@ public sealed class AppState : ObservableObject
         return (added, skipped);
     }
 
+    /// <summary>Turns an app off without deleting it, so a removed dependency stays removed.</summary>
+    public void DisableApp(AppEntry app)
+    {
+        if (_activeProfile.Apps.Contains(app) && app.Enabled)
+        {
+            app.Enabled = false;
+            SaveActive();
+        }
+    }
+
+    /// <summary>
+    /// Adds the dependencies the install planner found, marked as added automatically, so they show
+    /// in My Apps and can be turned off. Returns how many were added.
+    /// </summary>
+    public int AddAutoDependencies(IEnumerable<AppEntry> dependencies)
+    {
+        var toAdd = dependencies
+            .Where(dependency => dependency.IsAutoDependency)
+            .Where(dependency => _activeProfile.Apps.All(app =>
+                app.Id != dependency.Id &&
+                !string.Equals(app.PackageId, dependency.PackageId, StringComparison.OrdinalIgnoreCase)))
+            .Select(dependency => dependency.Clone())
+            .ToList();
+
+        if (toAdd.Count == 0)
+        {
+            return 0;
+        }
+
+        _activeProfile.Apps.InsertRange(0, toAdd);
+        SaveActive();
+        return toAdd.Count;
+    }
+
     public bool RemoveApp(AppEntry app)
     {
         var removed = _activeProfile.Apps.Remove(app);

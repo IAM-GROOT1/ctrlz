@@ -83,4 +83,29 @@ public static class CommandPreview
         ArgumentNullException.ThrowIfNull(approvals);
         return ForProfile(profile, origin, command => approvals.IsApproved(profile.Id, command));
     }
+
+    /// <summary>
+    /// Lines numbered exactly like the install plan (dependency order). Apps the plan will not run
+    /// have no line, because their command cannot run either.
+    /// </summary>
+    public static IReadOnlyList<CommandPreviewLine> ForPlan(
+        Safety.InstallPlan plan, AppProfile profile, ProfileOrigin origin, Func<PostInstallCommand, bool> isApproved)
+    {
+        ArgumentNullException.ThrowIfNull(plan);
+        ArgumentNullException.ThrowIfNull(profile);
+        ArgumentNullException.ThrowIfNull(isApproved);
+
+        var lines = new List<CommandPreviewLine>();
+        foreach (var item in plan.Items.Where(item => item.NotInstalledReason is null))
+        {
+            var app = profile.Apps.FirstOrDefault(candidate => candidate.Id == item.AppId);
+            if (app?.PostInstall is { } command &&
+                ForApp(app, item.Order, origin, isApproved(command)) is { } line)
+            {
+                lines.Add(line);
+            }
+        }
+
+        return lines;
+    }
 }
