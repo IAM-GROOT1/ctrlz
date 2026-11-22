@@ -77,8 +77,8 @@ See which installed apps have updates and apply them from one place.
 - Installer verification beyond SHA-256 where a source publishes more.
 - Done: **Verify** on the Browsers page reads every file of a browser backup (decrypting and
   checking each one) and reports whether it can be restored, without changing anything.
-- A local diagnostics bundle, created only on request, with counts and versions and no personal
-  file names.
+- Done: **Save diagnostics** in Settings writes a ZIP, only when you ask, with versions, settings
+  switches, counts and recent logs with paths and names removed. Nothing is sent anywhere.
 - Import app lists from winget, Scoop and Chocolatey.
 - ARM64 builds.
 - Download resumption and mirror fallback.
