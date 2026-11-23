@@ -111,9 +111,11 @@ order and screen-reader labels, and translations later.
   Esc closes every window (checked by a test); dialogs and the app editor open with focus in
   their first field.
 - [x] **C. Motion.** The page fade is skipped when Windows' *Animation effects* setting is off.
-- [ ] **D. Translations.** In progress. The text of every page and window now comes from
-  `src/CtrlZ.App/Resources/Strings.resx`, and a test keeps XAML free of hard-coded text. Messages
-  built in code move next, then the first languages and a language setting.
+- [ ] **D. Translations.** In progress. All of the app's text now comes from resource files
+  (`src/CtrlZ.App/Resources/Strings.resx` and `src/CtrlZ.Core/Resources/CoreStrings.resx`), with
+  plural forms per language. Settings has a **Language** choice (Windows default or a listed
+  language), and German is the first translation. The command line stays English. More languages
+  follow; see CONTRIBUTING.md to add one.
 
 ### 7. Onboarding and sharing profiles
 

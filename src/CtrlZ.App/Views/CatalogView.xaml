@@ -107,7 +107,7 @@
                         <TextBlock Text="{Binding CatalogStatus}" FontSize="10.5" Foreground="{DynamicResource Brush.TextSecondary}" />
                     </StackPanel>
                 </Border>
-                <ComboBox AutomationProperties.Name="{l:Tr Catalog_Category}" Width="150" ItemsSource="{Binding Categories}" SelectedItem="{Binding SelectedCategory}"
+                <ComboBox AutomationProperties.Name="{l:Tr Catalog_Category}" MinWidth="150" ItemsSource="{Binding Categories}" SelectedItem="{Binding SelectedCategory}"
                           Margin="0,0,8,0" />
                 <Button Content="{l:Tr Catalog_Refresh}" Style="{StaticResource Button.Secondary}" Command="{Binding RefreshCommand}"
                         IsEnabled="{Binding IsLoading, Converter={StaticResource BoolNegation}}" />

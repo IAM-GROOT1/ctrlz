@@ -21,6 +21,13 @@ public partial class App : Application
     private MainViewModel? _main;
     private bool _handlingFatal;
 
+    /// <summary>
+    /// Written to the update result file in English, so the log stays English; the dialog shows
+    /// the translated text for it (see UpdateCoordinator).
+    /// </summary>
+    internal const string UpdateRolledBackMessage =
+        "The new version did not finish starting last time, so CTRL+Z went back to the previous version.";
+
     protected override async void OnStartup(StartupEventArgs e)
     {
         base.OnStartup(e);
@@ -107,7 +114,7 @@ public partial class App : Application
                     UpdateApplyFiles.WriteResult(
                         Path.Combine(services.Paths.State, UpdateApplyFiles.ResultFileName),
                         UpdateApplyResult.Failed(
-                            Loc.Get("App_UpdateRolledBack")));
+                            UpdateRolledBackMessage));
                     if (UpdateApplier.TryStart(exe) is { } restarted)
                     {
                         restarted.Dispose();

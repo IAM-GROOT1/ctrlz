@@ -17,9 +17,19 @@ public static class CoreText
     private static readonly ResourceManager Resources =
         new("CtrlZ.Core.Resources.CoreStrings", typeof(CoreText).Assembly);
 
+    /// <summary>
+    /// The language chosen for the app's text, or null to use the thread's UI culture. It is a
+    /// plain static rather than the thread culture because .NET restores the culture when an
+    /// async method returns, so a language set during async startup would not stick.
+    /// </summary>
+    public static CultureInfo? Culture { get; set; }
+
+    /// <summary>The language text is read in right now.</summary>
+    public static CultureInfo Current => Culture ?? CultureInfo.CurrentUICulture;
+
     /// <summary>The text for <paramref name="key"/> in the current UI language, or <c>[key]</c>.</summary>
     public static string Get(string key) =>
-        Resources.GetString(key, CultureInfo.CurrentUICulture) ?? $"[{key}]";
+        Resources.GetString(key, Current) ?? $"[{key}]";
 
     /// <summary>The text for <paramref name="key"/> with <c>{0}</c>-style placeholders filled in.</summary>
     public static string Format(string key, params object?[] args) =>
@@ -28,7 +38,7 @@ public static class CoreText
     /// <summary>Count-dependent text; see <see cref="PluralRules"/>. The count is <c>{0}</c>.</summary>
     public static string Plural(string key, long count, params object?[] args)
     {
-        var culture = CultureInfo.CurrentUICulture;
+        var culture = Current;
         var text = Resources.GetString($"{key}_{PluralRules.Category(culture, count)}", culture)
                    ?? Resources.GetString($"{key}_Other", culture)
                    ?? $"[{key}]";

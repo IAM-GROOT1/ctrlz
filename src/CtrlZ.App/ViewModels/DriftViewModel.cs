@@ -242,13 +242,13 @@ public sealed partial class DriftViewModel : ObservableObject
         if (report.IsEmpty)
         {
             SummaryText = Loc.Get("Drift_YourProfileMatchesThisPC")
-                          + (report.IgnoredCount > 0 ? $" ({report.IgnoredCount} ignored)." : ".");
+                          + (report.IgnoredCount > 0 ? Loc.Format("Drift_IgnoredInParens", report.IgnoredCount) : ".");
         }
         else
         {
             SummaryText =
                 Loc.Format("Drift_MissingNotInProfileOutdated", report.Missing.Count, report.Extra.Count, report.Outdated.Count) +
-                (report.IgnoredCount > 0 ? $" · {report.IgnoredCount} ignored" : string.Empty);
+                (report.IgnoredCount > 0 ? Loc.Format("Drift_IgnoredCount", report.IgnoredCount) : string.Empty);
         }
 
         OnPropertyChanged(nameof(HasMissing));

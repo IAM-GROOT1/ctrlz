@@ -454,7 +454,9 @@ public sealed class UpdateCoordinator
 
         _services.Log.Write(LogLevel.Warning, $"The previous update did not complete: {result.Message}");
         _dialogs.Error(
-            result.Message ?? Loc.Get("Update_ThePreviousUpdateDidNot"),
+            result.Message == App.UpdateRolledBackMessage
+                ? Loc.Get("App_UpdateRolledBack")
+                : result.Message ?? Loc.Get("Update_ThePreviousUpdateDidNot"),
             Loc.Get("Update_UpdateNotApplied"));
     }
 }

@@ -25,7 +25,7 @@ public sealed partial class AppUpdateRow : ObservableObject
     public AppUpdate Update { get; }
     public string Name => Update.Name;
     public string Id => Update.Id;
-    public string VersionsText => $"{Update.InstalledVersion ?? "unknown"} → {Update.AvailableVersion}";
+    public string VersionsText => $"{Update.InstalledVersion ?? Loc.Get("AppUpdates_UnknownVersion")} → {Update.AvailableVersion}";
     public bool IsPinned => Update.RequiresExplicit;
 
     [ObservableProperty]
@@ -342,7 +342,7 @@ public sealed partial class AppUpdatesViewModel : PageViewModelBase
             : Loc.Plural("AppUpdates_UpdatesAvailable", Rows.Count);
         if (pinned > 0)
         {
-            SummaryTitle += $" ({pinned} pinned)";
+            SummaryTitle += Loc.Format("AppUpdates_PinnedCount", pinned);
         }
 
         OnPropertyChanged(nameof(HasRows));

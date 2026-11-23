@@ -99,8 +99,41 @@ public sealed partial class SettingsViewModel : PageViewModelBase
     public bool IsDarkTheme => Theme == ThemeMode.Dark;
     public bool HasStatus => !string.IsNullOrWhiteSpace(StatusMessage);
 
+    /// <summary>"Windows default" and each language CTRL+Z ships.</summary>
+    public IReadOnlyList<LanguageOption> Languages { get; } = AppLanguage.Options();
+
+    private LanguageOption? _selectedLanguage;
+
+    /// <summary>The saved choice; changing it saves it and takes effect after a restart.</summary>
+    public LanguageOption? SelectedLanguage
+    {
+        get => _selectedLanguage;
+        set
+        {
+            if (value is null || ReferenceEquals(value, _selectedLanguage))
+            {
+                return;
+            }
+
+            var changed = _selectedLanguage is not null;
+            _selectedLanguage = value;
+            OnPropertyChanged();
+            if (!changed)
+            {
+                return;
+            }
+
+            _services.State.Settings.Language = value.Code.Length == 0 ? null : value.Code;
+            _services.State.SaveSettings();
+            StatusMessage = Loc.Format("Settings_LanguageRestart", value.Name);
+        }
+    }
+
     public override async Task ActivateAsync()
     {
+        var saved = AppLanguage.Normalize(_services.State.Settings.Language) ?? string.Empty;
+        _selectedLanguage = null;
+        SelectedLanguage = Languages.FirstOrDefault(option => option.Code == saved) ?? Languages[0];
         Theme = _services.State.Settings.Theme;
         AutoCheckForUpdates = _services.State.Settings.AutoCheckForUpdates;
         Channel = _services.State.Settings.UpdateChannel;

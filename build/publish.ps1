@@ -36,6 +36,8 @@ if (-not $SkipTests) {
 if (Test-Path $publishDir) { Remove-Item $publishDir -Recurse -Force }
 New-Item -ItemType Directory -Force -Path $publishDir | Out-Null
 
+# SatelliteResourceLanguages keeps the translated resources for the languages in
+# src/CtrlZ.App/Localization/AppLanguage.cs (";" is written %3B for MSBuild) and drops the rest.
 & $dotnet publish $project `
     -c Release `
     -r win-x64 `
@@ -44,7 +46,7 @@ New-Item -ItemType Directory -Force -Path $publishDir | Out-Null
     -p:IncludeNativeLibrariesForSelfExtract=true `
     -p:IncludeAllContentForSelfExtract=true `
     -p:EnableCompressionInSingleFile=true `
-    -p:SatelliteResourceLanguages=en `
+    -p:SatelliteResourceLanguages=en%3Bde `
     -p:DebugType=None `
     -p:DebugSymbols=false `
     -p:Version=$Version `

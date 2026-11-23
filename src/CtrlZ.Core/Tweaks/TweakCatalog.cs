@@ -1,6 +1,8 @@
 // SPDX-License-Identifier: AGPL-3.0-only
 // Copyright (c) 2026 iam-groot1
 
+using CtrlZ.Core.Localization;
+
 namespace CtrlZ.Core.Tweaks;
 
 public enum TweakValueKind
@@ -38,46 +40,49 @@ public static class TweakCatalog
     private const string Advanced = @"Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced";
     private const string Personalize = @"Software\Microsoft\Windows\CurrentVersion\Themes\Personalize";
 
-    public static readonly IReadOnlyList<TweakDefinition> All =
+    /// <summary>Built on each read so the names follow the language chosen for this run.</summary>
+    public static IReadOnlyList<TweakDefinition> All => Build();
+
+    private static IReadOnlyList<TweakDefinition> Build() =>
     [
-        new("show-file-extensions", "Show file extensions",
-            "File Explorer shows .exe, .pdf and other extensions, so a file can't hide what it is.",
+        new("show-file-extensions", CoreText.Get("Tweak_ShowFileExtensions_Title"),
+            CoreText.Get("Tweak_ShowFileExtensions_Description"),
             [new(Advanced, "HideFileExt", TweakValueKind.DWord, 0)], NeedsExplorerRestart: true),
 
-        new("show-hidden-files", "Show hidden files",
-            "File Explorer shows hidden files and folders such as AppData.",
+        new("show-hidden-files", CoreText.Get("Tweak_ShowHiddenFiles_Title"),
+            CoreText.Get("Tweak_ShowHiddenFiles_Description"),
             [new(Advanced, "Hidden", TweakValueKind.DWord, 1)], NeedsExplorerRestart: true),
 
-        new("explorer-opens-this-pc", "Open File Explorer to This PC",
-            "File Explorer starts on your drives instead of Home or Quick access.",
+        new("explorer-opens-this-pc", CoreText.Get("Tweak_ExplorerOpensThisPc_Title"),
+            CoreText.Get("Tweak_ExplorerOpensThisPc_Description"),
             [new(Advanced, "LaunchTo", TweakValueKind.DWord, 1)], NeedsExplorerRestart: false),
 
-        new("dark-mode", "Dark mode for apps and Windows",
-            "Apps and the Windows taskbar and Start use the dark theme.",
+        new("dark-mode", CoreText.Get("Tweak_DarkMode_Title"),
+            CoreText.Get("Tweak_DarkMode_Description"),
             [
                 new(Personalize, "AppsUseLightTheme", TweakValueKind.DWord, 0),
                 new(Personalize, "SystemUsesLightTheme", TweakValueKind.DWord, 0)
             ], NeedsExplorerRestart: false),
 
-        new("taskbar-left", "Taskbar icons on the left",
-            "Windows 11 puts the Start button and taskbar icons on the left, as on Windows 10.",
+        new("taskbar-left", CoreText.Get("Tweak_TaskbarLeft_Title"),
+            CoreText.Get("Tweak_TaskbarLeft_Description"),
             [new(Advanced, "TaskbarAl", TweakValueKind.DWord, 0)], NeedsExplorerRestart: false, Windows11Only: true),
 
-        new("no-web-search-in-start", "No web results in Start search",
-            "Searching from Start looks only at this PC, not Bing.",
+        new("no-web-search-in-start", CoreText.Get("Tweak_NoWebSearchInStart_Title"),
+            CoreText.Get("Tweak_NoWebSearchInStart_Description"),
             // Not the DisableSearchBoxSuggestions policy: HKCU\Software\Policies is read-only for
             // the user, so writing it needs admin rights. This is the per-user switch.
             [new(@"Software\Microsoft\Windows\CurrentVersion\Search", "BingSearchEnabled", TweakValueKind.DWord, 0)],
             NeedsExplorerRestart: true),
 
-        new("classic-context-menu", "Classic right-click menu",
-            "Windows 11 shows the full right-click menu at once, without \"Show more options\".",
+        new("classic-context-menu", CoreText.Get("Tweak_ClassicContextMenu_Title"),
+            CoreText.Get("Tweak_ClassicContextMenu_Description"),
             [new(@"Software\Classes\CLSID\{86ca1aa0-34aa-4e8b-a509-50c905bae2a2}\InprocServer32", string.Empty, TweakValueKind.String, string.Empty,
                 OwnedBelow: @"Software\Classes\CLSID")],
             NeedsExplorerRestart: true, Windows11Only: true),
 
-        new("no-start-recommendations", "Fewer recommendations in Start",
-            "Start stops suggesting tips, shortcuts and new apps.",
+        new("no-start-recommendations", CoreText.Get("Tweak_NoStartRecommendations_Title"),
+            CoreText.Get("Tweak_NoStartRecommendations_Description"),
             [new(Advanced, "Start_IrisRecommendations", TweakValueKind.DWord, 0)], NeedsExplorerRestart: false, Windows11Only: true)
     ];
 

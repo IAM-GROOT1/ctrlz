@@ -3029,4 +3029,52 @@ Use the file from "winget export -o apps.json", "scoop export &gt; apps.json" or
   <data name="AppEditor_InstallerFilter" xml:space="preserve">
     <value>Installers (*.exe;*.msi;*.msix;*.appx;*.zip)|*.exe;*.msi;*.msix;*.appx;*.zip|All files (*.*)|*.*</value>
   </data>
+  <data name="Settings_Language" xml:space="preserve">
+    <value>Language</value>
+  </data>
+  <data name="Settings_LanguageWindowsDefault" xml:space="preserve">
+    <value>Windows default</value>
+  </data>
+  <data name="Settings_LanguageNote" xml:space="preserve">
+    <value>The new language is used the next time CTRL+Z starts.</value>
+  </data>
+  <data name="Settings_LanguageRestart" xml:space="preserve">
+    <value>Language set to {0}. Restart CTRL+Z to use it.</value>
+  </data>
+  <data name="Tweaks_RowOn" xml:space="preserve">
+    <value>{0}: on.</value>
+  </data>
+  <data name="Tweaks_RowUndone" xml:space="preserve">
+    <value>{0}: undone.</value>
+  </data>
+  <data name="AppUpdates_PinnedCount" xml:space="preserve">
+    <value> ({0} pinned)</value>
+  </data>
+  <data name="Browsers_EstimateFiles_One" xml:space="preserve">
+    <value>{1} · {0} file</value>
+  </data>
+  <data name="Browsers_EstimateFiles_Other" xml:space="preserve">
+    <value>{1} · {0} files</value>
+  </data>
+  <data name="Drift_IgnoredInParens" xml:space="preserve">
+    <value> ({0} ignored).</value>
+  </data>
+  <data name="Drift_IgnoredCount" xml:space="preserve">
+    <value> · {0} ignored</value>
+  </data>
+  <data name="Main_ProfileLabel_One" xml:space="preserve">
+    <value>{1} · {0} app</value>
+  </data>
+  <data name="Main_ProfileLabel_Other" xml:space="preserve">
+    <value>{1} · {0} apps</value>
+  </data>
+  <data name="Scan_AppCount_One" xml:space="preserve">
+    <value>{0} app</value>
+  </data>
+  <data name="Scan_AppCount_Other" xml:space="preserve">
+    <value>{0} apps</value>
+  </data>
+  <data name="Catalog_SelectedCount" xml:space="preserve">
+    <value>{0} selected</value>
+  </data>
 </root>

@@ -35,6 +35,12 @@
                             </StackPanel>
                         </Border>
                         <TextBlock Text="{Binding ThemeDescription}" Style="{StaticResource Text.Caption}" Margin="0,8,0,0" />
+                        <TextBlock x:Name="LanguageLabel" Text="{l:Tr Settings_Language}" Style="{StaticResource Text.Label}" Margin="0,14,0,0" />
+                        <ComboBox ItemsSource="{Binding Languages}" SelectedItem="{Binding SelectedLanguage, Mode=TwoWay}"
+                                  DisplayMemberPath="Name" HorizontalAlignment="Left" MinWidth="220"
+                                  AutomationProperties.LabeledBy="{Binding ElementName=LanguageLabel}" />
+                        <TextBlock Text="{l:Tr Settings_LanguageNote}" Style="{StaticResource Text.Caption}"
+                                   TextWrapping="Wrap" Margin="0,8,0,0" />
                     </StackPanel>
                 </Border>
 
@@ -138,11 +144,15 @@
                 <Border Style="{StaticResource Border.Card}" Padding="18,16">
                     <StackPanel>
                         <TextBlock Text="{l:Tr Settings_PACKAGEMANAGER}" Style="{StaticResource Text.NavSection}" Margin="0,0,0,10" />
-                        <StackPanel Orientation="Horizontal">
-                            <Ellipse Width="7" Height="7" Fill="{DynamicResource Brush.Success}" Margin="0,0,8,0"
-                                     VerticalAlignment="Center" />
-                            <TextBlock Text="{Binding WingetStatus}" Style="{StaticResource Text.Body}" TextWrapping="Wrap" />
-                        </StackPanel>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <Ellipse Width="7" Height="7" Fill="{DynamicResource Brush.Success}" Margin="0,7,8,0"
+                                     VerticalAlignment="Top" />
+                            <TextBlock Grid.Column="1" Text="{Binding WingetStatus}" Style="{StaticResource Text.Body}" TextWrapping="Wrap" />
+                        </Grid>
                         <TextBlock Text="{l:Tr Settings_WingetIsUsedForCatalog}"
                                    Style="{StaticResource Text.Caption}" TextWrapping="Wrap" Margin="0,8,0,0" />
                         <StackPanel Orientation="Horizontal" Margin="0,12,0,0">

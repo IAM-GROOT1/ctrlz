@@ -21,7 +21,7 @@ public static class Loc
     /// <remarks>An unknown key returns <c>[key]</c> so it is visible on screen; a test checks
     /// that every key used in XAML and code exists, so this should never ship.</remarks>
     public static string Get(string key) =>
-        Resources.GetString(key, CultureInfo.CurrentUICulture) ?? $"[{key}]";
+        Resources.GetString(key, CoreText.Current) ?? $"[{key}]";
 
     /// <summary>The text for <paramref name="key"/> with <c>{0}</c>-style placeholders filled in.</summary>
     public static string Format(string key, params object?[] args) =>
@@ -35,7 +35,7 @@ public static class Loc
     /// </summary>
     public static string Plural(string key, long count, params object?[] args)
     {
-        var culture = CultureInfo.CurrentUICulture;
+        var culture = CoreText.Current;
         var text = Resources.GetString($"{key}_{PluralRules.Category(culture, count)}", culture)
                    ?? Resources.GetString($"{key}_Other", culture)
                    ?? $"[{key}]";

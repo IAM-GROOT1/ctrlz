@@ -240,6 +240,25 @@ public class LocalizationTests
         Assert.Equal("Age: 1 day", CoreText.Plural("ReadinessScanner_AgeDays", 1));
     }
 
+    [Fact]
+    public void The_language_list_matches_the_translations_and_the_release_build()
+    {
+        string Languages(string project, string resource) => string.Join(",",
+            Directory.EnumerateFiles(Path.Combine(SrcFolder(), project, "Resources"), resource + ".*.resx")
+                .Select(path => Path.GetFileNameWithoutExtension(path)[(resource.Length + 1)..])
+                .Prepend("en")
+                .OrderBy(code => code, StringComparer.Ordinal));
+
+        var listed = string.Join(",", AppLanguage.Supported.OrderBy(code => code, StringComparer.Ordinal));
+        Assert.Equal(listed, Languages("CtrlZ.App", "Strings"));
+        Assert.Equal(listed, Languages("CtrlZ.Core", "CoreStrings"));
+
+        // The release build drops translated resources it is not told to keep.
+        var publish = File.ReadAllText(Path.Combine(SrcFolder(), "..", "build", "publish.ps1"));
+        var kept = Regex.Match(publish, @"SatelliteResourceLanguages=(?<list>[^\s`]+)").Groups["list"].Value.Replace("%3B", ";");
+        Assert.Equal(listed, string.Join(",", kept.Split(';').OrderBy(code => code, StringComparer.Ordinal)));
+    }
+
     [Theory]
     [InlineData("en", 1, "One")]
     [InlineData("en", 0, "Other")]

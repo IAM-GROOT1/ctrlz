@@ -1102,4 +1102,52 @@
   <data name="ProfileExport_AppsWithNote_Other" xml:space="preserve">
     <value>{0} apps have a note. Notes can hold licence keys; </value>
   </data>
+  <data name="Tweak_ShowFileExtensions_Title" xml:space="preserve">
+    <value>Show file extensions</value>
+  </data>
+  <data name="Tweak_ShowFileExtensions_Description" xml:space="preserve">
+    <value>File Explorer shows .exe, .pdf and other extensions, so a file can't hide what it is.</value>
+  </data>
+  <data name="Tweak_ShowHiddenFiles_Title" xml:space="preserve">
+    <value>Show hidden files</value>
+  </data>
+  <data name="Tweak_ShowHiddenFiles_Description" xml:space="preserve">
+    <value>File Explorer shows hidden files and folders such as AppData.</value>
+  </data>
+  <data name="Tweak_ExplorerOpensThisPc_Title" xml:space="preserve">
+    <value>Open File Explorer to This PC</value>
+  </data>
+  <data name="Tweak_ExplorerOpensThisPc_Description" xml:space="preserve">
+    <value>File Explorer starts on your drives instead of Home or Quick access.</value>
+  </data>
+  <data name="Tweak_DarkMode_Title" xml:space="preserve">
+    <value>Dark mode for apps and Windows</value>
+  </data>
+  <data name="Tweak_DarkMode_Description" xml:space="preserve">
+    <value>Apps and the Windows taskbar and Start use the dark theme.</value>
+  </data>
+  <data name="Tweak_TaskbarLeft_Title" xml:space="preserve">
+    <value>Taskbar icons on the left</value>
+  </data>
+  <data name="Tweak_TaskbarLeft_Description" xml:space="preserve">
+    <value>Windows 11 puts the Start button and taskbar icons on the left, as on Windows 10.</value>
+  </data>
+  <data name="Tweak_NoWebSearchInStart_Title" xml:space="preserve">
+    <value>No web results in Start search</value>
+  </data>
+  <data name="Tweak_NoWebSearchInStart_Description" xml:space="preserve">
+    <value>Searching from Start looks only at this PC, not Bing.</value>
+  </data>
+  <data name="Tweak_ClassicContextMenu_Title" xml:space="preserve">
+    <value>Classic right-click menu</value>
+  </data>
+  <data name="Tweak_ClassicContextMenu_Description" xml:space="preserve">
+    <value>Windows 11 shows the full right-click menu at once, without "Show more options".</value>
+  </data>
+  <data name="Tweak_NoStartRecommendations_Title" xml:space="preserve">
+    <value>Fewer recommendations in Start</value>
+  </data>
+  <data name="Tweak_NoStartRecommendations_Description" xml:space="preserve">
+    <value>Start stops suggesting tips, shortcuts and new apps.</value>
+  </data>
 </root>
