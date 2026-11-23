@@ -1,0 +1,1101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Main_Minimize" xml:space="preserve">
+    <value>Minimize</value>
+  </data>
+  <data name="Main_Maximize" xml:space="preserve">
+    <value>Maximize</value>
+  </data>
+  <data name="Main_Close" xml:space="preserve">
+    <value>Close</value>
+  </data>
+  <data name="Main_WORKSPACE" xml:space="preserve">
+    <value>WORKSPACE</value>
+  </data>
+  <data name="Main_DISCOVER" xml:space="preserve">
+    <value>DISCOVER</value>
+  </data>
+  <data name="Main_BROWSERS" xml:space="preserve">
+    <value>BROWSERS</value>
+  </data>
+  <data name="Main_LocalFirstNoAccount" xml:space="preserve">
+    <value>Local-first · no account</value>
+  </data>
+  <data name="AddApp_DirectLink" xml:space="preserve">
+    <value>Direct link</value>
+  </data>
+  <data name="AddApp_GitHubRelease" xml:space="preserve">
+    <value>GitHub release</value>
+  </data>
+  <data name="AddApp_LocalFile" xml:space="preserve">
+    <value>Local file</value>
+  </data>
+  <data name="AddApp_APPDETAILS" xml:space="preserve">
+    <value>APP DETAILS</value>
+  </data>
+  <data name="AddApp_Name" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="AddApp_PublisherOptional" xml:space="preserve">
+    <value>Publisher (optional)</value>
+  </data>
+  <data name="AddApp_Category" xml:space="preserve">
+    <value>Category</value>
+  </data>
+  <data name="AddApp_INSTALLERSOURCE" xml:space="preserve">
+    <value>INSTALLER SOURCE</value>
+  </data>
+  <data name="AddApp_DownloadURL" xml:space="preserve">
+    <value>Download URL</value>
+  </data>
+  <data name="AddApp_SaveAsFileNameOptional" xml:space="preserve">
+    <value>Save as file name (optional)</value>
+  </data>
+  <data name="AddApp_TheAppDownloadsAtInstall" xml:space="preserve">
+    <value>The app downloads at install time. Add switches on the right so it installs silently.</value>
+  </data>
+  <data name="AddApp_Repository" xml:space="preserve">
+    <value>Repository</value>
+  </data>
+  <data name="AddApp_GitHubRepository" xml:space="preserve">
+    <value>GitHub repository</value>
+  </data>
+  <data name="AddApp_FindLatest" xml:space="preserve">
+    <value>Find latest</value>
+  </data>
+  <data name="AddApp_ReleaseAssets" xml:space="preserve">
+    <value>Release assets</value>
+  </data>
+  <data name="AddApp_FindTheLatestReleaseTo" xml:space="preserve">
+    <value>Find the latest release to choose a Windows asset.</value>
+  </data>
+  <data name="AddApp_AssetHandling" xml:space="preserve">
+    <value>Asset handling</value>
+  </data>
+  <data name="AddApp_TheLatestReleaseIsChecked" xml:space="preserve">
+    <value>The latest release is checked again at install time; the chosen asset type is reused, not the stale version.</value>
+  </data>
+  <data name="AddApp_InstallerFile" xml:space="preserve">
+    <value>Installer file</value>
+  </data>
+  <data name="AddApp_InstallerPath" xml:space="preserve">
+    <value>Installer path</value>
+  </data>
+  <data name="AddApp_File" xml:space="preserve">
+    <value>File…</value>
+  </data>
+  <data name="AddApp_Folder" xml:space="preserve">
+    <value>Folder…</value>
+  </data>
+  <data name="AddApp_KeepTheUSBDriveOr" xml:space="preserve">
+    <value>Keep the USB drive or folder available when you run the install.</value>
+  </data>
+  <data name="AddApp_NotesHeading" xml:space="preserve">
+    <value>NOTES</value>
+  </data>
+  <data name="AddApp_Notes" xml:space="preserve">
+    <value>Notes</value>
+  </data>
+  <data name="AddApp_SILENTINSTALL" xml:space="preserve">
+    <value>SILENT INSTALL</value>
+  </data>
+  <data name="AddApp_CTRLZDetectsTheInstaller" xml:space="preserve">
+    <value>CTRL+Z detects the installer type and picks a known switch set. Custom switches always win.</value>
+  </data>
+  <data name="AddApp_Detected" xml:space="preserve">
+    <value>Detected</value>
+  </data>
+  <data name="AddApp_SilentSwitches" xml:space="preserve">
+    <value>Silent switches</value>
+  </data>
+  <data name="AddApp_InspectInstaller" xml:space="preserve">
+    <value>Inspect installer</value>
+  </data>
+  <data name="AddApp_UseRecommended" xml:space="preserve">
+    <value>Use recommended</value>
+  </data>
+  <data name="AddApp_Test" xml:space="preserve">
+    <value>Test…</value>
+  </data>
+  <data name="AddApp_CommandPreview" xml:space="preserve">
+    <value>Command preview</value>
+  </data>
+  <data name="AddApp_SHA256Optional" xml:space="preserve">
+    <value>SHA-256 (optional)</value>
+  </data>
+  <data name="AddApp_GitHubReleaseDigestsAreFilled" xml:space="preserve">
+    <value>GitHub release digests are filled automatically when available. winget verifies its own manifests.</value>
+  </data>
+  <data name="AddApp_TestOutput" xml:space="preserve">
+    <value>Test output</value>
+  </data>
+  <data name="AddApp_PasswordsAndCookiesAreExcluded" xml:space="preserve">
+    <value>Passwords and cookies are excluded from browser backups. Installer downloads are verified when a hash is available.</value>
+  </data>
+  <data name="AddApp_TheAppIsSavedIn" xml:space="preserve">
+    <value>The app is saved in the profile only. Installers are not downloaded until install time.</value>
+  </data>
+  <data name="AddApp_Clear" xml:space="preserve">
+    <value>Clear</value>
+  </data>
+  <data name="AppEditor_EditApp" xml:space="preserve">
+    <value>Edit app</value>
+  </data>
+  <data name="AppEditor_Close" xml:space="preserve">
+    <value>Close</value>
+  </data>
+  <data name="AppEditor_IDENTITY" xml:space="preserve">
+    <value>IDENTITY</value>
+  </data>
+  <data name="AppEditor_Name" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="AppEditor_Publisher" xml:space="preserve">
+    <value>Publisher</value>
+  </data>
+  <data name="AppEditor_Category" xml:space="preserve">
+    <value>Category</value>
+  </data>
+  <data name="AppEditor_SOURCE" xml:space="preserve">
+    <value>SOURCE</value>
+  </data>
+  <data name="AppEditor_InstallFrom" xml:space="preserve">
+    <value>Install from</value>
+  </data>
+  <data name="AppEditor_WingetPackageId" xml:space="preserve">
+    <value>winget package id</value>
+  </data>
+  <data name="AppEditor_UseTheExactIdFor" xml:space="preserve">
+    <value>Use the exact id, for example Mozilla.Firefox or 7zip.7zip.</value>
+  </data>
+  <data name="AppEditor_DownloadURL" xml:space="preserve">
+    <value>Download URL</value>
+  </data>
+  <data name="AppEditor_FileNameOverrideOptional" xml:space="preserve">
+    <value>File name override (optional)</value>
+  </data>
+  <data name="AppEditor_RepositoryOwnerProject" xml:space="preserve">
+    <value>Repository (owner/project)</value>
+  </data>
+  <data name="AppEditor_AssetNameBlankBestWindows" xml:space="preserve">
+    <value>Asset name (blank = best Windows asset)</value>
+  </data>
+  <data name="AppEditor_AssetNameBlankMeansThe" xml:space="preserve">
+    <value>Asset name (blank means the best Windows asset)</value>
+  </data>
+  <data name="AppEditor_AssetType" xml:space="preserve">
+    <value>Asset type</value>
+  </data>
+  <data name="AppEditor_InstallerPath" xml:space="preserve">
+    <value>Installer path</value>
+  </data>
+  <data name="AppEditor_LocalInstallerPath" xml:space="preserve">
+    <value>Local installer path</value>
+  </data>
+  <data name="AppEditor_Browse" xml:space="preserve">
+    <value>Browse…</value>
+  </data>
+  <data name="AppEditor_INSTALLBEHAVIOUR" xml:space="preserve">
+    <value>INSTALL BEHAVIOUR</value>
+  </data>
+  <data name="AppEditor_SilentSwitchesBlankAutoDetect" xml:space="preserve">
+    <value>Silent switches (blank = auto-detect at install time)</value>
+  </data>
+  <data name="AppEditor_SilentSwitchesBlankMeansAuto" xml:space="preserve">
+    <value>Silent switches (blank means auto-detect at install time)</value>
+  </data>
+  <data name="AppEditor_SHA256OptionalDirectGitHub" xml:space="preserve">
+    <value>SHA-256 (optional, direct/GitHub/local downloads)</value>
+  </data>
+  <data name="AppEditor_SHA256Optional" xml:space="preserve">
+    <value>SHA-256 (optional)</value>
+  </data>
+  <data name="AppEditor_Notes" xml:space="preserve">
+    <value>Notes</value>
+  </data>
+  <data name="AppEditor_StoredAsPlainTextIn" xml:space="preserve">
+    <value>Stored as plain text in the profile file. Do not put passwords here.</value>
+  </data>
+  <data name="AppEditor_IncludeThisAppInInstalls" xml:space="preserve">
+    <value>Include this app in installs</value>
+  </data>
+  <data name="AppEditor_AFTERINSTALL" xml:space="preserve">
+    <value>AFTER INSTALL</value>
+  </data>
+  <data name="AppEditor_ProgramToRunBlankNo" xml:space="preserve">
+    <value>Program to run (blank = no command)</value>
+  </data>
+  <data name="AppEditor_ProgramToRunBlankMeans" xml:space="preserve">
+    <value>Program to run (blank means no command)</value>
+  </data>
+  <data name="AppEditor_ArgumentsOnePerLineNo" xml:space="preserve">
+    <value>Arguments, one per line (no shell is used)</value>
+  </data>
+  <data name="AppEditor_ArgumentsOnePerLine" xml:space="preserve">
+    <value>Arguments, one per line</value>
+  </data>
+  <data name="AppEditor_WorkingDirectoryOptional" xml:space="preserve">
+    <value>Working directory (optional)</value>
+  </data>
+  <data name="AppEditor_TimeoutSeconds" xml:space="preserve">
+    <value>Timeout (seconds)</value>
+  </data>
+  <data name="AppEditor_TimeoutInSeconds" xml:space="preserve">
+    <value>Timeout in seconds</value>
+  </data>
+  <data name="AppEditor_RunThisCommandAsAdministrator" xml:space="preserve">
+    <value>Run this command as administrator</value>
+  </data>
+  <data name="AppEditor_RunThisCommandAfterThe" xml:space="preserve">
+    <value>Run this command after the app installs</value>
+  </data>
+  <data name="AppEditor_CommandsRunWithoutAShell" xml:space="preserve">
+    <value>Commands run without a shell and are shown in full in the install preview.</value>
+  </data>
+  <data name="AppEditor_ThisProfileDidNotOriginate" xml:space="preserve">
+    <value>This profile did not originate on this PC, so its commands cannot be edited here. Review them from the review screen before they can run.</value>
+  </data>
+  <data name="AppEditor_Cancel" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="AppEditor_SaveChanges" xml:space="preserve">
+    <value>Save changes</value>
+  </data>
+  <data name="AppUpdates_Pinned" xml:space="preserve">
+    <value>Pinned</value>
+  </data>
+  <data name="AppUpdates_IgnoreThisVersion" xml:space="preserve">
+    <value>Ignore this version</value>
+  </data>
+  <data name="AppUpdates_CheckAgain" xml:space="preserve">
+    <value>Check again</value>
+  </data>
+  <data name="AppUpdates_UpdateSelected" xml:space="preserve">
+    <value>Update selected</value>
+  </data>
+  <data name="AppUpdates_UpdateAll" xml:space="preserve">
+    <value>Update all</value>
+  </data>
+  <data name="AppUpdates_Cancel" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="AppUpdates_ShowIgnoredVersions" xml:space="preserve">
+    <value>Show ignored versions</value>
+  </data>
+  <data name="AppUpdates_UpdatesComeFromWingetPinned" xml:space="preserve">
+    <value>Updates come from winget. Pinned apps are never part of Update all.</value>
+  </data>
+  <data name="AppUpdates_NoUpdatesToShowApps" xml:space="preserve">
+    <value>No updates to show. Apps that winget does not know, or whose version it cannot read, are not listed here.</value>
+  </data>
+  <data name="AppUpdates_FROMGITHUBRELEASES" xml:space="preserve">
+    <value>FROM GITHUB RELEASES</value>
+  </data>
+  <data name="AppUpdates_Update" xml:space="preserve">
+    <value>Update</value>
+  </data>
+  <data name="AppUpdates_AppsInstalledFromAGitHub" xml:space="preserve">
+    <value>Apps installed from a GitHub release by CTRL+Z, compared with the repository's latest release.</value>
+  </data>
+  <data name="Browsers_Custom" xml:space="preserve">
+    <value>custom</value>
+  </data>
+  <data name="Browsers_ProfileFolderNotFoundUse" xml:space="preserve">
+    <value>Profile folder not found. Use Add custom browser and point CTRL+Z to the folder containing Local State (Chromium) or profiles.ini (Firefox).</value>
+  </data>
+  <data name="Browsers_AllProfiles" xml:space="preserve">
+    <value>All profiles</value>
+  </data>
+  <data name="Browsers_None" xml:space="preserve">
+    <value>None</value>
+  </data>
+  <data name="Browsers_BackUp" xml:space="preserve">
+    <value>Back up</value>
+  </data>
+  <data name="Browsers_Restore" xml:space="preserve">
+    <value>Restore</value>
+  </data>
+  <data name="Browsers_AddCustomBrowser" xml:space="preserve">
+    <value>Add custom browser</value>
+  </data>
+  <data name="Browsers_Refresh" xml:space="preserve">
+    <value>Refresh</value>
+  </data>
+  <data name="Browsers_BROWSERS" xml:space="preserve">
+    <value>BROWSERS</value>
+  </data>
+  <data name="Browsers_ChooseABrowserThenIts" xml:space="preserve">
+    <value>Choose a browser, then its profiles</value>
+  </data>
+  <data name="Browsers_NoFirefoxOrChromiumBrowsers" xml:space="preserve">
+    <value>No Firefox or Chromium browsers detected</value>
+  </data>
+  <data name="Browsers_IfYouUseALess" xml:space="preserve">
+    <value>If you use a less common fork, point CTRL+Z at its profile root: a Chromium Local State folder or a Firefox folder containing profiles.ini.</value>
+  </data>
+  <data name="Browsers_BackupHeading" xml:space="preserve">
+    <value>BACKUP</value>
+  </data>
+  <data name="Browsers_Destination" xml:space="preserve">
+    <value>Destination</value>
+  </data>
+  <data name="Browsers_OpenTheBackupFolder" xml:space="preserve">
+    <value>Open the backup folder</value>
+  </data>
+  <data name="Browsers_OpenFolder" xml:space="preserve">
+    <value>Open folder</value>
+  </data>
+  <data name="Browsers_ChangeFolder" xml:space="preserve">
+    <value>Change folder</value>
+  </data>
+  <data name="Browsers_PasswordOptional" xml:space="preserve">
+    <value>Password (optional)</value>
+  </data>
+  <data name="Browsers_BackupPasswordOptional" xml:space="preserve">
+    <value>Backup password (optional)</value>
+  </data>
+  <data name="Browsers_AES256EncryptedZIPWindows" xml:space="preserve">
+    <value>AES-256 encrypted ZIP. Windows Explorer cannot open encrypted archives; use CTRL+Z to restore. Leave blank for a normal ZIP.</value>
+  </data>
+  <data name="Browsers_EstimatedBackupSizeActualZIP" xml:space="preserve">
+    <value>Estimated backup size. Actual ZIP size is usually smaller.</value>
+  </data>
+  <data name="Browsers_Excluded" xml:space="preserve">
+    <value>Excluded</value>
+  </data>
+  <data name="Browsers_BackUpSelected" xml:space="preserve">
+    <value>Back up selected</value>
+  </data>
+  <data name="Browsers_Cancel" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="Browsers_PasswordsAndCookiesAreNever" xml:space="preserve">
+    <value>Passwords and cookies are never backed up. Firefox login/key databases and Chromium Login Data/Cookies are excluded. Close the browser when prompted so files are not locked.</value>
+  </data>
+  <data name="Browsers_ARCHIVE" xml:space="preserve">
+    <value>ARCHIVE</value>
+  </data>
+  <data name="Browsers_CTRLZBrowserBackup" xml:space="preserve">
+    <value>CTRL+Z browser backup</value>
+  </data>
+  <data name="Browsers_BackupArchiveToRestore" xml:space="preserve">
+    <value>Backup archive to restore</value>
+  </data>
+  <data name="Browsers_Browse" xml:space="preserve">
+    <value>Browse…</value>
+  </data>
+  <data name="Browsers_Password" xml:space="preserve">
+    <value>Password</value>
+  </data>
+  <data name="Browsers_ArchivePassword" xml:space="preserve">
+    <value>Archive password</value>
+  </data>
+  <data name="Browsers_Inspect" xml:space="preserve">
+    <value>Inspect</value>
+  </data>
+  <data name="Browsers_Verify" xml:space="preserve">
+    <value>Verify</value>
+  </data>
+  <data name="Browsers_ReadsEveryFileInThe" xml:space="preserve">
+    <value>Reads every file in the backup and checks it, without restoring anything.</value>
+  </data>
+  <data name="Browsers_PROFILESINTHISARCHIVE" xml:space="preserve">
+    <value>PROFILES IN THIS ARCHIVE</value>
+  </data>
+  <data name="Browsers_All" xml:space="preserve">
+    <value>All</value>
+  </data>
+  <data name="Browsers_RestoreHeading" xml:space="preserve">
+    <value>RESTORE</value>
+  </data>
+  <data name="Browsers_TargetBrowser" xml:space="preserve">
+    <value>Target browser</value>
+  </data>
+  <data name="Browsers_TheBrowserMustBeInstalled" xml:space="preserve">
+    <value>The browser must be installed and closed. Existing profiles are never deleted; CTRL+Z only writes the files in the archive.</value>
+  </data>
+  <data name="Browsers_RestoreAsNewProfiles" xml:space="preserve">
+    <value>Restore as new profiles</value>
+  </data>
+  <data name="Browsers_RecommendedNewProfileFoldersAre" xml:space="preserve">
+    <value>Recommended. New profile folders are created and registered in the browser's profile list (Local State or profiles.ini), so current profiles stay intact. Uncheck to merge into the original profile names.</value>
+  </data>
+  <data name="Browsers_CookiesAndSavedPasswordsAre" xml:space="preserve">
+    <value>Cookies and saved passwords are not in the archive, so you will sign in again on the new PC. Extensions and their settings are restored.</value>
+  </data>
+  <data name="Browsers_RestoreSelectedProfiles" xml:space="preserve">
+    <value>Restore selected profiles</value>
+  </data>
+  <data name="Catalog_OpenSource" xml:space="preserve">
+    <value>open source</value>
+  </data>
+  <data name="Catalog_OpenProjectPage" xml:space="preserve">
+    <value>Open project page</value>
+  </data>
+  <data name="Catalog_SearchTheCatalog" xml:space="preserve">
+    <value>Search the catalog</value>
+  </data>
+  <data name="Catalog_Search300RecommendedApps" xml:space="preserve">
+    <value>Search 300+ recommended apps</value>
+  </data>
+  <data name="Catalog_Category" xml:space="preserve">
+    <value>Category</value>
+  </data>
+  <data name="Catalog_Refresh" xml:space="preserve">
+    <value>Refresh</value>
+  </data>
+  <data name="Catalog_NoCatalogEntriesToShow" xml:space="preserve">
+    <value>No catalog entries to show</value>
+  </data>
+  <data name="Catalog_RefreshCatalog" xml:space="preserve">
+    <value>Refresh catalog</value>
+  </data>
+  <data name="Catalog_SelectAll" xml:space="preserve">
+    <value>Select all</value>
+  </data>
+  <data name="Catalog_Clear" xml:space="preserve">
+    <value>Clear</value>
+  </data>
+  <data name="Catalog_AddSelected" xml:space="preserve">
+    <value>Add selected</value>
+  </data>
+  <data name="CommandReview_ReviewCommands" xml:space="preserve">
+    <value>Review commands</value>
+  </data>
+  <data name="CommandReview_ReviewPostInstallCommands" xml:space="preserve">
+    <value>Review post-install commands</value>
+  </data>
+  <data name="CommandReview_Close" xml:space="preserve">
+    <value>Close</value>
+  </data>
+  <data name="CommandReview_Previous" xml:space="preserve">
+    <value>Previous</value>
+  </data>
+  <data name="CommandReview_Next" xml:space="preserve">
+    <value>Next</value>
+  </data>
+  <data name="CommandReview_ThisProfileIsMine" xml:space="preserve">
+    <value>This profile is mine…</value>
+  </data>
+  <data name="CommandReview_Done" xml:space="preserve">
+    <value>Done</value>
+  </data>
+  <data name="CommandReview_ApproveThisCommand" xml:space="preserve">
+    <value>Approve this command</value>
+  </data>
+  <data name="Dialog_Close" xml:space="preserve">
+    <value>Close</value>
+  </data>
+  <data name="Drift_ProfileDrift" xml:space="preserve">
+    <value>Profile drift</value>
+  </data>
+  <data name="Drift_AddToProfile" xml:space="preserve">
+    <value>Add to profile</value>
+  </data>
+  <data name="Drift_Install" xml:space="preserve">
+    <value>Install</value>
+  </data>
+  <data name="Drift_Remove" xml:space="preserve">
+    <value>Remove</value>
+  </data>
+  <data name="Drift_Ignore" xml:space="preserve">
+    <value>Ignore</value>
+  </data>
+  <data name="Drift_Close" xml:space="preserve">
+    <value>Close</value>
+  </data>
+  <data name="Drift_INYOURPROFILENOTINSTALLED" xml:space="preserve">
+    <value>IN YOUR PROFILE, NOT INSTALLED</value>
+  </data>
+  <data name="Drift_INSTALLEDNOTINYOURPROFILE" xml:space="preserve">
+    <value>INSTALLED, NOT IN YOUR PROFILE</value>
+  </data>
+  <data name="Drift_OUTDATED" xml:space="preserve">
+    <value>OUTDATED</value>
+  </data>
+  <data name="Drift_NoDifferencesFoundYourSaved" xml:space="preserve">
+    <value>No differences found. Your saved profile matches what is installed on this PC.</value>
+  </data>
+  <data name="Drift_MatchingUsesTheWingetPackage" xml:space="preserve">
+    <value>Matching uses the winget package id first, then the app name and publisher. 'Uncertain' rows are left for you to decide rather than guessed.</value>
+  </data>
+  <data name="Drift_ReCheck" xml:space="preserve">
+    <value>Re-check</value>
+  </data>
+  <data name="Install_StartOver" xml:space="preserve">
+    <value>Start over</value>
+  </data>
+  <data name="Install_RestartRequired" xml:space="preserve">
+    <value>Restart required</value>
+  </data>
+  <data name="Install_SomeInstallersFinishedButNeed" xml:space="preserve">
+    <value>Some installers finished but need a restart to complete.</value>
+  </data>
+  <data name="Install_RestartWindows" xml:space="preserve">
+    <value>Restart Windows</value>
+  </data>
+  <data name="Install_RetryFailed" xml:space="preserve">
+    <value>Retry failed</value>
+  </data>
+  <data name="Install_Pause" xml:space="preserve">
+    <value>Pause</value>
+  </data>
+  <data name="Install_APP" xml:space="preserve">
+    <value>APP</value>
+  </data>
+  <data name="Install_SOURCE" xml:space="preserve">
+    <value>SOURCE</value>
+  </data>
+  <data name="Install_STATUS" xml:space="preserve">
+    <value>STATUS</value>
+  </data>
+  <data name="Install_NothingQueuedYet" xml:space="preserve">
+    <value>Nothing queued yet</value>
+  </data>
+  <data name="Install_AddAppsToAProfile" xml:space="preserve">
+    <value>Add apps to a profile first. The install queue is built from enabled apps in that profile.</value>
+  </data>
+  <data name="Install_OpenMyApps" xml:space="preserve">
+    <value>Open My Apps</value>
+  </data>
+  <data name="Install_ScanThisPC" xml:space="preserve">
+    <value>Scan this PC</value>
+  </data>
+  <data name="Install_BrowseCatalog" xml:space="preserve">
+    <value>Browse catalog</value>
+  </data>
+  <data name="Install_LIVELOG" xml:space="preserve">
+    <value>LIVE LOG</value>
+  </data>
+  <data name="Install_AutoScroll" xml:space="preserve">
+    <value>Auto-scroll</value>
+  </data>
+  <data name="Install_Clear" xml:space="preserve">
+    <value>Clear</value>
+  </data>
+  <data name="Install_OpenLog" xml:space="preserve">
+    <value>Open log</value>
+  </data>
+  <data name="Install_Hide" xml:space="preserve">
+    <value>Hide</value>
+  </data>
+  <data name="Install_ShowLiveLog" xml:space="preserve">
+    <value>Show live log</value>
+  </data>
+  <data name="MyApps_IncludeInInstalls" xml:space="preserve">
+    <value>Include in installs</value>
+  </data>
+  <data name="MyApps_ThisAppHasANote" xml:space="preserve">
+    <value>This app has a note</value>
+  </data>
+  <data name="MyApps_NeedsId" xml:space="preserve">
+    <value>Needs id</value>
+  </data>
+  <data name="MyApps_MoveEarlier" xml:space="preserve">
+    <value>Move earlier</value>
+  </data>
+  <data name="MyApps_MoveLater" xml:space="preserve">
+    <value>Move later</value>
+  </data>
+  <data name="MyApps_EditApp" xml:space="preserve">
+    <value>Edit app</value>
+  </data>
+  <data name="MyApps_RemoveFromProfile" xml:space="preserve">
+    <value>Remove from profile</value>
+  </data>
+  <data name="MyApps_Profile" xml:space="preserve">
+    <value>Profile</value>
+  </data>
+  <data name="MyApps_NewProfile" xml:space="preserve">
+    <value>New profile</value>
+  </data>
+  <data name="MyApps_RenameProfile" xml:space="preserve">
+    <value>Rename profile</value>
+  </data>
+  <data name="MyApps_ImportProfile" xml:space="preserve">
+    <value>Import profile</value>
+  </data>
+  <data name="MyApps_ExportProfile" xml:space="preserve">
+    <value>Export profile</value>
+  </data>
+  <data name="MyApps_DeleteProfile" xml:space="preserve">
+    <value>Delete profile</value>
+  </data>
+  <data name="MyApps_Install" xml:space="preserve">
+    <value>Install</value>
+  </data>
+  <data name="MyApps_SearchApps" xml:space="preserve">
+    <value>Search apps</value>
+  </data>
+  <data name="MyApps_SearchThisProfile" xml:space="preserve">
+    <value>Search this profile</value>
+  </data>
+  <data name="MyApps_Source" xml:space="preserve">
+    <value>Source</value>
+  </data>
+  <data name="MyApps_Category" xml:space="preserve">
+    <value>Category</value>
+  </data>
+  <data name="MyApps_AddApp" xml:space="preserve">
+    <value>Add app</value>
+  </data>
+  <data name="MyApps_ImportList" xml:space="preserve">
+    <value>Import list</value>
+  </data>
+  <data name="MyApps_AddAppsFromAWinget" xml:space="preserve">
+    <value>Add apps from a winget, Scoop or Chocolatey export file</value>
+  </data>
+  <data name="MyApps_CheckDrift" xml:space="preserve">
+    <value>Check drift</value>
+  </data>
+  <data name="MyApps_APP" xml:space="preserve">
+    <value>APP</value>
+  </data>
+  <data name="MyApps_SourceHeading" xml:space="preserve">
+    <value>SOURCE</value>
+  </data>
+  <data name="MyApps_INSTALLMETHOD" xml:space="preserve">
+    <value>INSTALL METHOD</value>
+  </data>
+  <data name="MyApps_ThisProfileIsEmpty" xml:space="preserve">
+    <value>This profile is empty</value>
+  </data>
+  <data name="MyApps_ScanThisPCToBuild" xml:space="preserve">
+    <value>Scan this PC to build the list automatically, or browse the catalog and add apps by hand.</value>
+  </data>
+  <data name="MyApps_ScanThisPC" xml:space="preserve">
+    <value>Scan this PC</value>
+  </data>
+  <data name="MyApps_BrowseCatalog" xml:space="preserve">
+    <value>Browse catalog</value>
+  </data>
+  <data name="MyApps_SelectAll" xml:space="preserve">
+    <value>Select all</value>
+  </data>
+  <data name="MyApps_AddApps" xml:space="preserve">
+    <value>Add apps</value>
+  </data>
+  <data name="Preview_PreviewInstall" xml:space="preserve">
+    <value>Preview install</value>
+  </data>
+  <data name="Preview_Switches" xml:space="preserve">
+    <value>Switches:</value>
+  </data>
+  <data name="Preview_AfterInstallRuns" xml:space="preserve">
+    <value>After install, runs:</value>
+  </data>
+  <data name="Preview_Close" xml:space="preserve">
+    <value>Close</value>
+  </data>
+  <data name="Preview_NothingHasBeenInstalledYet" xml:space="preserve">
+    <value>Nothing has been installed yet. The dry run only looks things up: it checks winget ids, release assets and links, and reads local files. It never downloads an installer to disk and never runs one.</value>
+  </data>
+  <data name="Preview_DryRun" xml:space="preserve">
+    <value>Dry run</value>
+  </data>
+  <data name="Preview_ExportReport" xml:space="preserve">
+    <value>Export report</value>
+  </data>
+  <data name="Preview_ReviewCommands" xml:space="preserve">
+    <value>Review commands</value>
+  </data>
+  <data name="Preview_Cancel" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="Preview_InstallNow" xml:space="preserve">
+    <value>Install now</value>
+  </data>
+  <data name="Readiness_Handled" xml:space="preserve">
+    <value>Handled</value>
+  </data>
+  <data name="Readiness_Ignore" xml:space="preserve">
+    <value>Ignore</value>
+  </data>
+  <data name="Readiness_UnIgnore" xml:space="preserve">
+    <value>Un-ignore</value>
+  </data>
+  <data name="Readiness_ReviewDriftInMyApps" xml:space="preserve">
+    <value>Review drift in My Apps</value>
+  </data>
+  <data name="Readiness_ReScan" xml:space="preserve">
+    <value>Re-scan</value>
+  </data>
+  <data name="Readiness_Cancel" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="Readiness_ShowHandledAndIgnored" xml:space="preserve">
+    <value>Show handled and ignored</value>
+  </data>
+  <data name="Readiness_NothingHereIsUploadedAnd" xml:space="preserve">
+    <value>Nothing here is uploaded, and no file is changed.</value>
+  </data>
+  <data name="Readiness_NothingToShowRunA" xml:space="preserve">
+    <value>Nothing to show. Run a check, or turn on 'Show handled and ignored' to see items you already dealt with.</value>
+  </data>
+  <data name="Readiness_WhatThisDoesNotCover" xml:space="preserve">
+    <value>What this does not cover: CTRL+Z cannot see files inside password-protected backup apps, cloud-only files that are not downloaded, or data held only by an online account. It also does not back up anything itself on this page — use the Browsers page and your own external copies for that.</value>
+  </data>
+  <data name="Scan_IncludeApp" xml:space="preserve">
+    <value>Include app</value>
+  </data>
+  <data name="Scan_Fix" xml:space="preserve">
+    <value>Fix</value>
+  </data>
+  <data name="Scan_AssignAWingetPackageId" xml:space="preserve">
+    <value>Assign a winget package id manually</value>
+  </data>
+  <data name="Scan_ScanThisPC" xml:space="preserve">
+    <value>Scan this PC</value>
+  </data>
+  <data name="Scan_CancelScan" xml:space="preserve">
+    <value>Cancel scan</value>
+  </data>
+  <data name="Scan_SearchPrograms" xml:space="preserve">
+    <value>Search programs</value>
+  </data>
+  <data name="Scan_FilterByCategory" xml:space="preserve">
+    <value>Filter by category</value>
+  </data>
+  <data name="Scan_Category" xml:space="preserve">
+    <value>Category</value>
+  </data>
+  <data name="Scan_Source" xml:space="preserve">
+    <value>Source</value>
+  </data>
+  <data name="Scan_FilterByMatchStatus" xml:space="preserve">
+    <value>Filter by match status</value>
+  </data>
+  <data name="Scan_ShowAllAppsOnlyMatched" xml:space="preserve">
+    <value>Show all apps, only matched apps, or only unmatched apps</value>
+  </data>
+  <data name="Scan_Total" xml:space="preserve">
+    <value> total</value>
+  </data>
+  <data name="Scan_Matched" xml:space="preserve">
+    <value> matched</value>
+  </data>
+  <data name="Scan_Unmatched" xml:space="preserve">
+    <value> unmatched</value>
+  </data>
+  <data name="Scan_ReadingInstalledPrograms" xml:space="preserve">
+    <value>Reading installed programs</value>
+  </data>
+  <data name="Scan_Cancel" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="Scan_StartWithThisPC" xml:space="preserve">
+    <value>Start with this PC</value>
+  </data>
+  <data name="Scan_CTRLZReadsWingetThe" xml:space="preserve">
+    <value>CTRL+Z reads winget, the Windows registry, and your Store apps, then finds winget package ids for each one. Nothing leaves this machine.</value>
+  </data>
+  <data name="Scan_F5AlsoStartsAScan" xml:space="preserve">
+    <value>F5 also starts a scan</value>
+  </data>
+  <data name="Scan_PROGRAM" xml:space="preserve">
+    <value>PROGRAM</value>
+  </data>
+  <data name="Scan_SourceHeading" xml:space="preserve">
+    <value>SOURCE</value>
+  </data>
+  <data name="Scan_WINGETMATCH" xml:space="preserve">
+    <value>WINGET MATCH</value>
+  </data>
+  <data name="Scan_NoProgramsMatchTheseFilters" xml:space="preserve">
+    <value>No programs match these filters.</value>
+  </data>
+  <data name="Scan_SelectAll" xml:space="preserve">
+    <value>Select all</value>
+  </data>
+  <data name="Scan_SelectEveryAppVisibleUnder" xml:space="preserve">
+    <value>Select every app visible under the current match filter</value>
+  </data>
+  <data name="Scan_SelectMatched" xml:space="preserve">
+    <value>Select matched</value>
+  </data>
+  <data name="Scan_SelectMatchedAppsVisibleUnder" xml:space="preserve">
+    <value>Select matched apps visible under the current filters</value>
+  </data>
+  <data name="Scan_Clear" xml:space="preserve">
+    <value>Clear</value>
+  </data>
+  <data name="Scan_SaveAsProfile" xml:space="preserve">
+    <value>Save as profile…</value>
+  </data>
+  <data name="Scan_AddToMyApps" xml:space="preserve">
+    <value>Add to My Apps</value>
+  </data>
+  <data name="Settings_APPEARANCE" xml:space="preserve">
+    <value>APPEARANCE</value>
+  </data>
+  <data name="Settings_Theme" xml:space="preserve">
+    <value>Theme</value>
+  </data>
+  <data name="Settings_System" xml:space="preserve">
+    <value>System</value>
+  </data>
+  <data name="Settings_Light" xml:space="preserve">
+    <value>Light</value>
+  </data>
+  <data name="Settings_Dark" xml:space="preserve">
+    <value>Dark</value>
+  </data>
+  <data name="Settings_LOCALDATA" xml:space="preserve">
+    <value>LOCAL DATA</value>
+  </data>
+  <data name="Settings_ProfilesDownloadsArchivesAndLogs" xml:space="preserve">
+    <value>Profiles, downloads, archives, and logs live under one folder. Nothing is uploaded.</value>
+  </data>
+  <data name="Settings_OpenDataFolder" xml:space="preserve">
+    <value>Open data folder</value>
+  </data>
+  <data name="Settings_Profiles" xml:space="preserve">
+    <value>Profiles</value>
+  </data>
+  <data name="Settings_Logs" xml:space="preserve">
+    <value>Logs</value>
+  </data>
+  <data name="Settings_INSTALLING" xml:space="preserve">
+    <value>INSTALLING</value>
+  </data>
+  <data name="Settings_ShowAPreviewBeforeInstalling" xml:space="preserve">
+    <value>Show a preview before installing</value>
+  </data>
+  <data name="Settings_ThePreviewListsEachApp" xml:space="preserve">
+    <value>The preview lists each app, its source, switches and warnings, and can dry-run the whole list without installing anything.</value>
+  </data>
+  <data name="Settings_AddPortableAppsToThe" xml:space="preserve">
+    <value>Add portable apps to the Start menu</value>
+  </data>
+  <data name="Settings_PortableAppsGetAShortcut" xml:space="preserve">
+    <value>Portable apps get a shortcut in the Start menu under CTRL+Z apps, in your own user profile.</value>
+  </data>
+  <data name="Settings_IncludeNotesInExports" xml:space="preserve">
+    <value>Include notes in exports</value>
+  </data>
+  <data name="Settings_OffByDefaultWhenOff" xml:space="preserve">
+    <value>Off by default. When off, exported reports show (note hidden) instead of your app notes. Notes are never written to the application log.</value>
+  </data>
+  <data name="Settings_UPDATES" xml:space="preserve">
+    <value>UPDATES</value>
+  </data>
+  <data name="Settings_CheckForUpdatesAutomatically" xml:space="preserve">
+    <value>Check for updates automatically</value>
+  </data>
+  <data name="Settings_Channel" xml:space="preserve">
+    <value>Channel</value>
+  </data>
+  <data name="Settings_Stable" xml:space="preserve">
+    <value>Stable</value>
+  </data>
+  <data name="Settings_PreRelease" xml:space="preserve">
+    <value>Pre-release</value>
+  </data>
+  <data name="Settings_CheckForUpdates" xml:space="preserve">
+    <value>Check for updates</value>
+  </data>
+  <data name="Settings_OnlyTheVersionCheckAnd" xml:space="preserve">
+    <value>Only the version check and an update download talk to GitHub. Nothing else is sent, and CTRL+Z has no telemetry.</value>
+  </data>
+  <data name="Settings_ABOUT" xml:space="preserve">
+    <value>ABOUT</value>
+  </data>
+  <data name="Settings_ALocalFirstWindowsReinstall" xml:space="preserve">
+    <value>A local-first Windows reinstall assistant. No account, no telemetry. Browser backups exclude passwords and cookies by design.</value>
+  </data>
+  <data name="Settings_AGPL30Only" xml:space="preserve">
+    <value>AGPL-3.0-only</value>
+  </data>
+  <data name="Settings_SourceCode" xml:space="preserve">
+    <value>Source code</value>
+  </data>
+  <data name="Settings_CopyDiagnostics" xml:space="preserve">
+    <value>Copy diagnostics</value>
+  </data>
+  <data name="Settings_SaveDiagnostics" xml:space="preserve">
+    <value>Save diagnostics…</value>
+  </data>
+  <data name="Settings_SavesAZIPWithVersions" xml:space="preserve">
+    <value>Saves a ZIP with versions, settings switches, counts and recent logs with paths and names removed. Nothing is sent.</value>
+  </data>
+  <data name="Settings_WelcomeGuide" xml:space="preserve">
+    <value>Welcome guide</value>
+  </data>
+  <data name="Settings_PACKAGEMANAGER" xml:space="preserve">
+    <value>PACKAGE MANAGER</value>
+  </data>
+  <data name="Settings_WingetIsUsedForCatalog" xml:space="preserve">
+    <value>winget is used for catalog apps. CTRL+Z can bootstrap it on a clean Windows install using Microsoft App Installer.</value>
+  </data>
+  <data name="Settings_CheckAgain" xml:space="preserve">
+    <value>Check again</value>
+  </data>
+  <data name="Settings_UpdateWinget" xml:space="preserve">
+    <value>Update winget</value>
+  </data>
+  <data name="Settings_ApplicationLogHeading" xml:space="preserve">
+    <value>APPLICATION LOG</value>
+  </data>
+  <data name="Settings_Refresh" xml:space="preserve">
+    <value>Refresh</value>
+  </data>
+  <data name="Settings_OpenLog" xml:space="preserve">
+    <value>Open log</value>
+  </data>
+  <data name="Settings_ApplicationLog" xml:space="preserve">
+    <value>Application log</value>
+  </data>
+  <data name="Tweaks_SetWindowsUpTheWay" xml:space="preserve">
+    <value>Set Windows up the way you like it</value>
+  </data>
+  <data name="Tweaks_EachTweakChangesAFew" xml:space="preserve">
+    <value>Each tweak changes a few settings for your Windows account only, with no admin rights. CTRL+Z saves what was there first, so Undo puts it back exactly. Applied tweaks are saved in your profile for the next reinstall.</value>
+  </data>
+  <data name="Tweaks_RestartFileExplorer" xml:space="preserve">
+    <value>Restart File Explorer</value>
+  </data>
+  <data name="Tweaks_SomeChangesShowUpOnly" xml:space="preserve">
+    <value>Some changes show up only after File Explorer restarts.</value>
+  </data>
+  <data name="Tweaks_ApplyThem" xml:space="preserve">
+    <value>Apply them</value>
+  </data>
+  <data name="UpdatePrompt_UpdateAvailable" xml:space="preserve">
+    <value>Update available</value>
+  </data>
+  <data name="UpdatePrompt_Close" xml:space="preserve">
+    <value>Close</value>
+  </data>
+  <data name="UpdatePrompt_ViewReleaseOnGitHub" xml:space="preserve">
+    <value>View release on GitHub</value>
+  </data>
+  <data name="UpdatePrompt_SkipThisVersion" xml:space="preserve">
+    <value>Skip this version</value>
+  </data>
+  <data name="UpdatePrompt_RemindMeLater" xml:space="preserve">
+    <value>Remind me later</value>
+  </data>
+  <data name="UpdatePrompt_UpdateNow" xml:space="preserve">
+    <value>Update now</value>
+  </data>
+  <data name="UpdatePrompt_Cancel" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="Welcome_WelcomeToCTRLZ" xml:space="preserve">
+    <value>Welcome to CTRL+Z</value>
+  </data>
+  <data name="Welcome_Close" xml:space="preserve">
+    <value>Close</value>
+  </data>
+  <data name="Welcome_ReinstallWindowsWithoutLosingYour" xml:space="preserve">
+    <value>Reinstall Windows without losing your setup.</value>
+  </data>
+  <data name="Welcome_CTRLZKeepsAList" xml:space="preserve">
+    <value>CTRL+Z keeps a list of your apps and backs up your browsers, then puts them back on a fresh install. Everything stays on this PC unless you copy it somewhere.</value>
+  </data>
+  <data name="Welcome_BEFOREYOUREINSTALL" xml:space="preserve">
+    <value>BEFORE YOU REINSTALL</value>
+  </data>
+  <data name="Welcome_1ScanThisPCTo" xml:space="preserve">
+    <value>1.  Scan this PC to build your app list, then tidy it in My Apps.</value>
+  </data>
+  <data name="Welcome_2BackUpYourBrowsers" xml:space="preserve">
+    <value>2.  Back up your browsers (bookmarks, history, extensions; never passwords or cookies).</value>
+  </data>
+  <data name="Welcome_3OpenReadyToWipe" xml:space="preserve">
+    <value>3.  Open Ready to wipe and work through the checklist.</value>
+  </data>
+  <data name="Welcome_4CopyYourProfileAnd" xml:space="preserve">
+    <value>4.  Copy your profile and browser backups to a USB drive or another PC.</value>
+  </data>
+  <data name="Welcome_ONAFRESHINSTALL" xml:space="preserve">
+    <value>ON A FRESH INSTALL</value>
+  </data>
+  <data name="Welcome_1ImportYourProfileIn" xml:space="preserve">
+    <value>1.  Import your profile in My Apps.</value>
+  </data>
+  <data name="Welcome_2CheckTheInstallPreview" xml:space="preserve">
+    <value>2.  Check the install preview, then install everything in one go.</value>
+  </data>
+  <data name="Welcome_3RestoreYourBrowserBackups" xml:space="preserve">
+    <value>3.  Restore your browser backups on the Browsers page.</value>
+  </data>
+  <data name="Welcome_YouCanOpenThisGuide" xml:space="preserve">
+    <value>You can open this guide again from Settings. Ctrl+1 to Ctrl+9 jump between pages.</value>
+  </data>
+  <data name="Welcome_IMOnAFresh" xml:space="preserve">
+    <value>I'm on a fresh install</value>
+  </data>
+  <data name="Welcome_StartWithAScan" xml:space="preserve">
+    <value>Start with a scan</value>
+  </data>
+  <data name="WingetMatch_MatchToWinget" xml:space="preserve">
+    <value>Match to winget</value>
+  </data>
+  <data name="WingetMatch_Close" xml:space="preserve">
+    <value>Close</value>
+  </data>
+  <data name="WingetMatch_FindTheWingetPackageFor" xml:space="preserve">
+    <value>Find the winget package for this installed app.</value>
+  </data>
+  <data name="WingetMatch_SearchWinget" xml:space="preserve">
+    <value>Search winget</value>
+  </data>
+  <data name="WingetMatch_Search" xml:space="preserve">
+    <value>Search</value>
+  </data>
+  <data name="WingetMatch_SearchForTheAppName" xml:space="preserve">
+    <value>Search for the app name, or paste a package id below.</value>
+  </data>
+  <data name="WingetMatch_PackageId" xml:space="preserve">
+    <value>Package id</value>
+  </data>
+  <data name="WingetMatch_Cancel" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="WingetMatch_UseThisId" xml:space="preserve">
+    <value>Use this id</value>
+  </data>
+  <data name="Browsers_BackUpName" xml:space="preserve">
+    <value>Back up {0}</value>
+  </data>
+  <data name="Catalog_SelectName" xml:space="preserve">
+    <value>Select {0}</value>
+  </data>
+  <data name="Catalog_OpenNameWebsite" xml:space="preserve">
+    <value>Open the {0} website</value>
+  </data>
+  <data name="Install_AttemptNumber" xml:space="preserve">
+    <value>Attempt {0}</value>
+  </data>
+  <data name="MyApps_MoveNameUp" xml:space="preserve">
+    <value>Move {0} up</value>
+  </data>
+  <data name="MyApps_MoveNameDown" xml:space="preserve">
+    <value>Move {0} down</value>
+  </data>
+  <data name="MyApps_EditName" xml:space="preserve">
+    <value>Edit {0}</value>
+  </data>
+  <data name="MyApps_RemoveName" xml:space="preserve">
+    <value>Remove {0}</value>
+  </data>
+  <data name="Settings_VersionNumber" xml:space="preserve">
+    <value>Version {0}</value>
+  </data>
+  <data name="Tweaks_ApplyOrUndoName" xml:space="preserve">
+    <value>Apply or undo: {0}</value>
+  </data>
+</root>

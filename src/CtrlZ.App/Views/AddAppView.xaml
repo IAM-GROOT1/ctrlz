@@ -4,6 +4,7 @@
 <UserControl x:Class="CtrlZ.App.Views.AddAppView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:l="clr-namespace:CtrlZ.App.Localization"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d" d:DesignHeight="620" d:DesignWidth="900">
@@ -22,11 +23,11 @@
             </Grid.ColumnDefinitions>
             <Border Style="{StaticResource Border.Inset}" Padding="2">
                 <StackPanel Orientation="Horizontal">
-                    <ToggleButton Content="Direct link" Style="{StaticResource Toggle.Pill}"
+                    <ToggleButton Content="{l:Tr AddApp_DirectLink}" Style="{StaticResource Toggle.Pill}"
                                   IsChecked="{Binding IsDirectTab, Mode=TwoWay}" />
-                    <ToggleButton Content="GitHub release" Style="{StaticResource Toggle.Pill}"
+                    <ToggleButton Content="{l:Tr AddApp_GitHubRelease}" Style="{StaticResource Toggle.Pill}"
                                   IsChecked="{Binding IsGitHubTab, Mode=TwoWay}" />
-                    <ToggleButton Content="Local file" Style="{StaticResource Toggle.Pill}"
+                    <ToggleButton Content="{l:Tr AddApp_LocalFile}" Style="{StaticResource Toggle.Pill}"
                                   IsChecked="{Binding IsLocalTab, Mode=TwoWay}" />
                 </StackPanel>
             </Border>
@@ -45,9 +46,9 @@
             <Border Grid.Column="0" Style="{StaticResource Border.Card}" Padding="0">
                 <ScrollViewer VerticalScrollBarVisibility="Auto" Padding="18,16,18,14">
                     <StackPanel>
-                        <TextBlock Text="APP DETAILS" Style="{StaticResource Text.NavSection}" Margin="0,0,0,10" />
-                        <TextBlock Text="Name" Style="{StaticResource Text.Label}" />
-                        <TextBox AutomationProperties.Name="Name" Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}" />
+                        <TextBlock Text="{l:Tr AddApp_APPDETAILS}" Style="{StaticResource Text.NavSection}" Margin="0,0,0,10" />
+                        <TextBlock Text="{l:Tr AddApp_Name}" Style="{StaticResource Text.Label}" />
+                        <TextBox AutomationProperties.Name="{l:Tr AddApp_Name}" Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}" />
 
                         <Grid Margin="0,12,0,0">
                             <Grid.ColumnDefinitions>
@@ -56,42 +57,42 @@
                                 <ColumnDefinition Width="180" />
                             </Grid.ColumnDefinitions>
                             <StackPanel>
-                                <TextBlock Text="Publisher (optional)" Style="{StaticResource Text.Label}" />
-                                <TextBox AutomationProperties.Name="Publisher (optional)" Text="{Binding Publisher, UpdateSourceTrigger=PropertyChanged}" />
+                                <TextBlock Text="{l:Tr AddApp_PublisherOptional}" Style="{StaticResource Text.Label}" />
+                                <TextBox AutomationProperties.Name="{l:Tr AddApp_PublisherOptional}" Text="{Binding Publisher, UpdateSourceTrigger=PropertyChanged}" />
                             </StackPanel>
                             <StackPanel Grid.Column="2">
-                                <TextBlock Text="Category" Style="{StaticResource Text.Label}" />
-                                <ComboBox AutomationProperties.Name="Category" ItemsSource="{Binding Categories}" SelectedItem="{Binding SelectedCategory}"
+                                <TextBlock Text="{l:Tr AddApp_Category}" Style="{StaticResource Text.Label}" />
+                                <ComboBox AutomationProperties.Name="{l:Tr AddApp_Category}" ItemsSource="{Binding Categories}" SelectedItem="{Binding SelectedCategory}"
                                           DisplayMemberPath="Label" />
                             </StackPanel>
                         </Grid>
 
-                        <TextBlock Text="INSTALLER SOURCE" Style="{StaticResource Text.NavSection}" Margin="0,20,0,10" />
+                        <TextBlock Text="{l:Tr AddApp_INSTALLERSOURCE}" Style="{StaticResource Text.NavSection}" Margin="0,20,0,10" />
 
                         <StackPanel Visibility="{Binding IsDirect, Converter={StaticResource BoolToVisibility}}">
-                            <TextBlock Text="Download URL" Style="{StaticResource Text.Label}" />
-                            <TextBox AutomationProperties.Name="Download URL" Text="{Binding Url, UpdateSourceTrigger=PropertyChanged}" />
-                            <TextBlock Text="Save as file name (optional)" Style="{StaticResource Text.Label}" Margin="0,12,0,6" />
-                            <TextBox AutomationProperties.Name="Save as file name (optional)" Text="{Binding FileName, UpdateSourceTrigger=PropertyChanged}" />
-                            <TextBlock Text="The app downloads at install time. Add switches on the right so it installs silently."
+                            <TextBlock Text="{l:Tr AddApp_DownloadURL}" Style="{StaticResource Text.Label}" />
+                            <TextBox AutomationProperties.Name="{l:Tr AddApp_DownloadURL}" Text="{Binding Url, UpdateSourceTrigger=PropertyChanged}" />
+                            <TextBlock Text="{l:Tr AddApp_SaveAsFileNameOptional}" Style="{StaticResource Text.Label}" Margin="0,12,0,6" />
+                            <TextBox AutomationProperties.Name="{l:Tr AddApp_SaveAsFileNameOptional}" Text="{Binding FileName, UpdateSourceTrigger=PropertyChanged}" />
+                            <TextBlock Text="{l:Tr AddApp_TheAppDownloadsAtInstall}"
                                        Style="{StaticResource Text.Caption}" Margin="0,6,0,0" TextWrapping="Wrap" />
                         </StackPanel>
 
                         <StackPanel Visibility="{Binding IsGitHub, Converter={StaticResource BoolToVisibility}}">
-                            <TextBlock Text="Repository" Style="{StaticResource Text.Label}" />
+                            <TextBlock Text="{l:Tr AddApp_Repository}" Style="{StaticResource Text.Label}" />
                             <Grid>
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="*" />
                                     <ColumnDefinition Width="Auto" />
                                 </Grid.ColumnDefinitions>
-                                <TextBox AutomationProperties.Name="GitHub repository" Text="{Binding Repo, UpdateSourceTrigger=PropertyChanged}" />
-                                <Button Grid.Column="1" Content="Find latest" Style="{StaticResource Button.Secondary}"
+                                <TextBox AutomationProperties.Name="{l:Tr AddApp_GitHubRepository}" Text="{Binding Repo, UpdateSourceTrigger=PropertyChanged}" />
+                                <Button Grid.Column="1" Content="{l:Tr AddApp_FindLatest}" Style="{StaticResource Button.Secondary}"
                                         Margin="8,0,0,0" Command="{Binding FindReleaseCommand}"
                                         IsEnabled="{Binding IsLoadingRelease, Converter={StaticResource BoolNegation}}" />
                             </Grid>
                             <TextBlock Text="{Binding ReleaseInfo}" Style="{StaticResource Text.Caption}" Margin="0,7,0,0"
                                        TextWrapping="Wrap" />
-                            <TextBlock Text="Release assets" Style="{StaticResource Text.Label}" Margin="0,12,0,6" />
+                            <TextBlock Text="{l:Tr AddApp_ReleaseAssets}" Style="{StaticResource Text.Label}" Margin="0,12,0,6" />
                             <Border Style="{StaticResource Border.Inset}" Height="142" Padding="3">
                                 <Grid>
                                     <ListBox ItemsSource="{Binding Assets}" SelectedItem="{Binding SelectedAsset}"
@@ -115,39 +116,39 @@
                                             </DataTemplate>
                                         </ListBox.ItemTemplate>
                                     </ListBox>
-                                    <TextBlock Text="Find the latest release to choose a Windows asset."
+                                    <TextBlock Text="{l:Tr AddApp_FindTheLatestReleaseTo}"
                                                Style="{StaticResource Text.Secondary}" HorizontalAlignment="Center"
                                                VerticalAlignment="Center" TextAlignment="Center" Margin="20"
                                                Visibility="{Binding HasAssets, Converter={StaticResource InverseBoolToVisibility}}" />
                                 </Grid>
                             </Border>
-                            <TextBlock Text="Asset handling" Style="{StaticResource Text.Label}" Margin="0,12,0,6" />
-                            <ComboBox AutomationProperties.Name="Asset handling" ItemsSource="{Binding AssetKinds}" SelectedItem="{Binding SelectedAssetKind}"
+                            <TextBlock Text="{l:Tr AddApp_AssetHandling}" Style="{StaticResource Text.Label}" Margin="0,12,0,6" />
+                            <ComboBox AutomationProperties.Name="{l:Tr AddApp_AssetHandling}" ItemsSource="{Binding AssetKinds}" SelectedItem="{Binding SelectedAssetKind}"
                                       DisplayMemberPath="Label" />
-                            <TextBlock Text="The latest release is checked again at install time; the chosen asset type is reused, not the stale version."
+                            <TextBlock Text="{l:Tr AddApp_TheLatestReleaseIsChecked}"
                                        Style="{StaticResource Text.Caption}" Margin="0,6,0,0" TextWrapping="Wrap" />
                         </StackPanel>
 
                         <StackPanel Visibility="{Binding IsLocal, Converter={StaticResource BoolToVisibility}}">
-                            <TextBlock Text="Installer file" Style="{StaticResource Text.Label}" />
+                            <TextBlock Text="{l:Tr AddApp_InstallerFile}" Style="{StaticResource Text.Label}" />
                             <Grid>
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="*" />
                                     <ColumnDefinition Width="Auto" />
                                     <ColumnDefinition Width="Auto" />
                                 </Grid.ColumnDefinitions>
-                                <TextBox AutomationProperties.Name="Installer path" Text="{Binding LocalPath, UpdateSourceTrigger=PropertyChanged}" />
-                                <Button Grid.Column="1" Content="File…" Style="{StaticResource Button.Secondary}"
+                                <TextBox AutomationProperties.Name="{l:Tr AddApp_InstallerPath}" Text="{Binding LocalPath, UpdateSourceTrigger=PropertyChanged}" />
+                                <Button Grid.Column="1" Content="{l:Tr AddApp_File}" Style="{StaticResource Button.Secondary}"
                                         Margin="8,0,0,0" Command="{Binding BrowseLocalCommand}" />
-                                <Button Grid.Column="2" Content="Folder…" Style="{StaticResource Button.Ghost}"
+                                <Button Grid.Column="2" Content="{l:Tr AddApp_Folder}" Style="{StaticResource Button.Ghost}"
                                         Margin="4,0,0,0" Command="{Binding BrowseFolderCommand}" />
                             </Grid>
-                            <TextBlock Text="Keep the USB drive or folder available when you run the install."
+                            <TextBlock Text="{l:Tr AddApp_KeepTheUSBDriveOr}"
                                        Style="{StaticResource Text.Caption}" Margin="0,6,0,0" TextWrapping="Wrap" />
                         </StackPanel>
 
-                        <TextBlock Text="NOTES" Style="{StaticResource Text.NavSection}" Margin="0,20,0,10" />
-                        <TextBox AutomationProperties.Name="Notes" Text="{Binding Notes, UpdateSourceTrigger=PropertyChanged}" Height="64" AcceptsReturn="True"
+                        <TextBlock Text="{l:Tr AddApp_NotesHeading}" Style="{StaticResource Text.NavSection}" Margin="0,20,0,10" />
+                        <TextBox AutomationProperties.Name="{l:Tr AddApp_Notes}" Text="{Binding Notes, UpdateSourceTrigger=PropertyChanged}" Height="64" AcceptsReturn="True"
                                  TextWrapping="Wrap" VerticalContentAlignment="Top" VerticalScrollBarVisibility="Auto" />
                     </StackPanel>
                 </ScrollViewer>
@@ -157,48 +158,48 @@
             <Border Grid.Column="2" Style="{StaticResource Border.Card}" Padding="0">
                 <ScrollViewer VerticalScrollBarVisibility="Auto" Padding="18,16,18,14">
                     <StackPanel>
-                        <TextBlock Text="SILENT INSTALL" Style="{StaticResource Text.NavSection}" Margin="0,0,0,10" />
-                        <TextBlock Text="CTRL+Z detects the installer type and picks a known switch set. Custom switches always win."
+                        <TextBlock Text="{l:Tr AddApp_SILENTINSTALL}" Style="{StaticResource Text.NavSection}" Margin="0,0,0,10" />
+                        <TextBlock Text="{l:Tr AddApp_CTRLZDetectsTheInstaller}"
                                    Style="{StaticResource Text.Secondary}" TextWrapping="Wrap" />
 
                         <Border Style="{StaticResource Border.Inset}" Padding="11,9" Margin="0,14,0,0">
                             <Grid>
-                                <TextBlock Text="Detected" Style="{StaticResource Text.Label}" Margin="0,0,0,3" />
+                                <TextBlock Text="{l:Tr AddApp_Detected}" Style="{StaticResource Text.Label}" Margin="0,0,0,3" />
                                 <TextBlock Text="{Binding DetectedInstaller}" FontWeight="SemiBold" FontSize="12.5"
                                            Margin="0,15,0,0" TextWrapping="Wrap" />
                             </Grid>
                         </Border>
 
-                        <TextBlock Text="Silent switches" Style="{StaticResource Text.Label}" Margin="0,14,0,6" />
-                        <TextBox AutomationProperties.Name="Silent switches" Text="{Binding SilentArgs, UpdateSourceTrigger=PropertyChanged}" FontFamily="{StaticResource Font.Mono}" />
+                        <TextBlock Text="{l:Tr AddApp_SilentSwitches}" Style="{StaticResource Text.Label}" Margin="0,14,0,6" />
+                        <TextBox AutomationProperties.Name="{l:Tr AddApp_SilentSwitches}" Text="{Binding SilentArgs, UpdateSourceTrigger=PropertyChanged}" FontFamily="{StaticResource Font.Mono}" />
                         <WrapPanel Margin="0,8,0,0">
-                            <Button Content="Inspect installer" Style="{StaticResource Button.Secondary}"
+                            <Button Content="{l:Tr AddApp_InspectInstaller}" Style="{StaticResource Button.Secondary}"
                                     Command="{Binding DetectInstallerCommand}" Margin="0,0,6,6" />
-                            <Button Content="Use recommended" Style="{StaticResource Button.Ghost}"
+                            <Button Content="{l:Tr AddApp_UseRecommended}" Style="{StaticResource Button.Ghost}"
                                     Command="{Binding UseRecommendedCommand}" IsEnabled="{Binding HasRecommended}"
                                     Margin="0,0,2,6" />
-                            <Button Content="Test…" Style="{StaticResource Button.Ghost}"
+                            <Button Content="{l:Tr AddApp_Test}" Style="{StaticResource Button.Ghost}"
                                     Command="{Binding TestInstallerCommand}" IsEnabled="{Binding CanTest}"
                                     Margin="0,0,0,6" />
                         </WrapPanel>
                         <TextBlock Text="{Binding RecommendedArgs}" Style="{StaticResource Text.Caption}"
                                    FontFamily="{StaticResource Font.Mono}" TextWrapping="Wrap" Margin="0,8,0,0" />
 
-                        <TextBlock Text="Command preview" Style="{StaticResource Text.Label}" Margin="0,16,0,6" />
+                        <TextBlock Text="{l:Tr AddApp_CommandPreview}" Style="{StaticResource Text.Label}" Margin="0,16,0,6" />
                         <Border Style="{StaticResource Border.Inset}" Background="{DynamicResource Brush.LogBackground}" Padding="10,8">
                             <TextBlock Text="{Binding PreviewCommand, TargetNullValue='Inspect an installer to preview the command.'}"
                                        FontFamily="{StaticResource Font.Mono}" FontSize="10.5" TextWrapping="Wrap"
                                        Foreground="{DynamicResource Brush.TextSecondary}" />
                         </Border>
 
-                        <TextBlock Text="SHA-256 (optional)" Style="{StaticResource Text.Label}" Margin="0,14,0,6" />
-                        <TextBox AutomationProperties.Name="SHA-256 (optional)" Text="{Binding Hash, UpdateSourceTrigger=PropertyChanged}" FontFamily="{StaticResource Font.Mono}" />
-                        <TextBlock Text="GitHub release digests are filled automatically when available. winget verifies its own manifests."
+                        <TextBlock Text="{l:Tr AddApp_SHA256Optional}" Style="{StaticResource Text.Label}" Margin="0,14,0,6" />
+                        <TextBox AutomationProperties.Name="{l:Tr AddApp_SHA256Optional}" Text="{Binding Hash, UpdateSourceTrigger=PropertyChanged}" FontFamily="{StaticResource Font.Mono}" />
+                        <TextBlock Text="{l:Tr AddApp_GitHubReleaseDigestsAreFilled}"
                                    Style="{StaticResource Text.Caption}" Margin="0,6,0,0" TextWrapping="Wrap" />
 
                         <StackPanel Margin="0,16,0,0" Visibility="{Binding HasTestLog, Converter={StaticResource BoolToVisibility}}">
-                            <TextBlock Text="Test output" Style="{StaticResource Text.Label}" />
-                            <TextBox AutomationProperties.Name="Test output" Text="{Binding TestLog}" Style="{StaticResource Text.LogBox}" IsReadOnly="True"
+                            <TextBlock Text="{l:Tr AddApp_TestOutput}" Style="{StaticResource Text.Label}" />
+                            <TextBox AutomationProperties.Name="{l:Tr AddApp_TestOutput}" Text="{Binding TestLog}" Style="{StaticResource Text.LogBox}" IsReadOnly="True"
                                      Height="150" VerticalScrollBarVisibility="Auto" />
                         </StackPanel>
 
@@ -211,7 +212,7 @@
                                 <TextBlock Text="{StaticResource Icon.Shield}" FontFamily="{StaticResource Font.Icons}" FontSize="14"
                                            Foreground="{DynamicResource Brush.TextTertiary}" Margin="0,0,9,0"
                                            VerticalAlignment="Top" />
-                                <TextBlock Grid.Column="1" Text="Passwords and cookies are excluded from browser backups. Installer downloads are verified when a hash is available."
+                                <TextBlock Grid.Column="1" Text="{l:Tr AddApp_PasswordsAndCookiesAreExcluded}"
                                            Style="{StaticResource Text.Caption}" TextWrapping="Wrap" />
                             </Grid>
                         </Border>
@@ -229,11 +230,11 @@
             <StackPanel VerticalAlignment="Center">
                 <TextBlock Text="{Binding ErrorMessage}" Foreground="{DynamicResource Brush.Danger}" FontSize="11.5"
                            TextWrapping="Wrap" Visibility="{Binding HasError, Converter={StaticResource BoolToVisibility}}" />
-                <TextBlock Text="The app is saved in the profile only. Installers are not downloaded until install time."
+                <TextBlock Text="{l:Tr AddApp_TheAppIsSavedIn}"
                            Style="{StaticResource Text.Caption}" />
             </StackPanel>
             <StackPanel Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center">
-                <Button Content="Clear" Style="{StaticResource Button.Ghost}" Margin="0,0,8,0" Command="{Binding ClearFormCommand}" />
+                <Button Content="{l:Tr AddApp_Clear}" Style="{StaticResource Button.Ghost}" Margin="0,0,8,0" Command="{Binding ClearFormCommand}" />
                 <Button Content="{Binding AddButtonText}" Style="{StaticResource Button.Primary}" MinWidth="150"
                         Command="{Binding AddCommand}" />
             </StackPanel>

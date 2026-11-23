@@ -4,8 +4,9 @@
 <Window x:Class="CtrlZ.App.Views.PreviewWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:l="clr-namespace:CtrlZ.App.Localization"
         xmlns:shell="clr-namespace:System.Windows.Shell;assembly=PresentationFramework"
-        Title="Preview install"
+        Title="{l:Tr Preview_PreviewInstall}"
         Width="800"
         SizeToContent="Height"
         MinHeight="260"
@@ -42,7 +43,7 @@
                             <TextBlock Text="{Binding SourceText}" Style="{StaticResource Text.Caption}"
                                        TextWrapping="Wrap" />
                             <TextBlock Style="{StaticResource Text.Caption}" TextWrapping="Wrap">
-                                <Run Text="Switches:" /><Run Text="{Binding SilentText, Mode=OneWay}" />
+                                <Run Text="{l:Tr Preview_Switches}" /><Run Text="{Binding SilentText, Mode=OneWay}" />
                             </TextBlock>
                             <TextBlock Text="{Binding NotesText}" Style="{StaticResource Text.Caption}"
                                        TextWrapping="Wrap" />
@@ -64,7 +65,7 @@
 
                     <StackPanel Margin="26,6,0,0"
                                 Visibility="{Binding HasCommand, Converter={StaticResource BoolToVisibility}}">
-                        <TextBlock Text="After install, runs:" Style="{StaticResource Text.Caption}" />
+                        <TextBlock Text="{l:Tr Preview_AfterInstallRuns}" Style="{StaticResource Text.Caption}" />
                         <TextBlock Text="{Binding CommandText}" Style="{StaticResource Text.Caption}" TextWrapping="Wrap"
                                    Foreground="{DynamicResource Brush.TextPrimary}" />
                         <TextBlock Text="{Binding CommandStateText}" TextWrapping="Wrap">
@@ -102,10 +103,10 @@
                     <StackPanel Orientation="Horizontal" Margin="16,0,0,0" VerticalAlignment="Center">
                         <TextBlock Text="&#xE896;" FontFamily="{StaticResource Font.Icons}" FontSize="15"
                                    Foreground="{DynamicResource Brush.Accent}" Margin="0,0,9,0" />
-                        <TextBlock Text="Preview install" FontSize="13" FontWeight="SemiBold" VerticalAlignment="Center" />
+                        <TextBlock Text="{l:Tr Preview_PreviewInstall}" FontSize="13" FontWeight="SemiBold" VerticalAlignment="Center" />
                     </StackPanel>
                     <Button Grid.Column="1" Style="{StaticResource Button.Window}" Click="Close_Click"
-                            AutomationProperties.Name="Close">
+                            AutomationProperties.Name="{l:Tr Preview_Close}">
                         <TextBlock Text="&#xE711;" FontFamily="{StaticResource Font.Icons}" FontSize="10" />
                     </Button>
                 </Grid>
@@ -133,27 +134,27 @@
                                   Margin="0,10,0,0" />
 
                     <TextBlock Style="{StaticResource Text.Caption}" TextWrapping="Wrap" Margin="0,12,0,0"
-                               Text="Nothing has been installed yet. The dry run only looks things up: it checks winget ids, release assets and links, and reads local files. It never downloads an installer to disk and never runs one." />
+                               Text="{l:Tr Preview_NothingHasBeenInstalledYet}" />
                 </StackPanel>
             </ScrollViewer>
 
             <Border Grid.Row="2" Padding="20,12,20,18" Background="{DynamicResource Brush.Surface}">
                 <Grid>
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
-                        <Button Content="Dry run" Style="{StaticResource Button.Secondary}"
+                        <Button Content="{l:Tr Preview_DryRun}" Style="{StaticResource Button.Secondary}"
                                 Command="{Binding DryRunCommand}"
                                 IsEnabled="{Binding IsDryRunning, Converter={StaticResource BoolNegation}}" />
-                        <Button Content="Export report" Style="{StaticResource Button.Link}" Margin="12,0,0,0"
+                        <Button Content="{l:Tr Preview_ExportReport}" Style="{StaticResource Button.Link}" Margin="12,0,0,0"
                                 Command="{Binding ExportReportCommand}" VerticalAlignment="Center" />
-                        <Button Content="Review commands" Style="{StaticResource Button.Link}" Margin="12,0,0,0"
+                        <Button Content="{l:Tr Preview_ReviewCommands}" Style="{StaticResource Button.Link}" Margin="12,0,0,0"
                                 Command="{Binding ReviewCommandsCommand}" VerticalAlignment="Center"
                                 Visibility="{Binding HasCommandsToReview, Converter={StaticResource BoolToVisibility}}" />
                     </StackPanel>
 
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-                        <Button Content="Cancel" Style="{StaticResource Button.Secondary}" MinWidth="96"
+                        <Button Content="{l:Tr Preview_Cancel}" Style="{StaticResource Button.Secondary}" MinWidth="96"
                                 IsCancel="True" Command="{Binding CancelCommand}" />
-                        <Button Content="Install now" Style="{StaticResource Button.Primary}" MinWidth="120"
+                        <Button Content="{l:Tr Preview_InstallNow}" Style="{StaticResource Button.Primary}" MinWidth="120"
                                 Margin="8,0,0,0" IsDefault="True" Command="{Binding ProceedCommand}" />
                     </StackPanel>
                 </Grid>

@@ -4,6 +4,7 @@
 <UserControl x:Class="CtrlZ.App.Views.SettingsView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:l="clr-namespace:CtrlZ.App.Localization"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d" d:DesignHeight="620" d:DesignWidth="900">
@@ -18,17 +19,17 @@
             <StackPanel Grid.Column="0">
                 <Border Style="{StaticResource Border.Card}" Padding="18,16">
                     <StackPanel>
-                        <TextBlock Text="APPEARANCE" Style="{StaticResource Text.NavSection}" Margin="0,0,0,10" />
-                        <TextBlock Text="Theme" Style="{StaticResource Text.Label}" />
+                        <TextBlock Text="{l:Tr Settings_APPEARANCE}" Style="{StaticResource Text.NavSection}" Margin="0,0,0,10" />
+                        <TextBlock Text="{l:Tr Settings_Theme}" Style="{StaticResource Text.Label}" />
                         <Border Style="{StaticResource Border.Inset}" Padding="2" HorizontalAlignment="Left">
                             <StackPanel Orientation="Horizontal">
-                                <ToggleButton Content="System" Style="{StaticResource Toggle.Pill}"
+                                <ToggleButton Content="{l:Tr Settings_System}" Style="{StaticResource Toggle.Pill}"
                                               IsChecked="{Binding IsSystemTheme, Mode=OneWay}"
                                               Command="{Binding SetThemeCommand}" CommandParameter="system" />
-                                <ToggleButton Content="Light" Style="{StaticResource Toggle.Pill}"
+                                <ToggleButton Content="{l:Tr Settings_Light}" Style="{StaticResource Toggle.Pill}"
                                               IsChecked="{Binding IsLightTheme, Mode=OneWay}"
                                               Command="{Binding SetThemeCommand}" CommandParameter="light" />
-                                <ToggleButton Content="Dark" Style="{StaticResource Toggle.Pill}"
+                                <ToggleButton Content="{l:Tr Settings_Dark}" Style="{StaticResource Toggle.Pill}"
                                               IsChecked="{Binding IsDarkTheme, Mode=OneWay}"
                                               Command="{Binding SetThemeCommand}" CommandParameter="dark" />
                             </StackPanel>
@@ -39,19 +40,19 @@
 
                 <Border Style="{StaticResource Border.Card}" Padding="18,16" Margin="0,14,0,0">
                     <StackPanel>
-                        <TextBlock Text="LOCAL DATA" Style="{StaticResource Text.NavSection}" Margin="0,0,0,10" />
-                        <TextBlock Text="Profiles, downloads, archives, and logs live under one folder. Nothing is uploaded." 
+                        <TextBlock Text="{l:Tr Settings_LOCALDATA}" Style="{StaticResource Text.NavSection}" Margin="0,0,0,10" />
+                        <TextBlock Text="{l:Tr Settings_ProfilesDownloadsArchivesAndLogs}" 
                                    Style="{StaticResource Text.Secondary}" TextWrapping="Wrap" />
                         <Border Style="{StaticResource Border.Inset}" Padding="10,8" Margin="0,12,0,0">
                             <TextBlock Text="{Binding DataFolder}" FontFamily="{StaticResource Font.Mono}" FontSize="10.5"
                                        TextWrapping="Wrap" Foreground="{DynamicResource Brush.TextSecondary}" />
                         </Border>
                         <WrapPanel Margin="0,10,0,0">
-                            <Button Content="Open data folder" Style="{StaticResource Button.Secondary}" Margin="0,0,8,8"
+                            <Button Content="{l:Tr Settings_OpenDataFolder}" Style="{StaticResource Button.Secondary}" Margin="0,0,8,8"
                                     Command="{Binding OpenDataFolderCommand}" />
-                            <Button Content="Profiles" Style="{StaticResource Button.Ghost}" Margin="0,0,8,8"
+                            <Button Content="{l:Tr Settings_Profiles}" Style="{StaticResource Button.Ghost}" Margin="0,0,8,8"
                                     Command="{Binding OpenProfilesFolderCommand}" />
-                            <Button Content="Logs" Style="{StaticResource Button.Ghost}" Margin="0,0,8,8"
+                            <Button Content="{l:Tr Settings_Logs}" Style="{StaticResource Button.Ghost}" Margin="0,0,8,8"
                                     Command="{Binding OpenLogsFolderCommand}" />
                         </WrapPanel>
                     </StackPanel>
@@ -59,74 +60,74 @@
 
                 <Border Style="{StaticResource Border.Card}" Padding="18,16" Margin="0,14,0,0">
                     <StackPanel>
-                        <TextBlock Text="INSTALLING" Style="{StaticResource Text.NavSection}" Margin="0,0,0,10" />
-                        <CheckBox Content="Show a preview before installing" Margin="0,0,0,0"
+                        <TextBlock Text="{l:Tr Settings_INSTALLING}" Style="{StaticResource Text.NavSection}" Margin="0,0,0,10" />
+                        <CheckBox Content="{l:Tr Settings_ShowAPreviewBeforeInstalling}" Margin="0,0,0,0"
                                   IsChecked="{Binding ShowInstallPreview, Mode=TwoWay}" />
-                        <TextBlock Text="The preview lists each app, its source, switches and warnings, and can dry-run the whole list without installing anything."
+                        <TextBlock Text="{l:Tr Settings_ThePreviewListsEachApp}"
                                    Style="{StaticResource Text.Caption}" TextWrapping="Wrap" Margin="0,8,0,0" />
-                        <CheckBox Content="Add portable apps to the Start menu" Margin="0,14,0,0"
+                        <CheckBox Content="{l:Tr Settings_AddPortableAppsToThe}" Margin="0,14,0,0"
                                   IsChecked="{Binding CreatePortableShortcuts, Mode=TwoWay}" />
-                        <TextBlock Text="Portable apps get a shortcut in the Start menu under CTRL+Z apps, in your own user profile."
+                        <TextBlock Text="{l:Tr Settings_PortableAppsGetAShortcut}"
                                    Style="{StaticResource Text.Caption}" TextWrapping="Wrap" Margin="0,8,0,0" />
-                        <CheckBox Content="Include notes in exports" Margin="0,14,0,0"
+                        <CheckBox Content="{l:Tr Settings_IncludeNotesInExports}" Margin="0,14,0,0"
                                   IsChecked="{Binding IncludeNotesInReports, Mode=TwoWay}" />
-                        <TextBlock Text="Off by default. When off, exported reports show (note hidden) instead of your app notes. Notes are never written to the application log."
+                        <TextBlock Text="{l:Tr Settings_OffByDefaultWhenOff}"
                                    Style="{StaticResource Text.Caption}" TextWrapping="Wrap" Margin="0,8,0,0" />
                     </StackPanel>
                 </Border>
 
                 <Border Style="{StaticResource Border.Card}" Padding="18,16" Margin="0,14,0,0">
                     <StackPanel>
-                        <TextBlock Text="UPDATES" Style="{StaticResource Text.NavSection}" Margin="0,0,0,10" />
+                        <TextBlock Text="{l:Tr Settings_UPDATES}" Style="{StaticResource Text.NavSection}" Margin="0,0,0,10" />
                         <TextBlock Text="{Binding CurrentVersionText}" FontWeight="SemiBold" FontSize="13" />
                         <TextBlock Text="{Binding LastUpdateCheckText}" Style="{StaticResource Text.Caption}" Margin="0,3,0,0" />
-                        <CheckBox Content="Check for updates automatically" Margin="0,12,0,0"
+                        <CheckBox Content="{l:Tr Settings_CheckForUpdatesAutomatically}" Margin="0,12,0,0"
                                   IsChecked="{Binding AutoCheckForUpdates, Mode=TwoWay}" />
-                        <TextBlock Text="Channel" Style="{StaticResource Text.Label}" Margin="0,12,0,6" />
+                        <TextBlock Text="{l:Tr Settings_Channel}" Style="{StaticResource Text.Label}" Margin="0,12,0,6" />
                         <Border Style="{StaticResource Border.Inset}" Padding="2" HorizontalAlignment="Left">
                             <StackPanel Orientation="Horizontal">
-                                <ToggleButton Content="Stable" Style="{StaticResource Toggle.Pill}"
+                                <ToggleButton Content="{l:Tr Settings_Stable}" Style="{StaticResource Toggle.Pill}"
                                               IsChecked="{Binding IsStableChannel, Mode=OneWay}"
                                               Command="{Binding SetUpdateChannelCommand}" CommandParameter="stable" />
-                                <ToggleButton Content="Pre-release" Style="{StaticResource Toggle.Pill}"
+                                <ToggleButton Content="{l:Tr Settings_PreRelease}" Style="{StaticResource Toggle.Pill}"
                                               IsChecked="{Binding IsPreReleaseChannel, Mode=OneWay}"
                                               Command="{Binding SetUpdateChannelCommand}" CommandParameter="prerelease" />
                             </StackPanel>
                         </Border>
                         <TextBlock Text="{Binding ChannelDescription}" Style="{StaticResource Text.Caption}"
                                    TextWrapping="Wrap" Margin="0,8,0,0" />
-                        <Button Content="Check for updates" Style="{StaticResource Button.Secondary}"
+                        <Button Content="{l:Tr Settings_CheckForUpdates}" Style="{StaticResource Button.Secondary}"
                                 HorizontalAlignment="Left" Margin="0,12,0,0"
                                 Command="{Binding CheckForUpdatesCommand}"
                                 IsEnabled="{Binding CanCheckForUpdates}" />
-                        <TextBlock Text="Only the version check and an update download talk to GitHub. Nothing else is sent, and CTRL+Z has no telemetry."
+                        <TextBlock Text="{l:Tr Settings_OnlyTheVersionCheckAnd}"
                                    Style="{StaticResource Text.Caption}" TextWrapping="Wrap" Margin="0,10,0,0" />
                     </StackPanel>
                 </Border>
 
                 <Border Style="{StaticResource Border.Card}" Padding="18,16" Margin="0,14,0,0">
                     <StackPanel>
-                        <TextBlock Text="ABOUT" Style="{StaticResource Text.NavSection}" Margin="0,0,0,10" />
+                        <TextBlock Text="{l:Tr Settings_ABOUT}" Style="{StaticResource Text.NavSection}" Margin="0,0,0,10" />
                         <StackPanel Orientation="Horizontal">
                             <Image Width="36" Height="36" Source="Assets/ctrlz.png" Stretch="Uniform"
                                    RenderOptions.BitmapScalingMode="HighQuality" />
                             <StackPanel Margin="11,0,0,0" VerticalAlignment="Center">
                                 <TextBlock Text="CTRL+Z" FontWeight="SemiBold" FontSize="15" />
-                                <TextBlock Text="{Binding AppVersion, StringFormat=Version {0}}" Style="{StaticResource Text.Caption}" />
+                                <TextBlock Text="{Binding AppVersion, StringFormat={l:Tr Settings_VersionNumber}}" Style="{StaticResource Text.Caption}" />
                             </StackPanel>
                         </StackPanel>
-                        <TextBlock Text="A local-first Windows reinstall assistant. No account, no telemetry. Browser backups exclude passwords and cookies by design."
+                        <TextBlock Text="{l:Tr Settings_ALocalFirstWindowsReinstall}"
                                    Style="{StaticResource Text.Secondary}" TextWrapping="Wrap" Margin="0,12,0,0" />
                         <WrapPanel Margin="0,12,0,0">
-                            <Button Content="AGPL-3.0-only" Style="{StaticResource Button.Ghost}" Margin="0,0,0,6" Command="{Binding OpenLicenseCommand}" />
-                            <Button Content="Source code" Style="{StaticResource Button.Ghost}" Margin="6,0,0,6"
+                            <Button Content="{l:Tr Settings_AGPL30Only}" Style="{StaticResource Button.Ghost}" Margin="0,0,0,6" Command="{Binding OpenLicenseCommand}" />
+                            <Button Content="{l:Tr Settings_SourceCode}" Style="{StaticResource Button.Ghost}" Margin="6,0,0,6"
                                     Command="{Binding OpenSourceCodeCommand}" />
-                            <Button Content="Copy diagnostics" Style="{StaticResource Button.Ghost}" Margin="6,0,0,6"
+                            <Button Content="{l:Tr Settings_CopyDiagnostics}" Style="{StaticResource Button.Ghost}" Margin="6,0,0,6"
                                     Command="{Binding CopyDiagnosticsCommand}" />
-                            <Button Content="Save diagnostics…" Style="{StaticResource Button.Ghost}" Margin="6,0,0,6"
+                            <Button Content="{l:Tr Settings_SaveDiagnostics}" Style="{StaticResource Button.Ghost}" Margin="6,0,0,6"
                                     Command="{Binding SaveDiagnosticsCommand}"
-                                    ToolTip="Saves a ZIP with versions, settings switches, counts and recent logs with paths and names removed. Nothing is sent." />
-                            <Button Content="Welcome guide" Style="{StaticResource Button.Ghost}" Margin="6,0,0,6"
+                                    ToolTip="{l:Tr Settings_SavesAZIPWithVersions}" />
+                            <Button Content="{l:Tr Settings_WelcomeGuide}" Style="{StaticResource Button.Ghost}" Margin="6,0,0,6"
                                     Command="{Binding ShowWelcomeCommand}" />
                         </WrapPanel>
                     </StackPanel>
@@ -136,17 +137,17 @@
             <StackPanel Grid.Column="2">
                 <Border Style="{StaticResource Border.Card}" Padding="18,16">
                     <StackPanel>
-                        <TextBlock Text="PACKAGE MANAGER" Style="{StaticResource Text.NavSection}" Margin="0,0,0,10" />
+                        <TextBlock Text="{l:Tr Settings_PACKAGEMANAGER}" Style="{StaticResource Text.NavSection}" Margin="0,0,0,10" />
                         <StackPanel Orientation="Horizontal">
                             <Ellipse Width="7" Height="7" Fill="{DynamicResource Brush.Success}" Margin="0,0,8,0"
                                      VerticalAlignment="Center" />
                             <TextBlock Text="{Binding WingetStatus}" Style="{StaticResource Text.Body}" TextWrapping="Wrap" />
                         </StackPanel>
-                        <TextBlock Text="winget is used for catalog apps. CTRL+Z can bootstrap it on a clean Windows install using Microsoft App Installer."
+                        <TextBlock Text="{l:Tr Settings_WingetIsUsedForCatalog}"
                                    Style="{StaticResource Text.Caption}" TextWrapping="Wrap" Margin="0,8,0,0" />
                         <StackPanel Orientation="Horizontal" Margin="0,12,0,0">
-                            <Button Content="Check again" Style="{StaticResource Button.Ghost}" Command="{Binding CheckWingetCommand}" />
-                            <Button Content="Update winget" Style="{StaticResource Button.Secondary}" Margin="6,0,0,0"
+                            <Button Content="{l:Tr Settings_CheckAgain}" Style="{StaticResource Button.Ghost}" Command="{Binding CheckWingetCommand}" />
+                            <Button Content="{l:Tr Settings_UpdateWinget}" Style="{StaticResource Button.Secondary}" Margin="6,0,0,0"
                                     Command="{Binding UpdateWingetCommand}" IsEnabled="{Binding IsBusy, Converter={StaticResource BoolNegation}}" />
                         </StackPanel>
                     </StackPanel>
@@ -161,15 +162,15 @@
                         <Border Background="{DynamicResource Brush.SurfaceAlt}" Padding="14,8"
                                 BorderBrush="{DynamicResource Brush.Border}" BorderThickness="0,0,0,1">
                             <Grid>
-                                <TextBlock Text="APPLICATION LOG" Style="{StaticResource Text.NavSection}" Margin="0" />
+                                <TextBlock Text="{l:Tr Settings_ApplicationLogHeading}" Style="{StaticResource Text.NavSection}" Margin="0" />
                                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-                                    <Button Content="Refresh" Style="{StaticResource Button.Link}" Command="{Binding RefreshLogCommand}" />
-                                    <Button Content="Open log" Style="{StaticResource Button.Link}" Margin="10,0,0,0"
+                                    <Button Content="{l:Tr Settings_Refresh}" Style="{StaticResource Button.Link}" Command="{Binding RefreshLogCommand}" />
+                                    <Button Content="{l:Tr Settings_OpenLog}" Style="{StaticResource Button.Link}" Margin="10,0,0,0"
                                             Command="{Binding OpenLogFileCommand}" />
                                 </StackPanel>
                             </Grid>
                         </Border>
-                        <TextBox AutomationProperties.Name="Application log" Grid.Row="1" Text="{Binding LogText}" Style="{StaticResource Text.LogBox}"
+                        <TextBox AutomationProperties.Name="{l:Tr Settings_ApplicationLog}" Grid.Row="1" Text="{Binding LogText}" Style="{StaticResource Text.LogBox}"
                                  BorderThickness="0" VerticalScrollBarVisibility="Auto"
                                  HorizontalScrollBarVisibility="Disabled" TextWrapping="NoWrap" />
                     </Grid>

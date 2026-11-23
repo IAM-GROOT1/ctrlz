@@ -4,8 +4,9 @@
 <Window x:Class="CtrlZ.App.Views.WingetMatchWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:l="clr-namespace:CtrlZ.App.Localization"
         xmlns:shell="clr-namespace:System.Windows.Shell;assembly=PresentationFramework"
-        Title="Match to winget"
+        Title="{l:Tr WingetMatch_MatchToWinget}"
         Width="620" Height="590"
         WindowStyle="None"
         ResizeMode="NoResize"
@@ -33,24 +34,24 @@
                     <StackPanel Orientation="Horizontal" Margin="16,0,0,0" VerticalAlignment="Center">
                         <TextBlock Text="&#xE721;" FontFamily="{StaticResource Font.Icons}" FontSize="14"
                                    Foreground="{DynamicResource Brush.Accent}" Margin="0,0,9,0" />
-                        <TextBlock Text="Match to winget" FontSize="13" FontWeight="SemiBold" />
+                        <TextBlock Text="{l:Tr WingetMatch_MatchToWinget}" FontSize="13" FontWeight="SemiBold" />
                     </StackPanel>
-                    <Button AutomationProperties.Name="Close" Style="{StaticResource Button.Window}" HorizontalAlignment="Right" Click="Close_Click">
+                    <Button AutomationProperties.Name="{l:Tr WingetMatch_Close}" Style="{StaticResource Button.Window}" HorizontalAlignment="Right" Click="Close_Click">
                         <TextBlock Text="{StaticResource Icon.Close}" FontFamily="{StaticResource Font.Icons}" FontSize="10" />
                     </Button>
                 </Grid>
             </Border>
 
             <StackPanel Grid.Row="1" Margin="22,20,22,12">
-                <TextBlock Text="Find the winget package for this installed app." Style="{StaticResource Text.BodyStrong}" />
+                <TextBlock Text="{l:Tr WingetMatch_FindTheWingetPackageFor}" Style="{StaticResource Text.BodyStrong}" />
                 <TextBlock x:Name="AppNameText" Style="{StaticResource Text.Secondary}" Margin="0,3,0,12" />
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*" />
                         <ColumnDefinition Width="Auto" />
                     </Grid.ColumnDefinitions>
-                    <TextBox AutomationProperties.Name="Search winget" x:Name="SearchBox" MinHeight="36" KeyDown="SearchBox_KeyDown" />
-                    <Button Grid.Column="1" Content="Search" Style="{StaticResource Button.Secondary}"
+                    <TextBox AutomationProperties.Name="{l:Tr WingetMatch_SearchWinget}" x:Name="SearchBox" MinHeight="36" KeyDown="SearchBox_KeyDown" />
+                    <Button Grid.Column="1" Content="{l:Tr WingetMatch_Search}" Style="{StaticResource Button.Secondary}"
                             Margin="8,0,0,0" Click="Search_Click" MinWidth="82" />
                 </Grid>
                 <TextBlock x:Name="SearchStatus" Style="{StaticResource Text.Caption}" Margin="0,8,0,0" />
@@ -78,7 +79,7 @@
                             </DataTemplate>
                         </ListBox.ItemTemplate>
                     </ListBox>
-                    <TextBlock x:Name="EmptyResults" Text="Search for the app name, or paste a package id below."
+                    <TextBlock x:Name="EmptyResults" Text="{l:Tr WingetMatch_SearchForTheAppName}"
                                Style="{StaticResource Text.Secondary}" HorizontalAlignment="Center"
                                VerticalAlignment="Center" TextAlignment="Center" Margin="24"
                                Visibility="Collapsed" />
@@ -97,14 +98,14 @@
                             <ColumnDefinition Width="Auto" />
                             <ColumnDefinition Width="*" />
                         </Grid.ColumnDefinitions>
-                        <TextBlock Text="Package id" Style="{StaticResource Text.Label}" Margin="0,0,12,0"
+                        <TextBlock Text="{l:Tr WingetMatch_PackageId}" Style="{StaticResource Text.Label}" Margin="0,0,12,0"
                                    VerticalAlignment="Center" />
-                        <TextBox AutomationProperties.Name="Package id" x:Name="PackageIdBox" Grid.Column="1" />
+                        <TextBox AutomationProperties.Name="{l:Tr WingetMatch_PackageId}" x:Name="PackageIdBox" Grid.Column="1" />
                     </Grid>
                     <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,12,0,0">
-                        <Button Content="Cancel" Style="{StaticResource Button.Secondary}" MinWidth="84"
+                        <Button Content="{l:Tr WingetMatch_Cancel}" Style="{StaticResource Button.Secondary}" MinWidth="84"
                                 Margin="0,0,8,0" Click="Close_Click" />
-                        <Button Content="Use this id" Style="{StaticResource Button.Primary}" MinWidth="100"
+                        <Button Content="{l:Tr WingetMatch_UseThisId}" Style="{StaticResource Button.Primary}" MinWidth="100"
                                 Click="Use_Click" IsDefault="True" />
                     </StackPanel>
                 </Grid>

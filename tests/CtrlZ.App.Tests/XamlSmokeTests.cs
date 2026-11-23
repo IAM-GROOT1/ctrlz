@@ -99,6 +99,33 @@ public class XamlSmokeTests
         _ = new WelcomeWindow();
         _ = new TweaksView();
         _ = new InstallRowViewModel("Tool", AppSource.Winget, null) { Note = "n", Status = InstallStatus.Failed };
+
+        // Every view and window with a plain constructor parses, so a broken {l:Tr} or resource
+        // key in any of them fails here.
+        var views = typeof(CtrlZ.App.App).Assembly.GetTypes()
+            .Where(t => t.Namespace == "CtrlZ.App.Views" && !t.IsAbstract &&
+                        typeof(FrameworkElement).IsAssignableFrom(t) && t.GetConstructor(Type.EmptyTypes) is not null)
+            .ToList();
+        Assert.True(views.Count >= 15, "Found only " + views.Count + " views.");
+        foreach (var type in views)
+        {
+            var element = (FrameworkElement)Activator.CreateInstance(type)!;
+            if (element is Window window)
+            {
+                Measure((FrameworkElement)window.Content);
+            }
+            else
+            {
+                Measure(element);
+            }
+
+            Assert.DoesNotContain(TextsIn(element), text => text.StartsWith('[') && text.EndsWith(']'));
+        }
+
+        // A known string comes back in English from the embedded resources.
+        var tweaks = new TweaksView();
+        Measure(tweaks);
+        Assert.Contains("Set Windows up the way you like it", TextsIn(tweaks));
     }
 
     private static List<string> TextsIn(DependencyObject root)
