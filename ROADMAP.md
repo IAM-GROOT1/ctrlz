@@ -107,7 +107,7 @@ order and screen-reader labels, and translations later.
 - [x] **A. Screen readers.** Every button, check box, field and list a user can reach has a name
   a screen reader can read; row buttons name their app ("Move Steam up"). A test reads every
   window and page and fails the build if a new control has no name.
-- [x] **B. Keyboard.** Ctrl+1 to Ctrl+8 open each page and Ctrl+, opens Settings; Enter accepts and
+- [x] **B. Keyboard.** Ctrl+1 to Ctrl+9 open each page and Ctrl+, opens Settings; Enter accepts and
   Esc closes every window (checked by a test); dialogs and the app editor open with focus in
   their first field.
 - [x] **C. Motion.** The page fade is skipped when Windows' *Animation effects* setting is off.

@@ -73,7 +73,7 @@
                 </Border>
 
                 <TextBlock Style="{StaticResource Text.Caption}" TextWrapping="Wrap" Margin="0,12,0,0"
-                           Text="You can open this guide again from Settings. Ctrl+1 to Ctrl+8 jump between pages." />
+                           Text="You can open this guide again from Settings. Ctrl+1 to Ctrl+9 jump between pages." />
             </StackPanel>
 
             <Border Grid.Row="2" Padding="24,12,24,18">
