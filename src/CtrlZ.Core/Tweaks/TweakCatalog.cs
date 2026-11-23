@@ -12,8 +12,13 @@ public enum TweakValueKind
 /// <summary>
 /// One registry value under HKEY_CURRENT_USER. <see cref="SubKey"/> is relative to HKCU and must
 /// sit under <c>Software\</c>; nothing outside the current user's hive can be described.
+/// <para>
+/// <see cref="OwnedBelow"/> names the key above the ones this tweak itself creates (for a value
+/// whose key's mere presence matters). Undo without a saved original then also removes those keys
+/// once they are empty; without it, only the value is removed.
+/// </para>
 /// </summary>
-public sealed record TweakValue(string SubKey, string Name, TweakValueKind Kind, object Value);
+public sealed record TweakValue(string SubKey, string Name, TweakValueKind Kind, object Value, string? OwnedBelow = null);
 
 /// <summary>A small, reversible Windows setting: a fixed set of per-user registry values.</summary>
 public sealed record TweakDefinition(
@@ -65,7 +70,8 @@ public static class TweakCatalog
 
         new("classic-context-menu", "Classic right-click menu",
             "Windows 11 shows the full right-click menu at once, without \"Show more options\".",
-            [new(@"Software\Classes\CLSID\{86ca1aa0-34aa-4e8b-a509-50c905bae2a2}\InprocServer32", string.Empty, TweakValueKind.String, string.Empty)],
+            [new(@"Software\Classes\CLSID\{86ca1aa0-34aa-4e8b-a509-50c905bae2a2}\InprocServer32", string.Empty, TweakValueKind.String, string.Empty,
+                OwnedBelow: @"Software\Classes\CLSID")],
             NeedsExplorerRestart: true, Windows11Only: true),
 
         new("no-start-recommendations", "Fewer recommendations in Start",

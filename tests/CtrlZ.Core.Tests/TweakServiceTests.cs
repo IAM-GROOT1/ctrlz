@@ -74,6 +74,38 @@ public sealed class TweakServiceTests : IDisposable
     private static TweakDefinition Tweak(string id) => TweakCatalog.Find(id)!;
 
     [Fact]
+    public void Undo_without_a_saved_original_removes_the_classic_menu_keys_too()
+    {
+        // Set outside CTRL+Z: no saved original, so Undo falls back to removing the tweak's values.
+        const string clsid = @"Software\Classes\CLSID";
+        const string owned = clsid + @"\{86ca1aa0-34aa-4e8b-a509-50c905bae2a2}";
+        var registry = new FakeRegistry();
+        registry.Seed(clsid, "kept", TweakValueKind.DWord, 1);
+        registry.Seed(clsid + @"\{other}", "kept", TweakValueKind.DWord, 1);
+        registry.Seed(owned + @"\InprocServer32", string.Empty, TweakValueKind.String, string.Empty);
+        var service = Service(registry);
+        Assert.False(service.CanUndo(Tweak("classic-context-menu")));
+
+        service.Undo(Tweak("classic-context-menu"));
+
+        Assert.False(registry.KeyExists(owned + @"\InprocServer32"));
+        Assert.False(registry.KeyExists(owned));
+        Assert.True(registry.KeyExists(clsid));
+        Assert.True(registry.KeyExists(clsid + @"\{other}"));
+        Assert.Equal(TweakState.Off, service.StateOf(Tweak("classic-context-menu")));
+    }
+
+    [Fact]
+    public void Every_owned_root_is_an_allowed_parent_of_its_value()
+    {
+        foreach (var value in TweakCatalog.All.SelectMany(tweak => tweak.Values).Where(value => value.OwnedBelow is not null))
+        {
+            Assert.True(TweakCatalog.IsAllowedSubKey(value.OwnedBelow!));
+            Assert.StartsWith(value.OwnedBelow + @"\", value.SubKey, StringComparison.OrdinalIgnoreCase);
+        }
+    }
+
+    [Fact]
     public void Apply_then_undo_restores_the_previous_value_exactly()
     {
         var registry = new FakeRegistry();
