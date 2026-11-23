@@ -35,6 +35,12 @@ public sealed class PortableCompanion
 
     private string Backup => _target + ".old";
 
+    /// <summary>The <c>ctrlz.exe</c> beside the app.</summary>
+    public string TargetFile => _target;
+
+    /// <summary>The previous command line after a swap, kept for a later rollback; null otherwise.</summary>
+    public string? KeptBackup => _swapped ? Backup : null;
+
     /// <summary>
     /// Returns the companion to swap, or null when there is none or it cannot be prepared.
     /// Throws <see cref="UpdateVerificationException"/> on a hash mismatch, before any file of the

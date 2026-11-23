@@ -172,8 +172,14 @@ A stronger design would:
 - keep the backup for **2 launches**, so a build that fails on its second start can still be rolled
   back automatically instead of leaving the user on a broken version.
 
-Not implemented yet. The current behaviour lives in `src/CtrlZ.Core/Updates/UpdateApplier.cs`
-(health window and `.old` cleanup).
+- [x] **Done for portable copies.** The update helper now waits up to 90 seconds for the new build
+  to show its main window; if it exits first, the previous build is restored at once. The previous
+  `CTRL+Z.exe.old` (and `ctrlz.exe.old`) is kept until the new build has shown its window on 2
+  launches. If a later start of the new build never shows its window, the next start puts the
+  previous build back and opens it, with a message saying why. The logic lives in
+  `src/CtrlZ.Core/Updates/UpdateProbation.cs`. It applies to updates made *from* this version
+  onward, because the update helper is a copy of the version being replaced. Installed copies
+  are unchanged (the installer replaces them).
 
 ## Keeping this in sync
 
