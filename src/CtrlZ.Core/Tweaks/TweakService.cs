@@ -66,17 +66,25 @@ public sealed class TweakService
         lock (_gate)
         {
             var undo = Load();
-            if (!undo.ContainsKey(tweak.Id))
+            var saved = undo.TryGetValue(tweak.Id, out var existing) ? existing : [];
+
+            // Catalog values with no saved original yet: all of them on a first Apply, or any the
+            // catalog gained since an older entry was saved. Never overwrite an original already kept.
+            var missing = tweak.Values.Where(value => FindOriginal(saved, value) is null).ToList();
+            if (missing.Count > 0 || saved.Count != tweak.Values.Count)
             {
                 // A value of a type CTRL+Z never writes could not be put back exactly: change nothing.
-                if (tweak.Values.Any(value => _registry.Read(value.SubKey, value.Name).Unsupported))
+                if (missing.Any(value => _registry.Read(value.SubKey, value.Name).Unsupported))
                 {
                     throw new InvalidOperationException(
                         $"\"{tweak.Title}\" was not changed: Windows holds this setting in a form CTRL+Z could not restore exactly. Change it in Windows Settings instead.");
                 }
 
-                // Record every original first, and save it, before anything is written.
-                undo[tweak.Id] = tweak.Values.Select(Capture).ToList();
+                // Record every original first, and save it, before anything is written. Saved
+                // entries the catalog no longer has are dropped.
+                undo[tweak.Id] = tweak.Values
+                    .Select(value => FindOriginal(saved, value) ?? Capture(value))
+                    .ToList();
                 Save(undo);
             }
 
@@ -106,9 +114,7 @@ public sealed class TweakService
             // other part of the registry.
             foreach (var value in tweak.Values)
             {
-                var original = originals.FirstOrDefault(o =>
-                    o.SubKey.Equals(value.SubKey, StringComparison.OrdinalIgnoreCase) &&
-                    o.Name.Equals(value.Name, StringComparison.OrdinalIgnoreCase));
+                var original = FindOriginal(originals, value);
 
                 if (original is { Existed: true } && TryOriginalValue(original, out var kind, out var restored))
                 {
@@ -134,6 +140,13 @@ public sealed class TweakService
 
         _log.Write(LogLevel.Info, $"Undid tweak {tweak.Id}.");
     }
+
+    /// <summary>The saved original for one catalog value; null-safe against a hand-edited file.</summary>
+    private static TweakUndoValue? FindOriginal(IEnumerable<TweakUndoValue?> saved, TweakValue value) =>
+        saved.FirstOrDefault(o =>
+            o is not null &&
+            string.Equals(o.SubKey, value.SubKey, StringComparison.OrdinalIgnoreCase) &&
+            string.Equals(o.Name, value.Name, StringComparison.OrdinalIgnoreCase));
 
     private static bool TryOriginalValue(TweakUndoValue original, out TweakValueKind kind, out object value)
     {

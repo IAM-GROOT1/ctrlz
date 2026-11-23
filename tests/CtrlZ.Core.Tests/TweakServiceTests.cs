@@ -98,6 +98,45 @@ public sealed class TweakServiceTests : IDisposable
     }
 
     [Fact]
+    public void An_old_entry_for_a_value_the_catalog_no_longer_has_still_lets_undo_restore_exactly()
+    {
+        // Saved by an older build that used the read-only Policies key for this tweak.
+        const string search = @"Software\Microsoft\Windows\CurrentVersion\Search";
+        var registry = new FakeRegistry();
+        registry.Seed(search, "BingSearchEnabled", TweakValueKind.DWord, 1);
+        var undoPath = _temp.PathOf("state", "tweak-undo.json");
+        Directory.CreateDirectory(Path.GetDirectoryName(undoPath)!);
+        File.WriteAllText(undoPath, """
+            { "no-web-search-in-start": [ { "subKey": "Software\\Policies\\Microsoft\\Windows\\Explorer",
+              "name": "DisableSearchBoxSuggestions", "existed": false, "kind": "dWord",
+              "deepestExistingKey": "Software\\Policies\\Microsoft\\Windows" } ] }
+            """);
+        var service = Service(registry);
+
+        service.Apply(Tweak("no-web-search-in-start"));
+        Assert.Equal(0, registry.Read(search, "BingSearchEnabled").Value);
+        service.Undo(Tweak("no-web-search-in-start"));
+
+        Assert.False(File.Exists(undoPath + ".damaged"));
+        Assert.Equal(1, registry.Read(search, "BingSearchEnabled").Value);
+    }
+
+    [Fact]
+    public void A_null_entry_in_the_undo_file_does_not_break_undo()
+    {
+        var registry = new FakeRegistry();
+        var service = Service(registry);
+        service.Apply(Tweak("show-file-extensions"));
+        var undoPath = _temp.PathOf("state", "tweak-undo.json");
+        File.WriteAllText(undoPath, """{ "show-file-extensions": [ null, { "existed": true } ] }""");
+
+        service.Undo(Tweak("show-file-extensions"));
+
+        Assert.False(File.Exists(undoPath + ".damaged")); // parsed, not discarded
+        Assert.False(registry.Read(Advanced, "HideFileExt").Exists);
+    }
+
+    [Fact]
     public void An_edited_deepest_key_cannot_widen_what_undo_removes()
     {
         const string explorer = @"Software\Microsoft\Windows\CurrentVersion\Explorer";
