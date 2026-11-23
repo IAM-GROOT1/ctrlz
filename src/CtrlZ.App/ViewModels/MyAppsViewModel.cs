@@ -1,6 +1,7 @@
 // SPDX-License-Identifier: AGPL-3.0-only
 // Copyright (c) 2026 iam-groot1
 
+using CtrlZ.App.Localization;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.IO;
@@ -25,7 +26,7 @@ public sealed partial class MyAppsViewModel : PageViewModelBase
     private bool _bulkUpdating;
 
     public MyAppsViewModel(AppServices services, DialogService dialogs, MainViewModel main)
-        : base("My Apps", "Your portable reinstall profile. Tune the list before you move to a fresh Windows install.")
+        : base(Loc.Get("MyApps_MyApps"), Loc.Get("MyApps_YourPortableReinstallProfileTune"))
     {
         _services = services;
         _dialogs = dialogs;
@@ -51,7 +52,7 @@ public sealed partial class MyAppsViewModel : PageViewModelBase
     private bool _groupBySource = true;
 
     [ObservableProperty]
-    private string _statusMessage = "Changes save automatically.";
+    private string _statusMessage = Loc.Get("MyApps_ChangesSaveAutomatically");
 
     [ObservableProperty]
     private int _includedCount;
@@ -65,8 +66,8 @@ public sealed partial class MyAppsViewModel : PageViewModelBase
     public bool HasApps => Apps.Count > 0;
     public bool IsEmpty => Apps.Count == 0;
     public string ProfileTitle => _services.State.ActiveProfile.Name;
-    public string AppCountText => $"{Apps.Count} app{(Apps.Count == 1 ? string.Empty : "s")}";
-    public string SelectionText => $"{IncludedCount} enabled of {Apps.Count}";
+    public string AppCountText => Loc.Plural("MyApps_AppCount", Apps.Count);
+    public string SelectionText => Loc.Format("MyApps_EnabledOf", IncludedCount, Apps.Count);
     public bool CanInstall => IncludedCount > 0;
 
     public override Task ActivateAsync()
@@ -133,8 +134,8 @@ public sealed partial class MyAppsViewModel : PageViewModelBase
     [RelayCommand]
     private void NewProfile()
     {
-        var name = _dialogs.Prompt("New profile", "Create a separate app list for another PC or purpose.",
-            "Profile name", "New profile");
+        var name = _dialogs.Prompt(Loc.Get("MyApps_NewProfile2"), Loc.Get("MyApps_CreateASeparateAppList"),
+            Loc.Get("MyApps_ProfileName"), Loc.Get("MyApps_NewProfile2"));
         if (string.IsNullOrWhiteSpace(name))
         {
             return;
@@ -143,13 +144,13 @@ public sealed partial class MyAppsViewModel : PageViewModelBase
         _services.State.CreateProfile(name);
         RefreshProfileList();
         ReloadApps();
-        ShowStatus($"Created profile \"{name}\".");
+        ShowStatus(Loc.Format("MyApps_CreatedProfile", name));
     }
 
     [RelayCommand]
     private void RenameProfile()
     {
-        var name = _dialogs.Prompt("Rename profile", "Profiles are portable JSON files.", "Profile name",
+        var name = _dialogs.Prompt(Loc.Get("MyApps_RenameProfile2"), Loc.Get("MyApps_ProfilesArePortableJSONFiles"), Loc.Get("MyApps_ProfileName"),
             _services.State.ActiveProfile.Name);
         if (string.IsNullOrWhiteSpace(name))
         {
@@ -166,8 +167,8 @@ public sealed partial class MyAppsViewModel : PageViewModelBase
     {
         var dialog = new Microsoft.Win32.OpenFileDialog
         {
-            Title = "Import a CTRL+Z profile",
-            Filter = "CTRL+Z profile (*.json)|*.json|JSON files (*.json)|*.json",
+            Title = Loc.Get("MyApps_ImportACTRLZProfile"),
+            Filter = Loc.Get("MyApps_ProfileFilter"),
             CheckFileExists = true
         };
         if (dialog.ShowDialog() != true)
@@ -180,11 +181,11 @@ public sealed partial class MyAppsViewModel : PageViewModelBase
             var profile = _services.State.ImportProfile(dialog.FileName);
             RefreshProfileList();
             ReloadApps();
-            ShowStatus($"Imported \"{profile.Name}\".");
+            ShowStatus(Loc.Format("MyApps_Imported", profile.Name));
         }
         catch (Exception ex)
         {
-            _dialogs.Error("That profile could not be imported.\n\n" + ex.Message);
+            _dialogs.Error(Loc.Get("MyApps_ThatProfileCouldNotBe") + ex.Message);
         }
     }
 
@@ -194,11 +195,11 @@ public sealed partial class MyAppsViewModel : PageViewModelBase
         // Say what carries over before writing anything, and let notes stay behind.
         var summary = ProfileExport.Summarize(_services.State.ActiveProfile);
         var choice = _dialogs.Show(
-            "Export for another PC",
+            Loc.Get("MyApps_ExportForAnotherPC"),
             summary.Describe(),
-            primary: "Choose where to save",
-            secondary: "Cancel",
-            checkText: summary.HasNotes ? "Include my notes in the file" : null);
+            primary: Loc.Get("MyApps_ChooseWhereToSave"),
+            secondary: Loc.Get("MyApps_Cancel"),
+            checkText: summary.HasNotes ? Loc.Get("MyApps_IncludeMyNotesInThe") : null);
         if (choice.Outcome != Views.DialogOutcome.Primary)
         {
             return;
@@ -207,7 +208,7 @@ public sealed partial class MyAppsViewModel : PageViewModelBase
         var includeNotes = summary.HasNotes && choice.IsChecked;
         var dialog = new Microsoft.Win32.SaveFileDialog
         {
-            Title = "Export profile",
+            Title = Loc.Get("MyApps_ExportProfileTitle"),
             Filter = "CTRL+Z profile (*.json)|*.json",
             FileName = SafeName(_services.State.ActiveProfile.Name) + ".json",
             InitialDirectory = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments),
@@ -222,13 +223,15 @@ public sealed partial class MyAppsViewModel : PageViewModelBase
         try
         {
             _services.State.ExportActive(dialog.FileName, includeNotes);
-            ShowStatus($"Exported to {dialog.FileName}");
-            _dialogs.Info($"Profile exported{(summary.HasNotes && !includeNotes ? " without notes" : string.Empty)}.\n\n{dialog.FileName}\n\n" +
-                "Copy it to a USB drive or another PC, along with your browser backups.", "Profile exported");
+            ShowStatus(Loc.Format("MyApps_ExportedTo", dialog.FileName));
+            _dialogs.Info((summary.HasNotes && !includeNotes
+                    ? Loc.Format("MyApps_ProfileExportedWithoutNotes", dialog.FileName)
+                    : Loc.Format("MyApps_ProfileExportedTo", dialog.FileName)) +
+                Loc.Get("MyApps_CopyItToAUSB"), Loc.Get("MyApps_ProfileExported"));
         }
         catch (Exception ex)
         {
-            _dialogs.Error("Could not export the profile.\n\n" + ex.Message);
+            _dialogs.Error(Loc.Get("MyApps_CouldNotExportTheProfile") + ex.Message);
         }
     }
 
@@ -241,9 +244,9 @@ public sealed partial class MyAppsViewModel : PageViewModelBase
             return;
         }
 
-        if (!_dialogs.Confirm("Delete profile",
-                $"Delete \"{current.Name}\"? Its JSON file will be removed from CTRL+Z. Exported copies are untouched.",
-                "Delete", "Cancel", danger: true))
+        if (!_dialogs.Confirm(Loc.Get("MyApps_DeleteProfile2"),
+                Loc.Format("MyApps_DeleteItsJSONFileWill", current.Name),
+                Loc.Get("MyApps_Delete"), Loc.Get("MyApps_Cancel"), danger: true))
         {
             return;
         }
@@ -251,7 +254,7 @@ public sealed partial class MyAppsViewModel : PageViewModelBase
         _services.State.DeleteProfile(current);
         RefreshProfileList();
         ReloadApps();
-        ShowStatus("Profile deleted.");
+        ShowStatus(Loc.Get("MyApps_ProfileDeleted"));
     }
 
     [RelayCommand]
@@ -278,8 +281,8 @@ public sealed partial class MyAppsViewModel : PageViewModelBase
     {
         var dialog = new Microsoft.Win32.OpenFileDialog
         {
-            Title = "Import an app list from winget, Scoop or Chocolatey",
-            Filter = "App lists (*.json;*.config;*.txt)|*.json;*.config;*.txt|All files (*.*)|*.*",
+            Title = Loc.Get("MyApps_ImportAnAppListFrom"),
+            Filter = Loc.Get("MyApps_AppListFilter"),
             CheckFileExists = true
         };
         if (dialog.ShowDialog() != true)
@@ -295,26 +298,26 @@ public sealed partial class MyAppsViewModel : PageViewModelBase
         }
         catch (Exception ex) when (ex is FormatException or IOException or UnauthorizedAccessException)
         {
-            _dialogs.Error("That file could not be read as an app list.\n\n" + ex.Message +
-                "\n\nUse the file from \"winget export -o apps.json\", \"scoop export > apps.json\" or \"choco export\".",
-                "Import app list");
+            _dialogs.Error(Loc.Get("MyApps_ThatFileCouldNotBe") + ex.Message +
+                Loc.Get("MyApps_ImportListHint"),
+                Loc.Get("MyApps_ImportAppList"));
             return;
         }
 
         if (import.Apps.Count == 0)
         {
-            _dialogs.Info($"No apps in that {import.KindName} list could be matched to winget or the Microsoft Store." +
-                UnmatchedText(import.Unmatched), "Import app list");
+            _dialogs.Info(Loc.Format("MyApps_NoAppsInThatList", import.KindName) +
+                UnmatchedText(import.Unmatched), Loc.Get("MyApps_ImportAppList"));
             return;
         }
 
         var names = string.Join("\n", import.Apps.Take(15).Select(app => "• " + app.Name)) +
-                    (import.Apps.Count > 15 ? $"\n• …and {import.Apps.Count - 15} more" : string.Empty);
-        if (!_dialogs.Confirm("Import app list",
-                $"Add {import.Apps.Count} app{(import.Apps.Count == 1 ? string.Empty : "s")} from this {import.KindName} list to \"{_services.State.ActiveProfile.Name}\"?\n\n" +
+                    (import.Apps.Count > 15 ? Loc.Format("MyApps_AndMore", import.Apps.Count - 15) : string.Empty);
+        if (!_dialogs.Confirm(Loc.Get("MyApps_ImportAppList"),
+                Loc.Plural("MyApps_AddFromList", import.Apps.Count, import.KindName, _services.State.ActiveProfile.Name) +
                 names + UnmatchedText(import.Unmatched) +
-                "\n\nApps already in the profile are skipped. You can review or remove any of them afterwards.",
-                "Add apps", "Cancel"))
+                Loc.Get("MyApps_AppsAlreadyInTheProfile"),
+                Loc.Get("MyApps_AddApps2"), Loc.Get("MyApps_Cancel")))
         {
             return;
         }
@@ -323,14 +326,14 @@ public sealed partial class MyAppsViewModel : PageViewModelBase
         _services.Log.Write(CtrlZ.Core.Logging.LogLevel.Info,
             $"Imported a {import.KindName} list: {added} added, {skipped} already present, {import.Unmatched.Count} not matched.");
         ReloadApps();
-        ShowStatus($"Added {added} app{(added == 1 ? string.Empty : "s")} from the {import.KindName} list" +
-                   (skipped > 0 ? $" · {skipped} already present" : string.Empty) +
-                   (import.Unmatched.Count > 0 ? $" · {import.Unmatched.Count} not matched" : string.Empty) + ".");
+        ShowStatus(Loc.Plural("MyApps_AddedFromList", added, import.KindName) +
+                   (skipped > 0 ? Loc.Format("MyApps_AlreadyPresent", skipped) : string.Empty) +
+                   (import.Unmatched.Count > 0 ? Loc.Format("MyApps_NotMatched", import.Unmatched.Count) : string.Empty) + ".");
     }
 
     private static string UnmatchedText(IReadOnlyList<string> unmatched) => unmatched.Count == 0
         ? string.Empty
-        : $"\n\nNot matched ({unmatched.Count}), add these by hand if you need them:\n" +
+        : Loc.Format("MyApps_NotMatchedAddTheseBy", unmatched.Count) +
           string.Join(", ", unmatched.Take(20)) + (unmatched.Count > 20 ? ", …" : string.Empty);
 
     [RelayCommand]
@@ -344,27 +347,27 @@ public sealed partial class MyAppsViewModel : PageViewModelBase
         if (row.IsAutoDependency)
         {
             // Deleting it would only let the planner add it again; turning it off is remembered.
-            if (!_dialogs.Confirm("Remove dependency",
-                    $"\"{row.Name}\" was added because another app needs it. Turn it off so it is not installed or added again?",
-                    "Turn off", "Cancel", danger: true))
+            if (!_dialogs.Confirm(Loc.Get("MyApps_RemoveDependency"),
+                    Loc.Format("MyApps_WasAddedBecauseAnotherApp", row.Name),
+                    Loc.Get("MyApps_TurnOff"), Loc.Get("MyApps_Cancel"), danger: true))
             {
                 return;
             }
 
             _services.State.DisableApp(row.App);
             ReloadApps();
-            ShowStatus($"{row.Name} is turned off and will not be added again.");
+            ShowStatus(Loc.Format("MyApps_IsTurnedOffAndWill", row.Name));
             return;
         }
 
-        if (!_dialogs.Confirm("Remove app", $"Remove \"{row.Name}\" from this profile?", "Remove", "Cancel", danger: true))
+        if (!_dialogs.Confirm(Loc.Get("MyApps_RemoveApp"), Loc.Format("MyApps_RemoveFromThisProfile", row.Name), Loc.Get("MyApps_Remove"), Loc.Get("MyApps_Cancel"), danger: true))
         {
             return;
         }
 
         _services.State.RemoveApp(row.App);
         ReloadApps();
-        ShowStatus($"Removed {row.Name}.");
+        ShowStatus(Loc.Format("MyApps_Removed", row.Name));
     }
 
     [RelayCommand]
@@ -408,17 +411,16 @@ public sealed partial class MyAppsViewModel : PageViewModelBase
         {
             _services.State.ReplaceApp(row.App, window.Result);
             ReloadApps();
-            ShowStatus($"Updated {window.Result.Name}.");
+            ShowStatus(Loc.Format("MyApps_Updated", window.Result.Name));
         }
     }
 
     /// <summary>Second, explicit confirmation before a risky command is saved.</summary>
     private bool ConfirmRiskyCommand(PostInstallCommand command) => _dialogs.Confirm(
-        "Save a risky command?",
-        "This command matches a risky pattern (" + string.Join(", ", PostInstallCommandRisk.Scan(command)) + "):\n\n" +
-        command.Describe() + "\n\nSave it only if you wrote it and understand exactly what it does.",
-        "Save risky command",
-        "Go back",
+        Loc.Get("MyApps_SaveARiskyCommand"),
+        Loc.Format("MyApps_RiskyCommandSave", string.Join(", ", PostInstallCommandRisk.Scan(command)), command.Describe()),
+        Loc.Get("MyApps_SaveRiskyCommand"),
+        Loc.Get("MyApps_GoBack"),
         danger: true);
 
     [RelayCommand]
@@ -439,7 +441,7 @@ public sealed partial class MyAppsViewModel : PageViewModelBase
 
         _services.State.SaveActive();
         UpdateCounts();
-        StatusMessage = "All apps enabled.";
+        StatusMessage = Loc.Get("MyApps_AllAppsEnabled");
     }
 
     [RelayCommand]
@@ -535,7 +537,7 @@ public sealed partial class MyAppsViewModel : PageViewModelBase
 
         _services.State.SaveActive();
         UpdateCounts();
-        StatusMessage = $"Saved · {row.Name} {(row.IsIncluded ? "enabled" : "disabled")}";
+        StatusMessage = row.IsIncluded ? Loc.Format("MyApps_SavedEnabled", row.Name) : Loc.Format("MyApps_SavedDisabled", row.Name);
     }
 
     private bool FilterApp(object item)

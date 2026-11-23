@@ -1,6 +1,7 @@
 // SPDX-License-Identifier: AGPL-3.0-only
 // Copyright (c) 2026 iam-groot1
 
+using CtrlZ.App.Localization;
 using System.Diagnostics;
 using System.IO;
 using System.Windows;
@@ -65,8 +66,8 @@ public partial class App : Application
         {
             _services?.Log.Write(LogLevel.Error, "Startup failed.", ex);
             MessageBox.Show(
-                "CTRL+Z could not start.\n\n" + ex.Message +
-                (_services is null ? string.Empty : $"\n\nLog: {_services.Log.LogFilePath}"),
+                Loc.Get("App_CTRLZCouldNotStart") + ex.Message +
+                (_services is null ? string.Empty : Loc.Format("App_Log", _services.Log.LogFilePath)),
                 "CTRL+Z", MessageBoxButton.OK, MessageBoxImage.Error);
             Shutdown(1);
         }
@@ -106,7 +107,7 @@ public partial class App : Application
                     UpdateApplyFiles.WriteResult(
                         Path.Combine(services.Paths.State, UpdateApplyFiles.ResultFileName),
                         UpdateApplyResult.Failed(
-                            "The new version did not finish starting last time, so CTRL+Z went back to the previous version."));
+                            Loc.Get("App_UpdateRolledBack")));
                     if (UpdateApplier.TryStart(exe) is { } restarted)
                     {
                         restarted.Dispose();
@@ -213,7 +214,7 @@ public partial class App : Application
         try
         {
             MessageBox.Show(
-                "CTRL+Z hit an unexpected error, but your profile and install state are safe.\n\n" +
+                Loc.Get("App_CTRLZHitAnUnexpected") +
                 e.Exception.Message + $"\n\nLog: {_services?.Log.LogFilePath}",
                 "CTRL+Z", MessageBoxButton.OK, MessageBoxImage.Warning);
         }

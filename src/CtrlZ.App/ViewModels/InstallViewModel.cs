@@ -1,6 +1,7 @@
 // SPDX-License-Identifier: AGPL-3.0-only
 // Copyright (c) 2026 iam-groot1
 
+using CtrlZ.App.Localization;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.IO;
@@ -29,7 +30,7 @@ public sealed partial class InstallViewModel : PageViewModelBase
     private bool _starting;
 
     public InstallViewModel(AppServices services, DialogService dialogs, MainViewModel main)
-        : base("Install", "Review the queue and reinstall everything silently, with live status and a resumable session.")
+        : base(Loc.Get("Install_Install"), Loc.Get("Install_ReviewTheQueueAndReinstall"))
     {
         _services = services;
         _dialogs = dialogs;
@@ -53,7 +54,7 @@ public sealed partial class InstallViewModel : PageViewModelBase
     private string? _resumeMessage;
 
     [ObservableProperty]
-    private string _statusMessage = "Review the queue, then install.";
+    private string _statusMessage = Loc.Get("Install_ReviewTheQueueThenInstall");
 
     [ObservableProperty]
     private double _overallProgress;
@@ -91,15 +92,15 @@ public sealed partial class InstallViewModel : PageViewModelBase
     public bool CanRetry => !IsInstalling && _state is { FailedCount: > 0 };
     public bool CanCancel => IsInstalling;
     public bool IsEmpty => Items.Count == 0;
-    public string StartLabel => _state?.HasUnfinishedWork == true ? "Resume install" : "Install everything";
-    public string CountsText => $"{CompletedCount} done · {FailedCount} need attention · {TotalCount} total";
+    public string StartLabel => _state?.HasUnfinishedWork == true ? Loc.Get("Install_ResumeInstall") : Loc.Get("Install_InstallEverything");
+    public string CountsText => Loc.Format("Install_DoneNeedAttentionTotal", CompletedCount, FailedCount, TotalCount);
     public bool HasLogs => Logs.Count > 0;
-    public string ResumeTitle => _state?.HasUnfinishedWork == true ? "Resume available" : "Restart required";
+    public string ResumeTitle => _state?.HasUnfinishedWork == true ? Loc.Get("Install_ResumeAvailable") : Loc.Get("Install_RestartRequired2");
 
     public override async Task ActivateAsync()
     {
         _activated = true;
-        ElevationLabel = IsElevated ? "Running as administrator" : "Running as standard user";
+        ElevationLabel = IsElevated ? Loc.Get("Install_RunningAsAdministrator") : Loc.Get("Install_RunningAsStandardUser");
         var saved = _services.InstallEngine.LoadSavedState();
         if (saved is not null)
         {
@@ -110,11 +111,11 @@ public sealed partial class InstallViewModel : PageViewModelBase
             HasResume = saved.HasUnfinishedWork;
             HasReboot = saved.RebootRequested;
             ResumeMessage = saved.HasUnfinishedWork
-                ? $"{saved.FailedCount} failed · {saved.CompletedCount} complete. Pick up where the last session stopped."
+                ? Loc.Format("Install_FailedCompletePickUpWhere", saved.FailedCount, saved.CompletedCount)
                 : saved.RebootRequested
-                    ? "Every app is installed. Restart Windows to finish the last installers."
-                    : "The last install session is complete.";
-            StatusMessage = saved.HasUnfinishedWork ? "A previous install can be resumed." : "Last session complete.";
+                    ? Loc.Get("Install_EveryAppIsInstalledRestart")
+                    : Loc.Get("Install_TheLastInstallSessionIs");
+            StatusMessage = saved.HasUnfinishedWork ? Loc.Get("Install_APreviousInstallCanBe") : Loc.Get("Install_LastSessionComplete");
             Summary = saved.LastError;
         }
         else
@@ -173,15 +174,15 @@ public sealed partial class InstallViewModel : PageViewModelBase
             var profile = _services.State.ActiveProfile;
             if (profile.Apps.All(a => !a.Enabled))
             {
-                _dialogs.Info("This profile has no enabled apps. Add or enable apps in My Apps first.");
+                _dialogs.Info(Loc.Get("Install_ThisProfileHasNoEnabled"));
                 return;
             }
 
             if (_state is not null)
             {
-                if (!_dialogs.Confirm("Start a new install",
-                        "A completed install session is on disk. Start a new one from the current profile?",
-                        "Start new install", "Cancel"))
+                if (!_dialogs.Confirm(Loc.Get("Install_StartANewInstall"),
+                        Loc.Get("Install_ACompletedInstallSessionIs"),
+                        Loc.Get("Install_StartNewInstall"), Loc.Get("Install_Cancel")))
                 {
                     return;
                 }
@@ -241,7 +242,7 @@ public sealed partial class InstallViewModel : PageViewModelBase
     private void Cancel()
     {
         _cts?.Cancel();
-        StatusMessage = "Stopping after the current installer…";
+        StatusMessage = Loc.Get("Install_StoppingAfterTheCurrentInstaller");
     }
 
     private void DiscardUnstartedSession(InstallState? previous)
@@ -263,7 +264,7 @@ public sealed partial class InstallViewModel : PageViewModelBase
 
         HasResume = previous is { HasUnfinishedWork: true };
         UpdateCounts();
-        StatusMessage = "Install cancelled. Nothing ran.";
+        StatusMessage = Loc.Get("Install_InstallCancelledNothingRan");
     }
 
     [RelayCommand]
@@ -274,9 +275,9 @@ public sealed partial class InstallViewModel : PageViewModelBase
             return;
         }
 
-        if (_state is not null && !_dialogs.Confirm("Start over",
-                "Discard the saved install session and build a fresh queue from the active profile?",
-                "Start over", "Cancel", danger: true))
+        if (_state is not null && !_dialogs.Confirm(Loc.Get("Install_StartOver2"),
+                Loc.Get("Install_DiscardTheSavedInstallSession"),
+                Loc.Get("Install_StartOver2"), Loc.Get("Install_Cancel"), danger: true))
         {
             return;
         }
@@ -288,7 +289,7 @@ public sealed partial class InstallViewModel : PageViewModelBase
         Summary = null;
         BuildPreview();
         UpdateCounts();
-        StatusMessage = "Fresh queue ready.";
+        StatusMessage = Loc.Get("Install_FreshQueueReady");
     }
 
     [RelayCommand]
@@ -328,9 +329,9 @@ public sealed partial class InstallViewModel : PageViewModelBase
     [RelayCommand]
     private void RestartWindows()
     {
-        if (!_dialogs.Confirm("Restart Windows",
-                "Restart now to finish pending installers? Save any open work first.",
-                "Restart now", "Cancel", danger: true))
+        if (!_dialogs.Confirm(Loc.Get("Install_RestartWindows2"),
+                Loc.Get("Install_RestartNowToFinishPending"),
+                Loc.Get("Install_RestartNow"), Loc.Get("Install_Cancel"), danger: true))
         {
             return;
         }
@@ -338,11 +339,11 @@ public sealed partial class InstallViewModel : PageViewModelBase
         try
         {
             Process.Start(new ProcessStartInfo("shutdown.exe", "/r /t 10") { UseShellExecute = true });
-            StatusMessage = "Windows will restart in 10 seconds.";
+            StatusMessage = Loc.Get("Install_WindowsWillRestartIn10");
         }
         catch (Exception ex)
         {
-            _dialogs.Error("Could not restart Windows: " + ex.Message);
+            _dialogs.Error(Loc.Get("Install_CouldNotRestartWindows") + ex.Message);
         }
     }
 
@@ -356,18 +357,18 @@ public sealed partial class InstallViewModel : PageViewModelBase
         }
 
         var result = _dialogs.Show(
-            "Administrator access",
-            "Windows installers usually need administrator rights. CTRL+Z can restart itself elevated and automatically resume this install.\n\n" +
-            "You can also continue unelevated, but machine-wide installers may fail.",
-            "Restart as administrator",
-            "Continue without admin",
+            Loc.Get("Install_AdministratorAccess"),
+            Loc.Get("Install_WindowsInstallersUsuallyNeedAdministrato") +
+            Loc.Get("Install_YouCanAlsoContinueUnelevated"),
+            Loc.Get("Install_RestartAsAdministrator"),
+            Loc.Get("Install_ContinueWithoutAdmin"),
             danger: false);
         if (result.Outcome == DialogOutcome.Primary)
         {
             _services.InstallStates.Save(state);
             if (!ElevationService.TryRelaunchElevated(["--auto-install"], out var error))
             {
-                _dialogs.Error(error ?? "Could not restart as administrator.");
+                _dialogs.Error(error ?? Loc.Get("Install_CouldNotRestartAsAdministrator"));
                 return Task.FromResult(false);
             }
 
@@ -392,7 +393,7 @@ public sealed partial class InstallViewModel : PageViewModelBase
                 _services.State.LoadForRun,
                 profile => _dialogs.ConfirmPostInstallCommands(_services, profile)))
         {
-            StatusMessage = "Install not started: the post-install commands were not confirmed. Nothing ran.";
+            StatusMessage = Loc.Get("Install_InstallNotStartedThePost");
             return;
         }
 
@@ -400,7 +401,7 @@ public sealed partial class InstallViewModel : PageViewModelBase
         using var runLock = InstallLock.TryAcquire();
         if (runLock is null)
         {
-            StatusMessage = "Another CTRL+Z install is running on this PC (for example from the command line). Try again when it has finished.";
+            StatusMessage = Loc.Get("Install_AnotherCTRLZInstallIs");
             return;
         }
 
@@ -409,12 +410,12 @@ public sealed partial class InstallViewModel : PageViewModelBase
         _cts = new CancellationTokenSource();
         IsInstalling = true;
         // Keeps the updater from prompting or applying while the queue is running.
-        using var activity = _services.Activity.Begin("Installing apps");
+        using var activity = _services.Activity.Begin(Loc.Get("Install_InstallingApps"));
         _state = state;
         HasResume = false;
         HasReboot = false;
         Summary = null;
-        StatusMessage = retryFailed ? "Retrying failed apps…" : "Installing…";
+        StatusMessage = retryFailed ? Loc.Get("Install_RetryingFailedApps") : Loc.Get("Install_Installing");
         Logs.Clear();
         OnPropertyChanged(nameof(HasLogs));
         BuildRowsFromState(state);
@@ -430,25 +431,25 @@ public sealed partial class InstallViewModel : PageViewModelBase
             HasReboot = finished.RebootRequested && !finished.HasUnfinishedWork;
             Summary = finished.LastError;
             StatusMessage = finished.HasUnfinishedWork
-                ? $"{finished.FailedCount} app{(finished.FailedCount == 1 ? string.Empty : "s")} need attention. Retry when ready."
+                ? Loc.Plural("Install_AppsNeedAttention", finished.FailedCount)
                 : finished.RebootRequested
-                    ? "All installs finished. Restart Windows when convenient."
-                    : "All installs finished successfully.";
+                    ? Loc.Get("Install_AllInstallsFinishedRestartWindows")
+                    : Loc.Get("Install_AllInstallsFinishedSuccessfully");
             OnPropertyChanged(nameof(StartLabel));
             OnPropertyChanged(nameof(CanRetry));
             OnPropertyChanged(nameof(ResumeTitle));
         }
         catch (OperationCanceledException)
         {
-            StatusMessage = "Install paused. Resume whenever you are ready.";
+            StatusMessage = Loc.Get("Install_InstallPausedResumeWheneverYou");
             HasResume = true;
-            ResumeMessage = "The queue is saved. Resume after closing any open installers.";
+            ResumeMessage = Loc.Get("Install_TheQueueIsSavedResume");
         }
         catch (Exception ex)
         {
             _services.Log.Write(LogLevel.Error, "Install session failed.", ex);
-            StatusMessage = "The install session stopped unexpectedly.";
-            _dialogs.Error("CTRL+Z hit an error while installing.\n\n" + ex.Message);
+            StatusMessage = Loc.Get("Install_TheInstallSessionStoppedUnexpectedly");
+            _dialogs.Error(Loc.Get("Install_CTRLZHitAnError") + ex.Message);
         }
         finally
         {
@@ -468,7 +469,7 @@ public sealed partial class InstallViewModel : PageViewModelBase
             {
                 Note = app.Notes,
                 Status = InstallStatus.Queued,
-                Detail = "Queued"
+                Detail = Loc.Get("Install_Queued")
             };
             Items.Add(row);
         }

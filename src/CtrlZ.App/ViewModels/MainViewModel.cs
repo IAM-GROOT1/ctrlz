@@ -1,6 +1,7 @@
 // SPDX-License-Identifier: AGPL-3.0-only
 // Copyright (c) 2026 iam-groot1
 
+using CtrlZ.App.Localization;
 using System.Collections.ObjectModel;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
@@ -34,26 +35,26 @@ public sealed partial class MainViewModel : ObservableObject, IDisposable
         AppUpdates = new AppUpdatesViewModel(services, dialogs);
         Tweaks = new TweaksViewModel(services, dialogs);
         Settings =new SettingsViewModel(services, dialogs, this, theme);
-        SettingsNav = new NavItem("settings", "Settings", "\uE713", Settings);
+        SettingsNav = new NavItem("settings", Loc.Get("Main_Settings"), "\uE713", Settings);
         SettingsNavItems = [SettingsNav];
 
         WorkspaceNav =
         [
-            new NavItem("scan", "Scan", "\uE721", Scan),
-            new NavItem("apps", "My Apps", "\uE71D", MyApps),
-            new NavItem("ready", "Ready to wipe", "\uE73E", Readiness),
-            new NavItem("install", "Install", "\uE896", Install),
-            new NavItem("updates", "Updates", "\uE895", AppUpdates),
-            new NavItem("tweaks", "Tweaks", "\uE771", Tweaks)
+            new NavItem("scan", Loc.Get("Main_Scan"), "\uE721", Scan),
+            new NavItem("apps", Loc.Get("Main_MyApps"), "\uE71D", MyApps),
+            new NavItem("ready", Loc.Get("Main_ReadyToWipe"), "\uE73E", Readiness),
+            new NavItem("install", Loc.Get("Main_Install"), "\uE896", Install),
+            new NavItem("updates", Loc.Get("Main_Updates"), "\uE895", AppUpdates),
+            new NavItem("tweaks", Loc.Get("Main_Tweaks"), "\uE771", Tweaks)
         ];
         DiscoverNav =
         [
-            new NavItem("add", "Add App", "\uE710", AddApp),
-            new NavItem("catalog", "Catalog", "\uE8F1", Catalog)
+            new NavItem("add", Loc.Get("Main_AddApp"), "\uE710", AddApp),
+            new NavItem("catalog", Loc.Get("Main_Catalog"), "\uE8F1", Catalog)
         ];
         BrowsersNav =
         [
-            new NavItem("browsers", "Browsers", "\uE774", Browsers)
+            new NavItem("browsers", Loc.Get("Main_Browsers2"), "\uE774", Browsers)
         ];
 
         _currentPage = autoInstall ? Install : Scan;
@@ -167,7 +168,7 @@ public sealed partial class MainViewModel : ObservableObject, IDisposable
         catch (Exception ex)
         {
             _services.Log.Write(Core.Logging.LogLevel.Error, $"Page activation failed for {item.Key}.", ex);
-            Dialogs.Error($"This page could not be loaded: {ex.Message}");
+            Dialogs.Error(Loc.Format("Main_ThisPageCouldNotBe", ex.Message));
         }
     }
 

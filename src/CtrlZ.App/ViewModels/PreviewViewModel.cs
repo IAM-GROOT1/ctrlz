@@ -1,6 +1,7 @@
 // SPDX-License-Identifier: AGPL-3.0-only
 // Copyright (c) 2026 iam-groot1
 
+using CtrlZ.App.Localization;
 using System.Collections.ObjectModel;
 using System.IO;
 using CommunityToolkit.Mvvm.ComponentModel;
@@ -38,7 +39,7 @@ public sealed partial class PreviewRow : ObservableObject
     public string OrderText => $"{Item.Order}.";
     public string SourceText => Item.SourceDescription;
     public string SilentText => Item.SilentArgs;
-    public string AdminText => Item.RequiresAdmin ? "May need admin" : "No admin needed";
+    public string AdminText => Item.RequiresAdmin ? Loc.Get("Preview_MayNeedAdmin") : Loc.Get("Preview_NoAdminNeeded");
     public string WarningText { get; }
     public bool HasWarnings => Item.Warnings.Count > 0;
     public string NotesText => string.Join(" ", Item.Notes);
@@ -74,9 +75,9 @@ public sealed partial class PreviewViewModel : ObservableObject
         LoadCommands();
 
         SummaryText = _plan.IsEmpty
-            ? "There is nothing enabled to install."
-            : $"{_plan.Count} app{(_plan.Count == 1 ? string.Empty : "s")} in this run · " +
-              $"{_plan.AdminCount} may need admin · {_plan.WarningCount} with warnings";
+            ? Loc.Get("Preview_ThereIsNothingEnabledTo")
+            : Loc.Plural("Preview_AppsInRun", _plan.Count) +
+              Loc.Format("Preview_MayNeedAdminWithWarnings", _plan.AdminCount, _plan.WarningCount);
 
         PlanWarnings = _plan.PlanWarnings;
     }
@@ -127,7 +128,7 @@ public sealed partial class PreviewViewModel : ObservableObject
         if (_dialogs.ShowCommandReview(_services, _profile))
         {
             LoadCommands();
-            StatusLine = "Command review saved on this PC. The list below is up to date.";
+            StatusLine = Loc.Get("Preview_CommandReviewSavedOnThis");
         }
     }
 
@@ -137,7 +138,7 @@ public sealed partial class PreviewViewModel : ObservableObject
     private string _summaryText = string.Empty;
 
     [ObservableProperty]
-    private string _statusLine = "Review the list, then run the dry run or start the install.";
+    private string _statusLine = Loc.Get("Preview_ReviewTheListThenRun");
 
     [ObservableProperty]
     private string _dryRunSummary = string.Empty;
@@ -164,7 +165,7 @@ public sealed partial class PreviewViewModel : ObservableObject
 
         IsDryRunning = true;
         DryRunSummary = string.Empty;
-        StatusLine = "Checking each source…";
+        StatusLine = Loc.Get("Preview_CheckingEachSource");
 
         try
         {
@@ -191,22 +192,22 @@ public sealed partial class PreviewViewModel : ObservableObject
             }
 
             DryRunSummary =
-                $"{_lastReport.ReadyCount} ready · {_lastReport.WarningCount} warnings · {_lastReport.FailedCount} failed" +
+                Loc.Format("Preview_ReadyWarningsFailed", _lastReport.ReadyCount, _lastReport.WarningCount, _lastReport.FailedCount) +
                 (_lastReport.KnownBytes > 0
-                    ? $" · {FileUtil.FormatBytes(_lastReport.KnownBytes)} known download"
+                    ? Loc.Format("Preview_KnownDownload", FileUtil.FormatBytes(_lastReport.KnownBytes))
                     : string.Empty);
 
             StatusLine = _lastReport.HasFailures
-                ? "Some apps cannot be installed as configured. Nothing has been installed."
-                : "Dry run complete. Nothing has been installed.";
+                ? Loc.Get("Preview_SomeAppsCannotBeInstalled")
+                : Loc.Get("Preview_DryRunCompleteNothingHas");
 
             OnPropertyChanged(nameof(HasBlockingFailures));
         }
         catch (Exception ex)
         {
             _services.Log.Write(LogLevel.Error, "The install dry run failed. " + LogPrivacy.Describe(ex));
-            StatusLine = "The dry run could not finish.";
-            _dialogs.Error("The dry run could not finish.\n\n" + ex.Message);
+            StatusLine = Loc.Get("Preview_TheDryRunCouldNot");
+            _dialogs.Error(Loc.Get("Preview_TheDryRunCouldNot2") + ex.Message);
         }
         finally
         {
@@ -219,14 +220,14 @@ public sealed partial class PreviewViewModel : ObservableObject
     {
         if (_lastReport is null)
         {
-            _dialogs.Info("Run the dry run first, then export its report.", "Nothing to export");
+            _dialogs.Info(Loc.Get("Preview_RunTheDryRunFirst"), Loc.Get("Preview_NothingToExport"));
             return;
         }
 
         var dialog = new Microsoft.Win32.SaveFileDialog
         {
-            Title = "Save dry-run report",
-            Filter = "Text file (*.txt)|*.txt",
+            Title = Loc.Get("Preview_SaveReportTitle"),
+            Filter = Loc.Get("Preview_ReportFilter"),
             FileName = $"ctrlz-dry-run-{DateTime.Now:yyyyMMdd-HHmm}.txt"
         };
 
@@ -239,12 +240,12 @@ public sealed partial class PreviewViewModel : ObservableObject
         {
             var export = _lastReport.WithExportNotes(_profile.Apps, _services.State.Settings);
             File.WriteAllText(dialog.FileName, export.ToText());
-            StatusLine = "Report saved.";
+            StatusLine = Loc.Get("Preview_ReportSaved");
         }
         catch (Exception ex)
         {
             _services.Log.Write(LogLevel.Error, "Could not save the dry-run report. " + LogPrivacy.Describe(ex));
-            _dialogs.Error("Could not save the report.\n\n" + ex.Message);
+            _dialogs.Error(Loc.Get("Preview_CouldNotSaveTheReport") + ex.Message);
         }
     }
 

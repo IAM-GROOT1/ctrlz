@@ -1,6 +1,7 @@
 // SPDX-License-Identifier: AGPL-3.0-only
 // Copyright (c) 2026 iam-groot1
 
+using CtrlZ.App.Localization;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.IO;
@@ -24,7 +25,7 @@ public sealed partial class ScanViewModel : PageViewModelBase
     private bool _activated;
 
     public ScanViewModel(AppServices services, DialogService dialogs, MainViewModel main)
-        : base("Scan this PC", "Find installed programs and match them to winget so you can rebuild this setup later.")
+        : base(Loc.Get("Scan_ScanThisPC2"), Loc.Get("Scan_FindInstalledProgramsAndMatch"))
     {
         _services = services;
         _dialogs = dialogs;
@@ -34,10 +35,10 @@ public sealed partial class ScanViewModel : PageViewModelBase
         ItemsView.GroupDescriptions.Add(new PropertyGroupDescription(nameof(ScanItemViewModel.GroupName)));
         ItemsView.SortDescriptions.Add(new SortDescription(nameof(ScanItemViewModel.SortGroup), ListSortDirection.Ascending));
         ItemsView.SortDescriptions.Add(new SortDescription(nameof(ScanItemViewModel.Name), ListSortDirection.Ascending));
-        Categories = new ObservableCollection<string>(["All categories"]);
-        SelectedCategory = "All categories";
-        MatchFilters = new ObservableCollection<string>(["All apps", "Matched", "Unmatched"]);
-        SelectedMatchFilter = "All apps";
+        Categories = new ObservableCollection<string>([Loc.Get("Scan_AllCategories")]);
+        SelectedCategory = Loc.Get("Scan_AllCategories");
+        MatchFilters = new ObservableCollection<string>([Loc.Get("Scan_AllApps"), Loc.Get("Scan_Matched2"), Loc.Get("Scan_Unmatched2")]);
+        SelectedMatchFilter = Loc.Get("Scan_AllApps");
     }
 
     public ObservableCollection<ScanItemViewModel> Items { get; } = new();
@@ -67,7 +68,7 @@ public sealed partial class ScanViewModel : PageViewModelBase
     private double _scanProgress;
 
     [ObservableProperty]
-    private string _scanStatus = "Ready. Scan to find installed programs.";
+    private string _scanStatus = Loc.Get("Scan_ReadyScanToFindInstalled");
 
     [ObservableProperty]
     private string? _warningText;
@@ -91,7 +92,7 @@ public sealed partial class ScanViewModel : PageViewModelBase
     public bool CanAddSelection => SelectedCount > 0;
     public string SelectionText => SelectedCount == 0
         ? $"{TotalCount} apps"
-        : $"{SelectedCount} selected of {TotalCount}";
+        : Loc.Format("Scan_SelectedOf", SelectedCount, TotalCount);
     public bool HasApps => Items.Count > 0;
     public bool HasWarning => !string.IsNullOrWhiteSpace(WarningText);
 
@@ -140,7 +141,7 @@ public sealed partial class ScanViewModel : PageViewModelBase
         HasScanned = false;
         WarningText = null;
         ScanProgress = 0;
-        ScanStatus = "Looking for winget packages…";
+        ScanStatus = Loc.Get("Scan_LookingForWingetPackages");
 
         try
         {
@@ -163,7 +164,7 @@ public sealed partial class ScanViewModel : PageViewModelBase
             }
 
             Categories.Clear();
-            Categories.Add("All categories");
+            Categories.Add(Loc.Get("Scan_AllCategories"));
             foreach (var category in Items
                          .Select(i => i.App.Category.Display())
                          .Distinct()
@@ -172,26 +173,26 @@ public sealed partial class ScanViewModel : PageViewModelBase
                 Categories.Add(category);
             }
 
-            SelectedCategory = "All categories";
+            SelectedCategory = Loc.Get("Scan_AllCategories");
             ApplyGrouping();
             UpdateCounts();
             HasScanned = true;
             ScanProgress = 1;
-            LastScanText = $"Scanned {result.ScannedUtc.ToLocalTime():HH:mm}";
-            ScanStatus = $"Found {result.Apps.Count} programs · {result.MatchedCount} matched · {result.UnmatchedCount} unmatched";
+            LastScanText = Loc.Format("Scan_Scanned", result.ScannedUtc.ToLocalTime());
+            ScanStatus = Loc.Format("Scan_FoundProgramsMatchedUnmatched", result.Apps.Count, result.MatchedCount, result.UnmatchedCount);
             WarningText = result.Warnings.Count > 0 ? string.Join(" ", result.Warnings) : null;
             _services.Log.Write(LogLevel.Info, $"Scan page loaded {result.Apps.Count} apps.");
             ItemsView.Refresh();
         }
         catch (OperationCanceledException)
         {
-            ScanStatus = "Scan cancelled.";
+            ScanStatus = Loc.Get("Scan_ScanCancelled");
         }
         catch (Exception ex)
         {
             _services.Log.Write(LogLevel.Error, "Scan failed.", ex);
-            ScanStatus = "The scan could not be completed.";
-            _dialogs.Error("CTRL+Z could not finish scanning this PC.\n\n" + ex.Message);
+            ScanStatus = Loc.Get("Scan_TheScanCouldNotBe");
+            _dialogs.Error(Loc.Get("Scan_CTRLZCouldNotFinish") + ex.Message);
         }
         finally
         {
@@ -271,7 +272,7 @@ public sealed partial class ScanViewModel : PageViewModelBase
         var selected = Items.Where(i => i.IsSelected).ToArray();
         if (selected.Length == 0)
         {
-            _dialogs.Info("Tick the apps you want to add first.");
+            _dialogs.Info(Loc.Get("Scan_TickTheAppsYouWant"));
             return;
         }
 
@@ -279,17 +280,17 @@ public sealed partial class ScanViewModel : PageViewModelBase
         if (unmatched > 0)
         {
             _dialogs.Info(
-                $"{unmatched} selected app{(unmatched == 1 ? " has" : "s have")} no winget match. " +
-                "Use Fix on those rows, or untick them, then add the rest.", "Unmatched apps");
+                Loc.Plural("Scan_SelectedNoMatch", unmatched) +
+                Loc.Get("Scan_UseFixOnThoseRows"), Loc.Get("Scan_UnmatchedApps"));
             return;
         }
 
         var (added, skipped) = _services.State.AddApps(selected.Select(i => i.App.ToProfileEntry()));
         await _main.NavigateToAsync("apps");
         _main.MyApps.ShowStatus(added == 0
-            ? $"No new apps added ({skipped} already in the profile)."
-            : $"Added {added} app{(added == 1 ? string.Empty : "s")} to {_services.State.ActiveProfile.Name}" +
-              (skipped > 0 ? $" · {skipped} already present." : "."));
+            ? Loc.Format("Scan_NoNewAppsAddedAlready", skipped)
+            : Loc.Plural("Scan_AddedApps", added, _services.State.ActiveProfile.Name) +
+              (skipped > 0 ? Loc.Format("Scan_AlreadyPresent", skipped) : "."));
     }
 
     [RelayCommand]
@@ -298,11 +299,11 @@ public sealed partial class ScanViewModel : PageViewModelBase
         var selected = Items.Where(i => i.IsSelected && i.IsMatched).ToArray();
         if (selected.Length == 0)
         {
-            _dialogs.Info("Tick at least one matched app before saving a profile.");
+            _dialogs.Info(Loc.Get("Scan_TickAtLeastOneMatched"));
             return;
         }
 
-        var name = _dialogs.Prompt("Save profile", "Create a new profile from the selected apps.", "Profile name",
+        var name = _dialogs.Prompt(Loc.Get("Scan_SaveProfile"), Loc.Get("Scan_CreateANewProfileFrom"), Loc.Get("Scan_ProfileName"),
             $"{(Environment.MachineName.Length > 0 ? Environment.MachineName : "My")} PC");
         if (string.IsNullOrWhiteSpace(name))
         {
@@ -313,7 +314,7 @@ public sealed partial class ScanViewModel : PageViewModelBase
         var (added, _) = _services.State.AddApps(selected.Select(i => i.App.ToProfileEntry()));
         var dialog = new Microsoft.Win32.SaveFileDialog
         {
-            Title = "Export portable profile",
+            Title = Loc.Get("Scan_ExportProfileTitle"),
             Filter = "CTRL+Z profile (*.json)|*.json",
             FileName = $"{name}.json",
             InitialDirectory = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments),
@@ -324,12 +325,12 @@ public sealed partial class ScanViewModel : PageViewModelBase
         {
             _services.State.ExportActive(dialog.FileName);
             _dialogs.Info(
-                $"Saved profile \"{profile.Name}\" with {added} apps.\n\n{dialog.FileName}\n\n" +
-                "Keep this JSON with your installer or on a USB drive.", "Profile saved");
+                Loc.Format("Scan_SavedProfileWithApps", profile.Name, added, dialog.FileName) +
+                Loc.Get("Scan_KeepThisJSONWithYour"), Loc.Get("Scan_ProfileSaved"));
         }
         else
         {
-            _dialogs.Info($"Saved profile \"{profile.Name}\" with {added} apps in CTRL+Z.", "Profile saved");
+            _dialogs.Info(Loc.Format("Scan_SavedProfileWithAppsIn", profile.Name, added), Loc.Get("Scan_ProfileSaved"));
         }
 
         await _main.NavigateToAsync("apps");
@@ -342,17 +343,17 @@ public sealed partial class ScanViewModel : PageViewModelBase
             return false;
         }
 
-        if (SelectedMatchFilter == "Matched" && !app.IsMatched)
+        if (SelectedMatchFilter == Loc.Get("Scan_Matched2") && !app.IsMatched)
         {
             return false;
         }
 
-        if (SelectedMatchFilter == "Unmatched" && app.IsMatched)
+        if (SelectedMatchFilter == Loc.Get("Scan_Unmatched2") && app.IsMatched)
         {
             return false;
         }
 
-        if (!string.IsNullOrWhiteSpace(SelectedCategory) && SelectedCategory != "All categories" &&
+        if (!string.IsNullOrWhiteSpace(SelectedCategory) && SelectedCategory != Loc.Get("Scan_AllCategories") &&
             !app.App.Category.Display().Equals(SelectedCategory, StringComparison.CurrentCultureIgnoreCase))
         {
             return false;
@@ -375,7 +376,7 @@ public sealed partial class ScanViewModel : PageViewModelBase
         foreach (var item in Items)
         {
             var group = !item.IsMatched
-                ? "Unmatched"
+                ? Loc.Get("Scan_Unmatched2")
                 : GroupBySource
                     ? item.SourceLabel
                     : item.App.Category.Display();

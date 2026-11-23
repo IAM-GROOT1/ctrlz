@@ -1,6 +1,7 @@
 // SPDX-License-Identifier: AGPL-3.0-only
 // Copyright (c) 2026 iam-groot1
 
+using CtrlZ.App.Localization;
 using System.Collections.ObjectModel;
 using System.IO;
 using CommunityToolkit.Mvvm.ComponentModel;
@@ -66,7 +67,7 @@ public sealed partial class AppUpdatesViewModel : PageViewModelBase
     private bool _loaded;
 
     public AppUpdatesViewModel(AppServices services, DialogService dialogs)
-        : base("Updates", "Apps winget can update on this PC. Nothing changes until you choose.")
+        : base(Loc.Get("AppUpdates_Updates"), Loc.Get("AppUpdates_AppsWingetCanUpdateOn"))
     {
         _services = services;
         _dialogs = dialogs;
@@ -83,10 +84,10 @@ public sealed partial class AppUpdatesViewModel : PageViewModelBase
     public bool HasGitHubRows => GitHubRows.Count > 0;
 
     [ObservableProperty]
-    private string _summaryTitle = "Check for app updates";
+    private string _summaryTitle = Loc.Get("AppUpdates_CheckForAppUpdates");
 
     [ObservableProperty]
-    private string _statusLine = "winget is asked which installed apps have a newer version.";
+    private string _statusLine = Loc.Get("AppUpdates_WingetIsAskedWhichInstalled");
 
     [ObservableProperty]
     [NotifyCanExecuteChangedFor(nameof(CheckCommand), nameof(UpdateSelectedCommand), nameof(UpdateAllCommand))]
@@ -112,7 +113,7 @@ public sealed partial class AppUpdatesViewModel : PageViewModelBase
     private async Task CheckAsync()
     {
         IsBusy = true;
-        StatusLine = "Asking winget for updates…";
+        StatusLine = Loc.Get("AppUpdates_AskingWingetForUpdates");
         try
         {
             _cts?.Dispose();
@@ -120,16 +121,16 @@ public sealed partial class AppUpdatesViewModel : PageViewModelBase
             _all = await _services.Winget.ListUpgradesAsync(_cts.Token);
             Rebuild();
             await CheckGitHubAsync(_cts.Token);
-            StatusLine = $"Checked {DateTime.Now:HH:mm}. Pinned apps are only updated when you pick them.";
+            StatusLine = Loc.Format("AppUpdates_CheckedPinnedAppsAreOnly", DateTime.Now);
         }
         catch (OperationCanceledException)
         {
-            StatusLine = "Check cancelled.";
+            StatusLine = Loc.Get("AppUpdates_CheckCancelled");
         }
         catch (Exception ex)
         {
             _services.Log.Write(LogLevel.Error, "Checking for app updates failed.", ex);
-            StatusLine = "winget could not be asked for updates. Check that App Installer is installed (Settings).";
+            StatusLine = Loc.Get("AppUpdates_WingetCouldNotBeAsked");
         }
         finally
         {
@@ -139,11 +140,11 @@ public sealed partial class AppUpdatesViewModel : PageViewModelBase
 
     [RelayCommand(CanExecute = nameof(CanAct))]
     private Task UpdateSelectedAsync() =>
-        RunAsync(Rows.Where(row => row.IsSelected).Select(row => row.Update).ToList(), "Update selected apps");
+        RunAsync(Rows.Where(row => row.IsSelected).Select(row => row.Update).ToList(), Loc.Get("AppUpdates_UpdateSelectedApps"));
 
     [RelayCommand(CanExecute = nameof(CanAct))]
     private Task UpdateAllAsync() =>
-        RunAsync(AppUpdateRunner.ForUpdateAll(_all, _ignores), "Update all apps");
+        RunAsync(AppUpdateRunner.ForUpdateAll(_all, _ignores), Loc.Get("AppUpdates_UpdateAllApps"));
 
     [RelayCommand]
     private void Ignore(AppUpdateRow? row)
@@ -155,7 +156,7 @@ public sealed partial class AppUpdatesViewModel : PageViewModelBase
 
         _ignores.Ignore(row.Update);
         Rebuild();
-        StatusLine = $"{row.Name} {row.Update.AvailableVersion} is hidden until a newer version appears.";
+        StatusLine = Loc.Format("AppUpdates_IsHiddenUntilANewer", row.Name, row.Update.AvailableVersion);
     }
 
     [RelayCommand]
@@ -200,10 +201,10 @@ public sealed partial class AppUpdatesViewModel : PageViewModelBase
             return;
         }
 
-        if (!_dialogs.Confirm("Update from GitHub",
-                $"Download {row.Name} {row.Update.LatestTag} from {row.Repository} and install it over {row.Update.InstalledTag}?\n\n" +
-                "Close the app first. The download is checked against the release's SHA-256 when the release publishes one.",
-                "Update", "Cancel"))
+        if (!_dialogs.Confirm(Loc.Get("AppUpdates_UpdateFromGitHub"),
+                Loc.Format("AppUpdates_DownloadFromAndInstallIt", row.Name, row.Update.LatestTag, row.Repository, row.Update.InstalledTag) +
+                Loc.Get("AppUpdates_CloseTheAppFirstThe"),
+                Loc.Get("AppUpdates_Update2"), Loc.Get("AppUpdates_Cancel2")))
         {
             return;
         }
@@ -211,38 +212,38 @@ public sealed partial class AppUpdatesViewModel : PageViewModelBase
         using var runLock = InstallLock.TryAcquire();
         if (runLock is null)
         {
-            StatusLine = "Another install or update is running on this PC. Try again when it has finished.";
+            StatusLine = Loc.Get("AppUpdates_AnotherInstallOrUpdateIs");
             return;
         }
 
         IsBusy = true;
-        using var activity = _services.Activity.Begin("Updating apps");
+        using var activity = _services.Activity.Begin(Loc.Get("AppUpdates_UpdatingApps"));
         _cts?.Dispose();
         _cts = new CancellationTokenSource();
-        row.Status = "Updating…";
+        row.Status = Loc.Get("AppUpdates_Updating");
         try
         {
             var context = new InstallContext(
                 _services.Paths, NullInstallLogSink.Instance, _services.Log, CtrlZ.Core.Services.ElevationService.IsElevated);
             var result = await _services.GitHubInstaller.InstallAsync(row.Update.App, context, _cts.Token);
             row.Status = result.Success
-                ? $"Updated to {row.Update.LatestTag}."
-                : result.Error ?? result.Detail ?? "The update did not finish.";
+                ? Loc.Format("AppUpdates_UpdatedTo", row.Update.LatestTag)
+                : result.Error ?? result.Detail ?? Loc.Get("AppUpdates_TheUpdateDidNotFinish");
             if (result.Success)
             {
                 GitHubRows.Remove(row);
                 OnPropertyChanged(nameof(HasGitHubRows));
-                StatusLine = $"{row.Name} updated to {row.Update.LatestTag}.";
+                StatusLine = Loc.Format("AppUpdates_UpdatedTo2", row.Name, row.Update.LatestTag);
             }
         }
         catch (OperationCanceledException)
         {
-            row.Status = "Cancelled.";
+            row.Status = Loc.Get("AppUpdates_Cancelled");
         }
         catch (Exception ex)
         {
             _services.Log.Write(LogLevel.Error, $"Updating {row.Name} from GitHub failed.", ex);
-            row.Status = "The update failed: " + ex.Message;
+            row.Status = Loc.Get("AppUpdates_TheUpdateFailed") + ex.Message;
         }
         finally
         {
@@ -254,21 +255,21 @@ public sealed partial class AppUpdatesViewModel : PageViewModelBase
     {
         if (chosen.Count == 0)
         {
-            StatusLine = "Nothing selected to update.";
+            StatusLine = Loc.Get("AppUpdates_NothingSelectedToUpdate");
             return;
         }
 
         var list = string.Join("\n", chosen.Take(15).Select(update =>
-            $"• {update.Name}: {update.InstalledVersion ?? "unknown"} → {update.AvailableVersion}"));
+            $"• {update.Name}: {update.InstalledVersion ?? Loc.Get("AppUpdates_UnknownVersion")} → {update.AvailableVersion}"));
         if (chosen.Count > 15)
         {
-            list += $"\n…and {chosen.Count - 15} more";
+            list += Loc.Format("AppUpdates_AndMore", chosen.Count - 15);
         }
 
         if (!_dialogs.Confirm(title,
-                $"winget will update {chosen.Count} app{(chosen.Count == 1 ? string.Empty : "s")}, one after another:\n\n{list}\n\n" +
-                "Close these apps first. Windows may ask for permission for apps installed for all users.",
-                "Update", "Cancel"))
+                Loc.Plural("AppUpdates_WingetWillUpdate", chosen.Count, list) +
+                Loc.Get("AppUpdates_CloseTheseAppsFirstWindows"),
+                Loc.Get("AppUpdates_Update2"), Loc.Get("AppUpdates_Cancel2")))
         {
             return;
         }
@@ -276,12 +277,12 @@ public sealed partial class AppUpdatesViewModel : PageViewModelBase
         using var runLock = InstallLock.TryAcquire();
         if (runLock is null)
         {
-            StatusLine = "Another install or update is running on this PC. Try again when it has finished.";
+            StatusLine = Loc.Get("AppUpdates_AnotherInstallOrUpdateIs");
             return;
         }
 
         IsBusy = true;
-        using var activity = _services.Activity.Begin("Updating apps");
+        using var activity = _services.Activity.Begin(Loc.Get("AppUpdates_UpdatingApps"));
         _cts?.Dispose();
         _cts = new CancellationTokenSource();
         var rows = Rows.ToDictionary(row => row.Id, StringComparer.OrdinalIgnoreCase);
@@ -289,7 +290,7 @@ public sealed partial class AppUpdatesViewModel : PageViewModelBase
         {
             if (rows.TryGetValue(update.Id, out var row))
             {
-                row.Status = "Queued";
+                row.Status = Loc.Get("AppUpdates_Queued");
             }
         }
 
@@ -299,7 +300,7 @@ public sealed partial class AppUpdatesViewModel : PageViewModelBase
             {
                 if (rows.TryGetValue(id, out var current))
                 {
-                    current.Status = "Updating…";
+                    current.Status = Loc.Get("AppUpdates_Updating");
                 }
 
                 var result = await _services.Winget.UpgradeAsync(id, line => onLine(line.Text), token);
@@ -318,7 +319,7 @@ public sealed partial class AppUpdatesViewModel : PageViewModelBase
             var updated = outcomes.Count(o => o.Kind is AppUpdateOutcomeKind.Updated or AppUpdateOutcomeKind.UpdatedRestartNeeded);
             var failed = outcomes.Count(o => o.Kind == AppUpdateOutcomeKind.Failed);
             var restart = outcomes.Any(o => o.Kind == AppUpdateOutcomeKind.UpdatedRestartNeeded);
-            StatusLine = $"{updated} updated, {failed} failed." + (restart ? " Restart Windows to finish." : string.Empty);
+            StatusLine = Loc.Format("AppUpdates_UpdatedFailed", updated, failed) + (restart ? Loc.Get("AppUpdates_RestartWindowsToFinish") : string.Empty);
             _services.Log.Write(LogLevel.Info, $"App updates finished: {updated} updated, {failed} failed.");
         }
         finally
@@ -337,8 +338,8 @@ public sealed partial class AppUpdatesViewModel : PageViewModelBase
 
         var pinned = Rows.Count(row => row.IsPinned);
         SummaryTitle = Rows.Count == 0
-            ? "Your apps are up to date"
-            : $"{Rows.Count} app update{(Rows.Count == 1 ? string.Empty : "s")} available";
+            ? Loc.Get("AppUpdates_YourAppsAreUpTo")
+            : Loc.Plural("AppUpdates_UpdatesAvailable", Rows.Count);
         if (pinned > 0)
         {
             SummaryTitle += $" ({pinned} pinned)";

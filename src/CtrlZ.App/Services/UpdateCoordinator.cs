@@ -1,6 +1,7 @@
 // SPDX-License-Identifier: AGPL-3.0-only
 // Copyright (c) 2026 iam-groot1
 
+using CtrlZ.App.Localization;
 using System.Diagnostics;
 using System.IO;
 using System.Windows;
@@ -111,8 +112,8 @@ public sealed class UpdateCoordinator
                 if (!await ActivityWaiter.WaitForIdleAsync(_services.Activity, DeferralTimeout).ConfigureAwait(true))
                 {
                     _dialogs.Info(
-                        "An install, backup or restore is still running, so the update prompt is deferred until it finishes.",
-                        "Update deferred");
+                        Loc.Get("Update_AnInstallBackupOrRestore"),
+                        Loc.Get("Update_UpdateDeferred"));
                     return;
                 }
 
@@ -122,14 +123,14 @@ public sealed class UpdateCoordinator
 
             _dialogs.Info(
                 check.Latest is null
-                    ? $"You are running CTRL+Z {CurrentVersion}. No published release was found for this channel yet."
-                    : $"You are running CTRL+Z {CurrentVersion}, which is up to date.",
-                "No updates");
+                    ? Loc.Format("Update_YouAreRunningCTRLZ", CurrentVersion)
+                    : Loc.Format("Update_YouAreRunningCTRLZ2", CurrentVersion),
+                Loc.Get("Update_NoUpdates"));
         }
         catch (UpdateCheckException ex)
         {
             _services.Log.Write(LogLevel.Info, $"Manual update check failed: {ex.Message}");
-            _dialogs.Info(ex.FriendlyMessage, "Could not check for updates");
+            _dialogs.Info(ex.FriendlyMessage, Loc.Get("Update_CouldNotCheckForUpdates"));
         }
     }
 
@@ -173,9 +174,9 @@ public sealed class UpdateCoordinator
             if (manual && decision == UpdatePromptDecision.Skipped)
             {
                 _dialogs.Info(
-                    $"CTRL+Z {release.Version} is available, but you asked to skip that version. " +
-                    "A newer release will prompt again.",
-                    "This version is skipped");
+                    Loc.Format("Update_CTRLZIsAvailableBut", release.Version) +
+                    Loc.Get("Update_ANewerReleaseWillPrompt"),
+                    Loc.Get("Update_ThisVersionIsSkipped"));
             }
 
             return;
@@ -188,7 +189,7 @@ public sealed class UpdateCoordinator
             _services.Log.Write(LogLevel.Warning, $"Update {release.Version} cannot be offered: {assetError}");
             if (manual)
             {
-                _dialogs.Info(assetError, "Update not available");
+                _dialogs.Info(assetError, Loc.Get("Update_UpdateNotAvailable"));
             }
 
             return;
@@ -240,7 +241,7 @@ public sealed class UpdateCoordinator
         using var cts = new CancellationTokenSource();
         window.CancelRequested += (_, _) => cts.Cancel();
 
-        window.BeginProgress("Preparing\u2026");
+        window.BeginProgress(Loc.Get("Update_Preparing"));
 
         try
         {
@@ -252,11 +253,11 @@ public sealed class UpdateCoordinator
             {
                 if (report.Fraction is { } fraction)
                 {
-                    window.SetProgress(fraction, $"Downloading\u2026 {fraction:P0}");
+                    window.SetProgress(fraction, Loc.Format("Update_Downloading", fraction));
                 }
                 else
                 {
-                    window.SetProgress(null, "Downloading\u2026");
+                    window.SetProgress(null, Loc.Get("Update_Downloading2"));
                 }
             });
 
@@ -266,7 +267,7 @@ public sealed class UpdateCoordinator
                 .DownloadAsync(release, selection.Asset, expectedHash, progress, cts.Token)
                 .ConfigureAwait(true);
 
-            window.SetProgress(null, "Verifying\u2026");
+            window.SetProgress(null, Loc.Get("Update_Verifying"));
             var actual = await UpdateVerifier.ComputeSha256Async(file.Path, cts.Token).ConfigureAwait(true);
             UpdateVerifier.EnsureHash(expectedHash, actual);
 
@@ -277,12 +278,12 @@ public sealed class UpdateCoordinator
             // A long operation may have started while the download ran; never interrupt it.
             if (_services.Activity.IsBusy)
             {
-                window.SetProgress(null, "Waiting for the current operation to finish\u2026");
+                window.SetProgress(null, Loc.Get("Update_WaitingForTheCurrentOperation"));
                 _services.Log.Write(LogLevel.Info, "Update download finished; waiting for the running operation to finish.");
                 if (!await ActivityWaiter.WaitForIdleAsync(_services.Activity, DeferralTimeout, cts.Token).ConfigureAwait(true))
                 {
                     _services.Log.Write(LogLevel.Info, "Update postponed: an operation is still running after the deferral window.");
-                    window.ShowError("An install or backup is still running, so the update was not applied. Check for updates again when it has finished.");
+                    window.ShowError(Loc.Get("Update_AnInstallOrBackupIs"));
                     return;
                 }
             }
@@ -293,11 +294,11 @@ public sealed class UpdateCoordinator
             if (_services.Activity.IsBusy || !TryHoldInstallLockUntilExit())
             {
                 _services.Log.Write(LogLevel.Info, "Update postponed: an install or backup is running.");
-                window.ShowError("An install or backup is running (in the app or from the command line), so the update was not applied. Check for updates again when it has finished.");
+                window.ShowError(Loc.Get("Update_AnInstallOrBackupIs2"));
                 return;
             }
 
-            window.SetProgress(null, "Restarting to finish the update\u2026");
+            window.SetProgress(null, Loc.Get("Update_RestartingToFinishTheUpdate"));
             try
             {
                 LaunchHelper(file.Path, expectedHash, kind, release.Version.ToString(), companion);
@@ -453,7 +454,7 @@ public sealed class UpdateCoordinator
 
         _services.Log.Write(LogLevel.Warning, $"The previous update did not complete: {result.Message}");
         _dialogs.Error(
-            result.Message ?? "The previous update did not complete. Your existing version is unchanged.",
-            "Update not applied");
+            result.Message ?? Loc.Get("Update_ThePreviousUpdateDidNot"),
+            Loc.Get("Update_UpdateNotApplied"));
     }
 }

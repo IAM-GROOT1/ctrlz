@@ -25,4 +25,19 @@ public static class Loc
     /// <summary>The text for <paramref name="key"/> with <c>{0}</c>-style placeholders filled in.</summary>
     public static string Format(string key, params object?[] args) =>
         string.Format(CultureInfo.CurrentCulture, Get(key), args);
+
+    /// <summary>
+    /// Text that depends on a count: <c>{key}_One</c> when <paramref name="count"/> is 1 and
+    /// <c>{key}_Other</c> otherwise, in English. A language with more forms adds keys named by its
+    /// plural category (<c>_Two</c>, <c>_Few</c>, <c>_Many</c>); a missing form uses <c>_Other</c>.
+    /// The count is <c>{0}</c>; <paramref name="args"/> follow as <c>{1}</c>, <c>{2}</c>…
+    /// </summary>
+    public static string Plural(string key, long count, params object?[] args)
+    {
+        var culture = CultureInfo.CurrentUICulture;
+        var text = Resources.GetString($"{key}_{PluralRules.Category(culture, count)}", culture)
+                   ?? Resources.GetString($"{key}_Other", culture)
+                   ?? $"[{key}]";
+        return string.Format(CultureInfo.CurrentCulture, text, [count, .. args]);
+    }
 }

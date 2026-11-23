@@ -1,6 +1,7 @@
 // SPDX-License-Identifier: AGPL-3.0-only
 // Copyright (c) 2026 iam-groot1
 
+using CtrlZ.App.Localization;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using CommunityToolkit.Mvvm.ComponentModel;
@@ -29,14 +30,14 @@ public sealed partial class TweakRowViewModel : ObservableObject
 
     public bool IsOn => State != TweakState.Off;
 
-    public string ActionText => State == TweakState.Off ? "Apply" : "Undo";
+    public string ActionText => State == TweakState.Off ? Loc.Get("Tweaks_Apply") : Loc.Get("Tweaks_Undo");
 
     public string StateText => (State switch
     {
         TweakState.On => "On",
-        TweakState.Partly => "Partly on",
-        _ => "Off"
-    }) + (InProfile ? " · in your profile" : string.Empty);
+        TweakState.Partly => Loc.Get("Tweaks_PartlyOn"),
+        _ => Loc.Get("Tweaks_Off")
+    }) + (InProfile ? Loc.Get("Tweaks_InYourProfile") : string.Empty);
 }
 
 /// <summary>
@@ -50,7 +51,7 @@ public sealed partial class TweaksViewModel : PageViewModelBase
     private readonly DialogService _dialogs;
 
     public TweaksViewModel(AppServices services, DialogService dialogs)
-        : base("Tweaks", "Small Windows settings to set again after a reinstall. Each one can be undone exactly.")
+        : base(Loc.Get("Tweaks_Tweaks"), Loc.Get("Tweaks_SmallWindowsSettingsToSet"))
     {
         _services = services;
         _dialogs = dialogs;
@@ -70,7 +71,7 @@ public sealed partial class TweaksViewModel : PageViewModelBase
 
     public bool HasPendingFromProfile => PendingFromProfile > 0;
 
-    public string PendingText => $"Your profile lists {PendingFromProfile} tweak{(PendingFromProfile == 1 ? string.Empty : "s")} that {(PendingFromProfile == 1 ? "is" : "are")} not on this PC yet.";
+    public string PendingText => Loc.Plural("Tweaks_PendingFromProfile", PendingFromProfile);
 
     public override Task ActivateAsync()
     {
@@ -138,7 +139,7 @@ public sealed partial class TweaksViewModel : PageViewModelBase
         catch (Exception ex)
         {
             _services.Log.Write(LogLevel.Warning, $"Tweak {row.Tweak.Id} failed: {LogPrivacy.Describe(ex)}");
-            _dialogs.Error(ex.Message, "Tweak not changed");
+            _dialogs.Error(ex.Message, Loc.Get("Tweaks_TweakNotChanged"));
         }
 
         Refresh();
@@ -150,10 +151,10 @@ public sealed partial class TweaksViewModel : PageViewModelBase
     {
         var pending = Rows.Where(row => row.InProfile && row.State != TweakState.On).ToList();
         if (pending.Count == 0 ||
-            !_dialogs.Confirm("Apply tweaks from your profile",
-                "These will be set on this PC, and each can be undone here:\n\n" +
+            !_dialogs.Confirm(Loc.Get("Tweaks_ApplyTweaksFromYourProfile"),
+                Loc.Get("Tweaks_TheseWillBeSetOn") +
                 string.Join("\n", pending.Select(row => "• " + row.Title)),
-                "Apply", "Cancel"))
+                Loc.Get("Tweaks_Apply"), Loc.Get("Tweaks_Cancel")))
         {
             return;
         }
@@ -174,8 +175,8 @@ public sealed partial class TweaksViewModel : PageViewModelBase
         }
 
         StatusMessage = failed.Count == 0
-            ? $"Applied {pending.Count} tweak{(pending.Count == 1 ? string.Empty : "s")} from your profile."
-            : $"Applied {pending.Count - failed.Count}; not changed: {string.Join(", ", failed)}.";
+            ? Loc.Plural("Tweaks_AppliedFromProfile", pending.Count)
+            : Loc.Format("Tweaks_AppliedNotChanged", pending.Count - failed.Count, string.Join(", ", failed));
         Refresh();
     }
 
@@ -183,16 +184,16 @@ public sealed partial class TweaksViewModel : PageViewModelBase
     [RelayCommand]
     private async Task RestartExplorerAsync()
     {
-        if (!_dialogs.Confirm("Restart File Explorer",
-                "File Explorer and the taskbar will close and open again. Open Explorer windows will close; nothing else is affected.",
-                "Restart Explorer", "Cancel"))
+        if (!_dialogs.Confirm(Loc.Get("Tweaks_RestartFileExplorer2"),
+                Loc.Get("Tweaks_FileExplorerAndTheTaskbar"),
+                Loc.Get("Tweaks_RestartExplorer"), Loc.Get("Tweaks_Cancel")))
         {
             return;
         }
 
         try
         {
-            StatusMessage = "Restarting File Explorer…";
+            StatusMessage = Loc.Get("Tweaks_RestartingFileExplorer");
 
             // Waiting for Explorer to close and come back runs off the UI thread, so the window stays responsive.
             await Task.Run(async () =>
@@ -224,13 +225,13 @@ public sealed partial class TweaksViewModel : PageViewModelBase
             });
 
             NeedsExplorerRestart = false;
-            StatusMessage = "File Explorer restarted.";
+            StatusMessage = Loc.Get("Tweaks_FileExplorerRestarted");
         }
         catch (Exception ex)
         {
             _services.Log.Write(LogLevel.Warning, $"Explorer restart failed: {LogPrivacy.Describe(ex)}");
             StatusMessage = null;
-            _dialogs.Error("File Explorer could not be restarted. Sign out and back in to apply the change.\n\n" + ex.Message);
+            _dialogs.Error(Loc.Get("Tweaks_FileExplorerCouldNotBe") + ex.Message);
         }
     }
 

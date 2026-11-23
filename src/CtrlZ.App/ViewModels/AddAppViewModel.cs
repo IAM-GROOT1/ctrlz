@@ -1,6 +1,7 @@
 // SPDX-License-Identifier: AGPL-3.0-only
 // Copyright (c) 2026 iam-groot1
 
+using CtrlZ.App.Localization;
 using System.Collections.Concurrent;
 using System.Collections.ObjectModel;
 using System.IO;
@@ -40,7 +41,7 @@ public sealed partial class AddAppViewModel : PageViewModelBase
     private string? _inspectedPath;
 
     public AddAppViewModel(AppServices services, DialogService dialogs, MainViewModel main)
-        : base("Add app", "Add installers winget does not carry: a direct link, a GitHub release, or a local file.")
+        : base(Loc.Get("AddApp_AddApp"), Loc.Get("AddApp_AddInstallersWingetDoesNot"))
     {
         _services = services;
         _dialogs = dialogs;
@@ -50,9 +51,9 @@ public sealed partial class AddAppViewModel : PageViewModelBase
             .ToArray();
         AssetKinds =
         [
-            new(GitHubAssetKind.Installer, "Installer (run silently)"),
-            new(GitHubAssetKind.PortableArchive, "Portable archive (extract)"),
-            new(GitHubAssetKind.PortableExecutable, "Portable executable (copy)")
+            new(GitHubAssetKind.Installer, Loc.Get("AddApp_InstallerRunSilently")),
+            new(GitHubAssetKind.PortableArchive, Loc.Get("AddApp_PortableArchiveExtract")),
+            new(GitHubAssetKind.PortableExecutable, Loc.Get("AddApp_PortableExecutableCopy"))
         ];
         SelectedCategory = Categories.First(c => c.Category == AppCategory.Productivity);
         SelectedAssetKind = AssetKinds[0];
@@ -114,7 +115,7 @@ public sealed partial class AddAppViewModel : PageViewModelBase
     private bool _isTesting;
 
     [ObservableProperty]
-    private string _detectedInstaller = "Not inspected yet";
+    private string _detectedInstaller = Loc.Get("AddApp_NotInspectedYet");
 
     [ObservableProperty]
     private string _recommendedArgs = string.Empty;
@@ -123,7 +124,7 @@ public sealed partial class AddAppViewModel : PageViewModelBase
     private string _previewCommand = string.Empty;
 
     [ObservableProperty]
-    private string _statusMessage = "Choose a source and fill in what CTRL+Z needs.";
+    private string _statusMessage = Loc.Get("AddApp_ChooseASourceAndFill");
 
     [ObservableProperty]
     private string? _errorMessage;
@@ -172,7 +173,7 @@ public sealed partial class AddAppViewModel : PageViewModelBase
     public bool CanTest => _inspectedPath is not null;
     public bool HasRecommended => !string.IsNullOrWhiteSpace(RecommendedArgs);
 
-    public string AddButtonText => $"Add {Name switch { "" => "app", var n => n }} to My Apps";
+    public string AddButtonText => Name is "" ? Loc.Get("AddApp_AddAppToMyApps") : Loc.Format("AddApp_AddNameToMyApps", Name);
 
     partial void OnModeChanged(AddAppMode value)
     {
@@ -241,7 +242,7 @@ public sealed partial class AddAppViewModel : PageViewModelBase
 
         IsLoadingRelease = true;
         ClearError();
-        ReleaseInfo = "Fetching the latest release…";
+        ReleaseInfo = Loc.Get("AddApp_FetchingTheLatestRelease");
         try
         {
             var release = await _services.GitHub.GetLatestAsync(repository);
@@ -253,8 +254,8 @@ public sealed partial class AddAppViewModel : PageViewModelBase
             }
 
             ReleaseInfo = ranked.Count == 0
-                ? $"Release {release.TagName} has no supported Windows asset."
-                : $"{release.TagName} · {ranked.Count} Windows asset{(ranked.Count == 1 ? string.Empty : "s")} · published {release.PublishedAt?.ToLocalTime():MMM d, yyyy}";
+                ? Loc.Format("AddApp_ReleaseHasNoSupportedWindows", release.TagName)
+                : Loc.Plural("AddApp_ReleaseAssets", ranked.Count, release.TagName, release.PublishedAt?.ToLocalTime());
             SelectedAsset = Assets.FirstOrDefault();
             OnPropertyChanged(nameof(HasAssets));
             if (Assets.Count == 0 && string.IsNullOrWhiteSpace(Name))
@@ -265,7 +266,7 @@ public sealed partial class AddAppViewModel : PageViewModelBase
         catch (Exception ex)
         {
             ShowError(ex.Message);
-            ReleaseInfo = "Could not load the release.";
+            ReleaseInfo = Loc.Get("AddApp_CouldNotLoadTheRelease");
         }
         finally
         {
@@ -278,8 +279,8 @@ public sealed partial class AddAppViewModel : PageViewModelBase
     {
         var dialog = new OpenFileDialog
         {
-            Title = "Select a local installer",
-            Filter = "Installers and archives (*.exe;*.msi;*.msix;*.appx;*.zip)|*.exe;*.msi;*.msix;*.appx;*.zip|All files (*.*)|*.*",
+            Title = Loc.Get("AddApp_SelectALocalInstaller"),
+            Filter = Loc.Get("AddApp_InstallerFilter"),
             CheckFileExists = true
         };
         if (dialog.ShowDialog() == true)
@@ -299,7 +300,7 @@ public sealed partial class AddAppViewModel : PageViewModelBase
     {
         var dialog = new OpenFolderDialog
         {
-            Title = "Select a folder containing the installer"
+            Title = Loc.Get("AddApp_SelectAFolderContainingThe")
         };
         if (dialog.ShowDialog() == true)
         {
@@ -321,8 +322,8 @@ public sealed partial class AddAppViewModel : PageViewModelBase
             else
             {
                 ShowError(candidates.Length == 0
-                    ? "No supported installer was found in that folder."
-                    : "More than one installer was found. Choose the file directly.");
+                    ? Loc.Get("AddApp_NoSupportedInstallerWasFound")
+                    : Loc.Get("AddApp_MoreThanOneInstallerWas"));
             }
         }
     }
@@ -340,7 +341,7 @@ public sealed partial class AddAppViewModel : PageViewModelBase
         try
         {
             IsDetecting = true;
-            DetectedInstaller = "Downloading and inspecting…";
+            DetectedInstaller = Loc.Get("AddApp_DownloadingAndInspecting");
             path = await GetInstallerPathAsync();
             if (path is null)
             {
@@ -351,7 +352,7 @@ public sealed partial class AddAppViewModel : PageViewModelBase
             var type = SilentInstallerCatalog.Detect(path);
             var preset = SilentInstallerCatalog.GetPreset(type);
             DetectedInstaller = type == InstallerType.Unknown
-                ? "Unrecognized installer"
+                ? Loc.Get("AddApp_UnrecognizedInstaller")
                 : preset.DisplayName;
             RecommendedArgs = preset.Arguments;
             if (string.IsNullOrWhiteSpace(SilentArgs) && !string.IsNullOrWhiteSpace(preset.Arguments))
@@ -361,14 +362,14 @@ public sealed partial class AddAppViewModel : PageViewModelBase
 
             UpdatePreview();
             StatusMessage = type == InstallerType.Unknown
-                ? "Installer type was not recognized. /S is a reasonable starting point, but test it."
-                : $"Detected {preset.DisplayName}. Review the switches and test if needed.";
+                ? Loc.Get("AddApp_InstallerTypeWasNotRecognized")
+                : Loc.Format("AddApp_DetectedReviewTheSwitchesAnd", preset.DisplayName);
             OnPropertyChanged(nameof(CanTest));
         }
         catch (Exception ex)
         {
             _inspectedPath = null;
-            DetectedInstaller = "Inspection failed";
+            DetectedInstaller = Loc.Get("AddApp_InspectionFailed");
             ShowError(ex.Message);
         }
         finally
@@ -403,10 +404,10 @@ public sealed partial class AddAppViewModel : PageViewModelBase
             }
         }
 
-        if (!_dialogs.Confirm("Test this installer",
-                "CTRL+Z will run the installer on this PC with the switches shown. " +
-                "This is a real installation and may change this machine. Continue?",
-                "Run test install", "Cancel", danger: true))
+        if (!_dialogs.Confirm(Loc.Get("AddApp_TestThisInstaller"),
+                Loc.Get("AddApp_CTRLZWillRunThe") +
+                Loc.Get("AddApp_ThisIsARealInstallation"),
+                Loc.Get("AddApp_RunTestInstall"), Loc.Get("AddApp_Cancel"), danger: true))
         {
             return;
         }
@@ -424,8 +425,8 @@ public sealed partial class AddAppViewModel : PageViewModelBase
             var result = await _services.FileInstaller.RunInstallerAsync(app, _inspectedPath, context, CancellationToken.None);
             TestLog = string.Join(Environment.NewLine, lines.TakeLast(80));
             StatusMessage = result.Success
-                ? "Test install succeeded. Review the output, then add the app."
-                : "Test install did not complete: " + (result.Error ?? result.Detail);
+                ? Loc.Get("AddApp_TestInstallSucceededReviewThe")
+                : Loc.Get("AddApp_TestInstallDidNotComplete") + (result.Error ?? result.Detail);
             if (!result.Success)
             {
                 ShowError(StatusMessage);
@@ -433,7 +434,7 @@ public sealed partial class AddAppViewModel : PageViewModelBase
         }
         catch (Exception ex)
         {
-            ShowError("Test install failed: " + ex.Message);
+            ShowError(Loc.Get("AddApp_TestInstallFailed") + ex.Message);
             TestLog = ex.ToString();
         }
         finally
@@ -448,7 +449,7 @@ public sealed partial class AddAppViewModel : PageViewModelBase
         ClearError();
         if (string.IsNullOrWhiteSpace(Name))
         {
-            ShowError("Give the app a name.");
+            ShowError(Loc.Get("AddApp_GiveTheAppAName"));
             return;
         }
 
@@ -462,7 +463,7 @@ public sealed partial class AddAppViewModel : PageViewModelBase
         if (!string.IsNullOrWhiteSpace(Hash) &&
             (Hash.Trim().Length != 64 || !Hash.Trim().All(Uri.IsHexDigit)))
         {
-            ShowError("SHA-256 must be 64 hexadecimal characters, or left blank.");
+            ShowError(Loc.Get("AddApp_SHA256MustBe64"));
             return;
         }
 
@@ -480,14 +481,14 @@ public sealed partial class AddAppViewModel : PageViewModelBase
         var (added, skipped) = _services.State.AddApps([entry]);
         if (added == 0)
         {
-            _dialogs.Info("That app is already in this profile.");
+            _dialogs.Info(Loc.Get("AddApp_ThatAppIsAlreadyIn"));
             return;
         }
 
         _dialogs.Info(
-            $"Added {entry.Name} to \"{_services.State.ActiveProfile.Name}\"." +
-            (skipped > 0 ? $" {skipped} duplicate was skipped." : string.Empty),
-            "App added");
+            Loc.Format("AddApp_AddedTo", entry.Name, _services.State.ActiveProfile.Name) +
+            (skipped > 0 ? Loc.Format("AddApp_DuplicateWasSkipped", skipped) : string.Empty),
+            Loc.Get("AddApp_AppAdded"));
         ClearForm();
         await _main.NavigateToAsync("apps");
     }
@@ -509,12 +510,12 @@ public sealed partial class AddAppViewModel : PageViewModelBase
         Hash = string.Empty;
         Notes = string.Empty;
         _inspectedPath = null;
-        DetectedInstaller = "Not inspected yet";
+        DetectedInstaller = Loc.Get("AddApp_NotInspectedYet");
         RecommendedArgs = string.Empty;
         PreviewCommand = string.Empty;
         TestLog = string.Empty;
         HasTestLog = false;
-        StatusMessage = "Choose a source and fill in what CTRL+Z needs.";
+        StatusMessage = Loc.Get("AddApp_ChooseASourceAndFill");
         ErrorMessage = null;
     }
 
@@ -584,7 +585,7 @@ public sealed partial class AddAppViewModel : PageViewModelBase
             case AddAppMode.Local:
                 if (!File.Exists(LocalPath))
                 {
-                    ShowError("Choose an existing local installer file.");
+                    ShowError(Loc.Get("AddApp_ChooseAnExistingLocalInstaller"));
                     return null;
                 }
 
@@ -594,7 +595,7 @@ public sealed partial class AddAppViewModel : PageViewModelBase
                 if (!Uri.TryCreate(Url.Trim(), UriKind.Absolute, out var uri) ||
                     (uri.Scheme != Uri.UriSchemeHttp && uri.Scheme != Uri.UriSchemeHttps))
                 {
-                    ShowError("Enter a valid download URL first.");
+                    ShowError(Loc.Get("AddApp_EnterAValidDownloadURL"));
                     return null;
                 }
 
@@ -602,14 +603,14 @@ public sealed partial class AddAppViewModel : PageViewModelBase
                     Url.Trim(), NullIfEmpty(FileName), NullIfEmpty(Hash),
                     new Progress<DownloadProgress>(p =>
                         StatusMessage = p.TotalBytes is > 0
-                            ? $"Inspecting installer… {p.Fraction:P0}"
-                            : "Inspecting installer…"));
+                            ? Loc.Format("AddApp_InspectingInstaller", p.Fraction)
+                            : Loc.Get("AddApp_InspectingInstaller2")));
                 return downloaded.Path;
 
             case AddAppMode.GitHub:
                 if (SelectedAsset is null)
                 {
-                    ShowError("Find a release and choose an asset first.");
+                    ShowError(Loc.Get("AddApp_FindAReleaseAndChoose"));
                     return null;
                 }
 
@@ -619,8 +620,8 @@ public sealed partial class AddAppViewModel : PageViewModelBase
                     SelectedAsset.Asset.Sha256 ?? NullIfEmpty(Hash),
                     new Progress<DownloadProgress>(p =>
                         StatusMessage = p.TotalBytes is > 0
-                            ? $"Inspecting {SelectedAsset.Name}… {p.Fraction:P0}"
-                            : "Inspecting asset…"));
+                            ? Loc.Format("AddApp_Inspecting", SelectedAsset.Name, p.Fraction)
+                            : Loc.Get("AddApp_InspectingAsset")));
                 return assetDownload.Path;
         }
 
@@ -648,7 +649,7 @@ public sealed partial class AddAppViewModel : PageViewModelBase
     private void InvalidateInspection()
     {
         _inspectedPath = null;
-        DetectedInstaller = "Not inspected yet";
+        DetectedInstaller = Loc.Get("AddApp_NotInspectedYet");
         RecommendedArgs = string.Empty;
         PreviewCommand = string.Empty;
         OnPropertyChanged(nameof(CanTest));

@@ -1,6 +1,7 @@
 // SPDX-License-Identifier: AGPL-3.0-only
 // Copyright (c) 2026 iam-groot1
 
+using CtrlZ.App.Localization;
 using System.Diagnostics;
 using System.Windows;
 using System.Windows.Input;
@@ -41,10 +42,10 @@ public partial class UpdatePromptWindow : Window
     {
         ReleaseUrl = release.HtmlUrl;
         HeadlineText.Text = release.IsPreRelease
-            ? $"CTRL+Z {release.Version} (pre-release) is available"
-            : $"CTRL+Z {release.Version} is available";
-        SubText.Text = $"You are running {currentVersion}.";
-        NotesText.Text = string.IsNullOrWhiteSpace(notes) ? "No release notes were provided." : notes;
+            ? Loc.Format("UpdatePrompt_CTRLZPreReleaseIs", release.Version)
+            : Loc.Format("UpdatePrompt_CTRLZIsAvailable", release.Version);
+        SubText.Text = Loc.Format("UpdatePrompt_YouAreRunning", currentVersion);
+        NotesText.Text = string.IsNullOrWhiteSpace(notes) ? Loc.Get("UpdatePrompt_NoReleaseNotesWereProvided") : notes;
     }
 
     public Task<UpdatePromptOutcome> PromptAsync(Window? owner = null)
@@ -102,7 +103,7 @@ public partial class UpdatePromptWindow : Window
         ErrorText.Visibility = Visibility.Visible;
         _closing = true;
         CancelButton.Visibility = Visibility.Visible;
-        CancelButton.Content = "Close";
+        CancelButton.Content = Loc.Get("UpdatePrompt_Close2");
         CancelButton.IsEnabled = true;
     }
 
@@ -154,7 +155,7 @@ public partial class UpdatePromptWindow : Window
         }
 
         CancelButton.IsEnabled = false;
-        ProgressText.Text = "Cancelling\u2026";
+        ProgressText.Text = Loc.Get("UpdatePrompt_Cancelling");
         CancelRequested?.Invoke(this, EventArgs.Empty);
     }
 

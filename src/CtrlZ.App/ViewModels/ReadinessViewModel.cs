@@ -1,6 +1,7 @@
 // SPDX-License-Identifier: AGPL-3.0-only
 // Copyright (c) 2026 iam-groot1
 
+using CtrlZ.App.Localization;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.IO;
@@ -19,8 +20,7 @@ namespace CtrlZ.App.ViewModels;
 /// </summary>
 public sealed partial class ReadinessViewModel : PageViewModelBase
 {
-    private const string NoScanSummary =
-        "A check sizes your folders and looks for material CTRL+Z cannot back up. It never changes a file.";
+    private static string NoScanSummary => Loc.Get("Readiness_NoScanSummary");
 
     private readonly AppServices _services;
     private readonly DialogService _dialogs;
@@ -31,7 +31,7 @@ public sealed partial class ReadinessViewModel : PageViewModelBase
     private CancellationTokenSource? _cts;
 
     public ReadinessViewModel(AppServices services, DialogService dialogs, MainViewModel main)
-        : base("Ready to wipe?", "What a clean install would remove. Runs locally: no network, no telemetry.")
+        : base(Loc.Get("Readiness_ReadyToWipe"), Loc.Get("Readiness_WhatACleanInstallWould"))
     {
         _services = services;
         _dialogs = dialogs;
@@ -55,10 +55,10 @@ public sealed partial class ReadinessViewModel : PageViewModelBase
     private bool _isScanning;
 
     [ObservableProperty]
-    private string _statusLine = "Run a check to see what would be lost.";
+    private string _statusLine = Loc.Get("Readiness_RunACheckToSee");
 
     [ObservableProperty]
-    private string _summaryTitle = "Not checked yet";
+    private string _summaryTitle = Loc.Get("Readiness_NotCheckedYet");
 
     [ObservableProperty]
     private string _summaryDetail = NoScanSummary;
@@ -88,8 +88,8 @@ public sealed partial class ReadinessViewModel : PageViewModelBase
     public bool CanCancel => IsScanning;
 
     public string CountsText =>
-        $"{PassCount} fine · {WarningCount} to check · {FailCount} needing action" +
-        (ResolvedCount > 0 ? $" · {ResolvedCount} handled or ignored" : string.Empty);
+        Loc.Format("Readiness_FineToCheckNeedingAction", PassCount, WarningCount, FailCount) +
+        (ResolvedCount > 0 ? Loc.Format("Readiness_HandledOrIgnored", ResolvedCount) : string.Empty);
 
     public override async Task ActivateAsync()
     {
@@ -128,29 +128,29 @@ public sealed partial class ReadinessViewModel : PageViewModelBase
         _cts?.Dispose();
         _cts = new CancellationTokenSource();
         IsScanning = true;
-        StatusLine = "Scanning…";
+        StatusLine = Loc.Get("Readiness_Scanning");
         Rows.Clear();
 
         try
         {
             var request = await BuildRequestAsync(_cts.Token);
             var progress = new Progress<ReadinessProgress>(update =>
-                StatusLine = $"Scanning {update.Step} ({update.Index}/{update.Total})…");
+                StatusLine = Loc.Format("Readiness_Scanning2", update.Step, update.Index, update.Total));
 
             var report = await _scanner.ScanAsync(request, progress, _cts.Token);
             ApplyReport(report);
-            StatusLine = "Check complete.";
+            StatusLine = Loc.Get("Readiness_CheckComplete");
         }
         catch (OperationCanceledException)
         {
-            StatusLine = "Check cancelled.";
-            SummaryTitle = Rows.Count == 0 ? "Not checked yet" : SummaryTitle;
+            StatusLine = Loc.Get("Readiness_CheckCancelled");
+            SummaryTitle = Rows.Count == 0 ? Loc.Get("Readiness_NotCheckedYet") : SummaryTitle;
         }
         catch (Exception ex)
         {
             _services.Log.Write(LogLevel.Error, "The readiness check failed. " + LogPrivacy.Describe(ex));
-            StatusLine = "The check could not finish.";
-            _dialogs.Error("The check could not finish.\n\n" + ex.Message);
+            StatusLine = Loc.Get("Readiness_TheCheckCouldNotFinish");
+            _dialogs.Error(Loc.Get("Readiness_TheCheckCouldNotFinish2") + ex.Message);
         }
         finally
         {
@@ -268,25 +268,23 @@ public sealed partial class ReadinessViewModel : PageViewModelBase
 
         if (Rows.Count == 0)
         {
-            SummaryTitle = "Not checked yet";
+            SummaryTitle = Loc.Get("Readiness_NotCheckedYet");
             SummaryDetail = NoScanSummary;
         }
         else if (open.Count == 0)
         {
-            SummaryTitle = "Ready to wipe";
-            SummaryDetail = "Everything on the list is handled or ignored. Copy anything you still need to external media first.";
+            SummaryTitle = Loc.Get("Readiness_ReadyToWipe2");
+            SummaryDetail = Loc.Get("Readiness_EverythingOnTheListIs");
         }
         else
         {
             // Only warnings and failures need action; a passing row should not be counted as
             // something to look at, even though it still appears in the list.
             var needing = WarningCount + FailCount;
-            var noun = needing == 1 ? "item needs" : "items need";
-
             SummaryTitle = needing == 0
-                ? $"Ready to wipe — all {open.Count} items look fine"
-                : $"{needing} {noun} your attention";
-            SummaryDetail = "Items you mark handled or ignore drop off this list and are remembered on this PC.";
+                ? Loc.Format("Readiness_ReadyToWipeAllItems", open.Count)
+                : Loc.Plural("Readiness_NeedAttention", needing);
+            SummaryDetail = Loc.Get("Readiness_ItemsYouMarkHandledOr");
         }
 
         RowsView.Refresh();
@@ -319,20 +317,22 @@ public sealed partial class ReadinessViewModel : PageViewModelBase
     {
         var folders = new List<UserFolder>();
 
-        void Add(string label, string path)
+        // The id stays English so items marked handled or ignored are still recognised after the
+        // language changes; only the label is translated.
+        void Add(string id, string label, string path)
         {
             if (!string.IsNullOrWhiteSpace(path))
             {
-                folders.Add(new UserFolder(label, path));
+                folders.Add(new UserFolder(label, path, Id: id));
             }
         }
 
-        Add("Desktop", SafeFolder(Environment.SpecialFolder.Desktop));
-        Add("Documents", SafeFolder(Environment.SpecialFolder.MyDocuments));
-        Add("Downloads", Path.Combine(environment.HomeDirectory, "Downloads"));
-        Add("Pictures", SafeFolder(Environment.SpecialFolder.MyPictures));
-        Add("Videos", SafeFolder(Environment.SpecialFolder.MyVideos));
-        Add("Music", SafeFolder(Environment.SpecialFolder.MyMusic));
+        Add("Desktop", Loc.Get("Readiness_Desktop"), SafeFolder(Environment.SpecialFolder.Desktop));
+        Add("Documents", Loc.Get("Readiness_Documents"), SafeFolder(Environment.SpecialFolder.MyDocuments));
+        Add("Downloads", Loc.Get("Readiness_Downloads"), Path.Combine(environment.HomeDirectory, "Downloads"));
+        Add("Pictures", Loc.Get("Readiness_Pictures"), SafeFolder(Environment.SpecialFolder.MyPictures));
+        Add("Videos", Loc.Get("Readiness_Videos"), SafeFolder(Environment.SpecialFolder.MyVideos));
+        Add("Music", Loc.Get("Readiness_Music"), SafeFolder(Environment.SpecialFolder.MyMusic));
 
         // Other fixed drives get a deliberately shallow look: listing a whole drive in full
         // is slow and the point is only to say "there is a lot here, and it is not backed up".
@@ -352,7 +352,7 @@ public sealed partial class ReadinessViewModel : PageViewModelBase
                 continue;
             }
 
-            folders.Add(new UserFolder($"Drive {root.TrimEnd('\\')}", root, quickLook));
+            folders.Add(new UserFolder(Loc.Format("Readiness_Drive", root.TrimEnd('\\')), root, quickLook, Id: $"Drive {root.TrimEnd('\\')}"));
         }
 
         return folders;

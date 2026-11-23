@@ -1,6 +1,7 @@
 // SPDX-License-Identifier: AGPL-3.0-only
 // Copyright (c) 2026 iam-groot1
 
+using CtrlZ.App.Localization;
 using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Input;
@@ -48,7 +49,7 @@ public partial class WingetMatchWindow : Window
             return;
         }
 
-        SearchStatus.Text = "Searching winget…";
+        SearchStatus.Text = Loc.Get("WingetMatch_SearchingWinget");
         ResultsList.ItemsSource = null;
         EmptyResults.Visibility = Visibility.Collapsed;
         try
@@ -63,12 +64,12 @@ public partial class WingetMatchWindow : Window
             ResultsList.ItemsSource = Results;
             EmptyResults.Visibility = Results.Count == 0 ? Visibility.Visible : Visibility.Collapsed;
             SearchStatus.Text = Results.Count == 0
-                ? "No matches. You can paste a package id manually."
-                : $"{Results.Count} result{(Results.Count == 1 ? string.Empty : "s")}. Select one, then use this id.";
+                ? Loc.Get("WingetMatch_NoMatchesYouCanPaste")
+                : Loc.Plural("WingetMatch_Results", Results.Count);
         }
         catch (Exception ex)
         {
-            SearchStatus.Text = "Search failed: " + ex.Message;
+            SearchStatus.Text = Loc.Get("WingetMatch_SearchFailed") + ex.Message;
         }
     }
 
@@ -99,7 +100,7 @@ public partial class WingetMatchWindow : Window
         var id = PackageIdBox.Text.Trim();
         if (string.IsNullOrWhiteSpace(id))
         {
-            MessageBox.Show(this, "Select a result or paste a winget package id.", "CTRL+Z",
+            MessageBox.Show(this, Loc.Get("WingetMatch_SelectAResultOrPaste"), "CTRL+Z",
                 MessageBoxButton.OK, MessageBoxImage.Information);
             return;
         }

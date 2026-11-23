@@ -1,3 +1,4 @@
+using CtrlZ.App.Localization;
 using System.IO;
 using CtrlZ.Core.Install;
 // SPDX-License-Identifier: AGPL-3.0-only
@@ -80,7 +81,7 @@ public sealed class AppState : ObservableObject
         var summaries = _profileStore.List().ToList();
         if (summaries.Count == 0)
         {
-            var profile = _profileStore.Create("My apps");
+            var profile = _profileStore.Create(Loc.Get("AppState_MyApps"));
             ProfileOriginRecorder.RecordCreated(_origins, profile);
             summaries = _profileStore.List().ToList();
             _log.Write(LogLevel.Info, $"Created initial profile '{profile.Name}'.");
@@ -97,7 +98,7 @@ public sealed class AppState : ObservableObject
         var summaries = _profileStore.List().ToList();
         if (summaries.Count == 0)
         {
-            ProfileOriginRecorder.RecordCreated(_origins, _profileStore.Create("My apps"));
+            ProfileOriginRecorder.RecordCreated(_origins, _profileStore.Create(Loc.Get("AppState_MyApps")));
             summaries = _profileStore.List().ToList();
         }
 
@@ -147,7 +148,7 @@ public sealed class AppState : ObservableObject
         var summaries = _profileStore.List().ToList();
         if (summaries.Count == 0)
         {
-            ProfileOriginRecorder.RecordCreated(_origins, _profileStore.Create("My apps"));
+            ProfileOriginRecorder.RecordCreated(_origins, _profileStore.Create(Loc.Get("AppState_MyApps")));
             summaries = _profileStore.List().ToList();
         }
 
@@ -202,7 +203,7 @@ public sealed class AppState : ObservableObject
     {
         if (string.IsNullOrWhiteSpace(_activeProfile.Name))
         {
-            _activeProfile.Name = "My apps";
+            _activeProfile.Name = Loc.Get("AppState_MyApps");
         }
 
         _profileStore.SaveToStore(_activeProfile);

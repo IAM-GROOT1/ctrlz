@@ -5,7 +5,8 @@ namespace CtrlZ.Core.Safety;
 
 /// <summary>A user folder to size up, with the label shown in the UI.</summary>
 /// <param name="Options">Per-folder limits; falls back to the request's limits when null.</param>
-public sealed record UserFolder(string Label, string Path, FolderUsageOptions? Options = null);
+/// <summary>A folder to look at. <paramref name="Id"/> names it in saved state; it defaults to the label.</summary>
+public sealed record UserFolder(string Label, string Path, FolderUsageOptions? Options = null, string? Id = null);
 
 /// <summary>A browser the app detected, reduced to what the report needs.</summary>
 public sealed record DetectedBrowserSummary(string Name, int ProfileCount);

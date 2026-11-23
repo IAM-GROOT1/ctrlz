@@ -1,6 +1,7 @@
 // SPDX-License-Identifier: AGPL-3.0-only
 // Copyright (c) 2026 iam-groot1
 
+using CtrlZ.App.Localization;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Diagnostics;
@@ -26,7 +27,7 @@ public sealed partial class CatalogItemViewModel : ObservableObject
     public string? Link => Item.Link;
     public bool IsFoss => Item.IsFoss;
     public bool CanInstall => Item.CanInstall;
-    public string IdText => Item.WingetId ?? "No winget package";
+    public string IdText => Item.WingetId ?? Loc.Get("Catalog_NoWingetPackage");
     public string FallbackText => Item.Name;
 
     public bool IsSelected
@@ -52,7 +53,7 @@ public sealed partial class CatalogViewModel : PageViewModelBase
     private bool _loaded;
 
     public CatalogViewModel(AppServices services, DialogService dialogs, MainViewModel main)
-        : base("Catalog", "Recommended apps from Chris Titus Tech's WinUtil catalog, refreshed from the live source.")
+        : base(Loc.Get("Catalog_Catalog"), Loc.Get("Catalog_RecommendedAppsFromChrisTitus"))
     {
         _services = services;
         _dialogs = dialogs;
@@ -60,8 +61,8 @@ public sealed partial class CatalogViewModel : PageViewModelBase
         ItemsView = CollectionViewSource.GetDefaultView(Items);
         ItemsView.Filter = FilterItem;
         ItemsView.GroupDescriptions.Add(new PropertyGroupDescription(nameof(CatalogItemViewModel.Category)));
-        Categories = new ObservableCollection<string>(["All categories"]);
-        SelectedCategory = "All categories";
+        Categories = new ObservableCollection<string>([Loc.Get("Catalog_AllCategories")]);
+        SelectedCategory = Loc.Get("Catalog_AllCategories");
     }
 
     public ObservableCollection<CatalogItemViewModel> Items { get; } = new();
@@ -78,13 +79,13 @@ public sealed partial class CatalogViewModel : PageViewModelBase
     private bool _isLoading;
 
     [ObservableProperty]
-    private string _catalogStatus = "Not loaded";
+    private string _catalogStatus = Loc.Get("Catalog_NotLoaded");
 
     [ObservableProperty]
     private string? _warningText;
 
     [ObservableProperty]
-    private string _statusMessage = "Pick apps from the catalog and add them to your profile.";
+    private string _statusMessage = Loc.Get("Catalog_PickAppsFromTheCatalog");
 
     [ObservableProperty]
     private int _selectedCount;
@@ -95,7 +96,7 @@ public sealed partial class CatalogViewModel : PageViewModelBase
     public bool HasItems => Items.Count > 0;
     public bool HasWarning => !string.IsNullOrWhiteSpace(WarningText);
     public bool CanAdd => SelectedCount > 0;
-    public string SelectionText => SelectedCount == 0 ? "Nothing selected" : $"{SelectedCount} selected";
+    public string SelectionText => SelectedCount == 0 ? Loc.Get("Catalog_NothingSelected") : $"{SelectedCount} selected";
     public string CatalogSource => CatalogStatus;
 
     public override async Task ActivateAsync()
@@ -148,7 +149,7 @@ public sealed partial class CatalogViewModel : PageViewModelBase
         var selected = Items.Where(i => i.IsSelected && i.CanInstall).ToArray();
         if (selected.Length == 0)
         {
-            _dialogs.Info("Select at least one catalog app first.");
+            _dialogs.Info(Loc.Get("Catalog_SelectAtLeastOneCatalog"));
             return;
         }
 
@@ -158,19 +159,19 @@ public sealed partial class CatalogViewModel : PageViewModelBase
             Source = AppSource.Winget,
             PackageId = i.WingetId,
             Category = i.Item.CategoryEnum,
-            Notes = "Added from the WinUtil catalog."
+            Notes = Loc.Get("Catalog_AddedFromTheWinUtilCatalog")
         });
         var (added, skipped) = _services.State.AddApps(apps);
         StatusMessage = added == 0
-            ? $"No new apps added ({skipped} already in the profile)."
-            : $"Added {added} app{(added == 1 ? string.Empty : "s")} to \"{_services.State.ActiveProfile.Name}\"" +
-              (skipped > 0 ? $" · {skipped} already present." : ".");
+            ? Loc.Format("Catalog_NoNewAppsAddedAlready", skipped)
+            : Loc.Plural("Catalog_AddedApps", added, _services.State.ActiveProfile.Name) +
+              (skipped > 0 ? Loc.Format("Catalog_AlreadyPresent", skipped) : ".");
         foreach (var item in selected)
         {
             item.IsSelected = false;
         }
 
-        _dialogs.Info(StatusMessage, "Catalog");
+        _dialogs.Info(StatusMessage, Loc.Get("Catalog_Catalog"));
     }
 
     [RelayCommand]
@@ -203,7 +204,7 @@ public sealed partial class CatalogViewModel : PageViewModelBase
         IsLoading = true;
         if (Items.Count == 0)
         {
-            StatusMessage = force ? "Refreshing from GitHub…" : "Loading the app catalog…";
+            StatusMessage = force ? Loc.Get("Catalog_RefreshingFromGitHub") : Loc.Get("Catalog_LoadingTheAppCatalog");
         }
 
         try
@@ -218,20 +219,20 @@ public sealed partial class CatalogViewModel : PageViewModelBase
             }
 
             Categories.Clear();
-            Categories.Add("All categories");
+            Categories.Add(Loc.Get("Catalog_AllCategories"));
             foreach (var category in Items.Select(i => i.Category).Distinct()
                          .OrderBy(c => c, StringComparer.CurrentCultureIgnoreCase))
             {
                 Categories.Add(category);
             }
 
-            SelectedCategory = "All categories";
+            SelectedCategory = Loc.Get("Catalog_AllCategories");
             CatalogStatus = catalog.StatusText;
             WarningText = catalog.Warning;
             TotalCount = Items.Count;
             StatusMessage = catalog.Warning is null
-                ? $"Showing {Items.Count} recommended apps."
-                : "Showing a local catalog because GitHub is unavailable.";
+                ? Loc.Format("Catalog_ShowingRecommendedApps", Items.Count)
+                : Loc.Get("Catalog_ShowingALocalCatalogBecause");
             OnPropertyChanged(nameof(HasItems));
             ItemsView.Refresh();
             _services.Log.Write(LogLevel.Info, $"Catalog loaded: {Items.Count} items ({catalog.StatusText}).");
@@ -239,7 +240,7 @@ public sealed partial class CatalogViewModel : PageViewModelBase
         catch (Exception ex)
         {
             _services.Log.Write(LogLevel.Error, "Catalog load failed.", ex);
-            StatusMessage = "The catalog could not be loaded.";
+            StatusMessage = Loc.Get("Catalog_TheCatalogCouldNotBe");
             WarningText = ex.Message;
         }
         finally
@@ -255,7 +256,7 @@ public sealed partial class CatalogViewModel : PageViewModelBase
             return false;
         }
 
-        if (!string.IsNullOrWhiteSpace(SelectedCategory) && SelectedCategory != "All categories" &&
+        if (!string.IsNullOrWhiteSpace(SelectedCategory) && SelectedCategory != Loc.Get("Catalog_AllCategories") &&
             !row.Category.Equals(SelectedCategory, StringComparison.CurrentCultureIgnoreCase))
         {
             return false;

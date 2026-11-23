@@ -1,6 +1,7 @@
 // SPDX-License-Identifier: AGPL-3.0-only
 // Copyright (c) 2026 iam-groot1
 
+using CtrlZ.App.Localization;
 using System.Windows;
 using CtrlZ.App.ViewModels;
 using CtrlZ.App.Views;
@@ -10,14 +11,27 @@ namespace CtrlZ.App.Services;
 
 public sealed class DialogService
 {
+    /// <summary>Marks "use the translated Cancel" for <see cref="Show"/>; null there means no second button.</summary>
+    private const string DefaultCancel = "\u0001cancel";
+
+    /// <param name="primary">Defaults to "Continue" in the current language.</param>
+    /// <param name="secondary">Defaults to "Cancel" in the current language.</param>
     public bool Confirm(
         string title,
         string message,
-        string primary = "Continue",
-        string secondary = "Cancel",
+        string? primary = null,
+        string? secondary = null,
         bool danger = false)
     {
-        var result = Show(title, message, primary, secondary, null, null, null, danger);
+        var result = Show(
+            title,
+            message,
+            primary ?? Loc.Get("DialogService_Continue"),
+            secondary ?? Loc.Get("DialogService_Cancel"),
+            null,
+            null,
+            null,
+            danger);
         return result.Outcome == DialogOutcome.Primary;
     }
 
@@ -40,15 +54,23 @@ public sealed class DialogService
     public DialogResult Show(
         string title,
         string message,
-        string primary = "OK",
-        string? secondary = "Cancel",
+        string? primary = null,
+        string? secondary = DefaultCancel,
         string? inputLabel = null,
         string? initialInput = null,
         string? checkText = null,
         bool danger = false)
     {
         var window = new DialogWindow();
-        window.Configure(title, message, primary, secondary, inputLabel, initialInput, checkText, danger);
+        window.Configure(
+            title,
+            message,
+            primary ?? Loc.Get("DialogService_Ok"),
+            string.Equals(secondary, DefaultCancel, StringComparison.Ordinal) ? Loc.Get("DialogService_Cancel") : secondary,
+            inputLabel,
+            initialInput,
+            checkText,
+            danger);
         if (Application.Current.MainWindow is { IsVisible: true } owner && owner != window)
         {
             window.Owner = owner;
@@ -61,18 +83,18 @@ public sealed class DialogService
 
     public string? Prompt(string title, string message, string label, string? initial = null)
     {
-        var result = Show(title, message, "Save", "Cancel", label, initial);
+        var result = Show(title, message, Loc.Get("DialogService_Save"), Loc.Get("DialogService_Cancel"), label, initial);
         return result.Outcome == DialogOutcome.Primary ? result.InputText : null;
     }
 
-    public void Error(string message, string title = "Something went wrong")
+    public void Error(string message, string? title = null)
     {
-        Show(title, message, "Close", null, danger: true);
+        Show(title ?? Loc.Get("DialogService_SomethingWentWrong"), message, Loc.Get("DialogService_Close"), null, danger: true);
     }
 
     public void Info(string message, string title = "CTRL+Z")
     {
-        Show(title, message, "Close", null);
+        Show(title, message, Loc.Get("DialogService_Close"), null);
     }
 
     /// <summary>Opens the profile drift window and returns when it closes.</summary>
@@ -134,7 +156,7 @@ public sealed class DialogService
             profile,
             services.State.OriginOf(profile),
             approvals,
-            (title, message) => Confirm(title, message, "Yes, I understand", "Cancel", danger: true),
+            (title, message) => Confirm(title, message, Loc.Get("DialogService_YesIUnderstand"), Loc.Get("DialogService_Cancel"), danger: true),
             () => services.State.MarkAsLocal(profile, userConfirmed: true));
 
         var window = new CommandReviewWindow { DataContext = viewModel };
@@ -155,5 +177,5 @@ public sealed class DialogService
         InstallStartGuard.CommandConsent(
             services.Paths.State,
             services.State.OriginOf,
-            (title, message, danger) => Confirm(title, message, danger ? "Run it" : "Run them", "Cancel install", danger))(profile);
+            (title, message, danger) => Confirm(title, message, danger ? Loc.Get("DialogService_RunIt") : Loc.Get("DialogService_RunThem"), Loc.Get("DialogService_CancelInstall"), danger))(profile);
 }
