@@ -10,8 +10,11 @@ namespace CtrlZ.Core.Updates;
 /// Applies a downloaded update in the helper process, after the running app has exited.
 /// <para>
 /// Portable copies are replaced in place: the old exe is moved to <c>.old</c>, the new exe
-/// is moved in and started, and the backup is only deleted once the new build has survived a
-/// short health window. Any failure restores the backup. Installed copies run the new
+/// is moved in and started, and this helper waits until the new build shows its main window.
+/// If it exits first, the backup is restored. The backup is kept until the new build has shown
+/// its window on <see cref="UpdateProbation.LaunchesToCommit"/> launches (see
+/// <see cref="UpdateProbation"/>), so a build that fails on a later start can still be rolled
+/// back. Installed copies run the new
 /// Setup.exe silently and are relaunched by this helper, because the installer's
 /// <c>[Run]</c> entry is skipped in silent mode.
 /// </para>
@@ -19,13 +22,20 @@ namespace CtrlZ.Core.Updates;
 public sealed class UpdateApplier
 {
     private static readonly TimeSpan ProcessExitTimeout = TimeSpan.FromSeconds(60);
-    private static readonly TimeSpan HealthWindow = TimeSpan.FromSeconds(12);
+
+    /// <summary>
+    /// How long the helper waits for the new build's main window. A build still running without a
+    /// window after this is left alone; its next start decides (see <see cref="UpdateProbation"/>).
+    /// </summary>
+    private static readonly TimeSpan LoadWindow = TimeSpan.FromSeconds(90);
 
     private readonly IAppLog _log;
+    private readonly UpdateProbation _probation;
 
-    public UpdateApplier(IAppLog log)
+    public UpdateApplier(IAppLog log, UpdateProbation probation)
     {
         _log = log;
+        _probation = probation;
     }
 
     public async Task<UpdateApplyResult> ApplyAsync(UpdateApplyRequest request, CancellationToken cancellationToken = default)
@@ -97,17 +107,29 @@ public sealed class UpdateApplier
 
         companion?.Swap();
 
+        // Written before the new build starts, so its first launch is already being watched.
+        _probation.Begin(new UpdateProbationRecord
+        {
+            Version = request.Version,
+            TargetExe = target,
+            BackupExe = backup,
+            CompanionTarget = companion?.KeptBackup is null ? null : companion.TargetFile,
+            CompanionBackup = companion?.KeptBackup
+        });
+
         var started = TryStart(target);
         if (started is null)
         {
+            _probation.Clear();
             companion?.Restore();
             Restore(backup, target);
             return UpdateApplyResult.Failed("The new version could not be started. The previous version was restored.");
         }
 
-        if (!await WaitForHealthAsync(started, HealthWindow, cancellationToken).ConfigureAwait(false))
+        var health = await WaitForMainWindowAsync(started, LoadWindow, cancellationToken).ConfigureAwait(false);
+        if (health == StartupHealth.Exited)
         {
-            _log.Write(LogLevel.Error, "The updated build exited during its startup window; rolling back.");
+            _log.Write(LogLevel.Error, "The updated build exited before showing its main window; rolling back.");
             try
             {
                 if (!started.HasExited)
@@ -120,16 +142,24 @@ public sealed class UpdateApplier
                 // Already gone.
             }
 
+            _probation.Clear();
             companion?.Restore();
             Restore(backup, target);
             return UpdateApplyResult.Failed(
                 "The new version closed unexpectedly, so CTRL+Z rolled back to the previous version.");
         }
 
-        companion?.Commit();
-        TryDelete(backup);
-        _log.Write(LogLevel.Info, $"Update to {request.Version} applied and the previous build was removed.");
+        _log.Write(LogLevel.Info, health == StartupHealth.Loaded
+            ? $"Update to {request.Version} showed its main window; the previous build is kept until it has loaded {UpdateProbation.LaunchesToCommit} times."
+            : $"Update to {request.Version} is still starting after {LoadWindow.TotalSeconds:0} s; its next start decides whether to keep it.");
         return UpdateApplyResult.Ok(request.Version);
+    }
+
+    private enum StartupHealth
+    {
+        Loaded,
+        Exited,
+        StillStarting
     }
 
     private async Task<UpdateApplyResult> ApplyInstalledAsync(UpdateApplyRequest request, CancellationToken cancellationToken)
@@ -192,27 +222,39 @@ public sealed class UpdateApplier
         }
     }
 
-    private static async Task<bool> WaitForHealthAsync(Process process, TimeSpan window, CancellationToken cancellationToken)
+    /// <summary>Waits until the new build reports its main window, exits, or the window passes.</summary>
+    private async Task<StartupHealth> WaitForMainWindowAsync(Process process, TimeSpan window, CancellationToken cancellationToken)
     {
         var deadline = DateTime.UtcNow + window;
         while (DateTime.UtcNow < deadline)
         {
             await Task.Delay(400, cancellationToken).ConfigureAwait(false);
+            if (HasLoaded())
+            {
+                return StartupHealth.Loaded;
+            }
+
+            bool exited;
             try
             {
-                if (process.HasExited)
-                {
-                    return false;
-                }
+                exited = process.HasExited;
             }
             catch
             {
-                return false;
+                exited = true;
+            }
+
+            if (exited)
+            {
+                // It may have shown its window and been closed between two checks.
+                return HasLoaded() ? StartupHealth.Loaded : StartupHealth.Exited;
             }
         }
 
-        return true;
+        return StartupHealth.StillStarting;
     }
+
+    private bool HasLoaded() => _probation.Read() is { LoadedLaunches: > 0 };
 
     private static async Task WaitForProcessExitAsync(int processId, TimeSpan timeout, CancellationToken cancellationToken)
     {
