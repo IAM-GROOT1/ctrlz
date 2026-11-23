@@ -99,35 +99,70 @@ public sealed class TweakService
         lock (_gate)
         {
             var undo = Load();
-            if (undo.TryGetValue(tweak.Id, out var originals))
-            {
-                foreach (var original in originals)
-                {
-                    if (original.Existed)
-                    {
-                        _registry.Write(original.SubKey, original.Name, original.Kind,
-                            original.Kind == TweakValueKind.DWord ? int.Parse(original.Value ?? "0") : original.Value ?? string.Empty);
-                    }
-                    else
-                    {
-                        _registry.Delete(original.SubKey, original.Name, original.DeepestExistingKey);
-                    }
-                }
+            var originals = undo.TryGetValue(tweak.Id, out var saved) ? saved : [];
 
-                undo.Remove(tweak.Id);
-                Save(undo);
-            }
-            else
+            // Only the catalog says where to write. The saved file supplies the old value for each
+            // catalog value, never a key or name of its own, so an edited file cannot reach any
+            // other part of the registry.
+            foreach (var value in tweak.Values)
             {
-                foreach (var value in tweak.Values)
+                var original = originals.FirstOrDefault(o =>
+                    o.SubKey.Equals(value.SubKey, StringComparison.OrdinalIgnoreCase) &&
+                    o.Name.Equals(value.Name, StringComparison.OrdinalIgnoreCase));
+
+                if (original is { Existed: true } && TryOriginalValue(original, out var kind, out var restored))
                 {
-                    // Keys stay unless the tweak owns them; Delete only ever removes empty ones.
+                    _registry.Write(value.SubKey, value.Name, kind, restored);
+                }
+                else if (original is { Existed: false })
+                {
+                    _registry.Delete(value.SubKey, value.Name, KeepAbove(original.DeepestExistingKey, value));
+                }
+                else
+                {
+                    // No usable original (set outside CTRL+Z): remove the value. Keys stay unless the
+                    // tweak owns them; Delete only ever removes empty ones.
                     _registry.Delete(value.SubKey, value.Name, value.OwnedBelow ?? value.SubKey);
                 }
+            }
+
+            if (undo.Remove(tweak.Id))
+            {
+                Save(undo);
             }
         }
 
         _log.Write(LogLevel.Info, $"Undid tweak {tweak.Id}.");
+    }
+
+    private static bool TryOriginalValue(TweakUndoValue original, out TweakValueKind kind, out object value)
+    {
+        kind = original.Kind;
+        value = string.Empty;
+        switch (original.Kind)
+        {
+            case TweakValueKind.DWord when int.TryParse(original.Value, out var number):
+                value = number;
+                return true;
+            case TweakValueKind.String:
+                value = original.Value ?? string.Empty;
+                return true;
+            default:
+                return false;
+        }
+    }
+
+    /// <summary>The saved deepest key, if it is the value's own key or one of its parents; else the value's key.</summary>
+    private static string KeepAbove(string? saved, TweakValue value)
+    {
+        if (!string.IsNullOrWhiteSpace(saved) && TweakCatalog.IsAllowedSubKey(saved) &&
+            (saved.Equals(value.SubKey, StringComparison.OrdinalIgnoreCase) ||
+             value.SubKey.StartsWith(saved + @"\", StringComparison.OrdinalIgnoreCase)))
+        {
+            return saved;
+        }
+
+        return value.SubKey;
     }
 
     private TweakUndoValue Capture(TweakValue value)

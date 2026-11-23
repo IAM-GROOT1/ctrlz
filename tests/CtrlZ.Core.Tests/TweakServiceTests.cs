@@ -50,7 +50,7 @@ public sealed class TweakServiceTests : IDisposable
             }
 
             var path = subKey;
-            while (path.Length > keepAbove.Length && path.StartsWith(keepAbove, StringComparison.OrdinalIgnoreCase))
+            while (path.Length > keepAbove.Length && path.StartsWith(keepAbove + @"\", StringComparison.OrdinalIgnoreCase))
             {
                 var hasChildren = Keys.Keys.Any(key => key.StartsWith(path + "\\", StringComparison.OrdinalIgnoreCase));
                 if (Keys.TryGetValue(path, out var held) && (held.Count > 0 || hasChildren))
@@ -72,6 +72,53 @@ public sealed class TweakServiceTests : IDisposable
         new(registry, _temp.PathOf(Path.Combine("state", "tweak-undo.json")), TestFactory.Log);
 
     private static TweakDefinition Tweak(string id) => TweakCatalog.Find(id)!;
+
+    [Fact]
+    public void An_edited_undo_file_cannot_write_outside_the_tweaks_own_values()
+    {
+        const string run = @"Software\Microsoft\Windows\CurrentVersion\Run";
+        var registry = new FakeRegistry();
+        registry.Seed(Advanced, "HideFileExt", TweakValueKind.DWord, 1);
+        var service = Service(registry);
+        service.Apply(Tweak("show-file-extensions"));
+
+        // Rewrite the saved original (in the service's own format) to point at the Run key.
+        var undoPath = _temp.PathOf("state", "tweak-undo.json");
+        var json = File.ReadAllText(undoPath);
+        Assert.Contains("HideFileExt", json);
+        File.WriteAllText(undoPath, json
+            .Replace(Advanced.Replace(@"\", @"\\"), run.Replace(@"\", @"\\"))
+            .Replace("HideFileExt", "evil"));
+
+        service.Undo(Tweak("show-file-extensions"));
+
+        Assert.False(File.Exists(undoPath + ".damaged")); // the edited file was read, not discarded
+        Assert.False(registry.KeyExists(run));
+        Assert.False(registry.Read(Advanced, "HideFileExt").Exists);
+    }
+
+    [Fact]
+    public void An_edited_deepest_key_cannot_widen_what_undo_removes()
+    {
+        const string explorer = @"Software\Microsoft\Windows\CurrentVersion\Explorer";
+        var registry = new FakeRegistry();
+        registry.Seed(explorer, "kept", TweakValueKind.DWord, 1);
+        var service = Service(registry);
+        service.Apply(Tweak("show-file-extensions"));
+
+        var undoPath = _temp.PathOf("state", "tweak-undo.json");
+        var json = File.ReadAllText(undoPath);
+        var escapedExplorer = "\"" + explorer.Replace(@"\", @"\\") + "\"";
+        Assert.Contains(escapedExplorer, json); // the deepest existing key was recorded
+        File.WriteAllText(undoPath, json.Replace(escapedExplorer, "\"S\""));
+
+        service.Undo(Tweak("show-file-extensions"));
+
+        Assert.False(File.Exists(undoPath + ".damaged"));
+        Assert.False(registry.Read(Advanced, "HideFileExt").Exists);
+        Assert.True(registry.KeyExists(Advanced)); // the key was there before; only the value goes
+        Assert.True(registry.KeyExists(@"Software\Microsoft\Windows\CurrentVersion\Explorer"));
+    }
 
     [Fact]
     public void Undo_without_a_saved_original_removes_the_classic_menu_keys_too()

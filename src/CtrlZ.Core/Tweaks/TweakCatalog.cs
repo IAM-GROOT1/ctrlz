@@ -65,7 +65,9 @@ public static class TweakCatalog
 
         new("no-web-search-in-start", "No web results in Start search",
             "Searching from Start looks only at this PC, not Bing.",
-            [new(@"Software\Policies\Microsoft\Windows\Explorer", "DisableSearchBoxSuggestions", TweakValueKind.DWord, 1)],
+            // Not the DisableSearchBoxSuggestions policy: HKCU\Software\Policies is read-only for
+            // the user, so writing it needs admin rights. This is the per-user switch.
+            [new(@"Software\Microsoft\Windows\CurrentVersion\Search", "BingSearchEnabled", TweakValueKind.DWord, 0)],
             NeedsExplorerRestart: true),
 
         new("classic-context-menu", "Classic right-click menu",

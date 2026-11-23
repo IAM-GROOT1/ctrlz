@@ -89,7 +89,7 @@ public sealed class UpdateApplier
         var companion = await PortableCompanion.PrepareAsync(request, _log, cancellationToken).ConfigureAwait(false);
 
         var target = request.TargetExe;
-        var backup = target + ".old";
+        var backup = UpdateProbation.BackupPath(target);
         TryDelete(backup);
         File.Move(target, backup);
 
@@ -108,14 +108,19 @@ public sealed class UpdateApplier
         companion?.Swap();
 
         // Written before the new build starts, so its first launch is already being watched.
-        _probation.Begin(new UpdateProbationRecord
+        // Without the record nothing would ever remove the backup or roll back, so a failure here
+        // undoes the swap.
+        try
         {
-            Version = request.Version,
-            TargetExe = target,
-            BackupExe = backup,
-            CompanionTarget = companion?.KeptBackup is null ? null : companion.TargetFile,
-            CompanionBackup = companion?.KeptBackup
-        });
+            _probation.Begin(target, request.Version, companion?.KeptBackup is not null);
+        }
+        catch (Exception ex)
+        {
+            _log.Write(LogLevel.Error, "Could not record the update probation; restoring the previous version.", ex);
+            companion?.Restore();
+            Restore(backup, target);
+            return UpdateApplyResult.Failed("The update could not be recorded. The previous version was restored.");
+        }
 
         var started = TryStart(target);
         if (started is null)

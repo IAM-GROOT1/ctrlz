@@ -219,7 +219,7 @@ public sealed partial class TweaksViewModel : PageViewModelBase
                 await Task.Delay(1500).ConfigureAwait(false);
                 if (!ExplorerRunningIn(session))
                 {
-                    using var started = Process.Start(new ProcessStartInfo("explorer.exe") { UseShellExecute = true });
+                    using var started = Process.Start(new ProcessStartInfo(System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Windows), "explorer.exe")) { UseShellExecute = true });
                 }
             });
 

@@ -33,15 +33,32 @@ public sealed class UpdateProbationTests : IDisposable
         }
 
         var probation = Probation();
-        probation.Begin(new UpdateProbationRecord
-        {
-            Version = "1.5.0",
-            TargetExe = Target,
-            BackupExe = Backup,
-            CompanionTarget = withCompanion ? _temp.PathOf("app", "ctrlz.exe") : null,
-            CompanionBackup = withCompanion ? _temp.PathOf("app", "ctrlz.exe.old") : null
-        });
+        probation.Begin(Target, "1.5.0", companionSwapped: withCompanion);
         return probation;
+    }
+
+    [Fact]
+    public void Paths_written_into_the_record_are_ignored_on_rollback()
+    {
+        // An edited record naming other files must not move, overwrite or delete them.
+        Begin();
+        var payload = _temp.Write("elsewhere/payload.exe", "payload");
+        var victim = _temp.Write("elsewhere/victim.txt", "victim");
+        File.WriteAllText(_temp.PathOf("state", UpdateProbation.FileName), System.Text.Json.JsonSerializer.Serialize(new
+        {
+            TargetExe = Target,
+            BackupExe = payload,
+            CompanionSwapped = true,
+            CompanionTarget = victim,
+            CompanionBackup = payload,
+            LaunchPid = 10
+        }));
+
+        Assert.Equal(ProbationStartup.RolledBack, Probation().OnLaunch(Target, 11, Started));
+
+        Assert.Equal("old", File.ReadAllText(Target));
+        Assert.Equal("payload", File.ReadAllText(payload));
+        Assert.Equal("victim", File.ReadAllText(victim));
     }
 
     [Fact]

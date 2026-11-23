@@ -9,21 +9,23 @@ using CtrlZ.Core.Logging;
 
 namespace CtrlZ.Core.Updates;
 
-/// <summary>A portable update that has not yet proved itself; stored as state/update-probation.json.</summary>
+/// <summary>
+/// A portable update that has not yet proved itself; stored as state/update-probation.json.
+/// <para>
+/// The record holds no file paths CTRL+Z acts on. The previous build and the command line are
+/// always found beside the running exe (<c>CTRL+Z.exe.old</c>, <c>ctrlz.exe</c>,
+/// <c>ctrlz.exe.old</c>), so an edited record cannot make CTRL+Z move, delete or start any other file.
+/// </para>
+/// </summary>
 public sealed class UpdateProbationRecord
 {
     public string? Version { get; set; }
 
-    /// <summary>The updated <c>CTRL+Z.exe</c>.</summary>
+    /// <summary>The updated <c>CTRL+Z.exe</c>; a record for any other exe is ignored.</summary>
     public string TargetExe { get; set; } = string.Empty;
 
-    /// <summary>The previous build, kept as <c>CTRL+Z.exe.old</c> until the probation ends.</summary>
-    public string BackupExe { get; set; } = string.Empty;
-
-    /// <summary>The <c>ctrlz.exe</c> replaced with the app, when it was.</summary>
-    public string? CompanionTarget { get; set; }
-
-    public string? CompanionBackup { get; set; }
+    /// <summary>True when <c>ctrlz.exe</c> was replaced together with the app.</summary>
+    public bool CompanionSwapped { get; set; }
 
     /// <summary>Launches of the new build that reached its main window.</summary>
     public int LoadedLaunches { get; set; }
@@ -70,6 +72,15 @@ public sealed class UpdateProbation
         _isRunning = isRunning ?? IsRunning;
     }
 
+    /// <summary>The previous build beside <paramref name="exe"/>.</summary>
+    public static string BackupPath(string exe) => exe + ".old";
+
+    /// <summary>The command line beside <paramref name="exe"/>.</summary>
+    public static string CompanionPath(string exe) =>
+        Path.Combine(Path.GetDirectoryName(exe) ?? string.Empty, PortableCompanion.FileName);
+
+    public static string FailedPath(string exe) => exe + ".failed";
+
     public UpdateProbationRecord? Read()
     {
         for (var attempt = 0; ; attempt++)
@@ -87,20 +98,21 @@ public sealed class UpdateProbation
             }
             catch (Exception ex) when (ex is IOException or UnauthorizedAccessException or JsonException)
             {
-                _log.Write(LogLevel.Warning, "The update probation record could not be read.", ex);
+                _log.Write(LogLevel.Warning, $"The update probation record could not be read: {LogPrivacy.Describe(ex)}");
                 return null;
             }
         }
     }
 
     /// <summary>Written by the update helper before it starts the new build.</summary>
-    public void Begin(UpdateProbationRecord record)
+    public void Begin(string targetExe, string? version, bool companionSwapped)
     {
-        ArgumentNullException.ThrowIfNull(record);
-        record.LoadedLaunches = 0;
-        record.LaunchPid = null;
-        record.LaunchStartedUtc = null;
-        Save(record);
+        Save(new UpdateProbationRecord
+        {
+            Version = version,
+            TargetExe = targetExe,
+            CompanionSwapped = companionSwapped
+        });
     }
 
     /// <summary>Ends the probation without touching any file but the record.</summary>
@@ -115,7 +127,7 @@ public sealed class UpdateProbation
         }
         catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
         {
-            _log.Write(LogLevel.Warning, "The update probation record could not be removed.", ex);
+            _log.Write(LogLevel.Warning, $"The update probation record could not be removed: {LogPrivacy.Describe(ex)}");
         }
     }
 
@@ -128,7 +140,7 @@ public sealed class UpdateProbation
             return ProbationStartup.None;
         }
 
-        if (!File.Exists(record.BackupExe))
+        if (!File.Exists(BackupPath(currentExe)))
         {
             _log.Write(LogLevel.Warning, "The previous build kept for rollback is gone; ending the update probation.");
             Clear();
@@ -145,7 +157,7 @@ public sealed class UpdateProbation
 
             _log.Write(LogLevel.Error,
                 $"The last start of {record.Version ?? "the new version"} never showed its window; going back to the previous version.");
-            return RollBack(record) ? ProbationStartup.RolledBack : ProbationStartup.None;
+            return RollBack(currentExe, record.CompanionSwapped) ? ProbationStartup.RolledBack : ProbationStartup.None;
         }
 
         record.LaunchPid = processId;
@@ -178,10 +190,10 @@ public sealed class UpdateProbation
             return false;
         }
 
-        TryDelete(record.BackupExe);
-        if (!string.IsNullOrWhiteSpace(record.CompanionBackup))
+        TryDelete(BackupPath(currentExe));
+        if (record.CompanionSwapped)
         {
-            TryDelete(record.CompanionBackup);
+            TryDelete(BackupPath(CompanionPath(currentExe)));
         }
 
         Clear();
@@ -195,11 +207,9 @@ public sealed class UpdateProbation
         TryDelete(FailedPath(currentExe));
     }
 
-    public static string FailedPath(string exe) => exe + ".failed";
-
-    private bool RollBack(UpdateProbationRecord record)
+    private bool RollBack(string target, bool companionSwapped)
     {
-        var target = record.TargetExe;
+        var backup = BackupPath(target);
         var failed = FailedPath(target);
         try
         {
@@ -209,7 +219,7 @@ public sealed class UpdateProbation
             File.Move(target, failed);
             try
             {
-                File.Move(record.BackupExe, target);
+                File.Move(backup, target);
             }
             catch
             {
@@ -219,22 +229,23 @@ public sealed class UpdateProbation
         }
         catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
         {
-            _log.Write(LogLevel.Error, $"Could not go back to the previous version; it is kept at '{record.BackupExe}'.", ex);
+            _log.Write(LogLevel.Error,
+                $"Could not go back to the previous version; it is kept as {Path.GetFileName(backup)} next to the app: {LogPrivacy.Describe(ex)}");
             return false;
         }
 
-        if (!string.IsNullOrWhiteSpace(record.CompanionTarget) &&
-            !string.IsNullOrWhiteSpace(record.CompanionBackup) &&
-            File.Exists(record.CompanionBackup))
+        var companion = CompanionPath(target);
+        var companionBackup = BackupPath(companion);
+        if (companionSwapped && File.Exists(companionBackup))
         {
             try
             {
-                File.Move(record.CompanionBackup, record.CompanionTarget, overwrite: true);
+                File.Move(companionBackup, companion, overwrite: true);
             }
             catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
             {
                 _log.Write(LogLevel.Warning,
-                    $"The previous command line could not be put back; it is kept as {record.CompanionBackup}.", ex);
+                    $"The previous command line could not be put back; it is kept as {Path.GetFileName(companionBackup)} next to the app: {LogPrivacy.Describe(ex)}");
             }
         }
 
