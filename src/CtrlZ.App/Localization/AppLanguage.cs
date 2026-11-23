@@ -2,6 +2,7 @@
 // Copyright (c) 2026 iam-groot1
 
 using System.Globalization;
+using CtrlZ.Core.Localization;
 
 namespace CtrlZ.App.Localization;
 
@@ -32,6 +33,9 @@ public static class AppLanguage
         }
 
         var culture = CultureInfo.GetCultureInfo(supported);
+        // Text lookups use CoreText.Culture, which stays set for the whole process. The thread
+        // culture is set too, for WPF's own built-in text such as text box menus.
+        CoreText.Culture = culture;
         CultureInfo.DefaultThreadCurrentUICulture = culture;
         CultureInfo.CurrentUICulture = culture;
     }

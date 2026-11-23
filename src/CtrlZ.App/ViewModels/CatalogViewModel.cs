@@ -96,7 +96,7 @@ public sealed partial class CatalogViewModel : PageViewModelBase
     public bool HasItems => Items.Count > 0;
     public bool HasWarning => !string.IsNullOrWhiteSpace(WarningText);
     public bool CanAdd => SelectedCount > 0;
-    public string SelectionText => SelectedCount == 0 ? Loc.Get("Catalog_NothingSelected") : $"{SelectedCount} selected";
+    public string SelectionText => SelectedCount == 0 ? Loc.Get("Catalog_NothingSelected") : Loc.Format("Catalog_SelectedCount", SelectedCount);
     public string CatalogSource => CatalogStatus;
 
     public override async Task ActivateAsync()

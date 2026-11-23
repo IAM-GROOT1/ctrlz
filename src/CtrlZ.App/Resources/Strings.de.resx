@@ -3045,4 +3045,34 @@ Verwenden Sie die Datei aus „winget export -o apps.json“, „scoop export &g
   <data name="Tweaks_RowUndone" xml:space="preserve">
     <value>{0}: rückgängig gemacht.</value>
   </data>
+  <data name="AppUpdates_PinnedCount" xml:space="preserve">
+    <value> ({0} angeheftet)</value>
+  </data>
+  <data name="Browsers_EstimateFiles_One" xml:space="preserve">
+    <value>{1} · {0} Datei</value>
+  </data>
+  <data name="Browsers_EstimateFiles_Other" xml:space="preserve">
+    <value>{1} · {0} Dateien</value>
+  </data>
+  <data name="Drift_IgnoredInParens" xml:space="preserve">
+    <value> ({0} ignoriert).</value>
+  </data>
+  <data name="Drift_IgnoredCount" xml:space="preserve">
+    <value> · {0} ignoriert</value>
+  </data>
+  <data name="Main_ProfileLabel_One" xml:space="preserve">
+    <value>{1} · {0} App</value>
+  </data>
+  <data name="Main_ProfileLabel_Other" xml:space="preserve">
+    <value>{1} · {0} Apps</value>
+  </data>
+  <data name="Scan_AppCount_One" xml:space="preserve">
+    <value>{0} App</value>
+  </data>
+  <data name="Scan_AppCount_Other" xml:space="preserve">
+    <value>{0} Apps</value>
+  </data>
+  <data name="Catalog_SelectedCount" xml:space="preserve">
+    <value>{0} ausgewählt</value>
+  </data>
 </root>

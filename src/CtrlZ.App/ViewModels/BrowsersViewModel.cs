@@ -914,7 +914,7 @@ public sealed partial class BrowsersViewModel : PageViewModelBase
                 var plan = BrowserBackupPlanner.Build(browser.Browser, browser.SelectedProfiles);
                 var estimate = BrowserBackupPlanner.Estimate(plan);
                 totalBytes += estimate.TotalBytes;
-                browser.EstimatedText = $"{FileUtil.FormatBytes(estimate.TotalBytes)} · {estimate.FileCount} files";
+                browser.EstimatedText = Loc.Plural("Browsers_EstimateFiles", estimate.FileCount, FileUtil.FormatBytes(estimate.TotalBytes));
             }
             catch
             {

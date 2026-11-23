@@ -144,11 +144,15 @@
                 <Border Style="{StaticResource Border.Card}" Padding="18,16">
                     <StackPanel>
                         <TextBlock Text="{l:Tr Settings_PACKAGEMANAGER}" Style="{StaticResource Text.NavSection}" Margin="0,0,0,10" />
-                        <StackPanel Orientation="Horizontal">
-                            <Ellipse Width="7" Height="7" Fill="{DynamicResource Brush.Success}" Margin="0,0,8,0"
-                                     VerticalAlignment="Center" />
-                            <TextBlock Text="{Binding WingetStatus}" Style="{StaticResource Text.Body}" TextWrapping="Wrap" />
-                        </StackPanel>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <Ellipse Width="7" Height="7" Fill="{DynamicResource Brush.Success}" Margin="0,7,8,0"
+                                     VerticalAlignment="Top" />
+                            <TextBlock Grid.Column="1" Text="{Binding WingetStatus}" Style="{StaticResource Text.Body}" TextWrapping="Wrap" />
+                        </Grid>
                         <TextBlock Text="{l:Tr Settings_WingetIsUsedForCatalog}"
                                    Style="{StaticResource Text.Caption}" TextWrapping="Wrap" Margin="0,8,0,0" />
                         <StackPanel Orientation="Horizontal" Margin="0,12,0,0">

@@ -3047,4 +3047,34 @@ Use the file from "winget export -o apps.json", "scoop export &gt; apps.json" or
   <data name="Tweaks_RowUndone" xml:space="preserve">
     <value>{0}: undone.</value>
   </data>
+  <data name="AppUpdates_PinnedCount" xml:space="preserve">
+    <value> ({0} pinned)</value>
+  </data>
+  <data name="Browsers_EstimateFiles_One" xml:space="preserve">
+    <value>{1} · {0} file</value>
+  </data>
+  <data name="Browsers_EstimateFiles_Other" xml:space="preserve">
+    <value>{1} · {0} files</value>
+  </data>
+  <data name="Drift_IgnoredInParens" xml:space="preserve">
+    <value> ({0} ignored).</value>
+  </data>
+  <data name="Drift_IgnoredCount" xml:space="preserve">
+    <value> · {0} ignored</value>
+  </data>
+  <data name="Main_ProfileLabel_One" xml:space="preserve">
+    <value>{1} · {0} app</value>
+  </data>
+  <data name="Main_ProfileLabel_Other" xml:space="preserve">
+    <value>{1} · {0} apps</value>
+  </data>
+  <data name="Scan_AppCount_One" xml:space="preserve">
+    <value>{0} app</value>
+  </data>
+  <data name="Scan_AppCount_Other" xml:space="preserve">
+    <value>{0} apps</value>
+  </data>
+  <data name="Catalog_SelectedCount" xml:space="preserve">
+    <value>{0} selected</value>
+  </data>
 </root>

@@ -167,7 +167,7 @@
                 </Grid>
 
                 <ComboBox ItemsSource="{Binding Categories}" SelectedItem="{Binding SelectedCategory}"
-                          Width="120" Margin="0,0,8,0" AutomationProperties.Name="{l:Tr Scan_FilterByCategory}" />
+                          MinWidth="120" Margin="0,0,8,0" AutomationProperties.Name="{l:Tr Scan_FilterByCategory}" />
 
                 <Border Style="{StaticResource Border.Inset}" Padding="2" Margin="0,0,8,0">
                     <StackPanel Orientation="Horizontal">
@@ -181,7 +181,7 @@
                 </Border>
 
                 <ComboBox ItemsSource="{Binding MatchFilters}" SelectedItem="{Binding SelectedMatchFilter}"
-                          Width="106" VerticalAlignment="Center" AutomationProperties.Name="{l:Tr Scan_FilterByMatchStatus}"
+                          MinWidth="106" VerticalAlignment="Center" AutomationProperties.Name="{l:Tr Scan_FilterByMatchStatus}"
                           ToolTip="{l:Tr Scan_ShowAllAppsOnlyMatched}" />
             </StackPanel>
         </Grid>

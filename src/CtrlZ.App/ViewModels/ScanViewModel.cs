@@ -91,7 +91,7 @@ public sealed partial class ScanViewModel : PageViewModelBase
     public bool IsGroupedByCategory => !GroupBySource;
     public bool CanAddSelection => SelectedCount > 0;
     public string SelectionText => SelectedCount == 0
-        ? $"{TotalCount} apps"
+        ? Loc.Plural("Scan_AppCount", TotalCount)
         : Loc.Format("Scan_SelectedOf", SelectedCount, TotalCount);
     public bool HasApps => Items.Count > 0;
     public bool HasWarning => !string.IsNullOrWhiteSpace(WarningText);

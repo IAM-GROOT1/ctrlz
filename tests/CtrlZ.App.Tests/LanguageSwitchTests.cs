@@ -36,8 +36,35 @@ public class LanguageSwitchTests
         }
         finally
         {
+            CoreText.Culture = null;
             CultureInfo.CurrentUICulture = before;
             CultureInfo.DefaultThreadCurrentUICulture = beforeDefault;
+        }
+    }
+
+    [Fact]
+    public async Task The_language_stays_after_an_async_method_that_set_it_returns()
+    {
+        // .NET restores CurrentUICulture when an async method returns; the app's startup is one.
+        var before = CultureInfo.CurrentUICulture;
+        var beforeDefault = CultureInfo.DefaultThreadCurrentUICulture;
+        try
+        {
+            await ApplyInsideAsync();
+            Assert.Equal("Sprache", Loc.Get("Settings_Language"));
+            Assert.Equal("Abbrechen", Loc.Get("DialogService_Cancel"));
+        }
+        finally
+        {
+            CoreText.Culture = null;
+            CultureInfo.CurrentUICulture = before;
+            CultureInfo.DefaultThreadCurrentUICulture = beforeDefault;
+        }
+
+        static async Task ApplyInsideAsync()
+        {
+            await Task.Yield();
+            AppLanguage.Apply("de");
         }
     }
 
