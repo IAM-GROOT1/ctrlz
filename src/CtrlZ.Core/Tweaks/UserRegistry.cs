@@ -71,7 +71,7 @@ public sealed class WindowsUserRegistry : IUserRegistry
 
         // Remove keys this tweak created, leaf first, stopping at the first one that still holds anything.
         var path = subKey;
-        while (path.Length > keepAbove.Length && path.StartsWith(keepAbove, StringComparison.OrdinalIgnoreCase))
+        while (path.Length > keepAbove.Length && path.StartsWith(keepAbove + @"\", StringComparison.OrdinalIgnoreCase))
         {
             using (var key = Registry.CurrentUser.OpenSubKey(path, writable: false))
             {
