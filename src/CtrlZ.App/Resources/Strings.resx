@@ -3029,4 +3029,16 @@ Use the file from "winget export -o apps.json", "scoop export &gt; apps.json" or
   <data name="AppEditor_InstallerFilter" xml:space="preserve">
     <value>Installers (*.exe;*.msi;*.msix;*.appx;*.zip)|*.exe;*.msi;*.msix;*.appx;*.zip|All files (*.*)|*.*</value>
   </data>
+  <data name="Settings_Language" xml:space="preserve">
+    <value>Language</value>
+  </data>
+  <data name="Settings_LanguageWindowsDefault" xml:space="preserve">
+    <value>Windows default</value>
+  </data>
+  <data name="Settings_LanguageNote" xml:space="preserve">
+    <value>The new language is used the next time CTRL+Z starts.</value>
+  </data>
+  <data name="Settings_LanguageRestart" xml:space="preserve">
+    <value>Language set to {0}. Restart CTRL+Z to use it.</value>
+  </data>
 </root>

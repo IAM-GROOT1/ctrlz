@@ -66,6 +66,9 @@ public sealed class AppServices : IDisposable
 
         var settingsStore = new SettingsStore(paths.SettingsFile, log);
         var settings = settingsStore.Load();
+
+        // Before anything builds text: the profile store may name a first profile.
+        CtrlZ.App.Localization.AppLanguage.Apply(settings.Language);
         var profiles = new ProfileStore(paths, log);
         var state = new AppState(profiles, settingsStore, settings, log);
         state.Initialize();

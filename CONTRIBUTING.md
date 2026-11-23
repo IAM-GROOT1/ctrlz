@@ -50,6 +50,23 @@ pwsh -File build/sync-readme-roadmap.ps1
 On Windows PowerShell use `powershell -File build/sync-readme-roadmap.ps1` instead. CI runs the same
 script with `-Check` and fails the pull request if the block is stale.
 
+## Adding or fixing a translation
+
+The app's English text lives in `src/CtrlZ.App/Resources/Strings.resx` (screens and messages) and
+`src/CtrlZ.Core/Resources/CoreStrings.resx` (install, preview, readiness and safety messages). A
+translation is a copy of each named for the language, for example `Strings.fr.resx` and
+`CoreStrings.fr.resx`, with the same keys and translated values.
+
+- Keep every `{0}`, `{1:N0}` and similar placeholder; you may move it within the sentence.
+- Keep leading and trailing spaces: many values are joined to the next one.
+- Line breaks are real line breaks in the file, never `\n`.
+- Keys ending in `_One` and `_Other` are plural forms. Languages with more forms add `_Zero`,
+  `_Two`, `_Few` or `_Many` (the Unicode CLDR categories); a missing form falls back to `_Other`.
+- A key you leave out shows in English, so a partial translation still works.
+- Add the language code to `AppLanguage.Supported` in `src/CtrlZ.App/Localization/AppLanguage.cs`
+  and to `SatelliteResourceLanguages` in `build/publish.ps1`. A test checks that the three agree,
+  and that every value keeps English's keys, placeholders and edge spacing.
+
 ## What not to submit
 
 - Secrets of any kind: private keys, signing secrets, certificates, tokens, or real license keys.

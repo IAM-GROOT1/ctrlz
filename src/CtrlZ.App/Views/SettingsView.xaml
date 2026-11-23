@@ -35,6 +35,12 @@
                             </StackPanel>
                         </Border>
                         <TextBlock Text="{Binding ThemeDescription}" Style="{StaticResource Text.Caption}" Margin="0,8,0,0" />
+                        <TextBlock x:Name="LanguageLabel" Text="{l:Tr Settings_Language}" Style="{StaticResource Text.Label}" Margin="0,14,0,0" />
+                        <ComboBox ItemsSource="{Binding Languages}" SelectedItem="{Binding SelectedLanguage, Mode=TwoWay}"
+                                  DisplayMemberPath="Name" HorizontalAlignment="Left" MinWidth="220"
+                                  AutomationProperties.LabeledBy="{Binding ElementName=LanguageLabel}" />
+                        <TextBlock Text="{l:Tr Settings_LanguageNote}" Style="{StaticResource Text.Caption}"
+                                   TextWrapping="Wrap" Margin="0,8,0,0" />
                     </StackPanel>
                 </Border>
 

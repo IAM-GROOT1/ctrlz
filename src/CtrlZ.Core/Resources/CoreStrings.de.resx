@@ -1,0 +1,1094 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AppUpdates_UpdatedTo" xml:space="preserve">
+    <value>Auf {0} aktualisiert.</value>
+  </data>
+  <data name="AppUpdates_UpdatedRestartWindowsToFinish" xml:space="preserve">
+    <value>Aktualisiert; starten Sie Windows neu, um abzuschließen.</value>
+  </data>
+  <data name="AppUpdates_AlreadyUpToDate" xml:space="preserve">
+    <value>Bereits aktuell.</value>
+  </data>
+  <data name="AppUpdates_WingetCouldNotUpdateIt" xml:space="preserve">
+    <value>winget konnte die App nicht aktualisieren (Code 0x{0:X8}).</value>
+  </data>
+  <data name="AppUpdates_NotStartedCancelled" xml:space="preserve">
+    <value>Nicht gestartet: abgebrochen.</value>
+  </data>
+  <data name="AppUpdates_StoppedCancelled" xml:space="preserve">
+    <value>Angehalten: abgebrochen.</value>
+  </data>
+  <data name="AppUpdates_CouldNotStartWinget" xml:space="preserve">
+    <value>winget konnte nicht gestartet werden: </value>
+  </data>
+  <data name="CommandPreview_WarningRiskyPattern" xml:space="preserve">
+    <value> – Warnung: riskantes Muster</value>
+  </data>
+  <data name="CommandStateResolver_RunsAfterInstall" xml:space="preserve">
+    <value>Läuft nach der Installation</value>
+  </data>
+  <data name="CommandStateResolver_ApprovedRunsAfterInstall" xml:space="preserve">
+    <value>Freigegeben – läuft nach der Installation</value>
+  </data>
+  <data name="CommandStateResolver_EditedSinceApprovalNeedsReview" xml:space="preserve">
+    <value>Seit der Freigabe geändert – muss geprüft werden</value>
+  </data>
+  <data name="CommandStateResolver_BlockedImportedProfileReviewRequired" xml:space="preserve">
+    <value>Gesperrt – importiertes Profil, Prüfung erforderlich</value>
+  </data>
+  <data name="CommandStateResolver_WarningRiskyPattern" xml:space="preserve">
+    <value> – Warnung: riskantes Muster</value>
+  </data>
+  <data name="DirectUrlSourceInstaller_ThisAppHasNoDownload" xml:space="preserve">
+    <value>Diese App hat keine Download-URL. Bearbeiten Sie sie unter „Meine Apps“.</value>
+  </data>
+  <data name="DirectUrlSourceInstaller_DownloadingInstaller" xml:space="preserve">
+    <value>Installer wird heruntergeladen…</value>
+  </data>
+  <data name="DirectUrlSourceInstaller_SHA256VerificationFailed" xml:space="preserve">
+    <value>SHA-256-Prüfung fehlgeschlagen.</value>
+  </data>
+  <data name="DirectUrlSourceInstaller_DownloadFailed" xml:space="preserve">
+    <value>Download fehlgeschlagen: {0}</value>
+  </data>
+  <data name="GitHubSourceInstaller_ThisAppHasNoGitHub" xml:space="preserve">
+    <value>Für diese App ist kein GitHub-Repository eingetragen.</value>
+  </data>
+  <data name="GitHubSourceInstaller_CheckingTheLatestGitHubRelease" xml:space="preserve">
+    <value>Neuestes GitHub-Release wird geprüft…</value>
+  </data>
+  <data name="GitHubSourceInstaller_ResolvingLatestReleaseFor" xml:space="preserve">
+    <value>Neuestes Release für {0} wird ermittelt…</value>
+  </data>
+  <data name="GitHubSourceInstaller_NoDownloadableWindowsAssetWas" xml:space="preserve">
+    <value>In {0} wurde keine herunterladbare Windows-Datei gefunden. Öffnen Sie {1} und fügen Sie stattdessen einen direkten Link hinzu.</value>
+  </data>
+  <data name="GitHubSourceInstaller_ReleaseDownloading" xml:space="preserve">
+    <value>Release {0}: {1} wird heruntergeladen ({2}).</value>
+  </data>
+  <data name="GitHubSourceInstaller_SHA256ForTakenFrom" xml:space="preserve">
+    <value>SHA-256 für {0} aus {1} im Release übernommen.</value>
+  </data>
+  <data name="GitHubSourceInstaller_TheReleaseSChecksumFile" xml:space="preserve">
+    <value>Die Prüfsummendatei des Releases ist widersprüchlich.</value>
+  </data>
+  <data name="GitHubSourceInstaller_TheSavedSHA256Does" xml:space="preserve">
+    <value>Die gespeicherte SHA-256 passt nicht zum neuesten GitHub-Release. Prüfen Sie den App-Eintrag.</value>
+  </data>
+  <data name="GitHubSourceInstaller_ThisReleasePublishesNoSHA" xml:space="preserve">
+    <value>Dieses Release veröffentlicht keine SHA-256 für die Datei; ihre Integrität kann nicht mit einer veröffentlichten Prüfsumme abgeglichen werden. Tragen Sie eine SHA-256 im App-Eintrag ein, um sie festzulegen.</value>
+  </data>
+  <data name="GitHubSourceInstaller_Downloading" xml:space="preserve">
+    <value>{0} wird heruntergeladen…</value>
+  </data>
+  <data name="GitHubSourceInstaller_AssetIsAZIPCTRL" xml:space="preserve">
+    <value>Die Datei ist ein ZIP-Archiv; CTRL+Z sucht nach einem enthaltenen Installer.</value>
+  </data>
+  <data name="GitHubSourceInstaller_SHA256VerificationFailed" xml:space="preserve">
+    <value>SHA-256-Prüfung fehlgeschlagen.</value>
+  </data>
+  <data name="GitHubSourceInstaller_GitHubInstallFailed" xml:space="preserve">
+    <value>GitHub-Installation fehlgeschlagen: {0}</value>
+  </data>
+  <data name="InstallEngine_CTRLZInstallSessionProfile" xml:space="preserve">
+    <value>CTRL+Z-Installationssitzung · Profil „{0}“ · {1} Apps</value>
+  </data>
+  <data name="InstallEngine_CheckingWingetAvailability" xml:space="preserve">
+    <value>Verfügbarkeit von winget wird geprüft…</value>
+  </data>
+  <data name="InstallEngine_WingetIsNotReady" xml:space="preserve">
+    <value>winget ist nicht bereit: </value>
+  </data>
+  <data name="InstallEngine_AlreadyComplete" xml:space="preserve">
+    <value>Bereits erledigt.</value>
+  </data>
+  <data name="InstallEngine_SkippingFailedAppUseRetry" xml:space="preserve">
+    <value>Fehlgeschlagene App „{0}“ wird übersprungen (mit „Fehlgeschlagene wiederholen“ erneut versuchen).</value>
+  </data>
+  <data name="InstallEngine_RemovedFromTheProfile" xml:space="preserve">
+    <value>Aus dem Profil entfernt.</value>
+  </data>
+  <data name="InstallEngine_NeedsWhichDidNotInstall" xml:space="preserve">
+    <value>benötigt {0}, das nicht installiert wurde.</value>
+  </data>
+  <data name="InstallEngine_NoInstallerIsAvailableFor" xml:space="preserve">
+    <value>Für {0} ist kein Installer verfügbar.</value>
+  </data>
+  <data name="InstallEngine_Starting" xml:space="preserve">
+    <value>Wird gestartet ({0}/{1})…</value>
+  </data>
+  <data name="InstallEngine_RestartRequired" xml:space="preserve">
+    <value>Neustart erforderlich.</value>
+  </data>
+  <data name="InstallEngine_InstalledARestartIsRequired" xml:space="preserve">
+    <value>[{0}] installiert; ein Neustart ist erforderlich.</value>
+  </data>
+  <data name="InstallEngine_NeedsManualAction" xml:space="preserve">
+    <value>[{0}] braucht einen manuellen Schritt: {1}</value>
+  </data>
+  <data name="InstallEngine_Failed" xml:space="preserve">
+    <value>[{0}] fehlgeschlagen: {1}</value>
+  </data>
+  <data name="InstallEngine_Paused" xml:space="preserve">
+    <value>Pausiert.</value>
+  </data>
+  <data name="InstallEngine_InstallationPaused" xml:space="preserve">
+    <value>[{0}] Installation pausiert.</value>
+  </data>
+  <data name="InstallEngine_UnexpectedFailure" xml:space="preserve">
+    <value>[{0}] unerwarteter Fehler: {1}</value>
+  </data>
+  <data name="InstallEngine_InstalledCommandNotRun" xml:space="preserve">
+    <value>Installiert; Befehl nicht ausgeführt ({0}).</value>
+  </data>
+  <data name="InstallEngine_PostInstallCommandNotRun" xml:space="preserve">
+    <value>[{0}] Befehl nach der Installation nicht ausgeführt: {1}</value>
+  </data>
+  <data name="InstallEngine_InstalledPostInstallCommandOk" xml:space="preserve">
+    <value>Installiert; Befehl nach der Installation erfolgreich.</value>
+  </data>
+  <data name="InstallEngine_PostInstallCommandOk" xml:space="preserve">
+    <value>[{0}] Befehl nach der Installation erfolgreich.</value>
+  </data>
+  <data name="InstallEngine_PostInstallCommandTimedOut" xml:space="preserve">
+    <value>Zeitlimit für den Befehl nach der Installation überschritten.</value>
+  </data>
+  <data name="InstallEngine_PostInstallCommandFailed" xml:space="preserve">
+    <value>Befehl nach der Installation fehlgeschlagen ({0}).</value>
+  </data>
+  <data name="InstallEngine_InstalledPostInstallFailed" xml:space="preserve">
+    <value>Installiert, Befehl danach fehlgeschlagen.</value>
+  </data>
+  <data name="InstallEngine_InstalledPostInstallFailed2" xml:space="preserve">
+    <value>[{0}] installiert, Befehl danach fehlgeschlagen ({1}).</value>
+  </data>
+  <data name="InstallEngine_FinishedCompleteNeedAttention" xml:space="preserve">
+    <value>Fertig: {0} abgeschlossen, {1} brauchen Aufmerksamkeit.</value>
+  </data>
+  <data name="InstallEngine_OneOrMoreInstallersRequested" xml:space="preserve">
+    <value>Mindestens ein Installer hat einen Neustart angefordert. Starten Sie Windows neu, wenn es passt.</value>
+  </data>
+  <data name="InstallEngine_NotInTheActiveProfile" xml:space="preserve">
+    <value>Nicht im aktiven Profil.</value>
+  </data>
+  <data name="InstallOrderPlanner_IsSetToInstallAfter" xml:space="preserve">
+    <value>{0} soll nach „{1}“ installiert werden, das in diesem Durchgang fehlt.</value>
+  </data>
+  <data name="InstallOrderPlanner_ItIsPartOfAn" xml:space="preserve">
+    <value>Die App ist Teil einer Schleife in der Installationsreihenfolge.</value>
+  </data>
+  <data name="InstallOrderPlanner_NeedsWhichFailedToInstall" xml:space="preserve">
+    <value>Benötigt {0}, dessen Installation fehlgeschlagen ist.</value>
+  </data>
+  <data name="InstallOrderPlanner_NeedsWhichWillNotInstall" xml:space="preserve">
+    <value>Benötigt {0}, das nicht installiert wird.</value>
+  </data>
+  <data name="LocalFileSourceInstaller_NoLocalInstallerPathIs" xml:space="preserve">
+    <value>Es ist kein lokaler Pfad zum Installer eingetragen.</value>
+  </data>
+  <data name="LocalFileSourceInstaller_TheInstallerWasNotFound" xml:space="preserve">
+    <value>Der Installer wurde unter {0} nicht gefunden. Schließen Sie den USB-Stick wieder an oder ändern Sie den Pfad.</value>
+  </data>
+  <data name="LocalFileSourceInstaller_SHA256VerificationFailed" xml:space="preserve">
+    <value>SHA-256-Prüfung fehlgeschlagen.</value>
+  </data>
+  <data name="LocalFileSourceInstaller_LocalInstallerHashMismatchExpected" xml:space="preserve">
+    <value>Prüfsumme des lokalen Installers stimmt nicht. Erwartet {0}, erhalten {1}.</value>
+  </data>
+  <data name="LocalFileSourceInstaller_LocalInstallerSHA256Verified" xml:space="preserve">
+    <value>SHA-256 des lokalen Installers geprüft.</value>
+  </data>
+  <data name="PostInstallCommandForm_EnterTheProgramToRun" xml:space="preserve">
+    <value>Geben Sie das auszuführende Programm ein oder leeren Sie die Argumente, um den Befehl zu entfernen.</value>
+  </data>
+  <data name="PostInstallCommandForm_TheProgramMustBeOn" xml:space="preserve">
+    <value>Das Programm muss in einer Zeile stehen. Schreiben Sie jedes Argument unten in eine eigene Zeile.</value>
+  </data>
+  <data name="PostInstallCommandForm_TimeoutMustBeAWhole" xml:space="preserve">
+    <value>Das Zeitlimit muss eine ganze Zahl von {0} bis {1} Sekunden sein.</value>
+  </data>
+  <data name="PostInstallCommandForm_WorkingDirectoryMustBeA" xml:space="preserve">
+    <value>Das Arbeitsverzeichnis muss ein vollständiger Pfad sein, etwa C:\Tools, oder leer bleiben.</value>
+  </data>
+  <data name="PostInstallCommandGate_ThisCommandChangedAfterIt" xml:space="preserve">
+    <value>Dieser Befehl wurde nach der Freigabe geändert. Prüfen Sie ihn erneut, um ihn zu aktivieren.</value>
+  </data>
+  <data name="PostInstallCommandGate_ThisProfileCameFromOutside" xml:space="preserve">
+    <value>Dieses Profil stammt nicht von diesem PC. Prüfen Sie den Befehl, um ihn zu aktivieren.</value>
+  </data>
+  <data name="PostInstallCommandGate_ThisProfileHasNoLocal" xml:space="preserve">
+    <value>Für dieses Profil ist keine lokale Herkunft gespeichert, daher bleiben seine Befehle deaktiviert.</value>
+  </data>
+  <data name="PostInstallCommandGate_DisabledInTheProfile" xml:space="preserve">
+    <value>Im Profil deaktiviert.</value>
+  </data>
+  <data name="PostInstallCommandGate_ApprovedForThisProfileBut" xml:space="preserve">
+    <value>Für dieses Profil freigegeben, entspricht aber einem riskanten Muster.</value>
+  </data>
+  <data name="PostInstallCommandGate_ReviewedAndApprovedForThis" xml:space="preserve">
+    <value>Für dieses Profil geprüft und freigegeben.</value>
+  </data>
+  <data name="PostInstallCommandGate_MatchesARiskyPatternNeeds" xml:space="preserve">
+    <value>Entspricht einem riskanten Muster; braucht bei jedem Durchgang eine ausdrückliche Bestätigung.</value>
+  </data>
+  <data name="PostInstallCommandGate_LocalProfileCommand" xml:space="preserve">
+    <value>Befehl aus einem lokalen Profil.</value>
+  </data>
+  <data name="PostInstallCommandRisk_DownloadsAndRunsRemoteContent" xml:space="preserve">
+    <value>lädt Inhalte aus dem Internet und führt sie aus</value>
+  </data>
+  <data name="PostInstallCommandRisk_RunsAnEncodedOrHidden" xml:space="preserve">
+    <value>führt einen verschlüsselten oder versteckten Befehl aus</value>
+  </data>
+  <data name="PostInstallCommandRisk_DeletesOrWritesOutsideYour" xml:space="preserve">
+    <value>löscht oder schreibt außerhalb Ihrer Ordner</value>
+  </data>
+  <data name="PostInstallCommandRisk_ChangesTheRegistryServicesOr" xml:space="preserve">
+    <value>ändert die Registrierung, Dienste oder geplante Aufgaben</value>
+  </data>
+  <data name="PostInstallCommandRisk_ChangesStartupEntries" xml:space="preserve">
+    <value>ändert Autostart-Einträge</value>
+  </data>
+  <data name="PostInstallCommandRisk_WeakensSecuritySettings" xml:space="preserve">
+    <value>schwächt Sicherheitseinstellungen</value>
+  </data>
+  <data name="PostInstallConsent_RunPostInstallCommands" xml:space="preserve">
+    <value>Befehle nach der Installation ausführen?</value>
+  </data>
+  <data name="PostInstallConsent_RunARiskyCommand" xml:space="preserve">
+    <value>Einen riskanten Befehl ausführen?</value>
+  </data>
+  <data name="PostInstallConsent_WillRunACommandThat" xml:space="preserve">
+    <value>{0} führt einen Befehl aus, der einem riskanten Muster entspricht:
+
+{1}
+
+</value>
+  </data>
+  <data name="PostInstallConsent_ThisIsAskedOnEvery" xml:space="preserve">
+    <value>Diese Frage kommt bei jedem Durchgang.</value>
+  </data>
+  <data name="PostInstallRunner_NoExecutable" xml:space="preserve">
+    <value>Kein Programm angegeben.</value>
+  </data>
+  <data name="PostInstallRunner_CouldNotStart" xml:space="preserve">
+    <value>Konnte nicht gestartet werden.</value>
+  </data>
+  <data name="PostInstallRunner_TimedOut2" xml:space="preserve">
+    <value>Zeitlimit überschritten.</value>
+  </data>
+  <data name="PostInstallRunner_ExitCode" xml:space="preserve">
+    <value>Exitcode {0}.</value>
+  </data>
+  <data name="PostInstallStep_TheInstallDidNotSucceed" xml:space="preserve">
+    <value>Die Installation war nicht erfolgreich.</value>
+  </data>
+  <data name="PostInstallStep_TimedOut" xml:space="preserve">
+    <value>Zeitlimit überschritten.</value>
+  </data>
+  <data name="FileInstallService_InstallerSignatureIsBroken" xml:space="preserve">
+    <value>Die Signatur des Installers ist beschädigt.</value>
+  </data>
+  <data name="FileInstallService_AddedToTheStartMenu" xml:space="preserve">
+    <value>{0} zum Startmenü hinzugefügt.</value>
+  </data>
+  <data name="FileInstallService_TheDownloadedInstallerNoLonger" xml:space="preserve">
+    <value>Der heruntergeladene Installer existiert nicht mehr: {0}</value>
+  </data>
+  <data name="FileInstallService_InstallerTypeWasNotRecognized" xml:space="preserve">
+    <value>Der Installer-Typ wurde nicht erkannt; /S wird verwendet. Testen Sie die Schalter, falls der Installer ein Fenster öffnet.</value>
+  </data>
+  <data name="FileInstallService_DetectedRunning" xml:space="preserve">
+    <value>{0} erkannt; Ausführung: {1}</value>
+  </data>
+  <data name="FileInstallService_InstallingSilentlyWith" xml:space="preserve">
+    <value>Stille Installation mit {0}.</value>
+  </data>
+  <data name="FileInstallService_InstallerTimedOutReviewThe" xml:space="preserve">
+    <value>Zeitlimit des Installers überschritten. Prüfen Sie die Schalter für die stille Installation.</value>
+  </data>
+  <data name="FileInstallService_TheInstallerTimedOutIt" xml:space="preserve">
+    <value>Zeitlimit des Installers überschritten. Er hat eventuell ein Fenster geöffnet, das auf eine Eingabe wartet. Testen Sie die Schalter unter „App hinzufügen“.</value>
+  </data>
+  <data name="FileInstallService_InstalledSilently" xml:space="preserve">
+    <value>Still installiert.</value>
+  </data>
+  <data name="FileInstallService_InstalledRestartRequired" xml:space="preserve">
+    <value>Installiert; Neustart erforderlich.</value>
+  </data>
+  <data name="FileInstallService_InstalledButWindowsNeedsA" xml:space="preserve">
+    <value>Installiert, aber Windows braucht einen Neustart.</value>
+  </data>
+  <data name="FileInstallService_TheInstallationWasCancelledOr" xml:space="preserve">
+    <value>Die Installation wurde abgebrochen oder der Administratorzugriff verweigert.</value>
+  </data>
+  <data name="FileInstallService_InstallerExitedWithCode" xml:space="preserve">
+    <value>Der Installer wurde mit Code {0} beendet.</value>
+  </data>
+  <data name="FileInstallService_RegisteringMSIXPackage" xml:space="preserve">
+    <value>MSIX-Paket wird registriert…</value>
+  </data>
+  <data name="FileInstallService_MSIXPackageRegistered" xml:space="preserve">
+    <value>MSIX-Paket registriert.</value>
+  </data>
+  <data name="FileInstallService_AddAppxPackageFailed" xml:space="preserve">
+    <value>Add-AppxPackage ist fehlgeschlagen.</value>
+  </data>
+  <data name="FileInstallService_ExtractingPortableAppTo" xml:space="preserve">
+    <value>Portable App wird entpackt nach {0}</value>
+  </data>
+  <data name="FileInstallService_ExtractedTo" xml:space="preserve">
+    <value>Entpackt nach {0}</value>
+  </data>
+  <data name="FileInstallService_ExtractedTo2" xml:space="preserve">
+    <value>Entpackt nach {0} ({1})</value>
+  </data>
+  <data name="FileInstallService_CouldNotExtractTheArchive" xml:space="preserve">
+    <value>Das Archiv konnte nicht entpackt werden.</value>
+  </data>
+  <data name="FileInstallService_CouldNotExtractThePortable" xml:space="preserve">
+    <value>Das portable Archiv konnte nicht entpackt werden: {0}</value>
+  </data>
+  <data name="FileInstallService_CopiedPortableAppTo" xml:space="preserve">
+    <value>Portable App kopiert nach {0}</value>
+  </data>
+  <data name="FileInstallService_PortableAppCopiedTo" xml:space="preserve">
+    <value>Portable App kopiert nach {0}</value>
+  </data>
+  <data name="FileInstallService_CouldNotCopyThePortable" xml:space="preserve">
+    <value>Die portable EXE-Datei konnte nicht kopiert werden.</value>
+  </data>
+  <data name="FileInstallService_CouldNotCopyThePortable2" xml:space="preserve">
+    <value>Die portable EXE-Datei konnte nicht kopiert werden: {0}</value>
+  </data>
+  <data name="FileInstallService_ExtractingInstallerArchive" xml:space="preserve">
+    <value>Installer-Archiv wird entpackt…</value>
+  </data>
+  <data name="FileInstallService_FoundBundledInstaller" xml:space="preserve">
+    <value>Enthaltener Installer {0} gefunden.</value>
+  </data>
+  <data name="FileInstallService_CouldNotUnpackTheInstaller" xml:space="preserve">
+    <value>Das Installer-Archiv konnte nicht entpackt werden: {0}</value>
+  </data>
+  <data name="FileInstallService_InnoSetup" xml:space="preserve">
+    <value>Inno Setup</value>
+  </data>
+  <data name="FileInstallService_WindowsInstaller" xml:space="preserve">
+    <value>Windows Installer</value>
+  </data>
+  <data name="FileInstallService_Squirrel" xml:space="preserve">
+    <value>Squirrel</value>
+  </data>
+  <data name="FileInstallService_WiXBurn" xml:space="preserve">
+    <value>WiX Burn</value>
+  </data>
+  <data name="FileInstallService_PortableArchive" xml:space="preserve">
+    <value>portables Archiv</value>
+  </data>
+  <data name="FileInstallService_PortableExecutable" xml:space="preserve">
+    <value>portable EXE-Datei</value>
+  </data>
+  <data name="FileInstallService_UnknownInstaller" xml:space="preserve">
+    <value>unbekannter Installer</value>
+  </data>
+  <data name="WingetSourceInstaller_NoWingetPackageIdIs" xml:space="preserve">
+    <value>Es ist keine winget-Paket-ID zugeordnet. Ordnen Sie die App in der Gruppe „Nicht zugeordnet“ zu oder bearbeiten Sie sie unter „Meine Apps“.</value>
+  </data>
+  <data name="WingetSourceInstaller_WingetIsNotAvailableInstall" xml:space="preserve">
+    <value>winget ist nicht verfügbar. Installieren oder aktualisieren Sie den Microsoft App Installer von https://aka.ms/getwinget und versuchen Sie es erneut.</value>
+  </data>
+  <data name="WingetSourceInstaller_DownloadingOrInstalling" xml:space="preserve">
+    <value>Wird heruntergeladen oder installiert… {0}%</value>
+  </data>
+  <data name="WingetSourceInstaller_InstalledWithWinget" xml:space="preserve">
+    <value>Mit winget installiert.</value>
+  </data>
+  <data name="WingetSourceInstaller_ARestartIsNeededTo" xml:space="preserve">
+    <value>Zum Abschließen ist ein Neustart nötig.</value>
+  </data>
+  <data name="WingetSourceInstaller_InstalledButWindowsNeedsA" xml:space="preserve">
+    <value>Installiert, aber Windows braucht einen Neustart.</value>
+  </data>
+  <data name="WingetSourceInstaller_AlreadyInstalled" xml:space="preserve">
+    <value>Bereits installiert.</value>
+  </data>
+  <data name="WingetSourceInstaller_AnotherInstallerIsAlreadyRunning" xml:space="preserve">
+    <value>Ein anderer Installer läuft bereits. Schließen Sie ihn und versuchen Sie es erneut.</value>
+  </data>
+  <data name="WingetSourceInstaller_WingetTimedOutAfter45" xml:space="preserve">
+    <value>winget hat das Zeitlimit von 45 Minuten überschritten.</value>
+  </data>
+  <data name="WingetSourceInstaller_WingetFailedWithExitCode" xml:space="preserve">
+    <value>winget ist mit Exitcode {0} fehlgeschlagen.</value>
+  </data>
+  <data name="WingetSourceInstaller_WingetFailed" xml:space="preserve">
+    <value>winget ist fehlgeschlagen ({0}): {1}</value>
+  </data>
+  <data name="InstallerSignature_TheInstallerIsNotSigned" xml:space="preserve">
+    <value>Der Installer ist nicht signiert. Seine SHA-256 ist die einzige Prüfung.</value>
+  </data>
+  <data name="InstallerSignature_TheInstallerSSignatureIs" xml:space="preserve">
+    <value>Die Signatur des Installers ist beschädigt (0x{0:X8}): Die Datei wurde nach dem Signieren verändert oder ihr Zertifikat ist auf diesem PC nicht vertrauenswürdig. CTRL+Z führt sie nicht aus.</value>
+  </data>
+  <data name="InstallerSignature_TheInstallerSSignatureCould" xml:space="preserve">
+    <value>Die Signatur des Installers konnte nicht geprüft werden.</value>
+  </data>
+  <data name="InstallerSignature_TheInstallerSSignatureCould2" xml:space="preserve">
+    <value>Die Signatur des Installers konnte nicht verifiziert werden (0x{0:X8}).</value>
+  </data>
+  <data name="DriftAnalyzer_AddedFromDriftDetection" xml:space="preserve">
+    <value>Über die Abweichungsprüfung hinzugefügt.</value>
+  </data>
+  <data name="DriftAnalyzer_InstalledButNotSavedIn" xml:space="preserve">
+    <value>Installiert, aber nicht in Ihrem Profil gespeichert</value>
+  </data>
+  <data name="DriftAnalyzer_NewerVersionAvailable" xml:space="preserve">
+    <value>Neuere Version verfügbar ({0})</value>
+  </data>
+  <data name="DriftAnalyzer_SamePackageId" xml:space="preserve">
+    <value>Gleiche Paket-ID</value>
+  </data>
+  <data name="DriftAnalyzer_SameWingetId" xml:space="preserve">
+    <value>Gleiche winget-ID</value>
+  </data>
+  <data name="DriftAnalyzer_SavedAppHasNoUsable" xml:space="preserve">
+    <value>Die gespeicherte App hat keinen verwendbaren Namen</value>
+  </data>
+  <data name="DriftAnalyzer_SameName" xml:space="preserve">
+    <value>Gleicher Name</value>
+  </data>
+  <data name="DriftAnalyzer_SimilarName" xml:space="preserve">
+    <value>Ähnlicher Name</value>
+  </data>
+  <data name="DriftAnalyzer_SimilarNameOnlyOneShared" xml:space="preserve">
+    <value>Ähnlicher Name (nur ein gemeinsames Wort)</value>
+  </data>
+  <data name="DriftAnalyzer_AndPublisher" xml:space="preserve">
+    <value> und Herausgeber</value>
+  </data>
+  <data name="DriftAnalyzer_DifferentPublisher" xml:space="preserve">
+    <value>, anderer Herausgeber</value>
+  </data>
+  <data name="DriftAnalyzer_NotInstalled" xml:space="preserve">
+    <value>Nicht installiert</value>
+  </data>
+  <data name="DriftAnalyzer_NotFoundByNameCustom" xml:space="preserve">
+    <value>Nicht anhand des Namens gefunden (eigene Quelle {0})</value>
+  </data>
+  <data name="DriftAnalyzer_AmbiguousInstalledAppsLookSimilar" xml:space="preserve">
+    <value>Mehrdeutig: {0} installierte Apps sehen ähnlich aus</value>
+  </data>
+  <data name="DriftAnalyzer_UncertainClosestIsButThe" xml:space="preserve">
+    <value>Unsicher: am nächsten liegt „{0}“, aber die Namen teilen nur ein Wort</value>
+  </data>
+  <data name="DryRunRunner_Checking" xml:space="preserve">
+    <value>{0} wird geprüft ({1}/{2})…</value>
+  </data>
+  <data name="DryRunRunner_TheAppIsNoLonger" xml:space="preserve">
+    <value>Die App ist nicht mehr im Profil.</value>
+  </data>
+  <data name="DryRunRunner_UnsupportedSource" xml:space="preserve">
+    <value>Nicht unterstützte Quelle.</value>
+  </data>
+  <data name="DryRunRunner_TheCheckFailed" xml:space="preserve">
+    <value>Die Prüfung ist fehlgeschlagen: </value>
+  </data>
+  <data name="DryRunRunner_NoWingetPackageIdIs" xml:space="preserve">
+    <value>Es ist keine winget-Paket-ID gespeichert.</value>
+  </data>
+  <data name="DryRunRunner_WingetCannotFind" xml:space="preserve">
+    <value>winget findet „{0}“ nicht.</value>
+  </data>
+  <data name="DryRunRunner_WingetResolves" xml:space="preserve">
+    <value>winget findet {0}.</value>
+  </data>
+  <data name="DryRunRunner_WingetResolvesVersion" xml:space="preserve">
+    <value>winget findet {0} (Version {1}).</value>
+  </data>
+  <data name="DryRunRunner_NoGitHubRepositoryIsRecorded" xml:space="preserve">
+    <value>Es ist kein GitHub-Repository gespeichert.</value>
+  </data>
+  <data name="DryRunRunner_ReleaseHasNoAssetThat" xml:space="preserve">
+    <value>Release {0} enthält keine Datei, die zu dieser App passt.</value>
+  </data>
+  <data name="DryRunRunner_TheRecordedAssetIsNot" xml:space="preserve">
+    <value>Die gespeicherte Datei „{0}“ ist nicht in Release {1}; </value>
+  </data>
+  <data name="DryRunRunner_TheInstallerWillFallBack" xml:space="preserve">
+    <value>der Installer weicht auf „{0}“ aus.</value>
+  </data>
+  <data name="DryRunRunner_ReleasePublishes" xml:space="preserve">
+    <value>Release {0} enthält {1}.</value>
+  </data>
+  <data name="DryRunRunner_NoDownloadURLIsRecorded" xml:space="preserve">
+    <value>Es ist keine Download-URL gespeichert.</value>
+  </data>
+  <data name="DryRunRunner_TheLinkResponds" xml:space="preserve">
+    <value>Der Link antwortet ({0}).</value>
+  </data>
+  <data name="DryRunRunner_TheLinkResponds2" xml:space="preserve">
+    <value>Der Link antwortet.</value>
+  </data>
+  <data name="DryRunRunner_TheServerDoesNotSupport" xml:space="preserve">
+    <value>Der Server unterstützt keine HEAD-Prüfung, daher konnte der Link nicht geprüft werden.</value>
+  </data>
+  <data name="DryRunRunner_TheLinkDidNotRespond" xml:space="preserve">
+    <value>Der Link hat nicht geantwortet: </value>
+  </data>
+  <data name="DryRunRunner_NoLocalFileIsRecorded" xml:space="preserve">
+    <value>Es ist keine lokale Datei gespeichert.</value>
+  </data>
+  <data name="DryRunRunner_TheInstallerFileIsNot" xml:space="preserve">
+    <value>Die Installationsdatei ist nicht auf diesem PC.</value>
+  </data>
+  <data name="DryRunRunner_TheInstallerIsPresentBut" xml:space="preserve">
+    <value>Der Installer ist vorhanden, aber nicht code-signiert.</value>
+  </data>
+  <data name="DryRunRunner_TheInstallerFileIsPresent" xml:space="preserve">
+    <value>Die Installationsdatei ist vorhanden.</value>
+  </data>
+  <data name="InstallPlanModels_CTRLZDryRun" xml:space="preserve">
+    <value>CTRL+Z-Probelauf</value>
+  </data>
+  <data name="InstallPlanModels_Profile" xml:space="preserve">
+    <value>Profil: {0}</value>
+  </data>
+  <data name="InstallPlanModels_Generated" xml:space="preserve">
+    <value>Erstellt: {0:yyyy-MM-dd HH:mm}</value>
+  </data>
+  <data name="InstallPlanModels_Note" xml:space="preserve">
+    <value>       Notiz: {0}</value>
+  </data>
+  <data name="InstallPlanModels_Size" xml:space="preserve">
+    <value>       Größe: {0}</value>
+  </data>
+  <data name="InstallPlanModels_SummaryReadyWarningsFailed" xml:space="preserve">
+    <value>Zusammenfassung: {0} bereit, {1} Warnungen, {2} fehlgeschlagen</value>
+  </data>
+  <data name="InstallPlanModels_KnownDownloadSize" xml:space="preserve">
+    <value>Bekannte Downloadgröße: {0}</value>
+  </data>
+  <data name="InstallPlanModels_PostInstallCommands" xml:space="preserve">
+    <value>Befehle nach der Installation</value>
+  </data>
+  <data name="InstallPlanModels_NoPostInstallCommandWas" xml:space="preserve">
+    <value>Bei dieser Prüfung wurde kein Befehl nach der Installation ausgeführt.</value>
+  </data>
+  <data name="InstallPlanModels_NothingWasInstalledDownloadedTo" xml:space="preserve">
+    <value>Bei dieser Prüfung wurde nichts installiert, auf die Festplatte heruntergeladen oder geändert.</value>
+  </data>
+  <data name="InstallPlanner_AddedAutomatically" xml:space="preserve">
+    <value>Automatisch hinzugefügt</value>
+  </data>
+  <data name="InstallPlanner_WillNotInstall" xml:space="preserve">
+    <value>Wird nicht installiert: </value>
+  </data>
+  <data name="InstallPlanner_AppsInstallOneAfterAnother" xml:space="preserve">
+    <value>Die Apps werden nacheinander in der unten gezeigten Reihenfolge installiert. Bekannte Abhängigkeiten kommen zuerst, und eine App, deren Abhängigkeit fehlschlägt, wird nicht versucht.</value>
+  </data>
+  <data name="InstallPlanner_InstallOrderLoop" xml:space="preserve">
+    <value>Schleife in der Installationsreihenfolge: {0}.</value>
+  </data>
+  <data name="InstallPlanner_ThereIsNothingEnabledTo" xml:space="preserve">
+    <value>Es ist nichts zum Installieren aktiviert.</value>
+  </data>
+  <data name="InstallPlanner_WingetNoPackageId" xml:space="preserve">
+    <value>winget (keine Paket-ID)</value>
+  </data>
+  <data name="InstallPlanner_Winget" xml:space="preserve">
+    <value>winget {0}</value>
+  </data>
+  <data name="InstallPlanner_WingetDecidesWhetherThePackage" xml:space="preserve">
+    <value>winget entscheidet, ob das Paket erhöhte Rechte braucht.</value>
+  </data>
+  <data name="InstallPlanner_NoWingetPackageIdIs" xml:space="preserve">
+    <value>Es ist keine winget-Paket-ID gespeichert.</value>
+  </data>
+  <data name="InstallPlanner_GitHubNoRepository" xml:space="preserve">
+    <value>GitHub (kein Repository)</value>
+  </data>
+  <data name="InstallPlanner_GitHub" xml:space="preserve">
+    <value>GitHub {0}</value>
+  </data>
+  <data name="InstallPlanner_NoGitHubRepositoryIsRecorded" xml:space="preserve">
+    <value>Es ist kein GitHub-Repository gespeichert.</value>
+  </data>
+  <data name="InstallPlanner_NoSHA256RecordedSo" xml:space="preserve">
+    <value>Keine SHA-256 gespeichert, daher kann der Download nicht geprüft werden.</value>
+  </data>
+  <data name="InstallPlanner_DownloadFrom" xml:space="preserve">
+    <value>Download von {0}</value>
+  </data>
+  <data name="InstallPlanner_DownloadNoValidURL" xml:space="preserve">
+    <value>Download (keine gültige URL)</value>
+  </data>
+  <data name="InstallPlanner_TheDownloadURLIsMissing" xml:space="preserve">
+    <value>Die Download-URL fehlt oder ist ungültig.</value>
+  </data>
+  <data name="InstallPlanner_LocalFile" xml:space="preserve">
+    <value>Lokale Datei {0}</value>
+  </data>
+  <data name="InstallPlanner_LocalFileMissing" xml:space="preserve">
+    <value>Lokale Datei (fehlt)</value>
+  </data>
+  <data name="InstallPlanner_TheInstallerFileIsNot" xml:space="preserve">
+    <value>Die Installationsdatei ist nicht auf diesem PC.</value>
+  </data>
+  <data name="InstallPlanner_TheInstallerIsNotCode" xml:space="preserve">
+    <value>Der Installer ist nicht code-signiert.</value>
+  </data>
+  <data name="InstallPlanner_UnknownSource" xml:space="preserve">
+    <value>Unbekannte Quelle</value>
+  </data>
+  <data name="InstallPlanner_ThisAppHasAnUnsupported" xml:space="preserve">
+    <value>Diese App hat eine nicht unterstützte Quelle.</value>
+  </data>
+  <data name="InstallPlanner_InstallerDefaults" xml:space="preserve">
+    <value>Standard des Installers</value>
+  </data>
+  <data name="ReadinessScanner_GamesAndLaunchers" xml:space="preserve">
+    <value>Spiele und Launcher</value>
+  </data>
+  <data name="ReadinessScanner_DeveloperItems" xml:space="preserve">
+    <value>Entwicklerdaten</value>
+  </data>
+  <data name="ReadinessScanner_Browsers" xml:space="preserve">
+    <value>Browser</value>
+  </data>
+  <data name="ReadinessScanner_Profile" xml:space="preserve">
+    <value>Profil</value>
+  </data>
+  <data name="ReadinessScanner_ConfirmThisYourselfCTRLZ" xml:space="preserve">
+    <value>Bitte selbst bestätigen – CTRL+Z kann das nicht prüfen</value>
+  </data>
+  <data name="ReadinessScanner_NotPresentOnThisPC" xml:space="preserve">
+    <value>Auf diesem PC nicht vorhanden</value>
+  </data>
+  <data name="ReadinessScanner_Files" xml:space="preserve">
+    <value>{0:N0} Dateien · {1}</value>
+  </data>
+  <data name="ReadinessScanner_LastChange" xml:space="preserve">
+    <value>Letzte Änderung {0}</value>
+  </data>
+  <data name="ReadinessScanner_ScanStoppedAtALimit" xml:space="preserve">
+    <value>Die Prüfung hat an einer Grenze angehalten – die Anzahlen sind Mindestwerte.</value>
+  </data>
+  <data name="ReadinessScanner_SomeFoldersCouldNotBe" xml:space="preserve">
+    <value>Einige Ordner konnten nicht gelesen werden, daher ist die Größe ein Mindestwert.</value>
+  </data>
+  <data name="ReadinessScanner_InsideYourCTRLZBackup" xml:space="preserve">
+    <value>Liegt in Ihrem CTRL+Z-Sicherungsordner.</value>
+  </data>
+  <data name="ReadinessScanner_NoCTRLZBackupCovers" xml:space="preserve">
+    <value>Keine CTRL+Z-Sicherung umfasst diesen Ordner.</value>
+  </data>
+  <data name="ReadinessScanner_CoveredByYourBackupFolder" xml:space="preserve">
+    <value>Von Ihrem Sicherungsordner abgedeckt</value>
+  </data>
+  <data name="ReadinessScanner_LargeAndRecentlyChangedNo" xml:space="preserve">
+    <value>Groß und kürzlich geändert – keine Sicherung</value>
+  </data>
+  <data name="ReadinessScanner_LargeNoBackup" xml:space="preserve">
+    <value>Groß – keine Sicherung</value>
+  </data>
+  <data name="ReadinessScanner_RecentlyChangedNoBackup" xml:space="preserve">
+    <value>Kürzlich geändert – keine Sicherung</value>
+  </data>
+  <data name="ReadinessScanner_NoBackupButQuiet" xml:space="preserve">
+    <value>Keine Sicherung, aber unverändert ({0})</value>
+  </data>
+  <data name="ReadinessScanner_CopyThisFolderToExternal" xml:space="preserve">
+    <value>Kopieren Sie diesen Ordner vor dem Löschen auf externe Medien, OneDrive oder einen anderen PC.</value>
+  </data>
+  <data name="ReadinessScanner_NoGameLaunchersDetected" xml:space="preserve">
+    <value>Keine Spiele-Launcher gefunden</value>
+  </data>
+  <data name="ReadinessScanner_LauncherLibrariesAndGameSaves" xml:space="preserve">
+    <value>Launcher-Bibliotheken und Spielstände sichert CTRL+Z nicht. Spielstände, die mit der Cloud synchronisiert werden, </value>
+  </data>
+  <data name="ReadinessScanner_AreOnlySafeOnceThe" xml:space="preserve">
+    <value>sind erst sicher, wenn der Launcher sie tatsächlich hochgeladen hat.</value>
+  </data>
+  <data name="ReadinessScanner_CheckEachLauncherReportsIts" xml:space="preserve">
+    <value>Prüfen Sie, ob jeder Launcher seine Spielstände als synchronisiert meldet, und kopieren Sie lokale Spielstände separat.</value>
+  </data>
+  <data name="ReadinessScanner_NoSaveFoldersFound" xml:space="preserve">
+    <value>keine Spielstand-Ordner gefunden</value>
+  </data>
+  <data name="ReadinessScanner_KindSOfDeveloperMaterial" xml:space="preserve">
+    <value>{0} Art(en) von Entwicklerdaten gefunden</value>
+  </data>
+  <data name="ReadinessScanner_NoDeveloperMaterialDetected" xml:space="preserve">
+    <value>Keine Entwicklerdaten gefunden</value>
+  </data>
+  <data name="ReadinessScanner_SSHKeysGitConfigurationEnv" xml:space="preserve">
+    <value>SSH-Schlüssel, Git-Konfiguration, .env-Dateien, WSL-Distributionen und Paket-Caches sichert </value>
+  </data>
+  <data name="ReadinessScanner_ByCTRLZTheirContents" xml:space="preserve">
+    <value>CTRL+Z nicht. Ihr Inhalt wird nie gelesen oder angezeigt.</value>
+  </data>
+  <data name="ReadinessScanner_CopySshAndYourGitconfig" xml:space="preserve">
+    <value>Kopieren Sie ~/.ssh und Ihre .gitconfig an einen sicheren Ort und exportieren Sie jede WSL-Distribution, die Sie noch brauchen.</value>
+  </data>
+  <data name="ReadinessScanner_NoBrowsersDetected" xml:space="preserve">
+    <value>Keine Browser gefunden</value>
+  </data>
+  <data name="ReadinessScanner_CTRLZBacksUpBrowser" xml:space="preserve">
+    <value>CTRL+Z sichert Browser-Profile separat auf der Seite „Browser“.</value>
+  </data>
+  <data name="ReadinessScanner_NoCTRLZBackupFound" xml:space="preserve">
+    <value>Keine CTRL+Z-Sicherung gefunden</value>
+  </data>
+  <data name="ReadinessScanner_BookmarksHistoryAndProfileSettings" xml:space="preserve">
+    <value>Lesezeichen, Verlauf und Profileinstellungen gehen beim Löschen verloren, sofern sie nicht mit einem Browser-Konto synchronisiert werden.</value>
+  </data>
+  <data name="ReadinessScanner_CreateABackupOnThe" xml:space="preserve">
+    <value>Erstellen Sie vor dem Löschen eine Sicherung auf der Seite „Browser“.</value>
+  </data>
+  <data name="ReadinessScanner_NoMatchingArchiveInThe" xml:space="preserve">
+    <value>Kein passendes Archiv im Sicherungsordner.</value>
+  </data>
+  <data name="ReadinessScanner_BackupIsOld" xml:space="preserve">
+    <value>Die Sicherung ist {0} alt</value>
+  </data>
+  <data name="ReadinessScanner_BackedUp" xml:space="preserve">
+    <value>Gesichert {0}</value>
+  </data>
+  <data name="ReadinessScanner_BrowserProfilesAreBackedUp" xml:space="preserve">
+    <value>Browser-Profile werden getrennt von App-Listen gesichert; Lesezeichen und Verlauf, die nach dem Erstellen </value>
+  </data>
+  <data name="ReadinessScanner_TheArchiveWasMadeAre" xml:space="preserve">
+    <value>des Archivs hinzugekommen sind, fehlen darin.</value>
+  </data>
+  <data name="ReadinessScanner_MakeAFreshBackupThe" xml:space="preserve">
+    <value>Erstellen Sie eine neue Sicherung (die Warnschwelle liegt bei {0} Tagen).</value>
+  </data>
+  <data name="ReadinessScanner_NewestArchive" xml:space="preserve">
+    <value>Neuestes Archiv: {0}</value>
+  </data>
+  <data name="ReadinessScanner_AppProfile" xml:space="preserve">
+    <value>App-Profil</value>
+  </data>
+  <data name="ReadinessScanner_NoSavedProfileYet" xml:space="preserve">
+    <value>Noch kein Profil gespeichert</value>
+  </data>
+  <data name="ReadinessScanner_WithoutAProfileCTRLZ" xml:space="preserve">
+    <value>Ohne Profil kann CTRL+Z Ihre App-Liste nach dem Löschen nicht wiederherstellen.</value>
+  </data>
+  <data name="ReadinessScanner_ScanThisPCAndSave" xml:space="preserve">
+    <value>Scannen Sie diesen PC und speichern Sie Ihre Apps vor dem Löschen unter „Meine Apps“.</value>
+  </data>
+  <data name="ReadinessScanner_LastUpdated" xml:space="preserve">
+    <value>Zuletzt aktualisiert {0}</value>
+  </data>
+  <data name="ReadinessScanner_ProfileIsUpToDate" xml:space="preserve">
+    <value>Das Profil ist aktuell</value>
+  </data>
+  <data name="ReadinessScanner_DriftMissingExtraOutdated" xml:space="preserve">
+    <value>Abweichungen: {0} fehlen, {1} zusätzlich, {2} veraltet</value>
+  </data>
+  <data name="ReadinessScanner_TheProfileIsTheList" xml:space="preserve">
+    <value>Das Profil ist die Liste, aus der CTRL+Z neu aufbaut. Apps, die nach dem letzten Speichern installiert wurden, fehlen darin.</value>
+  </data>
+  <data name="ReadinessScanner_OpenDriftDetectionFromMy" xml:space="preserve">
+    <value>Öffnen Sie die Abweichungsprüfung unter „Meine Apps“, um die Änderungen zu sehen.</value>
+  </data>
+  <data name="ReadinessScanner_DaysAgo" xml:space="preserve">
+    <value>vor {0} Tagen</value>
+  </data>
+  <data name="ReadinessRequest_ExportYourPasswordManager" xml:space="preserve">
+    <value>Passwort-Manager exportieren</value>
+  </data>
+  <data name="ReadinessRequest_ACleanInstallRemovesBrowser" xml:space="preserve">
+    <value>Eine saubere Neuinstallation entfernt die Passwortspeicher der Browser und jeden lokalen Tresor.</value>
+  </data>
+  <data name="ReadinessRequest_ExportAnEncryptedCopyTo" xml:space="preserve">
+    <value>Exportieren Sie eine verschlüsselte Kopie auf ein externes Medium, das Sie nach dem Löschen noch haben.</value>
+  </data>
+  <data name="ReadinessRequest_NoteYourLicenceKeys" xml:space="preserve">
+    <value>Lizenzschlüssel notieren</value>
+  </data>
+  <data name="ReadinessRequest_SomePaidApplicationsNeedThe" xml:space="preserve">
+    <value>Manche kostenpflichtigen Programme brauchen den ursprünglichen Schlüssel, um erneut aktiviert zu werden.</value>
+  </data>
+  <data name="ReadinessRequest_KeepTheKeysInYour" xml:space="preserve">
+    <value>Bewahren Sie die Schlüssel in Ihrem Passwort-Manager oder auf einem anderen Gerät auf.</value>
+  </data>
+  <data name="ReadinessRequest_DeactivateLicensedSoftware" xml:space="preserve">
+    <value>Lizenzierte Software deaktivieren</value>
+  </data>
+  <data name="ReadinessRequest_ManyLicencesAllowOnlyOne" xml:space="preserve">
+    <value>Viele Lizenzen erlauben nur ein Gerät gleichzeitig und lassen sich nach dem Löschen nicht erneut aktivieren.</value>
+  </data>
+  <data name="ReadinessRequest_DeactivateInsideEachApplicationBefore" xml:space="preserve">
+    <value>Deaktivieren Sie die Lizenz in jedem Programm, bevor Sie löschen.</value>
+  </data>
+  <data name="ReadinessRequest_SignOutOfServices" xml:space="preserve">
+    <value>Von Diensten abmelden</value>
+  </data>
+  <data name="ReadinessRequest_OldDevicesLeftSignedIn" xml:space="preserve">
+    <value>Alte Geräte, die angemeldet bleiben, können Sie aussperren oder veraltete Sitzungen hinterlassen.</value>
+  </data>
+  <data name="ReadinessRequest_SignOutOfTheAccounts" xml:space="preserve">
+    <value>Melden Sie sich von den Konten ab, die Sie später wieder hinzufügen.</value>
+  </data>
+  <data name="ReadinessRequest_SaveYourWiFiPasswords" xml:space="preserve">
+    <value>WLAN-Passwörter sichern</value>
+  </data>
+  <data name="ReadinessRequest_WindowsMayNotRememberYour" xml:space="preserve">
+    <value>Windows kennt Ihre Netzwerke nach einer Neuinstallation eventuell nicht mehr.</value>
+  </data>
+  <data name="ReadinessRequest_WriteThemDownOrStore" xml:space="preserve">
+    <value>Schreiben Sie sie auf oder speichern Sie sie in Ihrem Passwort-Manager.</value>
+  </data>
+  <data name="ReadinessRequest_CheckYourRecoveryKeys" xml:space="preserve">
+    <value>Wiederherstellungsschlüssel prüfen</value>
+  </data>
+  <data name="ReadinessRequest_BitLockerAndAccountRecoveryKeys" xml:space="preserve">
+    <value>BitLocker- und Konto-Wiederherstellungsschlüssel, die nur auf diesem PC liegen, gehen beim Löschen verloren.</value>
+  </data>
+  <data name="ReadinessRequest_ConfirmYouCanReachThose" xml:space="preserve">
+    <value>Stellen Sie sicher, dass Sie diese Schlüssel von einem anderen Gerät aus erreichen.</value>
+  </data>
+  <data name="AppScanner_LookingForWingetPackages" xml:space="preserve">
+    <value>winget-Pakete werden gesucht</value>
+  </data>
+  <data name="AppScanner_WingetInventoryCouldNotBe" xml:space="preserve">
+    <value>Die winget-Liste konnte nicht gelesen werden. Die Zuordnung wird ungenauer.</value>
+  </data>
+  <data name="AppScanner_ReadingInstalledPrograms" xml:space="preserve">
+    <value>Installierte Programme werden gelesen</value>
+  </data>
+  <data name="AppScanner_TheRegistryCouldNotBe" xml:space="preserve">
+    <value>Die Registrierung konnte nicht gelesen werden. Starten Sie CTRL+Z als Administrator.</value>
+  </data>
+  <data name="AppScanner_ReadingMicrosoftStoreApps" xml:space="preserve">
+    <value>Microsoft Store-Apps werden gelesen</value>
+  </data>
+  <data name="AppScanner_MicrosoftStoreAppsCouldNot" xml:space="preserve">
+    <value>Microsoft Store-Apps konnten nicht gelesen werden. Windows schränkt eventuell Appx-Abfragen ein.</value>
+  </data>
+  <data name="AppScanner_MatchingAppsToWinget" xml:space="preserve">
+    <value>Apps werden winget zugeordnet</value>
+  </data>
+  <data name="AppScanner_ReportedDirectlyByWinget" xml:space="preserve">
+    <value>Direkt von winget gemeldet.</value>
+  </data>
+  <data name="AppScanner_ScanComplete" xml:space="preserve">
+    <value>Scan abgeschlossen</value>
+  </data>
+  <data name="AppScanner_AppsFound" xml:space="preserve">
+    <value>{0} Apps gefunden</value>
+  </data>
+  <data name="AppScanner_WeakWingetMatchReviewBefore" xml:space="preserve">
+    <value>Schwache winget-Zuordnung; vor der Installation prüfen.</value>
+  </data>
+  <data name="BrowserArchiveVerifier_FilesReadAndChecked" xml:space="preserve">
+    <value>{0} Dateien gelesen und geprüft.</value>
+  </data>
+  <data name="BrowserArchiveVerifier_TheFileIsDamagedIts" xml:space="preserve">
+    <value>{0}: Die Datei ist beschädigt (die Prüfsumme stimmt nicht).</value>
+  </data>
+  <data name="BrowserArchiveVerifier_TheFileIsDamagedAnd" xml:space="preserve">
+    <value>{0}: Die Datei ist beschädigt und kann nicht gelesen werden ({1}).</value>
+  </data>
+  <data name="BrowserArchiveVerifier_TheArchiveCouldNotBe" xml:space="preserve">
+    <value>Das Archiv konnte nicht bis zum Ende gelesen werden: </value>
+  </data>
+  <data name="BrowserArchiveVerifier_ProfileIsListedInThe" xml:space="preserve">
+    <value>Profil „{0}“ steht im Manifest, hat aber keine Dateien im Archiv.</value>
+  </data>
+  <data name="BrowserArchiveVerifier_TheArchiveContainsFilesCTRL" xml:space="preserve">
+    <value>Das Archiv enthält Dateien, die CTRL+Z nie sichert (Passwörter oder Cookies): </value>
+  </data>
+  <data name="BrowserInstallHelp_OpenOnceSoItCreates" xml:space="preserve">
+    <value>Öffnen Sie {0} einmal, damit das Profil angelegt wird, schließen Sie es und klicken Sie dann auf „Aktualisieren“ und stellen Sie wieder her.</value>
+  </data>
+  <data name="BrowserInstallHelp_OpenOnceSoItCreates2" xml:space="preserve">
+    <value>Öffnen Sie {0} einmal, damit der Datenordner angelegt wird, schließen Sie es und klicken Sie dann auf „Aktualisieren“ und stellen Sie wieder her.</value>
+  </data>
+  <data name="ElevationService_CTRLZCouldNotDetermine" xml:space="preserve">
+    <value>CTRL+Z konnte den Pfad seiner eigenen Programmdatei nicht ermitteln.</value>
+  </data>
+  <data name="ElevationService_AdministratorAccessWasDeclined" xml:space="preserve">
+    <value>Der Administratorzugriff wurde verweigert.</value>
+  </data>
+  <data name="ElevationService_CouldNotRestartWithAdministrator" xml:space="preserve">
+    <value>Neustart mit Administratorzugriff nicht möglich: {0}</value>
+  </data>
+  <data name="WingetBootstrapService_WingetIsAvailable" xml:space="preserve">
+    <value>winget {0} ist verfügbar.</value>
+  </data>
+  <data name="WingetBootstrapService_WingetIsOlderThanThe" xml:space="preserve">
+    <value>winget {0} ist älter als die empfohlene Version {1}. Es wird versucht, den App Installer zu aktualisieren…</value>
+  </data>
+  <data name="WingetBootstrapService_WingetUpdateCompleted" xml:space="preserve">
+    <value>winget-Update abgeschlossen.</value>
+  </data>
+  <data name="WingetBootstrapService_WingetCouldNotUpdateItself" xml:space="preserve">
+    <value>winget konnte sich nicht automatisch aktualisieren. Die vorhandene Version wird weiter verwendet.</value>
+  </data>
+  <data name="WingetBootstrapService_WingetIsMissingDownloadingMicrosoft" xml:space="preserve">
+    <value>winget fehlt. Der Microsoft App Installer wird heruntergeladen…</value>
+  </data>
+  <data name="WingetBootstrapService_DownloadedAppInstallerRegisteringIt" xml:space="preserve">
+    <value>App Installer heruntergeladen ({0}). Wird registriert…</value>
+  </data>
+  <data name="WingetBootstrapService_WingetIsReady" xml:space="preserve">
+    <value>winget {0} ist bereit.</value>
+  </data>
+  <data name="ProfileExport_OnTheOtherPCOpen" xml:space="preserve">
+    <value>Öffnen Sie auf dem anderen PC „Meine Apps“ → „Importieren“ und wählen Sie die Datei.</value>
+  </data>
+  <data name="ProfileExport_OnTheOtherPCThey" xml:space="preserve">
+    <value>Auf dem anderen PC bleiben sie gesperrt, bis Sie jeden dort prüfen und freigeben.</value>
+  </data>
+  <data name="ProfileExport_LeaveThemOutIfYou" xml:space="preserve">
+    <value>lassen Sie sie weg, wenn Sie diese Datei weitergeben.</value>
+  </data>
+  <data name="BrowserBackupService_PreparingArchive" xml:space="preserve">
+    <value>Archiv wird vorbereitet…</value>
+  </data>
+  <data name="BrowserBackupService_SkippedWebDataForSearch" xml:space="preserve">
+    <value>Web Data für {0} übersprungen; Suchmaschinen konnten nicht bereinigt werden.</value>
+  </data>
+  <data name="BrowserBackupService_VolumeShadowCopyIsUsed" xml:space="preserve">
+    <value>Die Volumeschattenkopie wird automatisch verwendet, wenn sie verfügbar ist.</value>
+  </data>
+  <data name="BrowserBackupService_BackupComplete" xml:space="preserve">
+    <value>Sicherung abgeschlossen.</value>
+  </data>
+  <data name="BrowserBackupService_WebDataSkippedFor" xml:space="preserve">
+    <value>Web Data für {0} übersprungen: {1}</value>
+  </data>
+  <data name="BrowserBackupService_Compressing" xml:space="preserve">
+    <value>{0} wird komprimiert…</value>
+  </data>
+  <data name="BrowserModels_ProfileFolderNotFound" xml:space="preserve">
+    <value>Profilordner nicht gefunden</value>
+  </data>
+  <data name="BrowserModels_NoProfilesFound" xml:space="preserve">
+    <value>Keine Profile gefunden</value>
+  </data>
+  <data name="BrowserModels_IsStillRunningCloseIt" xml:space="preserve">
+    <value>{0} läuft noch ({1}). Schließen Sie das Programm und versuchen Sie es erneut.</value>
+  </data>
+  <data name="BrowserModels_TheseProfilesAlreadyExistChoose" xml:space="preserve">
+    <value>Diese Profile sind bereits vorhanden. Wählen Sie „Überschreiben“ oder „Als neue Profile wiederherstellen“.</value>
+  </data>
+  <data name="InstallEngine_RunningElevated" xml:space="preserve">
+    <value>Läuft mit erhöhten Rechten.</value>
+  </data>
+  <data name="InstallEngine_RunningNotElevated" xml:space="preserve">
+    <value>Läuft ohne erhöhte Rechte.</value>
+  </data>
+  <data name="InstallEngine_AppsNeedAttention_One" xml:space="preserve">
+    <value>{0} App braucht Aufmerksamkeit.</value>
+  </data>
+  <data name="InstallEngine_AppsNeedAttention_Other" xml:space="preserve">
+    <value>{0} Apps brauchen Aufmerksamkeit.</value>
+  </data>
+  <data name="PostInstallConsent_ProfileWillRun_One" xml:space="preserve">
+    <value>Dieses Profil führt auf diesem PC nach der Installation der App {0} Befehl aus:
+
+{1}</value>
+  </data>
+  <data name="PostInstallConsent_ProfileWillRun_Other" xml:space="preserve">
+    <value>Dieses Profil führt auf diesem PC nach der Installation der Apps {0} Befehle aus:
+
+{1}</value>
+  </data>
+  <data name="InstallerSignature_Valid" xml:space="preserve">
+    <value>Signatur gültig: signiert von {0}.</value>
+  </data>
+  <data name="InstallerSignature_Untrusted" xml:space="preserve">
+    <value>Signiert von {0}, und die Datei passt zu ihrer Signatur, aber das Zertifikat ist auf diesem PC nicht vertrauenswürdig (0x{1:X8}).</value>
+  </data>
+  <data name="InstallerSignature_UnnamedPublisher" xml:space="preserve">
+    <value>einem unbenannten Herausgeber</value>
+  </data>
+  <data name="InstallPlanner_AppsHaveWarning_One" xml:space="preserve">
+    <value>{0} App hat eine Warnung – vor dem Start prüfen.</value>
+  </data>
+  <data name="InstallPlanner_AppsHaveWarning_Other" xml:space="preserve">
+    <value>{0} Apps haben eine Warnung – vor dem Start prüfen.</value>
+  </data>
+  <data name="ReadinessScanner_SaveFolders_One" xml:space="preserve">
+    <value>{0} üblicher Spielstand-Ordner vorhanden</value>
+  </data>
+  <data name="ReadinessScanner_SaveFolders_Other" xml:space="preserve">
+    <value>{0} übliche Spielstand-Ordner vorhanden</value>
+  </data>
+  <data name="ReadinessScanner_AgeDays_One" xml:space="preserve">
+    <value>Alter: {0} Tag</value>
+  </data>
+  <data name="ReadinessScanner_AgeDays_Other" xml:space="preserve">
+    <value>Alter: {0} Tage</value>
+  </data>
+  <data name="ReadinessScanner_AppsSaved_One" xml:space="preserve">
+    <value>{0} App gespeichert</value>
+  </data>
+  <data name="ReadinessScanner_AppsSaved_Other" xml:space="preserve">
+    <value>{0} Apps gespeichert</value>
+  </data>
+  <data name="ReadinessScanner_SavedAppsMissing_One" xml:space="preserve">
+    <value>{0} gespeicherte App fehlt, </value>
+  </data>
+  <data name="ReadinessScanner_SavedAppsMissing_Other" xml:space="preserve">
+    <value>{0} gespeicherte Apps fehlen, </value>
+  </data>
+  <data name="ReadinessScanner_InstalledAppsNotSaved_One" xml:space="preserve">
+    <value>{0} installierte App ist nicht gespeichert</value>
+  </data>
+  <data name="ReadinessScanner_InstalledAppsNotSaved_Other" xml:space="preserve">
+    <value>{0} installierte Apps sind nicht gespeichert</value>
+  </data>
+  <data name="BrowserArchiveVerifier_Restorable_One" xml:space="preserve">
+    <value>Wiederherstellbar: {1}, {0} Profil, </value>
+  </data>
+  <data name="BrowserArchiveVerifier_Restorable_Other" xml:space="preserve">
+    <value>Wiederherstellbar: {1}, {0} Profile, </value>
+  </data>
+  <data name="BrowserArchiveVerifier_NotRestorable_One" xml:space="preserve">
+    <value>Nicht wiederherstellbar: {0} Problem gefunden.</value>
+  </data>
+  <data name="BrowserArchiveVerifier_NotRestorable_Other" xml:space="preserve">
+    <value>Nicht wiederherstellbar: {0} Probleme gefunden.</value>
+  </data>
+  <data name="ProfileExport_AppsSaved_One" xml:space="preserve">
+    <value>{0} App ({1} aktiviert) wird in einer Datei gespeichert. </value>
+  </data>
+  <data name="ProfileExport_AppsSaved_Other" xml:space="preserve">
+    <value>{0} Apps ({1} aktiviert) werden in einer Datei gespeichert. </value>
+  </data>
+  <data name="ProfileExport_LocalInstallers_One" xml:space="preserve">
+    <value>{0} App wird aus einer Datei auf diesem PC installiert: {1}. Kopieren Sie diesen Installer ebenfalls und tragen Sie dort den neuen Speicherort ein.</value>
+  </data>
+  <data name="ProfileExport_LocalInstallers_Other" xml:space="preserve">
+    <value>{0} Apps werden aus einer Datei auf diesem PC installiert: {1}. Kopieren Sie diese Installer ebenfalls und tragen Sie dort bei jeder App den neuen Speicherort ein.</value>
+  </data>
+  <data name="ProfileExport_AppsWithCommand_One" xml:space="preserve">
+    <value>{0} App hat einen Befehl nach der Installation. </value>
+  </data>
+  <data name="ProfileExport_AppsWithCommand_Other" xml:space="preserve">
+    <value>{0} Apps haben einen Befehl nach der Installation. </value>
+  </data>
+  <data name="ProfileExport_AppsWithNote_One" xml:space="preserve">
+    <value>{0} App hat eine Notiz. Notizen können Lizenzschlüssel enthalten; </value>
+  </data>
+  <data name="ProfileExport_AppsWithNote_Other" xml:space="preserve">
+    <value>{0} Apps haben eine Notiz. Notizen können Lizenzschlüssel enthalten; </value>
+  </data>
+</root>
