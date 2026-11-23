@@ -170,6 +170,29 @@ public sealed class AppState : ObservableObject
         OnPropertyChanged(nameof(ActiveProfileName));
     }
 
+    /// <summary>Records (or forgets) a tweak id in the open profile so it can be offered after a reinstall.</summary>
+    public void SetProfileTweak(string tweakId, bool chosen)
+    {
+        var tweaks = _activeProfile.Tweaks ?? new List<string>();
+        var has = tweaks.Contains(tweakId, StringComparer.OrdinalIgnoreCase);
+        if (chosen == has)
+        {
+            return;
+        }
+
+        if (chosen)
+        {
+            tweaks.Add(tweakId);
+        }
+        else
+        {
+            tweaks.RemoveAll(id => id.Equals(tweakId, StringComparison.OrdinalIgnoreCase));
+        }
+
+        _activeProfile.Tweaks = tweaks.Count == 0 ? null : tweaks;
+        SaveActive();
+    }
+
     public void ExportActive(string destinationPath, bool includeNotes = true)
     {
         _profileStore.SaveAs(CtrlZ.Core.Services.ProfileExport.ForExport(_activeProfile, includeNotes), destinationPath);

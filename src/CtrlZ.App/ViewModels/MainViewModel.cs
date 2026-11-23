@@ -32,6 +32,7 @@ public sealed partial class MainViewModel : ObservableObject, IDisposable
         Browsers = new BrowsersViewModel(services, dialogs, this);
         Install = new InstallViewModel(services, dialogs, this);
         AppUpdates = new AppUpdatesViewModel(services, dialogs);
+        Tweaks = new TweaksViewModel(services, dialogs);
         Settings =new SettingsViewModel(services, dialogs, this, theme);
         SettingsNav = new NavItem("settings", "Settings", "\uE713", Settings);
         SettingsNavItems = [SettingsNav];
@@ -42,7 +43,8 @@ public sealed partial class MainViewModel : ObservableObject, IDisposable
             new NavItem("apps", "My Apps", "\uE71D", MyApps),
             new NavItem("ready", "Ready to wipe", "\uE73E", Readiness),
             new NavItem("install", "Install", "\uE896", Install),
-            new NavItem("updates", "Updates", "\uE895", AppUpdates)
+            new NavItem("updates", "Updates", "\uE895", AppUpdates),
+            new NavItem("tweaks", "Tweaks", "\uE771", Tweaks)
         ];
         DiscoverNav =
         [
@@ -71,6 +73,7 @@ public sealed partial class MainViewModel : ObservableObject, IDisposable
 
     /// <summary>The Updates page: app updates through winget (not CTRL+Z's own updater).</summary>
     public AppUpdatesViewModel AppUpdates { get; }
+    public TweaksViewModel Tweaks { get; }
     public SettingsViewModel Settings { get; }
     public UpdateCoordinator Updates { get; }
 

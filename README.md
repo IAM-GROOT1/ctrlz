@@ -152,9 +152,15 @@ get a Start menu shortcut under **CTRL+Z apps**; turn this off in **Settings →
 - All logs written to `%LOCALAPPDATA%\CTRL+Z\logs` and openable from Settings.
 - Light/dark theme follows Windows by default.
 - No account, telemetry, or cloud service.
+- **Tweaks** (Ctrl+9): eight small Windows settings to set again after a reinstall, such as
+  showing file extensions, dark mode or the classic right-click menu.
+  - Each changes only a few per-user registry values, needs no admin rights and runs no command.
+  - CTRL+Z saves what was there first, so **Undo** puts it back exactly.
+  - Applied tweaks are listed in your profile, so on the new PC the page offers to apply them
+    again. Nothing is applied until you press the button.
 - **Keyboard and screen readers:**
-  - **Ctrl+1 to Ctrl+8** open Scan, My Apps, Install, Add App, Catalog, Browsers, Ready to wipe
-    and Updates, and **Ctrl+,** opens Settings.
+  - **Ctrl+1 to Ctrl+9** open Scan, My Apps, Install, Add App, Catalog, Browsers, Ready to wipe,
+    Updates and Tweaks, and **Ctrl+,** opens Settings.
   - In every window, Enter accepts and Esc closes, and dialogs start with focus in their first
     field.
   - Every control has a name a screen reader can read.
@@ -646,12 +652,12 @@ The work is split into numbered sections, built one at a time and shipped as the
 - [ ] **5.** Foundation for optional extras
 - [x] **6.** UI polish and motion
 - [x] **7.** Onboarding and sharing profiles
-- [ ] **8.** Release and distribution - **next**
+- [ ] **8.** Release and distribution
 - [ ] **9.** Optional extra: scheduled and local backups
 - [ ] **10.** Optional extra: settings backup
 - [ ] **11.** Optional extras: availability
 - [ ] **12.** Optional extra: encrypted backup off this PC
-- [ ] **13.** Post-install tweaks
+- [x] **13.** Post-install tweaks
 
 See [ROADMAP.md](ROADMAP.md) for the detail behind each section.
 <!-- roadmap:end -->

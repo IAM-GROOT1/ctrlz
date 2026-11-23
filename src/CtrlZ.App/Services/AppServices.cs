@@ -55,6 +55,7 @@ public sealed class AppServices : IDisposable
     public BrowserArchiveReader BrowserArchiveReader { get; private init; } = null!;
     public BrowserRestoreService BrowserRestore { get; private init; } = null!;
     public WinUtilCatalogService Catalog { get; private init; } = null!;
+    public CtrlZ.Core.Tweaks.TweakService Tweaks { get; private init; } = null!;
 
     public static AppServices Create()
     {
@@ -113,7 +114,9 @@ public sealed class AppServices : IDisposable
             BrowserBackups = new BrowserBackupService(paths, log, browserProcesses),
             BrowserArchiveReader = archiveReader,
             BrowserRestore = new BrowserRestoreService(paths, log, browserProcesses, archiveReader),
-            Catalog = catalog
+            Catalog = catalog,
+            Tweaks = new CtrlZ.Core.Tweaks.TweakService(
+                new CtrlZ.Core.Tweaks.WindowsUserRegistry(), System.IO.Path.Combine(paths.State, "tweak-undo.json"), log)
         };
     }
 
