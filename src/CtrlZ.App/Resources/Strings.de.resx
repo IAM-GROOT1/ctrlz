@@ -3039,4 +3039,10 @@ Verwenden Sie die Datei aus „winget export -o apps.json“, „scoop export &g
   <data name="Settings_LanguageRestart" xml:space="preserve">
     <value>Sprache auf {0} gesetzt. Starten Sie CTRL+Z neu, um sie zu verwenden.</value>
   </data>
+  <data name="Tweaks_RowOn" xml:space="preserve">
+    <value>{0}: an.</value>
+  </data>
+  <data name="Tweaks_RowUndone" xml:space="preserve">
+    <value>{0}: rückgängig gemacht.</value>
+  </data>
 </root>

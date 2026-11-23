@@ -1091,4 +1091,52 @@
   <data name="ProfileExport_AppsWithNote_Other" xml:space="preserve">
     <value>{0} Apps haben eine Notiz. Notizen können Lizenzschlüssel enthalten; </value>
   </data>
+  <data name="Tweak_ShowFileExtensions_Title" xml:space="preserve">
+    <value>Dateierweiterungen anzeigen</value>
+  </data>
+  <data name="Tweak_ShowFileExtensions_Description" xml:space="preserve">
+    <value>Der Explorer zeigt .exe, .pdf und andere Erweiterungen an, sodass eine Datei nicht verbergen kann, was sie ist.</value>
+  </data>
+  <data name="Tweak_ShowHiddenFiles_Title" xml:space="preserve">
+    <value>Versteckte Dateien anzeigen</value>
+  </data>
+  <data name="Tweak_ShowHiddenFiles_Description" xml:space="preserve">
+    <value>Der Explorer zeigt versteckte Dateien und Ordner wie AppData an.</value>
+  </data>
+  <data name="Tweak_ExplorerOpensThisPc_Title" xml:space="preserve">
+    <value>Explorer mit „Dieser PC“ öffnen</value>
+  </data>
+  <data name="Tweak_ExplorerOpensThisPc_Description" xml:space="preserve">
+    <value>Der Explorer startet bei Ihren Laufwerken statt bei „Start“ oder „Schnellzugriff“.</value>
+  </data>
+  <data name="Tweak_DarkMode_Title" xml:space="preserve">
+    <value>Dunkler Modus für Apps und Windows</value>
+  </data>
+  <data name="Tweak_DarkMode_Description" xml:space="preserve">
+    <value>Apps sowie Taskleiste und Start von Windows verwenden das dunkle Design.</value>
+  </data>
+  <data name="Tweak_TaskbarLeft_Title" xml:space="preserve">
+    <value>Taskleistensymbole links</value>
+  </data>
+  <data name="Tweak_TaskbarLeft_Description" xml:space="preserve">
+    <value>Windows 11 zeigt die Start-Schaltfläche und die Taskleistensymbole links an, wie unter Windows 10.</value>
+  </data>
+  <data name="Tweak_NoWebSearchInStart_Title" xml:space="preserve">
+    <value>Keine Webergebnisse in der Startsuche</value>
+  </data>
+  <data name="Tweak_NoWebSearchInStart_Description" xml:space="preserve">
+    <value>Die Suche im Startmenü durchsucht nur diesen PC, nicht Bing.</value>
+  </data>
+  <data name="Tweak_ClassicContextMenu_Title" xml:space="preserve">
+    <value>Klassisches Kontextmenü</value>
+  </data>
+  <data name="Tweak_ClassicContextMenu_Description" xml:space="preserve">
+    <value>Windows 11 zeigt das vollständige Kontextmenü sofort an, ohne „Weitere Optionen anzeigen“.</value>
+  </data>
+  <data name="Tweak_NoStartRecommendations_Title" xml:space="preserve">
+    <value>Weniger Empfehlungen im Startmenü</value>
+  </data>
+  <data name="Tweak_NoStartRecommendations_Description" xml:space="preserve">
+    <value>Das Startmenü schlägt keine Tipps, Verknüpfungen und neuen Apps mehr vor.</value>
+  </data>
 </root>

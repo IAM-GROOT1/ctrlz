@@ -125,13 +125,13 @@ public sealed partial class TweaksViewModel : PageViewModelBase
             {
                 _services.Tweaks.Apply(row.Tweak);
                 _services.State.SetProfileTweak(row.Tweak.Id, chosen: true);
-                StatusMessage = $"{row.Title}: on.";
+                StatusMessage = Loc.Format("Tweaks_RowOn", row.Title);
             }
             else
             {
                 _services.Tweaks.Undo(row.Tweak);
                 _services.State.SetProfileTweak(row.Tweak.Id, chosen: false);
-                StatusMessage = $"{row.Title}: undone.";
+                StatusMessage = Loc.Format("Tweaks_RowUndone", row.Title);
             }
 
             NeedsExplorerRestart |= row.Tweak.NeedsExplorerRestart;

@@ -3041,4 +3041,10 @@ Use the file from "winget export -o apps.json", "scoop export &gt; apps.json" or
   <data name="Settings_LanguageRestart" xml:space="preserve">
     <value>Language set to {0}. Restart CTRL+Z to use it.</value>
   </data>
+  <data name="Tweaks_RowOn" xml:space="preserve">
+    <value>{0}: on.</value>
+  </data>
+  <data name="Tweaks_RowUndone" xml:space="preserve">
+    <value>{0}: undone.</value>
+  </data>
 </root>
