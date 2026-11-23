@@ -4,6 +4,7 @@
 <Window x:Class="CtrlZ.App.Views.UpdatePromptWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:l="clr-namespace:CtrlZ.App.Localization"
         xmlns:shell="clr-namespace:System.Windows.Shell;assembly=PresentationFramework"
         Title="CTRL+Z"
         Width="520"
@@ -40,11 +41,11 @@
                     <StackPanel Orientation="Horizontal" Margin="16,0,0,0" VerticalAlignment="Center">
                         <TextBlock Text="&#xE896;" FontFamily="{StaticResource Font.Icons}"
                                    FontSize="15" Foreground="{DynamicResource Brush.Accent}" Margin="0,0,9,0" />
-                        <TextBlock x:Name="TitleText" Text="Update available" FontSize="13" FontWeight="SemiBold"
+                        <TextBlock x:Name="TitleText" Text="{l:Tr UpdatePrompt_UpdateAvailable}" FontSize="13" FontWeight="SemiBold"
                                    VerticalAlignment="Center" />
                     </StackPanel>
                     <Button Grid.Column="1" Style="{StaticResource Button.Window}"
-                            Click="Close_Click" AutomationProperties.Name="Close"
+                            Click="Close_Click" AutomationProperties.Name="{l:Tr UpdatePrompt_Close}"
                             x:Name="CloseButton">
                         <TextBlock Text="&#xE711;" FontFamily="{StaticResource Font.Icons}" FontSize="10" />
                     </Button>
@@ -65,7 +66,7 @@
                         </ScrollViewer>
                     </Border>
 
-                    <Button x:Name="ReleaseLinkButton" Content="View release on GitHub"
+                    <Button x:Name="ReleaseLinkButton" Content="{l:Tr UpdatePrompt_ViewReleaseOnGitHub}"
                             Style="{StaticResource Button.Link}" HorizontalAlignment="Left" Margin="0,8,0,0"
                             Click="ReleaseLink_Click" />
 
@@ -84,15 +85,15 @@
 
             <Border Grid.Row="2" Padding="22,12,22,18" Background="{DynamicResource Brush.Surface}">
                 <Grid>
-                    <Button x:Name="SkipButton" Content="Skip this version" Style="{StaticResource Button.Link}"
+                    <Button x:Name="SkipButton" Content="{l:Tr UpdatePrompt_SkipThisVersion}" Style="{StaticResource Button.Link}"
                             HorizontalAlignment="Left" VerticalAlignment="Center" Click="Skip_Click" />
 
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-                        <Button x:Name="RemindButton" Content="Remind me later" Style="{StaticResource Button.Secondary}"
+                        <Button x:Name="RemindButton" Content="{l:Tr UpdatePrompt_RemindMeLater}" Style="{StaticResource Button.Secondary}"
                                 Margin="0,0,8,0" MinWidth="118" Click="Remind_Click" />
-                        <Button x:Name="UpdateNowButton" Content="Update now" Style="{StaticResource Button.Primary}"
+                        <Button x:Name="UpdateNowButton" Content="{l:Tr UpdatePrompt_UpdateNow}" Style="{StaticResource Button.Primary}"
                                 MinWidth="118" IsDefault="True" Click="UpdateNow_Click" />
-                        <Button x:Name="CancelButton" Content="Cancel" Style="{StaticResource Button.Secondary}"
+                        <Button x:Name="CancelButton" Content="{l:Tr UpdatePrompt_Cancel}" Style="{StaticResource Button.Secondary}"
                                 MinWidth="96" Visibility="Collapsed" Click="Cancel_Click" />
                     </StackPanel>
                 </Grid>

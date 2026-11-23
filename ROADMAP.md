@@ -111,7 +111,9 @@ order and screen-reader labels, and translations later.
   Esc closes every window (checked by a test); dialogs and the app editor open with focus in
   their first field.
 - [x] **C. Motion.** The page fade is skipped when Windows' *Animation effects* setting is off.
-- [ ] **D. Translations.** Later.
+- [ ] **D. Translations.** In progress. The text of every page and window now comes from
+  `src/CtrlZ.App/Resources/Strings.resx`, and a test keeps XAML free of hard-coded text. Messages
+  built in code move next, then the first languages and a language setting.
 
 ### 7. Onboarding and sharing profiles
 
