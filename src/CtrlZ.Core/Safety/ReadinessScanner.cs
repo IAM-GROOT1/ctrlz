@@ -1,6 +1,7 @@
 // SPDX-License-Identifier: AGPL-3.0-only
 // Copyright (c) 2026 iam-groot1
 
+using CtrlZ.Core.Localization;
 using System.Text;
 using CtrlZ.Core.Infrastructure;
 using CtrlZ.Core.Logging;
@@ -71,16 +72,16 @@ public sealed class ReadinessScanner
             checks.Add(BuildFolderCheck(folder, usage, request, now));
         }
 
-        Report("Games and launchers");
+        Report(CoreText.Get("ReadinessScanner_GamesAndLaunchers"));
         checks.Add(BuildGamesCheck(request, cancellationToken));
 
-        Report("Developer items");
+        Report(CoreText.Get("ReadinessScanner_DeveloperItems"));
         checks.Add(BuildDeveloperCheck(request, cancellationToken));
 
-        Report("Browsers");
+        Report(CoreText.Get("ReadinessScanner_Browsers"));
         checks.AddRange(BuildBrowserChecks(request, cancellationToken, now));
 
-        Report("Profile");
+        Report(CoreText.Get("ReadinessScanner_Profile"));
         checks.Add(BuildProfileCheck(request, now));
 
         foreach (var reminder in ReadinessReminders.All)
@@ -92,7 +93,7 @@ public sealed class ReadinessScanner
                 Id = ReadinessReminders.IdPrefix + reminder.Id,
                 Title = reminder.Label,
                 Status = ReadinessStatus.Warning,
-                Summary = "Confirm this yourself — CTRL+Z cannot check it",
+                Summary = CoreText.Get("ReadinessScanner_ConfirmThisYourselfCTRLZ"),
                 WhatItMeans = reminder.WhatItMeans,
                 SuggestedAction = reminder.SuggestedAction
             });
@@ -123,33 +124,33 @@ public sealed class ReadinessScanner
                 Id = id,
                 Title = folder.Label,
                 Status = ReadinessStatus.Pass,
-                Summary = "Not present on this PC",
+                Summary = CoreText.Get("ReadinessScanner_NotPresentOnThisPC"),
                 WhatItMeans = meaning
             };
         }
 
         var size = FileUtil.FormatBytes(usage.TotalBytes);
         var covered = IsInsideAnotherFolder(usage.Path, request.BackupFolder);
-        var details = new List<string> { $"{usage.FileCount:N0} files · {size}" };
+        var details = new List<string> { CoreText.Format("ReadinessScanner_Files", usage.FileCount, size) };
 
         if (usage.LastWriteUtc is { } last)
         {
-            details.Add($"Last change {DescribeAge(now - last)}");
+            details.Add(CoreText.Format("ReadinessScanner_LastChange", DescribeAge(now - last)));
         }
 
         if (usage.Truncated)
         {
-            details.Add("Scan stopped at a limit — counts are a lower bound.");
+            details.Add(CoreText.Get("ReadinessScanner_ScanStoppedAtALimit"));
         }
 
         if (usage.AccessDenied)
         {
-            details.Add("Some folders could not be read, so the size is a lower bound.");
+            details.Add(CoreText.Get("ReadinessScanner_SomeFoldersCouldNotBe"));
         }
 
         details.Add(covered
-            ? "Inside your CTRL+Z backup folder."
-            : "No CTRL+Z backup covers this folder.");
+            ? CoreText.Get("ReadinessScanner_InsideYourCTRLZBackup")
+            : CoreText.Get("ReadinessScanner_NoCTRLZBackupCovers"));
 
         var large = request.LargeFolderBytes > 0 && usage.TotalBytes >= request.LargeFolderBytes;
         var recent = request.RecentDays > 0 &&
@@ -164,15 +165,15 @@ public sealed class ReadinessScanner
             Title = folder.Label,
             Status = flagged ? ReadinessStatus.Warning : ReadinessStatus.Pass,
             Summary = covered
-                ? "Covered by your backup folder"
+                ? CoreText.Get("ReadinessScanner_CoveredByYourBackupFolder")
                 : flagged
-                    ? (large && recent ? "Large and recently changed — no backup"
-                        : large ? "Large — no backup"
-                        : "Recently changed — no backup")
-                    : $"No backup, but quiet ({size})",
+                    ? (large && recent ? CoreText.Get("ReadinessScanner_LargeAndRecentlyChangedNo")
+                        : large ? CoreText.Get("ReadinessScanner_LargeNoBackup")
+                        : CoreText.Get("ReadinessScanner_RecentlyChangedNoBackup"))
+                    : CoreText.Format("ReadinessScanner_NoBackupButQuiet", size),
             WhatItMeans = meaning,
             SuggestedAction = flagged
-                ? "Copy this folder to external media, OneDrive or another PC before wiping."
+                ? CoreText.Get("ReadinessScanner_CopyThisFolderToExternal")
                 : string.Empty,
             Details = details
         };
@@ -187,23 +188,23 @@ public sealed class ReadinessScanner
         return new ReadinessCheck
         {
             Id = "games",
-            Title = "Games and launchers",
+            Title = CoreText.Get("ReadinessScanner_GamesAndLaunchers"),
             Status = detected.Count > 0 ? ReadinessStatus.Warning : ReadinessStatus.Pass,
             Summary = detected.Count > 0
                 ? string.Join(", ", detected.Select(library => library.Name)) + " detected"
-                : "No game launchers detected",
+                : CoreText.Get("ReadinessScanner_NoGameLaunchersDetected"),
             WhatItMeans =
-                "Launcher libraries and game saves are not backed up by CTRL+Z. Saves that sync to the cloud " +
-                "are only safe once the launcher has actually uploaded them.",
+                CoreText.Get("ReadinessScanner_LauncherLibrariesAndGameSaves") +
+                CoreText.Get("ReadinessScanner_AreOnlySafeOnceThe"),
             SuggestedAction = detected.Count > 0
-                ? "Check each launcher reports its saves as synced, and copy any local saves separately."
+                ? CoreText.Get("ReadinessScanner_CheckEachLauncherReportsIts")
                 : string.Empty,
             Details = detected
                 .Select(library =>
                 {
                     var saves = library.SavePaths.Count == 0
-                        ? "no save folders found"
-                        : $"{library.SavePaths.Count} common save folder{(library.SavePaths.Count == 1 ? string.Empty : "s")} present";
+                        ? CoreText.Get("ReadinessScanner_NoSaveFoldersFound")
+                        : CoreText.Plural("ReadinessScanner_SaveFolders", library.SavePaths.Count);
                     return $"{library.Name}: {library.InstallPath} · {saves}";
                 })
                 .ToList()
@@ -219,16 +220,16 @@ public sealed class ReadinessScanner
         return new ReadinessCheck
         {
             Id = "developer",
-            Title = "Developer items",
+            Title = CoreText.Get("ReadinessScanner_DeveloperItems"),
             Status = present.Count > 0 ? ReadinessStatus.Warning : ReadinessStatus.Pass,
             Summary = present.Count > 0
-                ? $"{present.Count} kind(s) of developer material found"
-                : "No developer material detected",
+                ? CoreText.Format("ReadinessScanner_KindSOfDeveloperMaterial", present.Count)
+                : CoreText.Get("ReadinessScanner_NoDeveloperMaterialDetected"),
             WhatItMeans =
-                "SSH keys, Git configuration, .env files, WSL distributions and package caches are not backed up " +
-                "by CTRL+Z. Their contents are never read or shown.",
+                CoreText.Get("ReadinessScanner_SSHKeysGitConfigurationEnv") +
+                CoreText.Get("ReadinessScanner_ByCTRLZTheirContents"),
             SuggestedAction = present.Count > 0
-                ? "Copy ~/.ssh and your .gitconfig somewhere safe, and export any WSL distribution you still need."
+                ? CoreText.Get("ReadinessScanner_CopySshAndYourGitconfig")
                 : string.Empty,
             Details = present
                 .Select(item => item.Count is { } count && count > 0
@@ -248,10 +249,10 @@ public sealed class ReadinessScanner
             yield return new ReadinessCheck
             {
                 Id = "browsers",
-                Title = "Browsers",
+                Title = CoreText.Get("ReadinessScanner_Browsers"),
                 Status = ReadinessStatus.Pass,
-                Summary = "No browsers detected",
-                WhatItMeans = "CTRL+Z backs up browser profiles separately on the Browsers page."
+                Summary = CoreText.Get("ReadinessScanner_NoBrowsersDetected"),
+                WhatItMeans = CoreText.Get("ReadinessScanner_CTRLZBacksUpBrowser")
             };
             yield break;
         }
@@ -273,10 +274,10 @@ public sealed class ReadinessScanner
                     Id = "browser." + Slug(browser.Name),
                     Title = browser.Name,
                     Status = ReadinessStatus.Warning,
-                    Summary = "No CTRL+Z backup found",
-                    WhatItMeans = "Bookmarks, history and profile settings are lost on a wipe unless they sync to a browser account.",
-                    SuggestedAction = "Create a backup on the Browsers page before wiping.",
-                    Details = [$"{profiles} detected", "No matching archive in the backup folder."]
+                    Summary = CoreText.Get("ReadinessScanner_NoCTRLZBackupFound"),
+                    WhatItMeans = CoreText.Get("ReadinessScanner_BookmarksHistoryAndProfileSettings"),
+                    SuggestedAction = CoreText.Get("ReadinessScanner_CreateABackupOnThe"),
+                    Details = [$"{profiles} detected", CoreText.Get("ReadinessScanner_NoMatchingArchiveInThe")]
                 };
                 continue;
             }
@@ -290,19 +291,19 @@ public sealed class ReadinessScanner
                 Title = browser.Name,
                 Status = stale ? ReadinessStatus.Warning : ReadinessStatus.Pass,
                 Summary = stale
-                    ? $"Backup is {DescribeAge(now - backup.CreatedUtc)} old"
-                    : $"Backed up {DescribeAge(now - backup.CreatedUtc)}",
+                    ? CoreText.Format("ReadinessScanner_BackupIsOld", DescribeAge(now - backup.CreatedUtc))
+                    : CoreText.Format("ReadinessScanner_BackedUp", DescribeAge(now - backup.CreatedUtc)),
                 WhatItMeans =
-                    "Browser profiles are backed up separately from app lists; bookmarks and history added since " +
-                    "the archive was made are not in it.",
+                    CoreText.Get("ReadinessScanner_BrowserProfilesAreBackedUp") +
+                    CoreText.Get("ReadinessScanner_TheArchiveWasMadeAre"),
                 SuggestedAction = stale
-                    ? $"Make a fresh backup (the warning threshold is {request.BackupWarningDays} days)."
+                    ? CoreText.Format("ReadinessScanner_MakeAFreshBackupThe", request.BackupWarningDays)
                     : string.Empty,
                 Details =
                 [
                     $"{profiles} detected",
-                    $"Newest archive: {Path.GetFileName(backup.ArchivePath)}",
-                    $"Age: {age} day{(age == 1 ? string.Empty : "s")}"
+                    CoreText.Format("ReadinessScanner_NewestArchive", Path.GetFileName(backup.ArchivePath)),
+                    CoreText.Plural("ReadinessScanner_AgeDays", age)
                 ]
             };
         }
@@ -315,46 +316,46 @@ public sealed class ReadinessScanner
             return new ReadinessCheck
             {
                 Id = "profile",
-                Title = "App profile",
+                Title = CoreText.Get("ReadinessScanner_AppProfile"),
                 Status = ReadinessStatus.Warning,
-                Summary = "No saved profile yet",
-                WhatItMeans = "Without a profile, CTRL+Z cannot rebuild your app list after the wipe.",
-                SuggestedAction = "Scan this PC and save your apps in My Apps before wiping."
+                Summary = CoreText.Get("ReadinessScanner_NoSavedProfileYet"),
+                WhatItMeans = CoreText.Get("ReadinessScanner_WithoutAProfileCTRLZ"),
+                SuggestedAction = CoreText.Get("ReadinessScanner_ScanThisPCAndSave")
             };
         }
 
         var details = new List<string>
         {
-            $"Last updated {DescribeAge(now - updated)}",
-            request.ProfileAppCount is { } count ? $"{count} app{(count == 1 ? string.Empty : "s")} saved" : string.Empty
+            CoreText.Format("ReadinessScanner_LastUpdated", DescribeAge(now - updated)),
+            request.ProfileAppCount is { } count ? CoreText.Plural("ReadinessScanner_AppsSaved", count) : string.Empty
         };
         details.RemoveAll(string.IsNullOrWhiteSpace);
 
         var drift = request.Drift;
         var status = ReadinessStatus.Pass;
-        var summary = "Profile is up to date";
+        var summary = CoreText.Get("ReadinessScanner_ProfileIsUpToDate");
 
         if (drift is not null)
         {
-            details.Add($"Drift: {drift.Missing} missing, {drift.Extra} extra, {drift.Outdated} outdated");
+            details.Add(CoreText.Format("ReadinessScanner_DriftMissingExtraOutdated", drift.Missing, drift.Extra, drift.Outdated));
             if (drift.Missing > 0 || drift.Extra > 0)
             {
                 status = ReadinessStatus.Warning;
-                summary = $"{drift.Missing} saved app{(drift.Missing == 1 ? " is" : "s are")} missing, " +
-                          $"{drift.Extra} installed app{(drift.Extra == 1 ? " is" : "s are")} not saved";
+                summary = CoreText.Plural("ReadinessScanner_SavedAppsMissing", drift.Missing) +
+                          CoreText.Plural("ReadinessScanner_InstalledAppsNotSaved", drift.Extra);
             }
         }
 
         return new ReadinessCheck
         {
             Id = "profile",
-            Title = "App profile",
+            Title = CoreText.Get("ReadinessScanner_AppProfile"),
             Status = status,
             Summary = summary,
             WhatItMeans =
-                "The profile is the list CTRL+Z rebuilds from. Apps installed after the last save are not in it.",
+                CoreText.Get("ReadinessScanner_TheProfileIsTheList"),
             SuggestedAction = status == ReadinessStatus.Warning
-                ? "Open drift detection from My Apps to review what changed."
+                ? CoreText.Get("ReadinessScanner_OpenDriftDetectionFromMy")
                 : string.Empty,
             Details = details,
             LinksToDrift = true
@@ -407,7 +408,7 @@ public sealed class ReadinessScanner
         {
             0 => "today",
             1 => "yesterday",
-            _ => $"{days} days ago"
+            _ => CoreText.Format("ReadinessScanner_DaysAgo", days)
         };
     }
 

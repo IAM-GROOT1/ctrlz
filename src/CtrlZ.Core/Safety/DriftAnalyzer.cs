@@ -1,6 +1,7 @@
 // SPDX-License-Identifier: AGPL-3.0-only
 // Copyright (c) 2026 iam-groot1
 
+using CtrlZ.Core.Localization;
 using CtrlZ.Core.Models;
 using CtrlZ.Core.Services;
 
@@ -85,7 +86,7 @@ public sealed class DriftAnalyzer
         PackageId = string.IsNullOrWhiteSpace(app.PackageId) ? app.MatchedWingetId : app.PackageId,
         InstallLocation = app.InstallLocation,
         IconPath = app.IconPath,
-        Notes = "Added from drift detection."
+        Notes = CoreText.Get("DriftAnalyzer_AddedFromDriftDetection")
     };
 
     private static DriftEntry MissingEntry(AppEntry saved, MatchResult match) => new()
@@ -115,7 +116,7 @@ public sealed class DriftAnalyzer
             InstalledVersion = app.Version,
             Source = app.Source,
             Confidence = DriftConfidence.None,
-            MatchReason = "Installed but not saved in your profile",
+            MatchReason = CoreText.Get("DriftAnalyzer_InstalledButNotSavedIn"),
             Installed = app
         };
     }
@@ -153,7 +154,7 @@ public sealed class DriftAnalyzer
             AvailableVersion = available,
             Source = installed.Source,
             Confidence = DriftConfidence.Exact,
-            MatchReason = $"Newer version available ({available})",
+            MatchReason = CoreText.Format("DriftAnalyzer_NewerVersionAvailable", available),
             ProfileEntry = saved,
             Installed = installed
         };
@@ -168,7 +169,7 @@ public sealed class DriftAnalyzer
                 string.Equals(app.PackageId, saved.PackageId, StringComparison.OrdinalIgnoreCase));
             if (byPackageId is not null)
             {
-                return new MatchResult(byPackageId, DriftConfidence.Exact, "Same package id");
+                return new MatchResult(byPackageId, DriftConfidence.Exact, CoreText.Get("DriftAnalyzer_SamePackageId"));
             }
 
             var byWingetId = installed.FirstOrDefault(app =>
@@ -176,14 +177,14 @@ public sealed class DriftAnalyzer
                 string.Equals(app.MatchedWingetId, saved.PackageId, StringComparison.OrdinalIgnoreCase));
             if (byWingetId is not null)
             {
-                return new MatchResult(byWingetId, DriftConfidence.Exact, "Same winget id");
+                return new MatchResult(byWingetId, DriftConfidence.Exact, CoreText.Get("DriftAnalyzer_SameWingetId"));
             }
         }
 
         var targetName = WingetMatcher.NormalizeName(saved.Name);
         if (targetName.Length == 0)
         {
-            return new MatchResult(null, DriftConfidence.None, "Saved app has no usable name");
+            return new MatchResult(null, DriftConfidence.None, CoreText.Get("DriftAnalyzer_SavedAppHasNoUsable"));
         }
 
         var targetPublisher = WingetMatcher.NormalizePublisher(saved.Publisher);
@@ -205,7 +206,7 @@ public sealed class DriftAnalyzer
             if (string.Equals(name, targetName, StringComparison.Ordinal))
             {
                 score = 100;
-                reason = "Same name";
+                reason = CoreText.Get("DriftAnalyzer_SameName");
                 qualifies = true;
             }
             else if (targetName.Length >= 4 &&
@@ -225,7 +226,7 @@ public sealed class DriftAnalyzer
                     StringComparison.Ordinal);
 
                 qualifies = shared >= 2 || (ratio >= 0.75 && samePublisher);
-                reason = qualifies ? "Similar name" : "Similar name (only one shared word)";
+                reason = qualifies ? CoreText.Get("DriftAnalyzer_SimilarName") : CoreText.Get("DriftAnalyzer_SimilarNameOnlyOneShared");
             }
             else
             {
@@ -238,12 +239,12 @@ public sealed class DriftAnalyzer
                 if (string.Equals(publisher, targetPublisher, StringComparison.Ordinal))
                 {
                     score += 30;
-                    reason += " and publisher";
+                    reason += CoreText.Get("DriftAnalyzer_AndPublisher");
                 }
                 else
                 {
                     score -= 25;
-                    reason += ", different publisher";
+                    reason += CoreText.Get("DriftAnalyzer_DifferentPublisher");
                 }
             }
 
@@ -253,8 +254,8 @@ public sealed class DriftAnalyzer
         if (scored.Count == 0)
         {
             var reason = saved.Source is AppSource.Winget or AppSource.MicrosoftStore
-                ? "Not installed"
-                : $"Not found by name (custom {saved.Source.Display()} source)";
+                ? CoreText.Get("DriftAnalyzer_NotInstalled")
+                : CoreText.Format("DriftAnalyzer_NotFoundByNameCustom", saved.Source.Display());
             return new MatchResult(null, DriftConfidence.None, reason);
         }
 
@@ -264,7 +265,7 @@ public sealed class DriftAnalyzer
         if (ordered.Count > 1 && ordered[1].Score == best.Score)
         {
             var tied = ordered.Count(candidate => candidate.Score == best.Score);
-            return new MatchResult(null, DriftConfidence.Weak, $"Ambiguous: {tied} installed apps look similar");
+            return new MatchResult(null, DriftConfidence.Weak, CoreText.Format("DriftAnalyzer_AmbiguousInstalledAppsLookSimilar", tied));
         }
 
         // A candidate that does not qualify is reported as uncertain and named, never claimed as a
@@ -274,7 +275,7 @@ public sealed class DriftAnalyzer
             return new MatchResult(
                 null,
                 DriftConfidence.Weak,
-                $"Uncertain: closest is '{best.App.Name}', but the names share only one word");
+                CoreText.Format("DriftAnalyzer_UncertainClosestIsButThe", best.App.Name));
         }
 
         var confidence = best.Score >= 120 ? DriftConfidence.Exact

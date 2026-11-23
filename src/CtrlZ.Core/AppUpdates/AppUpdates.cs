@@ -1,6 +1,7 @@
 // SPDX-License-Identifier: AGPL-3.0-only
 // Copyright (c) 2026 iam-groot1
 
+using CtrlZ.Core.Localization;
 using System.Text.Json;
 using CtrlZ.Core.Infrastructure;
 using CtrlZ.Core.Services;
@@ -81,11 +82,11 @@ public static class AppUpdateParser
 
     public static AppUpdateOutcome Outcome(AppUpdate update, int exitCode, string? output) => exitCode switch
     {
-        0 => new(update, AppUpdateOutcomeKind.Updated, $"Updated to {update.AvailableVersion}."),
+        0 => new(update, AppUpdateOutcomeKind.Updated, CoreText.Format("AppUpdates_UpdatedTo", update.AvailableVersion)),
         RebootRequiredToFinish or RebootRequiredToInstall =>
-            new(update, AppUpdateOutcomeKind.UpdatedRestartNeeded, "Updated; restart Windows to finish."),
-        UpdateNotApplicable => new(update, AppUpdateOutcomeKind.AlreadyCurrent, "Already up to date."),
-        _ => new(update, AppUpdateOutcomeKind.Failed, $"winget could not update it (code 0x{exitCode:X8}).")
+            new(update, AppUpdateOutcomeKind.UpdatedRestartNeeded, CoreText.Get("AppUpdates_UpdatedRestartWindowsToFinish")),
+        UpdateNotApplicable => new(update, AppUpdateOutcomeKind.AlreadyCurrent, CoreText.Get("AppUpdates_AlreadyUpToDate")),
+        _ => new(update, AppUpdateOutcomeKind.Failed, CoreText.Format("AppUpdates_WingetCouldNotUpdateIt", exitCode))
     };
 }
 
@@ -180,7 +181,7 @@ public sealed class AppUpdateRunner
         {
             if (cancellationToken.IsCancellationRequested)
             {
-                outcomes.Add(new AppUpdateOutcome(update, AppUpdateOutcomeKind.Cancelled, "Not started: cancelled."));
+                outcomes.Add(new AppUpdateOutcome(update, AppUpdateOutcomeKind.Cancelled, CoreText.Get("AppUpdates_NotStartedCancelled")));
                 continue;
             }
 
@@ -192,11 +193,11 @@ public sealed class AppUpdateRunner
             }
             catch (OperationCanceledException)
             {
-                outcome = new AppUpdateOutcome(update, AppUpdateOutcomeKind.Cancelled, "Stopped: cancelled.");
+                outcome = new AppUpdateOutcome(update, AppUpdateOutcomeKind.Cancelled, CoreText.Get("AppUpdates_StoppedCancelled"));
             }
             catch (Exception ex)
             {
-                outcome = new AppUpdateOutcome(update, AppUpdateOutcomeKind.Failed, "Could not start winget: " + ex.Message);
+                outcome = new AppUpdateOutcome(update, AppUpdateOutcomeKind.Failed, CoreText.Get("AppUpdates_CouldNotStartWinget") + ex.Message);
             }
 
             outcomes.Add(outcome);

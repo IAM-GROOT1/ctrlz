@@ -1,6 +1,7 @@
 // SPDX-License-Identifier: AGPL-3.0-only
 // Copyright (c) 2026 iam-groot1
 
+using CtrlZ.Core.Localization;
 using System.Security.Cryptography.X509Certificates;
 using CtrlZ.Core.Models;
 using CtrlZ.Core.Services;
@@ -47,7 +48,7 @@ public sealed class InstallPlanner
                     .ToList();
                 item = item with
                 {
-                    Notes = [.. item.Notes, "Added automatically" + (neededBy.Count > 0 ? " because " + string.Join(", ", neededBy) + " need" + (neededBy.Count == 1 ? "s" : string.Empty) + " it." : ".")]
+                    Notes = [.. item.Notes, CoreText.Get("InstallPlanner_AddedAutomatically") + (neededBy.Count > 0 ? " because " + string.Join(", ", neededBy) + " need" + (neededBy.Count == 1 ? "s" : string.Empty) + " it." : ".")]
                 };
             }
 
@@ -68,26 +69,26 @@ public sealed class InstallPlanner
             items.Add(item with
             {
                 NotInstalledReason = skipped.Reason,
-                Warnings = [.. item.Warnings, "Will not install: " + skipped.Reason]
+                Warnings = [.. item.Warnings, CoreText.Get("InstallPlanner_WillNotInstall") + skipped.Reason]
             });
         }
 
         var planWarnings = new List<string>
         {
-            "Apps install one after another in the order below. Known dependencies install first, and an app whose dependency fails is not attempted."
+            CoreText.Get("InstallPlanner_AppsInstallOneAfterAnother")
         };
 
-        planWarnings.AddRange(plan.Cycles.Select(cycle => $"Install-order loop: {cycle}."));
+        planWarnings.AddRange(plan.Cycles.Select(cycle => CoreText.Format("InstallPlanner_InstallOrderLoop", cycle)));
         planWarnings.AddRange(plan.MissingReferences);
 
         if (items.All(item => item.NotInstalledReason is not null))
         {
-            planWarnings.Add("There is nothing enabled to install.");
+            planWarnings.Add(CoreText.Get("InstallPlanner_ThereIsNothingEnabledTo"));
         }
         else if (items.Any(item => item.Warnings.Count > 0))
         {
             var affected = items.Count(item => item.Warnings.Count > 0);
-            planWarnings.Add($"{affected} app{(affected == 1 ? " has" : "s have")} a warning — review before running.");
+            planWarnings.Add(CoreText.Plural("InstallPlanner_AppsHaveWarning", affected));
         }
 
         return new InstallPlan
@@ -111,53 +112,53 @@ public sealed class InstallPlanner
             case AppSource.Winget:
             case AppSource.MicrosoftStore:
                 description = string.IsNullOrWhiteSpace(app.PackageId)
-                    ? "winget (no package id)"
-                    : $"winget {app.PackageId}";
+                    ? CoreText.Get("InstallPlanner_WingetNoPackageId")
+                    : CoreText.Format("InstallPlanner_Winget", app.PackageId);
                 silentArgs = app.SilentArgs ?? "--silent --accept-package-agreements --accept-source-agreements";
-                notes.Add("winget decides whether the package needs elevation.");
+                notes.Add(CoreText.Get("InstallPlanner_WingetDecidesWhetherThePackage"));
 
                 if (string.IsNullOrWhiteSpace(app.PackageId))
                 {
-                    warnings.Add("No winget package id is recorded.");
+                    warnings.Add(CoreText.Get("InstallPlanner_NoWingetPackageIdIs"));
                 }
 
                 break;
 
             case AppSource.GitHub:
                 description = string.IsNullOrWhiteSpace(app.GitHubRepo)
-                    ? "GitHub (no repository)"
-                    : $"GitHub {app.GitHubRepo}" +
+                    ? CoreText.Get("InstallPlanner_GitHubNoRepository")
+                    : CoreText.Format("InstallPlanner_GitHub", app.GitHubRepo) +
                       (string.IsNullOrWhiteSpace(app.GitHubAsset) ? string.Empty : $" · {app.GitHubAsset}");
                 requiresAdmin = true;
                 silentArgs = app.SilentArgs ?? SilentArgumentsFor(app.GitHubAsset ?? app.FileName);
 
                 if (string.IsNullOrWhiteSpace(app.GitHubRepo))
                 {
-                    warnings.Add("No GitHub repository is recorded.");
+                    warnings.Add(CoreText.Get("InstallPlanner_NoGitHubRepositoryIsRecorded"));
                 }
 
                 if (string.IsNullOrWhiteSpace(app.ExpectedSha256))
                 {
-                    warnings.Add("No SHA-256 recorded, so the download cannot be verified.");
+                    warnings.Add(CoreText.Get("InstallPlanner_NoSHA256RecordedSo"));
                 }
 
                 break;
 
             case AppSource.DirectUrl:
                 description = Uri.TryCreate(app.DownloadUrl, UriKind.Absolute, out var url)
-                    ? $"Download from {url.Host}"
-                    : "Download (no valid URL)";
+                    ? CoreText.Format("InstallPlanner_DownloadFrom", url.Host)
+                    : CoreText.Get("InstallPlanner_DownloadNoValidURL");
                 requiresAdmin = true;
                 silentArgs = app.SilentArgs ?? SilentArgumentsFor(app.FileName ?? app.DownloadUrl);
 
                 if (!Uri.TryCreate(app.DownloadUrl, UriKind.Absolute, out _))
                 {
-                    warnings.Add("The download URL is missing or invalid.");
+                    warnings.Add(CoreText.Get("InstallPlanner_TheDownloadURLIsMissing"));
                 }
 
                 if (string.IsNullOrWhiteSpace(app.ExpectedSha256))
                 {
-                    warnings.Add("No SHA-256 recorded, so the download cannot be verified.");
+                    warnings.Add(CoreText.Get("InstallPlanner_NoSHA256RecordedSo"));
                 }
 
                 break;
@@ -166,33 +167,33 @@ public sealed class InstallPlanner
                 requiresAdmin = true;
                 var exists = !string.IsNullOrWhiteSpace(app.LocalPath) && _fileExists(app.LocalPath);
                 description = exists
-                    ? $"Local file {Path.GetFileName(app.LocalPath)}"
-                    : "Local file (missing)";
+                    ? CoreText.Format("InstallPlanner_LocalFile", Path.GetFileName(app.LocalPath))
+                    : CoreText.Get("InstallPlanner_LocalFileMissing");
 
                 if (!exists)
                 {
-                    warnings.Add("The installer file is not on this PC.");
+                    warnings.Add(CoreText.Get("InstallPlanner_TheInstallerFileIsNot"));
                 }
                 else
                 {
                     silentArgs = app.SilentArgs ?? SilentArgumentsFor(app.LocalPath!);
                     if (_isSigned(app.LocalPath!) == false)
                     {
-                        warnings.Add("The installer is not code-signed.");
+                        warnings.Add(CoreText.Get("InstallPlanner_TheInstallerIsNotCode"));
                     }
                 }
 
                 break;
 
             default:
-                description = "Unknown source";
-                warnings.Add("This app has an unsupported source.");
+                description = CoreText.Get("InstallPlanner_UnknownSource");
+                warnings.Add(CoreText.Get("InstallPlanner_ThisAppHasAnUnsupported"));
                 break;
         }
 
         if (string.IsNullOrWhiteSpace(silentArgs))
         {
-            silentArgs = "installer defaults";
+            silentArgs = CoreText.Get("InstallPlanner_InstallerDefaults");
         }
 
         return new InstallPlanItem
@@ -215,17 +216,17 @@ public sealed class InstallPlanner
     {
         if (string.IsNullOrWhiteSpace(path))
         {
-            return "installer defaults";
+            return CoreText.Get("InstallPlanner_InstallerDefaults");
         }
 
         try
         {
             var recommended = SilentInstallerCatalog.RecommendedArguments(path);
-            return string.IsNullOrWhiteSpace(recommended) ? "installer defaults" : recommended;
+            return string.IsNullOrWhiteSpace(recommended) ? CoreText.Get("InstallPlanner_InstallerDefaults") : recommended;
         }
         catch
         {
-            return "installer defaults";
+            return CoreText.Get("InstallPlanner_InstallerDefaults");
         }
     }
 

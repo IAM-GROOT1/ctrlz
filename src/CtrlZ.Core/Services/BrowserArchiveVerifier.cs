@@ -1,6 +1,7 @@
 // SPDX-License-Identifier: AGPL-3.0-only
 // Copyright (c) 2026 iam-groot1
 
+using CtrlZ.Core.Localization;
 using CtrlZ.Core.Models;
 using ICSharpCode.SharpZipLib.Zip;
 
@@ -16,9 +17,9 @@ public sealed record BrowserArchiveVerification(
     IReadOnlyList<string> Problems)
 {
     public string Summary => IsRestorable
-        ? $"Restorable: {BrowserName}, {ProfilesChecked} profile{(ProfilesChecked == 1 ? string.Empty : "s")}, " +
-          $"{FilesChecked} files read and checked."
-        : $"Not restorable: {Problems.Count} problem{(Problems.Count == 1 ? string.Empty : "s")} found.";
+        ? CoreText.Plural("BrowserArchiveVerifier_Restorable", ProfilesChecked, BrowserName) +
+          CoreText.Format("BrowserArchiveVerifier_FilesReadAndChecked", FilesChecked)
+        : CoreText.Plural("BrowserArchiveVerifier_NotRestorable", Problems.Count);
 }
 
 /// <summary>
@@ -93,7 +94,7 @@ public sealed class BrowserArchiveVerifier
 
                     if (entry.HasCrc && entry.Crc != 0 && crc.Value != entry.Crc)
                     {
-                        problems.Add($"{entry.Name}: the file is damaged (its checksum does not match).");
+                        problems.Add(CoreText.Format("BrowserArchiveVerifier_TheFileIsDamagedIts", entry.Name));
                         continue;
                     }
 
@@ -101,7 +102,7 @@ public sealed class BrowserArchiveVerifier
                 }
                 catch (Exception ex) when (ex is ZipException or IOException or InvalidDataException)
                 {
-                    problems.Add($"{entry.Name}: the file is damaged and cannot be read ({ex.GetType().Name}).");
+                    problems.Add(CoreText.Format("BrowserArchiveVerifier_TheFileIsDamagedAnd", entry.Name, ex.GetType().Name));
                 }
             }
         }
@@ -111,7 +112,7 @@ public sealed class BrowserArchiveVerifier
         }
         catch (Exception ex) when (ex is ZipException or IOException or UnauthorizedAccessException)
         {
-            problems.Add("The archive could not be read to the end: " + ex.Message);
+            problems.Add(CoreText.Get("BrowserArchiveVerifier_TheArchiveCouldNotBe") + ex.Message);
         }
 
         foreach (var profile in info.Manifest.Profiles)
@@ -119,14 +120,14 @@ public sealed class BrowserArchiveVerifier
             var prefix = info.Manifest.FlatProfileLayout ? "User Data/" : $"User Data/{profile.DirectoryName}/";
             if (!names.Any(name => name.StartsWith(prefix, StringComparison.OrdinalIgnoreCase)))
             {
-                problems.Add($"Profile '{profile.DisplayName}' is listed in the manifest but has no files in the archive.");
+                problems.Add(CoreText.Format("BrowserArchiveVerifier_ProfileIsListedInThe", profile.DisplayName));
             }
         }
 
         var forbidden = names.Where(BrowserArchiveReader.IsForbiddenRestorePath).Take(5).ToList();
         if (forbidden.Count > 0)
         {
-            problems.Add("The archive contains files CTRL+Z never backs up (passwords or cookies): " +
+            problems.Add(CoreText.Get("BrowserArchiveVerifier_TheArchiveContainsFilesCTRL") +
                          string.Join(", ", forbidden) + ". It may have been changed after it was made.");
         }
 

@@ -1,6 +1,7 @@
 // SPDX-License-Identifier: AGPL-3.0-only
 // Copyright (c) 2026 iam-groot1
 
+using CtrlZ.Core.Localization;
 using CtrlZ.Core.Infrastructure;
 using CtrlZ.Core.Models;
 using CtrlZ.Core.Services;
@@ -22,13 +23,13 @@ public sealed class LocalFileSourceInstaller : ISourceInstaller
     {
         if (string.IsNullOrWhiteSpace(app.LocalPath))
         {
-            return InstallResult.NeedsAction("No local installer path is configured.");
+            return InstallResult.NeedsAction(CoreText.Get("LocalFileSourceInstaller_NoLocalInstallerPathIs"));
         }
 
         if (!File.Exists(app.LocalPath))
         {
             return InstallResult.NeedsAction(
-                $"The installer was not found at {app.LocalPath}. Reconnect the USB drive or update the path.");
+                CoreText.Format("LocalFileSourceInstaller_TheInstallerWasNotFound", app.LocalPath));
         }
 
         if (!string.IsNullOrWhiteSpace(app.ExpectedSha256))
@@ -36,11 +37,11 @@ public sealed class LocalFileSourceInstaller : ISourceInstaller
             var actual = await FileUtil.Sha256Async(app.LocalPath, cancellationToken).ConfigureAwait(false);
             if (!actual.Equals(DownloadService.NormalizeHash(app.ExpectedSha256), StringComparison.OrdinalIgnoreCase))
             {
-                context.Report(app, InstallStatus.Failed, "SHA-256 verification failed.");
-                return InstallResult.Fail($"Local installer hash mismatch. Expected {app.ExpectedSha256}, got {actual}.");
+                context.Report(app, InstallStatus.Failed, CoreText.Get("LocalFileSourceInstaller_SHA256VerificationFailed"));
+                return InstallResult.Fail(CoreText.Format("LocalFileSourceInstaller_LocalInstallerHashMismatchExpected", app.ExpectedSha256, actual));
             }
 
-            context.Line("Local installer SHA-256 verified.");
+            context.Line(CoreText.Get("LocalFileSourceInstaller_LocalInstallerSHA256Verified"));
         }
 
         var extension = Path.GetExtension(app.LocalPath);

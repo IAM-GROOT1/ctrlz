@@ -1,6 +1,7 @@
 // SPDX-License-Identifier: AGPL-3.0-only
 // Copyright (c) 2026 iam-groot1
 
+using CtrlZ.Core.Localization;
 using System.Diagnostics;
 using CtrlZ.Core.Logging;
 using CtrlZ.Core.Models;
@@ -40,7 +41,7 @@ public sealed class PostInstallRunner
     {
         if (string.IsNullOrWhiteSpace(command.Executable))
         {
-            return new PostInstallResult(app.Name, null, TimeSpan.Zero, false, false, "No executable.");
+            return new PostInstallResult(app.Name, null, TimeSpan.Zero, false, false, CoreText.Get("PostInstallRunner_NoExecutable"));
         }
 
         var timeoutSeconds = Math.Clamp(command.TimeoutSeconds <= 0 ? 60 : command.TimeoutSeconds, 5, 600);
@@ -80,7 +81,7 @@ public sealed class PostInstallRunner
         {
             if (!process.Start())
             {
-                return new PostInstallResult(app.Name, null, stopwatch.Elapsed, false, false, "Could not start.");
+                return new PostInstallResult(app.Name, null, stopwatch.Elapsed, false, false, CoreText.Get("PostInstallRunner_CouldNotStart"));
             }
 
             var stdout = startInfo.RedirectStandardOutput
@@ -113,7 +114,7 @@ public sealed class PostInstallRunner
                     LogLevel.Warning,
                     $"Post-install for '{app.Name}': timed out after {stopwatch.Elapsed.TotalSeconds:F0}s; process tree killed.");
 
-                return new PostInstallResult(app.Name, null, stopwatch.Elapsed, true, false, "Timed out.");
+                return new PostInstallResult(app.Name, null, stopwatch.Elapsed, true, false, CoreText.Get("PostInstallRunner_TimedOut2"));
             }
 
             stopwatch.Stop();
@@ -127,7 +128,7 @@ public sealed class PostInstallRunner
             {
                 // Output cannot be captured through a UAC launch, and that is the trade-off of opting in.
                 return new PostInstallResult(app.Name, exitCode, stopwatch.Elapsed, false, exitCode == 0,
-                    exitCode == 0 ? null : $"Exit code {exitCode}.");
+                    exitCode == 0 ? null : CoreText.Format("PostInstallRunner_ExitCode", exitCode));
             }
 
             var output = (await stdout.ConfigureAwait(false)) + (await stderr.ConfigureAwait(false));
@@ -138,13 +139,13 @@ public sealed class PostInstallRunner
             }
 
             return new PostInstallResult(app.Name, exitCode, stopwatch.Elapsed, false, exitCode == 0,
-                exitCode == 0 ? null : $"Exit code {exitCode}.");
+                exitCode == 0 ? null : CoreText.Format("PostInstallRunner_ExitCode", exitCode));
         }
         catch (Exception ex)
         {
             stopwatch.Stop();
             _log.Write(LogLevel.Warning, $"Post-install for '{app.Name}' could not run: {ex.GetType().Name}.");
-            return new PostInstallResult(app.Name, null, stopwatch.Elapsed, false, false, "Could not start.");
+            return new PostInstallResult(app.Name, null, stopwatch.Elapsed, false, false, CoreText.Get("PostInstallRunner_CouldNotStart"));
         }
     }
 

@@ -1,6 +1,7 @@
 // SPDX-License-Identifier: AGPL-3.0-only
 // Copyright (c) 2026 iam-groot1
 
+using CtrlZ.Core.Localization;
 using System.Text.RegularExpressions;
 using CtrlZ.Core.Logging;
 using CtrlZ.Core.Models;
@@ -27,13 +28,13 @@ public sealed partial class WingetSourceInstaller : ISourceInstaller
         if (string.IsNullOrWhiteSpace(app.PackageId))
         {
             return InstallResult.NeedsAction(
-                "No winget package id is assigned. Fix this app from the Unmatched group, or edit it in My Apps.");
+                CoreText.Get("WingetSourceInstaller_NoWingetPackageIdIs"));
         }
 
         if (!await _winget.IsAvailableAsync(cancellationToken).ConfigureAwait(false))
         {
             return InstallResult.NeedsAction(
-                "winget is not available. Install or update Microsoft App Installer from https://aka.ms/getwinget, then retry.");
+                CoreText.Get("WingetSourceInstaller_WingetIsNotAvailableInstall"));
         }
 
         // Product ids from the Microsoft Store source are 12-character alphanumeric ids.
@@ -62,7 +63,7 @@ public sealed partial class WingetSourceInstaller : ISourceInstaller
                     percent is >= 0 and <= 100 && percent > lastPercent)
                 {
                     lastPercent = percent;
-                    context.Report(app, InstallStatus.Installing, $"Downloading or installing… {percent}%", percent / 100d);
+                    context.Report(app, InstallStatus.Installing, CoreText.Format("WingetSourceInstaller_DownloadingOrInstalling", percent), percent / 100d);
                 }
             },
             cancellationToken).ConfigureAwait(false);
@@ -72,31 +73,31 @@ public sealed partial class WingetSourceInstaller : ISourceInstaller
             combined.Contains("already installed", StringComparison.OrdinalIgnoreCase) ||
             combined.Contains("No available upgrade", StringComparison.OrdinalIgnoreCase))
         {
-            context.Report(app, InstallStatus.Success, "Installed with winget.", 1);
-            return InstallResult.Ok("Installed with winget.");
+            context.Report(app, InstallStatus.Success, CoreText.Get("WingetSourceInstaller_InstalledWithWinget"), 1);
+            return InstallResult.Ok(CoreText.Get("WingetSourceInstaller_InstalledWithWinget"));
         }
 
         if (result.ExitCode is 3010 or 1641 ||
             combined.Contains("reboot", StringComparison.OrdinalIgnoreCase) && result.ExitCode == 0)
         {
-            context.Report(app, InstallStatus.RebootRequired, "A restart is needed to finish.", 1);
-            return InstallResult.Reboot("Installed, but Windows needs a restart.");
+            context.Report(app, InstallStatus.RebootRequired, CoreText.Get("WingetSourceInstaller_ARestartIsNeededTo"), 1);
+            return InstallResult.Reboot(CoreText.Get("WingetSourceInstaller_InstalledButWindowsNeedsA"));
         }
 
         if (result.ExitCode == -1978335189 || result.ExitCode == unchecked((int)0x8A15002B))
         {
-            context.Report(app, InstallStatus.Success, "Already installed.", 1);
-            return InstallResult.Ok("Already installed.");
+            context.Report(app, InstallStatus.Success, CoreText.Get("WingetSourceInstaller_AlreadyInstalled"), 1);
+            return InstallResult.Ok(CoreText.Get("WingetSourceInstaller_AlreadyInstalled"));
         }
 
         if (result.ExitCode == 1618 || combined.Contains("another installation is in progress", StringComparison.OrdinalIgnoreCase))
         {
-            return InstallResult.NeedsAction("Another installer is already running. Close it and retry.");
+            return InstallResult.NeedsAction(CoreText.Get("WingetSourceInstaller_AnotherInstallerIsAlreadyRunning"));
         }
 
         if (result.TimedOut)
         {
-            return InstallResult.Fail("winget timed out after 45 minutes.");
+            return InstallResult.Fail(CoreText.Get("WingetSourceInstaller_WingetTimedOutAfter45"));
         }
 
         var error = ExtractError(combined, result.ExitCode);
@@ -123,7 +124,7 @@ public sealed partial class WingetSourceInstaller : ISourceInstaller
         }
 
         return string.IsNullOrWhiteSpace(text)
-            ? $"winget failed with exit code {exitCode}."
-            : $"winget failed ({exitCode}): {text}";
+            ? CoreText.Format("WingetSourceInstaller_WingetFailedWithExitCode", exitCode)
+            : CoreText.Format("WingetSourceInstaller_WingetFailed", exitCode, text);
     }
 }

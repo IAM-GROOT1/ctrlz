@@ -1,6 +1,7 @@
 // SPDX-License-Identifier: AGPL-3.0-only
 // Copyright (c) 2026 iam-groot1
 
+using CtrlZ.Core.Localization;
 using System.Text.Json;
 using CtrlZ.Core.Infrastructure;
 
@@ -55,8 +56,8 @@ public static class PostInstallConsent
             var list = string.Join("\n", consent.WillRun.Select(line => $"• {line.AppName}: {line.CommandText}"));
             var count = consent.WillRun.Count;
             if (!confirm(
-                    "Run post-install commands?",
-                    $"This profile will run {count} command{(count == 1 ? string.Empty : "s")} on this PC after their apps install:\n\n{list}",
+                    CoreText.Get("PostInstallConsent_RunPostInstallCommands"),
+                    CoreText.Plural("PostInstallConsent_ProfileWillRun", count, list),
                     false))
             {
                 return false;
@@ -66,9 +67,9 @@ public static class PostInstallConsent
         foreach (var risky in consent.Risky)
         {
             if (!confirm(
-                    "Run a risky command?",
-                    $"{risky.AppName} will run a command that matches a risky pattern:\n\n{risky.CommandText}\n\n" +
-                    "This is asked on every run.",
+                    CoreText.Get("PostInstallConsent_RunARiskyCommand"),
+                    CoreText.Format("PostInstallConsent_WillRunACommandThat", risky.AppName, risky.CommandText) +
+                    CoreText.Get("PostInstallConsent_ThisIsAskedOnEvery"),
                     true))
             {
                 return false;

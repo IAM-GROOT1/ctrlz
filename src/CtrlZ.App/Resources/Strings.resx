@@ -2812,10 +2812,18 @@ Not matched ({0}), add these by hand if you need them:
     <value>{1} · {0} Windows assets · published {2:MMM d, yyyy}</value>
   </data>
   <data name="AppUpdates_WingetWillUpdate_One" xml:space="preserve">
-    <value>winget will update {0} app, one after another:\n\n{1}\n\n</value>
+    <value>winget will update {0} app, one after another:
+
+{1}
+
+</value>
   </data>
   <data name="AppUpdates_WingetWillUpdate_Other" xml:space="preserve">
-    <value>winget will update {0} apps, one after another:\n\n{1}\n\n</value>
+    <value>winget will update {0} apps, one after another:
+
+{1}
+
+</value>
   </data>
   <data name="AppUpdates_UpdatesAvailable_One" xml:space="preserve">
     <value>{0} app update available</value>
@@ -2884,16 +2892,28 @@ Not matched ({0}), add these by hand if you need them:
     <value>{0} apps</value>
   </data>
   <data name="MyApps_ProfileExportedWithoutNotes" xml:space="preserve">
-    <value>Profile exported without notes.\n\n{0}\n\n</value>
+    <value>Profile exported without notes.
+
+{0}
+
+</value>
   </data>
   <data name="MyApps_ProfileExportedTo" xml:space="preserve">
-    <value>Profile exported.\n\n{0}\n\n</value>
+    <value>Profile exported.
+
+{0}
+
+</value>
   </data>
   <data name="MyApps_AddFromList_One" xml:space="preserve">
-    <value>Add {0} app from this {1} list to "{2}"?\n\n</value>
+    <value>Add {0} app from this {1} list to "{2}"?
+
+</value>
   </data>
   <data name="MyApps_AddFromList_Other" xml:space="preserve">
-    <value>Add {0} apps from this {1} list to "{2}"?\n\n</value>
+    <value>Add {0} apps from this {1} list to "{2}"?
+
+</value>
   </data>
   <data name="MyApps_AddedFromList_One" xml:space="preserve">
     <value>Added {0} app from the {1} list</value>
@@ -2908,7 +2928,11 @@ Not matched ({0}), add these by hand if you need them:
     <value>Saved · {0} disabled</value>
   </data>
   <data name="MyApps_RiskyCommandSave" xml:space="preserve">
-    <value>This command matches a risky pattern ({0}):\n\n{1}\n\nSave it only if you wrote it and understand exactly what it does.</value>
+    <value>This command matches a risky pattern ({0}):
+
+{1}
+
+Save it only if you wrote it and understand exactly what it does.</value>
   </data>
   <data name="Preview_AppsInRun_One" xml:space="preserve">
     <value>{0} app in this run · </value>
@@ -2962,7 +2986,9 @@ Not matched ({0}), add these by hand if you need them:
     <value>A check sizes your folders and looks for material CTRL+Z cannot back up. It never changes a file.</value>
   </data>
   <data name="MyApps_ImportListHint" xml:space="preserve">
-    <value>\n\nUse the file from "winget export -o apps.json", "scoop export &gt; apps.json" or "choco export".</value>
+    <value>
+
+Use the file from "winget export -o apps.json", "scoop export &gt; apps.json" or "choco export".</value>
   </data>
   <data name="MyApps_ProfileFilter" xml:space="preserve">
     <value>CTRL+Z profile (*.json)|*.json|JSON files (*.json)|*.json</value>

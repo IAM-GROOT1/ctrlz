@@ -3,7 +3,7 @@
 
 using System.Globalization;
 
-namespace CtrlZ.App.Localization;
+namespace CtrlZ.Core.Localization;
 
 /// <summary>
 /// The plural form a whole number takes in a language, following the Unicode CLDR categories

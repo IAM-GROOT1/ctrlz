@@ -1,6 +1,7 @@
 // SPDX-License-Identifier: AGPL-3.0-only
 // Copyright (c) 2026 iam-groot1
 
+using CtrlZ.Core.Localization;
 using CtrlZ.Core.Models;
 
 namespace CtrlZ.Core.Install;
@@ -55,7 +56,7 @@ public static class CommandPreview
         var willRun = allowed && command.Enabled;
 
         var text = allowed && !command.Enabled
-            ? OffInProfileText + (resolution.Risky ? " - Warning: risky pattern" : string.Empty)
+            ? OffInProfileText + (resolution.Risky ? CoreText.Get("CommandPreview_WarningRiskyPattern") : string.Empty)
             : resolution.Text;
 
         return new CommandPreviewLine(

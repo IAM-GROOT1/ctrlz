@@ -1,6 +1,8 @@
 // SPDX-License-Identifier: AGPL-3.0-only
 // Copyright (c) 2026 iam-groot1
 
+using CtrlZ.Core.Localization;
+
 namespace CtrlZ.Core.Models;
 
 /// <summary>
@@ -48,16 +50,16 @@ public sealed class DetectedBrowser
     public bool CanBackup => !NeedsUserDataPath && Profiles.Count > 0;
 
     public string StatusText => NeedsUserDataPath
-        ? "Profile folder not found"
+        ? CoreText.Get("BrowserModels_ProfileFolderNotFound")
         : Profiles.Count == 0
-            ? "No profiles found"
+            ? CoreText.Get("BrowserModels_NoProfilesFound")
             : $"{Profiles.Count} profile{(Profiles.Count == 1 ? string.Empty : "s")}";
 }
 
 public sealed class BrowserRunningException : Exception
 {
     public BrowserRunningException(string browserName, IReadOnlyList<string> processes)
-        : base($"{browserName} is still running ({string.Join(", ", processes)}). Close it and try again.")
+        : base(CoreText.Format("BrowserModels_IsStillRunningCloseIt", browserName, string.Join(", ", processes)))
     {
         BrowserName = browserName;
         Processes = processes;
@@ -90,7 +92,7 @@ public sealed class BrowserBackupException : Exception
 public sealed class BrowserRestoreConflictException : Exception
 {
     public BrowserRestoreConflictException(IReadOnlyList<string> profiles)
-        : base("These profiles already exist. Choose overwrite or restore as new profiles.")
+        : base(CoreText.Get("BrowserModels_TheseProfilesAlreadyExistChoose"))
     {
         Profiles = profiles;
     }

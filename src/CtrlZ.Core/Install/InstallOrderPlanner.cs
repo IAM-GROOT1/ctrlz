@@ -1,6 +1,7 @@
 // SPDX-License-Identifier: AGPL-3.0-only
 // Copyright (c) 2026 iam-groot1
 
+using CtrlZ.Core.Localization;
 using CtrlZ.Core.Models;
 
 namespace CtrlZ.Core.Install;
@@ -127,7 +128,7 @@ public sealed class InstallOrderPlanner
                 }
                 else
                 {
-                    missing.Add($"{app.Name} is set to install after '{after}', which is not in this run.");
+                    missing.Add(CoreText.Format("InstallOrderPlanner_IsSetToInstallAfter", app.Name, after));
                 }
             }
         }
@@ -156,7 +157,7 @@ public sealed class InstallOrderPlanner
             var app = nodes[id];
             if (cycleMembers.Contains(id))
             {
-                Block(id, "It is part of an install-order loop.");
+                Block(id, CoreText.Get("InstallOrderPlanner_ItIsPartOfAn"));
                 return;
             }
 
@@ -167,8 +168,8 @@ public sealed class InstallOrderPlanner
 
             var reason = edges[id]
                 .Select(dependency =>
-                    failed.Contains(dependency) ? $"Needs {nodes[dependency].Name}, which failed to install." :
-                    blocked.ContainsKey(dependency) ? $"Needs {nodes[dependency].Name}, which will not install." :
+                    failed.Contains(dependency) ? CoreText.Format("InstallOrderPlanner_NeedsWhichFailedToInstall", nodes[dependency].Name) :
+                    blocked.ContainsKey(dependency) ? CoreText.Format("InstallOrderPlanner_NeedsWhichWillNotInstall", nodes[dependency].Name) :
                     null)
                 .FirstOrDefault(text => text is not null);
 

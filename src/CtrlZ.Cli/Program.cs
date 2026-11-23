@@ -1,12 +1,17 @@
 // SPDX-License-Identifier: AGPL-3.0-only
 // Copyright (c) 2026 iam-groot1
 
+using System.Globalization;
 using CtrlZ.Core.Cli;
 using CtrlZ.Core.Infrastructure;
 using CtrlZ.Core.Install;
 using CtrlZ.Core.Logging;
 using CtrlZ.Core.Safety;
 using CtrlZ.Core.Services;
+
+// The command line stays English whatever the Windows language, so scripts can rely on its output.
+CultureInfo.DefaultThreadCurrentUICulture = CultureInfo.GetCultureInfo("en");
+CultureInfo.CurrentUICulture = CultureInfo.GetCultureInfo("en");
 
 // Same data folder as the app (including portable mode next to the exe), same stores, same engine.
 var paths = AppPaths.CreateDefault();

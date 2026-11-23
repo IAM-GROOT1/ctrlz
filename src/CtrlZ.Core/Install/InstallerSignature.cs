@@ -1,6 +1,7 @@
 // SPDX-License-Identifier: AGPL-3.0-only
 // Copyright (c) 2026 iam-groot1
 
+using CtrlZ.Core.Localization;
 using System.Runtime.InteropServices;
 using System.Security.Cryptography.X509Certificates;
 
@@ -30,13 +31,13 @@ public sealed record SignatureCheck(SignatureStatus Status, string? Publisher, i
 
     public string Describe() => Status switch
     {
-        SignatureStatus.Valid => $"Signature valid: signed by {Publisher ?? "an unnamed publisher"}.",
-        SignatureStatus.Unsigned => "The installer is not signed. Its SHA-256 is the only check.",
-        SignatureStatus.Untrusted => $"Signed by {Publisher ?? "an unnamed publisher"}, and the file matches its signature, but the certificate is not trusted on this PC (0x{Code:X8}).",
-        SignatureStatus.Broken => $"The installer's signature is broken (0x{Code:X8}): the file was changed after it was signed, or its certificate is distrusted on this PC. CTRL+Z will not run it.",
+        SignatureStatus.Valid => CoreText.Format("InstallerSignature_Valid", Publisher ?? CoreText.Get("InstallerSignature_UnnamedPublisher")),
+        SignatureStatus.Unsigned => CoreText.Get("InstallerSignature_TheInstallerIsNotSigned"),
+        SignatureStatus.Untrusted => CoreText.Format("InstallerSignature_Untrusted", Publisher ?? CoreText.Get("InstallerSignature_UnnamedPublisher"), Code),
+        SignatureStatus.Broken => CoreText.Format("InstallerSignature_TheInstallerSSignatureIs", Code),
         _ => Code == 0
-            ? "The installer's signature could not be checked."
-            : $"The installer's signature could not be verified (0x{Code:X8})."
+            ? CoreText.Get("InstallerSignature_TheInstallerSSignatureCould")
+            : CoreText.Format("InstallerSignature_TheInstallerSSignatureCould2", Code)
     };
 }
 

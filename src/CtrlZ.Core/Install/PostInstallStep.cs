@@ -1,6 +1,7 @@
 // SPDX-License-Identifier: AGPL-3.0-only
 // Copyright (c) 2026 iam-groot1
 
+using CtrlZ.Core.Localization;
 using CtrlZ.Core.Infrastructure;
 using CtrlZ.Core.Logging;
 using CtrlZ.Core.Models;
@@ -68,7 +69,7 @@ public sealed class PostInstallStep
     {
         if (!installSucceeded)
         {
-            return new PostInstallOutcome(PostInstallOutcomeKind.NotApplicable, "The install did not succeed.");
+            return new PostInstallOutcome(PostInstallOutcomeKind.NotApplicable, CoreText.Get("PostInstallStep_TheInstallDidNotSucceed"));
         }
 
         if (app.PostInstall is not { } command)
@@ -87,7 +88,7 @@ public sealed class PostInstallStep
         var result = await _runner.RunAsync(app, command, cancellationToken).ConfigureAwait(false);
         if (result.TimedOut)
         {
-            return new PostInstallOutcome(PostInstallOutcomeKind.TimedOut, "Timed out.");
+            return new PostInstallOutcome(PostInstallOutcomeKind.TimedOut, CoreText.Get("PostInstallStep_TimedOut"));
         }
 
         return result.Succeeded
