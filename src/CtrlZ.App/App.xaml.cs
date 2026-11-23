@@ -143,11 +143,17 @@ public partial class App : Application
 
     private async Task RunApplyUpdateAsync(string requestPath)
     {
+        // Read first: the helper runs from a temp copy, so the data folders (and portable.flag)
+        // belong to the app being updated, not to this exe.
+        var request = UpdateApplyFiles.ReadRequest(requestPath);
+
         AppPaths paths;
         FileAppLog log;
         try
         {
-            paths = AppPaths.CreateDefault();
+            paths = string.IsNullOrWhiteSpace(request?.TargetExe)
+                ? AppPaths.CreateDefault()
+                : AppPaths.CreateFor(request.TargetExe);
             paths.EnsureCreated();
             log = new FileAppLog(paths.Logs);
         }
@@ -161,7 +167,6 @@ public partial class App : Application
         {
             log.Write(LogLevel.Info, "Update helper started.");
 
-            var request = UpdateApplyFiles.ReadRequest(requestPath);
             if (request is null)
             {
                 log.Write(LogLevel.Error, $"The update helper could not read its request ({requestPath}).");

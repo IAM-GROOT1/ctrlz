@@ -141,6 +141,21 @@ public sealed class UpdateProbationTests : IDisposable
     }
 
     [Fact]
+    public void The_helper_uses_the_data_folder_of_the_portable_app_it_updates()
+    {
+        if (!string.IsNullOrWhiteSpace(Environment.GetEnvironmentVariable("CTRLZ_DATA_DIR")))
+        {
+            return; // An override wins for every exe; nothing to compare.
+        }
+
+        _temp.Write("app/portable.flag", string.Empty);
+
+        var paths = CtrlZ.Core.Infrastructure.AppPaths.CreateFor(Target);
+
+        Assert.Equal(_temp.PathOf("app", "Data"), paths.Root);
+    }
+
+    [Fact]
     public void The_set_aside_build_is_removed_on_a_later_start()
     {
         _temp.Write("app/CTRL+Z.exe.failed", "new");

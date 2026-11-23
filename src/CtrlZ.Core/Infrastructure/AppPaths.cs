@@ -39,7 +39,13 @@ public sealed class AppPaths
     public string CatalogMetadataFile => Path.Combine(Cache, "winutil-applications.meta.json");
     public string BrowserBackupStateFile => Path.Combine(State, "browser-backup-state.json");
 
-    public static AppPaths CreateDefault()
+    public static AppPaths CreateDefault() => CreateFor(Environment.ProcessPath);
+
+    /// <summary>
+    /// The data folders of the CTRL+Z at <paramref name="exePath"/>. The update helper runs from a
+    /// temp copy, so it asks for the app it is updating rather than for itself.
+    /// </summary>
+    public static AppPaths CreateFor(string? exePath)
     {
         var overrideRoot = Environment.GetEnvironmentVariable("CTRLZ_DATA_DIR");
         if (!string.IsNullOrWhiteSpace(overrideRoot))
@@ -47,7 +53,7 @@ public sealed class AppPaths
             return new AppPaths(overrideRoot);
         }
 
-        var exeFolder = Path.GetDirectoryName(Environment.ProcessPath) ?? AppContext.BaseDirectory;
+        var exeFolder = (string.IsNullOrWhiteSpace(exePath) ? null : Path.GetDirectoryName(exePath)) ?? AppContext.BaseDirectory;
         var portableFlag = Path.Combine(exeFolder, "portable.flag");
         if (File.Exists(portableFlag))
         {
