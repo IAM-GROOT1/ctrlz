@@ -22,7 +22,9 @@ public static class PostInstallCommandRisk
         R("downloads and runs remote content", @"(?i)\b(curl|wget|invoke-webrequest|iwr|downloadstring|start-bitstransfer|bitsadmin)\b"),
         R("runs an encoded or hidden command", @"(?i)(-encodedcommand|-enc\s|-windowstyle\s+hidden|-w\s+hidden)"),
         R("deletes or writes outside your folders", @"(?i)\b(remove-item|del|erase|rmdir|rd|format|takeown|icacls)\b.*\b[a-z]:\\"),
-        R("changes the registry, services or scheduled tasks", @"(?i)\b(reg\s+add|reg\s+delete|regedit|sc\s+create|sc\s+config|sc\s+delete|new-service|set-service|schtasks|new-scheduledtask)\b"),
+        // reg/sc are matched with or without ".exe", a full path and closing quote, so
+        // "C:\Windows\System32\reg.exe add ..." is caught as well as "reg add ...".
+        R("changes the registry, services or scheduled tasks", @"(?i)\b(reg(\.exe)?""?\s+(add|delete)|regedit|sc(\.exe)?""?\s+(create|config|delete)|new-service|set-service|schtasks|new-scheduledtask)\b"),
         R("changes startup entries", @"(?i)(\\run\b|\\runonce\b|\\startup\\)"),
         R("weakens security settings", @"(?i)\b(set-mppreference|disableantispyware|disableantivirus|defender\s+disable)\b")
     };
