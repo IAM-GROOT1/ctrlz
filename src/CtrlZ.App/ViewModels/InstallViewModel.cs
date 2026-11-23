@@ -191,6 +191,7 @@ public sealed partial class InstallViewModel : PageViewModelBase
             // reviewed and turned off in My Apps; the plan then finds them instead of adding copies.
             _services.State.AddAutoDependencies(_services.InstallEngine.PlanOrder(profile).AutoAdded);
 
+            var previous = _state;
             state = _services.InstallEngine.CreateState(profile, null);
             _state = state;
             ProfileName = profile.Name;
@@ -200,6 +201,9 @@ public sealed partial class InstallViewModel : PageViewModelBase
             if (_services.State.Settings.ShowInstallPreview &&
                 !_dialogs.ShowInstallPreview(_services, profile))
             {
+                // Nothing ran, so nothing should be left to resume: put back the session that was
+                // on disk before (or none), instead of the queue the preview was built from.
+                DiscardUnstartedSession(previous);
                 return;
             }
         }
@@ -238,6 +242,27 @@ public sealed partial class InstallViewModel : PageViewModelBase
     {
         _cts?.Cancel();
         StatusMessage = "Stopping after the current installer…";
+    }
+
+    private void DiscardUnstartedSession(InstallState? previous)
+    {
+        if (previous is not null)
+        {
+            _services.InstallStates.Save(previous);
+            _state = previous;
+            ProfileName = previous.ProfileName;
+            BuildRowsFromState(previous);
+        }
+        else
+        {
+            _services.InstallStates.Clear();
+            _state = null;
+            BuildPreview();
+        }
+
+        HasResume = previous is { HasUnfinishedWork: true };
+        UpdateCounts();
+        StatusMessage = "Install cancelled. Nothing ran.";
     }
 
     [RelayCommand]
