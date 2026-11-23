@@ -1,6 +1,7 @@
 // SPDX-License-Identifier: AGPL-3.0-only
 // Copyright (c) 2026 iam-groot1
 
+using CtrlZ.App.Localization;
 using System.Collections.ObjectModel;
 using System.IO;
 using CommunityToolkit.Mvvm.ComponentModel;
@@ -20,12 +21,12 @@ public sealed class DriftRow
         Detail = entry.Kind switch
         {
             DriftKind.Missing => entry.ProfileEntry?.Version is { Length: > 0 } version
-                ? $"Saved as {version} · {entry.MatchReason}"
+                ? Loc.Format("Drift_SavedAs", version, entry.MatchReason)
                 : entry.MatchReason,
             DriftKind.Extra => entry.InstalledVersion is { Length: > 0 } version
-                ? $"Installed {version}"
-                : "Installed on this PC",
-            _ => $"Installed {entry.InstalledVersion} · available {entry.AvailableVersion}"
+                ? Loc.Format("Drift_Installed", version)
+                : Loc.Get("Drift_InstalledOnThisPC"),
+            _ => Loc.Format("Drift_InstalledAvailable", entry.InstalledVersion, entry.AvailableVersion)
         };
     }
 
@@ -35,13 +36,13 @@ public sealed class DriftRow
     public string? PackageId => Entry.PackageId;
 
     public string ConfidenceLabel => Entry.Kind == DriftKind.Extra
-        ? "Not in profile"
+        ? Loc.Get("Drift_NotInProfile")
         : Entry.Confidence switch
         {
-            DriftConfidence.Exact => "Exact match",
-            DriftConfidence.Strong => "Likely match",
-            DriftConfidence.Weak => "Uncertain",
-            _ => "No match"
+            DriftConfidence.Exact => Loc.Get("Drift_ExactMatch"),
+            DriftConfidence.Strong => Loc.Get("Drift_LikelyMatch"),
+            DriftConfidence.Weak => Loc.Get("Drift_Uncertain"),
+            _ => Loc.Get("Drift_NoMatch")
         };
 
     public bool CanAddToProfile => Entry.Kind == DriftKind.Extra;
@@ -79,7 +80,7 @@ public sealed partial class DriftViewModel : ObservableObject
     private string _statusLine = string.Empty;
 
     [ObservableProperty]
-    private string _summaryText = "Comparing your saved profile with this PC…";
+    private string _summaryText = Loc.Get("Drift_ComparingYourSavedProfileWith");
 
     public event EventHandler? RequestClose;
 
@@ -101,7 +102,7 @@ public sealed partial class DriftViewModel : ObservableObject
         }
 
         IsBusy = true;
-        StatusLine = "Scanning installed apps…";
+        StatusLine = Loc.Get("Drift_ScanningInstalledApps");
 
         try
         {
@@ -110,7 +111,7 @@ public sealed partial class DriftViewModel : ObservableObject
             IReadOnlyList<Core.Models.WingetPackage> winget = [];
             try
             {
-                StatusLine = "Reading winget versions…";
+                StatusLine = Loc.Get("Drift_ReadingWingetVersions");
                 winget = await _services.Winget.ListInstalledAsync();
             }
             catch (Exception ex)
@@ -131,13 +132,13 @@ public sealed partial class DriftViewModel : ObservableObject
             });
 
             Apply(report);
-            StatusLine = $"Checked {scan.Apps.Count} installed app{(scan.Apps.Count == 1 ? string.Empty : "s")}.";
+            StatusLine = Loc.Plural("Drift_CheckedApps", scan.Apps.Count);
         }
         catch (Exception ex)
         {
             _services.Log.Write(LogLevel.Error, "Drift check failed. " + LogPrivacy.Describe(ex));
-            StatusLine = "The drift check could not finish.";
-            _dialogs.Error("The drift check could not finish.\n\n" + ex.Message);
+            StatusLine = Loc.Get("Drift_TheDriftCheckCouldNot");
+            _dialogs.Error(Loc.Get("Drift_TheDriftCheckCouldNot2") + ex.Message);
         }
         finally
         {
@@ -158,8 +159,8 @@ public sealed partial class DriftViewModel : ObservableObject
 
         var (added, _) = _services.State.AddApps([DriftAnalyzer.ToProfileEntry(installed)]);
         StatusLine = added > 0
-            ? $"Added {row.Name} to your profile."
-            : $"{row.Name} is already in your profile.";
+            ? Loc.Format("Drift_AddedToYourProfile", row.Name)
+            : Loc.Format("Drift_IsAlreadyInYourProfile", row.Name);
 
         await LoadAsync();
     }
@@ -173,15 +174,15 @@ public sealed partial class DriftViewModel : ObservableObject
         }
 
         if (!_dialogs.Confirm(
-                "Remove from profile",
-                $"Remove {row.Name} from \"{ProfileName}\"? The app stays installed on this PC; it just stops being part of your reinstall list.",
-                "Remove", "Cancel"))
+                Loc.Get("Drift_RemoveFromProfile"),
+                Loc.Format("Drift_RemoveFromTheAppStays", row.Name, ProfileName),
+                Loc.Get("Drift_Remove2"), Loc.Get("Drift_Cancel")))
         {
             return;
         }
 
         _services.State.RemoveApp(profileEntry);
-        StatusLine = $"Removed {row.Name} from your profile.";
+        StatusLine = Loc.Format("Drift_RemovedFromYourProfile", row.Name);
         await LoadAsync();
     }
 
@@ -197,7 +198,7 @@ public sealed partial class DriftViewModel : ObservableObject
         SafetyStateStore.Add(state.IgnoredDriftKeys, row.Entry.Key);
         _safety.Save(state);
 
-        StatusLine = $"Ignoring {row.Name} from now on.";
+        StatusLine = Loc.Format("Drift_IgnoringFromNowOn", row.Name);
         await LoadAsync();
     }
 
@@ -240,13 +241,13 @@ public sealed partial class DriftViewModel : ObservableObject
 
         if (report.IsEmpty)
         {
-            SummaryText = "Your profile matches this PC"
+            SummaryText = Loc.Get("Drift_YourProfileMatchesThisPC")
                           + (report.IgnoredCount > 0 ? $" ({report.IgnoredCount} ignored)." : ".");
         }
         else
         {
             SummaryText =
-                $"{report.Missing.Count} missing · {report.Extra.Count} not in profile · {report.Outdated.Count} outdated" +
+                Loc.Format("Drift_MissingNotInProfileOutdated", report.Missing.Count, report.Extra.Count, report.Outdated.Count) +
                 (report.IgnoredCount > 0 ? $" · {report.IgnoredCount} ignored" : string.Empty);
         }
 

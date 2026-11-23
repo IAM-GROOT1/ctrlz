@@ -1,6 +1,7 @@
 // SPDX-License-Identifier: AGPL-3.0-only
 // Copyright (c) 2026 iam-groot1
 
+using CtrlZ.App.Localization;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CtrlZ.Core.Safety;
 
@@ -45,9 +46,9 @@ public sealed partial class ReadinessRow : ObservableObject
 
     public string StatusLabel => Status switch
     {
-        ReadinessStatus.Fail => "Action needed",
-        ReadinessStatus.Warning => "Check this",
-        _ => "Looks fine"
+        ReadinessStatus.Fail => Loc.Get("ReadinessRow_ActionNeeded"),
+        ReadinessStatus.Warning => Loc.Get("ReadinessRow_CheckThis"),
+        _ => Loc.Get("ReadinessRow_LooksFine")
     };
 
     [ObservableProperty]

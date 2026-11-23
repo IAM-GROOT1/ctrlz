@@ -1,6 +1,7 @@
 // SPDX-License-Identifier: AGPL-3.0-only
 // Copyright (c) 2026 iam-groot1
 
+using CtrlZ.App.Localization;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CtrlZ.Core.Models;
 
@@ -31,11 +32,11 @@ public sealed partial class ScanItemViewModel : ObservableObject
 
     public string MatchText => App.MatchKind switch
     {
-        WingetMatchKind.Exact => "winget · exact",
-        WingetMatchKind.Strong => "winget · strong",
-        WingetMatchKind.Weak => "winget · review",
-        WingetMatchKind.Manual => "winget · manual",
-        _ => "Unmatched"
+        WingetMatchKind.Exact => Loc.Get("ScanItem_WingetExact"),
+        WingetMatchKind.Strong => Loc.Get("ScanItem_WingetStrong"),
+        WingetMatchKind.Weak => Loc.Get("ScanItem_WingetReview"),
+        WingetMatchKind.Manual => Loc.Get("ScanItem_WingetManual"),
+        _ => Loc.Get("ScanItem_Unmatched")
     };
 
     public string MatchState => App.MatchKind switch
@@ -48,7 +49,7 @@ public sealed partial class ScanItemViewModel : ObservableObject
     public string PackageLabel => App.MatchedWingetId ?? App.PackageId ?? App.MatchReason ?? string.Empty;
 
     [ObservableProperty]
-    private string _groupName = "Other";
+    private string _groupName = Loc.Get("ScanItem_Other");
 
     [ObservableProperty]
     private string _sortGroup = "1Other";
@@ -73,7 +74,7 @@ public sealed partial class ScanItemViewModel : ObservableObject
         App.PackageId = package.Id;
         App.MatchKind = WingetMatchKind.Manual;
         App.MatchScore = 100;
-        App.MatchReason = "Manually matched to " + package.Name;
+        App.MatchReason = Loc.Get("ScanItem_ManuallyMatchedTo") + package.Name;
         RefreshMatch();
         SelectionChanged?.Invoke(this, EventArgs.Empty);
     }

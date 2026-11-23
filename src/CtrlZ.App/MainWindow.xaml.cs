@@ -1,6 +1,7 @@
 // SPDX-License-Identifier: AGPL-3.0-only
 // Copyright (c) 2026 iam-groot1
 
+using CtrlZ.App.Localization;
 using System.ComponentModel;
 using System.Runtime.InteropServices;
 using System.Windows;
@@ -124,7 +125,7 @@ public partial class MainWindow : Window
         MaximizeGlyph.Text = (string)(WindowState == WindowState.Maximized
             ? FindResource("Icon.Restore")
             : FindResource("Icon.Maximize"));
-        MaximizeButton.ToolTip = WindowState == WindowState.Maximized ? "Restore" : "Maximize";
+        MaximizeButton.ToolTip = WindowState == WindowState.Maximized ? Loc.Get("Main_Restore") : Loc.Get("Main_Maximize2");
     }
 
     private void OnClosing(object? sender, CancelEventArgs e)

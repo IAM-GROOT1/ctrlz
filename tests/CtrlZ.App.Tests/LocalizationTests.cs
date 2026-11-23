@@ -18,7 +18,7 @@ namespace CtrlZ.App.Tests;
 public class LocalizationTests
 {
     private static readonly Regex XamlKey = new(@"\{l:Tr (?<key>[A-Za-z0-9_]+)\}");
-    private static readonly Regex CodeKey = new(@"\bLoc\.(?:Get|Format)\(\s*""(?<key>[A-Za-z0-9_]+)""");
+    private static readonly Regex CodeKey = new(@"\bLoc\.(?<kind>Get|Format|Plural)\(\s*""(?<key>[A-Za-z0-9_]+)""");
     private static readonly Regex Placeholder = new(@"\{(\d+)(?:[,:][^}]*)?\}");
 
     private static readonly Regex LiteralTextAttribute = new(
@@ -48,6 +48,9 @@ public class LocalizationTests
 
     private static string EnglishPath() => Path.Combine(AppFolder(), "Resources", "Strings.resx");
 
+    /// <summary>Plural forms a translation may add beyond English's One and Other.</summary>
+    private static readonly HashSet<string> PluralExtras = new(StringComparer.Ordinal);
+
     private static HashSet<string> UsedKeys()
     {
         var used = new HashSet<string>(StringComparer.Ordinal);
@@ -63,7 +66,21 @@ public class LocalizationTests
         {
             foreach (Match match in CodeKey.Matches(File.ReadAllText(file)))
             {
-                used.Add(match.Groups["key"].Value);
+                var key = match.Groups["key"].Value;
+                if (match.Groups["kind"].Value == "Plural")
+                {
+                    // English needs both forms; other languages may add Zero, Two, Few or Many.
+                    used.Add(key + "_One");
+                    used.Add(key + "_Other");
+                    foreach (var form in new[] { "_Zero", "_Two", "_Few", "_Many" })
+                    {
+                        PluralExtras.Add(key + form);
+                    }
+                }
+                else
+                {
+                    used.Add(key);
+                }
             }
         }
 
@@ -133,8 +150,26 @@ public class LocalizationTests
             {
                 if (!english.TryGetValue(key, out var source))
                 {
-                    problems.Add($"{language}: {key} is not an English key");
-                    continue;
+                    _ = UsedKeys();
+                    var pluralBase = key[..Math.Max(key.LastIndexOf('_'), 0)];
+                    if (PluralExtras.Contains(key) && english.TryGetValue(pluralBase + "_Other", out var other))
+                    {
+                        source = other;
+                    }
+                    else
+                    {
+                        problems.Add($"{language}: {key} is not an English key");
+                        continue;
+                    }
+                }
+
+                try
+                {
+                    _ = string.Format(CultureInfo.InvariantCulture, value, 1, "x", "y", "z", DateTime.Now, 0.5);
+                }
+                catch (FormatException)
+                {
+                    problems.Add($"{language}: {key} is not a valid format string");
                 }
 
                 if (!Placeholders(source).SetEquals(Placeholders(value)))
@@ -152,6 +187,31 @@ public class LocalizationTests
     {
         Assert.Equal("Apply or undo: Dark mode", Loc.Format("Tweaks_ApplyOrUndoName", "Dark mode"));
         Assert.Equal("[No_such_key]", Loc.Get("No_such_key"));
+        Assert.Equal("1 app", Loc.Plural("MyApps_AppCount", 1));
+        Assert.Equal("3 apps", Loc.Plural("MyApps_AppCount", 3));
+        Assert.Equal("Added 2 apps to \"Home\"", Loc.Plural("Catalog_AddedApps", 2, "Home"));
+    }
+
+    [Theory]
+    [InlineData("en", 1, "One")]
+    [InlineData("en", 0, "Other")]
+    [InlineData("de", 2, "Other")]
+    [InlineData("fr", 0, "One")]
+    [InlineData("fr", 2, "Other")]
+    [InlineData("ru", 21, "One")]
+    [InlineData("ru", 3, "Few")]
+    [InlineData("ru", 12, "Many")]
+    [InlineData("pl", 22, "Few")]
+    [InlineData("pl", 25, "Many")]
+    [InlineData("ar", 0, "Zero")]
+    [InlineData("ar", 2, "Two")]
+    [InlineData("ar", 105, "Few")]
+    [InlineData("ar", 11, "Many")]
+    [InlineData("ar", 100, "Other")]
+    [InlineData("ja", 1, "Other")]
+    public void Plural_categories_follow_each_language(string language, long count, string expected)
+    {
+        Assert.Equal(expected, PluralRules.Category(CultureInfo.GetCultureInfo(language), count));
     }
 
     private static HashSet<string> Placeholders(string text) =>

@@ -1,6 +1,7 @@
 // SPDX-License-Identifier: AGPL-3.0-only
 // Copyright (c) 2026 iam-groot1
 
+using CtrlZ.App.Localization;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CtrlZ.Core.Models;
 
@@ -25,7 +26,7 @@ public sealed partial class InstallRowViewModel : ObservableObject
     private InstallStatus _status = InstallStatus.Queued;
 
     [ObservableProperty]
-    private string _detail = "Queued";
+    private string _detail = Loc.Get("InstallRow_Queued");
 
     [ObservableProperty]
     private string? _error;
@@ -38,16 +39,16 @@ public sealed partial class InstallRowViewModel : ObservableObject
 
     public string StatusText => Status switch
     {
-        InstallStatus.Queued => "Queued",
-        InstallStatus.Preparing => "Preparing",
-        InstallStatus.Downloading => "Downloading",
-        InstallStatus.Installing => "Installing",
-        InstallStatus.Success => "Installed",
-        InstallStatus.Failed => "Failed",
-        InstallStatus.NeedsManualAction => "Manual action",
-        InstallStatus.RebootRequired => "Restart needed",
-        InstallStatus.Skipped => "Skipped",
-        InstallStatus.Cancelled => "Cancelled",
+        InstallStatus.Queued => Loc.Get("InstallRow_Queued"),
+        InstallStatus.Preparing => Loc.Get("InstallRow_Preparing"),
+        InstallStatus.Downloading => Loc.Get("InstallRow_Downloading"),
+        InstallStatus.Installing => Loc.Get("InstallRow_Installing"),
+        InstallStatus.Success => Loc.Get("InstallRow_Installed"),
+        InstallStatus.Failed => Loc.Get("InstallRow_Failed"),
+        InstallStatus.NeedsManualAction => Loc.Get("InstallRow_ManualAction"),
+        InstallStatus.RebootRequired => Loc.Get("InstallRow_RestartNeeded"),
+        InstallStatus.Skipped => Loc.Get("InstallRow_Skipped"),
+        InstallStatus.Cancelled => Loc.Get("InstallRow_Cancelled"),
         _ => Status.ToString()
     };
 
@@ -72,7 +73,7 @@ public sealed partial class InstallRowViewModel : ObservableObject
     public bool ShowsNote => !string.IsNullOrWhiteSpace(Note) &&
                              Status is InstallStatus.Failed or InstallStatus.NeedsManualAction;
 
-    public string NoteText => ShowsNote ? "Your note: " + Note : string.Empty;
+    public string NoteText => ShowsNote ? Loc.Get("InstallRow_YourNote") + Note : string.Empty;
 
     partial void OnStatusChanged(InstallStatus value)
     {

@@ -112,7 +112,7 @@ public sealed class ReadinessScanner
         ReadinessRequest request,
         DateTimeOffset now)
     {
-        var id = "folder." + Slug(folder.Label);
+        var id = "folder." + Slug(folder.Id ?? folder.Label);
         const string meaning =
             "These files exist only on this PC. A clean install removes them unless a copy exists somewhere else.";
 

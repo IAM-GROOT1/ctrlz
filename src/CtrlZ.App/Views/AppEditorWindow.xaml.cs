@@ -1,6 +1,7 @@
 // SPDX-License-Identifier: AGPL-3.0-only
 // Copyright (c) 2026 iam-groot1
 
+using CtrlZ.App.Localization;
 using System.IO;
 using System.Windows;
 using System.Windows.Controls;
@@ -14,17 +15,17 @@ public partial class AppEditorWindow : Window
     private static readonly SourceOption[] SourceOptions =
     [
         new(AppSource.Winget, "winget"),
-        new(AppSource.MicrosoftStore, "Microsoft Store"),
-        new(AppSource.GitHub, "GitHub release"),
-        new(AppSource.DirectUrl, "Direct download link"),
-        new(AppSource.LocalFile, "Local installer file")
+        new(AppSource.MicrosoftStore, Loc.Get("AppEditor_MicrosoftStore")),
+        new(AppSource.GitHub, Loc.Get("AppEditor_GitHubRelease")),
+        new(AppSource.DirectUrl, Loc.Get("AppEditor_DirectDownloadLink")),
+        new(AppSource.LocalFile, Loc.Get("AppEditor_LocalInstallerFile"))
     ];
 
     private static readonly AssetKindOption[] AssetOptions =
     [
-        new(GitHubAssetKind.Installer, "Installer"),
-        new(GitHubAssetKind.PortableArchive, "Portable archive (ZIP)"),
-        new(GitHubAssetKind.PortableExecutable, "Portable executable")
+        new(GitHubAssetKind.Installer, Loc.Get("AppEditor_Installer")),
+        new(GitHubAssetKind.PortableArchive, Loc.Get("AppEditor_PortableArchiveZIP")),
+        new(GitHubAssetKind.PortableExecutable, Loc.Get("AppEditor_PortableExecutable"))
     ];
 
     private readonly AppEntry _working;
@@ -76,7 +77,7 @@ public partial class AppEditorWindow : Window
     {
         CommandEditPanel.Visibility = _canEditCommand ? Visibility.Visible : Visibility.Collapsed;
         CommandReadOnlyPanel.Visibility = _canEditCommand ? Visibility.Collapsed : Visibility.Visible;
-        CommandReadOnlyText.Text = command?.Describe() ?? "No command.";
+        CommandReadOnlyText.Text = command?.Describe() ?? Loc.Get("AppEditor_NoCommand");
 
         var input = PostInstallCommandForm.From(command);
         CommandExeBox.Text = input.Executable;
@@ -122,7 +123,7 @@ public partial class AppEditorWindow : Window
         if (PostInstallCommandForm.NeedsRiskConfirmation(_working.PostInstall, parsed.Command) &&
             _confirmRisky?.Invoke(parsed.Command!) != true)
         {
-            ShowError("The command was not saved: it matches a risky pattern and was not confirmed.");
+            ShowError(Loc.Get("AppEditor_TheCommandWasNotSaved"));
             return false;
         }
 
@@ -153,8 +154,8 @@ public partial class AppEditorWindow : Window
     {
         var dialog = new Microsoft.Win32.OpenFileDialog
         {
-            Title = "Select an installer",
-            Filter = "Installers (*.exe;*.msi;*.msix;*.appx;*.zip)|*.exe;*.msi;*.msix;*.appx;*.zip|All files (*.*)|*.*",
+            Title = Loc.Get("AppEditor_SelectAnInstaller"),
+            Filter = Loc.Get("AppEditor_InstallerFilter"),
             CheckFileExists = true
         };
         if (dialog.ShowDialog() == true)
@@ -168,13 +169,13 @@ public partial class AppEditorWindow : Window
         ErrorText.Visibility = Visibility.Collapsed;
         if (string.IsNullOrWhiteSpace(NameBox.Text))
         {
-            ShowError("Give the app a name.");
+            ShowError(Loc.Get("AppEditor_GiveTheAppAName"));
             return;
         }
 
         if (SourceBox.SelectedItem is not SourceOption source)
         {
-            ShowError("Choose an install source.");
+            ShowError(Loc.Get("AppEditor_ChooseAnInstallSource"));
             return;
         }
 
@@ -188,19 +189,19 @@ public partial class AppEditorWindow : Window
         var hash = HashBox.Text.Trim();
         if (hash.Length > 0 && (hash.Length != 64 || !hash.All(Uri.IsHexDigit)))
         {
-            ShowError("SHA-256 must be 64 hexadecimal characters, or left blank.");
+            ShowError(Loc.Get("AppEditor_SHA256MustBe64"));
             return;
         }
 
         if (source.Source is AppSource.Winget or AppSource.MicrosoftStore && string.IsNullOrWhiteSpace(PackageIdBox.Text))
         {
-            ShowError("Enter the winget package id for this source.");
+            ShowError(Loc.Get("AppEditor_EnterTheWingetPackageId"));
             return;
         }
 
         if (source.Source == AppSource.DirectUrl && !Uri.TryCreate(UrlBox.Text.Trim(), UriKind.Absolute, out _))
         {
-            ShowError("Enter a valid absolute http(s) download URL.");
+            ShowError(Loc.Get("AppEditor_EnterAValidAbsoluteHttp"));
             return;
         }
 
@@ -213,7 +214,7 @@ public partial class AppEditorWindow : Window
 
         if (source.Source == AppSource.LocalFile && string.IsNullOrWhiteSpace(LocalPathBox.Text))
         {
-            ShowError("Choose the local installer file.");
+            ShowError(Loc.Get("AppEditor_ChooseTheLocalInstallerFile"));
             return;
         }
 

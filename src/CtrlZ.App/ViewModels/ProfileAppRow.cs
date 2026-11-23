@@ -1,6 +1,7 @@
 // SPDX-License-Identifier: AGPL-3.0-only
 // Copyright (c) 2026 iam-groot1
 
+using CtrlZ.App.Localization;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CtrlZ.Core.Models;
 
@@ -36,14 +37,14 @@ public sealed partial class ProfileAppRow : ObservableObject
     /// <summary>Only an entry the planner itself would create; the flag alone comes from the file.</summary>
     public bool IsAutoDependency => CtrlZ.Core.Install.InstallOrderPlanner.IsKnownAutoDependency(App, Catalog.Value);
 
-    public string Meta => string.Join(" · ", new[] { IsAutoDependency ? "Added automatically as a dependency" : null, Publisher, Version }
+    public string Meta => string.Join(" · ", new[] { IsAutoDependency ? Loc.Get("ProfileAppRow_AddedAutomaticallyAsADependency") : null, Publisher, Version }
         .Where(value => !string.IsNullOrWhiteSpace(value)));
 
     [ObservableProperty]
     private bool _isIncluded;
 
     [ObservableProperty]
-    private string _groupName = "Other";
+    private string _groupName = Loc.Get("ProfileAppRow_Other");
 
     partial void OnIsIncludedChanged(bool value)
     {

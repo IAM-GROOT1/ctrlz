@@ -1,6 +1,7 @@
 // SPDX-License-Identifier: AGPL-3.0-only
 // Copyright (c) 2026 iam-groot1
 
+using CtrlZ.App.Localization;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using CtrlZ.Core.Install;
@@ -24,9 +25,11 @@ public sealed partial class CommandReviewItem : ObservableObject
     public string AppName => App.Name;
     public string CommandText => Command.Describe();
     public bool IsRisky => Risks.Count > 0;
-    public string RisksText => IsRisky ? "Risky pattern: " + string.Join(", ", Risks) : string.Empty;
+    public string RisksText => IsRisky ? Loc.Get("CommandReview_RiskyPattern") + string.Join(", ", Risks) : string.Empty;
     public string DetailsText =>
-        $"Timeout {Command.TimeoutSeconds} s · {(Command.RequiresElevation ? "runs as administrator" : "runs without admin")}" +
+        (Command.RequiresElevation
+            ? Loc.Format("CommandReview_TimeoutAdmin", Command.TimeoutSeconds)
+            : Loc.Format("CommandReview_TimeoutNoAdmin", Command.TimeoutSeconds)) +
         (string.IsNullOrEmpty(Command.WorkingDirectory) ? string.Empty : " · in " + Command.WorkingDirectory);
 
     [ObservableProperty]
@@ -84,12 +87,12 @@ public sealed partial class CommandReviewViewModel : ObservableObject
     public bool IsLocal => _origin == ProfileOrigin.Local;
 
     public string HeaderText => IsLocal
-        ? "This profile is yours. Its commands run after install without a per-command review."
-        : "This profile did not originate on this PC. Its commands stay blocked until you approve each one.";
+        ? Loc.Get("CommandReview_ThisProfileIsYoursIts")
+        : Loc.Get("CommandReview_ThisProfileDidNotOriginate");
 
     public string SubheaderText => IsLocal
-        ? "You will still be asked to confirm before commands first run on this PC."
-        : "An approval is stored on this PC only, never in the profile file. Editing a command later blocks it again.";
+        ? Loc.Get("CommandReview_YouWillStillBeAsked")
+        : Loc.Get("CommandReview_AnApprovalIsStoredOn");
 
     /// <summary>True once anything was approved or the origin changed, so callers can refresh.</summary>
     public bool Changed { get; private set; }
@@ -101,7 +104,7 @@ public sealed partial class CommandReviewViewModel : ObservableObject
 
     public CommandReviewItem? Current => Index >= 0 && Index < Items.Count ? Items[Index] : null;
 
-    public string PositionText => Items.Count == 0 ? "No commands" : $"{Index + 1} of {Items.Count}";
+    public string PositionText => Items.Count == 0 ? Loc.Get("CommandReview_NoCommands") : Loc.Format("CommandReview_Of", Index + 1, Items.Count);
 
     public event EventHandler? RequestClose;
 
@@ -126,9 +129,9 @@ public sealed partial class CommandReviewViewModel : ObservableObject
         }
 
         if (item.IsRisky && !_confirmDanger(
-                "Approve a risky command?",
-                $"{item.RisksText}\n\n{item.CommandText}\n\nApprove it only if you understand exactly what it does. " +
-                "It will also ask for confirmation every time it is about to run."))
+                Loc.Get("CommandReview_ApproveARiskyCommand"),
+                Loc.Format("CommandReview_ApproveItOnlyIfYou", item.RisksText, item.CommandText) +
+                Loc.Get("CommandReview_ItWillAlsoAskFor")))
         {
             return;
         }
@@ -153,10 +156,10 @@ public sealed partial class CommandReviewViewModel : ObservableObject
         }
 
         if (!_confirmDanger(
-                "Treat this profile as yours?",
-                "Only do this for a profile you created yourself, for example on another of your PCs.\n\n" +
-                $"Every command in it ({Items.Count}) will then run after install without a per-command review, " +
-                "and you will be able to edit them here."))
+                Loc.Get("CommandReview_TreatThisProfileAsYours"),
+                Loc.Get("CommandReview_OnlyDoThisForA") +
+                Loc.Format("CommandReview_EveryCommandInItWill", Items.Count) +
+                Loc.Get("CommandReview_AndYouWillBeAble")))
         {
             return;
         }

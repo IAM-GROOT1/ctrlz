@@ -1,6 +1,7 @@
 // SPDX-License-Identifier: AGPL-3.0-only
 // Copyright (c) 2026 iam-groot1
 
+using CtrlZ.App.Localization;
 using System.Diagnostics;
 using System.IO;
 using CommunityToolkit.Mvvm.ComponentModel;
@@ -24,7 +25,7 @@ public sealed partial class SettingsViewModel : PageViewModelBase
     private readonly ThemeService _themeService;
 
     public SettingsViewModel(AppServices services, DialogService dialogs, MainViewModel main, ThemeService theme)
-        : base("Settings", "Theme, logs, and local data. Everything stays on this PC unless you export it.")
+        : base(Loc.Get("Settings_Settings"), Loc.Get("Settings_ThemeLogsAndLocalData"))
     {
         _services = services;
         _dialogs = dialogs;
@@ -43,16 +44,16 @@ public sealed partial class SettingsViewModel : PageViewModelBase
     public string LogFile => _services.Log.LogFilePath;
     public string ThemeDescription => Theme switch
     {
-        ThemeMode.Light => "Light theme",
-        ThemeMode.Dark => "Dark theme",
-        _ => "Following Windows"
+        ThemeMode.Light => Loc.Get("Settings_LightTheme"),
+        ThemeMode.Dark => Loc.Get("Settings_DarkTheme"),
+        _ => Loc.Get("Settings_FollowingWindows")
     };
 
     [ObservableProperty]
     private ThemeMode _theme;
 
     [ObservableProperty]
-    private string _wingetStatus = "Checking winget…";
+    private string _wingetStatus = Loc.Get("Settings_CheckingWinget");
 
     [ObservableProperty]
     private string _logText = string.Empty;
@@ -77,19 +78,19 @@ public sealed partial class SettingsViewModel : PageViewModelBase
     [ObservableProperty]
     private bool _includeNotesInReports;
 
-    public string CurrentVersionText => $"CTRL+Z {AppVersion}";
+    public string CurrentVersionText => Loc.Format("Settings_CTRLZ", AppVersion);
 
     public bool IsStableChannel => Channel == UpdateChannel.Stable;
 
     public bool IsPreReleaseChannel => Channel == UpdateChannel.PreRelease;
 
     public string ChannelDescription => Channel == UpdateChannel.Stable
-        ? "Only full releases are offered."
-        : "Full releases and pre-releases are offered; whichever is newest wins.";
+        ? Loc.Get("Settings_OnlyFullReleasesAreOffered")
+        : Loc.Get("Settings_FullReleasesAndPreReleases");
 
     public string LastUpdateCheckText => _services.State.Settings.LastUpdateCheckUtc is { } last
-        ? $"Last checked {last.ToLocalTime():yyyy-MM-dd HH:mm}"
-        : "Not checked yet";
+        ? Loc.Format("Settings_LastChecked", last.ToLocalTime())
+        : Loc.Get("Settings_NotCheckedYet");
 
     public bool CanCheckForUpdates => !IsCheckingForUpdates;
 
@@ -170,7 +171,7 @@ public sealed partial class SettingsViewModel : PageViewModelBase
         _services.State.Settings.Theme = Theme;
         _services.State.SaveSettings();
         _themeService.Apply(Theme);
-        StatusMessage = $"Theme: {ThemeDescription}.";
+        StatusMessage = Loc.Format("Settings_Theme2", ThemeDescription);
     }
 
     [RelayCommand]
@@ -182,7 +183,7 @@ public sealed partial class SettingsViewModel : PageViewModelBase
 
         _services.State.Settings.UpdateChannel = Channel;
         _services.State.SaveSettings();
-        StatusMessage = $"Update channel: {Channel}.";
+        StatusMessage = Loc.Format("Settings_UpdateChannel", Channel);
     }
 
     [RelayCommand]
@@ -194,7 +195,7 @@ public sealed partial class SettingsViewModel : PageViewModelBase
         }
 
         IsCheckingForUpdates = true;
-        StatusMessage = "Checking for updates\u2026";
+        StatusMessage = Loc.Get("Settings_CheckingForUpdates");
         try
         {
             await _main.Updates.CheckManuallyAsync();
@@ -222,23 +223,23 @@ public sealed partial class SettingsViewModel : PageViewModelBase
     private void RefreshLog()
     {
         LoadLogs();
-        StatusMessage = "Log refreshed.";
+        StatusMessage = Loc.Get("Settings_LogRefreshed");
     }
 
     [RelayCommand]
     private async Task CheckWingetAsync()
     {
-        WingetStatus = "Checking winget…";
+        WingetStatus = Loc.Get("Settings_CheckingWinget");
         try
         {
             var available = await _services.Winget.IsAvailableAsync();
             WingetStatus = available
-                ? $"winget {_services.Winget.Version} · ready"
-                : "winget not found · install App Installer when you start an install";
+                ? Loc.Format("Settings_WingetReady", _services.Winget.Version)
+                : Loc.Get("Settings_WingetNotFoundInstallApp");
         }
         catch (Exception ex)
         {
-            WingetStatus = "winget check failed: " + ex.Message;
+            WingetStatus = Loc.Get("Settings_WingetCheckFailed") + ex.Message;
         }
     }
 
@@ -250,27 +251,27 @@ public sealed partial class SettingsViewModel : PageViewModelBase
             return;
         }
 
-        if (!_dialogs.Confirm("Update App Installer",
-                "CTRL+Z will ask Microsoft's package manager to install or update App Installer (winget). This may trigger a UAC prompt.",
-                "Update winget", "Cancel"))
+        if (!_dialogs.Confirm(Loc.Get("Settings_UpdateAppInstaller"),
+                Loc.Get("Settings_CTRLZWillAskMicrosoft"),
+                Loc.Get("Settings_UpdateWinget2"), Loc.Get("Settings_Cancel")))
         {
             return;
         }
 
         IsBusy = true;
-        StatusMessage = "Checking winget…";
+        StatusMessage = Loc.Get("Settings_CheckingWinget");
         try
         {
             var ready = await _services.WingetBootstrap.EnsureReadyAsync(message => StatusMessage = message);
-            WingetStatus = ready ? $"winget {_services.Winget.Version} · ready" : "winget is not available";
-            StatusMessage = ready ? "winget is ready." : "winget could not be installed.";
+            WingetStatus = ready ? Loc.Format("Settings_WingetReady", _services.Winget.Version) : Loc.Get("Settings_WingetIsNotAvailable");
+            StatusMessage = ready ? Loc.Get("Settings_WingetIsReady") : Loc.Get("Settings_WingetCouldNotBeInstalled");
             _services.Winget.ResetDiscovery();
             await CheckWingetAsync();
         }
         catch (Exception ex)
         {
             _services.Log.Write(LogLevel.Error, "Manual winget update failed.", ex);
-            StatusMessage = "Update failed: " + ex.Message;
+            StatusMessage = Loc.Get("Settings_UpdateFailed") + ex.Message;
         }
         finally
         {
@@ -284,11 +285,11 @@ public sealed partial class SettingsViewModel : PageViewModelBase
         try
         {
             System.Windows.Clipboard.SetText(DiagnosticsBundle.Summary(DiagnosticsFacts()));
-            StatusMessage = "Diagnostics summary copied to the clipboard. It holds versions, switches and counts only.";
+            StatusMessage = Loc.Get("Settings_DiagnosticsSummaryCopiedToThe");
         }
         catch (Exception ex)
         {
-            _dialogs.Error("Could not copy diagnostics: " + ex.Message);
+            _dialogs.Error(Loc.Get("Settings_CouldNotCopyDiagnostics") + ex.Message);
         }
     }
 
@@ -309,8 +310,8 @@ public sealed partial class SettingsViewModel : PageViewModelBase
 
         var dialog = new Microsoft.Win32.SaveFileDialog
         {
-            Title = "Save diagnostics",
-            Filter = "ZIP archive (*.zip)|*.zip",
+            Title = Loc.Get("Settings_SaveDiagnosticsTitle"),
+            Filter = Loc.Get("Settings_DiagnosticsFilter"),
             FileName = $"ctrlz-diagnostics-{DateTime.Now:yyyyMMdd-HHmm}.zip",
             InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments)
         };
@@ -320,20 +321,20 @@ public sealed partial class SettingsViewModel : PageViewModelBase
         }
 
         IsSavingDiagnostics = true;
-        StatusMessage = "Saving diagnostics…";
+        StatusMessage = Loc.Get("Settings_SavingDiagnostics");
         try
         {
             var facts = DiagnosticsFacts();
             var path = dialog.FileName;
             await Task.Run(() => DiagnosticsBundle.Write(path, facts, LogsFolder, PathPrivacy.Current));
             _services.Log.Write(LogLevel.Info, "Diagnostics bundle saved on request.");
-            StatusMessage = "Diagnostics saved. Nothing was sent; open the ZIP to check it before you share it.";
+            StatusMessage = Loc.Get("Settings_DiagnosticsSavedNothingWasSent");
             OpenPath(path);
         }
         catch (Exception ex)
         {
             _services.Log.Write(LogLevel.Error, "Diagnostics bundle failed: " + LogPrivacy.Describe(ex));
-            _dialogs.Error("Could not save diagnostics.\n\n" + ex.Message);
+            _dialogs.Error(Loc.Get("Settings_CouldNotSaveDiagnostics") + ex.Message);
             StatusMessage = null;
         }
         finally
@@ -370,7 +371,7 @@ public sealed partial class SettingsViewModel : PageViewModelBase
     {
         if (!string.IsNullOrWhiteSpace(Environment.GetEnvironmentVariable("CTRLZ_DATA_DIR")))
         {
-            return "custom folder (CTRLZ_DATA_DIR)";
+            return Loc.Get("Settings_CustomFolderCTRLZDATADIR");
         }
 
         var exeFolder = Path.GetDirectoryName(Environment.ProcessPath) ?? AppContext.BaseDirectory;
@@ -387,9 +388,9 @@ public sealed partial class SettingsViewModel : PageViewModelBase
         }
         else
         {
-            _dialogs.Info("CTRL+Z is released under the GNU Affero General Public License v3.0 " +
-                $"(AGPL-3.0-only). The full license text and the source code are at {SourceUrl}.",
-                "License");
+            _dialogs.Info(Loc.Get("Settings_CTRLZIsReleasedUnder") +
+                Loc.Format("Settings_AGPL30OnlyThe", SourceUrl),
+                Loc.Get("Settings_License"));
         }
     }
 
@@ -402,7 +403,7 @@ public sealed partial class SettingsViewModel : PageViewModelBase
         }
         catch (Exception ex)
         {
-            _dialogs.Error("Could not open the source link.\n\n" + ex.Message);
+            _dialogs.Error(Loc.Get("Settings_CouldNotOpenTheSource") + ex.Message);
         }
     }
 
@@ -415,7 +416,7 @@ public sealed partial class SettingsViewModel : PageViewModelBase
         }
         catch (Exception ex)
         {
-            LogText = "Could not read the log: " + ex.Message;
+            LogText = Loc.Get("Settings_CouldNotReadTheLog") + ex.Message;
         }
     }
 
@@ -433,12 +434,12 @@ public sealed partial class SettingsViewModel : PageViewModelBase
             }
             else
             {
-                _dialogs.Info("That folder does not exist yet.");
+                _dialogs.Info(Loc.Get("Settings_ThatFolderDoesNotExist"));
             }
         }
         catch (Exception ex)
         {
-            _dialogs.Error("Could not open that location.\n\n" + ex.Message);
+            _dialogs.Error(Loc.Get("Settings_CouldNotOpenThatLocation") + ex.Message);
         }
     }
 }

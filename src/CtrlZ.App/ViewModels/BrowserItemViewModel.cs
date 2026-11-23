@@ -1,6 +1,7 @@
 // SPDX-License-Identifier: AGPL-3.0-only
 // Copyright (c) 2026 iam-groot1
 
+using CtrlZ.App.Localization;
 using System.Collections.ObjectModel;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
@@ -29,14 +30,14 @@ public sealed partial class BrowserItemViewModel : ObservableObject
     public BrowserFamily Family => Browser.Family;
     public string FamilyLabel => Browser.FamilyLabel;
     public string? IconPath => Browser.ExecutablePath;
-    public string VersionText => string.IsNullOrWhiteSpace(Browser.Version) ? "Version unknown" : $"v{Browser.Version}";
+    public string VersionText => string.IsNullOrWhiteSpace(Browser.Version) ? Loc.Get("BrowserItem_VersionUnknown") : $"v{Browser.Version}";
     public string StatusText => Browser.StatusText;
     public string UserDataPath => Browser.UserDataPath ?? string.Empty;
     public bool IsCustom => Browser.IsCustom;
     public bool NeedsUserDataPath => Browser.NeedsUserDataPath;
     public bool CanSelect => Browser.CanBackup && Profiles.Count > 0;
     public int ProfileCount => Profiles.Count;
-    public string ProfileCountText => $"{Profiles.Count} profile{(Profiles.Count == 1 ? string.Empty : "s")}";
+    public string ProfileCountText => Loc.Plural("BrowserItem_ProfileCount", Profiles.Count);
     public IReadOnlyList<BrowserProfile> SelectedProfiles => Profiles.Where(p => p.IsSelected).Select(p => p.Profile).ToList();
 
     [ObservableProperty]

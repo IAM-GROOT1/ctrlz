@@ -1,6 +1,7 @@
 // SPDX-License-Identifier: AGPL-3.0-only
 // Copyright (c) 2026 iam-groot1
 
+using CtrlZ.App.Localization;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.IO;
@@ -30,7 +31,7 @@ public sealed partial class BrowsersViewModel : PageViewModelBase
     private bool _loaded;
 
     public BrowsersViewModel(AppServices services, DialogService dialogs, MainViewModel main)
-        : base("Browsers", "Back up Firefox and Chromium profiles, then restore tabs, bookmarks, extensions, and settings on a clean PC.")
+        : base(Loc.Get("Browsers_Browsers2"), Loc.Get("Browsers_BackUpFirefoxAndChromium"))
     {
         _services = services;
         _dialogs = dialogs;
@@ -38,7 +39,7 @@ public sealed partial class BrowsersViewModel : PageViewModelBase
         _backupFolder = string.IsNullOrWhiteSpace(services.State.Settings.LastBackupFolder)
             ? services.Paths.DefaultBackupFolder
             : services.State.Settings.LastBackupFolder!;
-        _excludedSummary = "Cache/Code Cache/GPUCache/ShaderCache, crash dumps, saved passwords, cookies";
+        _excludedSummary = Loc.Get("Browsers_CacheCodeCacheGPUCacheShaderCache");
         RestoreTargets = new ObservableCollection<BrowserItemViewModel>();
         RestoreProfiles = new ObservableCollection<RestoreProfileChoiceViewModel>();
         _archivePath = services.State.Settings.LastRestoreArchive ?? string.Empty;
@@ -55,7 +56,7 @@ public sealed partial class BrowsersViewModel : PageViewModelBase
     private bool _isLoading;
 
     [ObservableProperty]
-    private string _statusMessage = "Detecting Firefox and Chromium browsers…";
+    private string _statusMessage = Loc.Get("Browsers_DetectingFirefoxAndChromiumBrowsers");
 
     [ObservableProperty]
     private string? _warningText;
@@ -70,7 +71,7 @@ public sealed partial class BrowsersViewModel : PageViewModelBase
     private int _selectedProfileCount;
 
     [ObservableProperty]
-    private string _estimateText = "Select a browser and at least one profile.";
+    private string _estimateText = Loc.Get("Browsers_SelectABrowserAndAt");
 
     [ObservableProperty]
     private bool _isBackingUp;
@@ -79,7 +80,7 @@ public sealed partial class BrowsersViewModel : PageViewModelBase
     private double _backupProgress;
 
     [ObservableProperty]
-    private string _backupStatus = "Ready to back up.";
+    private string _backupStatus = Loc.Get("Browsers_ReadyToBackUp");
 
     [ObservableProperty]
     private string _archivePath = string.Empty;
@@ -106,7 +107,7 @@ public sealed partial class BrowsersViewModel : PageViewModelBase
     private double _restoreProgress;
 
     [ObservableProperty]
-    private string _restoreStatus = "Choose an archive to see what can be restored.";
+    private string _restoreStatus = Loc.Get("Browsers_ChooseAnArchiveToSee");
 
     [ObservableProperty]
     private string _archiveSummary = string.Empty;
@@ -148,17 +149,17 @@ public sealed partial class BrowsersViewModel : PageViewModelBase
                               ArchiveInfo is not null && TargetBrowser.Family == ArchiveInfo.Manifest.Family;
     public bool IsBusy => IsBackingUp || IsRestoring || IsInspecting || IsLoading;
     public bool HasWarning => !string.IsNullOrWhiteSpace(WarningText);
-    public string DetectedSummary => $"{Browsers.Count} browser{(Browsers.Count == 1 ? string.Empty : "s")} detected";
+    public string DetectedSummary => Loc.Plural("Browsers_DetectedCount", Browsers.Count);
     public string ArchiveContentsText => ArchiveInfo?.Manifest.Contents is { } contents
         ? string.Join(" · ", new[]
         {
             contents.Bookmarks ? "bookmarks" : null,
             contents.History ? "history" : null,
-            contents.Sessions ? "tabs & sessions" : null,
+            contents.Sessions ? Loc.Get("Browsers_TabsSessions") : null,
             contents.Extensions ? "extensions" : null,
             contents.Preferences ? "settings" : null,
-            contents.SearchEngines ? "search engines" : null,
-            contents.SitePermissions ? "site permissions" : null
+            contents.SearchEngines ? Loc.Get("Browsers_SearchEngines") : null,
+            contents.SitePermissions ? Loc.Get("Browsers_SitePermissions") : null
         }.Where(x => x is not null))
         : string.Empty;
 
@@ -243,10 +244,10 @@ public sealed partial class BrowsersViewModel : PageViewModelBase
     public string MissingBrowserText => MissingBrowser is not { } missing
         ? string.Empty
         : missing.CanInstall
-            ? $"This backup is from {missing.BrowserName}, which is not installed on this PC. Install it here, then: {missing.NextSteps}"
-            : $"This backup is from {missing.BrowserName}, which is not installed on this PC. Install it from its website, then: {missing.NextSteps}";
+            ? Loc.Format("Browsers_ThisBackupIsFromWhich", missing.BrowserName, missing.NextSteps)
+            : Loc.Format("Browsers_ThisBackupIsFromWhich2", missing.BrowserName, missing.NextSteps);
 
-    public string InstallMissingBrowserLabel => MissingBrowser is { } missing ? $"Install {missing.BrowserName}" : string.Empty;
+    public string InstallMissingBrowserLabel => MissingBrowser is { } missing ? Loc.Format("Browsers_Install", missing.BrowserName) : string.Empty;
 
     /// <summary>Installs the archive's browser with winget, then explains the first-start step.</summary>
     [RelayCommand]
@@ -257,22 +258,22 @@ public sealed partial class BrowsersViewModel : PageViewModelBase
             return;
         }
 
-        if (!_dialogs.Confirm($"Install {missing.BrowserName}",
-                $"CTRL+Z will install {missing.BrowserName} with winget ({missing.WingetId}). Windows may ask for permission.\n\n" +
-                "After it installs: " + missing.NextSteps,
-                $"Install {missing.BrowserName}", "Cancel"))
+        if (!_dialogs.Confirm(Loc.Format("Browsers_Install", missing.BrowserName),
+                Loc.Format("Browsers_CTRLZWillInstallWith", missing.BrowserName, missing.WingetId) +
+                Loc.Get("Browsers_AfterItInstalls") + missing.NextSteps,
+                Loc.Format("Browsers_Install", missing.BrowserName), Loc.Get("Browsers_Cancel2")))
         {
             return;
         }
 
         IsInstallingBrowser = true;
-        RestoreStatus = $"Installing {missing.BrowserName}…";
+        RestoreStatus = Loc.Format("Browsers_Installing", missing.BrowserName);
         try
         {
             if (!await _services.Winget.IsAvailableAsync())
             {
-                _dialogs.Error("winget is not available on this PC yet. Install App Installer from Settings, then try again.");
-                RestoreStatus = "winget is not available.";
+                _dialogs.Error(Loc.Get("Browsers_WingetIsNotAvailableOn"));
+                RestoreStatus = Loc.Get("Browsers_WingetIsNotAvailable");
                 return;
             }
 
@@ -280,20 +281,20 @@ public sealed partial class BrowsersViewModel : PageViewModelBase
             _services.Log.Write(LogLevel.Info, $"Installed {missing.BrowserName} for a restore: exit code {result.ExitCode}.");
             if (result.ExitCode == 0)
             {
-                RestoreStatus = $"{missing.BrowserName} is installed. {missing.NextSteps}";
-                _dialogs.Info($"{missing.BrowserName} is installed.\n\n{missing.NextSteps}", "Almost ready to restore");
+                RestoreStatus = Loc.Format("Browsers_IsInstalled", missing.BrowserName, missing.NextSteps);
+                _dialogs.Info(Loc.Format("Browsers_IsInstalled2", missing.BrowserName, missing.NextSteps), Loc.Get("Browsers_AlmostReadyToRestore"));
             }
             else
             {
-                RestoreStatus = $"{missing.BrowserName} could not be installed (winget exit code {result.ExitCode}).";
-                _dialogs.Error($"{missing.BrowserName} could not be installed (winget exit code {result.ExitCode}). Install it from its website, then press Refresh.");
+                RestoreStatus = Loc.Format("Browsers_CouldNotBeInstalledWinget", missing.BrowserName, result.ExitCode);
+                _dialogs.Error(Loc.Format("Browsers_CouldNotBeInstalledWinget2", missing.BrowserName, result.ExitCode));
             }
         }
         catch (Exception ex)
         {
             _services.Log.Write(LogLevel.Warning, $"Browser install failed: {LogPrivacy.Describe(ex)}");
-            RestoreStatus = $"{missing.BrowserName} could not be installed.";
-            _dialogs.Error($"{missing.BrowserName} could not be installed.\n\n" + ex.Message);
+            RestoreStatus = Loc.Format("Browsers_CouldNotBeInstalled", missing.BrowserName);
+            _dialogs.Error(Loc.Format("Browsers_CouldNotBeInstalled2", missing.BrowserName) + ex.Message);
         }
         finally
         {
@@ -339,7 +340,7 @@ public sealed partial class BrowsersViewModel : PageViewModelBase
     {
         var dialog = new OpenFolderDialog
         {
-            Title = "Select the browser's profile root (Local State for Chromium, profiles.ini for Firefox)"
+            Title = Loc.Get("Browsers_SelectTheBrowserSProfile")
         };
         if (dialog.ShowDialog() != true)
         {
@@ -353,7 +354,7 @@ public sealed partial class BrowsersViewModel : PageViewModelBase
             if (existing is not null)
             {
                 existing.IsExpanded = true;
-                _dialogs.Info("That profile folder is already in the list.");
+                _dialogs.Info(Loc.Get("Browsers_ThatProfileFolderIsAlready"));
                 return;
             }
 
@@ -365,7 +366,7 @@ public sealed partial class BrowsersViewModel : PageViewModelBase
             item.SetAllProfiles(true);
             _services.State.Settings.CustomBrowserUserDataPath = custom.UserDataPath;
             _services.State.SaveSettings();
-            StatusMessage = $"Added {custom.DisplayName}.";
+            StatusMessage = Loc.Format("Browsers_Added", custom.DisplayName);
             OnPropertyChanged(nameof(HasBrowsers));
             OnPropertyChanged(nameof(HasNoBrowsers));
             OnPropertyChanged(nameof(ShowEmptyState));
@@ -374,12 +375,12 @@ public sealed partial class BrowsersViewModel : PageViewModelBase
         }
         catch (BrowserPathValidationException ex)
         {
-            _dialogs.Error(ex.Message, "Not a browser profile folder");
+            _dialogs.Error(ex.Message, Loc.Get("Browsers_NotABrowserProfileFolder"));
         }
         catch (Exception ex)
         {
             _services.Log.Write(LogLevel.Warning, "Could not add custom browser.", ex);
-            _dialogs.Error("This folder could not be added.\n\n" + ex.Message);
+            _dialogs.Error(Loc.Get("Browsers_ThisFolderCouldNotBe") + ex.Message);
         }
 
         await Task.CompletedTask;
@@ -390,7 +391,7 @@ public sealed partial class BrowsersViewModel : PageViewModelBase
     {
         var dialog = new OpenFolderDialog
         {
-            Title = "Choose where browser backups are saved",
+            Title = Loc.Get("Browsers_ChooseWhereBrowserBackupsAre"),
             InitialDirectory = Directory.Exists(BackupFolder) ? BackupFolder : null
         };
         if (dialog.ShowDialog() == true)
@@ -409,7 +410,7 @@ public sealed partial class BrowsersViewModel : PageViewModelBase
         }
         catch (Exception ex)
         {
-            _dialogs.Error("Could not open the backup folder.\n\n" + ex.Message);
+            _dialogs.Error(Loc.Get("Browsers_CouldNotOpenTheBackup") + ex.Message);
         }
     }
 
@@ -432,7 +433,7 @@ public sealed partial class BrowsersViewModel : PageViewModelBase
 
         if (!string.IsNullOrWhiteSpace(BackupPassword) && BackupPassword.Length < 4)
         {
-            _dialogs.Info("Use at least 4 characters for the archive password, or leave it blank.");
+            _dialogs.Info(Loc.Get("Browsers_UseAtLeast4Characters"));
             return;
         }
 
@@ -442,7 +443,7 @@ public sealed partial class BrowsersViewModel : PageViewModelBase
         }
         catch (Exception ex)
         {
-            _dialogs.Error("The backup folder could not be created.\n\n" + ex.Message);
+            _dialogs.Error(Loc.Get("Browsers_TheBackupFolderCouldNot") + ex.Message);
             return;
         }
 
@@ -450,7 +451,7 @@ public sealed partial class BrowsersViewModel : PageViewModelBase
         _cts = new CancellationTokenSource();
         IsBackingUp = true;
         // Keeps the updater from prompting or applying during a backup.
-        using var activity = _services.Activity.Begin("Backing up browser profiles");
+        using var activity = _services.Activity.Begin(Loc.Get("Browsers_BackingUpBrowserProfiles"));
         BackupProgress = 0;
         var completed = new List<BrowserBackupResult>();
         var failures = new List<string>();
@@ -460,10 +461,10 @@ public sealed partial class BrowsersViewModel : PageViewModelBase
             {
                 var target = targets[index];
                 var browser = target.Browser;
-                BackupStatus = $"Preparing {browser.Name}…";
+                BackupStatus = Loc.Format("Browsers_Preparing", browser.Name);
                 if (!await EnsureBrowserClosedAsync(browser))
                 {
-                    failures.Add($"{browser.Name}: skipped because it is still running.");
+                    failures.Add(Loc.Format("Browsers_SkippedBecauseItIsStill", browser.Name));
                     continue;
                 }
 
@@ -500,8 +501,8 @@ public sealed partial class BrowsersViewModel : PageViewModelBase
             _services.State.Settings.LastBackupFolder = BackupFolder;
             _services.State.SaveSettings();
             BackupStatus = completed.Count == 0
-                ? "No backups completed."
-                : $"Backed up {completed.Count} browser{(completed.Count == 1 ? string.Empty : "s")}.";
+                ? Loc.Get("Browsers_NoBackupsCompleted")
+                : Loc.Plural("Browsers_BackedUpCount", completed.Count);
             if (completed.Count > 0)
             {
                 var message = string.Join(Environment.NewLine, completed.Select(r =>
@@ -512,22 +513,22 @@ public sealed partial class BrowsersViewModel : PageViewModelBase
                                string.Join(Environment.NewLine, failures);
                 }
 
-                _dialogs.Info(message, "Browser backup complete");
+                _dialogs.Info(message, Loc.Get("Browsers_BrowserBackupComplete"));
             }
             else if (failures.Count > 0)
             {
-                _dialogs.Error(string.Join(Environment.NewLine, failures), "Backup failed");
+                _dialogs.Error(string.Join(Environment.NewLine, failures), Loc.Get("Browsers_BackupFailed"));
             }
         }
         catch (OperationCanceledException)
         {
-            BackupStatus = "Backup cancelled. Completed archives remain in the folder.";
+            BackupStatus = Loc.Get("Browsers_BackupCancelledCompletedArchivesRemain");
         }
         catch (Exception ex)
         {
             _services.Log.Write(LogLevel.Error, "Browser backup session failed.", ex);
-            BackupStatus = "Backup stopped unexpectedly.";
-            _dialogs.Error("The backup session stopped unexpectedly.\n\n" + ex.Message);
+            BackupStatus = Loc.Get("Browsers_BackupStoppedUnexpectedly");
+            _dialogs.Error(Loc.Get("Browsers_TheBackupSessionStoppedUnexpectedly") + ex.Message);
         }
         finally
         {
@@ -540,8 +541,8 @@ public sealed partial class BrowsersViewModel : PageViewModelBase
     private void CancelOperation()
     {
         _cts?.Cancel();
-        BackupStatus = "Cancelling…";
-        RestoreStatus = "Cancelling…";
+        BackupStatus = Loc.Get("Browsers_Cancelling");
+        RestoreStatus = Loc.Get("Browsers_Cancelling");
     }
 
     [RelayCommand]
@@ -549,8 +550,8 @@ public sealed partial class BrowsersViewModel : PageViewModelBase
     {
         var dialog = new OpenFileDialog
         {
-            Title = "Open a CTRL+Z browser backup",
-            Filter = "CTRL+Z browser backup (*.zip)|*.zip|All files (*.*)|*.*",
+            Title = Loc.Get("Browsers_OpenACTRLZBrowser"),
+            Filter = Loc.Get("Browsers_CTRLZBrowserBackupZip"),
             CheckFileExists = true,
             InitialDirectory = Directory.Exists(BackupFolder) ? BackupFolder : null
         };
@@ -570,7 +571,7 @@ public sealed partial class BrowsersViewModel : PageViewModelBase
         }
 
         IsInspecting = true;
-        RestoreStatus = "Reading archive…";
+        RestoreStatus = Loc.Get("Browsers_ReadingArchive");
         ArchiveInfo = null;
         RestoreProfiles.Clear();
         SelectedRestoreCount = 0;
@@ -594,31 +595,31 @@ public sealed partial class BrowsersViewModel : PageViewModelBase
             var family = info.Manifest.Family == BrowserFamily.Firefox ? "Firefox" : "Chromium";
             ArchiveSummary = $"{family} · {info.Manifest.BrowserName} {info.Manifest.BrowserVersion} · " +
                              $"{info.Manifest.CreatedUtc.ToLocalTime():MMM d, yyyy HH:mm} · " +
-                             $"{info.Manifest.ProfileCount()} profile(s) · " +
+                             Loc.Format("Browsers_ProfileS", info.Manifest.ProfileCount()) +
                              $"{FileUtil.FormatBytes(info.Manifest.TotalBytes)}";
             SelectedRestoreCount = RestoreProfiles.Count(p => p.IsSelected);
             ApplyArchiveTargets(info.Manifest);
             _services.State.Settings.LastRestoreArchive = ArchivePath;
             _services.State.SaveSettings();
             RestoreStatus = TargetBrowser is null
-                ? $"Archive loaded. No {info.Manifest.Family} browser is installed. Install one, then refresh and try again."
+                ? Loc.Format("Browsers_ArchiveLoadedNoBrowserIs", info.Manifest.Family)
                 : info.IsEncrypted
-                    ? "Archive unlocked. Choose profiles and a target browser."
-                    : "Archive ready. Choose profiles and a target browser.";
+                    ? Loc.Get("Browsers_ArchiveUnlockedChooseProfilesAnd")
+                    : Loc.Get("Browsers_ArchiveReadyChooseProfilesAnd");
             OnPropertyChanged(nameof(ArchiveContentsText));
             OnPropertyChanged(nameof(CanRestore));
         }
         catch (BrowserArchivePasswordException)
         {
             ArchiveSummary = string.Empty;
-            RestoreStatus = "This archive is encrypted. Enter its password, then inspect again.";
+            RestoreStatus = Loc.Get("Browsers_ThisArchiveIsEncryptedEnter");
         }
         catch (Exception ex)
         {
             _services.Log.Write(LogLevel.Warning, "Archive inspection failed.", ex);
             ArchiveSummary = string.Empty;
-            RestoreStatus = "Archive could not be read.";
-            _dialogs.Error("This archive could not be opened.\n\n" + ex.Message);
+            RestoreStatus = Loc.Get("Browsers_ArchiveCouldNotBeRead");
+            _dialogs.Error(Loc.Get("Browsers_ThisArchiveCouldNotBe") + ex.Message);
         }
         finally
         {
@@ -640,24 +641,24 @@ public sealed partial class BrowsersViewModel : PageViewModelBase
         }
 
         IsInspecting = true;
-        RestoreStatus = "Verifying the backup: reading every file…";
+        RestoreStatus = Loc.Get("Browsers_VerifyingTheBackupReadingEvery");
         var path = ArchivePath;
         var password = NullIfEmpty(ArchivePassword);
         try
         {
             var result = await Task.Run(() => new BrowserArchiveVerifier().Verify(path, password));
             RestoreStatus = result.IsRestorable
-                ? $"{result.Summary} {FileUtil.FormatBytes(result.BytesChecked)} verified. Nothing was changed."
+                ? Loc.Format("Browsers_VerifiedNothingWasChanged", result.Summary, FileUtil.FormatBytes(result.BytesChecked))
                 : result.Summary;
             _services.Log.Write(result.IsRestorable ? LogLevel.Info : LogLevel.Warning,
                 $"Backup verification: {(result.IsRestorable ? "restorable" : "not restorable")}, " +
                 $"{result.FilesChecked} files, {result.Problems.Count} problems.");
             if (!result.IsRestorable)
             {
-                _dialogs.Error("This backup cannot be fully restored:\n\n" +
+                _dialogs.Error(Loc.Get("Browsers_ThisBackupCannotBeFully") +
                                string.Join("\n", result.Problems.Take(6).Select(problem => "• " + problem)) +
-                               (result.Problems.Count > 6 ? $"\n…and {result.Problems.Count - 6} more." : string.Empty) +
-                               "\n\nMake a new backup before you wipe this PC.");
+                               (result.Problems.Count > 6 ? Loc.Format("Browsers_AndMore", result.Problems.Count - 6) : string.Empty) +
+                               Loc.Get("Browsers_MakeANewBackupBefore"));
             }
         }
         catch (BrowserArchivePasswordException ex)
@@ -667,7 +668,7 @@ public sealed partial class BrowsersViewModel : PageViewModelBase
         catch (Exception ex)
         {
             _services.Log.Write(LogLevel.Warning, "Backup verification failed. " + LogPrivacy.Describe(ex));
-            RestoreStatus = "The backup could not be verified.";
+            RestoreStatus = Loc.Get("Browsers_TheBackupCouldNotBe");
         }
         finally
         {
@@ -686,7 +687,7 @@ public sealed partial class BrowsersViewModel : PageViewModelBase
         var selected = RestoreProfiles.Where(p => p.IsSelected).Select(p => p.Profile.DirectoryName).ToArray();
         if (selected.Length == 0)
         {
-            _dialogs.Info("Select at least one profile from the archive.");
+            _dialogs.Info(Loc.Get("Browsers_SelectAtLeastOneProfile"));
             return;
         }
 
@@ -696,11 +697,11 @@ public sealed partial class BrowsersViewModel : PageViewModelBase
         }
 
         if (!RestoreAsNewProfiles &&
-            !_dialogs.Confirm("Overwrite existing profiles",
-                $"The selected profiles will be merged into {TargetBrowser.Name}'s existing profile folders. " +
-                "Your current cookies and saved passwords are left alone, but bookmarks, history, sessions, and settings will be replaced.\n\n" +
-                "Restore as new profiles instead if you want to keep both.",
-                "Overwrite profiles", "Cancel", danger: true))
+            !_dialogs.Confirm(Loc.Get("Browsers_OverwriteExistingProfiles"),
+                Loc.Format("Browsers_TheSelectedProfilesWillBe", TargetBrowser.Name) +
+                Loc.Get("Browsers_YourCurrentCookiesAndSaved") +
+                Loc.Get("Browsers_RestoreAsNewProfilesInstead"),
+                Loc.Get("Browsers_OverwriteProfiles"), Loc.Get("Browsers_Cancel2"), danger: true))
         {
             return;
         }
@@ -709,9 +710,9 @@ public sealed partial class BrowsersViewModel : PageViewModelBase
         _cts = new CancellationTokenSource();
         IsRestoring = true;
         // Keeps the updater from prompting or applying during a restore.
-        using var activity = _services.Activity.Begin("Restoring browser profiles");
+        using var activity = _services.Activity.Begin(Loc.Get("Browsers_RestoringBrowserProfiles"));
         RestoreProgress = 0;
-        RestoreStatus = "Restoring…";
+        RestoreStatus = Loc.Get("Browsers_Restoring");
         try
         {
             var progress = new Progress<BrowserRestoreProgress>(update =>
@@ -734,13 +735,13 @@ public sealed partial class BrowsersViewModel : PageViewModelBase
             }
             catch (BrowserRestoreConflictException ex)
             {
-                var choice = _dialogs.Show("Profiles already exist",
-                    $"These profiles already exist in {TargetBrowser.Name}: {string.Join(", ", ex.Profiles)}.\n\n" +
-                    "Restore them as new profiles instead? This keeps the current profiles intact.",
-                    "Restore as new", "Cancel");
+                var choice = _dialogs.Show(Loc.Get("Browsers_ProfilesAlreadyExist"),
+                    Loc.Format("Browsers_TheseProfilesAlreadyExistIn", TargetBrowser.Name, string.Join(", ", ex.Profiles)) +
+                    Loc.Get("Browsers_RestoreThemAsNewProfiles"),
+                    Loc.Get("Browsers_RestoreAsNew"), Loc.Get("Browsers_Cancel2"));
                 if (choice.Outcome != CtrlZ.App.Views.DialogOutcome.Primary)
                 {
-                    RestoreStatus = "Restore cancelled.";
+                    RestoreStatus = Loc.Get("Browsers_RestoreCancelled");
                     return;
                 }
 
@@ -753,40 +754,40 @@ public sealed partial class BrowsersViewModel : PageViewModelBase
             }
 
             RestoreProgress = 100;
-            RestoreStatus = $"Restored into {result.BrowserName}.";
+            RestoreStatus = Loc.Format("Browsers_RestoredInto", result.BrowserName);
             var warnings = result.Warnings.Count > 0
                 ? Environment.NewLine + Environment.NewLine + "Notes:" + Environment.NewLine +
                   string.Join(Environment.NewLine, result.Warnings.Take(8))
                 : string.Empty;
             var safety = string.IsNullOrWhiteSpace(result.SafetyBackupFolder)
                 ? string.Empty
-                : $"\n\nA safety copy was kept at:\n{result.SafetyBackupFolder}";
+                : Loc.Format("Browsers_ASafetyCopyWasKept", result.SafetyBackupFolder);
             _dialogs.Info(
-                $"Restored {result.RestoredProfiles.Count} profile(s) into {result.BrowserName}.\n\n" +
-                "Start the browser and check bookmarks, tabs, extensions, and settings." +
+                Loc.Format("Browsers_RestoredProfileSInto", result.RestoredProfiles.Count, result.BrowserName) +
+                Loc.Get("Browsers_StartTheBrowserAndCheck") +
                 safety + warnings,
-                "Browser restore complete");
+                Loc.Get("Browsers_BrowserRestoreComplete"));
             await DetectAsync();
         }
         catch (OperationCanceledException)
         {
-            RestoreStatus = "Restore cancelled.";
+            RestoreStatus = Loc.Get("Browsers_RestoreCancelled");
         }
         catch (BrowserArchivePasswordException)
         {
-            RestoreStatus = "The archive password is incorrect.";
-            _dialogs.Error("That password could not unlock the archive.");
+            RestoreStatus = Loc.Get("Browsers_TheArchivePasswordIsIncorrect");
+            _dialogs.Error(Loc.Get("Browsers_ThatPasswordCouldNotUnlock"));
         }
         catch (BrowserRunningException ex)
         {
-            RestoreStatus = "Close the browser first.";
+            RestoreStatus = Loc.Get("Browsers_CloseTheBrowserFirst");
             _dialogs.Error(ex.Message);
         }
         catch (Exception ex)
         {
             _services.Log.Write(LogLevel.Error, "Browser restore failed.", ex);
-            RestoreStatus = "Restore failed.";
-            _dialogs.Error("The browser profile could not be restored.\n\n" + ex.Message);
+            RestoreStatus = Loc.Get("Browsers_RestoreFailed");
+            _dialogs.Error(Loc.Get("Browsers_TheBrowserProfileCouldNot") + ex.Message);
         }
         finally
         {
@@ -826,7 +827,7 @@ public sealed partial class BrowsersViewModel : PageViewModelBase
 
         IsLoading = true;
         WarningText = null;
-        StatusMessage = "Detecting Firefox and Chromium browsers…";
+        StatusMessage = Loc.Get("Browsers_DetectingFirefoxAndChromiumBrowsers");
         try
         {
             var detected = await _services.BrowserDetector.DetectAsync(
@@ -851,11 +852,11 @@ public sealed partial class BrowsersViewModel : PageViewModelBase
             }
 
             StatusMessage = Browsers.Count == 0
-                ? "No Firefox or Chromium browsers found. Add a custom profile folder."
-                : $"{Browsers.Count} browser{(Browsers.Count == 1 ? string.Empty : "s")} found.";
+                ? Loc.Get("Browsers_NoFirefoxOrChromiumBrowsers2")
+                : Loc.Plural("Browsers_FoundCount", Browsers.Count);
             if (Browsers.Count == 0)
             {
-                WarningText = "Firefox and Chromium store profiles in different folders. For lesser-known forks, add the profile root manually.";
+                WarningText = Loc.Get("Browsers_FirefoxAndChromiumStoreProfiles");
             }
 
             OnPropertyChanged(nameof(HasBrowsers));
@@ -872,9 +873,9 @@ public sealed partial class BrowsersViewModel : PageViewModelBase
         catch (Exception ex)
         {
             _services.Log.Write(LogLevel.Error, "Browser detection failed.", ex);
-            StatusMessage = "Browser detection failed.";
+            StatusMessage = Loc.Get("Browsers_BrowserDetectionFailed");
             WarningText = ex.Message;
-            _dialogs.Error("CTRL+Z could not detect browsers.\n\n" + ex.Message);
+            _dialogs.Error(Loc.Get("Browsers_CTRLZCouldNotDetect") + ex.Message);
         }
         finally
         {
@@ -917,7 +918,7 @@ public sealed partial class BrowsersViewModel : PageViewModelBase
             }
             catch
             {
-                browser.EstimatedText = "Size unavailable";
+                browser.EstimatedText = Loc.Get("Browsers_SizeUnavailable");
             }
         }
 
@@ -927,8 +928,8 @@ public sealed partial class BrowsersViewModel : PageViewModelBase
         }
 
         EstimateText = SelectedProfileCount == 0
-            ? "Select a browser and at least one profile."
-            : $"{SelectedProfileCount} profile{(SelectedProfileCount == 1 ? string.Empty : "s")} · {FileUtil.FormatBytes(totalBytes)} estimated";
+            ? Loc.Get("Browsers_SelectABrowserAndAt")
+            : Loc.Plural("Browsers_ProfilesEstimated", SelectedProfileCount, FileUtil.FormatBytes(totalBytes));
         OnPropertyChanged(nameof(CanBackup));
     }
 
@@ -941,11 +942,11 @@ public sealed partial class BrowsersViewModel : PageViewModelBase
         }
 
         var choice = _dialogs.Show(
-            "Close the browser",
-            $"{browser.Name} is running. A backup needs exclusive-ish access to its profile files, and a restore must write them while the browser is closed.\n\n" +
-            "CTRL+Z can close it for you. Unsaved work in tabs may be lost; the browser usually offers to restore tabs on next launch.",
-            "Close browser",
-            "Skip");
+            Loc.Get("Browsers_CloseTheBrowser"),
+            Loc.Format("Browsers_IsRunningABackupNeeds", browser.Name) +
+            Loc.Get("Browsers_CTRLZCanCloseIt"),
+            Loc.Get("Browsers_CloseBrowser"),
+            Loc.Get("Browsers_Skip"));
         if (choice.Outcome != CtrlZ.App.Views.DialogOutcome.Primary)
         {
             return false;
@@ -957,10 +958,10 @@ public sealed partial class BrowsersViewModel : PageViewModelBase
         }
 
         var force = _dialogs.Show(
-            "Force close?",
-            $"{browser.Name} did not close gracefully. Force-closing can lose unsaved form data, but it is the reliable way to unlock profile files.",
-            "Force close",
-            "Skip",
+            Loc.Get("Browsers_ForceClose"),
+            Loc.Format("Browsers_DidNotCloseGracefullyForce", browser.Name),
+            Loc.Get("Browsers_ForceClose2"),
+            Loc.Get("Browsers_Skip"),
             danger: true);
         return force.Outcome == CtrlZ.App.Views.DialogOutcome.Primary &&
                await _services.BrowserProcesses.CloseAsync(browser.Browser, force: true);
