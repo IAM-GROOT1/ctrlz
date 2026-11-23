@@ -3,6 +3,7 @@
 
 using System.Globalization;
 using System.Resources;
+using CtrlZ.Core.Localization;
 
 namespace CtrlZ.App.Localization;
 

@@ -1,6 +1,7 @@
 // SPDX-License-Identifier: AGPL-3.0-only
 // Copyright (c) 2026 iam-groot1
 
+using CtrlZ.Core.Localization;
 using System.Diagnostics;
 using System.Security.Principal;
 using System.Text;
@@ -35,7 +36,7 @@ public static class ElevationService
         var executable = Environment.ProcessPath;
         if (string.IsNullOrWhiteSpace(executable))
         {
-            error = "CTRL+Z could not determine its own executable path.";
+            error = CoreText.Get("ElevationService_CTRLZCouldNotDetermine");
             return false;
         }
 
@@ -54,12 +55,12 @@ public static class ElevationService
         }
         catch (System.ComponentModel.Win32Exception ex) when (ex.NativeErrorCode == 1223)
         {
-            error = "Administrator access was declined.";
+            error = CoreText.Get("ElevationService_AdministratorAccessWasDeclined");
             return false;
         }
         catch (Exception ex)
         {
-            error = $"Could not restart with administrator access: {ex.Message}";
+            error = CoreText.Format("ElevationService_CouldNotRestartWithAdministrator", ex.Message);
             return false;
         }
     }

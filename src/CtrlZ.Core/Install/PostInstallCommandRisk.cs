@@ -1,6 +1,7 @@
 // SPDX-License-Identifier: AGPL-3.0-only
 // Copyright (c) 2026 iam-groot1
 
+using CtrlZ.Core.Localization;
 using System.Text.RegularExpressions;
 using CtrlZ.Core.Models;
 
@@ -19,14 +20,14 @@ public static class PostInstallCommandRisk
 
     private static readonly Rule[] Rules =
     {
-        R("downloads and runs remote content", @"(?i)\b(curl|wget|invoke-webrequest|iwr|downloadstring|start-bitstransfer|bitsadmin)\b"),
-        R("runs an encoded or hidden command", @"(?i)(-encodedcommand|-enc\s|-windowstyle\s+hidden|-w\s+hidden)"),
-        R("deletes or writes outside your folders", @"(?i)\b(remove-item|del|erase|rmdir|rd|format|takeown|icacls)\b.*\b[a-z]:\\"),
+        R(CoreText.Get("PostInstallCommandRisk_DownloadsAndRunsRemoteContent"), @"(?i)\b(curl|wget|invoke-webrequest|iwr|downloadstring|start-bitstransfer|bitsadmin)\b"),
+        R(CoreText.Get("PostInstallCommandRisk_RunsAnEncodedOrHidden"), @"(?i)(-encodedcommand|-enc\s|-windowstyle\s+hidden|-w\s+hidden)"),
+        R(CoreText.Get("PostInstallCommandRisk_DeletesOrWritesOutsideYour"), @"(?i)\b(remove-item|del|erase|rmdir|rd|format|takeown|icacls)\b.*\b[a-z]:\\"),
         // reg/sc are matched with or without ".exe", a full path and closing quote, so
         // "C:\Windows\System32\reg.exe add ..." is caught as well as "reg add ...".
-        R("changes the registry, services or scheduled tasks", @"(?i)\b(reg(\.exe)?""?\s+(add|delete)|regedit|sc(\.exe)?""?\s+(create|config|delete)|new-service|set-service|schtasks|new-scheduledtask)\b"),
-        R("changes startup entries", @"(?i)(\\run\b|\\runonce\b|\\startup\\)"),
-        R("weakens security settings", @"(?i)\b(set-mppreference|disableantispyware|disableantivirus|defender\s+disable)\b")
+        R(CoreText.Get("PostInstallCommandRisk_ChangesTheRegistryServicesOr"), @"(?i)\b(reg(\.exe)?""?\s+(add|delete)|regedit|sc(\.exe)?""?\s+(create|config|delete)|new-service|set-service|schtasks|new-scheduledtask)\b"),
+        R(CoreText.Get("PostInstallCommandRisk_ChangesStartupEntries"), @"(?i)(\\run\b|\\runonce\b|\\startup\\)"),
+        R(CoreText.Get("PostInstallCommandRisk_WeakensSecuritySettings"), @"(?i)\b(set-mppreference|disableantispyware|disableantivirus|defender\s+disable)\b")
     };
 
     /// <summary>Risky patterns found in the command, as plain-language labels.</summary>

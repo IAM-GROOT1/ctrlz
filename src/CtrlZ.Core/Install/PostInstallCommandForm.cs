@@ -1,6 +1,7 @@
 // SPDX-License-Identifier: AGPL-3.0-only
 // Copyright (c) 2026 iam-groot1
 
+using CtrlZ.Core.Localization;
 using CtrlZ.Core.Models;
 
 namespace CtrlZ.Core.Install;
@@ -69,25 +70,25 @@ public static class PostInstallCommandForm
 
         if (executable.Length == 0)
         {
-            return Fail("Enter the program to run, or clear the arguments to remove the command.");
+            return Fail(CoreText.Get("PostInstallCommandForm_EnterTheProgramToRun"));
         }
 
         if (executable.Contains('\n') || executable.Contains('\r'))
         {
-            return Fail("The program must be on one line. Put each argument on its own line below.");
+            return Fail(CoreText.Get("PostInstallCommandForm_TheProgramMustBeOn"));
         }
 
         if (!int.TryParse((input.TimeoutText ?? string.Empty).Trim(), System.Globalization.NumberStyles.None,
                 System.Globalization.CultureInfo.InvariantCulture, out var timeout) ||
             timeout < MinTimeoutSeconds || timeout > MaxTimeoutSeconds)
         {
-            return Fail($"Timeout must be a whole number of seconds from {MinTimeoutSeconds} to {MaxTimeoutSeconds}.");
+            return Fail(CoreText.Format("PostInstallCommandForm_TimeoutMustBeAWhole", MinTimeoutSeconds, MaxTimeoutSeconds));
         }
 
         var directory = (input.WorkingDirectory ?? string.Empty).Trim();
         if (directory.Length > 0 && !Path.IsPathFullyQualified(directory))
         {
-            return Fail("Working directory must be a full path, such as C:\\Tools, or left blank.");
+            return Fail(CoreText.Get("PostInstallCommandForm_WorkingDirectoryMustBeA"));
         }
 
         return new PostInstallCommandParse(new PostInstallCommand

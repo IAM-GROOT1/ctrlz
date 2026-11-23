@@ -1,6 +1,7 @@
 // SPDX-License-Identifier: AGPL-3.0-only
 // Copyright (c) 2026 iam-groot1
 
+using CtrlZ.Core.Localization;
 using CtrlZ.Core.Models;
 
 namespace CtrlZ.Core.Install;
@@ -73,12 +74,12 @@ public static class CommandStateResolver
     {
         var text = state switch
         {
-            CommandRunState.Enabled => "Runs after install",
-            CommandRunState.Approved => "Approved - runs after install",
-            CommandRunState.NeedsReview => "Edited since approval - needs review",
-            _ => "Blocked - imported profile, review required"
+            CommandRunState.Enabled => CoreText.Get("CommandStateResolver_RunsAfterInstall"),
+            CommandRunState.Approved => CoreText.Get("CommandStateResolver_ApprovedRunsAfterInstall"),
+            CommandRunState.NeedsReview => CoreText.Get("CommandStateResolver_EditedSinceApprovalNeedsReview"),
+            _ => CoreText.Get("CommandStateResolver_BlockedImportedProfileReviewRequired")
         };
 
-        return risky ? text + " - Warning: risky pattern" : text;
+        return risky ? text + CoreText.Get("CommandStateResolver_WarningRiskyPattern") : text;
     }
 }

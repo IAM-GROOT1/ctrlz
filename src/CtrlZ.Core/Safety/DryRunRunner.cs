@@ -1,6 +1,7 @@
 // SPDX-License-Identifier: AGPL-3.0-only
 // Copyright (c) 2026 iam-groot1
 
+using CtrlZ.Core.Localization;
 using System.Security.Cryptography.X509Certificates;
 using CtrlZ.Core.Infrastructure;
 using CtrlZ.Core.Models;
@@ -54,7 +55,7 @@ public sealed class DryRunRunner
         {
             cancellationToken.ThrowIfCancellationRequested();
             index++;
-            progress?.Report($"Checking {item.Name} ({index}/{plan.Count})…");
+            progress?.Report(CoreText.Format("DryRunRunner_Checking", item.Name, index, plan.Count));
 
             appsById.TryGetValue(item.AppId, out var app);
             results.Add(await CheckAsync(item, app, cancellationToken).ConfigureAwait(false));
@@ -71,7 +72,7 @@ public sealed class DryRunRunner
     {
         if (app is null)
         {
-            return Result(item, PlanCheckStatus.Failed, "The app is no longer in the profile.");
+            return Result(item, PlanCheckStatus.Failed, CoreText.Get("DryRunRunner_TheAppIsNoLonger"));
         }
 
         try
@@ -82,7 +83,7 @@ public sealed class DryRunRunner
                 AppSource.GitHub => await CheckGitHubAsync(item, app, cancellationToken).ConfigureAwait(false),
                 AppSource.DirectUrl => await CheckUrlAsync(item, app, cancellationToken).ConfigureAwait(false),
                 AppSource.LocalFile => CheckLocalFile(item, app),
-                _ => Result(item, PlanCheckStatus.Failed, "Unsupported source.")
+                _ => Result(item, PlanCheckStatus.Failed, CoreText.Get("DryRunRunner_UnsupportedSource"))
             };
         }
         catch (OperationCanceledException) when (cancellationToken.IsCancellationRequested)
@@ -91,7 +92,7 @@ public sealed class DryRunRunner
         }
         catch (Exception ex)
         {
-            return Result(item, PlanCheckStatus.Failed, "The check failed: " + ex.Message);
+            return Result(item, PlanCheckStatus.Failed, CoreText.Get("DryRunRunner_TheCheckFailed") + ex.Message);
         }
     }
 
@@ -99,7 +100,7 @@ public sealed class DryRunRunner
     {
         if (string.IsNullOrWhiteSpace(app.PackageId))
         {
-            return Result(item, PlanCheckStatus.Failed, "No winget package id is recorded.");
+            return Result(item, PlanCheckStatus.Failed, CoreText.Get("DryRunRunner_NoWingetPackageIdIs"));
         }
 
         var found = await _searchWinget(app.PackageId, cancellationToken).ConfigureAwait(false);
@@ -108,7 +109,7 @@ public sealed class DryRunRunner
 
         if (exact is null)
         {
-            return Result(item, PlanCheckStatus.Failed, $"winget cannot find '{app.PackageId}'.");
+            return Result(item, PlanCheckStatus.Failed, CoreText.Format("DryRunRunner_WingetCannotFind", app.PackageId));
         }
 
         var version = string.IsNullOrWhiteSpace(exact.AvailableVersion)
@@ -116,8 +117,8 @@ public sealed class DryRunRunner
             : exact.AvailableVersion;
 
         var message = string.IsNullOrWhiteSpace(version)
-            ? $"winget resolves {exact.Id}."
-            : $"winget resolves {exact.Id} (version {version}).";
+            ? CoreText.Format("DryRunRunner_WingetResolves", exact.Id)
+            : CoreText.Format("DryRunRunner_WingetResolvesVersion", exact.Id, version);
 
         return Result(item, PlanCheckStatus.Ready, message);
     }
@@ -126,7 +127,7 @@ public sealed class DryRunRunner
     {
         if (string.IsNullOrWhiteSpace(app.GitHubRepo))
         {
-            return Result(item, PlanCheckStatus.Failed, "No GitHub repository is recorded.");
+            return Result(item, PlanCheckStatus.Failed, CoreText.Get("DryRunRunner_NoGitHubRepositoryIsRecorded"));
         }
 
         var release = await _latestRelease(app.GitHubRepo, cancellationToken).ConfigureAwait(false);
@@ -135,7 +136,7 @@ public sealed class DryRunRunner
         if (asset is null)
         {
             return Result(item, PlanCheckStatus.Failed,
-                $"Release {release.TagName} has no asset that matches this app.");
+                CoreText.Format("DryRunRunner_ReleaseHasNoAssetThat", release.TagName));
         }
 
         var size = asset.Size > 0 ? asset.Size : (long?)null;
@@ -148,38 +149,38 @@ public sealed class DryRunRunner
             return Result(
                 item,
                 PlanCheckStatus.Warning,
-                $"The recorded asset '{app.GitHubAsset}' is not in release {release.TagName}; " +
-                $"the installer will fall back to '{asset.Name}'.",
+                CoreText.Format("DryRunRunner_TheRecordedAssetIsNot", app.GitHubAsset, release.TagName) +
+                CoreText.Format("DryRunRunner_TheInstallerWillFallBack", asset.Name),
                 size);
         }
 
-        return Result(item, PlanCheckStatus.Ready, $"Release {release.TagName} publishes {asset.Name}.", size);
+        return Result(item, PlanCheckStatus.Ready, CoreText.Format("DryRunRunner_ReleasePublishes", release.TagName, asset.Name), size);
     }
 
     private async Task<DryRunItem> CheckUrlAsync(InstallPlanItem item, AppEntry app, CancellationToken cancellationToken)
     {
         if (string.IsNullOrWhiteSpace(app.DownloadUrl))
         {
-            return Result(item, PlanCheckStatus.Failed, "No download URL is recorded.");
+            return Result(item, PlanCheckStatus.Failed, CoreText.Get("DryRunRunner_NoDownloadURLIsRecorded"));
         }
 
         try
         {
             var bytes = await _head(app.DownloadUrl, cancellationToken).ConfigureAwait(false);
             var message = bytes is > 0
-                ? $"The link responds ({FileUtil.FormatBytes(bytes.Value)})."
-                : "The link responds.";
+                ? CoreText.Format("DryRunRunner_TheLinkResponds", FileUtil.FormatBytes(bytes.Value))
+                : CoreText.Get("DryRunRunner_TheLinkResponds2");
 
             return Result(item, PlanCheckStatus.Ready, message, bytes);
         }
         catch (DownloadException ex) when (ex.StatusCode == 405)
         {
             return Result(item, PlanCheckStatus.Warning,
-                "The server does not support a HEAD check, so the link could not be verified.");
+                CoreText.Get("DryRunRunner_TheServerDoesNotSupport"));
         }
         catch (DownloadException ex)
         {
-            return Result(item, PlanCheckStatus.Failed, "The link did not respond: " + ex.Message);
+            return Result(item, PlanCheckStatus.Failed, CoreText.Get("DryRunRunner_TheLinkDidNotRespond") + ex.Message);
         }
     }
 
@@ -187,12 +188,12 @@ public sealed class DryRunRunner
     {
         if (string.IsNullOrWhiteSpace(app.LocalPath))
         {
-            return Result(item, PlanCheckStatus.Failed, "No local file is recorded.");
+            return Result(item, PlanCheckStatus.Failed, CoreText.Get("DryRunRunner_NoLocalFileIsRecorded"));
         }
 
         if (!_fileExists(app.LocalPath))
         {
-            return Result(item, PlanCheckStatus.Failed, "The installer file is not on this PC.");
+            return Result(item, PlanCheckStatus.Failed, CoreText.Get("DryRunRunner_TheInstallerFileIsNot"));
         }
 
         long? size = null;
@@ -206,8 +207,8 @@ public sealed class DryRunRunner
         }
 
         return _isSigned(app.LocalPath) == false
-            ? Result(item, PlanCheckStatus.Warning, "The installer is present but is not code-signed.", size)
-            : Result(item, PlanCheckStatus.Ready, "The installer file is present.", size);
+            ? Result(item, PlanCheckStatus.Warning, CoreText.Get("DryRunRunner_TheInstallerIsPresentBut"), size)
+            : Result(item, PlanCheckStatus.Ready, CoreText.Get("DryRunRunner_TheInstallerFileIsPresent"), size);
     }
 
     private static GitHubAsset? PickAsset(GitHubRelease release, AppEntry app)

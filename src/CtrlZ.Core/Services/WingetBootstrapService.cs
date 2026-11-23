@@ -1,6 +1,7 @@
 // SPDX-License-Identifier: AGPL-3.0-only
 // Copyright (c) 2026 iam-groot1
 
+using CtrlZ.Core.Localization;
 using System.Text.RegularExpressions;
 using CtrlZ.Core.Infrastructure;
 using CtrlZ.Core.Logging;
@@ -52,10 +53,10 @@ public sealed partial class WingetBootstrapService
     {
         if (await _winget.IsAvailableAsync(cancellationToken).ConfigureAwait(false))
         {
-            log($"winget {_winget.Version} is available.");
+            log(CoreText.Format("WingetBootstrapService_WingetIsAvailable", _winget.Version));
             if (TryParseVersion(_winget.Version, out var version) && version < MinimumRecommendedVersion)
             {
-                log($"winget {_winget.Version} is older than the recommended {MinimumRecommendedVersion}. Trying to update App Installer…");
+                log(CoreText.Format("WingetBootstrapService_WingetIsOlderThanThe", _winget.Version, MinimumRecommendedVersion));
                 var update = await _winget.UpgradeAppInstallerAsync(
                     line => { if (!string.IsNullOrWhiteSpace(line.Text)) log(line.Text.Trim()); },
                     cancellationToken).ConfigureAwait(false);
@@ -63,18 +64,18 @@ public sealed partial class WingetBootstrapService
                 {
                     _winget.ResetDiscovery();
                     await _winget.EnsureDiscoveredAsync(cancellationToken).ConfigureAwait(false);
-                    log("winget update completed.");
+                    log(CoreText.Get("WingetBootstrapService_WingetUpdateCompleted"));
                 }
                 else
                 {
-                    log("winget could not update itself automatically. The existing version will still be used.");
+                    log(CoreText.Get("WingetBootstrapService_WingetCouldNotUpdateItself"));
                 }
             }
 
             return true;
         }
 
-        log("winget is missing. Downloading Microsoft App Installer…");
+        log(CoreText.Get("WingetBootstrapService_WingetIsMissingDownloadingMicrosoft"));
         Directory.CreateDirectory(_paths.Downloads);
         try
         {
@@ -91,7 +92,7 @@ public sealed partial class WingetBootstrapService
                     "The App Installer download was unexpectedly small. Download it manually from https://aka.ms/getwinget.");
             }
 
-            log($"Downloaded App Installer ({FileUtil.FormatBytes(download.Size)}). Registering it…");
+            log(CoreText.Format("WingetBootstrapService_DownloadedAppInstallerRegisteringIt", FileUtil.FormatBytes(download.Size)));
             var script = $"Add-AppxPackage -Path '{download.Path.Replace("'", "''")}' -ForceApplicationShutdown";
             var result = await _runner.RunAsync(
                 "powershell.exe",
@@ -113,7 +114,7 @@ public sealed partial class WingetBootstrapService
             _winget.ResetDiscovery();
             if (await _winget.IsAvailableAsync(cancellationToken).ConfigureAwait(false))
             {
-                log($"winget {_winget.Version} is ready.");
+                log(CoreText.Format("WingetBootstrapService_WingetIsReady", _winget.Version));
                 return true;
             }
 

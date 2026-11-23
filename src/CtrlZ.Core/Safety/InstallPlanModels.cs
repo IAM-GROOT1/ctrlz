@@ -1,6 +1,7 @@
 // SPDX-License-Identifier: AGPL-3.0-only
 // Copyright (c) 2026 iam-groot1
 
+using CtrlZ.Core.Localization;
 using CtrlZ.Core.Models;
 
 namespace CtrlZ.Core.Safety;
@@ -121,9 +122,9 @@ public sealed record DryRunReport
     public string ToText()
     {
         var builder = new System.Text.StringBuilder();
-        builder.AppendLine("CTRL+Z dry run");
-        builder.AppendLine($"Profile: {ProfileName}");
-        builder.AppendLine($"Generated: {GeneratedUtc.ToLocalTime():yyyy-MM-dd HH:mm}");
+        builder.AppendLine(CoreText.Get("InstallPlanModels_CTRLZDryRun"));
+        builder.AppendLine(CoreText.Format("InstallPlanModels_Profile", ProfileName));
+        builder.AppendLine(CoreText.Format("InstallPlanModels_Generated", GeneratedUtc.ToLocalTime()));
         builder.AppendLine();
 
         foreach (var item in Items)
@@ -140,35 +141,35 @@ public sealed record DryRunReport
             builder.AppendLine($"       {item.Message}");
             if (ExportNotes.TryGetValue(item.AppId, out var note))
             {
-                builder.AppendLine($"       note: {note}");
+                builder.AppendLine(CoreText.Format("InstallPlanModels_Note", note));
             }
             if (item.DownloadBytes is > 0)
             {
-                builder.AppendLine($"       size: {Infrastructure.FileUtil.FormatBytes(item.DownloadBytes.Value)}");
+                builder.AppendLine(CoreText.Format("InstallPlanModels_Size", Infrastructure.FileUtil.FormatBytes(item.DownloadBytes.Value)));
             }
         }
 
         builder.AppendLine();
-        builder.AppendLine($"Summary: {ReadyCount} ready, {WarningCount} warnings, {FailedCount} failed");
+        builder.AppendLine(CoreText.Format("InstallPlanModels_SummaryReadyWarningsFailed", ReadyCount, WarningCount, FailedCount));
         if (KnownBytes > 0)
         {
-            builder.AppendLine($"Known download size: {Infrastructure.FileUtil.FormatBytes(KnownBytes)}");
+            builder.AppendLine(CoreText.Format("InstallPlanModels_KnownDownloadSize", Infrastructure.FileUtil.FormatBytes(KnownBytes)));
         }
 
         if (Commands.Count > 0)
         {
             builder.AppendLine();
-            builder.AppendLine("Post-install commands");
+            builder.AppendLine(CoreText.Get("InstallPlanModels_PostInstallCommands"));
             foreach (var command in Commands)
             {
                 builder.AppendLine($"  {command.Order}. {command.AppName}: {command.CommandText}");
                 builder.AppendLine($"       {command.StateText}");
             }
 
-            builder.AppendLine("No post-install command was run by this check.");
+            builder.AppendLine(CoreText.Get("InstallPlanModels_NoPostInstallCommandWas"));
         }
 
-        builder.AppendLine("Nothing was installed, downloaded to disk, or changed by this check.");
+        builder.AppendLine(CoreText.Get("InstallPlanModels_NothingWasInstalledDownloadedTo"));
         return builder.ToString();
     }
 }

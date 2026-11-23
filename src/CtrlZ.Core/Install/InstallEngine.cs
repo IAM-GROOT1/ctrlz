@@ -1,6 +1,7 @@
 // SPDX-License-Identifier: AGPL-3.0-only
 // Copyright (c) 2026 iam-groot1
 
+using CtrlZ.Core.Localization;
 using System.Text;
 using CtrlZ.Core.Infrastructure;
 using CtrlZ.Core.Logging;
@@ -129,8 +130,8 @@ public sealed partial class InstallEngine
         }
 
         using var sessionLog = new SessionLog(_paths, state, _log, sink);
-        sessionLog.Line($"CTRL+Z install session · profile '{profile.Name}' · {state.Items.Count} apps");
-        sessionLog.Line($"Running {(ElevationService.IsElevated ? "elevated" : "without elevation")}.");
+        sessionLog.Line(CoreText.Format("InstallEngine_CTRLZInstallSessionProfile", profile.Name, state.Items.Count));
+        sessionLog.Line(ElevationService.IsElevated ? CoreText.Get("InstallEngine_RunningElevated") : CoreText.Get("InstallEngine_RunningNotElevated"));
 
         ReconcileItems(state, profile);
         if (retryFailed)
@@ -159,7 +160,7 @@ public sealed partial class InstallEngine
             i.Status == InstallStatus.Queued && i.Source is AppSource.Winget or AppSource.MicrosoftStore);
         if (pendingWinget)
         {
-            sessionLog.Line("Checking winget availability…");
+            sessionLog.Line(CoreText.Get("InstallEngine_CheckingWingetAvailability"));
             try
             {
                 await _wingetBootstrap.EnsureReadyAsync(sessionLog.Line, cancellationToken).ConfigureAwait(false);
@@ -170,7 +171,7 @@ public sealed partial class InstallEngine
             }
             catch (Exception ex)
             {
-                sessionLog.Line("winget is not ready: " + ex.Message);
+                sessionLog.Line(CoreText.Get("InstallEngine_WingetIsNotReady") + ex.Message);
                 _log.Write(LogLevel.Warning, "winget bootstrap failed; winget apps may need manual action.", ex);
             }
         }
@@ -193,13 +194,13 @@ public sealed partial class InstallEngine
             index++;
             if (item.Status is InstallStatus.Success or InstallStatus.Skipped or InstallStatus.RebootRequired)
             {
-                sessionLog.Report(item, InstallStatus.Success, item.Detail ?? "Already complete.", 1);
+                sessionLog.Report(item, InstallStatus.Success, item.Detail ?? CoreText.Get("InstallEngine_AlreadyComplete"), 1);
                 continue;
             }
 
             if (item.Status is InstallStatus.Failed or InstallStatus.NeedsManualAction)
             {
-                sessionLog.Line($"Skipping failed app '{item.Name}' (use Retry failed to try again).");
+                sessionLog.Line(CoreText.Format("InstallEngine_SkippingFailedAppUseRetry", item.Name));
                 continue;
             }
 
@@ -207,7 +208,7 @@ public sealed partial class InstallEngine
             if (app is null || !app.Enabled)
             {
                 item.Status = InstallStatus.Skipped;
-                item.Detail = "Removed from the profile.";
+                item.Detail = CoreText.Get("InstallEngine_RemovedFromTheProfile");
                 _stateStore.Save(state);
                 continue;
             }
@@ -216,7 +217,7 @@ public sealed partial class InstallEngine
             // a stopped app is itself marked failed before its dependents are reached).
             var blocker = BlockingDependency(state, plan, item.AppId);
             var notAttempted = blocker is not null
-                ? $"{NotAttemptedPrefix}needs {blocker.Name}, which did not install."
+                ? CoreText.Format("InstallEngine_NeedsWhichDidNotInstall", NotAttemptedPrefix, blocker.Name)
                 : loopReasons.TryGetValue(item.AppId, out var loopReason) ? NotAttemptedPrefix + loopReason : null;
             if (notAttempted is not null)
             {
@@ -234,7 +235,7 @@ public sealed partial class InstallEngine
             if (installer is null)
             {
                 item.Status = InstallStatus.NeedsManualAction;
-                item.Error = $"No installer is available for {app.Source}.";
+                item.Error = CoreText.Format("InstallEngine_NoInstallerIsAvailableFor", app.Source);
                 item.UpdatedUtc = DateTimeOffset.UtcNow;
                 _stateStore.Save(state);
                 sessionLog.Line($"[{item.Name}] {item.Error}");
@@ -244,7 +245,7 @@ public sealed partial class InstallEngine
             item.Status = InstallStatus.Preparing;
             item.Attempts++;
             item.Error = null;
-            item.Detail = $"Starting ({index}/{total})…";
+            item.Detail = CoreText.Format("InstallEngine_Starting", index, total);
             item.UpdatedUtc = DateTimeOffset.UtcNow;
             _stateStore.Save(state);
             sessionLog.Line($"[{index}/{total}] {app.Name} — {app.Source.Display()}");
@@ -260,9 +261,9 @@ public sealed partial class InstallEngine
                 if (result.Status == InstallStatus.RebootRequired)
                 {
                     item.Status = InstallStatus.RebootRequired;
-                    item.Detail = result.Detail ?? "Restart required.";
+                    item.Detail = result.Detail ?? CoreText.Get("InstallEngine_RestartRequired");
                     state.RebootRequested = true;
-                    sessionLog.Line($"[{item.Name}] installed; a restart is required.");
+                    sessionLog.Line(CoreText.Format("InstallEngine_InstalledARestartIsRequired", item.Name));
                 }
                 else if (result.Success)
                 {
@@ -275,23 +276,23 @@ public sealed partial class InstallEngine
                     item.Status = InstallStatus.NeedsManualAction;
                     item.Error = result.Error ?? result.Detail;
                     item.Detail = result.Detail;
-                    sessionLog.Line($"[{item.Name}] needs manual action: {item.Error}");
+                    sessionLog.Line(CoreText.Format("InstallEngine_NeedsManualAction", item.Name, item.Error));
                 }
                 else
                 {
                     item.Status = InstallStatus.Failed;
                     item.Error = result.Error;
                     item.Detail = result.Detail;
-                    sessionLog.Line($"[{item.Name}] failed: {item.Error}");
+                    sessionLog.Line(CoreText.Format("InstallEngine_Failed", item.Name, item.Error));
                 }
             }
             catch (OperationCanceledException)
             {
                 item.Status = InstallStatus.Queued;
-                item.Detail = "Paused.";
+                item.Detail = CoreText.Get("InstallEngine_Paused");
                 item.UpdatedUtc = DateTimeOffset.UtcNow;
                 _stateStore.Save(state);
-                sessionLog.Line($"[{item.Name}] installation paused.");
+                sessionLog.Line(CoreText.Format("InstallEngine_InstallationPaused", item.Name));
                 throw;
             }
             catch (Exception ex)
@@ -300,7 +301,7 @@ public sealed partial class InstallEngine
                 item.Error = ex.Message;
                 item.UpdatedUtc = DateTimeOffset.UtcNow;
                 _log.Write(LogLevel.Error, $"Unexpected failure installing {app.Name}.", ex);
-                sessionLog.Line($"[{item.Name}] unexpected failure: {ex.Message}");
+                sessionLog.Line(CoreText.Format("InstallEngine_UnexpectedFailure", item.Name, ex.Message));
             }
 
             _stateStore.Save(state);
@@ -312,23 +313,23 @@ public sealed partial class InstallEngine
                 switch (outcome.Kind)
                 {
                     case PostInstallOutcomeKind.Blocked:
-                        item.Detail = $"Installed; command not run ({outcome.Reason}).";
-                        sessionLog.Line($"[{item.Name}] post-install command not run: {outcome.Reason}");
+                        item.Detail = CoreText.Format("InstallEngine_InstalledCommandNotRun", outcome.Reason);
+                        sessionLog.Line(CoreText.Format("InstallEngine_PostInstallCommandNotRun", item.Name, outcome.Reason));
                         break;
 
                     case PostInstallOutcomeKind.Ran:
-                        item.Detail = "Installed; post-install command ok.";
-                        sessionLog.Line($"[{item.Name}] post-install command ok.");
+                        item.Detail = CoreText.Get("InstallEngine_InstalledPostInstallCommandOk");
+                        sessionLog.Line(CoreText.Format("InstallEngine_PostInstallCommandOk", item.Name));
                         break;
 
                     case PostInstallOutcomeKind.Failed:
                     case PostInstallOutcomeKind.TimedOut:
                         item.Status = InstallStatus.PostInstallFailed;
                         item.Error = outcome.Kind == PostInstallOutcomeKind.TimedOut
-                            ? "Post-install command timed out."
-                            : $"Post-install command failed ({outcome.ExitCode}).";
-                        item.Detail = "Installed, post-install failed.";
-                        sessionLog.Line($"[{item.Name}] installed, post-install failed ({outcome.Kind}).");
+                            ? CoreText.Get("InstallEngine_PostInstallCommandTimedOut")
+                            : CoreText.Format("InstallEngine_PostInstallCommandFailed", outcome.ExitCode);
+                        item.Detail = CoreText.Get("InstallEngine_InstalledPostInstallFailed");
+                        sessionLog.Line(CoreText.Format("InstallEngine_InstalledPostInstallFailed2", item.Name, outcome.Kind));
                         break;
                 }
             }
@@ -340,15 +341,15 @@ public sealed partial class InstallEngine
 
         state.IsFinished = true;
         state.LastError = state.FailedCount > 0
-            ? $"{state.FailedCount} app{(state.FailedCount == 1 ? string.Empty : "s")} need attention."
+            ? CoreText.Plural("InstallEngine_AppsNeedAttention", state.FailedCount)
             : null;
         _stateStore.Save(state);
 
         sessionLog.Line(string.Empty);
-        sessionLog.Line($"Finished: {state.CompletedCount} complete, {state.FailedCount} need attention.");
+        sessionLog.Line(CoreText.Format("InstallEngine_FinishedCompleteNeedAttention", state.CompletedCount, state.FailedCount));
         if (state.RebootRequested)
         {
-            sessionLog.Line("One or more installers requested a restart. Restart Windows when convenient.");
+            sessionLog.Line(CoreText.Get("InstallEngine_OneOrMoreInstallersRequested"));
         }
 
         return state;
@@ -398,7 +399,7 @@ public sealed partial class InstallEngine
                 if (item.Status is InstallStatus.Queued or InstallStatus.Preparing)
                 {
                     item.Status = InstallStatus.Skipped;
-                    item.Detail = "Not in the active profile.";
+                    item.Detail = CoreText.Get("InstallEngine_NotInTheActiveProfile");
                 }
             }
             else

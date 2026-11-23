@@ -1,6 +1,8 @@
 // SPDX-License-Identifier: AGPL-3.0-only
 // Copyright (c) 2026 iam-groot1
 
+using CtrlZ.Core.Localization;
+
 namespace CtrlZ.Core.Safety;
 
 /// <summary>A user folder to size up, with the label shown in the UI.</summary>
@@ -59,23 +61,23 @@ public static class ReadinessReminders
 
     public static readonly IReadOnlyList<Reminder> All =
     [
-        new("export-password-manager", "Export your password manager",
-            "A clean install removes browser password stores and any local vault.",
-            "Export an encrypted copy to external media you will still have after the wipe."),
-        new("license-keys", "Note your licence keys",
-            "Some paid applications need the original key to activate again.",
-            "Keep the keys in your password manager or another machine."),
-        new("deactivate-software", "Deactivate licensed software",
-            "Many licences allow only one machine at a time and will refuse to activate after a wipe.",
-            "Deactivate inside each application before you wipe."),
-        new("sign-out", "Sign out of services",
-            "Old devices left signed in can lock you out or leave stale sessions.",
-            "Sign out of the accounts you will re-add later."),
-        new("wifi-passwords", "Save your Wi-Fi passwords",
-            "Windows may not remember your networks after a reinstall.",
-            "Write them down or store them in your password manager."),
-        new("recovery-keys", "Check your recovery keys",
-            "BitLocker and account recovery keys stored only on this PC are lost when it is wiped.",
-            "Confirm you can reach those keys from another device.")
+        new("export-password-manager", CoreText.Get("ReadinessRequest_ExportYourPasswordManager"),
+            CoreText.Get("ReadinessRequest_ACleanInstallRemovesBrowser"),
+            CoreText.Get("ReadinessRequest_ExportAnEncryptedCopyTo")),
+        new("license-keys", CoreText.Get("ReadinessRequest_NoteYourLicenceKeys"),
+            CoreText.Get("ReadinessRequest_SomePaidApplicationsNeedThe"),
+            CoreText.Get("ReadinessRequest_KeepTheKeysInYour")),
+        new("deactivate-software", CoreText.Get("ReadinessRequest_DeactivateLicensedSoftware"),
+            CoreText.Get("ReadinessRequest_ManyLicencesAllowOnlyOne"),
+            CoreText.Get("ReadinessRequest_DeactivateInsideEachApplicationBefore")),
+        new("sign-out", CoreText.Get("ReadinessRequest_SignOutOfServices"),
+            CoreText.Get("ReadinessRequest_OldDevicesLeftSignedIn"),
+            CoreText.Get("ReadinessRequest_SignOutOfTheAccounts")),
+        new("wifi-passwords", CoreText.Get("ReadinessRequest_SaveYourWiFiPasswords"),
+            CoreText.Get("ReadinessRequest_WindowsMayNotRememberYour"),
+            CoreText.Get("ReadinessRequest_WriteThemDownOrStore")),
+        new("recovery-keys", CoreText.Get("ReadinessRequest_CheckYourRecoveryKeys"),
+            CoreText.Get("ReadinessRequest_BitLockerAndAccountRecoveryKeys"),
+            CoreText.Get("ReadinessRequest_ConfirmYouCanReachThose"))
     ];
 }

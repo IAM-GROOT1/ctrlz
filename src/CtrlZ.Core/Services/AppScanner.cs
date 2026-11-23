@@ -1,6 +1,7 @@
 // SPDX-License-Identifier: AGPL-3.0-only
 // Copyright (c) 2026 iam-groot1
 
+using CtrlZ.Core.Localization;
 using CtrlZ.Core.Infrastructure;
 using CtrlZ.Core.Logging;
 using CtrlZ.Core.Models;
@@ -46,7 +47,7 @@ public sealed class AppScanner
     public async Task<ScanResult> ScanAsync(IProgress<ScanProgress>? progress = null, CancellationToken cancellationToken = default)
     {
         var warnings = new List<string>();
-        progress?.Report(new ScanProgress("Looking for winget packages", 0, 4));
+        progress?.Report(new ScanProgress(CoreText.Get("AppScanner_LookingForWingetPackages"), 0, 4));
 
         IReadOnlyList<WingetPackage> wingetPackages;
         try
@@ -56,12 +57,12 @@ public sealed class AppScanner
         catch (Exception ex)
         {
             _log.Write(LogLevel.Warning, "winget inventory failed; continuing with registry and Store.", ex);
-            warnings.Add("winget inventory could not be read. Matching will be less accurate.");
+            warnings.Add(CoreText.Get("AppScanner_WingetInventoryCouldNotBe"));
             wingetPackages = Array.Empty<WingetPackage>();
         }
 
         cancellationToken.ThrowIfCancellationRequested();
-        progress?.Report(new ScanProgress("Reading installed programs", 1, 4));
+        progress?.Report(new ScanProgress(CoreText.Get("AppScanner_ReadingInstalledPrograms"), 1, 4));
         IReadOnlyList<ScannedApp> registryApps;
         try
         {
@@ -70,12 +71,12 @@ public sealed class AppScanner
         catch (Exception ex)
         {
             _log.Write(LogLevel.Error, "Registry scan failed.", ex);
-            warnings.Add("The registry could not be read. Try running CTRL+Z as administrator.");
+            warnings.Add(CoreText.Get("AppScanner_TheRegistryCouldNotBe"));
             registryApps = Array.Empty<ScannedApp>();
         }
 
         cancellationToken.ThrowIfCancellationRequested();
-        progress?.Report(new ScanProgress("Reading Microsoft Store apps", 2, 4));
+        progress?.Report(new ScanProgress(CoreText.Get("AppScanner_ReadingMicrosoftStoreApps"), 2, 4));
         IReadOnlyList<ScannedApp> storeApps;
         try
         {
@@ -84,12 +85,12 @@ public sealed class AppScanner
         catch (Exception ex)
         {
             _log.Write(LogLevel.Warning, "Store scan failed; continuing.", ex);
-            warnings.Add("Microsoft Store apps could not be read. Windows may be restricting Appx queries.");
+            warnings.Add(CoreText.Get("AppScanner_MicrosoftStoreAppsCouldNot"));
             storeApps = Array.Empty<ScannedApp>();
         }
 
         cancellationToken.ThrowIfCancellationRequested();
-        progress?.Report(new ScanProgress("Matching apps to winget", 3, 4));
+        progress?.Report(new ScanProgress(CoreText.Get("AppScanner_MatchingAppsToWinget"), 3, 4));
 
         var registryResults = await Task.Run(
             () => registryApps.Select(app => ApplyMatch(app, wingetPackages)).ToList(),
@@ -161,7 +162,7 @@ public sealed class AppScanner
                 MatchedWingetId = package.Id,
                 MatchKind = WingetMatchKind.Exact,
                 MatchScore = 100,
-                MatchReason = "Reported directly by winget."
+                MatchReason = CoreText.Get("AppScanner_ReportedDirectlyByWinget")
             });
             representedIds.Add(package.Id);
             representedNames.Add(package.Name);
@@ -184,7 +185,7 @@ public sealed class AppScanner
         _log.Write(LogLevel.Info,
             $"Scan complete: {result.Apps.Count} apps, {result.MatchedCount} matched, {result.UnmatchedCount} unmatched.");
         progress?.Report(new ScanProgress(
-            "Scan complete", 4, 4, $"{result.Apps.Count} apps found", IsComplete: true));
+            CoreText.Get("AppScanner_ScanComplete"), 4, 4, CoreText.Format("AppScanner_AppsFound", result.Apps.Count), IsComplete: true));
         return result;
     }
 
@@ -197,7 +198,7 @@ public sealed class AppScanner
         app.MatchedWingetId = match.PackageId;
         if (app.MatchKind == WingetMatchKind.Weak && app.Notes is null)
         {
-            app.Notes = "Weak winget match; review before installing.";
+            app.Notes = CoreText.Get("AppScanner_WeakWingetMatchReviewBefore");
         }
 
         return app;

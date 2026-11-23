@@ -1,6 +1,7 @@
 // SPDX-License-Identifier: AGPL-3.0-only
 // Copyright (c) 2026 iam-groot1
 
+using CtrlZ.Core.Localization;
 using CtrlZ.Core.Models;
 
 namespace CtrlZ.Core.Services;
@@ -12,8 +13,8 @@ public sealed record MissingBrowserAdvice(string BrowserId, string BrowserName, 
 
     /// <summary>The steps after installing: a browser creates its profile folder on its first start.</summary>
     public string NextSteps => Family == BrowserFamily.Firefox
-        ? $"Open {BrowserName} once so it creates its profile, close it, then press Refresh and restore."
-        : $"Open {BrowserName} once so it creates its data folder, close it, then press Refresh and restore.";
+        ? CoreText.Format("BrowserInstallHelp_OpenOnceSoItCreates", BrowserName)
+        : CoreText.Format("BrowserInstallHelp_OpenOnceSoItCreates2", BrowserName);
 }
 
 /// <summary>

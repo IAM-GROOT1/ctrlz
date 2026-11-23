@@ -1,6 +1,7 @@
 // SPDX-License-Identifier: AGPL-3.0-only
 // Copyright (c) 2026 iam-groot1
 
+using CtrlZ.Core.Localization;
 using CtrlZ.Core.Models;
 
 namespace CtrlZ.Core.Install;
@@ -78,12 +79,12 @@ public sealed class PostInstallCommandGate
             if (approval == ApprovalState.Outdated)
             {
                 return new CommandVerdict(app, command, CommandDecision.NeedsReview,
-                    "This command changed after it was approved. Review it again to enable it.", risks);
+                    CoreText.Get("PostInstallCommandGate_ThisCommandChangedAfterIt"), risks);
             }
 
             var reason = profileOrigin == ProfileOrigin.Imported
-                ? "This profile came from outside this PC. Review the command to enable it."
-                : "This profile has no local origin record, so its commands stay disabled.";
+                ? CoreText.Get("PostInstallCommandGate_ThisProfileCameFromOutside")
+                : CoreText.Get("PostInstallCommandGate_ThisProfileHasNoLocal");
 
             return new CommandVerdict(app, command, CommandDecision.BlockedUntrusted, reason, risks);
         }
@@ -91,28 +92,28 @@ public sealed class PostInstallCommandGate
         if (profileOrigin != ProfileOrigin.Local && approved && !command.Enabled)
         {
             // Approved but switched off in the file: still disabled.
-            return new CommandVerdict(app, command, CommandDecision.Disabled, "Disabled in the profile.", risks);
+            return new CommandVerdict(app, command, CommandDecision.Disabled, CoreText.Get("PostInstallCommandGate_DisabledInTheProfile"), risks);
         }
 
         if (profileOrigin == ProfileOrigin.Local && !command.Enabled)
         {
-            return new CommandVerdict(app, command, CommandDecision.Disabled, "Disabled in the profile.", risks);
+            return new CommandVerdict(app, command, CommandDecision.Disabled, CoreText.Get("PostInstallCommandGate_DisabledInTheProfile"), risks);
         }
 
         if (profileOrigin == ProfileOrigin.Imported && approved)
         {
             return risks.Count > 0
                 ? new CommandVerdict(app, command, CommandDecision.RiskyNeedsConfirmation,
-                    "Approved for this profile, but it matches a risky pattern.", risks)
-                : new CommandVerdict(app, command, CommandDecision.Run, "Reviewed and approved for this profile.", risks);
+                    CoreText.Get("PostInstallCommandGate_ApprovedForThisProfileBut"), risks)
+                : new CommandVerdict(app, command, CommandDecision.Run, CoreText.Get("PostInstallCommandGate_ReviewedAndApprovedForThis"), risks);
         }
 
         if (risks.Count > 0)
         {
             return new CommandVerdict(app, command, CommandDecision.RiskyNeedsConfirmation,
-                "Matches a risky pattern; needs a strong confirmation every run.", risks);
+                CoreText.Get("PostInstallCommandGate_MatchesARiskyPatternNeeds"), risks);
         }
 
-        return new CommandVerdict(app, command, CommandDecision.Run, "Local profile command.", risks);
+        return new CommandVerdict(app, command, CommandDecision.Run, CoreText.Get("PostInstallCommandGate_LocalProfileCommand"), risks);
     }
 }

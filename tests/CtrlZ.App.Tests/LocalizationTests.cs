@@ -6,6 +6,7 @@ using System.IO;
 using System.Text.RegularExpressions;
 using System.Xml.Linq;
 using CtrlZ.App.Localization;
+using CtrlZ.Core.Localization;
 using Xunit;
 
 namespace CtrlZ.App.Tests;
@@ -18,13 +19,21 @@ namespace CtrlZ.App.Tests;
 public class LocalizationTests
 {
     private static readonly Regex XamlKey = new(@"\{l:Tr (?<key>[A-Za-z0-9_]+)\}");
-    private static readonly Regex CodeKey = new(@"\bLoc\.(?<kind>Get|Format|Plural)\(\s*""(?<key>[A-Za-z0-9_]+)""");
+    private static readonly Regex AppCodeKey = new(@"\bLoc\.(?<kind>Get|Format|Plural)\(\s*""(?<key>[A-Za-z0-9_]+)""");
+    private static readonly Regex CoreCodeKey = new(@"\bCoreText\.(?<kind>Get|Format|Plural)\(\s*""(?<key>[A-Za-z0-9_]+)""");
     private static readonly Regex Placeholder = new(@"\{(\d+)(?:[,:][^}]*)?\}");
 
     private static readonly Regex LiteralTextAttribute = new(
         @"(?<=\s)(?:Text|Content|Header|ToolTip|Title|AutomationProperties\.Name|AutomationProperties\.HelpText)=""(?<value>[^""{][^""]*|\{\}[^""]*)""");
 
-    private static string AppFolder()
+    /// <summary>The two resource sets: the app's screens ("app") and the core library ("core").</summary>
+    private sealed record TextSet(string Project, string ResourceName, Regex CodeKey);
+
+    private static TextSet Set(string name) => name == "core"
+        ? new TextSet("CtrlZ.Core", "CoreStrings", CoreCodeKey)
+        : new TextSet("CtrlZ.App", "Strings", AppCodeKey);
+
+    private static string SrcFolder()
     {
         var directory = new DirectoryInfo(AppContext.BaseDirectory);
         while (directory is not null && !Directory.Exists(Path.Combine(directory.FullName, "src", "CtrlZ.App")))
@@ -34,11 +43,11 @@ public class LocalizationTests
 
         return directory is null
             ? throw new DirectoryNotFoundException("Could not find src/CtrlZ.App above the test output.")
-            : Path.Combine(directory.FullName, "src", "CtrlZ.App");
+            : Path.Combine(directory.FullName, "src");
     }
 
-    private static IEnumerable<string> SourceFiles(string pattern) =>
-        Directory.EnumerateFiles(AppFolder(), pattern, SearchOption.AllDirectories)
+    private static IEnumerable<string> SourceFiles(string pattern, string project = "CtrlZ.App") =>
+        Directory.EnumerateFiles(Path.Combine(SrcFolder(), project), pattern, SearchOption.AllDirectories)
             .Where(path => !path.Contains(Path.DirectorySeparatorChar + "obj" + Path.DirectorySeparatorChar) &&
                            !path.Contains(Path.DirectorySeparatorChar + "bin" + Path.DirectorySeparatorChar));
 
@@ -46,25 +55,31 @@ public class LocalizationTests
         XDocument.Load(path).Root!.Elements("data")
             .ToDictionary(d => (string)d.Attribute("name")!, d => (string?)d.Element("value") ?? string.Empty, StringComparer.Ordinal);
 
-    private static string EnglishPath() => Path.Combine(AppFolder(), "Resources", "Strings.resx");
+    private static string EnglishPath(TextSet set) =>
+        Path.Combine(SrcFolder(), set.Project, "Resources", set.ResourceName + ".resx");
 
     /// <summary>Plural forms a translation may add beyond English's One and Other.</summary>
     private static readonly HashSet<string> PluralExtras = new(StringComparer.Ordinal);
 
-    private static HashSet<string> UsedKeys()
+    private static HashSet<string> UsedKeys(TextSet set)
     {
         var used = new HashSet<string>(StringComparer.Ordinal);
-        foreach (var file in SourceFiles("*.xaml"))
+        if (set.Project == "CtrlZ.App")
         {
-            foreach (Match match in XamlKey.Matches(File.ReadAllText(file)))
+            foreach (var file in SourceFiles("*.xaml"))
             {
-                used.Add(match.Groups["key"].Value);
+                foreach (Match match in XamlKey.Matches(File.ReadAllText(file)))
+                {
+                    used.Add(match.Groups["key"].Value);
+                }
             }
         }
 
-        foreach (var file in SourceFiles("*.cs"))
+        // Core text can also be read by the app and the command line, so scan every project.
+        var projects = set.Project == "CtrlZ.App" ? ["CtrlZ.App"] : new[] { "CtrlZ.Core", "CtrlZ.App", "CtrlZ.Cli" };
+        foreach (var file in projects.SelectMany(project => SourceFiles("*.cs", project)))
         {
-            foreach (Match match in CodeKey.Matches(File.ReadAllText(file)))
+            foreach (Match match in set.CodeKey.Matches(File.ReadAllText(file)))
             {
                 var key = match.Groups["key"].Value;
                 if (match.Groups["kind"].Value == "Plural")
@@ -87,27 +102,35 @@ public class LocalizationTests
         return used;
     }
 
-    [Fact]
-    public void Every_key_the_app_uses_has_English_text()
+    [Theory]
+    [InlineData("app")]
+    [InlineData("core")]
+    public void Every_key_the_code_uses_has_English_text(string setName)
     {
-        var english = ReadResx(EnglishPath());
-        var missing = UsedKeys().Where(key => !english.ContainsKey(key)).OrderBy(k => k).ToList();
-        Assert.True(missing.Count == 0, "Keys used but missing from Strings.resx:\n" + string.Join("\n", missing));
+        var set = Set(setName);
+        var english = ReadResx(EnglishPath(set));
+        var missing = UsedKeys(set).Where(key => !english.ContainsKey(key)).OrderBy(k => k).ToList();
+        Assert.True(missing.Count == 0, $"Keys used but missing from {set.ResourceName}.resx:\n" + string.Join("\n", missing));
     }
 
-    [Fact]
-    public void No_English_text_is_left_unused()
+    [Theory]
+    [InlineData("app")]
+    [InlineData("core")]
+    public void No_English_text_is_left_unused(string setName)
     {
-        var used = UsedKeys();
-        var unused = ReadResx(EnglishPath()).Keys.Where(key => !used.Contains(key)).OrderBy(k => k).ToList();
-        Assert.True(unused.Count == 0, "Keys in Strings.resx that nothing uses:\n" + string.Join("\n", unused));
+        var set = Set(setName);
+        var used = UsedKeys(set);
+        var unused = ReadResx(EnglishPath(set)).Keys.Where(key => !used.Contains(key)).OrderBy(k => k).ToList();
+        Assert.True(unused.Count == 0, $"Keys in {set.ResourceName}.resx that nothing uses:\n" + string.Join("\n", unused));
     }
 
-    [Fact]
-    public void Keys_differ_by_more_than_letter_case()
+    [Theory]
+    [InlineData("app")]
+    [InlineData("core")]
+    public void Keys_differ_by_more_than_letter_case(string setName)
     {
         // .resx names are case-insensitive when compiled, so "Notes" and "NOTES" would collide.
-        var duplicates = XDocument.Load(EnglishPath()).Root!.Elements("data")
+        var duplicates = XDocument.Load(EnglishPath(Set(setName))).Root!.Elements("data")
             .GroupBy(d => (string)d.Attribute("name")!, StringComparer.OrdinalIgnoreCase)
             .Where(g => g.Count() > 1)
             .Select(g => g.Key)
@@ -137,20 +160,23 @@ public class LocalizationTests
         Assert.True(literals.Count == 0, "Use {l:Tr Key} for this text:\n" + string.Join("\n", literals));
     }
 
-    [Fact]
-    public void Translations_use_the_same_keys_and_placeholders_as_English()
+    [Theory]
+    [InlineData("app")]
+    [InlineData("core")]
+    public void Translations_use_the_same_keys_and_placeholders_as_English(string setName)
     {
-        var english = ReadResx(EnglishPath());
+        var set = Set(setName);
+        var english = ReadResx(EnglishPath(set));
         var problems = new List<string>();
-        foreach (var path in Directory.EnumerateFiles(Path.GetDirectoryName(EnglishPath())!, "Strings.*.resx"))
+        foreach (var path in Directory.EnumerateFiles(Path.GetDirectoryName(EnglishPath(set))!, set.ResourceName + ".*.resx"))
         {
-            var language = Path.GetFileNameWithoutExtension(path)["Strings.".Length..];
+            var language = Path.GetFileNameWithoutExtension(path)[(set.ResourceName.Length + 1)..];
             _ = CultureInfo.GetCultureInfo(language); // throws for a file name that is not a language
             foreach (var (key, value) in ReadResx(path))
             {
                 if (!english.TryGetValue(key, out var source))
                 {
-                    _ = UsedKeys();
+                    _ = UsedKeys(set);
                     var pluralBase = key[..Math.Max(key.LastIndexOf('_'), 0)];
                     if (PluralExtras.Contains(key) && english.TryGetValue(pluralBase + "_Other", out var other))
                     {
@@ -190,6 +216,7 @@ public class LocalizationTests
         Assert.Equal("1 app", Loc.Plural("MyApps_AppCount", 1));
         Assert.Equal("3 apps", Loc.Plural("MyApps_AppCount", 3));
         Assert.Equal("Added 2 apps to \"Home\"", Loc.Plural("Catalog_AddedApps", 2, "Home"));
+        Assert.Equal("Age: 1 day", CoreText.Plural("ReadinessScanner_AgeDays", 1));
     }
 
     [Theory]

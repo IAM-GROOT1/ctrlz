@@ -1,6 +1,7 @@
 // SPDX-License-Identifier: AGPL-3.0-only
 // Copyright (c) 2026 iam-groot1
 
+using CtrlZ.Core.Localization;
 using System.IO.Compression;
 using CtrlZ.Core.Infrastructure;
 using CtrlZ.Core.Logging;
@@ -66,7 +67,7 @@ public sealed class FileInstallService
         }
 
         _log.Write(LogLevel.Warning, $"Refused {app.Name}: broken installer signature (0x{check.Code:X8}).");
-        context.Report(app, InstallStatus.Failed, "Installer signature is broken.");
+        context.Report(app, InstallStatus.Failed, CoreText.Get("FileInstallService_InstallerSignatureIsBroken"));
         return InstallResult.Fail(check.Describe());
     }
 
@@ -80,7 +81,7 @@ public sealed class FileInstallService
 
         if (_shortcuts.Create(app.Name, executable) is not null)
         {
-            context.Line($"Added {app.Name} to the Start menu.");
+            context.Line(CoreText.Format("FileInstallService_AddedToTheStartMenu", app.Name));
         }
     }
 
@@ -93,7 +94,7 @@ public sealed class FileInstallService
     {
         if (!File.Exists(localPath))
         {
-            return InstallResult.Fail($"The downloaded installer no longer exists: {localPath}");
+            return InstallResult.Fail(CoreText.Format("FileInstallService_TheDownloadedInstallerNoLonger", localPath));
         }
 
         var extension = Path.GetExtension(localPath).ToLowerInvariant();
@@ -151,7 +152,7 @@ public sealed class FileInstallService
 
         if (string.IsNullOrWhiteSpace(custom) && type == InstallerType.Unknown)
         {
-            context.Line("Installer type was not recognized; using /S. Test the switches if the installer opens a window.");
+            context.Line(CoreText.Get("FileInstallService_InstallerTypeWasNotRecognized"));
         }
 
         string fileName;
@@ -169,8 +170,8 @@ public sealed class FileInstallService
             commandLine = arguments;
         }
 
-        context.Line($"Detected {type.DisplayName()}; running: {SilentInstallerCatalog.BuildDisplayCommand(installerPath, arguments)}");
-        context.Report(app, InstallStatus.Installing, $"Installing silently with {type.DisplayName()}.");
+        context.Line(CoreText.Format("FileInstallService_DetectedRunning", type.DisplayName(), SilentInstallerCatalog.BuildDisplayCommand(installerPath, arguments)));
+        context.Report(app, InstallStatus.Installing, CoreText.Format("FileInstallService_InstallingSilentlyWith", type.DisplayName()));
 
         var result = await _runner.RunCommandLineAsync(
             fileName,
@@ -192,26 +193,26 @@ public sealed class FileInstallService
 
         if (result.TimedOut)
         {
-            context.Report(app, InstallStatus.Failed, "Installer timed out. Review the silent switches.");
+            context.Report(app, InstallStatus.Failed, CoreText.Get("FileInstallService_InstallerTimedOutReviewThe"));
             return InstallResult.Fail(
-                "The installer timed out. It may have opened a window waiting for input. Test the silent switches in Add app.");
+                CoreText.Get("FileInstallService_TheInstallerTimedOutIt"));
         }
 
         if (result.ExitCode == 0)
         {
-            context.Report(app, InstallStatus.Success, "Installed silently.", 1);
-            return InstallResult.Ok("Installed silently.");
+            context.Report(app, InstallStatus.Success, CoreText.Get("FileInstallService_InstalledSilently"), 1);
+            return InstallResult.Ok(CoreText.Get("FileInstallService_InstalledSilently"));
         }
 
         if (result.ExitCode is 3010 or 1641)
         {
-            context.Report(app, InstallStatus.RebootRequired, "Installed; restart required.", 1);
-            return InstallResult.Reboot("Installed, but Windows needs a restart.");
+            context.Report(app, InstallStatus.RebootRequired, CoreText.Get("FileInstallService_InstalledRestartRequired"), 1);
+            return InstallResult.Reboot(CoreText.Get("FileInstallService_InstalledButWindowsNeedsA"));
         }
 
         if (result.ExitCode is 1602 or 1223)
         {
-            return InstallResult.Fail("The installation was cancelled or administrator access was declined.");
+            return InstallResult.Fail(CoreText.Get("FileInstallService_TheInstallationWasCancelledOr"));
         }
 
         var lastLines = result.CombinedOutput
@@ -223,7 +224,7 @@ public sealed class FileInstallService
             detail = detail[..400];
         }
 
-        var error = $"Installer exited with code {result.ExitCode}." +
+        var error = CoreText.Format("FileInstallService_InstallerExitedWithCode", result.ExitCode) +
                     (string.IsNullOrWhiteSpace(detail) ? string.Empty : " " + detail);
         context.Report(app, InstallStatus.Failed, error);
         return InstallResult.Fail(error, result.ExitCode);
@@ -235,7 +236,7 @@ public sealed class FileInstallService
         InstallContext context,
         CancellationToken cancellationToken)
     {
-        context.Line("Registering MSIX package…");
+        context.Line(CoreText.Get("FileInstallService_RegisteringMSIXPackage"));
         var script = $"Add-AppxPackage -Path '{path.Replace("'", "''")}' -ForceApplicationShutdown";
         var result = await _runner.RunAsync(
             "powershell.exe",
@@ -249,12 +250,12 @@ public sealed class FileInstallService
 
         if (result.ExitCode == 0)
         {
-            context.Report(app, InstallStatus.Success, "MSIX package registered.", 1);
-            return InstallResult.Ok("MSIX package registered.");
+            context.Report(app, InstallStatus.Success, CoreText.Get("FileInstallService_MSIXPackageRegistered"), 1);
+            return InstallResult.Ok(CoreText.Get("FileInstallService_MSIXPackageRegistered"));
         }
 
         var error = result.StandardError.Split('\n', StringSplitOptions.RemoveEmptyEntries).LastOrDefault()?.Trim()
-                    ?? "Add-AppxPackage failed.";
+                    ?? CoreText.Get("FileInstallService_AddAppxPackageFailed");
         context.Report(app, InstallStatus.Failed, error);
         return InstallResult.Fail(error, result.ExitCode);
     }
@@ -265,10 +266,10 @@ public sealed class FileInstallService
         try
         {
             Directory.CreateDirectory(destination);
-            context.Line($"Extracting portable app to {destination}");
+            context.Line(CoreText.Format("FileInstallService_ExtractingPortableAppTo", destination));
             ZipFile.ExtractToDirectory(archivePath, destination, overwriteFiles: true);
             var executable = FindPortableExecutable(destination);
-            var detail = executable is null ? $"Extracted to {destination}" : $"Extracted to {destination} ({Path.GetFileName(executable)})";
+            var detail = executable is null ? CoreText.Format("FileInstallService_ExtractedTo", destination) : CoreText.Format("FileInstallService_ExtractedTo2", destination, Path.GetFileName(executable));
             TryAddShortcut(app, executable, context);
             context.Report(app, InstallStatus.Success, detail, 1);
             return InstallResult.Ok(detail);
@@ -276,8 +277,8 @@ public sealed class FileInstallService
         catch (Exception ex)
         {
             _log.Write(LogLevel.Error, $"Could not extract portable app {app.Name}.", ex);
-            context.Report(app, InstallStatus.Failed, "Could not extract the archive.");
-            return InstallResult.Fail($"Could not extract the portable archive: {ex.Message}");
+            context.Report(app, InstallStatus.Failed, CoreText.Get("FileInstallService_CouldNotExtractTheArchive"));
+            return InstallResult.Fail(CoreText.Format("FileInstallService_CouldNotExtractThePortable", ex.Message));
         }
     }
 
@@ -295,15 +296,15 @@ public sealed class FileInstallService
             Directory.CreateDirectory(destinationDirectory);
             var destination = Path.Combine(destinationDirectory, Path.GetFileName(filePath));
             File.Copy(filePath, destination, overwrite: true);
-            context.Line($"Copied portable app to {destination}");
+            context.Line(CoreText.Format("FileInstallService_CopiedPortableAppTo", destination));
             TryAddShortcut(app, destination, context);
-            context.Report(app, InstallStatus.Success, $"Portable app copied to {destination}", 1);
-            return InstallResult.Ok($"Portable app copied to {destination}");
+            context.Report(app, InstallStatus.Success, CoreText.Format("FileInstallService_PortableAppCopiedTo", destination), 1);
+            return InstallResult.Ok(CoreText.Format("FileInstallService_PortableAppCopiedTo", destination));
         }
         catch (Exception ex)
         {
-            context.Report(app, InstallStatus.Failed, "Could not copy the portable executable.");
-            return InstallResult.Fail($"Could not copy the portable executable: {ex.Message}");
+            context.Report(app, InstallStatus.Failed, CoreText.Get("FileInstallService_CouldNotCopyThePortable"));
+            return InstallResult.Fail(CoreText.Format("FileInstallService_CouldNotCopyThePortable2", ex.Message));
         }
     }
 
@@ -317,7 +318,7 @@ public sealed class FileInstallService
         try
         {
             Directory.CreateDirectory(staging);
-            context.Line("Extracting installer archive…");
+            context.Line(CoreText.Get("FileInstallService_ExtractingInstallerArchive"));
             ZipFile.ExtractToDirectory(archivePath, staging, overwriteFiles: true);
             var installer = FindBundledInstaller(staging);
             if (installer is null)
@@ -326,13 +327,13 @@ public sealed class FileInstallService
                     "The ZIP did not contain a recognizable setup.exe or .msi. Mark it as a portable archive in Add app, or install it manually.");
             }
 
-            context.Line($"Found bundled installer {Path.GetFileName(installer)}.");
+            context.Line(CoreText.Format("FileInstallService_FoundBundledInstaller", Path.GetFileName(installer)));
             var result = await RunInstallerAsync(app, installer, context, cancellationToken).ConfigureAwait(false);
             return result;
         }
         catch (Exception ex)
         {
-            return InstallResult.Fail($"Could not unpack the installer archive: {ex.Message}");
+            return InstallResult.Fail(CoreText.Format("FileInstallService_CouldNotUnpackTheInstaller", ex.Message));
         }
         finally
         {
@@ -388,15 +389,15 @@ public static class InstallerTypeNames
 {
     public static string DisplayName(this InstallerType type) => type switch
     {
-        InstallerType.InnoSetup => "Inno Setup",
+        InstallerType.InnoSetup => CoreText.Get("FileInstallService_InnoSetup"),
         InstallerType.Nsis => "NSIS",
-        InstallerType.Msi => "Windows Installer",
+        InstallerType.Msi => CoreText.Get("FileInstallService_WindowsInstaller"),
         InstallerType.InstallShield => "InstallShield",
-        InstallerType.Squirrel => "Squirrel",
-        InstallerType.WixBurn => "WiX Burn",
+        InstallerType.Squirrel => CoreText.Get("FileInstallService_Squirrel"),
+        InstallerType.WixBurn => CoreText.Get("FileInstallService_WiXBurn"),
         InstallerType.Msix => "MSIX",
-        InstallerType.PortableArchive => "portable archive",
-        InstallerType.PortableExecutable => "portable executable",
-        _ => "unknown installer"
+        InstallerType.PortableArchive => CoreText.Get("FileInstallService_PortableArchive"),
+        InstallerType.PortableExecutable => CoreText.Get("FileInstallService_PortableExecutable"),
+        _ => CoreText.Get("FileInstallService_UnknownInstaller")
     };
 }

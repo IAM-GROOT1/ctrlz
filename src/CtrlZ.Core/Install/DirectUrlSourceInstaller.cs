@@ -1,6 +1,7 @@
 // SPDX-License-Identifier: AGPL-3.0-only
 // Copyright (c) 2026 iam-groot1
 
+using CtrlZ.Core.Localization;
 using CtrlZ.Core.Models;
 using CtrlZ.Core.Services;
 
@@ -23,18 +24,18 @@ public sealed class DirectUrlSourceInstaller : ISourceInstaller
     {
         if (string.IsNullOrWhiteSpace(app.DownloadUrl))
         {
-            return InstallResult.NeedsAction("This app has no download URL. Edit it in My Apps.");
+            return InstallResult.NeedsAction(CoreText.Get("DirectUrlSourceInstaller_ThisAppHasNoDownload"));
         }
 
         try
         {
-            context.Report(app, InstallStatus.Downloading, "Downloading installer…", 0);
+            context.Report(app, InstallStatus.Downloading, CoreText.Get("DirectUrlSourceInstaller_DownloadingInstaller"), 0);
             var download = await _downloads.DownloadAsync(
                 app.DownloadUrl,
                 app.FileName,
                 app.ExpectedSha256,
                 new Progress<DownloadProgress>(p =>
-                    context.Report(app, InstallStatus.Downloading, "Downloading installer…", p.Fraction)),
+                    context.Report(app, InstallStatus.Downloading, CoreText.Get("DirectUrlSourceInstaller_DownloadingInstaller"), p.Fraction)),
                 cancellationToken).ConfigureAwait(false);
 
             var extension = Path.GetExtension(download.Path);
@@ -45,7 +46,7 @@ public sealed class DirectUrlSourceInstaller : ISourceInstaller
         }
         catch (DownloadHashMismatchException ex)
         {
-            context.Report(app, InstallStatus.Failed, "SHA-256 verification failed.");
+            context.Report(app, InstallStatus.Failed, CoreText.Get("DirectUrlSourceInstaller_SHA256VerificationFailed"));
             return InstallResult.Fail(ex.Message);
         }
         catch (OperationCanceledException)
@@ -55,7 +56,7 @@ public sealed class DirectUrlSourceInstaller : ISourceInstaller
         catch (Exception ex)
         {
             context.Report(app, InstallStatus.Failed, ex.Message);
-            return InstallResult.Fail($"Download failed: {ex.Message}");
+            return InstallResult.Fail(CoreText.Format("DirectUrlSourceInstaller_DownloadFailed", ex.Message));
         }
     }
 }

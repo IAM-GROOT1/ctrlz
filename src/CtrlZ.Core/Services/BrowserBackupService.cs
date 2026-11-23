@@ -1,6 +1,7 @@
 // SPDX-License-Identifier: AGPL-3.0-only
 // Copyright (c) 2026 iam-groot1
 
+using CtrlZ.Core.Localization;
 using System.Text;
 using System.Text.Json;
 using CtrlZ.Core.Infrastructure;
@@ -83,7 +84,7 @@ public sealed class BrowserBackupService
         var plan = BrowserBackupPlanner.Build(request.Browser, request.Profiles);
         var warnings = new List<string>(plan.Warnings);
         var total = plan.FileCount;
-        progress?.Report(new BrowserBackupProgress("Preparing archive…", 0, total, 0));
+        progress?.Report(new BrowserBackupProgress(CoreText.Get("BrowserBackupService_PreparingArchive"), 0, total, 0));
 
         var timestamp = DateTime.Now;
         var archiveName = $"CTRLZ-{FileUtil.SafeFileName(request.Browser.DisplayName)}-{timestamp:yyyyMMdd-HHmm}.zip";
@@ -138,7 +139,7 @@ public sealed class BrowserBackupService
                         {
                             if (!webDataFiles.TryGetValue(entry.EntryPath, out tempFile) || !File.Exists(tempFile))
                             {
-                                warnings.Add($"Skipped Web Data for {entry.EntryPath}; search engines could not be sanitized.");
+                                warnings.Add(CoreText.Format("BrowserBackupService_SkippedWebDataForSearch", entry.EntryPath));
                                 continue;
                             }
                         }
@@ -180,7 +181,7 @@ public sealed class BrowserBackupService
                     {
                         throw new BrowserBackupLockedException(
                             $"'{entry.EntryPath}' is locked. Close {request.Browser.DisplayName} (force close if needed) and try again. " +
-                            "Volume Shadow Copy is used automatically when available.", ex);
+                            CoreText.Get("BrowserBackupService_VolumeShadowCopyIsUsed"), ex);
                     }
                     finally
                     {
@@ -209,7 +210,7 @@ public sealed class BrowserBackupService
 
             File.Move(tempArchive, archivePath, overwrite: false);
             var archiveBytes = new FileInfo(archivePath).Length;
-            progress?.Report(new BrowserBackupProgress("Backup complete.", total, total, 1));
+            progress?.Report(new BrowserBackupProgress(CoreText.Get("BrowserBackupService_BackupComplete"), total, total, 1));
             _log.Write(LogLevel.Info,
                 $"Browser backup written to {archivePath} ({FileUtil.FormatBytes(archiveBytes)}, {processed} files).");
 
@@ -253,7 +254,7 @@ public sealed class BrowserBackupService
             }
             catch (Exception ex) when (ex is not OperationCanceledException)
             {
-                warnings.Add($"Web Data skipped for {entry.EntryPath}: {ex.Message}");
+                warnings.Add(CoreText.Format("BrowserBackupService_WebDataSkippedFor", entry.EntryPath, ex.Message));
                 _log.Write(LogLevel.Warning, $"Web Data sanitization skipped for {entry.SourcePath}.", ex);
             }
             finally
@@ -288,7 +289,7 @@ public sealed class BrowserBackupService
         source.CopyTo(zip, 81920);
         zip.CloseEntry();
         progress?.Report(new BrowserBackupProgress(
-            $"Compressing {Path.GetFileName(entryPath)}…", processed, total,
+            CoreText.Format("BrowserBackupService_Compressing", Path.GetFileName(entryPath)), processed, total,
             total == 0 ? 0 : (double)processed / total));
     }
 

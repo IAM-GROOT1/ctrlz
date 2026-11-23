@@ -1,6 +1,7 @@
 // SPDX-License-Identifier: AGPL-3.0-only
 // Copyright (c) 2026 iam-groot1
 
+using CtrlZ.Core.Localization;
 using System.Text;
 using CtrlZ.Core.Models;
 
@@ -20,36 +21,35 @@ public sealed record ProfileExportSummary(
     public string Describe()
     {
         var text = new StringBuilder()
-            .Append($"{AppCount} app{Plural(AppCount)} ({EnabledCount} turned on) will be saved to one file. ")
-            .Append("On the other PC, open My Apps → Import and choose it.");
+            .Append(CoreText.Plural("ProfileExport_AppsSaved", AppCount, EnabledCount))
+            .Append(CoreText.Get("ProfileExport_OnTheOtherPCOpen"));
 
         if (LocalInstallers.Count > 0)
         {
             text.Append("\n\n")
-                .Append($"{LocalInstallers.Count} app{Plural(LocalInstallers.Count)} install{(LocalInstallers.Count == 1 ? "s" : string.Empty)} from a file on this PC: ")
-                .Append(string.Join(", ", LocalInstallers.Take(5)))
-                .Append(LocalInstallers.Count > 5 ? ", …" : string.Empty)
-                .Append(". Copy those installers too and point each app at its new location there.");
+                .Append(CoreText.Plural(
+                    "ProfileExport_LocalInstallers",
+                    LocalInstallers.Count,
+                    string.Join(", ", LocalInstallers.Take(5)) + (LocalInstallers.Count > 5 ? ", …" : string.Empty)));
         }
 
         if (CommandCount > 0)
         {
             text.Append("\n\n")
-                .Append($"{CommandCount} app{Plural(CommandCount)} ha{(CommandCount == 1 ? "s" : "ve")} a post-install command. ")
-                .Append("On the other PC they stay blocked until you review and approve each one there.");
+                .Append(CoreText.Plural("ProfileExport_AppsWithCommand", CommandCount))
+                .Append(CoreText.Get("ProfileExport_OnTheOtherPCThey"));
         }
 
         if (HasNotes)
         {
             text.Append("\n\n")
-                .Append($"{NoteCount} app{Plural(NoteCount)} ha{(NoteCount == 1 ? "s" : "ve")} a note. Notes can hold licence keys; ")
-                .Append("leave them out if you will share this file.");
+                .Append(CoreText.Plural("ProfileExport_AppsWithNote", NoteCount))
+                .Append(CoreText.Get("ProfileExport_LeaveThemOutIfYou"));
         }
 
         return text.ToString();
     }
 
-    private static string Plural(int count) => count == 1 ? string.Empty : "s";
 }
 
 /// <summary>Prepares a profile to move to another PC: a summary first, then the copy to write.</summary>
