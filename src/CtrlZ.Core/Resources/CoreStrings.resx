@@ -121,7 +121,7 @@
     <value>Removed from the profile.</value>
   </data>
   <data name="InstallEngine_NeedsWhichDidNotInstall" xml:space="preserve">
-    <value>{0}needs {1}, which did not install.</value>
+    <value>needs {0}, which did not install.</value>
   </data>
   <data name="InstallEngine_NoInstallerIsAvailableFor" xml:space="preserve">
     <value>No installer is available for {0}.</value>
@@ -1012,10 +1012,14 @@
     <value>{0} apps need attention.</value>
   </data>
   <data name="PostInstallConsent_ProfileWillRun_One" xml:space="preserve">
-    <value>This profile will run {0} command on this PC after its app installs:\n\n{1}</value>
+    <value>This profile will run {0} command on this PC after its app installs:
+
+{1}</value>
   </data>
   <data name="PostInstallConsent_ProfileWillRun_Other" xml:space="preserve">
-    <value>This profile will run {0} commands on this PC after their apps install:\n\n{1}</value>
+    <value>This profile will run {0} commands on this PC after their apps install:
+
+{1}</value>
   </data>
   <data name="InstallerSignature_Valid" xml:space="preserve">
     <value>Signature valid: signed by {0}.</value>

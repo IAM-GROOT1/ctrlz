@@ -138,6 +138,20 @@ public class LocalizationTests
         Assert.Empty(duplicates);
     }
 
+    [Theory]
+    [InlineData("app")]
+    [InlineData("core")]
+    public void Line_breaks_are_real_line_breaks_not_backslash_n(string setName)
+    {
+        // Resource values are not unescaped: "\n" typed into a .resx shows on screen as \n.
+        var set = Set(setName);
+        var escaped = Directory.EnumerateFiles(Path.GetDirectoryName(EnglishPath(set))!, set.ResourceName + "*.resx")
+            .SelectMany(path => ReadResx(path).Where(entry => entry.Value.Contains("\\n", StringComparison.Ordinal))
+                .Select(entry => $"{Path.GetFileName(path)}: {entry.Key}"))
+            .ToList();
+        Assert.True(escaped.Count == 0, "Use a real line break instead of \\n:\n" + string.Join("\n", escaped));
+    }
+
     [Fact]
     public void No_literal_text_is_written_straight_into_XAML()
     {

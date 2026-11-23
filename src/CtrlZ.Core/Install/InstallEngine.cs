@@ -217,7 +217,7 @@ public sealed partial class InstallEngine
             // a stopped app is itself marked failed before its dependents are reached).
             var blocker = BlockingDependency(state, plan, item.AppId);
             var notAttempted = blocker is not null
-                ? CoreText.Format("InstallEngine_NeedsWhichDidNotInstall", NotAttemptedPrefix, blocker.Name)
+                ? NotAttemptedPrefix + CoreText.Format("InstallEngine_NeedsWhichDidNotInstall", blocker.Name)
                 : loopReasons.TryGetValue(item.AppId, out var loopReason) ? NotAttemptedPrefix + loopReason : null;
             if (notAttempted is not null)
             {
