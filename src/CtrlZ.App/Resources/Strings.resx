@@ -2911,10 +2911,10 @@ Not matched ({0}), add these by hand if you need them:
     <value>This command matches a risky pattern ({0}):\n\n{1}\n\nSave it only if you wrote it and understand exactly what it does.</value>
   </data>
   <data name="Preview_AppsInRun_One" xml:space="preserve">
-    <value>{0} app in this run ·</value>
+    <value>{0} app in this run · </value>
   </data>
   <data name="Preview_AppsInRun_Other" xml:space="preserve">
-    <value>{0} apps in this run ·</value>
+    <value>{0} apps in this run · </value>
   </data>
   <data name="Readiness_NeedAttention_One" xml:space="preserve">
     <value>{0} item needs your attention</value>
@@ -2926,10 +2926,10 @@ Not matched ({0}), add these by hand if you need them:
     <value>Downloads</value>
   </data>
   <data name="Scan_SelectedNoMatch_One" xml:space="preserve">
-    <value>{0} selected app has no winget match.</value>
+    <value>{0} selected app has no winget match. </value>
   </data>
   <data name="Scan_SelectedNoMatch_Other" xml:space="preserve">
-    <value>{0} selected apps have no winget match.</value>
+    <value>{0} selected apps have no winget match. </value>
   </data>
   <data name="Scan_AddedApps_One" xml:space="preserve">
     <value>Added {0} app to {1}</value>
