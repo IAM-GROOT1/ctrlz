@@ -241,16 +241,16 @@
     <value>Für dieses Profil geprüft und freigegeben.</value>
   </data>
   <data name="PostInstallCommandGate_MatchesARiskyPatternNeeds" xml:space="preserve">
-    <value>Entspricht einem riskanten Muster; braucht bei jedem Durchgang eine ausdrückliche Bestätigung.</value>
+    <value>Entspricht einem riskanten Muster; braucht bei jedem Durchgang eine verstärkte Bestätigung.</value>
   </data>
   <data name="PostInstallCommandGate_LocalProfileCommand" xml:space="preserve">
     <value>Befehl aus einem lokalen Profil.</value>
   </data>
   <data name="PostInstallCommandRisk_DownloadsAndRunsRemoteContent" xml:space="preserve">
-    <value>lädt Inhalte aus dem Internet und führt sie aus</value>
+    <value>lädt Inhalte von einer entfernten Quelle und führt sie aus</value>
   </data>
   <data name="PostInstallCommandRisk_RunsAnEncodedOrHidden" xml:space="preserve">
-    <value>führt einen verschlüsselten oder versteckten Befehl aus</value>
+    <value>führt einen codierten oder versteckten Befehl aus</value>
   </data>
   <data name="PostInstallCommandRisk_DeletesOrWritesOutsideYour" xml:space="preserve">
     <value>löscht oder schreibt außerhalb Ihrer Ordner</value>
@@ -986,7 +986,7 @@
     <value>{0} läuft noch ({1}). Schließen Sie das Programm und versuchen Sie es erneut.</value>
   </data>
   <data name="BrowserModels_TheseProfilesAlreadyExistChoose" xml:space="preserve">
-    <value>Diese Profile sind bereits vorhanden. Wählen Sie „Überschreiben“ oder „Als neue Profile wiederherstellen“.</value>
+    <value>Diese Profile sind bereits vorhanden. Wählen Sie „Profile überschreiben“ oder „Als neue wiederherstellen“.</value>
   </data>
   <data name="InstallEngine_RunningElevated" xml:space="preserve">
     <value>Läuft mit erhöhten Rechten.</value>

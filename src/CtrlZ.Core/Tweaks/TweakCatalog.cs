@@ -40,7 +40,10 @@ public static class TweakCatalog
     private const string Advanced = @"Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced";
     private const string Personalize = @"Software\Microsoft\Windows\CurrentVersion\Themes\Personalize";
 
-    public static readonly IReadOnlyList<TweakDefinition> All =
+    /// <summary>Built on each read so the names follow the language chosen for this run.</summary>
+    public static IReadOnlyList<TweakDefinition> All => Build();
+
+    private static IReadOnlyList<TweakDefinition> Build() =>
     [
         new("show-file-extensions", CoreText.Get("Tweak_ShowFileExtensions_Title"),
             CoreText.Get("Tweak_ShowFileExtensions_Description"),

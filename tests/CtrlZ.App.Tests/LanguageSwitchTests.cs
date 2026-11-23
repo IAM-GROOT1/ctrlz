@@ -32,7 +32,8 @@ public class LanguageSwitchTests
             Assert.Equal("Sprache", Loc.Get("Settings_Language"));
             Assert.Equal("1 App", Loc.Plural("MyApps_AppCount", 1));
             Assert.Equal("3 Apps", Loc.Plural("MyApps_AppCount", 3));
-            Assert.NotEqual("Age: 2 days", CoreText.Plural("ReadinessScanner_AgeDays", 2));
+            Assert.Equal("Alter: 2 Tage", CoreText.Plural("ReadinessScanner_AgeDays", 2));
+            Assert.Equal("Dateierweiterungen anzeigen", CtrlZ.Core.Tweaks.TweakCatalog.All[0].Title);
         }
         finally
         {
@@ -75,5 +76,6 @@ public class LanguageSwitchTests
         AppLanguage.Apply("xx");
         AppLanguage.Apply(null);
         Assert.Equal(before, CultureInfo.CurrentUICulture);
+        Assert.Null(CoreText.Culture);
     }
 }

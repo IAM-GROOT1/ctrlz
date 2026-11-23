@@ -403,7 +403,7 @@
     <value>Archivpasswort</value>
   </data>
   <data name="Browsers_Inspect" xml:space="preserve">
-    <value>Öffnen</value>
+    <value>Inhalt anzeigen</value>
   </data>
   <data name="Browsers_Verify" xml:space="preserve">
     <value>Prüfen</value>
@@ -1593,7 +1593,7 @@ Protokoll: {0}</value>
     <value>Archiv bereit. Wählen Sie Profile und einen Zielbrowser.</value>
   </data>
   <data name="Browsers_ThisArchiveIsEncryptedEnter" xml:space="preserve">
-    <value>Dieses Archiv ist verschlüsselt. Geben Sie das Passwort ein und öffnen Sie es erneut.</value>
+    <value>Dieses Archiv ist verschlüsselt. Geben Sie das Passwort ein und klicken Sie erneut auf „Inhalt anzeigen“.</value>
   </data>
   <data name="Browsers_ArchiveCouldNotBeRead" xml:space="preserve">
     <value>Das Archiv konnte nicht gelesen werden.</value>
@@ -2057,7 +2057,7 @@ Geben Sie ihn nur frei, wenn Sie genau verstehen, was er tut. </value>
     <value>Als Administrator neu starten</value>
   </data>
   <data name="Install_ContinueWithoutAdmin" xml:space="preserve">
-    <value>Ohne Administrator fortfahren</value>
+    <value>Ohne Administratorrechte fortfahren</value>
   </data>
   <data name="Install_CouldNotRestartAsAdministrator" xml:space="preserve">
     <value>Neustart als Administrator nicht möglich.</value>
@@ -2290,16 +2290,16 @@ Nicht zugeordnet ({0}), fügen Sie diese bei Bedarf von Hand hinzu:
     <value>Alle Apps aktiviert.</value>
   </data>
   <data name="Preview_MayNeedAdmin" xml:space="preserve">
-    <value>Braucht eventuell Administrator</value>
+    <value>Braucht eventuell Administratorrechte</value>
   </data>
   <data name="Preview_NoAdminNeeded" xml:space="preserve">
-    <value>Kein Administrator nötig</value>
+    <value>Keine Administratorrechte nötig</value>
   </data>
   <data name="Preview_ThereIsNothingEnabledTo" xml:space="preserve">
     <value>Es ist nichts zum Installieren aktiviert.</value>
   </data>
   <data name="Preview_MayNeedAdminWithWarnings" xml:space="preserve">
-    <value>{0} brauchen eventuell Administrator · {1} mit Warnungen</value>
+    <value>{0} brauchen eventuell Administratorrechte · {1} mit Warnungen</value>
   </data>
   <data name="Preview_CommandReviewSavedOnThis" xml:space="preserve">
     <value>Befehlsprüfung auf diesem PC gespeichert. Die Liste unten ist aktuell.</value>
@@ -2866,10 +2866,10 @@ Nicht zugeordnet ({0}), fügen Sie diese bei Bedarf von Hand hinzu:
     <value>{0} Apps zu „{1}“ hinzugefügt</value>
   </data>
   <data name="CommandReview_TimeoutAdmin" xml:space="preserve">
-    <value>Zeitlimit {0} s · läuft als Administrator</value>
+    <value>Zeitlimit {0} s · läuft mit Administratorrechten</value>
   </data>
   <data name="CommandReview_TimeoutNoAdmin" xml:space="preserve">
-    <value>Zeitlimit {0} s · läuft ohne Administrator</value>
+    <value>Zeitlimit {0} s · läuft ohne Administratorrechte</value>
   </data>
   <data name="Drift_CheckedApps_One" xml:space="preserve">
     <value>{0} installierte App geprüft.</value>
