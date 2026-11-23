@@ -257,6 +257,7 @@ public sealed partial class InstallViewModel : PageViewModelBase
         {
             _services.InstallStates.Clear();
             _state = null;
+            LogPath = null;
             BuildPreview();
         }
 
