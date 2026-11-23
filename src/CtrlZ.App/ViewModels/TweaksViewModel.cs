@@ -181,7 +181,7 @@ public sealed partial class TweaksViewModel : PageViewModelBase
 
     /// <summary>Some tweaks take effect only after File Explorer restarts. Asks first: open windows close.</summary>
     [RelayCommand]
-    private void RestartExplorer()
+    private async Task RestartExplorerAsync()
     {
         if (!_dialogs.Confirm("Restart File Explorer",
                 "File Explorer and the taskbar will close and open again. Open Explorer windows will close; nothing else is affected.",
@@ -192,21 +192,36 @@ public sealed partial class TweaksViewModel : PageViewModelBase
 
         try
         {
-            foreach (var explorer in Process.GetProcessesByName("explorer").Where(p => p.SessionId == Process.GetCurrentProcess().SessionId))
-            {
-                using (explorer)
-                {
-                    explorer.Kill();
-                    explorer.WaitForExit(5000);
-                }
-            }
+            StatusMessage = "Restarting File Explorer…";
 
-            // Windows usually restarts the shell on its own; start it if it did not.
-            System.Threading.Thread.Sleep(1500);
-            if (Process.GetProcessesByName("explorer").All(p => p.SessionId != Process.GetCurrentProcess().SessionId))
+            // Waiting for Explorer to close and come back runs off the UI thread, so the window stays responsive.
+            await Task.Run(async () =>
             {
-                Process.Start(new ProcessStartInfo("explorer.exe") { UseShellExecute = true });
-            }
+                int session;
+                using (var self = Process.GetCurrentProcess())
+                {
+                    session = self.SessionId;
+                }
+
+                foreach (var explorer in Process.GetProcessesByName("explorer"))
+                {
+                    using (explorer)
+                    {
+                        if (explorer.SessionId == session)
+                        {
+                            explorer.Kill();
+                            explorer.WaitForExit(5000);
+                        }
+                    }
+                }
+
+                // Windows usually restarts the shell on its own; start it if it did not.
+                await Task.Delay(1500).ConfigureAwait(false);
+                if (!ExplorerRunningIn(session))
+                {
+                    using var started = Process.Start(new ProcessStartInfo("explorer.exe") { UseShellExecute = true });
+                }
+            });
 
             NeedsExplorerRestart = false;
             StatusMessage = "File Explorer restarted.";
@@ -214,7 +229,22 @@ public sealed partial class TweaksViewModel : PageViewModelBase
         catch (Exception ex)
         {
             _services.Log.Write(LogLevel.Warning, $"Explorer restart failed: {LogPrivacy.Describe(ex)}");
+            StatusMessage = null;
             _dialogs.Error("File Explorer could not be restarted. Sign out and back in to apply the change.\n\n" + ex.Message);
         }
+    }
+
+    private static bool ExplorerRunningIn(int session)
+    {
+        var running = false;
+        foreach (var explorer in Process.GetProcessesByName("explorer"))
+        {
+            using (explorer)
+            {
+                running |= explorer.SessionId == session;
+            }
+        }
+
+        return running;
     }
 }

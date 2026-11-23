@@ -121,7 +121,8 @@ public sealed class TweakService
             {
                 foreach (var value in tweak.Values)
                 {
-                    _registry.Delete(value.SubKey, value.Name, value.SubKey);
+                    // Keys stay unless the tweak owns them; Delete only ever removes empty ones.
+                    _registry.Delete(value.SubKey, value.Name, value.OwnedBelow ?? value.SubKey);
                 }
             }
         }
