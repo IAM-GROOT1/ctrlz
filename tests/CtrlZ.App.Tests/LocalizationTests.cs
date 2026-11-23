@@ -172,6 +172,13 @@ public class LocalizationTests
                     problems.Add($"{language}: {key} is not a valid format string");
                 }
 
+                // Many values are joined to the next one in code, so the edges must match English.
+                if (char.IsWhiteSpace(source.FirstOrDefault()) != char.IsWhiteSpace(value.FirstOrDefault()) ||
+                    char.IsWhiteSpace(source.LastOrDefault()) != char.IsWhiteSpace(value.LastOrDefault()))
+                {
+                    problems.Add($"{language}: {key} starts or ends with different spacing from English");
+                }
+
                 if (!Placeholders(source).SetEquals(Placeholders(value)))
                 {
                     problems.Add($"{language}: {key} has different placeholders from English");
