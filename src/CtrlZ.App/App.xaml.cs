@@ -1,6 +1,7 @@
 // SPDX-License-Identifier: AGPL-3.0-only
 // Copyright (c) 2026 iam-groot1
 
+using System.Diagnostics;
 using System.IO;
 using System.Windows;
 using System.Windows.Threading;
@@ -40,6 +41,15 @@ public partial class App : Application
             }
 
             _services = AppServices.Create();
+
+            var probation = StartProbation(_services);
+            if (probation is null)
+            {
+                // The previous build is back in place and has been started; this one steps aside.
+                Shutdown(0);
+                return;
+            }
+
             _theme = new ThemeService(this, _services.Log);
             _theme.Apply(_services.State.Settings.Theme);
 
@@ -47,6 +57,7 @@ public partial class App : Application
             _main = new MainViewModel(_services, new DialogService(), _theme, autoInstall);
             var window = new MainWindow { DataContext = _main };
             MainWindow = window;
+            window.ContentRendered += (_, _) => probation();
             window.Show();
             await _main.InitializeAsync();
         }
@@ -69,13 +80,80 @@ public partial class App : Application
         base.OnExit(e);
     }
 
+    /// <summary>
+    /// Checks a portable update that is still on probation. Returns the action to run once the
+    /// main window has shown, or null when the last start of this build never showed its window
+    /// and the previous build was put back and started instead.
+    /// </summary>
+    private static Action? StartProbation(AppServices services)
+    {
+        var exe = Environment.ProcessPath;
+        if (string.IsNullOrWhiteSpace(exe))
+        {
+            return () => { };
+        }
+
+        try
+        {
+            UpdateProbation.RemoveFailedBuild(exe);
+            var probation = new UpdateProbation(Path.Combine(services.Paths.State, UpdateProbation.FileName), services.Log);
+            using var current = Process.GetCurrentProcess();
+            var processId = current.Id;
+
+            switch (probation.OnLaunch(exe, processId, current.StartTime.ToUniversalTime()))
+            {
+                case ProbationStartup.RolledBack:
+                    UpdateApplyFiles.WriteResult(
+                        Path.Combine(services.Paths.State, UpdateApplyFiles.ResultFileName),
+                        UpdateApplyResult.Failed(
+                            "The new version did not finish starting last time, so CTRL+Z went back to the previous version."));
+                    if (UpdateApplier.TryStart(exe) is { } restarted)
+                    {
+                        restarted.Dispose();
+                        return null;
+                    }
+
+                    // The restored build could not be started from here; carry on in this one.
+                    return () => { };
+
+                case ProbationStartup.Watching:
+                    return () =>
+                    {
+                        try
+                        {
+                            probation.MarkLoaded(exe, processId);
+                        }
+                        catch (Exception ex)
+                        {
+                            services.Log.Write(LogLevel.Warning, "Could not record that the main window loaded.", ex);
+                        }
+                    };
+
+                default:
+                    return () => { };
+            }
+        }
+        catch (Exception ex)
+        {
+            // Never block a start over the probation check.
+            services.Log.Write(LogLevel.Warning, "The update probation check failed.", ex);
+            return () => { };
+        }
+    }
+
     private async Task RunApplyUpdateAsync(string requestPath)
     {
+        // Read first: the helper runs from a temp copy, so the data folders (and portable.flag)
+        // belong to the app being updated, not to this exe.
+        var request = UpdateApplyFiles.ReadRequest(requestPath);
+
         AppPaths paths;
         FileAppLog log;
         try
         {
-            paths = AppPaths.CreateDefault();
+            paths = string.IsNullOrWhiteSpace(request?.TargetExe)
+                ? AppPaths.CreateDefault()
+                : AppPaths.CreateFor(request.TargetExe);
             paths.EnsureCreated();
             log = new FileAppLog(paths.Logs);
         }
@@ -89,14 +167,14 @@ public partial class App : Application
         {
             log.Write(LogLevel.Info, "Update helper started.");
 
-            var request = UpdateApplyFiles.ReadRequest(requestPath);
             if (request is null)
             {
                 log.Write(LogLevel.Error, $"The update helper could not read its request ({requestPath}).");
                 return;
             }
 
-            var result = await new UpdateApplier(log).ApplyAsync(request).ConfigureAwait(true);
+            var probation = new UpdateProbation(Path.Combine(paths.State, UpdateProbation.FileName), log);
+            var result = await new UpdateApplier(log, probation).ApplyAsync(request).ConfigureAwait(true);
 
             UpdateApplyFiles.WriteResult(
                 Path.Combine(paths.State, UpdateApplyFiles.ResultFileName),
