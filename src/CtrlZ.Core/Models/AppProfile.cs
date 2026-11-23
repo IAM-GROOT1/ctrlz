@@ -19,6 +19,14 @@ public sealed class AppProfile
     public DateTimeOffset UpdatedUtc { get; set; } = DateTimeOffset.UtcNow;
     public List<AppEntry> Apps { get; set; } = new();
 
+    /// <summary>
+    /// Ids of Windows tweaks chosen with this profile (see <c>TweakCatalog</c>), so they can be offered
+    /// again after a reinstall. Only ids: what each one changes is fixed in CTRL+Z, never read from the
+    /// file, and nothing is applied until the user asks. Null when there are none, so older profiles
+    /// are written unchanged.
+    /// </summary>
+    public List<string>? Tweaks { get; set; }
+
     public AppProfile Clone() => new()
     {
         SchemaVersion = SchemaVersion,
@@ -27,7 +35,8 @@ public sealed class AppProfile
         Description = Description,
         CreatedUtc = CreatedUtc,
         UpdatedUtc = UpdatedUtc,
-        Apps = Apps.Select(a => a.Clone()).ToList()
+        Apps = Apps.Select(a => a.Clone()).ToList(),
+        Tweaks = Tweaks?.ToList()
     };
 
     public void Touch() => UpdatedUtc = DateTimeOffset.UtcNow;
@@ -38,6 +47,12 @@ public sealed class AppProfile
         SchemaVersion = CurrentSchemaVersion;
         Name = string.IsNullOrWhiteSpace(Name) ? "Imported profile" : Name.Trim();
         Apps ??= new List<AppEntry>();
+        // Unknown ids are kept (a newer CTRL+Z may know them); blanks and repeats are not.
+        Tweaks = Tweaks?
+            .Where(id => !string.IsNullOrWhiteSpace(id))
+            .Select(id => id.Trim())
+            .Distinct(StringComparer.OrdinalIgnoreCase)
+            .ToList() is { Count: > 0 } tweaks ? tweaks : null;
         foreach (var app in Apps)
         {
             app.Id = string.IsNullOrWhiteSpace(app.Id) ? Guid.NewGuid().ToString("n") : app.Id;

@@ -23,12 +23,12 @@ promise of a date, and a section can be reordered if a bug matters more.
 - [ ] **5. Foundation for optional extras** - planned
 - [x] **6. UI polish and motion** - done, shipping in v1.4.0 (translations later)
 - [x] **7. Onboarding and sharing profiles** - done, shipping in v1.4.0
-- [ ] **8. Release and distribution** - **next**
+- [ ] **8. Release and distribution** - planned
 - [ ] **9. Optional extra: scheduled and local backups** - planned
 - [ ] **10. Optional extra: settings backup** - planned
 - [ ] **11. Optional extras: availability** - planned
 - [ ] **12. Optional extra: encrypted backup off this PC** - later
-- [ ] **13. Post-install tweaks** - later
+- [x] **13. Post-install tweaks** - done, shipping in v1.4.0
 
 Optional extras planned (sections 9 to 12). The free app stays local, complete and useful on its
 own, and everything free today stays free.
@@ -154,7 +154,16 @@ this PC. Details will be published when each one is ready.
 
 ### 13. Post-install tweaks
 
-Small, reversible Windows tweaks after a reinstall. Later.
+Small, reversible Windows tweaks after a reinstall.
+
+- [x] **Tweaks page.** Eight per-user settings (file extensions, hidden files, Explorer opens to
+  This PC, dark mode, taskbar on the left, no web results in Start search, the classic right-click
+  menu, fewer Start recommendations). Each changes only fixed values under the current user's
+  registry, needs no admin rights and runs no command. CTRL+Z saves the previous values first, so
+  Undo restores them exactly, including removing keys the tweak created.
+- [x] **In the profile.** Applied tweaks are listed in the profile, so after a reinstall the Tweaks
+  page offers to apply the same list again. Only ids are stored; what each tweak changes is fixed
+  in CTRL+Z, and nothing is applied until you press Apply.
 
 ## Later improvements
 
