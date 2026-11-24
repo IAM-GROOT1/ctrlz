@@ -1311,4 +1311,25 @@
   <data name="InstallEngine_NotAttempted" xml:space="preserve">
     <value>Not attempted: {0}</value>
   </data>
+  <data name="WingetMatcher_NoName" xml:space="preserve">
+    <value>No name to match.</value>
+  </data>
+  <data name="WingetMatcher_NoPackages" xml:space="preserve">
+    <value>winget is not available, so nothing was matched.</value>
+  </data>
+  <data name="WingetMatcher_NoCandidate" xml:space="preserve">
+    <value>No winget package looks like this app.</value>
+  </data>
+  <data name="WingetMatcher_BestCandidate" xml:space="preserve">
+    <value>Closest winget package: {0} (score {1:0.#}).</value>
+  </data>
+  <data name="WingetMatcher_NameSimilarity" xml:space="preserve">
+    <value>Name is similar to "{0}".</value>
+  </data>
+  <data name="WingetMatcher_ExactName" xml:space="preserve">
+    <value>Same name.</value>
+  </data>
+  <data name="Source_NotMatched" xml:space="preserve">
+    <value>Not matched</value>
+  </data>
 </root>
