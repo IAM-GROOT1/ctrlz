@@ -91,6 +91,9 @@ public class LanguageSwitchTests
             Assert.Equal("0 تطبيق", Loc.Plural("MyApps_AppCount", 0));
             Assert.Equal("العمر: 5 أيام", CoreText.Plural("ReadinessScanner_AgeDays", 5));
             Assert.Equal("منذ 2 يومين", CoreText.Plural("ReadinessScanner_DaysAgo", 2));
+            // Risk labels are looked up per scan, so they follow the language chosen at startup.
+            Assert.Equal(["يُضعف إعدادات الأمان"], CtrlZ.Core.Install.PostInstallCommandRisk.Scan(
+                new CtrlZ.Core.Models.PostInstallCommand { Executable = "netsh.exe", Arguments = ["advfirewall", "set", "allprofiles", "state", "off"], Enabled = true }));
             // Commands inside a right-to-left sentence keep their own order.
             Assert.Equal("⁦reg.exe /s a.reg⁩", CoreText.LeftToRight("reg.exe /s a.reg"));
         }
