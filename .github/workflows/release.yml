@@ -212,19 +212,29 @@ jobs:
           $version = $tag.TrimStart('v')
           $setupName = "CTRL+Z-Setup-$version.exe"
           $portableName = "CTRL+Z-Portable-$version.exe"
-          $body = @(
-            "# CTRL+Z $tag",
-            "",
-            "## $heading",
-            "",
-            $commits,
+
+          # Written notes for this release, if any: docs/release-notes/<tag>.md, or for a
+          # pre-release (v1.4.0-rc.2) the notes of the version it leads up to (v1.4.0.md).
+          $notesFile = @("docs/release-notes/$tag.md", "docs/release-notes/v$($version.Split('-')[0]).md") |
+            Where-Object { Test-Path $_ } | Select-Object -First 1
+          $intro = if ($notesFile) { (Get-Content $notesFile -Raw -Encoding utf8).TrimEnd() } else { $null }
+
+          $body = @("# CTRL+Z $tag", "")
+          if ($intro) {
+            $body += @($intro, "", "<details><summary>$heading</summary>", "", $commits, "", "</details>")
+          }
+          else {
+            $body += @("## $heading", "", $commits)
+          }
+
+          $body = ($body + @(
             "",
             "## Downloads",
             "",
             "- $setupName - installer for installed copies",
             "- $portableName - standalone portable exe",
             "- SHA256SUMS.txt - SHA-256 for every asset above; the updater refuses an asset that does not match"
-          ) -join "`n"
+          )) -join "`n"
 
           Set-Content -Path release-notes.md -Value $body -Encoding utf8
           Get-Content release-notes.md
