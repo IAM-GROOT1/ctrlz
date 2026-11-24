@@ -114,8 +114,8 @@ order and screen-reader labels, and translations later.
 - [ ] **D. Translations.** In progress. All of the app's text now comes from resource files
   (`src/CtrlZ.App/Resources/Strings.resx` and `src/CtrlZ.Core/Resources/CoreStrings.resx`), with
   plural forms per language. Settings has a **Language** choice (Windows default or a listed
-  language). Arabic (with right-to-left layout), Spanish and German are translated so far;
-  Russian follows. The command line stays English. More languages
+  language). Arabic (with right-to-left layout), Spanish, Russian and German are translated and
+  still need a review by native speakers. The command line stays English. More languages can
   follow; see CONTRIBUTING.md to add one.
 
 ### 7. Onboarding and sharing profiles

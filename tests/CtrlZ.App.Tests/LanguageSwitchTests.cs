@@ -142,6 +142,31 @@ public class LanguageSwitchTests
     }
 
     [Fact]
+    public void Russian_reads_its_own_text_with_three_plural_forms()
+    {
+        var before = CultureInfo.CurrentUICulture;
+        var beforeDefault = CultureInfo.DefaultThreadCurrentUICulture;
+        try
+        {
+            AppLanguage.Apply("ru");
+            Assert.Equal(System.Windows.FlowDirection.LeftToRight, AppLanguage.FlowDirection);
+            Assert.Equal("Язык", Loc.Get("Settings_Language"));
+            Assert.Equal("1 приложение", Loc.Plural("MyApps_AppCount", 1));
+            Assert.Equal("3 приложения", Loc.Plural("MyApps_AppCount", 3));
+            Assert.Equal("5 приложений", Loc.Plural("MyApps_AppCount", 5));
+            Assert.Equal("21 приложение", Loc.Plural("MyApps_AppCount", 21));
+            Assert.Equal("11 дней назад", CoreText.Plural("ReadinessScanner_DaysAgo", 11));
+            Assert.Equal("Показывать расширения файлов", CtrlZ.Core.Tweaks.TweakCatalog.All[0].Title);
+        }
+        finally
+        {
+            CoreText.Culture = null;
+            CultureInfo.CurrentUICulture = before;
+            CultureInfo.DefaultThreadCurrentUICulture = beforeDefault;
+        }
+    }
+
+    [Fact]
     public void An_unknown_language_leaves_the_current_one_alone()
     {
         var before = CultureInfo.CurrentUICulture;

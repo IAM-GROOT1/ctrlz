@@ -170,18 +170,13 @@
         </Border>
 
         <!-- filters -->
-        <Grid Grid.Row="1" Margin="0,0,0,10">
+        <Grid Grid.Row="1" Margin="0,0,0,6">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
-            <!-- The search box gives up width first, so longer labels on the right never cover the count. -->
-            <Grid Margin="0,0,10,0">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*" MaxWidth="270" MinWidth="140" />
-                    <ColumnDefinition Width="Auto" />
-                </Grid.ColumnDefinitions>
-                <Grid>
+            <StackPanel Orientation="Horizontal" VerticalAlignment="Top" Margin="0,0,10,0">
+                <Grid Width="240">
                     <TextBox AutomationProperties.Name="{l:Tr MyApps_SearchApps}" x:Name="SearchBox" Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}"
                              Padding="30,7,10,7" />
                     <TextBlock Text="{StaticResource Icon.Search}" FontFamily="{StaticResource Font.Icons}" FontSize="12"
@@ -201,11 +196,12 @@
                         </TextBlock.Style>
                     </TextBlock>
                 </Grid>
-                <TextBlock Grid.Column="1" Text="{Binding SelectionText}" Style="{StaticResource Text.Secondary}" Margin="14,0,0,0"
+                <TextBlock Text="{Binding SelectionText}" Style="{StaticResource Text.Secondary}" Margin="14,0,0,0"
                            VerticalAlignment="Center" />
-            </Grid>
-            <StackPanel Grid.Column="1" Orientation="Horizontal">
-                <Border Style="{StaticResource Border.Inset}" Padding="2" Margin="0,0,10,0">
+            </StackPanel>
+            <!-- The buttons wrap onto a second line when longer labels do not fit beside the search box. -->
+            <WrapPanel Grid.Column="1" HorizontalAlignment="Right">
+                <Border Style="{StaticResource Border.Inset}" Padding="2" Margin="0,0,10,4">
                     <StackPanel Orientation="Horizontal">
                         <ToggleButton Content="{l:Tr MyApps_Source}" Style="{StaticResource Toggle.Pill}"
                                       IsChecked="{Binding GroupBySource, Mode=OneWay}"
@@ -225,13 +221,13 @@
                         </ToggleButton>
                     </StackPanel>
                 </Border>
-                <Button Content="{l:Tr MyApps_AddApp}" Style="{StaticResource Button.Secondary}" Command="{Binding AddAppCommand}" />
-                <Button Content="{l:Tr MyApps_ImportList}" Style="{StaticResource Button.Ghost}" Margin="8,0,0,0"
+                <Button Content="{l:Tr MyApps_AddApp}" Style="{StaticResource Button.Secondary}" Margin="0,0,0,4" Command="{Binding AddAppCommand}" />
+                <Button Content="{l:Tr MyApps_ImportList}" Style="{StaticResource Button.Ghost}" Margin="8,0,0,4"
                         Command="{Binding ImportPackageListCommand}"
                         ToolTip="{l:Tr MyApps_AddAppsFromAWinget}" />
-                <Button Content="{l:Tr MyApps_CheckDrift}" Style="{StaticResource Button.Ghost}" Margin="8,0,0,0"
+                <Button Content="{l:Tr MyApps_CheckDrift}" Style="{StaticResource Button.Ghost}" Margin="8,0,0,4"
                         Command="{Binding CheckDriftCommand}" />
-            </StackPanel>
+            </WrapPanel>
         </Grid>
 
         <!-- list -->
