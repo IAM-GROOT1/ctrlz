@@ -208,6 +208,18 @@ public sealed class CliTests : IDisposable
         Assert.Empty(installer.Installed);
     }
 
+    [Theory]
+    [InlineData("version")]
+    [InlineData("--version")]
+    [InlineData("-v")]
+    public async Task Version_prints_the_version_and_exits_0(string argument)
+    {
+        var (cli, _) = Cli();
+
+        Assert.Equal(CliExitCode.Success, await cli.RunAsync([argument]));
+        Assert.Matches(@"^ctrlz \d+\.\d+\.\d+", _out.ToString());
+    }
+
     [Fact]
     public async Task A_failed_app_exits_2_and_a_failed_dependency_exits_4()
     {

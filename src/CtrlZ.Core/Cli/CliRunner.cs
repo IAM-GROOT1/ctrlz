@@ -66,11 +66,18 @@ public sealed class CliRunner
         return options.Command switch
         {
             CliCommand.Help => Help(),
+            CliCommand.Version => PrintVersion(),
             CliCommand.List => List(),
             CliCommand.DryRun => await DryRunAsync(options, cancellationToken).ConfigureAwait(false),
             CliCommand.Updates => await UpdatesAsync(options, cancellationToken).ConfigureAwait(false),
             _ => await InstallAsync(options, cancellationToken).ConfigureAwait(false)
         };
+    }
+
+    private int PrintVersion()
+    {
+        _env.Out.WriteLine("ctrlz " + Updates.AppVersionInfo.Display);
+        return CliExitCode.Success;
     }
 
     private int Help()
