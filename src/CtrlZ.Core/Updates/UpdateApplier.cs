@@ -127,12 +127,7 @@ public sealed class UpdateApplier
         if (started is null)
         {
             companion?.Restore();
-            if (Restore(backup, target))
-            {
-                _probation.Clear();
-            }
-
-            return UpdateApplyResult.RolledBackFrom(
+            return AfterFailedStart(Restore(backup, target),
                 "The new version could not be started. The previous version was restored.", request.Version);
         }
 
@@ -144,13 +139,7 @@ public sealed class UpdateApplier
                 _log.Write(LogLevel.Error, "The updated build exited before showing its main window; rolling back.");
                 Stop(started);
                 companion?.Restore();
-                // The record stays when the restore fails, so the next start of the new build rolls back.
-                if (Restore(backup, target))
-                {
-                    _probation.Clear();
-                }
-
-                return UpdateApplyResult.RolledBackFrom(
+                return AfterFailedStart(Restore(backup, target),
                     "The new version closed unexpectedly, so CTRL+Z rolled back to the previous version.", request.Version);
             }
 
@@ -164,6 +153,24 @@ public sealed class UpdateApplier
         _log.Write(LogLevel.Info, health == StartupHealth.Loaded
             ? $"Update to {version} showed its main window; the previous build is kept until it has loaded {UpdateProbation.LaunchesToCommit} times."
             : $"Update to {version} is still starting after {LoadWindow.TotalSeconds:0} s; its next start decides whether to keep it.");
+
+    /// <summary>
+    /// The result after a new build failed to start. Only a restore that worked counts as a rollback
+    /// (and makes the app skip that version). When it did not, the probation record is kept: the next
+    /// start of the new build is watched and rolls back if it fails to load again, and the user is
+    /// told that the previous build is kept beside the app.
+    /// </summary>
+    private UpdateApplyResult AfterFailedStart(bool restored, string message, string? version)
+    {
+        if (!restored)
+        {
+            return UpdateApplyResult.Failed(
+                "The new version failed to start, and the previous version could not be put back. It is kept as CTRL+Z.exe.old next to the app.");
+        }
+
+        _probation.Clear();
+        return UpdateApplyResult.RolledBackFrom(message, version);
+    }
 
     /// <summary>Ends a build that failed to start and waits until its file is no longer in use.</summary>
     private static void Stop(Process process)
@@ -264,12 +271,7 @@ public sealed class UpdateApplier
         var started = TryStart(target);
         if (started is null)
         {
-            if (RestoreInstalled(target, companionBackedUp))
-            {
-                _probation.Clear();
-            }
-
-            return UpdateApplyResult.RolledBackFrom(
+            return AfterFailedStart(RestoreInstalled(target, companionBackedUp),
                 "The new version could not be started. The previous version was restored.", request.Version);
         }
 
@@ -280,13 +282,7 @@ public sealed class UpdateApplier
             {
                 _log.Write(LogLevel.Error, "The updated build exited before showing its main window; rolling back.");
                 Stop(started);
-                // The record stays when the restore fails, so the next start of the new build rolls back.
-                if (RestoreInstalled(target, companionBackedUp))
-                {
-                    _probation.Clear();
-                }
-
-                return UpdateApplyResult.RolledBackFrom(
+                return AfterFailedStart(RestoreInstalled(target, companionBackedUp),
                     "The new version closed unexpectedly, so CTRL+Z rolled back to the previous version.", request.Version);
             }
 

@@ -459,7 +459,10 @@ public sealed class UpdateCoordinator
 
         // A build that failed to start would only fail again: treat it like "Skip this version",
         // so it is not offered until a newer release appears.
-        if (result.RolledBack && SemanticVersion.TryParse(result.Version, out var failed) && failed is not null)
+        // Only a version newer than this one can have been rolled back from, so an edited result
+        // file cannot use this to hide every future update.
+        if (result.RolledBack && SemanticVersion.TryParse(result.Version, out var failed) && failed is not null &&
+            failed.CompareTo(AppVersionInfo.Current) > 0)
         {
             _services.State.Settings.SkippedUpdateVersion = failed.ToString();
             _services.State.Settings.UpdateRemindAfterUtc = null;
