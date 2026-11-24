@@ -5,6 +5,7 @@ using System.Text;
 using System.Text.Json;
 using System.Text.Json.Nodes;
 using CtrlZ.Core.Infrastructure;
+using CtrlZ.Core.Localization;
 using CtrlZ.Core.Logging;
 using CtrlZ.Core.Models;
 using ICSharpCode.SharpZipLib.Zip;
@@ -133,7 +134,7 @@ public sealed class BrowserRestoreService
         if (!string.Equals(manifest.BrowserId, request.Target.Id, StringComparison.OrdinalIgnoreCase) &&
             !request.Target.IsCustom)
         {
-            warnings.Add($"This archive was created from {manifest.BrowserName}, not {request.Target.DisplayName}.");
+            warnings.Add(CoreText.Format("BrowserRestore_FromOtherBrowser", manifest.BrowserName, request.Target.DisplayName));
         }
 
         var safetyFolder = CreateSafetyBackup(userData, mappings, selected, request.Target.Family, warnings);
@@ -142,7 +143,7 @@ public sealed class BrowserRestoreService
             : null;
         var processed = 0;
         var total = CountFileEntries(info.ArchivePath, request.Password);
-        progress?.Report(new BrowserRestoreProgress("Preparing restore…", 0, total, 0));
+        progress?.Report(new BrowserRestoreProgress(CoreText.Get("BrowserRestore_Preparing"), 0, total, 0));
 
         using var zip = OpenArchive(request.ArchivePath, request.Password);
         for (var i = 0; i < zip.Count; i++)
@@ -179,14 +180,14 @@ public sealed class BrowserRestoreService
 
             if (BrowserArchiveReader.IsForbiddenRestorePath(targetRelative))
             {
-                warnings.Add($"Skipped sensitive file from archive: {targetRelative}");
+                warnings.Add(CoreText.Format("BrowserRestore_SkippedSensitiveFile", targetRelative));
                 continue;
             }
 
             var targetPath = ResolveSafeTarget(userData, targetRelative);
             if (targetPath is null)
             {
-                warnings.Add($"Skipped unsafe archive path: {entryName}");
+                warnings.Add(CoreText.Format("BrowserRestore_SkippedUnsafePath", entryName));
                 continue;
             }
 
@@ -200,7 +201,7 @@ public sealed class BrowserRestoreService
 
             processed++;
             progress?.Report(new BrowserRestoreProgress(
-                $"Restoring {Path.GetFileName(targetRelative)}…", processed, total,
+                CoreText.Format("BrowserRestore_RestoringFile", Path.GetFileName(targetRelative)), processed, total,
                 total == 0 ? 0 : (double)processed / total));
         }
 
@@ -213,7 +214,7 @@ public sealed class BrowserRestoreService
             RestoreFirefoxProfilesIni(userData, mappings, selected, targetFlat, warnings);
         }
 
-        progress?.Report(new BrowserRestoreProgress("Restore complete.", total, total, 1));
+        progress?.Report(new BrowserRestoreProgress(CoreText.Get("BrowserRestore_Complete"), total, total, 1));
         _log.Write(LogLevel.Info,
             $"Restored {processed} files into {userData} for {request.Target.DisplayName}.");
 
@@ -240,7 +241,7 @@ public sealed class BrowserRestoreService
             {
                 if (request.RestoreAsNewProfiles)
                 {
-                    warnings.Add("This browser uses a single-profile layout, so it cannot create an additional profile. The existing profile will be overwritten.");
+                    warnings.Add(CoreText.Get("BrowserRestore_SingleProfileOverwrite"));
                 }
 
                 mappings[profile.DirectoryName] = ".";
@@ -249,7 +250,7 @@ public sealed class BrowserRestoreService
 
             if (!IsSafeProfileRelativePath(profile.DirectoryName))
             {
-                warnings.Add($"Skipped profile with an unsafe folder name: {profile.DirectoryName}");
+                warnings.Add(CoreText.Format("BrowserRestore_SkippedUnsafeProfile", profile.DirectoryName));
                 continue;
             }
 
@@ -403,7 +404,7 @@ public sealed class BrowserRestoreService
         }
         catch (Exception ex)
         {
-            warnings.Add($"The current Local State could not be read: {ex.Message}");
+            warnings.Add(CoreText.Format("BrowserRestore_LocalStateUnreadable", ex.Message));
         }
 
         JsonObject merged;
@@ -417,7 +418,7 @@ public sealed class BrowserRestoreService
         }
         catch (Exception ex)
         {
-            warnings.Add($"Local State could not be merged: {ex.Message}");
+            warnings.Add(CoreText.Format("BrowserRestore_LocalStateNotMerged", ex.Message));
             return;
         }
 
@@ -537,7 +538,7 @@ public sealed class BrowserRestoreService
         }
         catch (Exception ex)
         {
-            warnings.Add($"Profile files were restored, but profiles.ini could not be updated: {ex.Message}");
+            warnings.Add(CoreText.Format("BrowserRestore_ProfilesIniNotUpdated", ex.Message));
             throw new BrowserBackupException(
                 "Profile files were restored, but the Firefox profiles.ini could not be updated: " + ex.Message, ex);
         }
@@ -605,7 +606,7 @@ public sealed class BrowserRestoreService
         }
         catch (Exception ex)
         {
-            warnings.Add($"A safety copy of the current profile could not be created: {ex.Message}");
+            warnings.Add(CoreText.Format("BrowserRestore_SafetyCopyFailed", ex.Message));
             return null;
         }
     }

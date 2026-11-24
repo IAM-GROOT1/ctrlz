@@ -1261,4 +1261,40 @@
   <data name="ReadinessScanner_DaysAgo_Other" xml:space="preserve">
     <value>vor {0} Tagen</value>
   </data>
+  <data name="BrowserRestore_FromOtherBrowser" xml:space="preserve">
+    <value>Dieses Archiv wurde mit {0} erstellt, nicht mit {1}.</value>
+  </data>
+  <data name="BrowserRestore_Preparing" xml:space="preserve">
+    <value>Wiederherstellung wird vorbereitet…</value>
+  </data>
+  <data name="BrowserRestore_RestoringFile" xml:space="preserve">
+    <value>{0} wird wiederhergestellt…</value>
+  </data>
+  <data name="BrowserRestore_Complete" xml:space="preserve">
+    <value>Wiederherstellung abgeschlossen.</value>
+  </data>
+  <data name="BrowserRestore_SkippedSensitiveFile" xml:space="preserve">
+    <value>Vertrauliche Datei aus dem Archiv übersprungen: {0}</value>
+  </data>
+  <data name="BrowserRestore_SkippedUnsafePath" xml:space="preserve">
+    <value>Unsicheren Pfad im Archiv übersprungen: {0}</value>
+  </data>
+  <data name="BrowserRestore_SingleProfileOverwrite" xml:space="preserve">
+    <value>Dieser Browser hat nur ein einzelnes Profil und kann kein weiteres anlegen. Das vorhandene Profil wird überschrieben.</value>
+  </data>
+  <data name="BrowserRestore_SkippedUnsafeProfile" xml:space="preserve">
+    <value>Profil mit unsicherem Ordnernamen übersprungen: {0}</value>
+  </data>
+  <data name="BrowserRestore_LocalStateUnreadable" xml:space="preserve">
+    <value>Die aktuelle Local State konnte nicht gelesen werden: {0}</value>
+  </data>
+  <data name="BrowserRestore_LocalStateNotMerged" xml:space="preserve">
+    <value>Local State konnte nicht zusammengeführt werden: {0}</value>
+  </data>
+  <data name="BrowserRestore_ProfilesIniNotUpdated" xml:space="preserve">
+    <value>Die Profildateien wurden wiederhergestellt, aber profiles.ini konnte nicht aktualisiert werden: {0}</value>
+  </data>
+  <data name="BrowserRestore_SafetyCopyFailed" xml:space="preserve">
+    <value>Es konnte keine Sicherheitskopie des aktuellen Profils erstellt werden: {0}</value>
+  </data>
 </root>
