@@ -222,9 +222,10 @@ CTRL+Z can check GitHub for a newer release and update itself.
   version quiet until a newer one ships.
 - **If a new version fails to start.** The updater keeps the previous version beside the app
   until the new one has shown its window twice. If it closes before its window appears, or a
-  later start never shows it, the previous version is put back and you are told why. It covers
+  later start never shows it, the previous version is put back and you are told why. This covers
   updates made from 1.4 onward for portable copies, and from the release after 1.4 for installed
-  copies (the update is run by the version being replaced).
+  copies (the update is run by the version being replaced). From the release after 1.4, the
+  version that failed is also skipped until a newer release appears.
 - **Interruptions.** CTRL+Z never prompts or applies an update while an install queue, browser
   backup or restore is running; the prompt waits for the operation to finish.
 - **Privacy.** The release check and an update download are the only network requests this

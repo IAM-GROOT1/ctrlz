@@ -3090,4 +3090,9 @@ Verwenden Sie die Datei aus „winget export -o apps.json“, „scoop export &g
   <data name="Preview_RiskyCommands_Other" xml:space="preserve">
     <value> · {0} riskante Befehle</value>
   </data>
+  <data name="Update_RolledBackVersionSkipped" xml:space="preserve">
+    <value>
+
+Version {0} wird nicht erneut angeboten; eine neuere Version wird wie gewohnt angeboten.</value>
+  </data>
 </root>

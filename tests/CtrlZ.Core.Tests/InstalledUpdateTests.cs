@@ -49,6 +49,8 @@ public sealed class InstalledUpdateTests : IDisposable
 
         Assert.False(result.Success);
         Assert.Contains("rolled back", result.Message);
+        Assert.True(result.RolledBack, "the app skips this version afterwards");
+        Assert.Equal("9.9.9", result.Version);
         Assert.True(SameBytes(App, OldBuild), "the previous CTRL+Z.exe is back");
         Assert.True(SameBytes(Cli, OldBuild), "the previous ctrlz.exe is back");
         Assert.False(File.Exists(App + ".old"));

@@ -197,9 +197,9 @@ A stronger design would:
   onward, because the update helper is a copy of the version being replaced.
 - [x] **Done for installed copies.** Before the Setup runs, the helper copies the installed
   `CTRL+Z.exe` (and `ctrlz.exe`) to `.old`, then watches the new build the same way and restores
-  the copy if it fails to start. If the install folder cannot be written (a machine-wide install
-  updated without administrator rights), the update runs as before, without a rollback copy. The
-  uninstaller removes any leftover `.old` or `.failed` file.
+  the copy if it fails to start. If the copy cannot be made, the update runs as before, without
+  one. A version that had to be rolled back is skipped, like *Skip this version*, until a newer
+  release appears. The uninstaller removes any leftover `.old` or `.failed` file.
 
 ## Keeping this in sync
 
