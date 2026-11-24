@@ -1307,5 +1307,7 @@
   </data>
   <data name="BrowserRestore_SafetyCopyFailed" xml:space="preserve">
     <value>A safety copy of the current profile could not be created: {0}</value>
+  <data name="InstallEngine_NotAttempted" xml:space="preserve">
+    <value>Not attempted: {0}</value>
   </data>
 </root>

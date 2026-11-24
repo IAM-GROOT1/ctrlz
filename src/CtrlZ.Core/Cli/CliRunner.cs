@@ -432,7 +432,8 @@ public sealed class CliRunner
         }
 
         var dependency = finished.Items.Any(item =>
-            item.Status == InstallStatus.Failed && (item.Error ?? string.Empty).StartsWith(InstallEngine.NotAttemptedPrefix, StringComparison.Ordinal));
+            item.Status == InstallStatus.Failed &&
+            (item.NotAttempted || (item.Error ?? string.Empty).StartsWith(InstallEngine.LegacyNotAttemptedPrefix, StringComparison.Ordinal)));
         // Anything that did not complete counts, and so does a command refused for hidden characters.
         var failed = refusedHidden || finished.Items.Any(item =>
             item.Status is not (InstallStatus.Success or InstallStatus.RebootRequired or InstallStatus.Skipped));

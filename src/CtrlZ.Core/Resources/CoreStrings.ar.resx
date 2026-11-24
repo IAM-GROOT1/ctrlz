@@ -1323,5 +1323,7 @@
   </data>
   <data name="BrowserRestore_SafetyCopyFailed" xml:space="preserve">
     <value>تعذّر إنشاء نسخة أمان من ملف التعريف الحالي: {0}</value>
+  <data name="InstallEngine_NotAttempted" xml:space="preserve">
+    <value>لم تتم المحاولة: {0}</value>
   </data>
 </root>
