@@ -117,6 +117,9 @@ order, screen-reader labels and translations.
   language). Arabic (with right-to-left layout), Spanish, Russian and German are translated and
   still need a review by native speakers. The command line stays English. More languages can
   follow; see CONTRIBUTING.md to add one.
+- [x] **E. Contrast themes.** With a Windows contrast theme on, every colour in CTRL+Z comes from
+  that theme (window, text, selection, disabled text), and the current page, chosen toggles and
+  selected rows use the selection colours. Turning the theme on or off applies at once.
 
 ### 7. Onboarding and sharing profiles
 

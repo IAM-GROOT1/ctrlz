@@ -45,6 +45,10 @@
     <SolidColorBrush x:Key="Brush.AccentHover" Color="{StaticResource Color.AccentHover}" />
     <SolidColorBrush x:Key="Brush.AccentPressed" Color="{StaticResource Color.AccentPressed}" />
     <SolidColorBrush x:Key="Brush.AccentSoft" Color="{StaticResource Color.AccentSoft}" />
+    <!-- Selection: the same colours as the accent here; a Windows contrast theme gives them its own. -->
+    <SolidColorBrush x:Key="Brush.Selected" Color="{StaticResource Color.AccentSoft}" />
+    <SolidColorBrush x:Key="Brush.SelectedText" Color="{StaticResource Color.Accent}" />
+    <SolidColorBrush x:Key="Brush.SelectedItemText" Color="{StaticResource Color.TextPrimary}" />
     <SolidColorBrush x:Key="Brush.AccentText" Color="{StaticResource Color.AccentText}" />
     <SolidColorBrush x:Key="Brush.Success" Color="{StaticResource Color.Success}" />
     <SolidColorBrush x:Key="Brush.SuccessSoft" Color="{StaticResource Color.SuccessSoft}" />

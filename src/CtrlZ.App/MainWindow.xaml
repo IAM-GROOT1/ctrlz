@@ -71,9 +71,9 @@
                                 <Setter Property="Foreground" Value="{DynamicResource Brush.TextPrimary}" />
                             </Trigger>
                             <DataTrigger Binding="{Binding IsCurrent}" Value="True">
-                                <Setter TargetName="NavBorder" Property="Background" Value="{DynamicResource Brush.AccentSoft}" />
+                                <Setter TargetName="NavBorder" Property="Background" Value="{DynamicResource Brush.Selected}" />
                                 <Setter TargetName="AccentBar" Property="Visibility" Value="Visible" />
-                                <Setter Property="Foreground" Value="{DynamicResource Brush.Accent}" />
+                                <Setter Property="Foreground" Value="{DynamicResource Brush.SelectedText}" />
                             </DataTrigger>
                             <Trigger Property="IsKeyboardFocused" Value="True">
                                 <Setter TargetName="NavBorder" Property="BorderBrush" Value="{DynamicResource Brush.Accent}" />
