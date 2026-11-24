@@ -13,7 +13,7 @@
             <TextBlock x:Name="Initials" Text="?" FontFamily="{StaticResource Font.Text}" FontWeight="SemiBold"
                        Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" />
         </Border>
-        <Image x:Name="IconImage" Stretch="Uniform" RenderOptions.BitmapScalingMode="HighQuality"
+        <Image FlowDirection="LeftToRight" x:Name="IconImage" Stretch="Uniform" RenderOptions.BitmapScalingMode="HighQuality"
                Visibility="Collapsed" />
     </Grid>
 </UserControl>

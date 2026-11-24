@@ -2,6 +2,7 @@
 // Copyright (c) 2026 iam-groot1
 
 using System.Text.Json.Serialization;
+using CtrlZ.Core.Localization;
 
 namespace CtrlZ.Core.Models;
 
@@ -114,9 +115,9 @@ public sealed class AppEntry
     {
         AppSource.Winget => $"winget install --id {PackageId}",
         AppSource.MicrosoftStore => $"Store / winget {PackageId}",
-        AppSource.GitHub => $"{GitHubRepo} · latest release{(string.IsNullOrWhiteSpace(GitHubAsset) ? string.Empty : " · " + GitHubAsset)}",
-        AppSource.DirectUrl => DownloadUrl ?? "Missing URL",
-        AppSource.LocalFile => LocalPath ?? "Missing file",
-        _ => "Unknown source"
+        AppSource.GitHub => $"{GitHubRepo} · " + CoreText.Get("AppEntry_LatestRelease") + $"{(string.IsNullOrWhiteSpace(GitHubAsset) ? string.Empty : " · " + GitHubAsset)}",
+        AppSource.DirectUrl => DownloadUrl ?? CoreText.Get("AppEntry_MissingUrl"),
+        AppSource.LocalFile => LocalPath ?? CoreText.Get("AppEntry_MissingFile"),
+        _ => CoreText.Get("AppEntry_UnknownSource")
     };
 }

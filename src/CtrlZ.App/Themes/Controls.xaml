@@ -241,6 +241,7 @@
 
     <Style x:Key="Text.LogBox" TargetType="TextBox" BasedOn="{StaticResource {x:Type TextBox}}">
         <Setter Property="FontFamily" Value="{StaticResource Font.Mono}" />
+        <Setter Property="FlowDirection" Value="LeftToRight" />
         <Setter Property="FontSize" Value="11.5" />
         <Setter Property="Background" Value="{DynamicResource Brush.LogBackground}" />
         <Setter Property="Foreground" Value="{DynamicResource Brush.TextSecondary}" />
@@ -303,7 +304,7 @@
                         <Border x:Name="Box" Width="16" Height="16" CornerRadius="3" BorderThickness="1"
                                 BorderBrush="{DynamicResource Brush.BorderStrong}" Background="{DynamicResource Brush.Surface}"
                                 VerticalAlignment="Center">
-                            <Path x:Name="Check" Data="M 2,6.5 L 5,9.5 L 11,3.2" Stroke="White" StrokeThickness="1.6"
+                            <Path x:Name="Check" FlowDirection="LeftToRight" Data="M 2,6.5 L 5,9.5 L 11,3.2" Stroke="White" StrokeThickness="1.6"
                                   StrokeStartLineCap="Round" StrokeEndLineCap="Round" StrokeLineJoin="Round"
                                   HorizontalAlignment="Center" VerticalAlignment="Center" Visibility="Collapsed" />
                         </Border>

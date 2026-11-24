@@ -87,7 +87,8 @@
                                   Visibility="{Binding HasDetails, Converter={StaticResource BoolToVisibility}}">
                         <ItemsControl.ItemTemplate>
                             <DataTemplate>
-                                <TextBlock Text="{Binding}" FontFamily="{StaticResource Font.Mono}" FontSize="10.5"
+                                <!-- Translated text, so it follows the language direction. -->
+                                <TextBlock Text="{Binding}" FontFamily="{StaticResource Font.Mono}" FlowDirection="{x:Static l:AppLanguage.FlowDirection}" FontSize="10.5"
                                            Foreground="{DynamicResource Brush.TextTertiary}" TextWrapping="Wrap"
                                            Margin="0,1,0,0" />
                             </DataTemplate>

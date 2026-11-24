@@ -71,9 +71,9 @@
 
                         <StackPanel Visibility="{Binding IsDirect, Converter={StaticResource BoolToVisibility}}">
                             <TextBlock Text="{l:Tr AddApp_DownloadURL}" Style="{StaticResource Text.Label}" />
-                            <TextBox AutomationProperties.Name="{l:Tr AddApp_DownloadURL}" Text="{Binding Url, UpdateSourceTrigger=PropertyChanged}" />
+                            <TextBox AutomationProperties.Name="{l:Tr AddApp_DownloadURL}" FlowDirection="LeftToRight" Text="{Binding Url, UpdateSourceTrigger=PropertyChanged}" />
                             <TextBlock Text="{l:Tr AddApp_SaveAsFileNameOptional}" Style="{StaticResource Text.Label}" Margin="0,12,0,6" />
-                            <TextBox AutomationProperties.Name="{l:Tr AddApp_SaveAsFileNameOptional}" Text="{Binding FileName, UpdateSourceTrigger=PropertyChanged}" />
+                            <TextBox AutomationProperties.Name="{l:Tr AddApp_SaveAsFileNameOptional}" FlowDirection="LeftToRight" Text="{Binding FileName, UpdateSourceTrigger=PropertyChanged}" />
                             <TextBlock Text="{l:Tr AddApp_TheAppDownloadsAtInstall}"
                                        Style="{StaticResource Text.Caption}" Margin="0,6,0,0" TextWrapping="Wrap" />
                         </StackPanel>
@@ -85,7 +85,7 @@
                                     <ColumnDefinition Width="*" />
                                     <ColumnDefinition Width="Auto" />
                                 </Grid.ColumnDefinitions>
-                                <TextBox AutomationProperties.Name="{l:Tr AddApp_GitHubRepository}" Text="{Binding Repo, UpdateSourceTrigger=PropertyChanged}" />
+                                <TextBox AutomationProperties.Name="{l:Tr AddApp_GitHubRepository}" FlowDirection="LeftToRight" Text="{Binding Repo, UpdateSourceTrigger=PropertyChanged}" />
                                 <Button Grid.Column="1" Content="{l:Tr AddApp_FindLatest}" Style="{StaticResource Button.Secondary}"
                                         Margin="8,0,0,0" Command="{Binding FindReleaseCommand}"
                                         IsEnabled="{Binding IsLoadingRelease, Converter={StaticResource BoolNegation}}" />
@@ -137,7 +137,7 @@
                                     <ColumnDefinition Width="Auto" />
                                     <ColumnDefinition Width="Auto" />
                                 </Grid.ColumnDefinitions>
-                                <TextBox AutomationProperties.Name="{l:Tr AddApp_InstallerPath}" Text="{Binding LocalPath, UpdateSourceTrigger=PropertyChanged}" />
+                                <TextBox AutomationProperties.Name="{l:Tr AddApp_InstallerPath}" FlowDirection="LeftToRight" Text="{Binding LocalPath, UpdateSourceTrigger=PropertyChanged}" />
                                 <Button Grid.Column="1" Content="{l:Tr AddApp_File}" Style="{StaticResource Button.Secondary}"
                                         Margin="8,0,0,0" Command="{Binding BrowseLocalCommand}" />
                                 <Button Grid.Column="2" Content="{l:Tr AddApp_Folder}" Style="{StaticResource Button.Ghost}"
@@ -171,7 +171,7 @@
                         </Border>
 
                         <TextBlock Text="{l:Tr AddApp_SilentSwitches}" Style="{StaticResource Text.Label}" Margin="0,14,0,6" />
-                        <TextBox AutomationProperties.Name="{l:Tr AddApp_SilentSwitches}" Text="{Binding SilentArgs, UpdateSourceTrigger=PropertyChanged}" FontFamily="{StaticResource Font.Mono}" />
+                        <TextBox AutomationProperties.Name="{l:Tr AddApp_SilentSwitches}" Text="{Binding SilentArgs, UpdateSourceTrigger=PropertyChanged}" FontFamily="{StaticResource Font.Mono}" FlowDirection="LeftToRight" />
                         <WrapPanel Margin="0,8,0,0">
                             <Button Content="{l:Tr AddApp_InspectInstaller}" Style="{StaticResource Button.Secondary}"
                                     Command="{Binding DetectInstallerCommand}" Margin="0,0,6,6" />
@@ -183,17 +183,17 @@
                                     Margin="0,0,0,6" />
                         </WrapPanel>
                         <TextBlock Text="{Binding RecommendedArgs}" Style="{StaticResource Text.Caption}"
-                                   FontFamily="{StaticResource Font.Mono}" TextWrapping="Wrap" Margin="0,8,0,0" />
+                                   FontFamily="{StaticResource Font.Mono}" FlowDirection="LeftToRight" TextWrapping="Wrap" Margin="0,8,0,0" />
 
                         <TextBlock Text="{l:Tr AddApp_CommandPreview}" Style="{StaticResource Text.Label}" Margin="0,16,0,6" />
                         <Border Style="{StaticResource Border.Inset}" Background="{DynamicResource Brush.LogBackground}" Padding="10,8">
                             <TextBlock Text="{Binding PreviewCommand, TargetNullValue='Inspect an installer to preview the command.'}"
-                                       FontFamily="{StaticResource Font.Mono}" FontSize="10.5" TextWrapping="Wrap"
+                                       FontFamily="{StaticResource Font.Mono}" FlowDirection="LeftToRight" FontSize="10.5" TextWrapping="Wrap"
                                        Foreground="{DynamicResource Brush.TextSecondary}" />
                         </Border>
 
                         <TextBlock Text="{l:Tr AddApp_SHA256Optional}" Style="{StaticResource Text.Label}" Margin="0,14,0,6" />
-                        <TextBox AutomationProperties.Name="{l:Tr AddApp_SHA256Optional}" Text="{Binding Hash, UpdateSourceTrigger=PropertyChanged}" FontFamily="{StaticResource Font.Mono}" />
+                        <TextBox AutomationProperties.Name="{l:Tr AddApp_SHA256Optional}" Text="{Binding Hash, UpdateSourceTrigger=PropertyChanged}" FontFamily="{StaticResource Font.Mono}" FlowDirection="LeftToRight" />
                         <TextBlock Text="{l:Tr AddApp_GitHubReleaseDigestsAreFilled}"
                                    Style="{StaticResource Text.Caption}" Margin="0,6,0,0" TextWrapping="Wrap" />
 

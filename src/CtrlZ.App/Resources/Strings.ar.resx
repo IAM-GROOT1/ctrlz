@@ -1,0 +1,3195 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Main_Minimize" xml:space="preserve">
+    <value>تصغير</value>
+  </data>
+  <data name="Main_Maximize" xml:space="preserve">
+    <value>تكبير</value>
+  </data>
+  <data name="Main_Close" xml:space="preserve">
+    <value>إغلاق</value>
+  </data>
+  <data name="Main_WORKSPACE" xml:space="preserve">
+    <value>مساحة العمل</value>
+  </data>
+  <data name="Main_DISCOVER" xml:space="preserve">
+    <value>اكتشاف</value>
+  </data>
+  <data name="Main_BROWSERS" xml:space="preserve">
+    <value>المتصفحات</value>
+  </data>
+  <data name="Main_LocalFirstNoAccount" xml:space="preserve">
+    <value>محلي أولاً · بلا حساب</value>
+  </data>
+  <data name="AddApp_DirectLink" xml:space="preserve">
+    <value>رابط مباشر</value>
+  </data>
+  <data name="AddApp_GitHubRelease" xml:space="preserve">
+    <value>إصدار على GitHub</value>
+  </data>
+  <data name="AddApp_LocalFile" xml:space="preserve">
+    <value>ملف محلي</value>
+  </data>
+  <data name="AddApp_APPDETAILS" xml:space="preserve">
+    <value>تفاصيل التطبيق</value>
+  </data>
+  <data name="AddApp_Name" xml:space="preserve">
+    <value>الاسم</value>
+  </data>
+  <data name="AddApp_PublisherOptional" xml:space="preserve">
+    <value>الناشر (اختياري)</value>
+  </data>
+  <data name="AddApp_Category" xml:space="preserve">
+    <value>الفئة</value>
+  </data>
+  <data name="AddApp_INSTALLERSOURCE" xml:space="preserve">
+    <value>مصدر المثبّت</value>
+  </data>
+  <data name="AddApp_DownloadURL" xml:space="preserve">
+    <value>رابط التنزيل</value>
+  </data>
+  <data name="AddApp_SaveAsFileNameOptional" xml:space="preserve">
+    <value>الحفظ باسم الملف (اختياري)</value>
+  </data>
+  <data name="AddApp_TheAppDownloadsAtInstall" xml:space="preserve">
+    <value>يُنزَّل التطبيق وقت التثبيت. أضف المفاتيح في الجانب المقابل ليُثبَّت بصمت.</value>
+  </data>
+  <data name="AddApp_Repository" xml:space="preserve">
+    <value>المستودع</value>
+  </data>
+  <data name="AddApp_GitHubRepository" xml:space="preserve">
+    <value>مستودع GitHub</value>
+  </data>
+  <data name="AddApp_FindLatest" xml:space="preserve">
+    <value>البحث عن الأحدث</value>
+  </data>
+  <data name="AddApp_ReleaseAssets" xml:space="preserve">
+    <value>ملفات الإصدار</value>
+  </data>
+  <data name="AddApp_FindTheLatestReleaseTo" xml:space="preserve">
+    <value>ابحث عن أحدث إصدار لاختيار ملف لنظام Windows.</value>
+  </data>
+  <data name="AddApp_AssetHandling" xml:space="preserve">
+    <value>التعامل مع الملف</value>
+  </data>
+  <data name="AddApp_TheLatestReleaseIsChecked" xml:space="preserve">
+    <value>يُفحص أحدث إصدار مرة أخرى وقت التثبيت؛ ويُعاد استخدام نوع الملف المختار، لا الإصدار القديم.</value>
+  </data>
+  <data name="AddApp_InstallerFile" xml:space="preserve">
+    <value>ملف المثبّت</value>
+  </data>
+  <data name="AddApp_InstallerPath" xml:space="preserve">
+    <value>مسار المثبّت</value>
+  </data>
+  <data name="AddApp_File" xml:space="preserve">
+    <value>ملف…</value>
+  </data>
+  <data name="AddApp_Folder" xml:space="preserve">
+    <value>مجلد…</value>
+  </data>
+  <data name="AddApp_KeepTheUSBDriveOr" xml:space="preserve">
+    <value>أبقِ محرك USB أو المجلد متاحًا عند تشغيل التثبيت.</value>
+  </data>
+  <data name="AddApp_NotesHeading" xml:space="preserve">
+    <value>ملاحظات</value>
+  </data>
+  <data name="AddApp_Notes" xml:space="preserve">
+    <value>ملاحظات</value>
+  </data>
+  <data name="AddApp_SILENTINSTALL" xml:space="preserve">
+    <value>التثبيت الصامت</value>
+  </data>
+  <data name="AddApp_CTRLZDetectsTheInstaller" xml:space="preserve">
+    <value>يكتشف CTRL+Z نوع المثبّت ويختار مجموعة مفاتيح معروفة. المفاتيح المخصصة لها الأولوية دائمًا.</value>
+  </data>
+  <data name="AddApp_Detected" xml:space="preserve">
+    <value>المكتشَف</value>
+  </data>
+  <data name="AddApp_SilentSwitches" xml:space="preserve">
+    <value>مفاتيح التثبيت الصامت</value>
+  </data>
+  <data name="AddApp_InspectInstaller" xml:space="preserve">
+    <value>فحص المثبّت</value>
+  </data>
+  <data name="AddApp_UseRecommended" xml:space="preserve">
+    <value>استخدام الموصى به</value>
+  </data>
+  <data name="AddApp_Test" xml:space="preserve">
+    <value>اختبار…</value>
+  </data>
+  <data name="AddApp_CommandPreview" xml:space="preserve">
+    <value>معاينة الأمر</value>
+  </data>
+  <data name="AddApp_SHA256Optional" xml:space="preserve">
+    <value>SHA-256 (اختياري)</value>
+  </data>
+  <data name="AddApp_GitHubReleaseDigestsAreFilled" xml:space="preserve">
+    <value>تُملأ بصمات إصدارات GitHub تلقائيًا عند توفرها. يتحقق winget من بياناته بنفسه.</value>
+  </data>
+  <data name="AddApp_TestOutput" xml:space="preserve">
+    <value>نتيجة الاختبار</value>
+  </data>
+  <data name="AddApp_PasswordsAndCookiesAreExcluded" xml:space="preserve">
+    <value>كلمات المرور وملفات تعريف الارتباط مستبعدة من نسخ المتصفحات الاحتياطية. يُتحقق من تنزيلات المثبّتات عند توفر بصمة.</value>
+  </data>
+  <data name="AddApp_TheAppIsSavedIn" xml:space="preserve">
+    <value>يُحفظ التطبيق في ملف التعريف فقط. لا تُنزَّل المثبّتات حتى وقت التثبيت.</value>
+  </data>
+  <data name="AddApp_Clear" xml:space="preserve">
+    <value>مسح</value>
+  </data>
+  <data name="AppEditor_EditApp" xml:space="preserve">
+    <value>تعديل التطبيق</value>
+  </data>
+  <data name="AppEditor_Close" xml:space="preserve">
+    <value>إغلاق</value>
+  </data>
+  <data name="AppEditor_IDENTITY" xml:space="preserve">
+    <value>الهوية</value>
+  </data>
+  <data name="AppEditor_Name" xml:space="preserve">
+    <value>الاسم</value>
+  </data>
+  <data name="AppEditor_Publisher" xml:space="preserve">
+    <value>الناشر</value>
+  </data>
+  <data name="AppEditor_Category" xml:space="preserve">
+    <value>الفئة</value>
+  </data>
+  <data name="AppEditor_SOURCE" xml:space="preserve">
+    <value>المصدر</value>
+  </data>
+  <data name="AppEditor_InstallFrom" xml:space="preserve">
+    <value>التثبيت من</value>
+  </data>
+  <data name="AppEditor_WingetPackageId" xml:space="preserve">
+    <value>معرّف حزمة winget</value>
+  </data>
+  <data name="AppEditor_UseTheExactIdFor" xml:space="preserve">
+    <value>استخدم المعرّف الدقيق، مثل Mozilla.Firefox أو 7zip.7zip.</value>
+  </data>
+  <data name="AppEditor_DownloadURL" xml:space="preserve">
+    <value>رابط التنزيل</value>
+  </data>
+  <data name="AppEditor_FileNameOverrideOptional" xml:space="preserve">
+    <value>اسم ملف بديل (اختياري)</value>
+  </data>
+  <data name="AppEditor_RepositoryOwnerProject" xml:space="preserve">
+    <value>المستودع (المالك/المشروع)</value>
+  </data>
+  <data name="AppEditor_AssetNameBlankBestWindows" xml:space="preserve">
+    <value>اسم الملف (فارغ = أفضل ملف لـ Windows)</value>
+  </data>
+  <data name="AppEditor_AssetNameBlankMeansThe" xml:space="preserve">
+    <value>اسم الملف (الفارغ يعني أفضل ملف لـ Windows)</value>
+  </data>
+  <data name="AppEditor_AssetType" xml:space="preserve">
+    <value>نوع الملف</value>
+  </data>
+  <data name="AppEditor_InstallerPath" xml:space="preserve">
+    <value>مسار المثبّت</value>
+  </data>
+  <data name="AppEditor_LocalInstallerPath" xml:space="preserve">
+    <value>مسار المثبّت المحلي</value>
+  </data>
+  <data name="AppEditor_Browse" xml:space="preserve">
+    <value>استعراض…</value>
+  </data>
+  <data name="AppEditor_INSTALLBEHAVIOUR" xml:space="preserve">
+    <value>سلوك التثبيت</value>
+  </data>
+  <data name="AppEditor_SilentSwitchesBlankAutoDetect" xml:space="preserve">
+    <value>مفاتيح التثبيت الصامت (فارغ = اكتشاف تلقائي وقت التثبيت)</value>
+  </data>
+  <data name="AppEditor_SilentSwitchesBlankMeansAuto" xml:space="preserve">
+    <value>مفاتيح التثبيت الصامت (الفارغ يعني الاكتشاف التلقائي وقت التثبيت)</value>
+  </data>
+  <data name="AppEditor_SHA256OptionalDirectGitHub" xml:space="preserve">
+    <value>SHA-256 (اختياري، للتنزيلات المباشرة وGitHub والمحلية)</value>
+  </data>
+  <data name="AppEditor_SHA256Optional" xml:space="preserve">
+    <value>SHA-256 (اختياري)</value>
+  </data>
+  <data name="AppEditor_Notes" xml:space="preserve">
+    <value>ملاحظات</value>
+  </data>
+  <data name="AppEditor_StoredAsPlainTextIn" xml:space="preserve">
+    <value>تُخزَّن كنص عادي في ملف التعريف. لا تضع كلمات مرور هنا.</value>
+  </data>
+  <data name="AppEditor_IncludeThisAppInInstalls" xml:space="preserve">
+    <value>تضمين هذا التطبيق في عمليات التثبيت</value>
+  </data>
+  <data name="AppEditor_AFTERINSTALL" xml:space="preserve">
+    <value>بعد التثبيت</value>
+  </data>
+  <data name="AppEditor_ProgramToRunBlankNo" xml:space="preserve">
+    <value>البرنامج المراد تشغيله (فارغ = بلا أمر)</value>
+  </data>
+  <data name="AppEditor_ProgramToRunBlankMeans" xml:space="preserve">
+    <value>البرنامج المراد تشغيله (الفارغ يعني بلا أمر)</value>
+  </data>
+  <data name="AppEditor_ArgumentsOnePerLineNo" xml:space="preserve">
+    <value>الوسائط، واحدة في كل سطر (بلا واجهة أوامر)</value>
+  </data>
+  <data name="AppEditor_ArgumentsOnePerLine" xml:space="preserve">
+    <value>الوسائط، واحدة في كل سطر</value>
+  </data>
+  <data name="AppEditor_WorkingDirectoryOptional" xml:space="preserve">
+    <value>مجلد العمل (اختياري)</value>
+  </data>
+  <data name="AppEditor_TimeoutSeconds" xml:space="preserve">
+    <value>المهلة (بالثواني)</value>
+  </data>
+  <data name="AppEditor_TimeoutInSeconds" xml:space="preserve">
+    <value>المهلة بالثواني</value>
+  </data>
+  <data name="AppEditor_RunThisCommandAsAdministrator" xml:space="preserve">
+    <value>تشغيل هذا الأمر كمسؤول</value>
+  </data>
+  <data name="AppEditor_RunThisCommandAfterThe" xml:space="preserve">
+    <value>تشغيل هذا الأمر بعد تثبيت التطبيق</value>
+  </data>
+  <data name="AppEditor_CommandsRunWithoutAShell" xml:space="preserve">
+    <value>تعمل الأوامر بلا واجهة أوامر وتُعرض كاملة في معاينة التثبيت.</value>
+  </data>
+  <data name="AppEditor_ThisProfileDidNotOriginate" xml:space="preserve">
+    <value>لم يُنشأ ملف التعريف هذا على هذا الكمبيوتر، لذا لا يمكن تعديل أوامره هنا. راجعها من شاشة المراجعة قبل أن يمكن تشغيلها.</value>
+  </data>
+  <data name="AppEditor_Cancel" xml:space="preserve">
+    <value>إلغاء</value>
+  </data>
+  <data name="AppEditor_SaveChanges" xml:space="preserve">
+    <value>حفظ التغييرات</value>
+  </data>
+  <data name="AppUpdates_Pinned" xml:space="preserve">
+    <value>مثبّت الإصدار</value>
+  </data>
+  <data name="AppUpdates_IgnoreThisVersion" xml:space="preserve">
+    <value>تجاهل هذا الإصدار</value>
+  </data>
+  <data name="AppUpdates_CheckAgain" xml:space="preserve">
+    <value>التحقق مرة أخرى</value>
+  </data>
+  <data name="AppUpdates_UpdateSelected" xml:space="preserve">
+    <value>تحديث المحدد</value>
+  </data>
+  <data name="AppUpdates_UpdateAll" xml:space="preserve">
+    <value>تحديث الكل</value>
+  </data>
+  <data name="AppUpdates_Cancel" xml:space="preserve">
+    <value>إلغاء</value>
+  </data>
+  <data name="AppUpdates_ShowIgnoredVersions" xml:space="preserve">
+    <value>إظهار الإصدارات المتجاهلة</value>
+  </data>
+  <data name="AppUpdates_UpdatesComeFromWingetPinned" xml:space="preserve">
+    <value>تأتي التحديثات من winget. التطبيقات مثبّتة الإصدار لا تدخل أبدًا في «تحديث الكل».</value>
+  </data>
+  <data name="AppUpdates_NoUpdatesToShowApps" xml:space="preserve">
+    <value>لا توجد تحديثات لعرضها. التطبيقات التي لا يعرفها winget، أو التي لا يستطيع قراءة إصدارها، لا تظهر هنا.</value>
+  </data>
+  <data name="AppUpdates_FROMGITHUBRELEASES" xml:space="preserve">
+    <value>من إصدارات GitHub</value>
+  </data>
+  <data name="AppUpdates_Update" xml:space="preserve">
+    <value>تحديث</value>
+  </data>
+  <data name="AppUpdates_AppsInstalledFromAGitHub" xml:space="preserve">
+    <value>تطبيقات ثبّتها CTRL+Z من إصدار على GitHub، مقارنةً بأحدث إصدار في المستودع.</value>
+  </data>
+  <data name="Browsers_Custom" xml:space="preserve">
+    <value>مخصص</value>
+  </data>
+  <data name="Browsers_ProfileFolderNotFoundUse" xml:space="preserve">
+    <value>لم يُعثر على مجلد ملف التعريف. استخدم «إضافة متصفح مخصص» ووجّه CTRL+Z إلى المجلد الذي يحتوي على Local State (Chromium) أو profiles.ini (Firefox).</value>
+  </data>
+  <data name="Browsers_AllProfiles" xml:space="preserve">
+    <value>كل ملفات التعريف</value>
+  </data>
+  <data name="Browsers_None" xml:space="preserve">
+    <value>لا شيء</value>
+  </data>
+  <data name="Browsers_BackUp" xml:space="preserve">
+    <value>نسخ احتياطي</value>
+  </data>
+  <data name="Browsers_Restore" xml:space="preserve">
+    <value>استعادة</value>
+  </data>
+  <data name="Browsers_AddCustomBrowser" xml:space="preserve">
+    <value>إضافة متصفح مخصص</value>
+  </data>
+  <data name="Browsers_Refresh" xml:space="preserve">
+    <value>تحديث</value>
+  </data>
+  <data name="Browsers_BROWSERS" xml:space="preserve">
+    <value>المتصفحات</value>
+  </data>
+  <data name="Browsers_ChooseABrowserThenIts" xml:space="preserve">
+    <value>اختر متصفحًا، ثم ملفات تعريفه</value>
+  </data>
+  <data name="Browsers_NoFirefoxOrChromiumBrowsers" xml:space="preserve">
+    <value>لم يُكتشف أي متصفح Firefox أو Chromium</value>
+  </data>
+  <data name="Browsers_IfYouUseALess" xml:space="preserve">
+    <value>إذا كنت تستخدم نسخة أقل شيوعًا، فوجّه CTRL+Z إلى جذر ملفات تعريفها: مجلد Local State لـ Chromium أو مجلد Firefox يحتوي على profiles.ini.</value>
+  </data>
+  <data name="Browsers_BackupHeading" xml:space="preserve">
+    <value>النسخ الاحتياطي</value>
+  </data>
+  <data name="Browsers_Destination" xml:space="preserve">
+    <value>الوجهة</value>
+  </data>
+  <data name="Browsers_OpenTheBackupFolder" xml:space="preserve">
+    <value>فتح مجلد النسخ الاحتياطي</value>
+  </data>
+  <data name="Browsers_OpenFolder" xml:space="preserve">
+    <value>فتح المجلد</value>
+  </data>
+  <data name="Browsers_ChangeFolder" xml:space="preserve">
+    <value>تغيير المجلد</value>
+  </data>
+  <data name="Browsers_PasswordOptional" xml:space="preserve">
+    <value>كلمة المرور (اختيارية)</value>
+  </data>
+  <data name="Browsers_BackupPasswordOptional" xml:space="preserve">
+    <value>كلمة مرور النسخة الاحتياطية (اختيارية)</value>
+  </data>
+  <data name="Browsers_AES256EncryptedZIPWindows" xml:space="preserve">
+    <value>ملف ZIP مشفّر بـ AES-256. لا يستطيع مستكشف الملفات في Windows فتح الأرشيفات المشفّرة؛ استخدم CTRL+Z للاستعادة. اتركها فارغة لملف ZIP عادي.</value>
+  </data>
+  <data name="Browsers_EstimatedBackupSizeActualZIP" xml:space="preserve">
+    <value>الحجم التقديري للنسخة الاحتياطية. حجم ملف ZIP الفعلي أصغر عادةً.</value>
+  </data>
+  <data name="Browsers_Excluded" xml:space="preserve">
+    <value>مستبعد</value>
+  </data>
+  <data name="Browsers_BackUpSelected" xml:space="preserve">
+    <value>نسخ المحدد احتياطيًا</value>
+  </data>
+  <data name="Browsers_Cancel" xml:space="preserve">
+    <value>إلغاء</value>
+  </data>
+  <data name="Browsers_PasswordsAndCookiesAreNever" xml:space="preserve">
+    <value>لا تُنسخ كلمات المرور وملفات تعريف الارتباط احتياطيًا أبدًا. قواعد بيانات تسجيل الدخول والمفاتيح في Firefox وملفات Login Data/Cookies في Chromium مستبعدة. أغلق المتصفح عند المطالبة حتى لا تكون الملفات مقفلة.</value>
+  </data>
+  <data name="Browsers_ARCHIVE" xml:space="preserve">
+    <value>الأرشيف</value>
+  </data>
+  <data name="Browsers_CTRLZBrowserBackup" xml:space="preserve">
+    <value>نسخة CTRL+Z الاحتياطية للمتصفح</value>
+  </data>
+  <data name="Browsers_BackupArchiveToRestore" xml:space="preserve">
+    <value>أرشيف النسخة الاحتياطية المراد استعادته</value>
+  </data>
+  <data name="Browsers_Browse" xml:space="preserve">
+    <value>استعراض…</value>
+  </data>
+  <data name="Browsers_Password" xml:space="preserve">
+    <value>كلمة المرور</value>
+  </data>
+  <data name="Browsers_ArchivePassword" xml:space="preserve">
+    <value>كلمة مرور الأرشيف</value>
+  </data>
+  <data name="Browsers_Inspect" xml:space="preserve">
+    <value>عرض المحتوى</value>
+  </data>
+  <data name="Browsers_Verify" xml:space="preserve">
+    <value>تحقق</value>
+  </data>
+  <data name="Browsers_ReadsEveryFileInThe" xml:space="preserve">
+    <value>يقرأ كل ملف في النسخة الاحتياطية ويفحصه، دون استعادة أي شيء.</value>
+  </data>
+  <data name="Browsers_PROFILESINTHISARCHIVE" xml:space="preserve">
+    <value>ملفات التعريف في هذا الأرشيف</value>
+  </data>
+  <data name="Browsers_All" xml:space="preserve">
+    <value>الكل</value>
+  </data>
+  <data name="Browsers_RestoreHeading" xml:space="preserve">
+    <value>الاستعادة</value>
+  </data>
+  <data name="Browsers_TargetBrowser" xml:space="preserve">
+    <value>المتصفح الهدف</value>
+  </data>
+  <data name="Browsers_TheBrowserMustBeInstalled" xml:space="preserve">
+    <value>يجب أن يكون المتصفح مثبّتًا ومغلقًا. لا تُحذف ملفات التعريف الموجودة أبدًا؛ يكتب CTRL+Z الملفات الموجودة في الأرشيف فقط.</value>
+  </data>
+  <data name="Browsers_RestoreAsNewProfiles" xml:space="preserve">
+    <value>الاستعادة كملفات تعريف جديدة</value>
+  </data>
+  <data name="Browsers_RecommendedNewProfileFoldersAre" xml:space="preserve">
+    <value>موصى به. تُنشأ مجلدات ملفات تعريف جديدة وتُسجَّل في قائمة ملفات تعريف المتصفح (Local State أو profiles.ini)، فتبقى ملفات التعريف الحالية سليمة. ألغِ التحديد للدمج في أسماء ملفات التعريف الأصلية.</value>
+  </data>
+  <data name="Browsers_CookiesAndSavedPasswordsAre" xml:space="preserve">
+    <value>ملفات تعريف الارتباط وكلمات المرور المحفوظة ليست في الأرشيف، لذا ستسجّل الدخول من جديد على الكمبيوتر الجديد. تُستعاد الإضافات وإعداداتها.</value>
+  </data>
+  <data name="Browsers_RestoreSelectedProfiles" xml:space="preserve">
+    <value>استعادة ملفات التعريف المحددة</value>
+  </data>
+  <data name="Catalog_OpenSource" xml:space="preserve">
+    <value>مفتوح المصدر</value>
+  </data>
+  <data name="Catalog_OpenProjectPage" xml:space="preserve">
+    <value>فتح صفحة المشروع</value>
+  </data>
+  <data name="Catalog_SearchTheCatalog" xml:space="preserve">
+    <value>البحث في الكتالوج</value>
+  </data>
+  <data name="Catalog_Search300RecommendedApps" xml:space="preserve">
+    <value>ابحث في أكثر من 300 تطبيق موصى به</value>
+  </data>
+  <data name="Catalog_Category" xml:space="preserve">
+    <value>الفئة</value>
+  </data>
+  <data name="Catalog_Refresh" xml:space="preserve">
+    <value>تحديث</value>
+  </data>
+  <data name="Catalog_NoCatalogEntriesToShow" xml:space="preserve">
+    <value>لا توجد عناصر في الكتالوج لعرضها</value>
+  </data>
+  <data name="Catalog_RefreshCatalog" xml:space="preserve">
+    <value>تحديث الكتالوج</value>
+  </data>
+  <data name="Catalog_SelectAll" xml:space="preserve">
+    <value>تحديد الكل</value>
+  </data>
+  <data name="Catalog_Clear" xml:space="preserve">
+    <value>مسح</value>
+  </data>
+  <data name="Catalog_AddSelected" xml:space="preserve">
+    <value>إضافة المحدد</value>
+  </data>
+  <data name="CommandReview_ReviewCommands" xml:space="preserve">
+    <value>مراجعة الأوامر</value>
+  </data>
+  <data name="CommandReview_ReviewPostInstallCommands" xml:space="preserve">
+    <value>مراجعة أوامر ما بعد التثبيت</value>
+  </data>
+  <data name="CommandReview_Close" xml:space="preserve">
+    <value>إغلاق</value>
+  </data>
+  <data name="CommandReview_Previous" xml:space="preserve">
+    <value>السابق</value>
+  </data>
+  <data name="CommandReview_Next" xml:space="preserve">
+    <value>التالي</value>
+  </data>
+  <data name="CommandReview_ThisProfileIsMine" xml:space="preserve">
+    <value>ملف التعريف هذا لي…</value>
+  </data>
+  <data name="CommandReview_Done" xml:space="preserve">
+    <value>تم</value>
+  </data>
+  <data name="CommandReview_ApproveThisCommand" xml:space="preserve">
+    <value>الموافقة على هذا الأمر</value>
+  </data>
+  <data name="Dialog_Close" xml:space="preserve">
+    <value>إغلاق</value>
+  </data>
+  <data name="Drift_ProfileDrift" xml:space="preserve">
+    <value>اختلافات ملف التعريف</value>
+  </data>
+  <data name="Drift_AddToProfile" xml:space="preserve">
+    <value>إضافة إلى ملف التعريف</value>
+  </data>
+  <data name="Drift_Install" xml:space="preserve">
+    <value>تثبيت</value>
+  </data>
+  <data name="Drift_Remove" xml:space="preserve">
+    <value>إزالة</value>
+  </data>
+  <data name="Drift_Ignore" xml:space="preserve">
+    <value>تجاهل</value>
+  </data>
+  <data name="Drift_Close" xml:space="preserve">
+    <value>إغلاق</value>
+  </data>
+  <data name="Drift_INYOURPROFILENOTINSTALLED" xml:space="preserve">
+    <value>في ملف تعريفك، غير مثبّت</value>
+  </data>
+  <data name="Drift_INSTALLEDNOTINYOURPROFILE" xml:space="preserve">
+    <value>مثبّت، ليس في ملف تعريفك</value>
+  </data>
+  <data name="Drift_OUTDATED" xml:space="preserve">
+    <value>قديم</value>
+  </data>
+  <data name="Drift_NoDifferencesFoundYourSaved" xml:space="preserve">
+    <value>لم يُعثر على اختلافات. ملف تعريفك المحفوظ يطابق ما هو مثبّت على هذا الكمبيوتر.</value>
+  </data>
+  <data name="Drift_MatchingUsesTheWingetPackage" xml:space="preserve">
+    <value>تعتمد المطابقة على معرّف حزمة winget أولاً، ثم اسم التطبيق والناشر. تُترك الصفوف «غير المؤكدة» لتقرر أنت بدلاً من التخمين.</value>
+  </data>
+  <data name="Drift_ReCheck" xml:space="preserve">
+    <value>إعادة الفحص</value>
+  </data>
+  <data name="Install_StartOver" xml:space="preserve">
+    <value>البدء من جديد</value>
+  </data>
+  <data name="Install_RestartRequired" xml:space="preserve">
+    <value>يلزم إعادة التشغيل</value>
+  </data>
+  <data name="Install_SomeInstallersFinishedButNeed" xml:space="preserve">
+    <value>انتهت بعض المثبّتات لكنها تحتاج إلى إعادة التشغيل لإكمال العملية.</value>
+  </data>
+  <data name="Install_RestartWindows" xml:space="preserve">
+    <value>إعادة تشغيل Windows</value>
+  </data>
+  <data name="Install_RetryFailed" xml:space="preserve">
+    <value>إعادة محاولة الفاشلة</value>
+  </data>
+  <data name="Install_Pause" xml:space="preserve">
+    <value>إيقاف مؤقت</value>
+  </data>
+  <data name="Install_APP" xml:space="preserve">
+    <value>التطبيق</value>
+  </data>
+  <data name="Install_SOURCE" xml:space="preserve">
+    <value>المصدر</value>
+  </data>
+  <data name="Install_STATUS" xml:space="preserve">
+    <value>الحالة</value>
+  </data>
+  <data name="Install_NothingQueuedYet" xml:space="preserve">
+    <value>لا شيء في قائمة الانتظار بعد</value>
+  </data>
+  <data name="Install_AddAppsToAProfile" xml:space="preserve">
+    <value>أضف تطبيقات إلى ملف تعريف أولاً. تُبنى قائمة انتظار التثبيت من التطبيقات المفعّلة في ملف التعريف هذا.</value>
+  </data>
+  <data name="Install_OpenMyApps" xml:space="preserve">
+    <value>فتح «تطبيقاتي»</value>
+  </data>
+  <data name="Install_ScanThisPC" xml:space="preserve">
+    <value>فحص هذا الكمبيوتر</value>
+  </data>
+  <data name="Install_BrowseCatalog" xml:space="preserve">
+    <value>تصفح الكتالوج</value>
+  </data>
+  <data name="Install_LIVELOG" xml:space="preserve">
+    <value>السجل المباشر</value>
+  </data>
+  <data name="Install_AutoScroll" xml:space="preserve">
+    <value>تمرير تلقائي</value>
+  </data>
+  <data name="Install_Clear" xml:space="preserve">
+    <value>مسح</value>
+  </data>
+  <data name="Install_OpenLog" xml:space="preserve">
+    <value>فتح السجل</value>
+  </data>
+  <data name="Install_Hide" xml:space="preserve">
+    <value>إخفاء</value>
+  </data>
+  <data name="Install_ShowLiveLog" xml:space="preserve">
+    <value>إظهار السجل المباشر</value>
+  </data>
+  <data name="MyApps_IncludeInInstalls" xml:space="preserve">
+    <value>تضمين في عمليات التثبيت</value>
+  </data>
+  <data name="MyApps_ThisAppHasANote" xml:space="preserve">
+    <value>لهذا التطبيق ملاحظة</value>
+  </data>
+  <data name="MyApps_NeedsId" xml:space="preserve">
+    <value>يحتاج إلى معرّف</value>
+  </data>
+  <data name="MyApps_MoveEarlier" xml:space="preserve">
+    <value>نقل إلى الأمام</value>
+  </data>
+  <data name="MyApps_MoveLater" xml:space="preserve">
+    <value>نقل إلى الخلف</value>
+  </data>
+  <data name="MyApps_EditApp" xml:space="preserve">
+    <value>تعديل التطبيق</value>
+  </data>
+  <data name="MyApps_RemoveFromProfile" xml:space="preserve">
+    <value>إزالة من ملف التعريف</value>
+  </data>
+  <data name="MyApps_Profile" xml:space="preserve">
+    <value>ملف التعريف</value>
+  </data>
+  <data name="MyApps_NewProfile" xml:space="preserve">
+    <value>ملف تعريف جديد</value>
+  </data>
+  <data name="MyApps_RenameProfile" xml:space="preserve">
+    <value>إعادة تسمية ملف التعريف</value>
+  </data>
+  <data name="MyApps_ImportProfile" xml:space="preserve">
+    <value>استيراد ملف تعريف</value>
+  </data>
+  <data name="MyApps_ExportProfile" xml:space="preserve">
+    <value>تصدير ملف التعريف</value>
+  </data>
+  <data name="MyApps_DeleteProfile" xml:space="preserve">
+    <value>حذف ملف التعريف</value>
+  </data>
+  <data name="MyApps_Install" xml:space="preserve">
+    <value>تثبيت</value>
+  </data>
+  <data name="MyApps_SearchApps" xml:space="preserve">
+    <value>البحث في التطبيقات</value>
+  </data>
+  <data name="MyApps_SearchThisProfile" xml:space="preserve">
+    <value>البحث في ملف التعريف هذا</value>
+  </data>
+  <data name="MyApps_Source" xml:space="preserve">
+    <value>المصدر</value>
+  </data>
+  <data name="MyApps_Category" xml:space="preserve">
+    <value>الفئة</value>
+  </data>
+  <data name="MyApps_AddApp" xml:space="preserve">
+    <value>إضافة تطبيق</value>
+  </data>
+  <data name="MyApps_ImportList" xml:space="preserve">
+    <value>استيراد قائمة</value>
+  </data>
+  <data name="MyApps_AddAppsFromAWinget" xml:space="preserve">
+    <value>إضافة تطبيقات من ملف تصدير winget أو Scoop أو Chocolatey</value>
+  </data>
+  <data name="MyApps_CheckDrift" xml:space="preserve">
+    <value>فحص الاختلافات</value>
+  </data>
+  <data name="MyApps_APP" xml:space="preserve">
+    <value>التطبيق</value>
+  </data>
+  <data name="MyApps_SourceHeading" xml:space="preserve">
+    <value>المصدر</value>
+  </data>
+  <data name="MyApps_INSTALLMETHOD" xml:space="preserve">
+    <value>طريقة التثبيت</value>
+  </data>
+  <data name="MyApps_ThisProfileIsEmpty" xml:space="preserve">
+    <value>ملف التعريف هذا فارغ</value>
+  </data>
+  <data name="MyApps_ScanThisPCToBuild" xml:space="preserve">
+    <value>افحص هذا الكمبيوتر لبناء القائمة تلقائيًا، أو تصفح الكتالوج وأضف التطبيقات يدويًا.</value>
+  </data>
+  <data name="MyApps_ScanThisPC" xml:space="preserve">
+    <value>فحص هذا الكمبيوتر</value>
+  </data>
+  <data name="MyApps_BrowseCatalog" xml:space="preserve">
+    <value>تصفح الكتالوج</value>
+  </data>
+  <data name="MyApps_SelectAll" xml:space="preserve">
+    <value>تحديد الكل</value>
+  </data>
+  <data name="MyApps_AddApps" xml:space="preserve">
+    <value>إضافة تطبيقات</value>
+  </data>
+  <data name="Preview_PreviewInstall" xml:space="preserve">
+    <value>معاينة التثبيت</value>
+  </data>
+  <data name="Preview_Switches" xml:space="preserve">
+    <value>المفاتيح:</value>
+  </data>
+  <data name="Preview_AfterInstallRuns" xml:space="preserve">
+    <value>بعد التثبيت، يُشغَّل:</value>
+  </data>
+  <data name="Preview_Close" xml:space="preserve">
+    <value>إغلاق</value>
+  </data>
+  <data name="Preview_NothingHasBeenInstalledYet" xml:space="preserve">
+    <value>لم يُثبَّت أي شيء بعد. التشغيل التجريبي يتحقق فقط: يفحص معرّفات winget وملفات الإصدارات والروابط، ويقرأ الملفات المحلية. لا يُنزّل أي مثبّت إلى القرص أبدًا ولا يشغّل أي مثبّت.</value>
+  </data>
+  <data name="Preview_DryRun" xml:space="preserve">
+    <value>تشغيل تجريبي</value>
+  </data>
+  <data name="Preview_ExportReport" xml:space="preserve">
+    <value>تصدير التقرير</value>
+  </data>
+  <data name="Preview_ReviewCommands" xml:space="preserve">
+    <value>مراجعة الأوامر</value>
+  </data>
+  <data name="Preview_Cancel" xml:space="preserve">
+    <value>إلغاء</value>
+  </data>
+  <data name="Preview_InstallNow" xml:space="preserve">
+    <value>التثبيت الآن</value>
+  </data>
+  <data name="Readiness_Handled" xml:space="preserve">
+    <value>تمت معالجته</value>
+  </data>
+  <data name="Readiness_Ignore" xml:space="preserve">
+    <value>تجاهل</value>
+  </data>
+  <data name="Readiness_UnIgnore" xml:space="preserve">
+    <value>إلغاء التجاهل</value>
+  </data>
+  <data name="Readiness_ReviewDriftInMyApps" xml:space="preserve">
+    <value>مراجعة الاختلافات في «تطبيقاتي»</value>
+  </data>
+  <data name="Readiness_ReScan" xml:space="preserve">
+    <value>إعادة الفحص</value>
+  </data>
+  <data name="Readiness_Cancel" xml:space="preserve">
+    <value>إلغاء</value>
+  </data>
+  <data name="Readiness_ShowHandledAndIgnored" xml:space="preserve">
+    <value>إظهار ما تمت معالجته وما تم تجاهله</value>
+  </data>
+  <data name="Readiness_NothingHereIsUploadedAnd" xml:space="preserve">
+    <value>لا يُرفع أي شيء هنا، ولا يُغيَّر أي ملف.</value>
+  </data>
+  <data name="Readiness_NothingToShowRunA" xml:space="preserve">
+    <value>لا يوجد ما يُعرض. شغّل فحصًا، أو فعّل «إظهار ما تمت معالجته وما تم تجاهله» لرؤية العناصر التي تعاملت معها من قبل.</value>
+  </data>
+  <data name="Readiness_WhatThisDoesNotCover" xml:space="preserve">
+    <value>ما لا يشمله هذا: لا يستطيع CTRL+Z رؤية الملفات داخل تطبيقات النسخ الاحتياطي المحمية بكلمة مرور، أو ملفات السحابة غير المنزَّلة، أو البيانات المحفوظة في حساب على الإنترنت فقط. كما أنه لا ينسخ أي شيء احتياطيًا بنفسه في هذه الصفحة — استخدم صفحة «المتصفحات» ونسخك الخارجية الخاصة لذلك.</value>
+  </data>
+  <data name="Scan_IncludeApp" xml:space="preserve">
+    <value>تضمين التطبيق</value>
+  </data>
+  <data name="Scan_Fix" xml:space="preserve">
+    <value>إصلاح</value>
+  </data>
+  <data name="Scan_AssignAWingetPackageId" xml:space="preserve">
+    <value>تعيين معرّف حزمة winget يدويًا</value>
+  </data>
+  <data name="Scan_ScanThisPC" xml:space="preserve">
+    <value>فحص هذا الكمبيوتر</value>
+  </data>
+  <data name="Scan_CancelScan" xml:space="preserve">
+    <value>إلغاء الفحص</value>
+  </data>
+  <data name="Scan_SearchPrograms" xml:space="preserve">
+    <value>البحث في البرامج</value>
+  </data>
+  <data name="Scan_FilterByCategory" xml:space="preserve">
+    <value>التصفية حسب الفئة</value>
+  </data>
+  <data name="Scan_Category" xml:space="preserve">
+    <value>الفئة</value>
+  </data>
+  <data name="Scan_Source" xml:space="preserve">
+    <value>المصدر</value>
+  </data>
+  <data name="Scan_FilterByMatchStatus" xml:space="preserve">
+    <value>التصفية حسب حالة المطابقة</value>
+  </data>
+  <data name="Scan_ShowAllAppsOnlyMatched" xml:space="preserve">
+    <value>إظهار كل التطبيقات، أو المطابقة فقط، أو غير المطابقة فقط</value>
+  </data>
+  <data name="Scan_Total" xml:space="preserve">
+    <value> إجمالاً</value>
+  </data>
+  <data name="Scan_Matched" xml:space="preserve">
+    <value> مطابق</value>
+  </data>
+  <data name="Scan_Unmatched" xml:space="preserve">
+    <value> غير مطابق</value>
+  </data>
+  <data name="Scan_ReadingInstalledPrograms" xml:space="preserve">
+    <value>جارٍ قراءة البرامج المثبّتة</value>
+  </data>
+  <data name="Scan_Cancel" xml:space="preserve">
+    <value>إلغاء</value>
+  </data>
+  <data name="Scan_StartWithThisPC" xml:space="preserve">
+    <value>ابدأ بهذا الكمبيوتر</value>
+  </data>
+  <data name="Scan_CTRLZReadsWingetThe" xml:space="preserve">
+    <value>يقرأ CTRL+Z بيانات winget وسجل Windows وتطبيقات المتجر، ثم يجد معرّفات حزم winget لكل منها. لا يغادر أي شيء هذا الجهاز.</value>
+  </data>
+  <data name="Scan_F5AlsoStartsAScan" xml:space="preserve">
+    <value>يبدأ F5 الفحص أيضًا</value>
+  </data>
+  <data name="Scan_PROGRAM" xml:space="preserve">
+    <value>البرنامج</value>
+  </data>
+  <data name="Scan_SourceHeading" xml:space="preserve">
+    <value>المصدر</value>
+  </data>
+  <data name="Scan_WINGETMATCH" xml:space="preserve">
+    <value>مطابقة winget</value>
+  </data>
+  <data name="Scan_NoProgramsMatchTheseFilters" xml:space="preserve">
+    <value>لا توجد برامج تطابق عوامل التصفية هذه.</value>
+  </data>
+  <data name="Scan_SelectAll" xml:space="preserve">
+    <value>تحديد الكل</value>
+  </data>
+  <data name="Scan_SelectEveryAppVisibleUnder" xml:space="preserve">
+    <value>تحديد كل تطبيق ظاهر ضمن عامل تصفية المطابقة الحالي</value>
+  </data>
+  <data name="Scan_SelectMatched" xml:space="preserve">
+    <value>تحديد المطابقة</value>
+  </data>
+  <data name="Scan_SelectMatchedAppsVisibleUnder" xml:space="preserve">
+    <value>تحديد التطبيقات المطابقة الظاهرة ضمن عوامل التصفية الحالية</value>
+  </data>
+  <data name="Scan_Clear" xml:space="preserve">
+    <value>مسح</value>
+  </data>
+  <data name="Scan_SaveAsProfile" xml:space="preserve">
+    <value>الحفظ كملف تعريف…</value>
+  </data>
+  <data name="Scan_AddToMyApps" xml:space="preserve">
+    <value>إضافة إلى «تطبيقاتي»</value>
+  </data>
+  <data name="Settings_APPEARANCE" xml:space="preserve">
+    <value>المظهر</value>
+  </data>
+  <data name="Settings_Theme" xml:space="preserve">
+    <value>السمة</value>
+  </data>
+  <data name="Settings_System" xml:space="preserve">
+    <value>النظام</value>
+  </data>
+  <data name="Settings_Light" xml:space="preserve">
+    <value>فاتح</value>
+  </data>
+  <data name="Settings_Dark" xml:space="preserve">
+    <value>داكن</value>
+  </data>
+  <data name="Settings_LOCALDATA" xml:space="preserve">
+    <value>البيانات المحلية</value>
+  </data>
+  <data name="Settings_ProfilesDownloadsArchivesAndLogs" xml:space="preserve">
+    <value>ملفات التعريف والتنزيلات والأرشيفات والسجلات موجودة في مجلد واحد. لا يُرفع أي شيء.</value>
+  </data>
+  <data name="Settings_OpenDataFolder" xml:space="preserve">
+    <value>فتح مجلد البيانات</value>
+  </data>
+  <data name="Settings_Profiles" xml:space="preserve">
+    <value>ملفات التعريف</value>
+  </data>
+  <data name="Settings_Logs" xml:space="preserve">
+    <value>السجلات</value>
+  </data>
+  <data name="Settings_INSTALLING" xml:space="preserve">
+    <value>التثبيت</value>
+  </data>
+  <data name="Settings_ShowAPreviewBeforeInstalling" xml:space="preserve">
+    <value>إظهار معاينة قبل التثبيت</value>
+  </data>
+  <data name="Settings_ThePreviewListsEachApp" xml:space="preserve">
+    <value>تعرض المعاينة كل تطبيق ومصدره ومفاتيحه وتحذيراته، ويمكنها إجراء تشغيل تجريبي للقائمة كلها دون تثبيت أي شيء.</value>
+  </data>
+  <data name="Settings_AddPortableAppsToThe" xml:space="preserve">
+    <value>إضافة التطبيقات المحمولة إلى قائمة ابدأ</value>
+  </data>
+  <data name="Settings_PortableAppsGetAShortcut" xml:space="preserve">
+    <value>تحصل التطبيقات المحمولة على اختصار في قائمة ابدأ ضمن CTRL+Z apps، في ملف تعريف المستخدم الخاص بك.</value>
+  </data>
+  <data name="Settings_IncludeNotesInExports" xml:space="preserve">
+    <value>تضمين الملاحظات في عمليات التصدير</value>
+  </data>
+  <data name="Settings_OffByDefaultWhenOff" xml:space="preserve">
+    <value>متوقف افتراضيًا. عند إيقافه، تعرض التقارير المصدَّرة (الملاحظة مخفية) بدلاً من ملاحظات تطبيقاتك. لا تُكتب الملاحظات أبدًا في سجل التطبيق.</value>
+  </data>
+  <data name="Settings_UPDATES" xml:space="preserve">
+    <value>التحديثات</value>
+  </data>
+  <data name="Settings_CheckForUpdatesAutomatically" xml:space="preserve">
+    <value>التحقق من التحديثات تلقائيًا</value>
+  </data>
+  <data name="Settings_Channel" xml:space="preserve">
+    <value>القناة</value>
+  </data>
+  <data name="Settings_Stable" xml:space="preserve">
+    <value>مستقر</value>
+  </data>
+  <data name="Settings_PreRelease" xml:space="preserve">
+    <value>إصدار تجريبي</value>
+  </data>
+  <data name="Settings_CheckForUpdates" xml:space="preserve">
+    <value>التحقق من التحديثات</value>
+  </data>
+  <data name="Settings_OnlyTheVersionCheckAnd" xml:space="preserve">
+    <value>لا يتصل بـ GitHub إلا التحقق من الإصدار وتنزيل التحديث. لا يُرسل أي شيء آخر، ولا يحتوي CTRL+Z على أي قياس عن بُعد.</value>
+  </data>
+  <data name="Settings_ABOUT" xml:space="preserve">
+    <value>حول</value>
+  </data>
+  <data name="Settings_ALocalFirstWindowsReinstall" xml:space="preserve">
+    <value>مساعد محلي أولاً لإعادة تثبيت Windows. بلا حساب، وبلا قياس عن بُعد. تستبعد نسخ المتصفحات الاحتياطية كلمات المرور وملفات تعريف الارتباط بحكم التصميم.</value>
+  </data>
+  <data name="Settings_AGPL30Only" xml:space="preserve">
+    <value>AGPL-3.0-only</value>
+  </data>
+  <data name="Settings_SourceCode" xml:space="preserve">
+    <value>الشيفرة المصدرية</value>
+  </data>
+  <data name="Settings_CopyDiagnostics" xml:space="preserve">
+    <value>نسخ بيانات التشخيص</value>
+  </data>
+  <data name="Settings_SaveDiagnostics" xml:space="preserve">
+    <value>حفظ بيانات التشخيص…</value>
+  </data>
+  <data name="Settings_SavesAZIPWithVersions" xml:space="preserve">
+    <value>يحفظ ملف ZIP يضم الإصدارات ومفاتيح الإعدادات والأعداد والسجلات الأخيرة بعد إزالة المسارات والأسماء. لا يُرسل أي شيء.</value>
+  </data>
+  <data name="Settings_WelcomeGuide" xml:space="preserve">
+    <value>دليل الترحيب</value>
+  </data>
+  <data name="Settings_PACKAGEMANAGER" xml:space="preserve">
+    <value>مدير الحزم</value>
+  </data>
+  <data name="Settings_WingetIsUsedForCatalog" xml:space="preserve">
+    <value>يُستخدم winget لتطبيقات الكتالوج. يستطيع CTRL+Z تجهيزه على تثبيت Windows نظيف باستخدام Microsoft App Installer.</value>
+  </data>
+  <data name="Settings_CheckAgain" xml:space="preserve">
+    <value>التحقق مرة أخرى</value>
+  </data>
+  <data name="Settings_UpdateWinget" xml:space="preserve">
+    <value>تحديث winget</value>
+  </data>
+  <data name="Settings_ApplicationLogHeading" xml:space="preserve">
+    <value>سجل التطبيق</value>
+  </data>
+  <data name="Settings_Refresh" xml:space="preserve">
+    <value>تحديث</value>
+  </data>
+  <data name="Settings_OpenLog" xml:space="preserve">
+    <value>فتح السجل</value>
+  </data>
+  <data name="Settings_ApplicationLog" xml:space="preserve">
+    <value>سجل التطبيق</value>
+  </data>
+  <data name="Tweaks_SetWindowsUpTheWay" xml:space="preserve">
+    <value>اضبط Windows كما تحب</value>
+  </data>
+  <data name="Tweaks_EachTweakChangesAFew" xml:space="preserve">
+    <value>يغيّر كل تعديل بعض الإعدادات لحسابك في Windows فقط، دون صلاحيات المسؤول. يحفظ CTRL+Z ما كان موجودًا أولاً، فيعيده «تراجع» كما كان تمامًا. تُحفظ التعديلات المطبّقة في ملف تعريفك لإعادة التثبيت القادمة.</value>
+  </data>
+  <data name="Tweaks_RestartFileExplorer" xml:space="preserve">
+    <value>إعادة تشغيل مستكشف الملفات</value>
+  </data>
+  <data name="Tweaks_SomeChangesShowUpOnly" xml:space="preserve">
+    <value>بعض التغييرات لا تظهر إلا بعد إعادة تشغيل مستكشف الملفات.</value>
+  </data>
+  <data name="Tweaks_ApplyThem" xml:space="preserve">
+    <value>تطبيقها</value>
+  </data>
+  <data name="UpdatePrompt_UpdateAvailable" xml:space="preserve">
+    <value>يتوفر تحديث</value>
+  </data>
+  <data name="UpdatePrompt_Close" xml:space="preserve">
+    <value>إغلاق</value>
+  </data>
+  <data name="UpdatePrompt_ViewReleaseOnGitHub" xml:space="preserve">
+    <value>عرض الإصدار على GitHub</value>
+  </data>
+  <data name="UpdatePrompt_SkipThisVersion" xml:space="preserve">
+    <value>تخطي هذا الإصدار</value>
+  </data>
+  <data name="UpdatePrompt_RemindMeLater" xml:space="preserve">
+    <value>ذكّرني لاحقًا</value>
+  </data>
+  <data name="UpdatePrompt_UpdateNow" xml:space="preserve">
+    <value>التحديث الآن</value>
+  </data>
+  <data name="UpdatePrompt_Cancel" xml:space="preserve">
+    <value>إلغاء</value>
+  </data>
+  <data name="Welcome_WelcomeToCTRLZ" xml:space="preserve">
+    <value>مرحبًا بك في CTRL+Z</value>
+  </data>
+  <data name="Welcome_Close" xml:space="preserve">
+    <value>إغلاق</value>
+  </data>
+  <data name="Welcome_ReinstallWindowsWithoutLosingYour" xml:space="preserve">
+    <value>أعد تثبيت Windows دون أن تفقد إعداداتك.</value>
+  </data>
+  <data name="Welcome_CTRLZKeepsAList" xml:space="preserve">
+    <value>يحتفظ CTRL+Z بقائمة تطبيقاتك وينسخ متصفحاتك احتياطيًا، ثم يعيدها على التثبيت الجديد. يبقى كل شيء على هذا الكمبيوتر ما لم تنسخه إلى مكان آخر.</value>
+  </data>
+  <data name="Welcome_BEFOREYOUREINSTALL" xml:space="preserve">
+    <value>قبل إعادة التثبيت</value>
+  </data>
+  <data name="Welcome_1ScanThisPCTo" xml:space="preserve">
+    <value>1.  افحص هذا الكمبيوتر لبناء قائمة تطبيقاتك، ثم رتّبها في «تطبيقاتي».</value>
+  </data>
+  <data name="Welcome_2BackUpYourBrowsers" xml:space="preserve">
+    <value>2.  انسخ متصفحاتك احتياطيًا (الإشارات المرجعية والسجل والإضافات؛ وليس كلمات المرور أو ملفات تعريف الارتباط أبدًا).</value>
+  </data>
+  <data name="Welcome_3OpenReadyToWipe" xml:space="preserve">
+    <value>3.  افتح «جاهز للمسح» وأكمل قائمة التحقق.</value>
+  </data>
+  <data name="Welcome_4CopyYourProfileAnd" xml:space="preserve">
+    <value>4.  انسخ ملف تعريفك ونسخ المتصفحات الاحتياطية إلى محرك USB أو كمبيوتر آخر.</value>
+  </data>
+  <data name="Welcome_ONAFRESHINSTALL" xml:space="preserve">
+    <value>على تثبيت جديد</value>
+  </data>
+  <data name="Welcome_1ImportYourProfileIn" xml:space="preserve">
+    <value>1.  استورد ملف تعريفك في «تطبيقاتي».</value>
+  </data>
+  <data name="Welcome_2CheckTheInstallPreview" xml:space="preserve">
+    <value>2.  راجع معاينة التثبيت، ثم ثبّت كل شيء دفعة واحدة.</value>
+  </data>
+  <data name="Welcome_3RestoreYourBrowserBackups" xml:space="preserve">
+    <value>3.  استعد نسخ متصفحاتك الاحتياطية من صفحة «المتصفحات».</value>
+  </data>
+  <data name="Welcome_YouCanOpenThisGuide" xml:space="preserve">
+    <value>يمكنك فتح هذا الدليل مرة أخرى من «الإعدادات». ينتقل Ctrl+1 إلى Ctrl+9 بين الصفحات.</value>
+  </data>
+  <data name="Welcome_IMOnAFresh" xml:space="preserve">
+    <value>أنا على تثبيت جديد</value>
+  </data>
+  <data name="Welcome_StartWithAScan" xml:space="preserve">
+    <value>ابدأ بالفحص</value>
+  </data>
+  <data name="WingetMatch_MatchToWinget" xml:space="preserve">
+    <value>مطابقة مع winget</value>
+  </data>
+  <data name="WingetMatch_Close" xml:space="preserve">
+    <value>إغلاق</value>
+  </data>
+  <data name="WingetMatch_FindTheWingetPackageFor" xml:space="preserve">
+    <value>ابحث عن حزمة winget لهذا التطبيق المثبّت.</value>
+  </data>
+  <data name="WingetMatch_SearchWinget" xml:space="preserve">
+    <value>البحث في winget</value>
+  </data>
+  <data name="WingetMatch_Search" xml:space="preserve">
+    <value>بحث</value>
+  </data>
+  <data name="WingetMatch_SearchForTheAppName" xml:space="preserve">
+    <value>ابحث عن اسم التطبيق، أو الصق معرّف حزمة أدناه.</value>
+  </data>
+  <data name="WingetMatch_PackageId" xml:space="preserve">
+    <value>معرّف الحزمة</value>
+  </data>
+  <data name="WingetMatch_Cancel" xml:space="preserve">
+    <value>إلغاء</value>
+  </data>
+  <data name="WingetMatch_UseThisId" xml:space="preserve">
+    <value>استخدام هذا المعرّف</value>
+  </data>
+  <data name="Browsers_BackUpName" xml:space="preserve">
+    <value>نسخ {0} احتياطيًا</value>
+  </data>
+  <data name="Catalog_SelectName" xml:space="preserve">
+    <value>تحديد {0}</value>
+  </data>
+  <data name="Catalog_OpenNameWebsite" xml:space="preserve">
+    <value>فتح موقع {0}</value>
+  </data>
+  <data name="Install_AttemptNumber" xml:space="preserve">
+    <value>المحاولة {0}</value>
+  </data>
+  <data name="MyApps_MoveNameUp" xml:space="preserve">
+    <value>نقل {0} لأعلى</value>
+  </data>
+  <data name="MyApps_MoveNameDown" xml:space="preserve">
+    <value>نقل {0} لأسفل</value>
+  </data>
+  <data name="MyApps_EditName" xml:space="preserve">
+    <value>تعديل {0}</value>
+  </data>
+  <data name="MyApps_RemoveName" xml:space="preserve">
+    <value>إزالة {0}</value>
+  </data>
+  <data name="Settings_VersionNumber" xml:space="preserve">
+    <value>الإصدار {0}</value>
+  </data>
+  <data name="Tweaks_ApplyOrUndoName" xml:space="preserve">
+    <value>تطبيق أو تراجع: {0}</value>
+  </data>
+  <data name="App_CTRLZCouldNotStart" xml:space="preserve">
+    <value>تعذّر بدء تشغيل CTRL+Z.
+
+</value>
+  </data>
+  <data name="App_Log" xml:space="preserve">
+    <value>
+
+السجل: {0}</value>
+  </data>
+  <data name="App_CTRLZHitAnUnexpected" xml:space="preserve">
+    <value>واجه CTRL+Z خطأً غير متوقع، لكن ملف تعريفك وحالة التثبيت في أمان.
+
+</value>
+  </data>
+  <data name="Main_Restore" xml:space="preserve">
+    <value>استعادة الحجم</value>
+  </data>
+  <data name="Main_Maximize2" xml:space="preserve">
+    <value>تكبير</value>
+  </data>
+  <data name="AppState_MyApps" xml:space="preserve">
+    <value>تطبيقاتي</value>
+  </data>
+  <data name="DialogService_Continue" xml:space="preserve">
+    <value>متابعة</value>
+  </data>
+  <data name="DialogService_Cancel" xml:space="preserve">
+    <value>إلغاء</value>
+  </data>
+  <data name="DialogService_Save" xml:space="preserve">
+    <value>حفظ</value>
+  </data>
+  <data name="DialogService_SomethingWentWrong" xml:space="preserve">
+    <value>حدث خطأ ما</value>
+  </data>
+  <data name="DialogService_Close" xml:space="preserve">
+    <value>إغلاق</value>
+  </data>
+  <data name="DialogService_YesIUnderstand" xml:space="preserve">
+    <value>نعم، أفهم ذلك</value>
+  </data>
+  <data name="DialogService_RunIt" xml:space="preserve">
+    <value>تشغيله</value>
+  </data>
+  <data name="DialogService_RunThem" xml:space="preserve">
+    <value>تشغيلها</value>
+  </data>
+  <data name="DialogService_CancelInstall" xml:space="preserve">
+    <value>إلغاء التثبيت</value>
+  </data>
+  <data name="Update_AnInstallBackupOrRestore" xml:space="preserve">
+    <value>لا تزال عملية تثبيت أو نسخ احتياطي أو استعادة قيد التشغيل، لذا أُجّل عرض التحديث حتى تنتهي.</value>
+  </data>
+  <data name="Update_UpdateDeferred" xml:space="preserve">
+    <value>تأجّل التحديث</value>
+  </data>
+  <data name="Update_YouAreRunningCTRLZ" xml:space="preserve">
+    <value>أنت تستخدم CTRL+Z {0}. لم يُعثر بعد على إصدار منشور لهذه القناة.</value>
+  </data>
+  <data name="Update_YouAreRunningCTRLZ2" xml:space="preserve">
+    <value>أنت تستخدم CTRL+Z {0}، وهو محدَّث.</value>
+  </data>
+  <data name="Update_NoUpdates" xml:space="preserve">
+    <value>لا توجد تحديثات</value>
+  </data>
+  <data name="Update_CouldNotCheckForUpdates" xml:space="preserve">
+    <value>تعذّر التحقق من التحديثات</value>
+  </data>
+  <data name="Update_CTRLZIsAvailableBut" xml:space="preserve">
+    <value>يتوفر CTRL+Z {0}، لكنك طلبت تخطي هذا الإصدار. </value>
+  </data>
+  <data name="Update_ANewerReleaseWillPrompt" xml:space="preserve">
+    <value>سيظهر التنبيه مرة أخرى عند صدور إصدار أحدث.</value>
+  </data>
+  <data name="Update_ThisVersionIsSkipped" xml:space="preserve">
+    <value>تم تخطي هذا الإصدار</value>
+  </data>
+  <data name="Update_UpdateNotAvailable" xml:space="preserve">
+    <value>التحديث غير متوفر</value>
+  </data>
+  <data name="Update_Preparing" xml:space="preserve">
+    <value>جارٍ التحضير…</value>
+  </data>
+  <data name="Update_Downloading" xml:space="preserve">
+    <value>جارٍ التنزيل… {0:P0}</value>
+  </data>
+  <data name="Update_Downloading2" xml:space="preserve">
+    <value>جارٍ التنزيل…</value>
+  </data>
+  <data name="Update_Verifying" xml:space="preserve">
+    <value>جارٍ التحقق…</value>
+  </data>
+  <data name="Update_WaitingForTheCurrentOperation" xml:space="preserve">
+    <value>في انتظار انتهاء العملية الحالية…</value>
+  </data>
+  <data name="Update_AnInstallOrBackupIs" xml:space="preserve">
+    <value>لا تزال عملية تثبيت أو نسخ احتياطي قيد التشغيل، لذا لم يُطبَّق التحديث. تحقق من التحديثات مرة أخرى عند انتهائها.</value>
+  </data>
+  <data name="Update_AnInstallOrBackupIs2" xml:space="preserve">
+    <value>هناك عملية تثبيت أو نسخ احتياطي قيد التشغيل (في التطبيق أو من سطر الأوامر)، لذا لم يُطبَّق التحديث. تحقق من التحديثات مرة أخرى عند انتهائها.</value>
+  </data>
+  <data name="Update_RestartingToFinishTheUpdate" xml:space="preserve">
+    <value>جارٍ إعادة التشغيل لإنهاء التحديث…</value>
+  </data>
+  <data name="Update_ThePreviousUpdateDidNot" xml:space="preserve">
+    <value>لم يكتمل التحديث السابق. إصدارك الحالي لم يتغيّر.</value>
+  </data>
+  <data name="Update_UpdateNotApplied" xml:space="preserve">
+    <value>لم يُطبَّق التحديث</value>
+  </data>
+  <data name="AddApp_AddApp" xml:space="preserve">
+    <value>إضافة تطبيق</value>
+  </data>
+  <data name="AddApp_AddInstallersWingetDoesNot" xml:space="preserve">
+    <value>أضف مثبّتات لا يوفرها winget: رابطًا مباشرًا، أو إصدارًا على GitHub، أو ملفًا محليًا.</value>
+  </data>
+  <data name="AddApp_InstallerRunSilently" xml:space="preserve">
+    <value>المثبّت (يعمل بصمت)</value>
+  </data>
+  <data name="AddApp_PortableArchiveExtract" xml:space="preserve">
+    <value>أرشيف محمول (استخراج)</value>
+  </data>
+  <data name="AddApp_PortableExecutableCopy" xml:space="preserve">
+    <value>ملف تنفيذي محمول (نسخ)</value>
+  </data>
+  <data name="AddApp_NotInspectedYet" xml:space="preserve">
+    <value>لم يُفحص بعد</value>
+  </data>
+  <data name="AddApp_ChooseASourceAndFill" xml:space="preserve">
+    <value>اختر مصدرًا واملأ ما يحتاجه CTRL+Z.</value>
+  </data>
+  <data name="AddApp_FetchingTheLatestRelease" xml:space="preserve">
+    <value>جارٍ جلب أحدث إصدار…</value>
+  </data>
+  <data name="AddApp_ReleaseHasNoSupportedWindows" xml:space="preserve">
+    <value>الإصدار {0} لا يحتوي على ملف مدعوم لنظام Windows.</value>
+  </data>
+  <data name="AddApp_CouldNotLoadTheRelease" xml:space="preserve">
+    <value>تعذّر تحميل الإصدار.</value>
+  </data>
+  <data name="AddApp_SelectALocalInstaller" xml:space="preserve">
+    <value>اختر مثبّتًا محليًا</value>
+  </data>
+  <data name="AddApp_SelectAFolderContainingThe" xml:space="preserve">
+    <value>اختر مجلدًا يحتوي على المثبّت</value>
+  </data>
+  <data name="AddApp_NoSupportedInstallerWasFound" xml:space="preserve">
+    <value>لم يُعثر على مثبّت مدعوم في هذا المجلد.</value>
+  </data>
+  <data name="AddApp_MoreThanOneInstallerWas" xml:space="preserve">
+    <value>عُثر على أكثر من مثبّت. اختر الملف مباشرة.</value>
+  </data>
+  <data name="AddApp_DownloadingAndInspecting" xml:space="preserve">
+    <value>جارٍ التنزيل والفحص…</value>
+  </data>
+  <data name="AddApp_UnrecognizedInstaller" xml:space="preserve">
+    <value>مثبّت غير معروف</value>
+  </data>
+  <data name="AddApp_InstallerTypeWasNotRecognized" xml:space="preserve">
+    <value>لم يُتعرَّف على نوع المثبّت. المفتاح /S نقطة بداية معقولة، لكن اختبره.</value>
+  </data>
+  <data name="AddApp_DetectedReviewTheSwitchesAnd" xml:space="preserve">
+    <value>اكتُشف {0}. راجع المفاتيح واختبرها إذا لزم الأمر.</value>
+  </data>
+  <data name="AddApp_InspectionFailed" xml:space="preserve">
+    <value>فشل الفحص</value>
+  </data>
+  <data name="AddApp_TestThisInstaller" xml:space="preserve">
+    <value>اختبار هذا المثبّت</value>
+  </data>
+  <data name="AddApp_CTRLZWillRunThe" xml:space="preserve">
+    <value>سيشغّل CTRL+Z المثبّت على هذا الكمبيوتر بالمفاتيح المعروضة. </value>
+  </data>
+  <data name="AddApp_ThisIsARealInstallation" xml:space="preserve">
+    <value>هذا تثبيت حقيقي وقد يغيّر هذا الجهاز. هل تريد المتابعة؟</value>
+  </data>
+  <data name="AddApp_RunTestInstall" xml:space="preserve">
+    <value>تشغيل التثبيت التجريبي</value>
+  </data>
+  <data name="AddApp_Cancel" xml:space="preserve">
+    <value>إلغاء</value>
+  </data>
+  <data name="AddApp_TestInstallSucceededReviewThe" xml:space="preserve">
+    <value>نجح التثبيت التجريبي. راجع النتيجة، ثم أضف التطبيق.</value>
+  </data>
+  <data name="AddApp_TestInstallDidNotComplete" xml:space="preserve">
+    <value>لم يكتمل التثبيت التجريبي: </value>
+  </data>
+  <data name="AddApp_TestInstallFailed" xml:space="preserve">
+    <value>فشل التثبيت التجريبي: </value>
+  </data>
+  <data name="AddApp_GiveTheAppAName" xml:space="preserve">
+    <value>أعطِ التطبيق اسمًا.</value>
+  </data>
+  <data name="AddApp_SHA256MustBe64" xml:space="preserve">
+    <value>يجب أن يتكون SHA-256 من 64 حرفًا ست عشريًا، أو أن يُترك فارغًا.</value>
+  </data>
+  <data name="AddApp_ThatAppIsAlreadyIn" xml:space="preserve">
+    <value>هذا التطبيق موجود بالفعل في ملف التعريف هذا.</value>
+  </data>
+  <data name="AddApp_AddedTo" xml:space="preserve">
+    <value>أُضيف {0} إلى «{1}».</value>
+  </data>
+  <data name="AddApp_DuplicateWasSkipped" xml:space="preserve">
+    <value> تم تخطي {0} مكرر.</value>
+  </data>
+  <data name="AddApp_AppAdded" xml:space="preserve">
+    <value>أُضيف التطبيق</value>
+  </data>
+  <data name="AddApp_ChooseAnExistingLocalInstaller" xml:space="preserve">
+    <value>اختر ملف مثبّت محليًا موجودًا.</value>
+  </data>
+  <data name="AddApp_EnterAValidDownloadURL" xml:space="preserve">
+    <value>أدخل رابط تنزيل صالحًا أولاً.</value>
+  </data>
+  <data name="AddApp_InspectingInstaller" xml:space="preserve">
+    <value>جارٍ فحص المثبّت… {0:P0}</value>
+  </data>
+  <data name="AddApp_InspectingInstaller2" xml:space="preserve">
+    <value>جارٍ فحص المثبّت…</value>
+  </data>
+  <data name="AddApp_FindAReleaseAndChoose" xml:space="preserve">
+    <value>ابحث عن إصدار واختر ملفًا أولاً.</value>
+  </data>
+  <data name="AddApp_Inspecting" xml:space="preserve">
+    <value>جارٍ فحص {0}… {1:P0}</value>
+  </data>
+  <data name="AddApp_InspectingAsset" xml:space="preserve">
+    <value>جارٍ فحص الملف…</value>
+  </data>
+  <data name="AppUpdates_Updates" xml:space="preserve">
+    <value>التحديثات</value>
+  </data>
+  <data name="AppUpdates_AppsWingetCanUpdateOn" xml:space="preserve">
+    <value>تطبيقات يستطيع winget تحديثها على هذا الكمبيوتر. لا يتغيّر شيء حتى تختار.</value>
+  </data>
+  <data name="AppUpdates_CheckForAppUpdates" xml:space="preserve">
+    <value>التحقق من تحديثات التطبيقات</value>
+  </data>
+  <data name="AppUpdates_WingetIsAskedWhichInstalled" xml:space="preserve">
+    <value>يُسأل winget عن التطبيقات المثبّتة التي لها إصدار أحدث.</value>
+  </data>
+  <data name="AppUpdates_AskingWingetForUpdates" xml:space="preserve">
+    <value>جارٍ سؤال winget عن التحديثات…</value>
+  </data>
+  <data name="AppUpdates_CheckedPinnedAppsAreOnly" xml:space="preserve">
+    <value>تم التحقق في {0:HH:mm}. لا تُحدَّث التطبيقات مثبّتة الإصدار إلا عندما تختارها.</value>
+  </data>
+  <data name="AppUpdates_CheckCancelled" xml:space="preserve">
+    <value>أُلغي التحقق.</value>
+  </data>
+  <data name="AppUpdates_WingetCouldNotBeAsked" xml:space="preserve">
+    <value>تعذّر سؤال winget عن التحديثات. تأكد من تثبيت App Installer (الإعدادات).</value>
+  </data>
+  <data name="AppUpdates_IsHiddenUntilANewer" xml:space="preserve">
+    <value>{0} {1} مخفي حتى يظهر إصدار أحدث.</value>
+  </data>
+  <data name="AppUpdates_UpdateFromGitHub" xml:space="preserve">
+    <value>تحديث من GitHub</value>
+  </data>
+  <data name="AppUpdates_DownloadFromAndInstallIt" xml:space="preserve">
+    <value>هل تريد تنزيل {0} {1} من {2} وتثبيته فوق {3}؟
+
+</value>
+  </data>
+  <data name="AppUpdates_CloseTheAppFirstThe" xml:space="preserve">
+    <value>أغلق التطبيق أولاً. يُتحقق من التنزيل مقابل SHA-256 الخاص بالإصدار عندما ينشره الإصدار.</value>
+  </data>
+  <data name="AppUpdates_Update2" xml:space="preserve">
+    <value>تحديث</value>
+  </data>
+  <data name="AppUpdates_Cancel2" xml:space="preserve">
+    <value>إلغاء</value>
+  </data>
+  <data name="AppUpdates_AnotherInstallOrUpdateIs" xml:space="preserve">
+    <value>هناك عملية تثبيت أو تحديث أخرى قيد التشغيل على هذا الكمبيوتر. حاول مرة أخرى عند انتهائها.</value>
+  </data>
+  <data name="AppUpdates_UpdatingApps" xml:space="preserve">
+    <value>جارٍ تحديث التطبيقات</value>
+  </data>
+  <data name="AppUpdates_Updating" xml:space="preserve">
+    <value>جارٍ التحديث…</value>
+  </data>
+  <data name="AppUpdates_UpdatedTo" xml:space="preserve">
+    <value>تم التحديث إلى {0}.</value>
+  </data>
+  <data name="AppUpdates_TheUpdateDidNotFinish" xml:space="preserve">
+    <value>لم يكتمل التحديث.</value>
+  </data>
+  <data name="AppUpdates_UpdatedTo2" xml:space="preserve">
+    <value>تم تحديث {0} إلى {1}.</value>
+  </data>
+  <data name="AppUpdates_Cancelled" xml:space="preserve">
+    <value>أُلغي.</value>
+  </data>
+  <data name="AppUpdates_TheUpdateFailed" xml:space="preserve">
+    <value>فشل التحديث: </value>
+  </data>
+  <data name="AppUpdates_NothingSelectedToUpdate" xml:space="preserve">
+    <value>لم يُحدَّد شيء لتحديثه.</value>
+  </data>
+  <data name="AppUpdates_AndMore" xml:space="preserve">
+    <value>
+…و{0} غيرها</value>
+  </data>
+  <data name="AppUpdates_CloseTheseAppsFirstWindows" xml:space="preserve">
+    <value>أغلق هذه التطبيقات أولاً. قد يطلب Windows الإذن للتطبيقات المثبّتة لجميع المستخدمين.</value>
+  </data>
+  <data name="AppUpdates_Queued" xml:space="preserve">
+    <value>في قائمة الانتظار</value>
+  </data>
+  <data name="AppUpdates_UpdatedFailed" xml:space="preserve">
+    <value>تم تحديث {0}، وفشل {1}.</value>
+  </data>
+  <data name="AppUpdates_RestartWindowsToFinish" xml:space="preserve">
+    <value> أعد تشغيل Windows للإنهاء.</value>
+  </data>
+  <data name="AppUpdates_YourAppsAreUpTo" xml:space="preserve">
+    <value>تطبيقاتك محدَّثة</value>
+  </data>
+  <data name="BrowserItem_VersionUnknown" xml:space="preserve">
+    <value>الإصدار غير معروف</value>
+  </data>
+  <data name="Browsers_Browsers2" xml:space="preserve">
+    <value>المتصفحات</value>
+  </data>
+  <data name="Browsers_BackUpFirefoxAndChromium" xml:space="preserve">
+    <value>انسخ ملفات تعريف Firefox وChromium احتياطيًا، ثم استعد علامات التبويب والإشارات المرجعية والإضافات والإعدادات على كمبيوتر نظيف.</value>
+  </data>
+  <data name="Browsers_CacheCodeCacheGPUCacheShaderCache" xml:space="preserve">
+    <value>Cache/Code Cache/GPUCache/ShaderCache، وملفات تفريغ الأعطال، وكلمات المرور المحفوظة، وملفات تعريف الارتباط</value>
+  </data>
+  <data name="Browsers_DetectingFirefoxAndChromiumBrowsers" xml:space="preserve">
+    <value>جارٍ اكتشاف متصفحات Firefox وChromium…</value>
+  </data>
+  <data name="Browsers_SelectABrowserAndAt" xml:space="preserve">
+    <value>اختر متصفحًا وملف تعريف واحدًا على الأقل.</value>
+  </data>
+  <data name="Browsers_ReadyToBackUp" xml:space="preserve">
+    <value>جاهز للنسخ الاحتياطي.</value>
+  </data>
+  <data name="Browsers_ChooseAnArchiveToSee" xml:space="preserve">
+    <value>اختر أرشيفًا لترى ما يمكن استعادته.</value>
+  </data>
+  <data name="Browsers_TabsSessions" xml:space="preserve">
+    <value>علامات التبويب والجلسات</value>
+  </data>
+  <data name="Browsers_SearchEngines" xml:space="preserve">
+    <value>محركات البحث</value>
+  </data>
+  <data name="Browsers_SitePermissions" xml:space="preserve">
+    <value>أذونات المواقع</value>
+  </data>
+  <data name="Browsers_ThisBackupIsFromWhich" xml:space="preserve">
+    <value>هذه النسخة الاحتياطية من {0}، وهو غير مثبّت على هذا الكمبيوتر. ثبّته هنا، ثم: {1}</value>
+  </data>
+  <data name="Browsers_ThisBackupIsFromWhich2" xml:space="preserve">
+    <value>هذه النسخة الاحتياطية من {0}، وهو غير مثبّت على هذا الكمبيوتر. ثبّته من موقعه، ثم: {1}</value>
+  </data>
+  <data name="Browsers_Install" xml:space="preserve">
+    <value>تثبيت {0}</value>
+  </data>
+  <data name="Browsers_CTRLZWillInstallWith" xml:space="preserve">
+    <value>سيثبّت CTRL+Z {0} باستخدام winget ({1}). قد يطلب Windows الإذن.
+
+</value>
+  </data>
+  <data name="Browsers_AfterItInstalls" xml:space="preserve">
+    <value>بعد تثبيته: </value>
+  </data>
+  <data name="Browsers_Cancel2" xml:space="preserve">
+    <value>إلغاء</value>
+  </data>
+  <data name="Browsers_Installing" xml:space="preserve">
+    <value>جارٍ تثبيت {0}…</value>
+  </data>
+  <data name="Browsers_WingetIsNotAvailableOn" xml:space="preserve">
+    <value>winget غير متوفر على هذا الكمبيوتر بعد. ثبّت App Installer من «الإعدادات»، ثم حاول مرة أخرى.</value>
+  </data>
+  <data name="Browsers_WingetIsNotAvailable" xml:space="preserve">
+    <value>winget غير متوفر.</value>
+  </data>
+  <data name="Browsers_IsInstalled" xml:space="preserve">
+    <value>تم تثبيت {0}. {1}</value>
+  </data>
+  <data name="Browsers_IsInstalled2" xml:space="preserve">
+    <value>تم تثبيت {0}.
+
+{1}</value>
+  </data>
+  <data name="Browsers_AlmostReadyToRestore" xml:space="preserve">
+    <value>أوشك على الاستعداد للاستعادة</value>
+  </data>
+  <data name="Browsers_CouldNotBeInstalledWinget" xml:space="preserve">
+    <value>تعذّر تثبيت {0} (رمز خروج winget {1}).</value>
+  </data>
+  <data name="Browsers_CouldNotBeInstalledWinget2" xml:space="preserve">
+    <value>تعذّر تثبيت {0} (رمز خروج winget {1}). ثبّته من موقعه، ثم اضغط «تحديث».</value>
+  </data>
+  <data name="Browsers_CouldNotBeInstalled" xml:space="preserve">
+    <value>تعذّر تثبيت {0}.</value>
+  </data>
+  <data name="Browsers_CouldNotBeInstalled2" xml:space="preserve">
+    <value>تعذّر تثبيت {0}.
+
+</value>
+  </data>
+  <data name="Browsers_SelectTheBrowserSProfile" xml:space="preserve">
+    <value>اختر جذر ملفات تعريف المتصفح (Local State لـ Chromium، وprofiles.ini لـ Firefox)</value>
+  </data>
+  <data name="Browsers_ThatProfileFolderIsAlready" xml:space="preserve">
+    <value>مجلد ملف التعريف هذا موجود بالفعل في القائمة.</value>
+  </data>
+  <data name="Browsers_Added" xml:space="preserve">
+    <value>أُضيف {0}.</value>
+  </data>
+  <data name="Browsers_NotABrowserProfileFolder" xml:space="preserve">
+    <value>ليس مجلد ملف تعريف متصفح</value>
+  </data>
+  <data name="Browsers_ThisFolderCouldNotBe" xml:space="preserve">
+    <value>تعذّرت إضافة هذا المجلد.
+
+</value>
+  </data>
+  <data name="Browsers_ChooseWhereBrowserBackupsAre" xml:space="preserve">
+    <value>اختر مكان حفظ نسخ المتصفحات الاحتياطية</value>
+  </data>
+  <data name="Browsers_CouldNotOpenTheBackup" xml:space="preserve">
+    <value>تعذّر فتح مجلد النسخ الاحتياطي.
+
+</value>
+  </data>
+  <data name="Browsers_UseAtLeast4Characters" xml:space="preserve">
+    <value>استخدم 4 أحرف على الأقل لكلمة مرور الأرشيف، أو اتركها فارغة.</value>
+  </data>
+  <data name="Browsers_TheBackupFolderCouldNot" xml:space="preserve">
+    <value>تعذّر إنشاء مجلد النسخ الاحتياطي.
+
+</value>
+  </data>
+  <data name="Browsers_BackingUpBrowserProfiles" xml:space="preserve">
+    <value>جارٍ نسخ ملفات تعريف المتصفح احتياطيًا</value>
+  </data>
+  <data name="Browsers_Preparing" xml:space="preserve">
+    <value>جارٍ تحضير {0}…</value>
+  </data>
+  <data name="Browsers_SkippedBecauseItIsStill" xml:space="preserve">
+    <value>{0}: تم التخطي لأنه لا يزال قيد التشغيل.</value>
+  </data>
+  <data name="Browsers_NoBackupsCompleted" xml:space="preserve">
+    <value>لم تكتمل أي نسخة احتياطية.</value>
+  </data>
+  <data name="Browsers_BrowserBackupComplete" xml:space="preserve">
+    <value>اكتمل النسخ الاحتياطي للمتصفح</value>
+  </data>
+  <data name="Browsers_BackupFailed" xml:space="preserve">
+    <value>فشل النسخ الاحتياطي</value>
+  </data>
+  <data name="Browsers_BackupCancelledCompletedArchivesRemain" xml:space="preserve">
+    <value>أُلغي النسخ الاحتياطي. تبقى الأرشيفات المكتملة في المجلد.</value>
+  </data>
+  <data name="Browsers_BackupStoppedUnexpectedly" xml:space="preserve">
+    <value>توقف النسخ الاحتياطي بشكل غير متوقع.</value>
+  </data>
+  <data name="Browsers_TheBackupSessionStoppedUnexpectedly" xml:space="preserve">
+    <value>توقفت جلسة النسخ الاحتياطي بشكل غير متوقع.
+
+</value>
+  </data>
+  <data name="Browsers_Cancelling" xml:space="preserve">
+    <value>جارٍ الإلغاء…</value>
+  </data>
+  <data name="Browsers_OpenACTRLZBrowser" xml:space="preserve">
+    <value>فتح نسخة CTRL+Z احتياطية لمتصفح</value>
+  </data>
+  <data name="Browsers_CTRLZBrowserBackupZip" xml:space="preserve">
+    <value>نسخة CTRL+Z الاحتياطية للمتصفح (*.zip)|*.zip|كل الملفات (*.*)|*.*</value>
+  </data>
+  <data name="Browsers_ReadingArchive" xml:space="preserve">
+    <value>جارٍ قراءة الأرشيف…</value>
+  </data>
+  <data name="Browsers_ProfileS" xml:space="preserve">
+    <value>ملفات التعريف: {0} · </value>
+  </data>
+  <data name="Browsers_ArchiveLoadedNoBrowserIs" xml:space="preserve">
+    <value>تم تحميل الأرشيف. لا يوجد متصفح {0} مثبّت. ثبّت واحدًا، ثم حدّث وحاول مرة أخرى.</value>
+  </data>
+  <data name="Browsers_ArchiveUnlockedChooseProfilesAnd" xml:space="preserve">
+    <value>تم فتح قفل الأرشيف. اختر ملفات التعريف ومتصفحًا هدفًا.</value>
+  </data>
+  <data name="Browsers_ArchiveReadyChooseProfilesAnd" xml:space="preserve">
+    <value>الأرشيف جاهز. اختر ملفات التعريف ومتصفحًا هدفًا.</value>
+  </data>
+  <data name="Browsers_ThisArchiveIsEncryptedEnter" xml:space="preserve">
+    <value>هذا الأرشيف مشفّر. أدخل كلمة مروره، ثم اعرض المحتوى مرة أخرى.</value>
+  </data>
+  <data name="Browsers_ArchiveCouldNotBeRead" xml:space="preserve">
+    <value>تعذّرت قراءة الأرشيف.</value>
+  </data>
+  <data name="Browsers_ThisArchiveCouldNotBe" xml:space="preserve">
+    <value>تعذّر فتح هذا الأرشيف.
+
+</value>
+  </data>
+  <data name="Browsers_VerifyingTheBackupReadingEvery" xml:space="preserve">
+    <value>جارٍ التحقق من النسخة الاحتياطية: قراءة كل ملف…</value>
+  </data>
+  <data name="Browsers_VerifiedNothingWasChanged" xml:space="preserve">
+    <value>تم التحقق من {0} {1}. لم يتغيّر أي شيء.</value>
+  </data>
+  <data name="Browsers_ThisBackupCannotBeFully" xml:space="preserve">
+    <value>لا يمكن استعادة هذه النسخة الاحتياطية بالكامل:
+
+</value>
+  </data>
+  <data name="Browsers_AndMore" xml:space="preserve">
+    <value>
+…و{0} غيرها.</value>
+  </data>
+  <data name="Browsers_MakeANewBackupBefore" xml:space="preserve">
+    <value>
+
+أنشئ نسخة احتياطية جديدة قبل مسح هذا الكمبيوتر.</value>
+  </data>
+  <data name="Browsers_TheBackupCouldNotBe" xml:space="preserve">
+    <value>تعذّر التحقق من النسخة الاحتياطية.</value>
+  </data>
+  <data name="Browsers_SelectAtLeastOneProfile" xml:space="preserve">
+    <value>اختر ملف تعريف واحدًا على الأقل من الأرشيف.</value>
+  </data>
+  <data name="Browsers_OverwriteExistingProfiles" xml:space="preserve">
+    <value>استبدال ملفات التعريف الموجودة</value>
+  </data>
+  <data name="Browsers_TheSelectedProfilesWillBe" xml:space="preserve">
+    <value>ستُدمج ملفات التعريف المحددة في مجلدات ملفات التعريف الموجودة في {0}. </value>
+  </data>
+  <data name="Browsers_YourCurrentCookiesAndSaved" xml:space="preserve">
+    <value>تبقى ملفات تعريف الارتباط وكلمات المرور المحفوظة الحالية دون تغيير، لكن الإشارات المرجعية والسجل والجلسات والإعدادات ستُستبدل.
+
+</value>
+  </data>
+  <data name="Browsers_RestoreAsNewProfilesInstead" xml:space="preserve">
+    <value>استعدها كملفات تعريف جديدة بدلاً من ذلك إذا أردت الاحتفاظ بالاثنين.</value>
+  </data>
+  <data name="Browsers_OverwriteProfiles" xml:space="preserve">
+    <value>استبدال ملفات التعريف</value>
+  </data>
+  <data name="Browsers_RestoringBrowserProfiles" xml:space="preserve">
+    <value>جارٍ استعادة ملفات تعريف المتصفح</value>
+  </data>
+  <data name="Browsers_Restoring" xml:space="preserve">
+    <value>جارٍ الاستعادة…</value>
+  </data>
+  <data name="Browsers_ProfilesAlreadyExist" xml:space="preserve">
+    <value>ملفات التعريف موجودة بالفعل</value>
+  </data>
+  <data name="Browsers_TheseProfilesAlreadyExistIn" xml:space="preserve">
+    <value>ملفات التعريف هذه موجودة بالفعل في {0}: {1}.
+
+</value>
+  </data>
+  <data name="Browsers_RestoreThemAsNewProfiles" xml:space="preserve">
+    <value>هل تريد استعادتها كملفات تعريف جديدة بدلاً من ذلك؟ يحافظ هذا على ملفات التعريف الحالية سليمة.</value>
+  </data>
+  <data name="Browsers_RestoreAsNew" xml:space="preserve">
+    <value>الاستعادة كجديدة</value>
+  </data>
+  <data name="Browsers_RestoreCancelled" xml:space="preserve">
+    <value>أُلغيت الاستعادة.</value>
+  </data>
+  <data name="Browsers_RestoredInto" xml:space="preserve">
+    <value>تمت الاستعادة إلى {0}.</value>
+  </data>
+  <data name="Browsers_ASafetyCopyWasKept" xml:space="preserve">
+    <value>
+
+احتُفظ بنسخة أمان في:
+{0}</value>
+  </data>
+  <data name="Browsers_RestoredProfileSInto" xml:space="preserve">
+    <value>تمت استعادة ملفات التعريف ({0}) إلى {1}.
+
+</value>
+  </data>
+  <data name="Browsers_StartTheBrowserAndCheck" xml:space="preserve">
+    <value>شغّل المتصفح وتحقق من الإشارات المرجعية وعلامات التبويب والإضافات والإعدادات.</value>
+  </data>
+  <data name="Browsers_BrowserRestoreComplete" xml:space="preserve">
+    <value>اكتملت استعادة المتصفح</value>
+  </data>
+  <data name="Browsers_TheArchivePasswordIsIncorrect" xml:space="preserve">
+    <value>كلمة مرور الأرشيف غير صحيحة.</value>
+  </data>
+  <data name="Browsers_ThatPasswordCouldNotUnlock" xml:space="preserve">
+    <value>تعذّر فتح قفل الأرشيف بكلمة المرور هذه.</value>
+  </data>
+  <data name="Browsers_CloseTheBrowserFirst" xml:space="preserve">
+    <value>أغلق المتصفح أولاً.</value>
+  </data>
+  <data name="Browsers_RestoreFailed" xml:space="preserve">
+    <value>فشلت الاستعادة.</value>
+  </data>
+  <data name="Browsers_TheBrowserProfileCouldNot" xml:space="preserve">
+    <value>تعذّرت استعادة ملف تعريف المتصفح.
+
+</value>
+  </data>
+  <data name="Browsers_NoFirefoxOrChromiumBrowsers2" xml:space="preserve">
+    <value>لم يُعثر على متصفحات Firefox أو Chromium. أضف مجلد ملف تعريف مخصصًا.</value>
+  </data>
+  <data name="Browsers_FirefoxAndChromiumStoreProfiles" xml:space="preserve">
+    <value>يخزّن Firefox وChromium ملفات التعريف في مجلدات مختلفة. للنسخ الأقل شهرة، أضف جذر ملفات التعريف يدويًا.</value>
+  </data>
+  <data name="Browsers_BrowserDetectionFailed" xml:space="preserve">
+    <value>فشل اكتشاف المتصفحات.</value>
+  </data>
+  <data name="Browsers_CTRLZCouldNotDetect" xml:space="preserve">
+    <value>تعذّر على CTRL+Z اكتشاف المتصفحات.
+
+</value>
+  </data>
+  <data name="Browsers_SizeUnavailable" xml:space="preserve">
+    <value>الحجم غير متوفر</value>
+  </data>
+  <data name="Browsers_CloseTheBrowser" xml:space="preserve">
+    <value>إغلاق المتصفح</value>
+  </data>
+  <data name="Browsers_IsRunningABackupNeeds" xml:space="preserve">
+    <value>{0} قيد التشغيل. يحتاج النسخ الاحتياطي إلى وصول شبه حصري إلى ملفات ملف التعريف، ويجب أن تكتبها الاستعادة والمتصفح مغلق.
+
+</value>
+  </data>
+  <data name="Browsers_CTRLZCanCloseIt" xml:space="preserve">
+    <value>يستطيع CTRL+Z إغلاقه نيابةً عنك. قد يضيع العمل غير المحفوظ في علامات التبويب؛ وعادةً ما يعرض المتصفح استعادة علامات التبويب عند التشغيل التالي.</value>
+  </data>
+  <data name="Browsers_CloseBrowser" xml:space="preserve">
+    <value>إغلاق المتصفح</value>
+  </data>
+  <data name="Browsers_Skip" xml:space="preserve">
+    <value>تخطي</value>
+  </data>
+  <data name="Browsers_ForceClose" xml:space="preserve">
+    <value>هل تريد الإغلاق الإجباري؟</value>
+  </data>
+  <data name="Browsers_DidNotCloseGracefullyForce" xml:space="preserve">
+    <value>لم يُغلق {0} بشكل طبيعي. قد يؤدي الإغلاق الإجباري إلى فقدان بيانات النماذج غير المحفوظة، لكنه الطريقة الموثوقة لفتح قفل ملفات ملف التعريف.</value>
+  </data>
+  <data name="Browsers_ForceClose2" xml:space="preserve">
+    <value>إغلاق إجباري</value>
+  </data>
+  <data name="Catalog_NoWingetPackage" xml:space="preserve">
+    <value>لا توجد حزمة winget</value>
+  </data>
+  <data name="Catalog_Catalog" xml:space="preserve">
+    <value>الكتالوج</value>
+  </data>
+  <data name="Catalog_RecommendedAppsFromChrisTitus" xml:space="preserve">
+    <value>تطبيقات موصى بها من كتالوج WinUtil الخاص بـ Chris Titus Tech، مُحدَّثة من المصدر المباشر.</value>
+  </data>
+  <data name="Catalog_AllCategories" xml:space="preserve">
+    <value>كل الفئات</value>
+  </data>
+  <data name="Catalog_NotLoaded" xml:space="preserve">
+    <value>لم يُحمَّل</value>
+  </data>
+  <data name="Catalog_PickAppsFromTheCatalog" xml:space="preserve">
+    <value>اختر تطبيقات من الكتالوج وأضفها إلى ملف تعريفك.</value>
+  </data>
+  <data name="Catalog_NothingSelected" xml:space="preserve">
+    <value>لم يُحدَّد شيء</value>
+  </data>
+  <data name="Catalog_SelectAtLeastOneCatalog" xml:space="preserve">
+    <value>حدّد تطبيقًا واحدًا على الأقل من الكتالوج أولاً.</value>
+  </data>
+  <data name="Catalog_AddedFromTheWinUtilCatalog" xml:space="preserve">
+    <value>أُضيفت من كتالوج WinUtil.</value>
+  </data>
+  <data name="Catalog_NoNewAppsAddedAlready" xml:space="preserve">
+    <value>لم تُضف تطبيقات جديدة ({0} موجودة بالفعل في ملف التعريف).</value>
+  </data>
+  <data name="Catalog_AlreadyPresent" xml:space="preserve">
+    <value> · {0} موجودة بالفعل.</value>
+  </data>
+  <data name="Catalog_RefreshingFromGitHub" xml:space="preserve">
+    <value>جارٍ التحديث من GitHub…</value>
+  </data>
+  <data name="Catalog_LoadingTheAppCatalog" xml:space="preserve">
+    <value>جارٍ تحميل كتالوج التطبيقات…</value>
+  </data>
+  <data name="Catalog_ShowingRecommendedApps" xml:space="preserve">
+    <value>عرض {0} من التطبيقات الموصى بها.</value>
+  </data>
+  <data name="Catalog_ShowingALocalCatalogBecause" xml:space="preserve">
+    <value>عرض كتالوج محلي لأن GitHub غير متاح.</value>
+  </data>
+  <data name="Catalog_TheCatalogCouldNotBe" xml:space="preserve">
+    <value>تعذّر تحميل الكتالوج.</value>
+  </data>
+  <data name="CommandReview_RiskyPattern" xml:space="preserve">
+    <value>نمط خطِر: </value>
+  </data>
+  <data name="CommandReview_ThisProfileIsYoursIts" xml:space="preserve">
+    <value>ملف التعريف هذا ملكك. تعمل أوامره بعد التثبيت دون مراجعة لكل أمر.</value>
+  </data>
+  <data name="CommandReview_ThisProfileDidNotOriginate" xml:space="preserve">
+    <value>لم يُنشأ ملف التعريف هذا على هذا الكمبيوتر. تبقى أوامره محظورة حتى توافق على كل منها.</value>
+  </data>
+  <data name="CommandReview_YouWillStillBeAsked" xml:space="preserve">
+    <value>سيُطلب منك التأكيد مع ذلك قبل أول تشغيل للأوامر على هذا الكمبيوتر.</value>
+  </data>
+  <data name="CommandReview_AnApprovalIsStoredOn" xml:space="preserve">
+    <value>تُخزَّن الموافقة على هذا الكمبيوتر فقط، وليس في ملف التعريف أبدًا. تعديل الأمر لاحقًا يحظره مرة أخرى.</value>
+  </data>
+  <data name="CommandReview_NoCommands" xml:space="preserve">
+    <value>لا توجد أوامر</value>
+  </data>
+  <data name="CommandReview_Of" xml:space="preserve">
+    <value>{0} من {1}</value>
+  </data>
+  <data name="CommandReview_ApproveARiskyCommand" xml:space="preserve">
+    <value>هل توافق على أمر خطِر؟</value>
+  </data>
+  <data name="CommandReview_ApproveItOnlyIfYou" xml:space="preserve">
+    <value>{0}
+
+{1}
+
+لا توافق عليه إلا إذا كنت تفهم بالضبط ما يفعله. </value>
+  </data>
+  <data name="CommandReview_ItWillAlsoAskFor" xml:space="preserve">
+    <value>وسيطلب أيضًا التأكيد في كل مرة يوشك فيها على التشغيل.</value>
+  </data>
+  <data name="CommandReview_TreatThisProfileAsYours" xml:space="preserve">
+    <value>هل تريد معاملة ملف التعريف هذا كملكك؟</value>
+  </data>
+  <data name="CommandReview_OnlyDoThisForA" xml:space="preserve">
+    <value>لا تفعل هذا إلا لملف تعريف أنشأته بنفسك، على سبيل المثال على كمبيوتر آخر لك.
+
+</value>
+  </data>
+  <data name="CommandReview_EveryCommandInItWill" xml:space="preserve">
+    <value>ستعمل عندئذٍ كل الأوامر فيه ({0}) بعد التثبيت دون مراجعة لكل أمر، </value>
+  </data>
+  <data name="CommandReview_AndYouWillBeAble" xml:space="preserve">
+    <value>وستتمكن من تعديلها هنا.</value>
+  </data>
+  <data name="Drift_SavedAs" xml:space="preserve">
+    <value>محفوظ كـ {0} · {1}</value>
+  </data>
+  <data name="Drift_Installed" xml:space="preserve">
+    <value>مثبّت {0}</value>
+  </data>
+  <data name="Drift_InstalledOnThisPC" xml:space="preserve">
+    <value>مثبّت على هذا الكمبيوتر</value>
+  </data>
+  <data name="Drift_InstalledAvailable" xml:space="preserve">
+    <value>مثبّت {0} · متوفر {1}</value>
+  </data>
+  <data name="Drift_NotInProfile" xml:space="preserve">
+    <value>ليس في ملف التعريف</value>
+  </data>
+  <data name="Drift_ExactMatch" xml:space="preserve">
+    <value>تطابق تام</value>
+  </data>
+  <data name="Drift_LikelyMatch" xml:space="preserve">
+    <value>تطابق مرجّح</value>
+  </data>
+  <data name="Drift_Uncertain" xml:space="preserve">
+    <value>غير مؤكد</value>
+  </data>
+  <data name="Drift_NoMatch" xml:space="preserve">
+    <value>لا تطابق</value>
+  </data>
+  <data name="Drift_ComparingYourSavedProfileWith" xml:space="preserve">
+    <value>جارٍ مقارنة ملف تعريفك المحفوظ بهذا الكمبيوتر…</value>
+  </data>
+  <data name="Drift_ScanningInstalledApps" xml:space="preserve">
+    <value>جارٍ فحص التطبيقات المثبّتة…</value>
+  </data>
+  <data name="Drift_ReadingWingetVersions" xml:space="preserve">
+    <value>جارٍ قراءة إصدارات winget…</value>
+  </data>
+  <data name="Drift_TheDriftCheckCouldNot" xml:space="preserve">
+    <value>تعذّر إكمال فحص الاختلافات.</value>
+  </data>
+  <data name="Drift_TheDriftCheckCouldNot2" xml:space="preserve">
+    <value>تعذّر إكمال فحص الاختلافات.
+
+</value>
+  </data>
+  <data name="Drift_AddedToYourProfile" xml:space="preserve">
+    <value>أُضيف {0} إلى ملف تعريفك.</value>
+  </data>
+  <data name="Drift_IsAlreadyInYourProfile" xml:space="preserve">
+    <value>{0} موجود بالفعل في ملف تعريفك.</value>
+  </data>
+  <data name="Drift_RemoveFromProfile" xml:space="preserve">
+    <value>إزالة من ملف التعريف</value>
+  </data>
+  <data name="Drift_RemoveFromTheAppStays" xml:space="preserve">
+    <value>هل تريد إزالة {0} من «{1}»؟ يبقى التطبيق مثبّتًا على هذا الكمبيوتر؛ لكنه لن يعود جزءًا من قائمة إعادة التثبيت.</value>
+  </data>
+  <data name="Drift_Remove2" xml:space="preserve">
+    <value>إزالة</value>
+  </data>
+  <data name="Drift_Cancel" xml:space="preserve">
+    <value>إلغاء</value>
+  </data>
+  <data name="Drift_RemovedFromYourProfile" xml:space="preserve">
+    <value>أُزيل {0} من ملف تعريفك.</value>
+  </data>
+  <data name="Drift_IgnoringFromNowOn" xml:space="preserve">
+    <value>سيُتجاهل {0} من الآن فصاعدًا.</value>
+  </data>
+  <data name="Drift_YourProfileMatchesThisPC" xml:space="preserve">
+    <value>ملف تعريفك يطابق هذا الكمبيوتر</value>
+  </data>
+  <data name="Drift_MissingNotInProfileOutdated" xml:space="preserve">
+    <value>{0} مفقود · {1} ليس في ملف التعريف · {2} قديم</value>
+  </data>
+  <data name="InstallRow_Queued" xml:space="preserve">
+    <value>في قائمة الانتظار</value>
+  </data>
+  <data name="InstallRow_Preparing" xml:space="preserve">
+    <value>جارٍ التحضير</value>
+  </data>
+  <data name="InstallRow_Downloading" xml:space="preserve">
+    <value>جارٍ التنزيل</value>
+  </data>
+  <data name="InstallRow_Installing" xml:space="preserve">
+    <value>جارٍ التثبيت</value>
+  </data>
+  <data name="InstallRow_Installed" xml:space="preserve">
+    <value>مثبّت</value>
+  </data>
+  <data name="InstallRow_Failed" xml:space="preserve">
+    <value>فشل</value>
+  </data>
+  <data name="InstallRow_ManualAction" xml:space="preserve">
+    <value>إجراء يدوي</value>
+  </data>
+  <data name="InstallRow_RestartNeeded" xml:space="preserve">
+    <value>يلزم إعادة التشغيل</value>
+  </data>
+  <data name="InstallRow_Skipped" xml:space="preserve">
+    <value>تم التخطي</value>
+  </data>
+  <data name="InstallRow_Cancelled" xml:space="preserve">
+    <value>أُلغي</value>
+  </data>
+  <data name="InstallRow_YourNote" xml:space="preserve">
+    <value>ملاحظتك: </value>
+  </data>
+  <data name="Install_Install" xml:space="preserve">
+    <value>تثبيت</value>
+  </data>
+  <data name="Install_ReviewTheQueueAndReinstall" xml:space="preserve">
+    <value>راجع قائمة الانتظار وأعد تثبيت كل شيء بصمت، مع حالة مباشرة وجلسة يمكن استئنافها.</value>
+  </data>
+  <data name="Install_ReviewTheQueueThenInstall" xml:space="preserve">
+    <value>راجع قائمة الانتظار، ثم ثبّت.</value>
+  </data>
+  <data name="Install_ResumeInstall" xml:space="preserve">
+    <value>استئناف التثبيت</value>
+  </data>
+  <data name="Install_InstallEverything" xml:space="preserve">
+    <value>تثبيت كل شيء</value>
+  </data>
+  <data name="Install_DoneNeedAttentionTotal" xml:space="preserve">
+    <value>{0} تم · {1} يحتاج إلى انتباه · {2} الإجمالي</value>
+  </data>
+  <data name="Install_ResumeAvailable" xml:space="preserve">
+    <value>الاستئناف متاح</value>
+  </data>
+  <data name="Install_RestartRequired2" xml:space="preserve">
+    <value>يلزم إعادة التشغيل</value>
+  </data>
+  <data name="Install_RunningAsAdministrator" xml:space="preserve">
+    <value>يعمل كمسؤول</value>
+  </data>
+  <data name="Install_RunningAsStandardUser" xml:space="preserve">
+    <value>يعمل كمستخدم عادي</value>
+  </data>
+  <data name="Install_FailedCompletePickUpWhere" xml:space="preserve">
+    <value>{0} فشل · {1} اكتمل. تابع من حيث توقفت الجلسة الأخيرة.</value>
+  </data>
+  <data name="Install_EveryAppIsInstalledRestart" xml:space="preserve">
+    <value>كل التطبيقات مثبّتة. أعد تشغيل Windows لإنهاء آخر المثبّتات.</value>
+  </data>
+  <data name="Install_TheLastInstallSessionIs" xml:space="preserve">
+    <value>اكتملت جلسة التثبيت الأخيرة.</value>
+  </data>
+  <data name="Install_APreviousInstallCanBe" xml:space="preserve">
+    <value>يمكن استئناف تثبيت سابق.</value>
+  </data>
+  <data name="Install_LastSessionComplete" xml:space="preserve">
+    <value>اكتملت الجلسة الأخيرة.</value>
+  </data>
+  <data name="Install_ThisProfileHasNoEnabled" xml:space="preserve">
+    <value>لا يحتوي ملف التعريف هذا على تطبيقات مفعّلة. أضف تطبيقات أو فعّلها في «تطبيقاتي» أولاً.</value>
+  </data>
+  <data name="Install_StartANewInstall" xml:space="preserve">
+    <value>بدء تثبيت جديد</value>
+  </data>
+  <data name="Install_ACompletedInstallSessionIs" xml:space="preserve">
+    <value>توجد جلسة تثبيت مكتملة على القرص. هل تريد بدء جلسة جديدة من ملف التعريف الحالي؟</value>
+  </data>
+  <data name="Install_StartNewInstall" xml:space="preserve">
+    <value>بدء تثبيت جديد</value>
+  </data>
+  <data name="Install_Cancel" xml:space="preserve">
+    <value>إلغاء</value>
+  </data>
+  <data name="Install_StoppingAfterTheCurrentInstaller" xml:space="preserve">
+    <value>سيتوقف بعد المثبّت الحالي…</value>
+  </data>
+  <data name="Install_InstallCancelledNothingRan" xml:space="preserve">
+    <value>أُلغي التثبيت. لم يُشغَّل أي شيء.</value>
+  </data>
+  <data name="Install_StartOver2" xml:space="preserve">
+    <value>البدء من جديد</value>
+  </data>
+  <data name="Install_DiscardTheSavedInstallSession" xml:space="preserve">
+    <value>هل تريد تجاهل جلسة التثبيت المحفوظة وبناء قائمة انتظار جديدة من ملف التعريف النشط؟</value>
+  </data>
+  <data name="Install_FreshQueueReady" xml:space="preserve">
+    <value>قائمة الانتظار الجديدة جاهزة.</value>
+  </data>
+  <data name="Install_RestartWindows2" xml:space="preserve">
+    <value>إعادة تشغيل Windows</value>
+  </data>
+  <data name="Install_RestartNowToFinishPending" xml:space="preserve">
+    <value>هل تريد إعادة التشغيل الآن لإنهاء المثبّتات المعلّقة؟ احفظ أي عمل مفتوح أولاً.</value>
+  </data>
+  <data name="Install_RestartNow" xml:space="preserve">
+    <value>إعادة التشغيل الآن</value>
+  </data>
+  <data name="Install_WindowsWillRestartIn10" xml:space="preserve">
+    <value>سيُعاد تشغيل Windows خلال 10 ثوانٍ.</value>
+  </data>
+  <data name="Install_CouldNotRestartWindows" xml:space="preserve">
+    <value>تعذّرت إعادة تشغيل Windows: </value>
+  </data>
+  <data name="Install_AdministratorAccess" xml:space="preserve">
+    <value>صلاحيات المسؤول</value>
+  </data>
+  <data name="Install_WindowsInstallersUsuallyNeedAdministrato" xml:space="preserve">
+    <value>تحتاج مثبّتات Windows عادةً إلى صلاحيات المسؤول. يستطيع CTRL+Z إعادة تشغيل نفسه بصلاحيات مرتفعة واستئناف هذا التثبيت تلقائيًا.
+
+</value>
+  </data>
+  <data name="Install_YouCanAlsoContinueUnelevated" xml:space="preserve">
+    <value>يمكنك أيضًا المتابعة دون صلاحيات مرتفعة، لكن المثبّتات التي تعمل على مستوى الجهاز كله قد تفشل.</value>
+  </data>
+  <data name="Install_RestartAsAdministrator" xml:space="preserve">
+    <value>إعادة التشغيل كمسؤول</value>
+  </data>
+  <data name="Install_ContinueWithoutAdmin" xml:space="preserve">
+    <value>المتابعة دون صلاحيات المسؤول</value>
+  </data>
+  <data name="Install_CouldNotRestartAsAdministrator" xml:space="preserve">
+    <value>تعذّرت إعادة التشغيل كمسؤول.</value>
+  </data>
+  <data name="Install_InstallNotStartedThePost" xml:space="preserve">
+    <value>لم يبدأ التثبيت: لم تُؤكَّد أوامر ما بعد التثبيت. لم يُشغَّل أي شيء.</value>
+  </data>
+  <data name="Install_AnotherCTRLZInstallIs" xml:space="preserve">
+    <value>هناك تثبيت آخر لـ CTRL+Z قيد التشغيل على هذا الكمبيوتر (من سطر الأوامر مثلاً). حاول مرة أخرى عند انتهائه.</value>
+  </data>
+  <data name="Install_InstallingApps" xml:space="preserve">
+    <value>جارٍ تثبيت التطبيقات</value>
+  </data>
+  <data name="Install_RetryingFailedApps" xml:space="preserve">
+    <value>جارٍ إعادة محاولة التطبيقات الفاشلة…</value>
+  </data>
+  <data name="Install_Installing" xml:space="preserve">
+    <value>جارٍ التثبيت…</value>
+  </data>
+  <data name="Install_AllInstallsFinishedRestartWindows" xml:space="preserve">
+    <value>انتهت كل عمليات التثبيت. أعد تشغيل Windows متى ناسبك.</value>
+  </data>
+  <data name="Install_AllInstallsFinishedSuccessfully" xml:space="preserve">
+    <value>انتهت كل عمليات التثبيت بنجاح.</value>
+  </data>
+  <data name="Install_InstallPausedResumeWheneverYou" xml:space="preserve">
+    <value>التثبيت متوقف مؤقتًا. استأنفه متى كنت مستعدًا.</value>
+  </data>
+  <data name="Install_TheQueueIsSavedResume" xml:space="preserve">
+    <value>قائمة الانتظار محفوظة. استأنف بعد إغلاق أي مثبّتات مفتوحة.</value>
+  </data>
+  <data name="Install_TheInstallSessionStoppedUnexpectedly" xml:space="preserve">
+    <value>توقفت جلسة التثبيت بشكل غير متوقع.</value>
+  </data>
+  <data name="Install_CTRLZHitAnError" xml:space="preserve">
+    <value>واجه CTRL+Z خطأً أثناء التثبيت.
+
+</value>
+  </data>
+  <data name="Install_Queued" xml:space="preserve">
+    <value>في قائمة الانتظار</value>
+  </data>
+  <data name="Main_Settings" xml:space="preserve">
+    <value>الإعدادات</value>
+  </data>
+  <data name="Main_Scan" xml:space="preserve">
+    <value>الفحص</value>
+  </data>
+  <data name="Main_MyApps" xml:space="preserve">
+    <value>تطبيقاتي</value>
+  </data>
+  <data name="Main_ReadyToWipe" xml:space="preserve">
+    <value>جاهز للمسح</value>
+  </data>
+  <data name="Main_Install" xml:space="preserve">
+    <value>التثبيت</value>
+  </data>
+  <data name="Main_Updates" xml:space="preserve">
+    <value>التحديثات</value>
+  </data>
+  <data name="Main_Tweaks" xml:space="preserve">
+    <value>التعديلات</value>
+  </data>
+  <data name="Main_AddApp" xml:space="preserve">
+    <value>إضافة تطبيق</value>
+  </data>
+  <data name="Main_Catalog" xml:space="preserve">
+    <value>الكتالوج</value>
+  </data>
+  <data name="Main_Browsers2" xml:space="preserve">
+    <value>المتصفحات</value>
+  </data>
+  <data name="Main_ThisPageCouldNotBe" xml:space="preserve">
+    <value>تعذّر تحميل هذه الصفحة: {0}</value>
+  </data>
+  <data name="MyApps_MyApps" xml:space="preserve">
+    <value>تطبيقاتي</value>
+  </data>
+  <data name="MyApps_YourPortableReinstallProfileTune" xml:space="preserve">
+    <value>ملف تعريف إعادة التثبيت المحمول الخاص بك. اضبط القائمة قبل الانتقال إلى تثبيت Windows جديد.</value>
+  </data>
+  <data name="MyApps_ChangesSaveAutomatically" xml:space="preserve">
+    <value>تُحفظ التغييرات تلقائيًا.</value>
+  </data>
+  <data name="MyApps_EnabledOf" xml:space="preserve">
+    <value>{0} مفعّل من {1}</value>
+  </data>
+  <data name="MyApps_NewProfile2" xml:space="preserve">
+    <value>ملف تعريف جديد</value>
+  </data>
+  <data name="MyApps_CreateASeparateAppList" xml:space="preserve">
+    <value>أنشئ قائمة تطبيقات منفصلة لكمبيوتر آخر أو لغرض آخر.</value>
+  </data>
+  <data name="MyApps_ProfileName" xml:space="preserve">
+    <value>اسم ملف التعريف</value>
+  </data>
+  <data name="MyApps_CreatedProfile" xml:space="preserve">
+    <value>أُنشئ ملف التعريف «{0}».</value>
+  </data>
+  <data name="MyApps_RenameProfile2" xml:space="preserve">
+    <value>إعادة تسمية ملف التعريف</value>
+  </data>
+  <data name="MyApps_ProfilesArePortableJSONFiles" xml:space="preserve">
+    <value>ملفات التعريف هي ملفات JSON محمولة.</value>
+  </data>
+  <data name="MyApps_ImportACTRLZProfile" xml:space="preserve">
+    <value>استيراد ملف تعريف CTRL+Z</value>
+  </data>
+  <data name="MyApps_Imported" xml:space="preserve">
+    <value>تم استيراد «{0}».</value>
+  </data>
+  <data name="MyApps_ThatProfileCouldNotBe" xml:space="preserve">
+    <value>تعذّر استيراد ملف التعريف هذا.
+
+</value>
+  </data>
+  <data name="MyApps_ExportForAnotherPC" xml:space="preserve">
+    <value>تصدير لكمبيوتر آخر</value>
+  </data>
+  <data name="MyApps_ChooseWhereToSave" xml:space="preserve">
+    <value>اختيار مكان الحفظ</value>
+  </data>
+  <data name="MyApps_Cancel" xml:space="preserve">
+    <value>إلغاء</value>
+  </data>
+  <data name="MyApps_IncludeMyNotesInThe" xml:space="preserve">
+    <value>تضمين ملاحظاتي في الملف</value>
+  </data>
+  <data name="MyApps_ExportedTo" xml:space="preserve">
+    <value>تم التصدير إلى {0}</value>
+  </data>
+  <data name="MyApps_CopyItToAUSB" xml:space="preserve">
+    <value>انسخه إلى محرك USB أو كمبيوتر آخر، مع نسخ متصفحاتك الاحتياطية.</value>
+  </data>
+  <data name="MyApps_ProfileExported" xml:space="preserve">
+    <value>تم تصدير ملف التعريف</value>
+  </data>
+  <data name="MyApps_CouldNotExportTheProfile" xml:space="preserve">
+    <value>تعذّر تصدير ملف التعريف.
+
+</value>
+  </data>
+  <data name="MyApps_DeleteProfile2" xml:space="preserve">
+    <value>حذف ملف التعريف</value>
+  </data>
+  <data name="MyApps_DeleteItsJSONFileWill" xml:space="preserve">
+    <value>هل تريد حذف «{0}»؟ سيُزال ملف JSON الخاص به من CTRL+Z. لا تتأثر النسخ المصدَّرة.</value>
+  </data>
+  <data name="MyApps_Delete" xml:space="preserve">
+    <value>حذف</value>
+  </data>
+  <data name="MyApps_ProfileDeleted" xml:space="preserve">
+    <value>حُذف ملف التعريف.</value>
+  </data>
+  <data name="MyApps_ImportAnAppListFrom" xml:space="preserve">
+    <value>استيراد قائمة تطبيقات من winget أو Scoop أو Chocolatey</value>
+  </data>
+  <data name="MyApps_ThatFileCouldNotBe" xml:space="preserve">
+    <value>تعذّرت قراءة هذا الملف كقائمة تطبيقات.
+
+</value>
+  </data>
+  <data name="MyApps_ImportAppList" xml:space="preserve">
+    <value>استيراد قائمة التطبيقات</value>
+  </data>
+  <data name="MyApps_NoAppsInThatList" xml:space="preserve">
+    <value>لم يمكن مطابقة أي تطبيق في قائمة {0} هذه مع winget أو Microsoft Store.</value>
+  </data>
+  <data name="MyApps_AndMore" xml:space="preserve">
+    <value>
+• …و{0} غيرها</value>
+  </data>
+  <data name="MyApps_AppsAlreadyInTheProfile" xml:space="preserve">
+    <value>
+
+تُتخطى التطبيقات الموجودة بالفعل في ملف التعريف. يمكنك مراجعة أي منها أو إزالته بعد ذلك.</value>
+  </data>
+  <data name="MyApps_AddApps2" xml:space="preserve">
+    <value>إضافة تطبيقات</value>
+  </data>
+  <data name="MyApps_AlreadyPresent" xml:space="preserve">
+    <value> · {0} موجود بالفعل</value>
+  </data>
+  <data name="MyApps_NotMatched" xml:space="preserve">
+    <value> · {0} غير مطابق</value>
+  </data>
+  <data name="MyApps_NotMatchedAddTheseBy" xml:space="preserve">
+    <value>
+
+غير مطابق ({0})، أضف هذه يدويًا إذا احتجت إليها:
+</value>
+  </data>
+  <data name="MyApps_RemoveDependency" xml:space="preserve">
+    <value>إزالة التبعية</value>
+  </data>
+  <data name="MyApps_WasAddedBecauseAnotherApp" xml:space="preserve">
+    <value>أُضيف «{0}» لأن تطبيقًا آخر يحتاج إليه. هل تريد إيقافه حتى لا يُثبَّت أو يُضاف مرة أخرى؟</value>
+  </data>
+  <data name="MyApps_TurnOff" xml:space="preserve">
+    <value>إيقاف</value>
+  </data>
+  <data name="MyApps_IsTurnedOffAndWill" xml:space="preserve">
+    <value>{0} متوقف ولن يُضاف مرة أخرى.</value>
+  </data>
+  <data name="MyApps_RemoveApp" xml:space="preserve">
+    <value>إزالة التطبيق</value>
+  </data>
+  <data name="MyApps_RemoveFromThisProfile" xml:space="preserve">
+    <value>هل تريد إزالة «{0}» من ملف التعريف هذا؟</value>
+  </data>
+  <data name="MyApps_Remove" xml:space="preserve">
+    <value>إزالة</value>
+  </data>
+  <data name="MyApps_Removed" xml:space="preserve">
+    <value>أُزيل {0}.</value>
+  </data>
+  <data name="MyApps_Updated" xml:space="preserve">
+    <value>تم تحديث {0}.</value>
+  </data>
+  <data name="MyApps_SaveARiskyCommand" xml:space="preserve">
+    <value>هل تريد حفظ أمر خطِر؟</value>
+  </data>
+  <data name="MyApps_SaveRiskyCommand" xml:space="preserve">
+    <value>حفظ الأمر الخطِر</value>
+  </data>
+  <data name="MyApps_GoBack" xml:space="preserve">
+    <value>رجوع</value>
+  </data>
+  <data name="MyApps_AllAppsEnabled" xml:space="preserve">
+    <value>كل التطبيقات مفعّلة.</value>
+  </data>
+  <data name="Preview_MayNeedAdmin" xml:space="preserve">
+    <value>قد يحتاج إلى صلاحيات المسؤول</value>
+  </data>
+  <data name="Preview_NoAdminNeeded" xml:space="preserve">
+    <value>لا يحتاج إلى صلاحيات المسؤول</value>
+  </data>
+  <data name="Preview_ThereIsNothingEnabledTo" xml:space="preserve">
+    <value>لا يوجد شيء مفعّل لتثبيته.</value>
+  </data>
+  <data name="Preview_MayNeedAdminWithWarnings" xml:space="preserve">
+    <value>{0} قد يحتاج إلى صلاحيات المسؤول · {1} مع تحذيرات</value>
+  </data>
+  <data name="Preview_CommandReviewSavedOnThis" xml:space="preserve">
+    <value>حُفظت مراجعة الأوامر على هذا الكمبيوتر. القائمة أدناه محدَّثة.</value>
+  </data>
+  <data name="Preview_ReviewTheListThenRun" xml:space="preserve">
+    <value>راجع القائمة، ثم شغّل التشغيل التجريبي أو ابدأ التثبيت.</value>
+  </data>
+  <data name="Preview_CheckingEachSource" xml:space="preserve">
+    <value>جارٍ التحقق من كل مصدر…</value>
+  </data>
+  <data name="Preview_ReadyWarningsFailed" xml:space="preserve">
+    <value>{0} جاهز · {1} تحذيرات · {2} فشل</value>
+  </data>
+  <data name="Preview_KnownDownload" xml:space="preserve">
+    <value> · {0} تنزيل معروف</value>
+  </data>
+  <data name="Preview_SomeAppsCannotBeInstalled" xml:space="preserve">
+    <value>لا يمكن تثبيت بعض التطبيقات بالإعدادات الحالية. لم يُثبَّت أي شيء.</value>
+  </data>
+  <data name="Preview_DryRunCompleteNothingHas" xml:space="preserve">
+    <value>اكتمل التشغيل التجريبي. لم يُثبَّت أي شيء.</value>
+  </data>
+  <data name="Preview_TheDryRunCouldNot" xml:space="preserve">
+    <value>تعذّر إكمال التشغيل التجريبي.</value>
+  </data>
+  <data name="Preview_TheDryRunCouldNot2" xml:space="preserve">
+    <value>تعذّر إكمال التشغيل التجريبي.
+
+</value>
+  </data>
+  <data name="Preview_RunTheDryRunFirst" xml:space="preserve">
+    <value>شغّل التشغيل التجريبي أولاً، ثم صدّر تقريره.</value>
+  </data>
+  <data name="Preview_NothingToExport" xml:space="preserve">
+    <value>لا يوجد ما يُصدَّر</value>
+  </data>
+  <data name="Preview_ReportSaved" xml:space="preserve">
+    <value>حُفظ التقرير.</value>
+  </data>
+  <data name="Preview_CouldNotSaveTheReport" xml:space="preserve">
+    <value>تعذّر حفظ التقرير.
+
+</value>
+  </data>
+  <data name="ProfileAppRow_AddedAutomaticallyAsADependency" xml:space="preserve">
+    <value>أُضيف تلقائيًا كتبعية</value>
+  </data>
+  <data name="ProfileAppRow_Other" xml:space="preserve">
+    <value>أخرى</value>
+  </data>
+  <data name="ReadinessRow_ActionNeeded" xml:space="preserve">
+    <value>يلزم إجراء</value>
+  </data>
+  <data name="ReadinessRow_CheckThis" xml:space="preserve">
+    <value>تحقق من هذا</value>
+  </data>
+  <data name="ReadinessRow_LooksFine" xml:space="preserve">
+    <value>يبدو جيدًا</value>
+  </data>
+  <data name="Readiness_ReadyToWipe" xml:space="preserve">
+    <value>جاهز للمسح؟</value>
+  </data>
+  <data name="Readiness_WhatACleanInstallWould" xml:space="preserve">
+    <value>ما الذي سيزيله التثبيت النظيف. يعمل محليًا: بلا شبكة، وبلا قياس عن بُعد.</value>
+  </data>
+  <data name="Readiness_RunACheckToSee" xml:space="preserve">
+    <value>شغّل فحصًا لترى ما الذي سيُفقد.</value>
+  </data>
+  <data name="Readiness_NotCheckedYet" xml:space="preserve">
+    <value>لم يُفحص بعد</value>
+  </data>
+  <data name="Readiness_FineToCheckNeedingAction" xml:space="preserve">
+    <value>{0} جيد · {1} للتحقق · {2} يحتاج إلى إجراء</value>
+  </data>
+  <data name="Readiness_HandledOrIgnored" xml:space="preserve">
+    <value> · {0} تمت معالجته أو تجاهله</value>
+  </data>
+  <data name="Readiness_Scanning" xml:space="preserve">
+    <value>جارٍ الفحص…</value>
+  </data>
+  <data name="Readiness_Scanning2" xml:space="preserve">
+    <value>جارٍ فحص {0} ({1}/{2})…</value>
+  </data>
+  <data name="Readiness_CheckComplete" xml:space="preserve">
+    <value>اكتمل الفحص.</value>
+  </data>
+  <data name="Readiness_CheckCancelled" xml:space="preserve">
+    <value>أُلغي الفحص.</value>
+  </data>
+  <data name="Readiness_TheCheckCouldNotFinish" xml:space="preserve">
+    <value>تعذّر إكمال الفحص.</value>
+  </data>
+  <data name="Readiness_TheCheckCouldNotFinish2" xml:space="preserve">
+    <value>تعذّر إكمال الفحص.
+
+</value>
+  </data>
+  <data name="Readiness_ReadyToWipe2" xml:space="preserve">
+    <value>جاهز للمسح</value>
+  </data>
+  <data name="Readiness_EverythingOnTheListIs" xml:space="preserve">
+    <value>كل ما في القائمة تمت معالجته أو تجاهله. انسخ أي شيء لا تزال تحتاج إليه إلى وسائط خارجية أولاً.</value>
+  </data>
+  <data name="Readiness_ReadyToWipeAllItems" xml:space="preserve">
+    <value>جاهز للمسح — كل العناصر ({0}) تبدو جيدة</value>
+  </data>
+  <data name="Readiness_ItemsYouMarkHandledOr" xml:space="preserve">
+    <value>العناصر التي تضع عليها علامة «تمت معالجته» أو تتجاهلها تختفي من هذه القائمة ويُحتفظ بها على هذا الكمبيوتر.</value>
+  </data>
+  <data name="Readiness_Desktop" xml:space="preserve">
+    <value>سطح المكتب</value>
+  </data>
+  <data name="Readiness_Documents" xml:space="preserve">
+    <value>المستندات</value>
+  </data>
+  <data name="Readiness_Pictures" xml:space="preserve">
+    <value>الصور</value>
+  </data>
+  <data name="Readiness_Videos" xml:space="preserve">
+    <value>مقاطع الفيديو</value>
+  </data>
+  <data name="Readiness_Music" xml:space="preserve">
+    <value>الموسيقى</value>
+  </data>
+  <data name="Readiness_Drive" xml:space="preserve">
+    <value>محرك الأقراص {0}</value>
+  </data>
+  <data name="ScanItem_WingetExact" xml:space="preserve">
+    <value>winget · تام</value>
+  </data>
+  <data name="ScanItem_WingetStrong" xml:space="preserve">
+    <value>winget · قوي</value>
+  </data>
+  <data name="ScanItem_WingetReview" xml:space="preserve">
+    <value>winget · للمراجعة</value>
+  </data>
+  <data name="ScanItem_WingetManual" xml:space="preserve">
+    <value>winget · يدوي</value>
+  </data>
+  <data name="ScanItem_Unmatched" xml:space="preserve">
+    <value>غير مطابق</value>
+  </data>
+  <data name="ScanItem_Other" xml:space="preserve">
+    <value>أخرى</value>
+  </data>
+  <data name="ScanItem_ManuallyMatchedTo" xml:space="preserve">
+    <value>مطابق يدويًا مع </value>
+  </data>
+  <data name="Scan_ScanThisPC2" xml:space="preserve">
+    <value>فحص هذا الكمبيوتر</value>
+  </data>
+  <data name="Scan_FindInstalledProgramsAndMatch" xml:space="preserve">
+    <value>ابحث عن البرامج المثبّتة وطابقها مع winget لتتمكن من إعادة بناء هذا الإعداد لاحقًا.</value>
+  </data>
+  <data name="Scan_AllCategories" xml:space="preserve">
+    <value>كل الفئات</value>
+  </data>
+  <data name="Scan_AllApps" xml:space="preserve">
+    <value>كل التطبيقات</value>
+  </data>
+  <data name="Scan_Matched2" xml:space="preserve">
+    <value>مطابق</value>
+  </data>
+  <data name="Scan_Unmatched2" xml:space="preserve">
+    <value>غير مطابق</value>
+  </data>
+  <data name="Scan_ReadyScanToFindInstalled" xml:space="preserve">
+    <value>جاهز. افحص للعثور على البرامج المثبّتة.</value>
+  </data>
+  <data name="Scan_SelectedOf" xml:space="preserve">
+    <value>{0} محدد من {1}</value>
+  </data>
+  <data name="Scan_LookingForWingetPackages" xml:space="preserve">
+    <value>جارٍ البحث عن حزم winget…</value>
+  </data>
+  <data name="Scan_Scanned" xml:space="preserve">
+    <value>تم الفحص {0:HH:mm}</value>
+  </data>
+  <data name="Scan_FoundProgramsMatchedUnmatched" xml:space="preserve">
+    <value>عُثر على {0} برنامج · {1} مطابق · {2} غير مطابق</value>
+  </data>
+  <data name="Scan_ScanCancelled" xml:space="preserve">
+    <value>أُلغي الفحص.</value>
+  </data>
+  <data name="Scan_TheScanCouldNotBe" xml:space="preserve">
+    <value>تعذّر إكمال الفحص.</value>
+  </data>
+  <data name="Scan_CTRLZCouldNotFinish" xml:space="preserve">
+    <value>تعذّر على CTRL+Z إكمال فحص هذا الكمبيوتر.
+
+</value>
+  </data>
+  <data name="Scan_TickTheAppsYouWant" xml:space="preserve">
+    <value>حدّد التطبيقات التي تريد إضافتها أولاً.</value>
+  </data>
+  <data name="Scan_UseFixOnThoseRows" xml:space="preserve">
+    <value>استخدم «إصلاح» على تلك الصفوف، أو ألغِ تحديدها، ثم أضف الباقي.</value>
+  </data>
+  <data name="Scan_UnmatchedApps" xml:space="preserve">
+    <value>تطبيقات غير مطابقة</value>
+  </data>
+  <data name="Scan_NoNewAppsAddedAlready" xml:space="preserve">
+    <value>لم تُضف تطبيقات جديدة ({0} موجودة بالفعل في ملف التعريف).</value>
+  </data>
+  <data name="Scan_AlreadyPresent" xml:space="preserve">
+    <value> · {0} موجودة بالفعل.</value>
+  </data>
+  <data name="Scan_TickAtLeastOneMatched" xml:space="preserve">
+    <value>حدّد تطبيقًا مطابقًا واحدًا على الأقل قبل حفظ ملف التعريف.</value>
+  </data>
+  <data name="Scan_SaveProfile" xml:space="preserve">
+    <value>حفظ ملف التعريف</value>
+  </data>
+  <data name="Scan_CreateANewProfileFrom" xml:space="preserve">
+    <value>أنشئ ملف تعريف جديدًا من التطبيقات المحددة.</value>
+  </data>
+  <data name="Scan_ProfileName" xml:space="preserve">
+    <value>اسم ملف التعريف</value>
+  </data>
+  <data name="Scan_SavedProfileWithApps" xml:space="preserve">
+    <value>حُفظ ملف التعريف «{0}» بعدد تطبيقات {1}.
+
+{2}
+
+</value>
+  </data>
+  <data name="Scan_KeepThisJSONWithYour" xml:space="preserve">
+    <value>احتفظ بملف JSON هذا مع المثبّت أو على محرك USB.</value>
+  </data>
+  <data name="Scan_ProfileSaved" xml:space="preserve">
+    <value>حُفظ ملف التعريف</value>
+  </data>
+  <data name="Scan_SavedProfileWithAppsIn" xml:space="preserve">
+    <value>حُفظ ملف التعريف «{0}» بعدد تطبيقات {1} في CTRL+Z.</value>
+  </data>
+  <data name="Settings_Settings" xml:space="preserve">
+    <value>الإعدادات</value>
+  </data>
+  <data name="Settings_ThemeLogsAndLocalData" xml:space="preserve">
+    <value>السمة والسجلات والبيانات المحلية. يبقى كل شيء على هذا الكمبيوتر ما لم تصدّره.</value>
+  </data>
+  <data name="Settings_LightTheme" xml:space="preserve">
+    <value>سمة فاتحة</value>
+  </data>
+  <data name="Settings_DarkTheme" xml:space="preserve">
+    <value>سمة داكنة</value>
+  </data>
+  <data name="Settings_FollowingWindows" xml:space="preserve">
+    <value>يتبع Windows</value>
+  </data>
+  <data name="Settings_CheckingWinget" xml:space="preserve">
+    <value>جارٍ التحقق من winget…</value>
+  </data>
+  <data name="Settings_CTRLZ" xml:space="preserve">
+    <value>CTRL+Z {0}</value>
+  </data>
+  <data name="Settings_OnlyFullReleasesAreOffered" xml:space="preserve">
+    <value>تُعرض الإصدارات النهائية فقط.</value>
+  </data>
+  <data name="Settings_FullReleasesAndPreReleases" xml:space="preserve">
+    <value>تُعرض الإصدارات النهائية والتجريبية؛ ويُختار الأحدث منها.</value>
+  </data>
+  <data name="Settings_LastChecked" xml:space="preserve">
+    <value>آخر تحقق {0:yyyy-MM-dd HH:mm}</value>
+  </data>
+  <data name="Settings_NotCheckedYet" xml:space="preserve">
+    <value>لم يُتحقق بعد</value>
+  </data>
+  <data name="Settings_Theme2" xml:space="preserve">
+    <value>السمة: {0}.</value>
+  </data>
+  <data name="Settings_UpdateChannel" xml:space="preserve">
+    <value>قناة التحديث: {0}.</value>
+  </data>
+  <data name="Settings_CheckingForUpdates" xml:space="preserve">
+    <value>جارٍ التحقق من التحديثات…</value>
+  </data>
+  <data name="Settings_LogRefreshed" xml:space="preserve">
+    <value>تم تحديث السجل.</value>
+  </data>
+  <data name="Settings_WingetReady" xml:space="preserve">
+    <value>winget {0} · جاهز</value>
+  </data>
+  <data name="Settings_WingetNotFoundInstallApp" xml:space="preserve">
+    <value>لم يُعثر على winget · ثبّت App Installer عند بدء التثبيت</value>
+  </data>
+  <data name="Settings_WingetCheckFailed" xml:space="preserve">
+    <value>فشل التحقق من winget: </value>
+  </data>
+  <data name="Settings_UpdateAppInstaller" xml:space="preserve">
+    <value>تحديث App Installer</value>
+  </data>
+  <data name="Settings_CTRLZWillAskMicrosoft" xml:space="preserve">
+    <value>سيطلب CTRL+Z من مدير حزم Microsoft تثبيت App Installer (winget) أو تحديثه. قد يظهر طلب من التحكم في حساب المستخدم.</value>
+  </data>
+  <data name="Settings_UpdateWinget2" xml:space="preserve">
+    <value>تحديث winget</value>
+  </data>
+  <data name="Settings_Cancel" xml:space="preserve">
+    <value>إلغاء</value>
+  </data>
+  <data name="Settings_WingetIsNotAvailable" xml:space="preserve">
+    <value>winget غير متوفر</value>
+  </data>
+  <data name="Settings_WingetIsReady" xml:space="preserve">
+    <value>winget جاهز.</value>
+  </data>
+  <data name="Settings_WingetCouldNotBeInstalled" xml:space="preserve">
+    <value>تعذّر تثبيت winget.</value>
+  </data>
+  <data name="Settings_UpdateFailed" xml:space="preserve">
+    <value>فشل التحديث: </value>
+  </data>
+  <data name="Settings_DiagnosticsSummaryCopiedToThe" xml:space="preserve">
+    <value>نُسخ ملخص التشخيص إلى الحافظة. يحتوي على الإصدارات والمفاتيح والأعداد فقط.</value>
+  </data>
+  <data name="Settings_CouldNotCopyDiagnostics" xml:space="preserve">
+    <value>تعذّر نسخ بيانات التشخيص: </value>
+  </data>
+  <data name="Settings_SavingDiagnostics" xml:space="preserve">
+    <value>جارٍ حفظ بيانات التشخيص…</value>
+  </data>
+  <data name="Settings_DiagnosticsSavedNothingWasSent" xml:space="preserve">
+    <value>حُفظت بيانات التشخيص. لم يُرسل أي شيء؛ افتح ملف ZIP لفحصه قبل مشاركته.</value>
+  </data>
+  <data name="Settings_CouldNotSaveDiagnostics" xml:space="preserve">
+    <value>تعذّر حفظ بيانات التشخيص.
+
+</value>
+  </data>
+  <data name="Settings_CustomFolderCTRLZDATADIR" xml:space="preserve">
+    <value>مجلد مخصص (CTRLZ_DATA_DIR)</value>
+  </data>
+  <data name="Settings_CTRLZIsReleasedUnder" xml:space="preserve">
+    <value>يُصدَر CTRL+Z بموجب رخصة GNU Affero General Public License v3.0 </value>
+  </data>
+  <data name="Settings_AGPL30OnlyThe" xml:space="preserve">
+    <value>(AGPL-3.0-only). النص الكامل للرخصة والشيفرة المصدرية موجودان في {0}.</value>
+  </data>
+  <data name="Settings_License" xml:space="preserve">
+    <value>الرخصة</value>
+  </data>
+  <data name="Settings_CouldNotOpenTheSource" xml:space="preserve">
+    <value>تعذّر فتح رابط الشيفرة المصدرية.
+
+</value>
+  </data>
+  <data name="Settings_CouldNotReadTheLog" xml:space="preserve">
+    <value>تعذّرت قراءة السجل: </value>
+  </data>
+  <data name="Settings_ThatFolderDoesNotExist" xml:space="preserve">
+    <value>هذا المجلد غير موجود بعد.</value>
+  </data>
+  <data name="Settings_CouldNotOpenThatLocation" xml:space="preserve">
+    <value>تعذّر فتح هذا الموقع.
+
+</value>
+  </data>
+  <data name="Tweaks_Apply" xml:space="preserve">
+    <value>تطبيق</value>
+  </data>
+  <data name="Tweaks_Undo" xml:space="preserve">
+    <value>تراجع</value>
+  </data>
+  <data name="Tweaks_PartlyOn" xml:space="preserve">
+    <value>مفعّل جزئيًا</value>
+  </data>
+  <data name="Tweaks_Off" xml:space="preserve">
+    <value>متوقف</value>
+  </data>
+  <data name="Tweaks_InYourProfile" xml:space="preserve">
+    <value> · في ملف تعريفك</value>
+  </data>
+  <data name="Tweaks_Tweaks" xml:space="preserve">
+    <value>التعديلات</value>
+  </data>
+  <data name="Tweaks_SmallWindowsSettingsToSet" xml:space="preserve">
+    <value>إعدادات صغيرة في Windows لضبطها مرة أخرى بعد إعادة التثبيت. يمكن التراجع عن كل منها تمامًا.</value>
+  </data>
+  <data name="Tweaks_TweakNotChanged" xml:space="preserve">
+    <value>لم يتغيّر التعديل</value>
+  </data>
+  <data name="Tweaks_ApplyTweaksFromYourProfile" xml:space="preserve">
+    <value>تطبيق التعديلات من ملف تعريفك</value>
+  </data>
+  <data name="Tweaks_TheseWillBeSetOn" xml:space="preserve">
+    <value>سيُضبط ما يلي على هذا الكمبيوتر، ويمكن التراجع عن كل منها هنا:
+
+</value>
+  </data>
+  <data name="Tweaks_Cancel" xml:space="preserve">
+    <value>إلغاء</value>
+  </data>
+  <data name="Tweaks_AppliedNotChanged" xml:space="preserve">
+    <value>طُبّق: {0}؛ لم يتغيّر: {1}.</value>
+  </data>
+  <data name="Tweaks_RestartFileExplorer2" xml:space="preserve">
+    <value>إعادة تشغيل مستكشف الملفات</value>
+  </data>
+  <data name="Tweaks_FileExplorerAndTheTaskbar" xml:space="preserve">
+    <value>سيُغلق مستكشف الملفات وشريط المهام ثم يُفتحان مرة أخرى. ستُغلق نوافذ المستكشف المفتوحة؛ ولن يتأثر أي شيء آخر.</value>
+  </data>
+  <data name="Tweaks_RestartExplorer" xml:space="preserve">
+    <value>إعادة تشغيل المستكشف</value>
+  </data>
+  <data name="Tweaks_RestartingFileExplorer" xml:space="preserve">
+    <value>جارٍ إعادة تشغيل مستكشف الملفات…</value>
+  </data>
+  <data name="Tweaks_FileExplorerRestarted" xml:space="preserve">
+    <value>أُعيد تشغيل مستكشف الملفات.</value>
+  </data>
+  <data name="Tweaks_FileExplorerCouldNotBe" xml:space="preserve">
+    <value>تعذّرت إعادة تشغيل مستكشف الملفات. سجّل الخروج ثم سجّل الدخول مرة أخرى لتطبيق التغيير.
+
+</value>
+  </data>
+  <data name="AppEditor_MicrosoftStore" xml:space="preserve">
+    <value>Microsoft Store</value>
+  </data>
+  <data name="AppEditor_GitHubRelease" xml:space="preserve">
+    <value>إصدار على GitHub</value>
+  </data>
+  <data name="AppEditor_DirectDownloadLink" xml:space="preserve">
+    <value>رابط تنزيل مباشر</value>
+  </data>
+  <data name="AppEditor_LocalInstallerFile" xml:space="preserve">
+    <value>ملف مثبّت محلي</value>
+  </data>
+  <data name="AppEditor_Installer" xml:space="preserve">
+    <value>مثبّت</value>
+  </data>
+  <data name="AppEditor_PortableArchiveZIP" xml:space="preserve">
+    <value>أرشيف محمول (ZIP)</value>
+  </data>
+  <data name="AppEditor_PortableExecutable" xml:space="preserve">
+    <value>ملف تنفيذي محمول</value>
+  </data>
+  <data name="AppEditor_NoCommand" xml:space="preserve">
+    <value>لا يوجد أمر.</value>
+  </data>
+  <data name="AppEditor_TheCommandWasNotSaved" xml:space="preserve">
+    <value>لم يُحفظ الأمر: إنه يطابق نمطًا خطِرًا ولم يُؤكَّد.</value>
+  </data>
+  <data name="AppEditor_SelectAnInstaller" xml:space="preserve">
+    <value>اختر مثبّتًا</value>
+  </data>
+  <data name="AppEditor_GiveTheAppAName" xml:space="preserve">
+    <value>أعطِ التطبيق اسمًا.</value>
+  </data>
+  <data name="AppEditor_ChooseAnInstallSource" xml:space="preserve">
+    <value>اختر مصدر تثبيت.</value>
+  </data>
+  <data name="AppEditor_SHA256MustBe64" xml:space="preserve">
+    <value>يجب أن يتكون SHA-256 من 64 حرفًا ست عشريًا، أو أن يُترك فارغًا.</value>
+  </data>
+  <data name="AppEditor_EnterTheWingetPackageId" xml:space="preserve">
+    <value>أدخل معرّف حزمة winget لهذا المصدر.</value>
+  </data>
+  <data name="AppEditor_EnterAValidAbsoluteHttp" xml:space="preserve">
+    <value>أدخل رابط تنزيل http(s) كاملاً وصالحًا.</value>
+  </data>
+  <data name="AppEditor_ChooseTheLocalInstallerFile" xml:space="preserve">
+    <value>اختر ملف المثبّت المحلي.</value>
+  </data>
+  <data name="UpdatePrompt_CTRLZPreReleaseIs" xml:space="preserve">
+    <value>يتوفر CTRL+Z {0} (إصدار تجريبي)</value>
+  </data>
+  <data name="UpdatePrompt_CTRLZIsAvailable" xml:space="preserve">
+    <value>يتوفر CTRL+Z {0}</value>
+  </data>
+  <data name="UpdatePrompt_YouAreRunning" xml:space="preserve">
+    <value>أنت تستخدم {0}.</value>
+  </data>
+  <data name="UpdatePrompt_NoReleaseNotesWereProvided" xml:space="preserve">
+    <value>لم تُقدَّم ملاحظات إصدار.</value>
+  </data>
+  <data name="UpdatePrompt_Close2" xml:space="preserve">
+    <value>إغلاق</value>
+  </data>
+  <data name="UpdatePrompt_Cancelling" xml:space="preserve">
+    <value>جارٍ الإلغاء…</value>
+  </data>
+  <data name="WingetMatch_SearchingWinget" xml:space="preserve">
+    <value>جارٍ البحث في winget…</value>
+  </data>
+  <data name="WingetMatch_NoMatchesYouCanPaste" xml:space="preserve">
+    <value>لا توجد نتائج مطابقة. يمكنك لصق معرّف حزمة يدويًا.</value>
+  </data>
+  <data name="WingetMatch_SearchFailed" xml:space="preserve">
+    <value>فشل البحث: </value>
+  </data>
+  <data name="WingetMatch_SelectAResultOrPaste" xml:space="preserve">
+    <value>اختر نتيجة أو الصق معرّف حزمة winget.</value>
+  </data>
+  <data name="DialogService_Ok" xml:space="preserve">
+    <value>موافق</value>
+  </data>
+  <data name="AddApp_AddAppToMyApps" xml:space="preserve">
+    <value>إضافة التطبيق إلى «تطبيقاتي»</value>
+  </data>
+  <data name="AddApp_AddNameToMyApps" xml:space="preserve">
+    <value>إضافة {0} إلى «تطبيقاتي»</value>
+  </data>
+  <data name="AddApp_ReleaseAssets_One" xml:space="preserve">
+    <value>{1} · {0} ملف لـ Windows · نُشر في {2:MMM d, yyyy}</value>
+  </data>
+  <data name="AddApp_ReleaseAssets_Two" xml:space="preserve">
+    <value>{1} · {0} ملفان لـ Windows · نُشر في {2:MMM d, yyyy}</value>
+  </data>
+  <data name="AddApp_ReleaseAssets_Few" xml:space="preserve">
+    <value>{1} · {0} ملفات لـ Windows · نُشر في {2:MMM d, yyyy}</value>
+  </data>
+  <data name="AddApp_ReleaseAssets_Many" xml:space="preserve">
+    <value>{1} · {0} ملفًا لـ Windows · نُشر في {2:MMM d, yyyy}</value>
+  </data>
+  <data name="AddApp_ReleaseAssets_Other" xml:space="preserve">
+    <value>{1} · {0} ملف لـ Windows · نُشر في {2:MMM d, yyyy}</value>
+  </data>
+  <data name="AppUpdates_WingetWillUpdate_One" xml:space="preserve">
+    <value>سيحدّث winget التطبيقات واحدًا تلو الآخر (العدد: {0}):
+
+{1}
+
+</value>
+  </data>
+  <data name="AppUpdates_WingetWillUpdate_Other" xml:space="preserve">
+    <value>سيحدّث winget التطبيقات واحدًا تلو الآخر (العدد: {0}):
+
+{1}
+
+</value>
+  </data>
+  <data name="AppUpdates_UpdatesAvailable_One" xml:space="preserve">
+    <value>{0} تحديث متوفر لتطبيق</value>
+  </data>
+  <data name="AppUpdates_UpdatesAvailable_Two" xml:space="preserve">
+    <value>{0} تحديثان متوفران للتطبيقات</value>
+  </data>
+  <data name="AppUpdates_UpdatesAvailable_Few" xml:space="preserve">
+    <value>{0} تحديثات متوفرة للتطبيقات</value>
+  </data>
+  <data name="AppUpdates_UpdatesAvailable_Many" xml:space="preserve">
+    <value>{0} تحديثًا متوفرًا للتطبيقات</value>
+  </data>
+  <data name="AppUpdates_UpdatesAvailable_Other" xml:space="preserve">
+    <value>{0} تحديث متوفر للتطبيقات</value>
+  </data>
+  <data name="BrowserItem_ProfileCount_One" xml:space="preserve">
+    <value>{0} ملف تعريف</value>
+  </data>
+  <data name="BrowserItem_ProfileCount_Two" xml:space="preserve">
+    <value>{0} ملفا تعريف</value>
+  </data>
+  <data name="BrowserItem_ProfileCount_Few" xml:space="preserve">
+    <value>{0} ملفات تعريف</value>
+  </data>
+  <data name="BrowserItem_ProfileCount_Many" xml:space="preserve">
+    <value>{0} ملف تعريف</value>
+  </data>
+  <data name="BrowserItem_ProfileCount_Other" xml:space="preserve">
+    <value>{0} ملف تعريف</value>
+  </data>
+  <data name="Browsers_DetectedCount_One" xml:space="preserve">
+    <value>اكتُشف {0} متصفح</value>
+  </data>
+  <data name="Browsers_DetectedCount_Two" xml:space="preserve">
+    <value>اكتُشف {0} متصفحان</value>
+  </data>
+  <data name="Browsers_DetectedCount_Few" xml:space="preserve">
+    <value>اكتُشفت {0} متصفحات</value>
+  </data>
+  <data name="Browsers_DetectedCount_Many" xml:space="preserve">
+    <value>اكتُشف {0} متصفحًا</value>
+  </data>
+  <data name="Browsers_DetectedCount_Other" xml:space="preserve">
+    <value>اكتُشف {0} متصفح</value>
+  </data>
+  <data name="Browsers_BackedUpCount_One" xml:space="preserve">
+    <value>نُسخ {0} متصفح احتياطيًا.</value>
+  </data>
+  <data name="Browsers_BackedUpCount_Two" xml:space="preserve">
+    <value>نُسخ {0} متصفحان احتياطيًا.</value>
+  </data>
+  <data name="Browsers_BackedUpCount_Few" xml:space="preserve">
+    <value>نُسخت {0} متصفحات احتياطيًا.</value>
+  </data>
+  <data name="Browsers_BackedUpCount_Many" xml:space="preserve">
+    <value>نُسخ {0} متصفحًا احتياطيًا.</value>
+  </data>
+  <data name="Browsers_BackedUpCount_Other" xml:space="preserve">
+    <value>نُسخ {0} متصفح احتياطيًا.</value>
+  </data>
+  <data name="Browsers_FoundCount_One" xml:space="preserve">
+    <value>عُثر على {0} متصفح.</value>
+  </data>
+  <data name="Browsers_FoundCount_Two" xml:space="preserve">
+    <value>عُثر على {0} متصفحين.</value>
+  </data>
+  <data name="Browsers_FoundCount_Few" xml:space="preserve">
+    <value>عُثر على {0} متصفحات.</value>
+  </data>
+  <data name="Browsers_FoundCount_Many" xml:space="preserve">
+    <value>عُثر على {0} متصفحًا.</value>
+  </data>
+  <data name="Browsers_FoundCount_Other" xml:space="preserve">
+    <value>عُثر على {0} متصفح.</value>
+  </data>
+  <data name="Browsers_ProfilesEstimated_One" xml:space="preserve">
+    <value>{0} ملف تعريف · {1} تقديريًا</value>
+  </data>
+  <data name="Browsers_ProfilesEstimated_Two" xml:space="preserve">
+    <value>{0} ملفا تعريف · {1} تقديريًا</value>
+  </data>
+  <data name="Browsers_ProfilesEstimated_Few" xml:space="preserve">
+    <value>{0} ملفات تعريف · {1} تقديريًا</value>
+  </data>
+  <data name="Browsers_ProfilesEstimated_Many" xml:space="preserve">
+    <value>{0} ملف تعريف · {1} تقديريًا</value>
+  </data>
+  <data name="Browsers_ProfilesEstimated_Other" xml:space="preserve">
+    <value>{0} ملف تعريف · {1} تقديريًا</value>
+  </data>
+  <data name="Catalog_AddedApps_One" xml:space="preserve">
+    <value>أُضيف {0} تطبيق إلى «{1}»</value>
+  </data>
+  <data name="Catalog_AddedApps_Two" xml:space="preserve">
+    <value>أُضيف {0} تطبيقان إلى «{1}»</value>
+  </data>
+  <data name="Catalog_AddedApps_Few" xml:space="preserve">
+    <value>أُضيفت {0} تطبيقات إلى «{1}»</value>
+  </data>
+  <data name="Catalog_AddedApps_Many" xml:space="preserve">
+    <value>أُضيف {0} تطبيقًا إلى «{1}»</value>
+  </data>
+  <data name="Catalog_AddedApps_Other" xml:space="preserve">
+    <value>أُضيف {0} تطبيق إلى «{1}»</value>
+  </data>
+  <data name="CommandReview_TimeoutAdmin" xml:space="preserve">
+    <value>المهلة {0} ث · يعمل كمسؤول</value>
+  </data>
+  <data name="CommandReview_TimeoutNoAdmin" xml:space="preserve">
+    <value>المهلة {0} ث · يعمل دون صلاحيات المسؤول</value>
+  </data>
+  <data name="Drift_CheckedApps_One" xml:space="preserve">
+    <value>تم فحص {0} تطبيق مثبّت.</value>
+  </data>
+  <data name="Drift_CheckedApps_Two" xml:space="preserve">
+    <value>تم فحص {0} تطبيقين مثبّتين.</value>
+  </data>
+  <data name="Drift_CheckedApps_Few" xml:space="preserve">
+    <value>تم فحص {0} تطبيقات مثبّتة.</value>
+  </data>
+  <data name="Drift_CheckedApps_Many" xml:space="preserve">
+    <value>تم فحص {0} تطبيقًا مثبّتًا.</value>
+  </data>
+  <data name="Drift_CheckedApps_Other" xml:space="preserve">
+    <value>تم فحص {0} تطبيق مثبّت.</value>
+  </data>
+  <data name="Install_AppsNeedAttention_One" xml:space="preserve">
+    <value>تطبيقات تحتاج إلى انتباه: {0}. أعد المحاولة عند الاستعداد.</value>
+  </data>
+  <data name="Install_AppsNeedAttention_Other" xml:space="preserve">
+    <value>تطبيقات تحتاج إلى انتباه: {0}. أعد المحاولة عند الاستعداد.</value>
+  </data>
+  <data name="MyApps_AppCount_One" xml:space="preserve">
+    <value>{0} تطبيق</value>
+  </data>
+  <data name="MyApps_AppCount_Two" xml:space="preserve">
+    <value>{0} تطبيقان</value>
+  </data>
+  <data name="MyApps_AppCount_Few" xml:space="preserve">
+    <value>{0} تطبيقات</value>
+  </data>
+  <data name="MyApps_AppCount_Many" xml:space="preserve">
+    <value>{0} تطبيقًا</value>
+  </data>
+  <data name="MyApps_AppCount_Other" xml:space="preserve">
+    <value>{0} تطبيق</value>
+  </data>
+  <data name="MyApps_ProfileExportedWithoutNotes" xml:space="preserve">
+    <value>صُدّر ملف التعريف دون ملاحظات.
+
+{0}
+
+</value>
+  </data>
+  <data name="MyApps_ProfileExportedTo" xml:space="preserve">
+    <value>صُدّر ملف التعريف.
+
+{0}
+
+</value>
+  </data>
+  <data name="MyApps_AddFromList_One" xml:space="preserve">
+    <value>هل تريد إضافة التطبيقات من قائمة {1} هذه إلى «{2}»؟ العدد: {0}.
+
+</value>
+  </data>
+  <data name="MyApps_AddFromList_Other" xml:space="preserve">
+    <value>هل تريد إضافة التطبيقات من قائمة {1} هذه إلى «{2}»؟ العدد: {0}.
+
+</value>
+  </data>
+  <data name="MyApps_AddedFromList_One" xml:space="preserve">
+    <value>أُضيفت تطبيقات من قائمة {1}: {0}</value>
+  </data>
+  <data name="MyApps_AddedFromList_Other" xml:space="preserve">
+    <value>أُضيفت تطبيقات من قائمة {1}: {0}</value>
+  </data>
+  <data name="MyApps_SavedEnabled" xml:space="preserve">
+    <value>تم الحفظ · {0} مفعّل</value>
+  </data>
+  <data name="MyApps_SavedDisabled" xml:space="preserve">
+    <value>تم الحفظ · {0} متوقف</value>
+  </data>
+  <data name="MyApps_RiskyCommandSave" xml:space="preserve">
+    <value>يطابق هذا الأمر نمطًا خطِرًا ({0}):
+
+{1}
+
+لا تحفظه إلا إذا كنت قد كتبته بنفسك وتفهم بالضبط ما يفعله.</value>
+  </data>
+  <data name="Preview_AppsInRun_One" xml:space="preserve">
+    <value>التطبيقات في هذا التشغيل: {0} · </value>
+  </data>
+  <data name="Preview_AppsInRun_Other" xml:space="preserve">
+    <value>التطبيقات في هذا التشغيل: {0} · </value>
+  </data>
+  <data name="Readiness_NeedAttention_One" xml:space="preserve">
+    <value>عناصر تحتاج إلى انتباهك: {0}</value>
+  </data>
+  <data name="Readiness_NeedAttention_Other" xml:space="preserve">
+    <value>عناصر تحتاج إلى انتباهك: {0}</value>
+  </data>
+  <data name="Readiness_Downloads" xml:space="preserve">
+    <value>التنزيلات</value>
+  </data>
+  <data name="Scan_SelectedNoMatch_One" xml:space="preserve">
+    <value>تطبيقات محددة بلا مطابقة في winget: {0}. </value>
+  </data>
+  <data name="Scan_SelectedNoMatch_Other" xml:space="preserve">
+    <value>تطبيقات محددة بلا مطابقة في winget: {0}. </value>
+  </data>
+  <data name="Scan_AddedApps_One" xml:space="preserve">
+    <value>أُضيفت تطبيقات إلى {1}: {0}</value>
+  </data>
+  <data name="Scan_AddedApps_Other" xml:space="preserve">
+    <value>أُضيفت تطبيقات إلى {1}: {0}</value>
+  </data>
+  <data name="Tweaks_PendingFromProfile_One" xml:space="preserve">
+    <value>يسرد ملف تعريفك تعديلات لم تُطبَّق على هذا الكمبيوتر بعد: {0}.</value>
+  </data>
+  <data name="Tweaks_PendingFromProfile_Other" xml:space="preserve">
+    <value>يسرد ملف تعريفك تعديلات لم تُطبَّق على هذا الكمبيوتر بعد: {0}.</value>
+  </data>
+  <data name="Tweaks_AppliedFromProfile_One" xml:space="preserve">
+    <value>طُبّقت تعديلات من ملف تعريفك: {0}.</value>
+  </data>
+  <data name="Tweaks_AppliedFromProfile_Other" xml:space="preserve">
+    <value>طُبّقت تعديلات من ملف تعريفك: {0}.</value>
+  </data>
+  <data name="WingetMatch_Results_One" xml:space="preserve">
+    <value>النتائج: {0}. اختر واحدة، ثم استخدم هذا المعرّف.</value>
+  </data>
+  <data name="WingetMatch_Results_Other" xml:space="preserve">
+    <value>النتائج: {0}. اختر واحدة، ثم استخدم هذا المعرّف.</value>
+  </data>
+  <data name="App_UpdateRolledBack" xml:space="preserve">
+    <value>لم يكتمل بدء تشغيل الإصدار الجديد في المرة الأخيرة، لذا عاد CTRL+Z إلى الإصدار السابق.</value>
+  </data>
+  <data name="Readiness_NoScanSummary" xml:space="preserve">
+    <value>يقيس الفحص أحجام مجلداتك ويبحث عن مواد لا يستطيع CTRL+Z نسخها احتياطيًا. لا يغيّر أي ملف أبدًا.</value>
+  </data>
+  <data name="MyApps_ImportListHint" xml:space="preserve">
+    <value>
+
+استخدم الملف الناتج عن "winget export -o apps.json" أو "scoop export &gt; apps.json" أو "choco export".</value>
+  </data>
+  <data name="MyApps_ProfileFilter" xml:space="preserve">
+    <value>ملف تعريف CTRL+Z (*.json)|*.json|ملفات JSON (*.json)|*.json</value>
+  </data>
+  <data name="MyApps_ExportProfileTitle" xml:space="preserve">
+    <value>تصدير ملف التعريف</value>
+  </data>
+  <data name="MyApps_AppListFilter" xml:space="preserve">
+    <value>قوائم التطبيقات (*.json;*.config;*.txt)|*.json;*.config;*.txt|كل الملفات (*.*)|*.*</value>
+  </data>
+  <data name="AddApp_InstallerFilter" xml:space="preserve">
+    <value>المثبّتات والأرشيفات (*.exe;*.msi;*.msix;*.appx;*.zip)|*.exe;*.msi;*.msix;*.appx;*.zip|كل الملفات (*.*)|*.*</value>
+  </data>
+  <data name="AppUpdates_UpdateSelectedApps" xml:space="preserve">
+    <value>تحديث التطبيقات المحددة</value>
+  </data>
+  <data name="AppUpdates_UpdateAllApps" xml:space="preserve">
+    <value>تحديث كل التطبيقات</value>
+  </data>
+  <data name="AppUpdates_UnknownVersion" xml:space="preserve">
+    <value>غير معروف</value>
+  </data>
+  <data name="Preview_SaveReportTitle" xml:space="preserve">
+    <value>حفظ تقرير التشغيل التجريبي</value>
+  </data>
+  <data name="Preview_ReportFilter" xml:space="preserve">
+    <value>ملف نصي (*.txt)|*.txt</value>
+  </data>
+  <data name="Scan_ExportProfileTitle" xml:space="preserve">
+    <value>تصدير ملف تعريف محمول</value>
+  </data>
+  <data name="Settings_SaveDiagnosticsTitle" xml:space="preserve">
+    <value>حفظ بيانات التشخيص</value>
+  </data>
+  <data name="Settings_DiagnosticsFilter" xml:space="preserve">
+    <value>أرشيف ZIP (*.zip)|*.zip</value>
+  </data>
+  <data name="AppEditor_InstallerFilter" xml:space="preserve">
+    <value>المثبّتات (*.exe;*.msi;*.msix;*.appx;*.zip)|*.exe;*.msi;*.msix;*.appx;*.zip|كل الملفات (*.*)|*.*</value>
+  </data>
+  <data name="Settings_Language" xml:space="preserve">
+    <value>اللغة</value>
+  </data>
+  <data name="Settings_LanguageWindowsDefault" xml:space="preserve">
+    <value>افتراضي Windows</value>
+  </data>
+  <data name="Settings_LanguageNote" xml:space="preserve">
+    <value>تُستخدم اللغة الجديدة في المرة التالية التي يبدأ فيها CTRL+Z.</value>
+  </data>
+  <data name="Settings_LanguageRestart" xml:space="preserve">
+    <value>تم ضبط اللغة على {0}. أعد تشغيل CTRL+Z لاستخدامها.</value>
+  </data>
+  <data name="Tweaks_RowOn" xml:space="preserve">
+    <value>{0}: مفعّل.</value>
+  </data>
+  <data name="Tweaks_RowUndone" xml:space="preserve">
+    <value>{0}: تم التراجع.</value>
+  </data>
+  <data name="AppUpdates_PinnedCount" xml:space="preserve">
+    <value> ({0} مثبّت الإصدار)</value>
+  </data>
+  <data name="Browsers_EstimateFiles_One" xml:space="preserve">
+    <value>{1} · {0} ملف</value>
+  </data>
+  <data name="Browsers_EstimateFiles_Two" xml:space="preserve">
+    <value>{1} · {0} ملفان</value>
+  </data>
+  <data name="Browsers_EstimateFiles_Few" xml:space="preserve">
+    <value>{1} · {0} ملفات</value>
+  </data>
+  <data name="Browsers_EstimateFiles_Many" xml:space="preserve">
+    <value>{1} · {0} ملفًا</value>
+  </data>
+  <data name="Browsers_EstimateFiles_Other" xml:space="preserve">
+    <value>{1} · {0} ملف</value>
+  </data>
+  <data name="Drift_IgnoredInParens" xml:space="preserve">
+    <value> ({0} متجاهَل).</value>
+  </data>
+  <data name="Drift_IgnoredCount" xml:space="preserve">
+    <value> · {0} متجاهَل</value>
+  </data>
+  <data name="Main_ProfileLabel_One" xml:space="preserve">
+    <value>{1} · {0} تطبيق</value>
+  </data>
+  <data name="Main_ProfileLabel_Two" xml:space="preserve">
+    <value>{1} · {0} تطبيقان</value>
+  </data>
+  <data name="Main_ProfileLabel_Few" xml:space="preserve">
+    <value>{1} · {0} تطبيقات</value>
+  </data>
+  <data name="Main_ProfileLabel_Many" xml:space="preserve">
+    <value>{1} · {0} تطبيقًا</value>
+  </data>
+  <data name="Main_ProfileLabel_Other" xml:space="preserve">
+    <value>{1} · {0} تطبيق</value>
+  </data>
+  <data name="Scan_AppCount_One" xml:space="preserve">
+    <value>{0} تطبيق</value>
+  </data>
+  <data name="Scan_AppCount_Two" xml:space="preserve">
+    <value>{0} تطبيقان</value>
+  </data>
+  <data name="Scan_AppCount_Few" xml:space="preserve">
+    <value>{0} تطبيقات</value>
+  </data>
+  <data name="Scan_AppCount_Many" xml:space="preserve">
+    <value>{0} تطبيقًا</value>
+  </data>
+  <data name="Scan_AppCount_Other" xml:space="preserve">
+    <value>{0} تطبيق</value>
+  </data>
+  <data name="Catalog_SelectedCount" xml:space="preserve">
+    <value>{0} محدد</value>
+  </data>
+</root>

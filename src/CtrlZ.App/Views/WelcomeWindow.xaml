@@ -2,6 +2,7 @@
 <!-- Copyright (c) 2026 iam-groot1 -->
 
 <Window x:Class="CtrlZ.App.Views.WelcomeWindow"
+        FlowDirection="{x:Static l:AppLanguage.FlowDirection}"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:l="clr-namespace:CtrlZ.App.Localization"
@@ -38,7 +39,7 @@
                         <ColumnDefinition Width="46" />
                     </Grid.ColumnDefinitions>
                     <StackPanel Orientation="Horizontal" Margin="16,0,0,0" VerticalAlignment="Center">
-                        <Image Width="18" Height="18" Source="/Assets/ctrlz.png" Stretch="Uniform" Margin="0,0,9,0"
+                        <Image FlowDirection="LeftToRight" Width="18" Height="18" Source="/Assets/ctrlz.png" Stretch="Uniform" Margin="0,0,9,0"
                                RenderOptions.BitmapScalingMode="HighQuality" />
                         <TextBlock Text="{l:Tr Welcome_WelcomeToCTRLZ}" FontSize="13" FontWeight="SemiBold" VerticalAlignment="Center" />
                     </StackPanel>

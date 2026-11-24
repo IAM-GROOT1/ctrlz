@@ -2,6 +2,7 @@
 <!-- Copyright (c) 2026 iam-groot1 -->
 
 <Window x:Class="CtrlZ.App.Views.AppEditorWindow"
+        FlowDirection="{x:Static l:AppLanguage.FlowDirection}"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:l="clr-namespace:CtrlZ.App.Localization"
@@ -71,21 +72,21 @@
 
                     <StackPanel x:Name="WingetPanel" Margin="0,14,0,0">
                         <TextBlock Text="{l:Tr AppEditor_WingetPackageId}" Style="{StaticResource Text.Label}" />
-                        <TextBox AutomationProperties.Name="{l:Tr AppEditor_WingetPackageId}" x:Name="PackageIdBox" FontFamily="{StaticResource Font.Mono}" />
+                        <TextBox AutomationProperties.Name="{l:Tr AppEditor_WingetPackageId}" x:Name="PackageIdBox" FontFamily="{StaticResource Font.Mono}" FlowDirection="LeftToRight" />
                         <TextBlock Text="{l:Tr AppEditor_UseTheExactIdFor}"
                                    Style="{StaticResource Text.Caption}" Margin="0,5,0,0" />
                     </StackPanel>
 
                     <StackPanel x:Name="DirectPanel" Margin="0,14,0,0" Visibility="Collapsed">
                         <TextBlock Text="{l:Tr AppEditor_DownloadURL}" Style="{StaticResource Text.Label}" />
-                        <TextBox AutomationProperties.Name="{l:Tr AppEditor_DownloadURL}" x:Name="UrlBox" />
+                        <TextBox AutomationProperties.Name="{l:Tr AppEditor_DownloadURL}" FlowDirection="LeftToRight" x:Name="UrlBox" />
                         <TextBlock Text="{l:Tr AppEditor_FileNameOverrideOptional}" Style="{StaticResource Text.Label}" Margin="0,12,0,6" />
-                        <TextBox AutomationProperties.Name="{l:Tr AppEditor_FileNameOverrideOptional}" x:Name="FileNameBox" />
+                        <TextBox AutomationProperties.Name="{l:Tr AppEditor_FileNameOverrideOptional}" FlowDirection="LeftToRight" x:Name="FileNameBox" />
                     </StackPanel>
 
                     <StackPanel x:Name="GitHubPanel" Margin="0,14,0,0" Visibility="Collapsed">
                         <TextBlock Text="{l:Tr AppEditor_RepositoryOwnerProject}" Style="{StaticResource Text.Label}" />
-                        <TextBox AutomationProperties.Name="{l:Tr AppEditor_RepositoryOwnerProject}" x:Name="RepoBox" />
+                        <TextBox AutomationProperties.Name="{l:Tr AppEditor_RepositoryOwnerProject}" FlowDirection="LeftToRight" x:Name="RepoBox" />
                         <Grid Margin="0,12,0,0">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="*" />
@@ -94,7 +95,7 @@
                             </Grid.ColumnDefinitions>
                             <StackPanel>
                                 <TextBlock Text="{l:Tr AppEditor_AssetNameBlankBestWindows}" Style="{StaticResource Text.Label}" />
-                                <TextBox AutomationProperties.Name="{l:Tr AppEditor_AssetNameBlankMeansThe}" x:Name="AssetBox" />
+                                <TextBox AutomationProperties.Name="{l:Tr AppEditor_AssetNameBlankMeansThe}" FlowDirection="LeftToRight" x:Name="AssetBox" />
                             </StackPanel>
                             <StackPanel Grid.Column="2">
                                 <TextBlock Text="{l:Tr AppEditor_AssetType}" Style="{StaticResource Text.Label}" />
@@ -110,7 +111,7 @@
                                 <ColumnDefinition Width="*" />
                                 <ColumnDefinition Width="Auto" />
                             </Grid.ColumnDefinitions>
-                            <TextBox AutomationProperties.Name="{l:Tr AppEditor_LocalInstallerPath}" x:Name="LocalPathBox" />
+                            <TextBox AutomationProperties.Name="{l:Tr AppEditor_LocalInstallerPath}" FlowDirection="LeftToRight" x:Name="LocalPathBox" />
                             <Button Grid.Column="1" Content="{l:Tr AppEditor_Browse}" Style="{StaticResource Button.Secondary}"
                                     Margin="8,0,0,0" Click="Browse_Click" />
                         </Grid>
@@ -118,9 +119,9 @@
 
                     <TextBlock Text="{l:Tr AppEditor_INSTALLBEHAVIOUR}" Style="{StaticResource Text.NavSection}" Margin="0,20,0,10" />
                     <TextBlock Text="{l:Tr AppEditor_SilentSwitchesBlankAutoDetect}" Style="{StaticResource Text.Label}" />
-                    <TextBox AutomationProperties.Name="{l:Tr AppEditor_SilentSwitchesBlankMeansAuto}" x:Name="SilentArgsBox" FontFamily="{StaticResource Font.Mono}" />
+                    <TextBox AutomationProperties.Name="{l:Tr AppEditor_SilentSwitchesBlankMeansAuto}" x:Name="SilentArgsBox" FontFamily="{StaticResource Font.Mono}" FlowDirection="LeftToRight" />
                     <TextBlock Text="{l:Tr AppEditor_SHA256OptionalDirectGitHub}" Style="{StaticResource Text.Label}" Margin="0,12,0,6" />
-                    <TextBox AutomationProperties.Name="{l:Tr AppEditor_SHA256Optional}" x:Name="HashBox" FontFamily="{StaticResource Font.Mono}" />
+                    <TextBox AutomationProperties.Name="{l:Tr AppEditor_SHA256Optional}" x:Name="HashBox" FontFamily="{StaticResource Font.Mono}" FlowDirection="LeftToRight" />
                     <TextBlock Text="{l:Tr AppEditor_Notes}" Style="{StaticResource Text.Label}" Margin="0,12,0,6" />
                     <TextBox AutomationProperties.Name="{l:Tr AppEditor_Notes}" x:Name="NotesBox" Height="64" AcceptsReturn="True" TextWrapping="Wrap"
                              VerticalContentAlignment="Top" VerticalScrollBarVisibility="Auto" />
@@ -131,10 +132,10 @@
                     <TextBlock Text="{l:Tr AppEditor_AFTERINSTALL}" Style="{StaticResource Text.NavSection}" Margin="0,20,0,10" />
                     <StackPanel x:Name="CommandEditPanel">
                         <TextBlock Text="{l:Tr AppEditor_ProgramToRunBlankNo}" Style="{StaticResource Text.Label}" />
-                        <TextBox AutomationProperties.Name="{l:Tr AppEditor_ProgramToRunBlankMeans}" x:Name="CommandExeBox" FontFamily="{StaticResource Font.Mono}" />
+                        <TextBox AutomationProperties.Name="{l:Tr AppEditor_ProgramToRunBlankMeans}" x:Name="CommandExeBox" FontFamily="{StaticResource Font.Mono}" FlowDirection="LeftToRight" />
                         <TextBlock Text="{l:Tr AppEditor_ArgumentsOnePerLineNo}" Style="{StaticResource Text.Label}" Margin="0,12,0,6" />
                         <TextBox AutomationProperties.Name="{l:Tr AppEditor_ArgumentsOnePerLine}" x:Name="CommandArgsBox" Height="64" AcceptsReturn="True" TextWrapping="NoWrap"
-                                 FontFamily="{StaticResource Font.Mono}"
+                                 FontFamily="{StaticResource Font.Mono}" FlowDirection="LeftToRight"
                                  VerticalContentAlignment="Top" VerticalScrollBarVisibility="Auto" />
                         <Grid Margin="0,12,0,0">
                             <Grid.ColumnDefinitions>
@@ -144,7 +145,7 @@
                             </Grid.ColumnDefinitions>
                             <StackPanel>
                                 <TextBlock Text="{l:Tr AppEditor_WorkingDirectoryOptional}" Style="{StaticResource Text.Label}" />
-                                <TextBox AutomationProperties.Name="{l:Tr AppEditor_WorkingDirectoryOptional}" x:Name="CommandDirBox" FontFamily="{StaticResource Font.Mono}" />
+                                <TextBox AutomationProperties.Name="{l:Tr AppEditor_WorkingDirectoryOptional}" x:Name="CommandDirBox" FontFamily="{StaticResource Font.Mono}" FlowDirection="LeftToRight" />
                             </StackPanel>
                             <StackPanel Grid.Column="2">
                                 <TextBlock Text="{l:Tr AppEditor_TimeoutSeconds}" Style="{StaticResource Text.Label}" />
@@ -158,7 +159,7 @@
                     </StackPanel>
                     <StackPanel x:Name="CommandReadOnlyPanel" Visibility="Collapsed">
                         <TextBlock x:Name="CommandReadOnlyText" Style="{StaticResource Text.Caption}" TextWrapping="Wrap"
-                                   FontFamily="{StaticResource Font.Mono}" Foreground="{DynamicResource Brush.TextPrimary}" />
+                                   FontFamily="{StaticResource Font.Mono}" FlowDirection="LeftToRight" Foreground="{DynamicResource Brush.TextPrimary}" />
                         <TextBlock Text="{l:Tr AppEditor_ThisProfileDidNotOriginate}"
                                    Style="{StaticResource Text.Caption}" TextWrapping="Wrap" Margin="0,4,0,0" />
                     </StackPanel>

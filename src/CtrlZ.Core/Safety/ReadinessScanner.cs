@@ -114,8 +114,7 @@ public sealed class ReadinessScanner
         DateTimeOffset now)
     {
         var id = "folder." + Slug(folder.Id ?? folder.Label);
-        const string meaning =
-            "These files exist only on this PC. A clean install removes them unless a copy exists somewhere else.";
+        var meaning = CoreText.Get("ReadinessScanner_FolderMeaning");
 
         if (!usage.Exists)
         {
@@ -406,8 +405,8 @@ public sealed class ReadinessScanner
         var days = (int)age.TotalDays;
         return days switch
         {
-            0 => "today",
-            1 => "yesterday",
+            0 => CoreText.Get("ReadinessScanner_Today"),
+            1 => CoreText.Get("ReadinessScanner_Yesterday"),
             _ => CoreText.Format("ReadinessScanner_DaysAgo", days)
         };
     }

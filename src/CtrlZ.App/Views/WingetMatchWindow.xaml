@@ -2,6 +2,7 @@
 <!-- Copyright (c) 2026 iam-groot1 -->
 
 <Window x:Class="CtrlZ.App.Views.WingetMatchWindow"
+        FlowDirection="{x:Static l:AppLanguage.FlowDirection}"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:l="clr-namespace:CtrlZ.App.Localization"
@@ -71,7 +72,7 @@
                                     <StackPanel>
                                         <TextBlock Text="{Binding Name}" FontWeight="SemiBold" TextTrimming="CharacterEllipsis" />
                                         <TextBlock Text="{Binding Id}" Style="{StaticResource Text.Caption}"
-                                                   FontFamily="{StaticResource Font.Mono}" Margin="0,2,0,0" />
+                                                   FontFamily="{StaticResource Font.Mono}" FlowDirection="LeftToRight" Margin="0,2,0,0" />
                                     </StackPanel>
                                     <TextBlock Grid.Column="1" Text="{Binding Version}" Style="{StaticResource Text.Caption}"
                                                Margin="12,0,0,0" VerticalAlignment="Center" />
@@ -100,7 +101,7 @@
                         </Grid.ColumnDefinitions>
                         <TextBlock Text="{l:Tr WingetMatch_PackageId}" Style="{StaticResource Text.Label}" Margin="0,0,12,0"
                                    VerticalAlignment="Center" />
-                        <TextBox AutomationProperties.Name="{l:Tr WingetMatch_PackageId}" x:Name="PackageIdBox" Grid.Column="1" />
+                        <TextBox AutomationProperties.Name="{l:Tr WingetMatch_PackageId}" FlowDirection="LeftToRight" x:Name="PackageIdBox" Grid.Column="1" />
                     </Grid>
                     <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,12,0,0">
                         <Button Content="{l:Tr WingetMatch_Cancel}" Style="{StaticResource Button.Secondary}" MinWidth="84"

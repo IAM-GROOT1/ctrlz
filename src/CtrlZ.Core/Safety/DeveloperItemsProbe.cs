@@ -1,6 +1,7 @@
 // SPDX-License-Identifier: AGPL-3.0-only
 // Copyright (c) 2026 iam-groot1
 
+using CtrlZ.Core.Localization;
 using Microsoft.Win32;
 
 namespace CtrlZ.Core.Safety;
@@ -37,43 +38,43 @@ public sealed class DeveloperItemsProbe
         var sshCount = CountEntries(sshFolder, cancellationToken);
         items.Add(new DeveloperItem(
             "ssh",
-            "SSH keys",
+            CoreText.Get("DeveloperItems_SshKeys"),
             sshCount is > 0,
             sshCount,
-            "Key files are present. CTRL+Z does not back them up, and never reads them."));
+            CoreText.Get("DeveloperItems_SshKeysDetail")));
 
         var gitConfig = Combine(env.HomeDirectory, ".gitconfig");
         var hasGitConfig = SafeFileExists(gitConfig);
         items.Add(new DeveloperItem(
             "gitconfig",
-            "Git configuration",
+            CoreText.Get("DeveloperItems_GitConfig"),
             hasGitConfig,
             hasGitConfig ? 1 : 0,
-            "Includes your name, e-mail and any remotes or credential helpers you configured."));
+            CoreText.Get("DeveloperItems_GitConfigDetail")));
 
         var envFiles = CountEnvFiles(env, cancellationToken);
         items.Add(new DeveloperItem(
             "env-files",
-            ".env files in project folders",
+            CoreText.Get("DeveloperItems_EnvFiles"),
             envFiles > 0,
             envFiles,
-            "Often hold API keys and database passwords. CTRL+Z does not back them up and does not read them."));
+            CoreText.Get("DeveloperItems_EnvFilesDetail")));
 
         var wsl = SafeWslCount();
         items.Add(new DeveloperItem(
             "wsl",
-            "WSL distributions",
+            CoreText.Get("DeveloperItems_Wsl"),
             wsl > 0,
             wsl,
-            "A WSL distribution contains a whole Linux filesystem that a Windows reinstall removes."));
+            CoreText.Get("DeveloperItems_WslDetail")));
 
         var packageRoots = new (string Label, string Path)[]
         {
-            ("npm global packages", Combine(env.AppData, "npm", "node_modules")),
-            ("NuGet cache", Combine(env.HomeDirectory, ".nuget", "packages")),
-            ("Cargo registry", Combine(env.HomeDirectory, ".cargo", "registry")),
-            ("Gradle cache", Combine(env.HomeDirectory, ".gradle", "caches")),
-            ("Maven repository", Combine(env.HomeDirectory, ".m2", "repository"))
+            (CoreText.Get("DeveloperItems_NpmPackages"), Combine(env.AppData, "npm", "node_modules")),
+            (CoreText.Get("DeveloperItems_NuGetCache"), Combine(env.HomeDirectory, ".nuget", "packages")),
+            (CoreText.Get("DeveloperItems_CargoRegistry"), Combine(env.HomeDirectory, ".cargo", "registry")),
+            (CoreText.Get("DeveloperItems_GradleCache"), Combine(env.HomeDirectory, ".gradle", "caches")),
+            (CoreText.Get("DeveloperItems_MavenRepository"), Combine(env.HomeDirectory, ".m2", "repository"))
         };
 
         var detectedRoots = packageRoots
@@ -83,12 +84,12 @@ public sealed class DeveloperItemsProbe
 
         items.Add(new DeveloperItem(
             "packages",
-            "Global package caches",
+            CoreText.Get("DeveloperItems_PackageCaches"),
             detectedRoots.Count > 0,
             detectedRoots.Count,
             detectedRoots.Count == 0
-                ? "No global package caches found."
-                : "Detected: " + string.Join(", ", detectedRoots) + ". These are re-downloadable."));
+                ? CoreText.Get("DeveloperItems_NoPackageCaches")
+                : CoreText.Format("DeveloperItems_PackageCachesDetected", string.Join(", ", detectedRoots))));
 
         return items;
     }

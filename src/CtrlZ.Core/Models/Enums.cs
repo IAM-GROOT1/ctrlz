@@ -1,6 +1,8 @@
 // SPDX-License-Identifier: AGPL-3.0-only
 // Copyright (c) 2026 iam-groot1
 
+using CtrlZ.Core.Localization;
+
 namespace CtrlZ.Core.Models;
 
 /// <summary>Where an entry comes from and how it should be installed.</summary>
@@ -90,15 +92,15 @@ public static class CategoryNames
 {
     public static string Display(this AppCategory category) => category switch
     {
-        AppCategory.Browser => "Browsers",
-        AppCategory.Communication => "Communication",
-        AppCategory.Development => "Development",
-        AppCategory.Gaming => "Gaming",
-        AppCategory.Media => "Media",
-        AppCategory.Productivity => "Productivity",
-        AppCategory.Security => "Security",
-        AppCategory.Utilities => "Utilities",
-        _ => "Other"
+        AppCategory.Browser => CoreText.Get("Category_Browser"),
+        AppCategory.Communication => CoreText.Get("Category_Communication"),
+        AppCategory.Development => CoreText.Get("Category_Development"),
+        AppCategory.Gaming => CoreText.Get("Category_Gaming"),
+        AppCategory.Media => CoreText.Get("Category_Media"),
+        AppCategory.Productivity => CoreText.Get("Category_Productivity"),
+        AppCategory.Security => CoreText.Get("Category_Security"),
+        AppCategory.Utilities => CoreText.Get("Category_Utilities"),
+        _ => CoreText.Get("Category_Other")
     };
 
     public static string Display(this AppSource source) => source switch
@@ -106,8 +108,8 @@ public static class CategoryNames
         AppSource.Winget => "winget",
         AppSource.MicrosoftStore => "Microsoft Store",
         AppSource.GitHub => "GitHub",
-        AppSource.DirectUrl => "Direct link",
-        AppSource.LocalFile => "Local file",
+        AppSource.DirectUrl => CoreText.Get("Source_DirectLink"),
+        AppSource.LocalFile => CoreText.Get("Source_LocalFile"),
         _ => source.ToString()
     };
 

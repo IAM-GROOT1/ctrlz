@@ -2,6 +2,7 @@
 // Copyright (c) 2026 iam-groot1
 
 using System.Globalization;
+using System.Windows;
 using CtrlZ.Core.Localization;
 
 namespace CtrlZ.App.Localization;
@@ -22,7 +23,17 @@ public static class AppLanguage
     /// Languages with a translation in Resources. English is the built-in text; a test checks this
     /// list against the Strings.&lt;code&gt;.resx files so the two cannot drift apart.
     /// </summary>
-    public static readonly IReadOnlyList<string> Supported = ["en", "de"];
+    public static readonly IReadOnlyList<string> Supported = ["en", "ar", "de"];
+
+    /// <summary>
+    /// Right to left for a language written that way (Arabic), for every window. Only a language CTRL+Z
+    /// has text for counts, so Windows set to an untranslated right-to-left language keeps English
+    /// left to right.
+    /// </summary>
+    public static FlowDirection FlowDirection =>
+        Normalize(CoreText.Current.TwoLetterISOLanguageName) is { } code && CultureInfo.GetCultureInfo(code).TextInfo.IsRightToLeft
+            ? FlowDirection.RightToLeft
+            : FlowDirection.LeftToRight;
 
     /// <summary>Uses <paramref name="code"/> for all text from now on; empty or unknown follows Windows.</summary>
     public static void Apply(string? code)
