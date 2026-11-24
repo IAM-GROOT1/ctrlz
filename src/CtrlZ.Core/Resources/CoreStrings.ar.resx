@@ -1288,6 +1288,42 @@
   <data name="ReadinessScanner_DaysAgo_Other" xml:space="preserve">
     <value>منذ {0} يوم</value>
   </data>
+  <data name="BrowserRestore_FromOtherBrowser" xml:space="preserve">
+    <value>أُنشئ هذا الأرشيف من {0}، وليس من {1}.</value>
+  </data>
+  <data name="BrowserRestore_Preparing" xml:space="preserve">
+    <value>جارٍ تحضير الاستعادة…</value>
+  </data>
+  <data name="BrowserRestore_RestoringFile" xml:space="preserve">
+    <value>جارٍ استعادة {0}…</value>
+  </data>
+  <data name="BrowserRestore_Complete" xml:space="preserve">
+    <value>اكتملت الاستعادة.</value>
+  </data>
+  <data name="BrowserRestore_SkippedSensitiveFile" xml:space="preserve">
+    <value>تم تخطي ملف حساس من الأرشيف: {0}</value>
+  </data>
+  <data name="BrowserRestore_SkippedUnsafePath" xml:space="preserve">
+    <value>تم تخطي مسار غير آمن في الأرشيف: {0}</value>
+  </data>
+  <data name="BrowserRestore_SingleProfileOverwrite" xml:space="preserve">
+    <value>يستخدم هذا المتصفح ملف تعريف واحدًا فقط، لذا لا يمكنه إنشاء ملف تعريف إضافي. سيُستبدل ملف التعريف الموجود.</value>
+  </data>
+  <data name="BrowserRestore_SkippedUnsafeProfile" xml:space="preserve">
+    <value>تم تخطي ملف تعريف باسم مجلد غير آمن: {0}</value>
+  </data>
+  <data name="BrowserRestore_LocalStateUnreadable" xml:space="preserve">
+    <value>تعذّرت قراءة Local State الحالي: {0}</value>
+  </data>
+  <data name="BrowserRestore_LocalStateNotMerged" xml:space="preserve">
+    <value>تعذّر دمج Local State: {0}</value>
+  </data>
+  <data name="BrowserRestore_ProfilesIniNotUpdated" xml:space="preserve">
+    <value>استُعيدت ملفات ملف التعريف، لكن تعذّر تحديث profiles.ini: {0}</value>
+  </data>
+  <data name="BrowserRestore_SafetyCopyFailed" xml:space="preserve">
+    <value>تعذّر إنشاء نسخة أمان من ملف التعريف الحالي: {0}</value>
+  </data>
   <data name="InstallEngine_NotAttempted" xml:space="preserve">
     <value>لم تتم المحاولة: {0}</value>
   </data>

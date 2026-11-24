@@ -1277,6 +1277,42 @@
   <data name="ReadinessScanner_DaysAgo_Other" xml:space="preserve">
     <value>{0} дня назад</value>
   </data>
+  <data name="BrowserRestore_FromOtherBrowser" xml:space="preserve">
+    <value>Этот архив создан в {0}, а не в {1}.</value>
+  </data>
+  <data name="BrowserRestore_Preparing" xml:space="preserve">
+    <value>Подготовка восстановления…</value>
+  </data>
+  <data name="BrowserRestore_RestoringFile" xml:space="preserve">
+    <value>Восстановление {0}…</value>
+  </data>
+  <data name="BrowserRestore_Complete" xml:space="preserve">
+    <value>Восстановление завершено.</value>
+  </data>
+  <data name="BrowserRestore_SkippedSensitiveFile" xml:space="preserve">
+    <value>Пропущен конфиденциальный файл из архива: {0}</value>
+  </data>
+  <data name="BrowserRestore_SkippedUnsafePath" xml:space="preserve">
+    <value>Пропущен небезопасный путь в архиве: {0}</value>
+  </data>
+  <data name="BrowserRestore_SingleProfileOverwrite" xml:space="preserve">
+    <value>Этот браузер использует только один профиль и не может создать дополнительный. Существующий профиль будет перезаписан.</value>
+  </data>
+  <data name="BrowserRestore_SkippedUnsafeProfile" xml:space="preserve">
+    <value>Пропущен профиль с небезопасным именем папки: {0}</value>
+  </data>
+  <data name="BrowserRestore_LocalStateUnreadable" xml:space="preserve">
+    <value>Не удалось прочитать текущий Local State: {0}</value>
+  </data>
+  <data name="BrowserRestore_LocalStateNotMerged" xml:space="preserve">
+    <value>Не удалось объединить Local State: {0}</value>
+  </data>
+  <data name="BrowserRestore_ProfilesIniNotUpdated" xml:space="preserve">
+    <value>Файлы профиля восстановлены, но profiles.ini обновить не удалось: {0}</value>
+  </data>
+  <data name="BrowserRestore_SafetyCopyFailed" xml:space="preserve">
+    <value>Не удалось создать страховочную копию текущего профиля: {0}</value>
+  </data>
   <data name="InstallEngine_NotAttempted" xml:space="preserve">
     <value>Не запускалось: {0}</value>
   </data>

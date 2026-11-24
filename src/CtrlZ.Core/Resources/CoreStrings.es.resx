@@ -1259,6 +1259,42 @@
   <data name="ReadinessScanner_DaysAgo_Other" xml:space="preserve">
     <value>hace {0} días</value>
   </data>
+  <data name="BrowserRestore_FromOtherBrowser" xml:space="preserve">
+    <value>Este archivo se creó con {0}, no con {1}.</value>
+  </data>
+  <data name="BrowserRestore_Preparing" xml:space="preserve">
+    <value>Preparando la restauración…</value>
+  </data>
+  <data name="BrowserRestore_RestoringFile" xml:space="preserve">
+    <value>Restaurando {0}…</value>
+  </data>
+  <data name="BrowserRestore_Complete" xml:space="preserve">
+    <value>Restauración completada.</value>
+  </data>
+  <data name="BrowserRestore_SkippedSensitiveFile" xml:space="preserve">
+    <value>Se omitió un archivo confidencial del archivo comprimido: {0}</value>
+  </data>
+  <data name="BrowserRestore_SkippedUnsafePath" xml:space="preserve">
+    <value>Se omitió una ruta no segura del archivo comprimido: {0}</value>
+  </data>
+  <data name="BrowserRestore_SingleProfileOverwrite" xml:space="preserve">
+    <value>Este navegador usa un solo perfil, así que no puede crear otro. El perfil existente se sobrescribirá.</value>
+  </data>
+  <data name="BrowserRestore_SkippedUnsafeProfile" xml:space="preserve">
+    <value>Se omitió un perfil con un nombre de carpeta no seguro: {0}</value>
+  </data>
+  <data name="BrowserRestore_LocalStateUnreadable" xml:space="preserve">
+    <value>No se pudo leer el Local State actual: {0}</value>
+  </data>
+  <data name="BrowserRestore_LocalStateNotMerged" xml:space="preserve">
+    <value>No se pudo combinar Local State: {0}</value>
+  </data>
+  <data name="BrowserRestore_ProfilesIniNotUpdated" xml:space="preserve">
+    <value>Los archivos del perfil se restauraron, pero no se pudo actualizar profiles.ini: {0}</value>
+  </data>
+  <data name="BrowserRestore_SafetyCopyFailed" xml:space="preserve">
+    <value>No se pudo crear una copia de respaldo del perfil actual: {0}</value>
+  </data>
   <data name="InstallEngine_NotAttempted" xml:space="preserve">
     <value>No se intentó: {0}</value>
   </data>

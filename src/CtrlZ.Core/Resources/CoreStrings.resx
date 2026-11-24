@@ -1272,6 +1272,42 @@
   <data name="ReadinessScanner_DaysAgo_Other" xml:space="preserve">
     <value>{0} days ago</value>
   </data>
+  <data name="BrowserRestore_FromOtherBrowser" xml:space="preserve">
+    <value>This archive was created from {0}, not {1}.</value>
+  </data>
+  <data name="BrowserRestore_Preparing" xml:space="preserve">
+    <value>Preparing restore…</value>
+  </data>
+  <data name="BrowserRestore_RestoringFile" xml:space="preserve">
+    <value>Restoring {0}…</value>
+  </data>
+  <data name="BrowserRestore_Complete" xml:space="preserve">
+    <value>Restore complete.</value>
+  </data>
+  <data name="BrowserRestore_SkippedSensitiveFile" xml:space="preserve">
+    <value>Skipped sensitive file from archive: {0}</value>
+  </data>
+  <data name="BrowserRestore_SkippedUnsafePath" xml:space="preserve">
+    <value>Skipped unsafe archive path: {0}</value>
+  </data>
+  <data name="BrowserRestore_SingleProfileOverwrite" xml:space="preserve">
+    <value>This browser uses a single-profile layout, so it cannot create an additional profile. The existing profile will be overwritten.</value>
+  </data>
+  <data name="BrowserRestore_SkippedUnsafeProfile" xml:space="preserve">
+    <value>Skipped profile with an unsafe folder name: {0}</value>
+  </data>
+  <data name="BrowserRestore_LocalStateUnreadable" xml:space="preserve">
+    <value>The current Local State could not be read: {0}</value>
+  </data>
+  <data name="BrowserRestore_LocalStateNotMerged" xml:space="preserve">
+    <value>Local State could not be merged: {0}</value>
+  </data>
+  <data name="BrowserRestore_ProfilesIniNotUpdated" xml:space="preserve">
+    <value>Profile files were restored, but profiles.ini could not be updated: {0}</value>
+  </data>
+  <data name="BrowserRestore_SafetyCopyFailed" xml:space="preserve">
+    <value>A safety copy of the current profile could not be created: {0}</value>
+  </data>
   <data name="InstallEngine_NotAttempted" xml:space="preserve">
     <value>Not attempted: {0}</value>
   </data>
