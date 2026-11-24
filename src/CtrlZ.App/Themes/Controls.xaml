@@ -107,7 +107,7 @@
     </Style>
 
     <Style x:Key="Button.Danger" TargetType="Button" BasedOn="{StaticResource Button.Base}">
-        <Setter Property="Foreground" Value="White" />
+        <Setter Property="Foreground" Value="{DynamicResource Brush.AccentText}" />
         <Setter Property="Background" Value="{DynamicResource Brush.Danger}" />
         <Setter Property="BorderBrush" Value="{DynamicResource Brush.Danger}" />
     </Style>
@@ -165,7 +165,7 @@
         <Style.Triggers>
             <Trigger Property="IsMouseOver" Value="True">
                 <Setter Property="Background" Value="{DynamicResource Brush.Danger}" />
-                <Setter Property="Foreground" Value="White" />
+                <Setter Property="Foreground" Value="{DynamicResource Brush.AccentText}" />
             </Trigger>
         </Style.Triggers>
         <Setter Property="Template">
@@ -177,7 +177,7 @@
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsMouseOver" Value="True">
                             <Setter TargetName="Border" Property="Background" Value="{DynamicResource Brush.Danger}" />
-                            <Setter Property="Foreground" Value="White" />
+                            <Setter Property="Foreground" Value="{DynamicResource Brush.AccentText}" />
                         </Trigger>
                         <Trigger Property="IsPressed" Value="True">
                             <Setter TargetName="Border" Property="Background" Value="{DynamicResource Brush.Danger}" />
@@ -304,7 +304,7 @@
                         <Border x:Name="Box" Width="16" Height="16" CornerRadius="3" BorderThickness="1"
                                 BorderBrush="{DynamicResource Brush.BorderStrong}" Background="{DynamicResource Brush.Surface}"
                                 VerticalAlignment="Center">
-                            <Path x:Name="Check" FlowDirection="LeftToRight" Data="M 2,6.5 L 5,9.5 L 11,3.2" Stroke="White" StrokeThickness="1.6"
+                            <Path x:Name="Check" FlowDirection="LeftToRight" Data="M 2,6.5 L 5,9.5 L 11,3.2" Stroke="{DynamicResource Brush.AccentText}" StrokeThickness="1.6"
                                   StrokeStartLineCap="Round" StrokeEndLineCap="Round" StrokeLineJoin="Round"
                                   HorizontalAlignment="Center" VerticalAlignment="Center" Visibility="Collapsed" />
                         </Border>
@@ -381,7 +381,8 @@
                             <Setter TargetName="ItemBorder" Property="Background" Value="{DynamicResource Brush.SurfaceHover}" />
                         </Trigger>
                         <Trigger Property="IsSelected" Value="True">
-                            <Setter TargetName="ItemBorder" Property="Background" Value="{DynamicResource Brush.AccentSoft}" />
+                            <Setter TargetName="ItemBorder" Property="Background" Value="{DynamicResource Brush.Selected}" />
+                            <Setter Property="Foreground" Value="{DynamicResource Brush.SelectedItemText}" />
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
@@ -484,7 +485,8 @@
                             <Setter TargetName="ItemBorder" Property="Background" Value="{DynamicResource Brush.SurfaceHover}" />
                         </Trigger>
                         <Trigger Property="IsSelected" Value="True">
-                            <Setter TargetName="ItemBorder" Property="Background" Value="{DynamicResource Brush.AccentSoft}" />
+                            <Setter TargetName="ItemBorder" Property="Background" Value="{DynamicResource Brush.Selected}" />
+                            <Setter Property="Foreground" Value="{DynamicResource Brush.SelectedItemText}" />
                         </Trigger>
                         <Trigger Property="IsKeyboardFocused" Value="True">
                             <Setter TargetName="ItemBorder" Property="BorderBrush" Value="{DynamicResource Brush.Accent}" />
@@ -673,8 +675,8 @@
                             <Setter TargetName="Pill" Property="Background" Value="{DynamicResource Brush.SurfaceHover}" />
                         </Trigger>
                         <Trigger Property="IsChecked" Value="True">
-                            <Setter TargetName="Pill" Property="Background" Value="{DynamicResource Brush.AccentSoft}" />
-                            <Setter Property="Foreground" Value="{DynamicResource Brush.Accent}" />
+                            <Setter TargetName="Pill" Property="Background" Value="{DynamicResource Brush.Selected}" />
+                            <Setter Property="Foreground" Value="{DynamicResource Brush.SelectedText}" />
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>

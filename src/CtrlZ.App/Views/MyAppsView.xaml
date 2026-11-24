@@ -161,8 +161,8 @@
                             IsEnabled="{Binding CanInstall}" MinWidth="108">
                         <StackPanel Orientation="Horizontal">
                             <TextBlock Text="{StaticResource Icon.Install}" FontFamily="{StaticResource Font.Icons}"
-                                       FontSize="13" Foreground="White" Margin="0,0,7,0" />
-                            <TextBlock Text="{l:Tr MyApps_Install}" Style="{StaticResource Text.Button}" Foreground="White" />
+                                       FontSize="13" Foreground="{DynamicResource Brush.AccentText}" Margin="0,0,7,0" />
+                            <TextBlock Text="{l:Tr MyApps_Install}" Style="{StaticResource Text.Button}" Foreground="{DynamicResource Brush.AccentText}" />
                         </StackPanel>
                     </Button>
                 </StackPanel>
@@ -212,8 +212,8 @@
                                 <Style TargetType="ToggleButton" BasedOn="{StaticResource Toggle.Pill}">
                                     <Style.Triggers>
                                         <DataTrigger Binding="{Binding GroupBySource}" Value="False">
-                                            <Setter Property="Background" Value="{DynamicResource Brush.AccentSoft}" />
-                                            <Setter Property="Foreground" Value="{DynamicResource Brush.Accent}" />
+                                            <Setter Property="Background" Value="{DynamicResource Brush.Selected}" />
+                                            <Setter Property="Foreground" Value="{DynamicResource Brush.SelectedText}" />
                                         </DataTrigger>
                                     </Style.Triggers>
                                 </Style>
