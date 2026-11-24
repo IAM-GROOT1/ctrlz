@@ -683,7 +683,7 @@
     <value>Último cambio: {0}</value>
   </data>
   <data name="ReadinessScanner_ScanStoppedAtALimit" xml:space="preserve">
-    <value>El examen se detuvo en un límite: los recuentos son un mínimo.</value>
+    <value>El análisis se detuvo en un límite: los recuentos son un mínimo.</value>
   </data>
   <data name="ReadinessScanner_SomeFoldersCouldNotBe" xml:space="preserve">
     <value>Algunas carpetas no se pudieron leer, así que el tamaño es un mínimo.</value>
@@ -785,7 +785,7 @@
     <value>Sin un perfil, CTRL+Z no puede reconstruir su lista de aplicaciones después de borrar.</value>
   </data>
   <data name="ReadinessScanner_ScanThisPCAndSave" xml:space="preserve">
-    <value>Examine este equipo y guarde sus aplicaciones en Mis aplicaciones antes de borrar.</value>
+    <value>Analice este equipo y guarde sus aplicaciones en Mis aplicaciones antes de borrar.</value>
   </data>
   <data name="ReadinessScanner_LastUpdated" xml:space="preserve">
     <value>Última actualización: {0}</value>
@@ -881,7 +881,7 @@
     <value>Indicado directamente por winget.</value>
   </data>
   <data name="AppScanner_ScanComplete" xml:space="preserve">
-    <value>Examen completado</value>
+    <value>Análisis completado</value>
   </data>
   <data name="AppScanner_AppsFound" xml:space="preserve">
     <value>Se encontraron {0} aplicaciones</value>

@@ -571,7 +571,7 @@
     <value>Abrir Mis aplicaciones</value>
   </data>
   <data name="Install_ScanThisPC" xml:space="preserve">
-    <value>Examinar este equipo</value>
+    <value>Analizar este equipo</value>
   </data>
   <data name="Install_BrowseCatalog" xml:space="preserve">
     <value>Explorar el catálogo</value>
@@ -673,10 +673,10 @@
     <value>Este perfil está vacío</value>
   </data>
   <data name="MyApps_ScanThisPCToBuild" xml:space="preserve">
-    <value>Examine este equipo para crear la lista automáticamente, o explore el catálogo y añada aplicaciones a mano.</value>
+    <value>Analice este equipo para crear la lista automáticamente, o explore el catálogo y añada aplicaciones a mano.</value>
   </data>
   <data name="MyApps_ScanThisPC" xml:space="preserve">
-    <value>Examinar este equipo</value>
+    <value>Analizar este equipo</value>
   </data>
   <data name="MyApps_BrowseCatalog" xml:space="preserve">
     <value>Explorar el catálogo</value>
@@ -730,7 +730,7 @@
     <value>Revisar diferencias en Mis aplicaciones</value>
   </data>
   <data name="Readiness_ReScan" xml:space="preserve">
-    <value>Volver a examinar</value>
+    <value>Volver a analizar</value>
   </data>
   <data name="Readiness_Cancel" xml:space="preserve">
     <value>Cancelar</value>
@@ -757,10 +757,10 @@
     <value>Asignar manualmente un id. de paquete de winget</value>
   </data>
   <data name="Scan_ScanThisPC" xml:space="preserve">
-    <value>Examinar este equipo</value>
+    <value>Analizar este equipo</value>
   </data>
   <data name="Scan_CancelScan" xml:space="preserve">
-    <value>Cancelar examen</value>
+    <value>Cancelar análisis</value>
   </data>
   <data name="Scan_SearchPrograms" xml:space="preserve">
     <value>Buscar programas</value>
@@ -802,7 +802,7 @@
     <value>CTRL+Z lee winget, el Registro de Windows y sus aplicaciones de Store, y busca el id. de paquete de winget de cada una. Nada sale de este equipo.</value>
   </data>
   <data name="Scan_F5AlsoStartsAScan" xml:space="preserve">
-    <value>F5 también inicia un examen</value>
+    <value>F5 también inicia un análisis</value>
   </data>
   <data name="Scan_PROGRAM" xml:space="preserve">
     <value>PROGRAMA</value>
@@ -1009,7 +1009,7 @@
     <value>ANTES DE REINSTALAR</value>
   </data>
   <data name="Welcome_1ScanThisPCTo" xml:space="preserve">
-    <value>1.  Examine este equipo para crear su lista de aplicaciones y ordénela en Mis aplicaciones.</value>
+    <value>1.  Analice este equipo para crear su lista de aplicaciones y ordénela en Mis aplicaciones.</value>
   </data>
   <data name="Welcome_2BackUpYourBrowsers" xml:space="preserve">
     <value>2.  Haga una copia de seguridad de sus navegadores (marcadores, historial, extensiones; nunca contraseñas ni cookies).</value>
@@ -1039,7 +1039,7 @@
     <value>Estoy en una instalación nueva</value>
   </data>
   <data name="Welcome_StartWithAScan" xml:space="preserve">
-    <value>Empezar con un examen</value>
+    <value>Empezar con un análisis</value>
   </data>
   <data name="WingetMatch_MatchToWinget" xml:space="preserve">
     <value>Asociar con winget</value>
@@ -1876,7 +1876,7 @@ Apruébelo solo si entiende exactamente lo que hace. </value>
     <value>Comparando su perfil guardado con este equipo…</value>
   </data>
   <data name="Drift_ScanningInstalledApps" xml:space="preserve">
-    <value>Examinando las aplicaciones instaladas…</value>
+    <value>Analizando las aplicaciones instaladas…</value>
   </data>
   <data name="Drift_ReadingWingetVersions" xml:space="preserve">
     <value>Leyendo las versiones de winget…</value>
@@ -2104,7 +2104,7 @@ Apruébelo solo si entiende exactamente lo que hace. </value>
     <value>Configuración</value>
   </data>
   <data name="Main_Scan" xml:space="preserve">
-    <value>Examinar</value>
+    <value>Analizar</value>
   </data>
   <data name="Main_MyApps" xml:space="preserve">
     <value>Mis aplicaciones</value>
@@ -2378,10 +2378,10 @@ Sin coincidencia ({0}); añádalas a mano si las necesita:
     <value> · {0} resueltos u omitidos</value>
   </data>
   <data name="Readiness_Scanning" xml:space="preserve">
-    <value>Examinando…</value>
+    <value>Analizando…</value>
   </data>
   <data name="Readiness_Scanning2" xml:space="preserve">
-    <value>Examinando {0} ({1}/{2})…</value>
+    <value>Analizando {0} ({1}/{2})…</value>
   </data>
   <data name="Readiness_CheckComplete" xml:space="preserve">
     <value>Comprobación completada.</value>
@@ -2449,7 +2449,7 @@ Sin coincidencia ({0}); añádalas a mano si las necesita:
     <value>Asociada manualmente con </value>
   </data>
   <data name="Scan_ScanThisPC2" xml:space="preserve">
-    <value>Examinar este equipo</value>
+    <value>Analizar este equipo</value>
   </data>
   <data name="Scan_FindInstalledProgramsAndMatch" xml:space="preserve">
     <value>Encuentre los programas instalados y asócielos con winget para poder reconstruir esta configuración más adelante.</value>
@@ -2467,7 +2467,7 @@ Sin coincidencia ({0}); añádalas a mano si las necesita:
     <value>Sin coincidencia</value>
   </data>
   <data name="Scan_ReadyScanToFindInstalled" xml:space="preserve">
-    <value>Listo. Examine para encontrar los programas instalados.</value>
+    <value>Listo. Analice para encontrar los programas instalados.</value>
   </data>
   <data name="Scan_SelectedOf" xml:space="preserve">
     <value>{0} seleccionadas de {1}</value>
@@ -2476,19 +2476,19 @@ Sin coincidencia ({0}); añádalas a mano si las necesita:
     <value>Buscando paquetes de winget…</value>
   </data>
   <data name="Scan_Scanned" xml:space="preserve">
-    <value>Examinado a las {0:HH:mm}</value>
+    <value>Analizado a las {0:HH:mm}</value>
   </data>
   <data name="Scan_FoundProgramsMatchedUnmatched" xml:space="preserve">
     <value>Se encontraron {0} programas · {1} con coincidencia · {2} sin coincidencia</value>
   </data>
   <data name="Scan_ScanCancelled" xml:space="preserve">
-    <value>Examen cancelado.</value>
+    <value>Análisis cancelado.</value>
   </data>
   <data name="Scan_TheScanCouldNotBe" xml:space="preserve">
-    <value>No se pudo completar el examen.</value>
+    <value>No se pudo completar el análisis.</value>
   </data>
   <data name="Scan_CTRLZCouldNotFinish" xml:space="preserve">
-    <value>CTRL+Z no pudo terminar de examinar este equipo.
+    <value>CTRL+Z no pudo terminar de analizar este equipo.
 
 </value>
   </data>
