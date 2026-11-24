@@ -37,7 +37,7 @@ $sha = ([regex]::Match($line, '^[0-9a-fA-F]{64}').Value).ToUpperInvariant()
 
 $outDir = Join-Path $OutputRoot $version
 New-Item -ItemType Directory -Force -Path $outDir | Out-Null
-$schema = "1.6.0"
+$schema = "1.28.0"
 $header = "# yaml-language-server: `$schema=https://aka.ms/winget-manifest"
 
 $files = [ordered]@{
