@@ -453,10 +453,24 @@ public sealed class UpdateCoordinator
         }
 
         _services.Log.Write(LogLevel.Warning, $"The previous update did not complete: {result.Message}");
-        _dialogs.Error(
-            result.Message == App.UpdateRolledBackMessage
-                ? Loc.Get("App_UpdateRolledBack")
-                : result.Message ?? Loc.Get("Update_ThePreviousUpdateDidNot"),
-            Loc.Get("Update_UpdateNotApplied"));
+        var message = result.Message == App.UpdateRolledBackMessage
+            ? Loc.Get("App_UpdateRolledBack")
+            : result.Message ?? Loc.Get("Update_ThePreviousUpdateDidNot");
+
+        // A build that failed to start would only fail again: treat it like "Skip this version",
+        // so it is not offered until a newer release appears.
+        // Only a version newer than this one can have been rolled back from, so an edited result
+        // file cannot use this to hide every future update.
+        if (result.RolledBack && SemanticVersion.TryParse(result.Version, out var failed) && failed is not null &&
+            failed.CompareTo(AppVersionInfo.Current) > 0)
+        {
+            _services.State.Settings.SkippedUpdateVersion = failed.ToString();
+            _services.State.Settings.UpdateRemindAfterUtc = null;
+            _services.State.SaveSettings();
+            _services.Log.Write(LogLevel.Info, $"Version {failed} rolled back; it is skipped until a newer release appears.");
+            message += Loc.Format("Update_RolledBackVersionSkipped", failed);
+        }
+
+        _dialogs.Error(message, Loc.Get("Update_UpdateNotApplied"));
     }
 }

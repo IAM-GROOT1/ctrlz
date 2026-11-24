@@ -35,7 +35,16 @@ public sealed class UpdateApplyResult
 
     public static UpdateApplyResult Ok(string? version) => new() { Success = true, Version = version };
 
+    /// <summary>
+    /// True when the new version failed to start and the previous one was put back. The app then
+    /// skips <see cref="Version"/> like "Skip this version", so the same build is not offered again.
+    /// </summary>
+    public bool RolledBack { get; set; }
+
     public static UpdateApplyResult Failed(string message) => new() { Success = false, Message = message };
+
+    public static UpdateApplyResult RolledBackFrom(string message, string? version) =>
+        new() { Success = false, Message = message, Version = version, RolledBack = true };
 }
 
 /// <summary>Small JSON handoff files between the app and the update helper.</summary>

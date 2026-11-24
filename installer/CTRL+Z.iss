@@ -74,6 +74,11 @@ Filename: "{app}\{#MyAppExeName}"; Description: "{cm:LaunchProgram,{#StringChang
 [UninstallDelete]
 ; User data under LocalAppData\CTRL+Z is kept unless the user chooses to delete it (see [Code]).
 Type: filesandordirs; Name: "{app}\Data"
+; Rollback copies an update keeps beside the app until the new version has started twice.
+Type: files; Name: "{app}\*.old"
+Type: files; Name: "{app}\*.failed"
+; A rollback puts back only CTRL+Z.exe and ctrlz.exe (both single-file). If the installer ever
+; ships runtime files (DLLs) next to them, the rollback must restore those too.
 
 [Code]
 var

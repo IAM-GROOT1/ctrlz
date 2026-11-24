@@ -108,13 +108,14 @@ public partial class App : Application
             using var current = Process.GetCurrentProcess();
             var processId = current.Id;
 
+            // Read first: a rollback clears the record, and its version is skipped afterwards.
+            var onProbation = probation.Read()?.Version;
             switch (probation.OnLaunch(exe, processId, current.StartTime.ToUniversalTime()))
             {
                 case ProbationStartup.RolledBack:
                     UpdateApplyFiles.WriteResult(
                         Path.Combine(services.Paths.State, UpdateApplyFiles.ResultFileName),
-                        UpdateApplyResult.Failed(
-                            UpdateRolledBackMessage));
+                        UpdateApplyResult.RolledBackFrom(UpdateRolledBackMessage, onProbation));
                     if (UpdateApplier.TryStart(exe) is { } restarted)
                     {
                         restarted.Dispose();

@@ -3168,4 +3168,9 @@
   <data name="Preview_RiskyCommands_Other" xml:space="preserve">
     <value> · опасных команд: {0}</value>
   </data>
+  <data name="Update_RolledBackVersionSkipped" xml:space="preserve">
+    <value>
+
+Версия {0} больше не будет предлагаться; более новые выпуски будут предлагаться как обычно.</value>
+  </data>
 </root>
