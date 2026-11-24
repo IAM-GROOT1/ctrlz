@@ -23,7 +23,7 @@ public static class AppLanguage
     /// Languages with a translation in Resources. English is the built-in text; a test checks this
     /// list against the Strings.&lt;code&gt;.resx files so the two cannot drift apart.
     /// </summary>
-    public static readonly IReadOnlyList<string> Supported = ["en", "ar", "de"];
+    public static readonly IReadOnlyList<string> Supported = ["en", "ar", "es", "de"];
 
     /// <summary>
     /// Right to left for a language written that way (Arabic), for every window. Only a language CTRL+Z
