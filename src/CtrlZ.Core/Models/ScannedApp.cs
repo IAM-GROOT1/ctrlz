@@ -30,7 +30,15 @@ public sealed class ScannedApp
 
     public bool IsMatched => !string.IsNullOrWhiteSpace(MatchedWingetId);
 
-    public string SourceLabel => IsStoreApp ? CoreText.Get("Source_Store") : Source.Display();
+    /// <summary>
+    /// Where the app would be installed from. A program found only in the registry has no source
+    /// until it is matched, so it says so instead of showing the winget default.
+    /// </summary>
+    public string SourceLabel => IsStoreApp
+        ? CoreText.Get("Source_Store")
+        : Source == AppSource.Winget && !IsMatched && string.IsNullOrWhiteSpace(PackageId)
+            ? CoreText.Get("Source_NotMatched")
+            : Source.Display();
 
     public AppEntry ToProfileEntry() => new()
     {

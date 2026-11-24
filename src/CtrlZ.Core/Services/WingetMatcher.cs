@@ -2,6 +2,7 @@
 // Copyright (c) 2026 iam-groot1
 
 using System.Text.RegularExpressions;
+using CtrlZ.Core.Localization;
 using CtrlZ.Core.Models;
 
 namespace CtrlZ.Core.Services;
@@ -32,9 +33,14 @@ public static partial class WingetMatcher
 
     public static WingetMatch Match(string name, string? publisher, string? version, IReadOnlyList<WingetPackage> packages)
     {
-        if (string.IsNullOrWhiteSpace(name) || packages.Count == 0)
+        if (string.IsNullOrWhiteSpace(name))
         {
-            return new WingetMatch(null, WingetMatchKind.None, 0, "No name to match.");
+            return new WingetMatch(null, WingetMatchKind.None, 0, CoreText.Get("WingetMatcher_NoName"));
+        }
+
+        if (packages.Count == 0)
+        {
+            return new WingetMatch(null, WingetMatchKind.None, 0, CoreText.Get("WingetMatcher_NoPackages"));
         }
 
         var normalizedName = NormalizeName(name);
@@ -94,7 +100,9 @@ public static partial class WingetMatcher
         if (bestPackage is null || bestScore < 75)
         {
             return new WingetMatch(null, WingetMatchKind.None, bestScore,
-                bestPackage is null ? "No candidate." : $"Best candidate {bestPackage.Id} scored {bestScore:0.#}.");
+                bestPackage is null
+                    ? CoreText.Get("WingetMatcher_NoCandidate")
+                    : CoreText.Format("WingetMatcher_BestCandidate", bestPackage.Id, bestScore));
         }
 
         var kind = bestScore >= 96 ? WingetMatchKind.Exact
@@ -187,10 +195,10 @@ public static partial class WingetMatcher
     {
         if (normalizedName.Equals(packageName, StringComparison.Ordinal))
         {
-            return "Exact normalized name match.";
+            return CoreText.Get("WingetMatcher_ExactName");
         }
 
-        return $"Name similarity to \"{package.Name}\".";
+        return CoreText.Format("WingetMatcher_NameSimilarity", package.Name);
     }
 
     private static string LastIdSegment(string id)
