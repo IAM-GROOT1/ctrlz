@@ -119,6 +119,29 @@ public class LanguageSwitchTests
     }
 
     [Fact]
+    public void Spanish_reads_its_own_text_and_stays_left_to_right()
+    {
+        var before = CultureInfo.CurrentUICulture;
+        var beforeDefault = CultureInfo.DefaultThreadCurrentUICulture;
+        try
+        {
+            AppLanguage.Apply("es");
+            Assert.Equal(System.Windows.FlowDirection.LeftToRight, AppLanguage.FlowDirection);
+            Assert.Equal("Idioma", Loc.Get("Settings_Language"));
+            Assert.Equal("1 aplicación", Loc.Plural("MyApps_AppCount", 1));
+            Assert.Equal("3 aplicaciones", Loc.Plural("MyApps_AppCount", 3));
+            Assert.Equal("hace 4 días", CoreText.Plural("ReadinessScanner_DaysAgo", 4));
+            Assert.Equal("Mostrar las extensiones de archivo", CtrlZ.Core.Tweaks.TweakCatalog.All[0].Title);
+        }
+        finally
+        {
+            CoreText.Culture = null;
+            CultureInfo.CurrentUICulture = before;
+            CultureInfo.DefaultThreadCurrentUICulture = beforeDefault;
+        }
+    }
+
+    [Fact]
     public void An_unknown_language_leaves_the_current_one_alone()
     {
         var before = CultureInfo.CurrentUICulture;

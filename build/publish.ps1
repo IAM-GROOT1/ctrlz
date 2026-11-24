@@ -46,7 +46,7 @@ New-Item -ItemType Directory -Force -Path $publishDir | Out-Null
     -p:IncludeNativeLibrariesForSelfExtract=true `
     -p:IncludeAllContentForSelfExtract=true `
     -p:EnableCompressionInSingleFile=true `
-    -p:SatelliteResourceLanguages=en%3Bar%3Bde `
+    -p:SatelliteResourceLanguages=en%3Bar%3Bes%3Bde `
     -p:DebugType=None `
     -p:DebugSymbols=false `
     -p:Version=$Version `

@@ -1,0 +1,3081 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Main_Minimize" xml:space="preserve">
+    <value>Minimizar</value>
+  </data>
+  <data name="Main_Maximize" xml:space="preserve">
+    <value>Maximizar</value>
+  </data>
+  <data name="Main_Close" xml:space="preserve">
+    <value>Cerrar</value>
+  </data>
+  <data name="Main_WORKSPACE" xml:space="preserve">
+    <value>ÁREA DE TRABAJO</value>
+  </data>
+  <data name="Main_DISCOVER" xml:space="preserve">
+    <value>DESCUBRIR</value>
+  </data>
+  <data name="Main_BROWSERS" xml:space="preserve">
+    <value>NAVEGADORES</value>
+  </data>
+  <data name="Main_LocalFirstNoAccount" xml:space="preserve">
+    <value>Local primero · sin cuenta</value>
+  </data>
+  <data name="AddApp_DirectLink" xml:space="preserve">
+    <value>Enlace directo</value>
+  </data>
+  <data name="AddApp_GitHubRelease" xml:space="preserve">
+    <value>Versión de GitHub</value>
+  </data>
+  <data name="AddApp_LocalFile" xml:space="preserve">
+    <value>Archivo local</value>
+  </data>
+  <data name="AddApp_APPDETAILS" xml:space="preserve">
+    <value>DETALLES DE LA APLICACIÓN</value>
+  </data>
+  <data name="AddApp_Name" xml:space="preserve">
+    <value>Nombre</value>
+  </data>
+  <data name="AddApp_PublisherOptional" xml:space="preserve">
+    <value>Editor (opcional)</value>
+  </data>
+  <data name="AddApp_Category" xml:space="preserve">
+    <value>Categoría</value>
+  </data>
+  <data name="AddApp_INSTALLERSOURCE" xml:space="preserve">
+    <value>ORIGEN DEL INSTALADOR</value>
+  </data>
+  <data name="AddApp_DownloadURL" xml:space="preserve">
+    <value>URL de descarga</value>
+  </data>
+  <data name="AddApp_SaveAsFileNameOptional" xml:space="preserve">
+    <value>Guardar con el nombre de archivo (opcional)</value>
+  </data>
+  <data name="AddApp_TheAppDownloadsAtInstall" xml:space="preserve">
+    <value>La aplicación se descarga al instalar. Añada los modificadores a la derecha para que se instale de forma silenciosa.</value>
+  </data>
+  <data name="AddApp_Repository" xml:space="preserve">
+    <value>Repositorio</value>
+  </data>
+  <data name="AddApp_GitHubRepository" xml:space="preserve">
+    <value>Repositorio de GitHub</value>
+  </data>
+  <data name="AddApp_FindLatest" xml:space="preserve">
+    <value>Buscar la más reciente</value>
+  </data>
+  <data name="AddApp_ReleaseAssets" xml:space="preserve">
+    <value>Archivos de la versión</value>
+  </data>
+  <data name="AddApp_FindTheLatestReleaseTo" xml:space="preserve">
+    <value>Busque la versión más reciente para elegir un archivo de Windows.</value>
+  </data>
+  <data name="AddApp_AssetHandling" xml:space="preserve">
+    <value>Tratamiento del archivo</value>
+  </data>
+  <data name="AddApp_TheLatestReleaseIsChecked" xml:space="preserve">
+    <value>La versión más reciente se vuelve a comprobar al instalar; se reutiliza el tipo de archivo elegido, no la versión antigua.</value>
+  </data>
+  <data name="AddApp_InstallerFile" xml:space="preserve">
+    <value>Archivo del instalador</value>
+  </data>
+  <data name="AddApp_InstallerPath" xml:space="preserve">
+    <value>Ruta del instalador</value>
+  </data>
+  <data name="AddApp_File" xml:space="preserve">
+    <value>Archivo…</value>
+  </data>
+  <data name="AddApp_Folder" xml:space="preserve">
+    <value>Carpeta…</value>
+  </data>
+  <data name="AddApp_KeepTheUSBDriveOr" xml:space="preserve">
+    <value>Mantenga la unidad USB o la carpeta disponible al ejecutar la instalación.</value>
+  </data>
+  <data name="AddApp_NotesHeading" xml:space="preserve">
+    <value>NOTAS</value>
+  </data>
+  <data name="AddApp_Notes" xml:space="preserve">
+    <value>Notas</value>
+  </data>
+  <data name="AddApp_SILENTINSTALL" xml:space="preserve">
+    <value>INSTALACIÓN SILENCIOSA</value>
+  </data>
+  <data name="AddApp_CTRLZDetectsTheInstaller" xml:space="preserve">
+    <value>CTRL+Z detecta el tipo de instalador y elige un conjunto de modificadores conocido. Los modificadores personalizados siempre tienen prioridad.</value>
+  </data>
+  <data name="AddApp_Detected" xml:space="preserve">
+    <value>Detectado</value>
+  </data>
+  <data name="AddApp_SilentSwitches" xml:space="preserve">
+    <value>Modificadores silenciosos</value>
+  </data>
+  <data name="AddApp_InspectInstaller" xml:space="preserve">
+    <value>Inspeccionar instalador</value>
+  </data>
+  <data name="AddApp_UseRecommended" xml:space="preserve">
+    <value>Usar los recomendados</value>
+  </data>
+  <data name="AddApp_Test" xml:space="preserve">
+    <value>Probar…</value>
+  </data>
+  <data name="AddApp_CommandPreview" xml:space="preserve">
+    <value>Vista previa del comando</value>
+  </data>
+  <data name="AddApp_SHA256Optional" xml:space="preserve">
+    <value>SHA-256 (opcional)</value>
+  </data>
+  <data name="AddApp_GitHubReleaseDigestsAreFilled" xml:space="preserve">
+    <value>Los resúmenes de las versiones de GitHub se rellenan automáticamente cuando están disponibles. winget verifica sus propios manifiestos.</value>
+  </data>
+  <data name="AddApp_TestOutput" xml:space="preserve">
+    <value>Resultado de la prueba</value>
+  </data>
+  <data name="AddApp_PasswordsAndCookiesAreExcluded" xml:space="preserve">
+    <value>Las contraseñas y las cookies se excluyen de las copias de seguridad de los navegadores. Las descargas de instaladores se verifican cuando hay un hash disponible.</value>
+  </data>
+  <data name="AddApp_TheAppIsSavedIn" xml:space="preserve">
+    <value>La aplicación solo se guarda en el perfil. Los instaladores no se descargan hasta el momento de instalar.</value>
+  </data>
+  <data name="AddApp_Clear" xml:space="preserve">
+    <value>Borrar</value>
+  </data>
+  <data name="AppEditor_EditApp" xml:space="preserve">
+    <value>Editar aplicación</value>
+  </data>
+  <data name="AppEditor_Close" xml:space="preserve">
+    <value>Cerrar</value>
+  </data>
+  <data name="AppEditor_IDENTITY" xml:space="preserve">
+    <value>IDENTIDAD</value>
+  </data>
+  <data name="AppEditor_Name" xml:space="preserve">
+    <value>Nombre</value>
+  </data>
+  <data name="AppEditor_Publisher" xml:space="preserve">
+    <value>Editor</value>
+  </data>
+  <data name="AppEditor_Category" xml:space="preserve">
+    <value>Categoría</value>
+  </data>
+  <data name="AppEditor_SOURCE" xml:space="preserve">
+    <value>ORIGEN</value>
+  </data>
+  <data name="AppEditor_InstallFrom" xml:space="preserve">
+    <value>Instalar desde</value>
+  </data>
+  <data name="AppEditor_WingetPackageId" xml:space="preserve">
+    <value>Id. del paquete de winget</value>
+  </data>
+  <data name="AppEditor_UseTheExactIdFor" xml:space="preserve">
+    <value>Use el id. exacto, por ejemplo Mozilla.Firefox o 7zip.7zip.</value>
+  </data>
+  <data name="AppEditor_DownloadURL" xml:space="preserve">
+    <value>URL de descarga</value>
+  </data>
+  <data name="AppEditor_FileNameOverrideOptional" xml:space="preserve">
+    <value>Nombre de archivo alternativo (opcional)</value>
+  </data>
+  <data name="AppEditor_RepositoryOwnerProject" xml:space="preserve">
+    <value>Repositorio (propietario/proyecto)</value>
+  </data>
+  <data name="AppEditor_AssetNameBlankBestWindows" xml:space="preserve">
+    <value>Nombre del archivo (vacío = el mejor archivo para Windows)</value>
+  </data>
+  <data name="AppEditor_AssetNameBlankMeansThe" xml:space="preserve">
+    <value>Nombre del archivo (vacío significa el mejor archivo para Windows)</value>
+  </data>
+  <data name="AppEditor_AssetType" xml:space="preserve">
+    <value>Tipo de archivo</value>
+  </data>
+  <data name="AppEditor_InstallerPath" xml:space="preserve">
+    <value>Ruta del instalador</value>
+  </data>
+  <data name="AppEditor_LocalInstallerPath" xml:space="preserve">
+    <value>Ruta del instalador local</value>
+  </data>
+  <data name="AppEditor_Browse" xml:space="preserve">
+    <value>Examinar…</value>
+  </data>
+  <data name="AppEditor_INSTALLBEHAVIOUR" xml:space="preserve">
+    <value>COMPORTAMIENTO DE INSTALACIÓN</value>
+  </data>
+  <data name="AppEditor_SilentSwitchesBlankAutoDetect" xml:space="preserve">
+    <value>Modificadores silenciosos (vacío = detección automática al instalar)</value>
+  </data>
+  <data name="AppEditor_SilentSwitchesBlankMeansAuto" xml:space="preserve">
+    <value>Modificadores silenciosos (vacío significa detección automática al instalar)</value>
+  </data>
+  <data name="AppEditor_SHA256OptionalDirectGitHub" xml:space="preserve">
+    <value>SHA-256 (opcional; descargas directas, de GitHub o locales)</value>
+  </data>
+  <data name="AppEditor_SHA256Optional" xml:space="preserve">
+    <value>SHA-256 (opcional)</value>
+  </data>
+  <data name="AppEditor_Notes" xml:space="preserve">
+    <value>Notas</value>
+  </data>
+  <data name="AppEditor_StoredAsPlainTextIn" xml:space="preserve">
+    <value>Se guarda como texto sin formato en el archivo del perfil. No escriba contraseñas aquí.</value>
+  </data>
+  <data name="AppEditor_IncludeThisAppInInstalls" xml:space="preserve">
+    <value>Incluir esta aplicación en las instalaciones</value>
+  </data>
+  <data name="AppEditor_AFTERINSTALL" xml:space="preserve">
+    <value>DESPUÉS DE INSTALAR</value>
+  </data>
+  <data name="AppEditor_ProgramToRunBlankNo" xml:space="preserve">
+    <value>Programa que se ejecutará (vacío = sin comando)</value>
+  </data>
+  <data name="AppEditor_ProgramToRunBlankMeans" xml:space="preserve">
+    <value>Programa que se ejecutará (vacío significa sin comando)</value>
+  </data>
+  <data name="AppEditor_ArgumentsOnePerLineNo" xml:space="preserve">
+    <value>Argumentos, uno por línea (no se usa ningún shell)</value>
+  </data>
+  <data name="AppEditor_ArgumentsOnePerLine" xml:space="preserve">
+    <value>Argumentos, uno por línea</value>
+  </data>
+  <data name="AppEditor_WorkingDirectoryOptional" xml:space="preserve">
+    <value>Directorio de trabajo (opcional)</value>
+  </data>
+  <data name="AppEditor_TimeoutSeconds" xml:space="preserve">
+    <value>Tiempo de espera (segundos)</value>
+  </data>
+  <data name="AppEditor_TimeoutInSeconds" xml:space="preserve">
+    <value>Tiempo de espera en segundos</value>
+  </data>
+  <data name="AppEditor_RunThisCommandAsAdministrator" xml:space="preserve">
+    <value>Ejecutar este comando como administrador</value>
+  </data>
+  <data name="AppEditor_RunThisCommandAfterThe" xml:space="preserve">
+    <value>Ejecutar este comando después de instalar la aplicación</value>
+  </data>
+  <data name="AppEditor_CommandsRunWithoutAShell" xml:space="preserve">
+    <value>Los comandos se ejecutan sin shell y se muestran completos en la vista previa de la instalación.</value>
+  </data>
+  <data name="AppEditor_ThisProfileDidNotOriginate" xml:space="preserve">
+    <value>Este perfil no se creó en este equipo, así que sus comandos no se pueden editar aquí. Revíselos en la pantalla de revisión antes de que puedan ejecutarse.</value>
+  </data>
+  <data name="AppEditor_Cancel" xml:space="preserve">
+    <value>Cancelar</value>
+  </data>
+  <data name="AppEditor_SaveChanges" xml:space="preserve">
+    <value>Guardar cambios</value>
+  </data>
+  <data name="AppUpdates_Pinned" xml:space="preserve">
+    <value>Anclada</value>
+  </data>
+  <data name="AppUpdates_IgnoreThisVersion" xml:space="preserve">
+    <value>Omitir esta versión</value>
+  </data>
+  <data name="AppUpdates_CheckAgain" xml:space="preserve">
+    <value>Volver a comprobar</value>
+  </data>
+  <data name="AppUpdates_UpdateSelected" xml:space="preserve">
+    <value>Actualizar selección</value>
+  </data>
+  <data name="AppUpdates_UpdateAll" xml:space="preserve">
+    <value>Actualizar todo</value>
+  </data>
+  <data name="AppUpdates_Cancel" xml:space="preserve">
+    <value>Cancelar</value>
+  </data>
+  <data name="AppUpdates_ShowIgnoredVersions" xml:space="preserve">
+    <value>Mostrar versiones omitidas</value>
+  </data>
+  <data name="AppUpdates_UpdatesComeFromWingetPinned" xml:space="preserve">
+    <value>Las actualizaciones vienen de winget. Las aplicaciones ancladas nunca forman parte de «Actualizar todo».</value>
+  </data>
+  <data name="AppUpdates_NoUpdatesToShowApps" xml:space="preserve">
+    <value>No hay actualizaciones que mostrar. Las aplicaciones que winget no conoce, o cuya versión no puede leer, no aparecen aquí.</value>
+  </data>
+  <data name="AppUpdates_FROMGITHUBRELEASES" xml:space="preserve">
+    <value>DE VERSIONES DE GITHUB</value>
+  </data>
+  <data name="AppUpdates_Update" xml:space="preserve">
+    <value>Actualizar</value>
+  </data>
+  <data name="AppUpdates_AppsInstalledFromAGitHub" xml:space="preserve">
+    <value>Aplicaciones instaladas por CTRL+Z desde una versión de GitHub, comparadas con la versión más reciente del repositorio.</value>
+  </data>
+  <data name="Browsers_Custom" xml:space="preserve">
+    <value>personalizado</value>
+  </data>
+  <data name="Browsers_ProfileFolderNotFoundUse" xml:space="preserve">
+    <value>No se encontró la carpeta del perfil. Use «Añadir navegador personalizado» e indique a CTRL+Z la carpeta que contiene Local State (Chromium) o profiles.ini (Firefox).</value>
+  </data>
+  <data name="Browsers_AllProfiles" xml:space="preserve">
+    <value>Todos los perfiles</value>
+  </data>
+  <data name="Browsers_None" xml:space="preserve">
+    <value>Ninguno</value>
+  </data>
+  <data name="Browsers_BackUp" xml:space="preserve">
+    <value>Copia de seguridad</value>
+  </data>
+  <data name="Browsers_Restore" xml:space="preserve">
+    <value>Restaurar</value>
+  </data>
+  <data name="Browsers_AddCustomBrowser" xml:space="preserve">
+    <value>Añadir navegador personalizado</value>
+  </data>
+  <data name="Browsers_Refresh" xml:space="preserve">
+    <value>Actualizar</value>
+  </data>
+  <data name="Browsers_BROWSERS" xml:space="preserve">
+    <value>NAVEGADORES</value>
+  </data>
+  <data name="Browsers_ChooseABrowserThenIts" xml:space="preserve">
+    <value>Elija un navegador y después sus perfiles</value>
+  </data>
+  <data name="Browsers_NoFirefoxOrChromiumBrowsers" xml:space="preserve">
+    <value>No se detectó ningún navegador Firefox ni Chromium</value>
+  </data>
+  <data name="Browsers_IfYouUseALess" xml:space="preserve">
+    <value>Si usa una variante menos común, indique a CTRL+Z la raíz de sus perfiles: una carpeta Local State de Chromium o una carpeta de Firefox que contenga profiles.ini.</value>
+  </data>
+  <data name="Browsers_BackupHeading" xml:space="preserve">
+    <value>COPIA DE SEGURIDAD</value>
+  </data>
+  <data name="Browsers_Destination" xml:space="preserve">
+    <value>Destino</value>
+  </data>
+  <data name="Browsers_OpenTheBackupFolder" xml:space="preserve">
+    <value>Abrir la carpeta de copias de seguridad</value>
+  </data>
+  <data name="Browsers_OpenFolder" xml:space="preserve">
+    <value>Abrir carpeta</value>
+  </data>
+  <data name="Browsers_ChangeFolder" xml:space="preserve">
+    <value>Cambiar carpeta</value>
+  </data>
+  <data name="Browsers_PasswordOptional" xml:space="preserve">
+    <value>Contraseña (opcional)</value>
+  </data>
+  <data name="Browsers_BackupPasswordOptional" xml:space="preserve">
+    <value>Contraseña de la copia de seguridad (opcional)</value>
+  </data>
+  <data name="Browsers_AES256EncryptedZIPWindows" xml:space="preserve">
+    <value>ZIP cifrado con AES-256. El Explorador de archivos de Windows no puede abrir archivos cifrados; use CTRL+Z para restaurar. Déjela vacía para un ZIP normal.</value>
+  </data>
+  <data name="Browsers_EstimatedBackupSizeActualZIP" xml:space="preserve">
+    <value>Tamaño estimado de la copia de seguridad. El ZIP real suele ser más pequeño.</value>
+  </data>
+  <data name="Browsers_Excluded" xml:space="preserve">
+    <value>Excluido</value>
+  </data>
+  <data name="Browsers_BackUpSelected" xml:space="preserve">
+    <value>Copiar la selección</value>
+  </data>
+  <data name="Browsers_Cancel" xml:space="preserve">
+    <value>Cancelar</value>
+  </data>
+  <data name="Browsers_PasswordsAndCookiesAreNever" xml:space="preserve">
+    <value>Las contraseñas y las cookies nunca se copian. Se excluyen las bases de datos de inicio de sesión y claves de Firefox y Login Data/Cookies de Chromium. Cierre el navegador cuando se le pida para que los archivos no estén bloqueados.</value>
+  </data>
+  <data name="Browsers_ARCHIVE" xml:space="preserve">
+    <value>ARCHIVO</value>
+  </data>
+  <data name="Browsers_CTRLZBrowserBackup" xml:space="preserve">
+    <value>Copia de seguridad de navegador de CTRL+Z</value>
+  </data>
+  <data name="Browsers_BackupArchiveToRestore" xml:space="preserve">
+    <value>Archivo de copia de seguridad que se restaurará</value>
+  </data>
+  <data name="Browsers_Browse" xml:space="preserve">
+    <value>Examinar…</value>
+  </data>
+  <data name="Browsers_Password" xml:space="preserve">
+    <value>Contraseña</value>
+  </data>
+  <data name="Browsers_ArchivePassword" xml:space="preserve">
+    <value>Contraseña del archivo</value>
+  </data>
+  <data name="Browsers_Inspect" xml:space="preserve">
+    <value>Ver contenido</value>
+  </data>
+  <data name="Browsers_Verify" xml:space="preserve">
+    <value>Verificar</value>
+  </data>
+  <data name="Browsers_ReadsEveryFileInThe" xml:space="preserve">
+    <value>Lee y comprueba cada archivo de la copia de seguridad, sin restaurar nada.</value>
+  </data>
+  <data name="Browsers_PROFILESINTHISARCHIVE" xml:space="preserve">
+    <value>PERFILES DE ESTE ARCHIVO</value>
+  </data>
+  <data name="Browsers_All" xml:space="preserve">
+    <value>Todos</value>
+  </data>
+  <data name="Browsers_RestoreHeading" xml:space="preserve">
+    <value>RESTAURAR</value>
+  </data>
+  <data name="Browsers_TargetBrowser" xml:space="preserve">
+    <value>Navegador de destino</value>
+  </data>
+  <data name="Browsers_TheBrowserMustBeInstalled" xml:space="preserve">
+    <value>El navegador debe estar instalado y cerrado. Los perfiles existentes nunca se eliminan; CTRL+Z solo escribe los archivos del archivo.</value>
+  </data>
+  <data name="Browsers_RestoreAsNewProfiles" xml:space="preserve">
+    <value>Restaurar como perfiles nuevos</value>
+  </data>
+  <data name="Browsers_RecommendedNewProfileFoldersAre" xml:space="preserve">
+    <value>Recomendado. Se crean carpetas de perfil nuevas y se registran en la lista de perfiles del navegador (Local State o profiles.ini), así que los perfiles actuales quedan intactos. Desactívelo para combinarlos con los nombres de perfil originales.</value>
+  </data>
+  <data name="Browsers_CookiesAndSavedPasswordsAre" xml:space="preserve">
+    <value>Las cookies y las contraseñas guardadas no están en el archivo, así que tendrá que iniciar sesión de nuevo en el equipo nuevo. Las extensiones y su configuración se restauran.</value>
+  </data>
+  <data name="Browsers_RestoreSelectedProfiles" xml:space="preserve">
+    <value>Restaurar los perfiles seleccionados</value>
+  </data>
+  <data name="Catalog_OpenSource" xml:space="preserve">
+    <value>código abierto</value>
+  </data>
+  <data name="Catalog_OpenProjectPage" xml:space="preserve">
+    <value>Abrir la página del proyecto</value>
+  </data>
+  <data name="Catalog_SearchTheCatalog" xml:space="preserve">
+    <value>Buscar en el catálogo</value>
+  </data>
+  <data name="Catalog_Search300RecommendedApps" xml:space="preserve">
+    <value>Buscar entre más de 300 aplicaciones recomendadas</value>
+  </data>
+  <data name="Catalog_Category" xml:space="preserve">
+    <value>Categoría</value>
+  </data>
+  <data name="Catalog_Refresh" xml:space="preserve">
+    <value>Actualizar</value>
+  </data>
+  <data name="Catalog_NoCatalogEntriesToShow" xml:space="preserve">
+    <value>No hay entradas del catálogo que mostrar</value>
+  </data>
+  <data name="Catalog_RefreshCatalog" xml:space="preserve">
+    <value>Actualizar catálogo</value>
+  </data>
+  <data name="Catalog_SelectAll" xml:space="preserve">
+    <value>Seleccionar todo</value>
+  </data>
+  <data name="Catalog_Clear" xml:space="preserve">
+    <value>Borrar</value>
+  </data>
+  <data name="Catalog_AddSelected" xml:space="preserve">
+    <value>Añadir selección</value>
+  </data>
+  <data name="CommandReview_ReviewCommands" xml:space="preserve">
+    <value>Revisar comandos</value>
+  </data>
+  <data name="CommandReview_ReviewPostInstallCommands" xml:space="preserve">
+    <value>Revisar comandos posteriores a la instalación</value>
+  </data>
+  <data name="CommandReview_Close" xml:space="preserve">
+    <value>Cerrar</value>
+  </data>
+  <data name="CommandReview_Previous" xml:space="preserve">
+    <value>Anterior</value>
+  </data>
+  <data name="CommandReview_Next" xml:space="preserve">
+    <value>Siguiente</value>
+  </data>
+  <data name="CommandReview_ThisProfileIsMine" xml:space="preserve">
+    <value>Este perfil es mío…</value>
+  </data>
+  <data name="CommandReview_Done" xml:space="preserve">
+    <value>Listo</value>
+  </data>
+  <data name="CommandReview_ApproveThisCommand" xml:space="preserve">
+    <value>Aprobar este comando</value>
+  </data>
+  <data name="Dialog_Close" xml:space="preserve">
+    <value>Cerrar</value>
+  </data>
+  <data name="Drift_ProfileDrift" xml:space="preserve">
+    <value>Diferencias del perfil</value>
+  </data>
+  <data name="Drift_AddToProfile" xml:space="preserve">
+    <value>Añadir al perfil</value>
+  </data>
+  <data name="Drift_Install" xml:space="preserve">
+    <value>Instalar</value>
+  </data>
+  <data name="Drift_Remove" xml:space="preserve">
+    <value>Quitar</value>
+  </data>
+  <data name="Drift_Ignore" xml:space="preserve">
+    <value>Omitir</value>
+  </data>
+  <data name="Drift_Close" xml:space="preserve">
+    <value>Cerrar</value>
+  </data>
+  <data name="Drift_INYOURPROFILENOTINSTALLED" xml:space="preserve">
+    <value>EN SU PERFIL, NO INSTALADAS</value>
+  </data>
+  <data name="Drift_INSTALLEDNOTINYOURPROFILE" xml:space="preserve">
+    <value>INSTALADAS, NO EN SU PERFIL</value>
+  </data>
+  <data name="Drift_OUTDATED" xml:space="preserve">
+    <value>DESACTUALIZADAS</value>
+  </data>
+  <data name="Drift_NoDifferencesFoundYourSaved" xml:space="preserve">
+    <value>No se encontraron diferencias. Su perfil guardado coincide con lo instalado en este equipo.</value>
+  </data>
+  <data name="Drift_MatchingUsesTheWingetPackage" xml:space="preserve">
+    <value>La coincidencia usa primero el id. del paquete de winget y después el nombre y el editor de la aplicación. Las filas «Dudosas» se dejan para que usted decida en lugar de adivinar.</value>
+  </data>
+  <data name="Drift_ReCheck" xml:space="preserve">
+    <value>Volver a comprobar</value>
+  </data>
+  <data name="Install_StartOver" xml:space="preserve">
+    <value>Empezar de nuevo</value>
+  </data>
+  <data name="Install_RestartRequired" xml:space="preserve">
+    <value>Reinicio necesario</value>
+  </data>
+  <data name="Install_SomeInstallersFinishedButNeed" xml:space="preserve">
+    <value>Algunos instaladores terminaron pero necesitan un reinicio para completarse.</value>
+  </data>
+  <data name="Install_RestartWindows" xml:space="preserve">
+    <value>Reiniciar Windows</value>
+  </data>
+  <data name="Install_RetryFailed" xml:space="preserve">
+    <value>Reintentar las fallidas</value>
+  </data>
+  <data name="Install_Pause" xml:space="preserve">
+    <value>Pausar</value>
+  </data>
+  <data name="Install_APP" xml:space="preserve">
+    <value>APLICACIÓN</value>
+  </data>
+  <data name="Install_SOURCE" xml:space="preserve">
+    <value>ORIGEN</value>
+  </data>
+  <data name="Install_STATUS" xml:space="preserve">
+    <value>ESTADO</value>
+  </data>
+  <data name="Install_NothingQueuedYet" xml:space="preserve">
+    <value>Todavía no hay nada en cola</value>
+  </data>
+  <data name="Install_AddAppsToAProfile" xml:space="preserve">
+    <value>Primero añada aplicaciones a un perfil. La cola de instalación se crea a partir de las aplicaciones activadas de ese perfil.</value>
+  </data>
+  <data name="Install_OpenMyApps" xml:space="preserve">
+    <value>Abrir Mis aplicaciones</value>
+  </data>
+  <data name="Install_ScanThisPC" xml:space="preserve">
+    <value>Examinar este equipo</value>
+  </data>
+  <data name="Install_BrowseCatalog" xml:space="preserve">
+    <value>Explorar el catálogo</value>
+  </data>
+  <data name="Install_LIVELOG" xml:space="preserve">
+    <value>REGISTRO EN DIRECTO</value>
+  </data>
+  <data name="Install_AutoScroll" xml:space="preserve">
+    <value>Desplazamiento automático</value>
+  </data>
+  <data name="Install_Clear" xml:space="preserve">
+    <value>Borrar</value>
+  </data>
+  <data name="Install_OpenLog" xml:space="preserve">
+    <value>Abrir registro</value>
+  </data>
+  <data name="Install_Hide" xml:space="preserve">
+    <value>Ocultar</value>
+  </data>
+  <data name="Install_ShowLiveLog" xml:space="preserve">
+    <value>Mostrar registro en directo</value>
+  </data>
+  <data name="MyApps_IncludeInInstalls" xml:space="preserve">
+    <value>Incluir en las instalaciones</value>
+  </data>
+  <data name="MyApps_ThisAppHasANote" xml:space="preserve">
+    <value>Esta aplicación tiene una nota</value>
+  </data>
+  <data name="MyApps_NeedsId" xml:space="preserve">
+    <value>Necesita id.</value>
+  </data>
+  <data name="MyApps_MoveEarlier" xml:space="preserve">
+    <value>Mover antes</value>
+  </data>
+  <data name="MyApps_MoveLater" xml:space="preserve">
+    <value>Mover después</value>
+  </data>
+  <data name="MyApps_EditApp" xml:space="preserve">
+    <value>Editar aplicación</value>
+  </data>
+  <data name="MyApps_RemoveFromProfile" xml:space="preserve">
+    <value>Quitar del perfil</value>
+  </data>
+  <data name="MyApps_Profile" xml:space="preserve">
+    <value>Perfil</value>
+  </data>
+  <data name="MyApps_NewProfile" xml:space="preserve">
+    <value>Nuevo perfil</value>
+  </data>
+  <data name="MyApps_RenameProfile" xml:space="preserve">
+    <value>Cambiar nombre del perfil</value>
+  </data>
+  <data name="MyApps_ImportProfile" xml:space="preserve">
+    <value>Importar perfil</value>
+  </data>
+  <data name="MyApps_ExportProfile" xml:space="preserve">
+    <value>Exportar perfil</value>
+  </data>
+  <data name="MyApps_DeleteProfile" xml:space="preserve">
+    <value>Eliminar perfil</value>
+  </data>
+  <data name="MyApps_Install" xml:space="preserve">
+    <value>Instalar</value>
+  </data>
+  <data name="MyApps_SearchApps" xml:space="preserve">
+    <value>Buscar aplicaciones</value>
+  </data>
+  <data name="MyApps_SearchThisProfile" xml:space="preserve">
+    <value>Buscar en este perfil</value>
+  </data>
+  <data name="MyApps_Source" xml:space="preserve">
+    <value>Origen</value>
+  </data>
+  <data name="MyApps_Category" xml:space="preserve">
+    <value>Categoría</value>
+  </data>
+  <data name="MyApps_AddApp" xml:space="preserve">
+    <value>Añadir aplicación</value>
+  </data>
+  <data name="MyApps_ImportList" xml:space="preserve">
+    <value>Importar lista</value>
+  </data>
+  <data name="MyApps_AddAppsFromAWinget" xml:space="preserve">
+    <value>Añadir aplicaciones desde un archivo exportado de winget, Scoop o Chocolatey</value>
+  </data>
+  <data name="MyApps_CheckDrift" xml:space="preserve">
+    <value>Comprobar diferencias</value>
+  </data>
+  <data name="MyApps_APP" xml:space="preserve">
+    <value>APLICACIÓN</value>
+  </data>
+  <data name="MyApps_SourceHeading" xml:space="preserve">
+    <value>ORIGEN</value>
+  </data>
+  <data name="MyApps_INSTALLMETHOD" xml:space="preserve">
+    <value>MÉTODO DE INSTALACIÓN</value>
+  </data>
+  <data name="MyApps_ThisProfileIsEmpty" xml:space="preserve">
+    <value>Este perfil está vacío</value>
+  </data>
+  <data name="MyApps_ScanThisPCToBuild" xml:space="preserve">
+    <value>Examine este equipo para crear la lista automáticamente, o explore el catálogo y añada aplicaciones a mano.</value>
+  </data>
+  <data name="MyApps_ScanThisPC" xml:space="preserve">
+    <value>Examinar este equipo</value>
+  </data>
+  <data name="MyApps_BrowseCatalog" xml:space="preserve">
+    <value>Explorar el catálogo</value>
+  </data>
+  <data name="MyApps_SelectAll" xml:space="preserve">
+    <value>Seleccionar todo</value>
+  </data>
+  <data name="MyApps_AddApps" xml:space="preserve">
+    <value>Añadir aplicaciones</value>
+  </data>
+  <data name="Preview_PreviewInstall" xml:space="preserve">
+    <value>Vista previa de la instalación</value>
+  </data>
+  <data name="Preview_Switches" xml:space="preserve">
+    <value>Modificadores:</value>
+  </data>
+  <data name="Preview_AfterInstallRuns" xml:space="preserve">
+    <value>Después de instalar, ejecuta:</value>
+  </data>
+  <data name="Preview_Close" xml:space="preserve">
+    <value>Cerrar</value>
+  </data>
+  <data name="Preview_NothingHasBeenInstalledYet" xml:space="preserve">
+    <value>Todavía no se ha instalado nada. La prueba en seco solo consulta: comprueba los id. de winget, los archivos de las versiones y los enlaces, y lee los archivos locales. Nunca descarga un instalador al disco ni ejecuta ninguno.</value>
+  </data>
+  <data name="Preview_DryRun" xml:space="preserve">
+    <value>Prueba en seco</value>
+  </data>
+  <data name="Preview_ExportReport" xml:space="preserve">
+    <value>Exportar informe</value>
+  </data>
+  <data name="Preview_ReviewCommands" xml:space="preserve">
+    <value>Revisar comandos</value>
+  </data>
+  <data name="Preview_Cancel" xml:space="preserve">
+    <value>Cancelar</value>
+  </data>
+  <data name="Preview_InstallNow" xml:space="preserve">
+    <value>Instalar ahora</value>
+  </data>
+  <data name="Readiness_Handled" xml:space="preserve">
+    <value>Resuelto</value>
+  </data>
+  <data name="Readiness_Ignore" xml:space="preserve">
+    <value>Omitir</value>
+  </data>
+  <data name="Readiness_UnIgnore" xml:space="preserve">
+    <value>Dejar de omitir</value>
+  </data>
+  <data name="Readiness_ReviewDriftInMyApps" xml:space="preserve">
+    <value>Revisar diferencias en Mis aplicaciones</value>
+  </data>
+  <data name="Readiness_ReScan" xml:space="preserve">
+    <value>Volver a examinar</value>
+  </data>
+  <data name="Readiness_Cancel" xml:space="preserve">
+    <value>Cancelar</value>
+  </data>
+  <data name="Readiness_ShowHandledAndIgnored" xml:space="preserve">
+    <value>Mostrar resueltos y omitidos</value>
+  </data>
+  <data name="Readiness_NothingHereIsUploadedAnd" xml:space="preserve">
+    <value>Aquí no se sube nada y no se cambia ningún archivo.</value>
+  </data>
+  <data name="Readiness_NothingToShowRunA" xml:space="preserve">
+    <value>No hay nada que mostrar. Ejecute una comprobación o active «Mostrar resueltos y omitidos» para ver los elementos que ya trató.</value>
+  </data>
+  <data name="Readiness_WhatThisDoesNotCover" xml:space="preserve">
+    <value>Lo que esto no cubre: CTRL+Z no puede ver archivos dentro de aplicaciones de copia de seguridad protegidas con contraseña, archivos solo en la nube que no están descargados ni datos guardados solo en una cuenta en línea. Además, esta página no hace ninguna copia de seguridad por sí misma: use la página Navegadores y sus propias copias externas para ello.</value>
+  </data>
+  <data name="Scan_IncludeApp" xml:space="preserve">
+    <value>Incluir aplicación</value>
+  </data>
+  <data name="Scan_Fix" xml:space="preserve">
+    <value>Corregir</value>
+  </data>
+  <data name="Scan_AssignAWingetPackageId" xml:space="preserve">
+    <value>Asignar manualmente un id. de paquete de winget</value>
+  </data>
+  <data name="Scan_ScanThisPC" xml:space="preserve">
+    <value>Examinar este equipo</value>
+  </data>
+  <data name="Scan_CancelScan" xml:space="preserve">
+    <value>Cancelar examen</value>
+  </data>
+  <data name="Scan_SearchPrograms" xml:space="preserve">
+    <value>Buscar programas</value>
+  </data>
+  <data name="Scan_FilterByCategory" xml:space="preserve">
+    <value>Filtrar por categoría</value>
+  </data>
+  <data name="Scan_Category" xml:space="preserve">
+    <value>Categoría</value>
+  </data>
+  <data name="Scan_Source" xml:space="preserve">
+    <value>Origen</value>
+  </data>
+  <data name="Scan_FilterByMatchStatus" xml:space="preserve">
+    <value>Filtrar por estado de coincidencia</value>
+  </data>
+  <data name="Scan_ShowAllAppsOnlyMatched" xml:space="preserve">
+    <value>Mostrar todas las aplicaciones, solo las que coinciden o solo las que no</value>
+  </data>
+  <data name="Scan_Total" xml:space="preserve">
+    <value> en total</value>
+  </data>
+  <data name="Scan_Matched" xml:space="preserve">
+    <value> con coincidencia</value>
+  </data>
+  <data name="Scan_Unmatched" xml:space="preserve">
+    <value> sin coincidencia</value>
+  </data>
+  <data name="Scan_ReadingInstalledPrograms" xml:space="preserve">
+    <value>Leyendo los programas instalados</value>
+  </data>
+  <data name="Scan_Cancel" xml:space="preserve">
+    <value>Cancelar</value>
+  </data>
+  <data name="Scan_StartWithThisPC" xml:space="preserve">
+    <value>Empiece por este equipo</value>
+  </data>
+  <data name="Scan_CTRLZReadsWingetThe" xml:space="preserve">
+    <value>CTRL+Z lee winget, el Registro de Windows y sus aplicaciones de Store, y busca el id. de paquete de winget de cada una. Nada sale de este equipo.</value>
+  </data>
+  <data name="Scan_F5AlsoStartsAScan" xml:space="preserve">
+    <value>F5 también inicia un examen</value>
+  </data>
+  <data name="Scan_PROGRAM" xml:space="preserve">
+    <value>PROGRAMA</value>
+  </data>
+  <data name="Scan_SourceHeading" xml:space="preserve">
+    <value>ORIGEN</value>
+  </data>
+  <data name="Scan_WINGETMATCH" xml:space="preserve">
+    <value>COINCIDENCIA EN WINGET</value>
+  </data>
+  <data name="Scan_NoProgramsMatchTheseFilters" xml:space="preserve">
+    <value>Ningún programa coincide con estos filtros.</value>
+  </data>
+  <data name="Scan_SelectAll" xml:space="preserve">
+    <value>Seleccionar todo</value>
+  </data>
+  <data name="Scan_SelectEveryAppVisibleUnder" xml:space="preserve">
+    <value>Seleccionar todas las aplicaciones visibles con el filtro de coincidencia actual</value>
+  </data>
+  <data name="Scan_SelectMatched" xml:space="preserve">
+    <value>Seleccionar las que coinciden</value>
+  </data>
+  <data name="Scan_SelectMatchedAppsVisibleUnder" xml:space="preserve">
+    <value>Seleccionar las aplicaciones con coincidencia visibles con los filtros actuales</value>
+  </data>
+  <data name="Scan_Clear" xml:space="preserve">
+    <value>Borrar</value>
+  </data>
+  <data name="Scan_SaveAsProfile" xml:space="preserve">
+    <value>Guardar como perfil…</value>
+  </data>
+  <data name="Scan_AddToMyApps" xml:space="preserve">
+    <value>Añadir a Mis aplicaciones</value>
+  </data>
+  <data name="Settings_APPEARANCE" xml:space="preserve">
+    <value>APARIENCIA</value>
+  </data>
+  <data name="Settings_Theme" xml:space="preserve">
+    <value>Tema</value>
+  </data>
+  <data name="Settings_System" xml:space="preserve">
+    <value>Sistema</value>
+  </data>
+  <data name="Settings_Light" xml:space="preserve">
+    <value>Claro</value>
+  </data>
+  <data name="Settings_Dark" xml:space="preserve">
+    <value>Oscuro</value>
+  </data>
+  <data name="Settings_LOCALDATA" xml:space="preserve">
+    <value>DATOS LOCALES</value>
+  </data>
+  <data name="Settings_ProfilesDownloadsArchivesAndLogs" xml:space="preserve">
+    <value>Los perfiles, las descargas, los archivos y los registros están en una sola carpeta. No se sube nada.</value>
+  </data>
+  <data name="Settings_OpenDataFolder" xml:space="preserve">
+    <value>Abrir carpeta de datos</value>
+  </data>
+  <data name="Settings_Profiles" xml:space="preserve">
+    <value>Perfiles</value>
+  </data>
+  <data name="Settings_Logs" xml:space="preserve">
+    <value>Registros</value>
+  </data>
+  <data name="Settings_INSTALLING" xml:space="preserve">
+    <value>INSTALACIÓN</value>
+  </data>
+  <data name="Settings_ShowAPreviewBeforeInstalling" xml:space="preserve">
+    <value>Mostrar una vista previa antes de instalar</value>
+  </data>
+  <data name="Settings_ThePreviewListsEachApp" xml:space="preserve">
+    <value>La vista previa muestra cada aplicación, su origen, modificadores y advertencias, y puede hacer una prueba en seco de toda la lista sin instalar nada.</value>
+  </data>
+  <data name="Settings_AddPortableAppsToThe" xml:space="preserve">
+    <value>Añadir las aplicaciones portátiles al menú Inicio</value>
+  </data>
+  <data name="Settings_PortableAppsGetAShortcut" xml:space="preserve">
+    <value>Las aplicaciones portátiles reciben un acceso directo en el menú Inicio, en CTRL+Z apps, dentro de su propio perfil de usuario.</value>
+  </data>
+  <data name="Settings_IncludeNotesInExports" xml:space="preserve">
+    <value>Incluir notas en las exportaciones</value>
+  </data>
+  <data name="Settings_OffByDefaultWhenOff" xml:space="preserve">
+    <value>Desactivado de forma predeterminada. Si está desactivado, los informes exportados muestran (nota oculta) en lugar de las notas de sus aplicaciones. Las notas nunca se escriben en el registro de la aplicación.</value>
+  </data>
+  <data name="Settings_UPDATES" xml:space="preserve">
+    <value>ACTUALIZACIONES</value>
+  </data>
+  <data name="Settings_CheckForUpdatesAutomatically" xml:space="preserve">
+    <value>Buscar actualizaciones automáticamente</value>
+  </data>
+  <data name="Settings_Channel" xml:space="preserve">
+    <value>Canal</value>
+  </data>
+  <data name="Settings_Stable" xml:space="preserve">
+    <value>Estable</value>
+  </data>
+  <data name="Settings_PreRelease" xml:space="preserve">
+    <value>Versión preliminar</value>
+  </data>
+  <data name="Settings_CheckForUpdates" xml:space="preserve">
+    <value>Buscar actualizaciones</value>
+  </data>
+  <data name="Settings_OnlyTheVersionCheckAnd" xml:space="preserve">
+    <value>Solo la comprobación de versión y la descarga de una actualización se comunican con GitHub. No se envía nada más y CTRL+Z no tiene telemetría.</value>
+  </data>
+  <data name="Settings_ABOUT" xml:space="preserve">
+    <value>ACERCA DE</value>
+  </data>
+  <data name="Settings_ALocalFirstWindowsReinstall" xml:space="preserve">
+    <value>Un asistente local para reinstalar Windows. Sin cuenta y sin telemetría. Las copias de seguridad de los navegadores excluyen por diseño las contraseñas y las cookies.</value>
+  </data>
+  <data name="Settings_AGPL30Only" xml:space="preserve">
+    <value>AGPL-3.0-only</value>
+  </data>
+  <data name="Settings_SourceCode" xml:space="preserve">
+    <value>Código fuente</value>
+  </data>
+  <data name="Settings_CopyDiagnostics" xml:space="preserve">
+    <value>Copiar diagnóstico</value>
+  </data>
+  <data name="Settings_SaveDiagnostics" xml:space="preserve">
+    <value>Guardar diagnóstico…</value>
+  </data>
+  <data name="Settings_SavesAZIPWithVersions" xml:space="preserve">
+    <value>Guarda un ZIP con versiones, opciones de configuración, recuentos y registros recientes sin rutas ni nombres. No se envía nada.</value>
+  </data>
+  <data name="Settings_WelcomeGuide" xml:space="preserve">
+    <value>Guía de bienvenida</value>
+  </data>
+  <data name="Settings_PACKAGEMANAGER" xml:space="preserve">
+    <value>ADMINISTRADOR DE PAQUETES</value>
+  </data>
+  <data name="Settings_WingetIsUsedForCatalog" xml:space="preserve">
+    <value>winget se usa para las aplicaciones del catálogo. CTRL+Z puede instalarlo en una instalación limpia de Windows con Microsoft App Installer.</value>
+  </data>
+  <data name="Settings_CheckAgain" xml:space="preserve">
+    <value>Volver a comprobar</value>
+  </data>
+  <data name="Settings_UpdateWinget" xml:space="preserve">
+    <value>Actualizar winget</value>
+  </data>
+  <data name="Settings_ApplicationLogHeading" xml:space="preserve">
+    <value>REGISTRO DE LA APLICACIÓN</value>
+  </data>
+  <data name="Settings_Refresh" xml:space="preserve">
+    <value>Actualizar</value>
+  </data>
+  <data name="Settings_OpenLog" xml:space="preserve">
+    <value>Abrir registro</value>
+  </data>
+  <data name="Settings_ApplicationLog" xml:space="preserve">
+    <value>Registro de la aplicación</value>
+  </data>
+  <data name="Tweaks_SetWindowsUpTheWay" xml:space="preserve">
+    <value>Configure Windows a su gusto</value>
+  </data>
+  <data name="Tweaks_EachTweakChangesAFew" xml:space="preserve">
+    <value>Cada ajuste cambia unas pocas opciones solo para su cuenta de Windows, sin derechos de administrador. CTRL+Z guarda antes lo que había, así que Deshacer lo restaura exactamente. Los ajustes aplicados se guardan en su perfil para la próxima reinstalación.</value>
+  </data>
+  <data name="Tweaks_RestartFileExplorer" xml:space="preserve">
+    <value>Reiniciar el Explorador de archivos</value>
+  </data>
+  <data name="Tweaks_SomeChangesShowUpOnly" xml:space="preserve">
+    <value>Algunos cambios solo aparecen después de reiniciar el Explorador de archivos.</value>
+  </data>
+  <data name="Tweaks_ApplyThem" xml:space="preserve">
+    <value>Aplicarlos</value>
+  </data>
+  <data name="UpdatePrompt_UpdateAvailable" xml:space="preserve">
+    <value>Actualización disponible</value>
+  </data>
+  <data name="UpdatePrompt_Close" xml:space="preserve">
+    <value>Cerrar</value>
+  </data>
+  <data name="UpdatePrompt_ViewReleaseOnGitHub" xml:space="preserve">
+    <value>Ver la versión en GitHub</value>
+  </data>
+  <data name="UpdatePrompt_SkipThisVersion" xml:space="preserve">
+    <value>Omitir esta versión</value>
+  </data>
+  <data name="UpdatePrompt_RemindMeLater" xml:space="preserve">
+    <value>Recordármelo más tarde</value>
+  </data>
+  <data name="UpdatePrompt_UpdateNow" xml:space="preserve">
+    <value>Actualizar ahora</value>
+  </data>
+  <data name="UpdatePrompt_Cancel" xml:space="preserve">
+    <value>Cancelar</value>
+  </data>
+  <data name="Welcome_WelcomeToCTRLZ" xml:space="preserve">
+    <value>Le damos la bienvenida a CTRL+Z</value>
+  </data>
+  <data name="Welcome_Close" xml:space="preserve">
+    <value>Cerrar</value>
+  </data>
+  <data name="Welcome_ReinstallWindowsWithoutLosingYour" xml:space="preserve">
+    <value>Reinstale Windows sin perder su configuración.</value>
+  </data>
+  <data name="Welcome_CTRLZKeepsAList" xml:space="preserve">
+    <value>CTRL+Z guarda una lista de sus aplicaciones y hace copia de seguridad de sus navegadores, y después los restaura en una instalación nueva. Todo se queda en este equipo salvo que lo copie a otro lugar.</value>
+  </data>
+  <data name="Welcome_BEFOREYOUREINSTALL" xml:space="preserve">
+    <value>ANTES DE REINSTALAR</value>
+  </data>
+  <data name="Welcome_1ScanThisPCTo" xml:space="preserve">
+    <value>1.  Examine este equipo para crear su lista de aplicaciones y ordénela en Mis aplicaciones.</value>
+  </data>
+  <data name="Welcome_2BackUpYourBrowsers" xml:space="preserve">
+    <value>2.  Haga una copia de seguridad de sus navegadores (marcadores, historial, extensiones; nunca contraseñas ni cookies).</value>
+  </data>
+  <data name="Welcome_3OpenReadyToWipe" xml:space="preserve">
+    <value>3.  Abra Listo para borrar y complete la lista de comprobación.</value>
+  </data>
+  <data name="Welcome_4CopyYourProfileAnd" xml:space="preserve">
+    <value>4.  Copie su perfil y las copias de seguridad de los navegadores a una unidad USB u otro equipo.</value>
+  </data>
+  <data name="Welcome_ONAFRESHINSTALL" xml:space="preserve">
+    <value>EN UNA INSTALACIÓN NUEVA</value>
+  </data>
+  <data name="Welcome_1ImportYourProfileIn" xml:space="preserve">
+    <value>1.  Importe su perfil en Mis aplicaciones.</value>
+  </data>
+  <data name="Welcome_2CheckTheInstallPreview" xml:space="preserve">
+    <value>2.  Revise la vista previa de la instalación e instale todo de una vez.</value>
+  </data>
+  <data name="Welcome_3RestoreYourBrowserBackups" xml:space="preserve">
+    <value>3.  Restaure las copias de seguridad de sus navegadores en la página Navegadores.</value>
+  </data>
+  <data name="Welcome_YouCanOpenThisGuide" xml:space="preserve">
+    <value>Puede volver a abrir esta guía desde Configuración. Ctrl+1 a Ctrl+9 cambian de página.</value>
+  </data>
+  <data name="Welcome_IMOnAFresh" xml:space="preserve">
+    <value>Estoy en una instalación nueva</value>
+  </data>
+  <data name="Welcome_StartWithAScan" xml:space="preserve">
+    <value>Empezar con un examen</value>
+  </data>
+  <data name="WingetMatch_MatchToWinget" xml:space="preserve">
+    <value>Asociar con winget</value>
+  </data>
+  <data name="WingetMatch_Close" xml:space="preserve">
+    <value>Cerrar</value>
+  </data>
+  <data name="WingetMatch_FindTheWingetPackageFor" xml:space="preserve">
+    <value>Busque el paquete de winget de esta aplicación instalada.</value>
+  </data>
+  <data name="WingetMatch_SearchWinget" xml:space="preserve">
+    <value>Buscar en winget</value>
+  </data>
+  <data name="WingetMatch_Search" xml:space="preserve">
+    <value>Buscar</value>
+  </data>
+  <data name="WingetMatch_SearchForTheAppName" xml:space="preserve">
+    <value>Busque el nombre de la aplicación o pegue un id. de paquete abajo.</value>
+  </data>
+  <data name="WingetMatch_PackageId" xml:space="preserve">
+    <value>Id. del paquete</value>
+  </data>
+  <data name="WingetMatch_Cancel" xml:space="preserve">
+    <value>Cancelar</value>
+  </data>
+  <data name="WingetMatch_UseThisId" xml:space="preserve">
+    <value>Usar este id.</value>
+  </data>
+  <data name="Browsers_BackUpName" xml:space="preserve">
+    <value>Hacer copia de seguridad de {0}</value>
+  </data>
+  <data name="Catalog_SelectName" xml:space="preserve">
+    <value>Seleccionar {0}</value>
+  </data>
+  <data name="Catalog_OpenNameWebsite" xml:space="preserve">
+    <value>Abrir el sitio web de {0}</value>
+  </data>
+  <data name="Install_AttemptNumber" xml:space="preserve">
+    <value>Intento {0}</value>
+  </data>
+  <data name="MyApps_MoveNameUp" xml:space="preserve">
+    <value>Subir {0}</value>
+  </data>
+  <data name="MyApps_MoveNameDown" xml:space="preserve">
+    <value>Bajar {0}</value>
+  </data>
+  <data name="MyApps_EditName" xml:space="preserve">
+    <value>Editar {0}</value>
+  </data>
+  <data name="MyApps_RemoveName" xml:space="preserve">
+    <value>Quitar {0}</value>
+  </data>
+  <data name="Settings_VersionNumber" xml:space="preserve">
+    <value>Versión {0}</value>
+  </data>
+  <data name="Tweaks_ApplyOrUndoName" xml:space="preserve">
+    <value>Aplicar o deshacer: {0}</value>
+  </data>
+  <data name="App_CTRLZCouldNotStart" xml:space="preserve">
+    <value>CTRL+Z no pudo iniciarse.
+
+</value>
+  </data>
+  <data name="App_Log" xml:space="preserve">
+    <value>
+
+Registro: {0}</value>
+  </data>
+  <data name="App_CTRLZHitAnUnexpected" xml:space="preserve">
+    <value>CTRL+Z encontró un error inesperado, pero su perfil y el estado de la instalación están a salvo.
+
+</value>
+  </data>
+  <data name="Main_Restore" xml:space="preserve">
+    <value>Restaurar</value>
+  </data>
+  <data name="Main_Maximize2" xml:space="preserve">
+    <value>Maximizar</value>
+  </data>
+  <data name="AppState_MyApps" xml:space="preserve">
+    <value>Mis aplicaciones</value>
+  </data>
+  <data name="DialogService_Continue" xml:space="preserve">
+    <value>Continuar</value>
+  </data>
+  <data name="DialogService_Cancel" xml:space="preserve">
+    <value>Cancelar</value>
+  </data>
+  <data name="DialogService_Save" xml:space="preserve">
+    <value>Guardar</value>
+  </data>
+  <data name="DialogService_SomethingWentWrong" xml:space="preserve">
+    <value>Algo salió mal</value>
+  </data>
+  <data name="DialogService_Close" xml:space="preserve">
+    <value>Cerrar</value>
+  </data>
+  <data name="DialogService_YesIUnderstand" xml:space="preserve">
+    <value>Sí, lo entiendo</value>
+  </data>
+  <data name="DialogService_RunIt" xml:space="preserve">
+    <value>Ejecutarlo</value>
+  </data>
+  <data name="DialogService_RunThem" xml:space="preserve">
+    <value>Ejecutarlos</value>
+  </data>
+  <data name="DialogService_CancelInstall" xml:space="preserve">
+    <value>Cancelar instalación</value>
+  </data>
+  <data name="Update_AnInstallBackupOrRestore" xml:space="preserve">
+    <value>Todavía hay una instalación, copia de seguridad o restauración en curso, así que el aviso de actualización se pospone hasta que termine.</value>
+  </data>
+  <data name="Update_UpdateDeferred" xml:space="preserve">
+    <value>Actualización pospuesta</value>
+  </data>
+  <data name="Update_YouAreRunningCTRLZ" xml:space="preserve">
+    <value>Está usando CTRL+Z {0}. Todavía no hay ninguna versión publicada en este canal.</value>
+  </data>
+  <data name="Update_YouAreRunningCTRLZ2" xml:space="preserve">
+    <value>Está usando CTRL+Z {0}, que está actualizado.</value>
+  </data>
+  <data name="Update_NoUpdates" xml:space="preserve">
+    <value>No hay actualizaciones</value>
+  </data>
+  <data name="Update_CouldNotCheckForUpdates" xml:space="preserve">
+    <value>No se pudo buscar actualizaciones</value>
+  </data>
+  <data name="Update_CTRLZIsAvailableBut" xml:space="preserve">
+    <value>CTRL+Z {0} está disponible, pero pidió omitir esa versión. </value>
+  </data>
+  <data name="Update_ANewerReleaseWillPrompt" xml:space="preserve">
+    <value>Se le avisará de nuevo cuando haya una versión más reciente.</value>
+  </data>
+  <data name="Update_ThisVersionIsSkipped" xml:space="preserve">
+    <value>Esta versión se omite</value>
+  </data>
+  <data name="Update_UpdateNotAvailable" xml:space="preserve">
+    <value>Actualización no disponible</value>
+  </data>
+  <data name="Update_Preparing" xml:space="preserve">
+    <value>Preparando…</value>
+  </data>
+  <data name="Update_Downloading" xml:space="preserve">
+    <value>Descargando… {0:P0}</value>
+  </data>
+  <data name="Update_Downloading2" xml:space="preserve">
+    <value>Descargando…</value>
+  </data>
+  <data name="Update_Verifying" xml:space="preserve">
+    <value>Verificando…</value>
+  </data>
+  <data name="Update_WaitingForTheCurrentOperation" xml:space="preserve">
+    <value>Esperando a que termine la operación actual…</value>
+  </data>
+  <data name="Update_AnInstallOrBackupIs" xml:space="preserve">
+    <value>Todavía hay una instalación o copia de seguridad en curso, así que no se aplicó la actualización. Vuelva a buscar actualizaciones cuando termine.</value>
+  </data>
+  <data name="Update_AnInstallOrBackupIs2" xml:space="preserve">
+    <value>Hay una instalación o copia de seguridad en curso (en la aplicación o desde la línea de comandos), así que no se aplicó la actualización. Vuelva a buscar actualizaciones cuando termine.</value>
+  </data>
+  <data name="Update_RestartingToFinishTheUpdate" xml:space="preserve">
+    <value>Reiniciando para terminar la actualización…</value>
+  </data>
+  <data name="Update_ThePreviousUpdateDidNot" xml:space="preserve">
+    <value>La actualización anterior no se completó. Su versión actual no ha cambiado.</value>
+  </data>
+  <data name="Update_UpdateNotApplied" xml:space="preserve">
+    <value>Actualización no aplicada</value>
+  </data>
+  <data name="AddApp_AddApp" xml:space="preserve">
+    <value>Añadir aplicación</value>
+  </data>
+  <data name="AddApp_AddInstallersWingetDoesNot" xml:space="preserve">
+    <value>Añada instaladores que winget no incluye: un enlace directo, una versión de GitHub o un archivo local.</value>
+  </data>
+  <data name="AddApp_InstallerRunSilently" xml:space="preserve">
+    <value>Instalador (ejecución silenciosa)</value>
+  </data>
+  <data name="AddApp_PortableArchiveExtract" xml:space="preserve">
+    <value>Archivo portátil (extraer)</value>
+  </data>
+  <data name="AddApp_PortableExecutableCopy" xml:space="preserve">
+    <value>Ejecutable portátil (copiar)</value>
+  </data>
+  <data name="AddApp_NotInspectedYet" xml:space="preserve">
+    <value>Todavía sin inspeccionar</value>
+  </data>
+  <data name="AddApp_ChooseASourceAndFill" xml:space="preserve">
+    <value>Elija un origen y rellene lo que necesita CTRL+Z.</value>
+  </data>
+  <data name="AddApp_FetchingTheLatestRelease" xml:space="preserve">
+    <value>Obteniendo la versión más reciente…</value>
+  </data>
+  <data name="AddApp_ReleaseHasNoSupportedWindows" xml:space="preserve">
+    <value>La versión {0} no tiene ningún archivo compatible con Windows.</value>
+  </data>
+  <data name="AddApp_CouldNotLoadTheRelease" xml:space="preserve">
+    <value>No se pudo cargar la versión.</value>
+  </data>
+  <data name="AddApp_SelectALocalInstaller" xml:space="preserve">
+    <value>Seleccione un instalador local</value>
+  </data>
+  <data name="AddApp_SelectAFolderContainingThe" xml:space="preserve">
+    <value>Seleccione una carpeta que contenga el instalador</value>
+  </data>
+  <data name="AddApp_NoSupportedInstallerWasFound" xml:space="preserve">
+    <value>No se encontró ningún instalador compatible en esa carpeta.</value>
+  </data>
+  <data name="AddApp_MoreThanOneInstallerWas" xml:space="preserve">
+    <value>Se encontró más de un instalador. Elija el archivo directamente.</value>
+  </data>
+  <data name="AddApp_DownloadingAndInspecting" xml:space="preserve">
+    <value>Descargando e inspeccionando…</value>
+  </data>
+  <data name="AddApp_UnrecognizedInstaller" xml:space="preserve">
+    <value>Instalador no reconocido</value>
+  </data>
+  <data name="AddApp_InstallerTypeWasNotRecognized" xml:space="preserve">
+    <value>No se reconoció el tipo de instalador. /S es un punto de partida razonable, pero pruébelo.</value>
+  </data>
+  <data name="AddApp_DetectedReviewTheSwitchesAnd" xml:space="preserve">
+    <value>Se detectó {0}. Revise los modificadores y pruébelos si hace falta.</value>
+  </data>
+  <data name="AddApp_InspectionFailed" xml:space="preserve">
+    <value>Error en la inspección</value>
+  </data>
+  <data name="AddApp_TestThisInstaller" xml:space="preserve">
+    <value>Probar este instalador</value>
+  </data>
+  <data name="AddApp_CTRLZWillRunThe" xml:space="preserve">
+    <value>CTRL+Z ejecutará el instalador en este equipo con los modificadores mostrados. </value>
+  </data>
+  <data name="AddApp_ThisIsARealInstallation" xml:space="preserve">
+    <value>Es una instalación real y puede cambiar este equipo. ¿Desea continuar?</value>
+  </data>
+  <data name="AddApp_RunTestInstall" xml:space="preserve">
+    <value>Ejecutar instalación de prueba</value>
+  </data>
+  <data name="AddApp_Cancel" xml:space="preserve">
+    <value>Cancelar</value>
+  </data>
+  <data name="AddApp_TestInstallSucceededReviewThe" xml:space="preserve">
+    <value>La instalación de prueba se completó. Revise el resultado y después añada la aplicación.</value>
+  </data>
+  <data name="AddApp_TestInstallDidNotComplete" xml:space="preserve">
+    <value>La instalación de prueba no se completó: </value>
+  </data>
+  <data name="AddApp_TestInstallFailed" xml:space="preserve">
+    <value>Error en la instalación de prueba: </value>
+  </data>
+  <data name="AddApp_GiveTheAppAName" xml:space="preserve">
+    <value>Asigne un nombre a la aplicación.</value>
+  </data>
+  <data name="AddApp_SHA256MustBe64" xml:space="preserve">
+    <value>El SHA-256 debe tener 64 caracteres hexadecimales o quedar vacío.</value>
+  </data>
+  <data name="AddApp_ThatAppIsAlreadyIn" xml:space="preserve">
+    <value>Esa aplicación ya está en este perfil.</value>
+  </data>
+  <data name="AddApp_AddedTo" xml:space="preserve">
+    <value>Se añadió {0} a «{1}».</value>
+  </data>
+  <data name="AddApp_DuplicateWasSkipped" xml:space="preserve">
+    <value> Se omitió {0} duplicado.</value>
+  </data>
+  <data name="AddApp_AppAdded" xml:space="preserve">
+    <value>Aplicación añadida</value>
+  </data>
+  <data name="AddApp_ChooseAnExistingLocalInstaller" xml:space="preserve">
+    <value>Elija un archivo de instalador local existente.</value>
+  </data>
+  <data name="AddApp_EnterAValidDownloadURL" xml:space="preserve">
+    <value>Primero escriba una URL de descarga válida.</value>
+  </data>
+  <data name="AddApp_InspectingInstaller" xml:space="preserve">
+    <value>Inspeccionando el instalador… {0:P0}</value>
+  </data>
+  <data name="AddApp_InspectingInstaller2" xml:space="preserve">
+    <value>Inspeccionando el instalador…</value>
+  </data>
+  <data name="AddApp_FindAReleaseAndChoose" xml:space="preserve">
+    <value>Primero busque una versión y elija un archivo.</value>
+  </data>
+  <data name="AddApp_Inspecting" xml:space="preserve">
+    <value>Inspeccionando {0}… {1:P0}</value>
+  </data>
+  <data name="AddApp_InspectingAsset" xml:space="preserve">
+    <value>Inspeccionando el archivo…</value>
+  </data>
+  <data name="AppUpdates_Updates" xml:space="preserve">
+    <value>Actualizaciones</value>
+  </data>
+  <data name="AppUpdates_AppsWingetCanUpdateOn" xml:space="preserve">
+    <value>Aplicaciones que winget puede actualizar en este equipo. No cambia nada hasta que usted elija.</value>
+  </data>
+  <data name="AppUpdates_CheckForAppUpdates" xml:space="preserve">
+    <value>Buscar actualizaciones de aplicaciones</value>
+  </data>
+  <data name="AppUpdates_WingetIsAskedWhichInstalled" xml:space="preserve">
+    <value>Se pregunta a winget qué aplicaciones instaladas tienen una versión más reciente.</value>
+  </data>
+  <data name="AppUpdates_AskingWingetForUpdates" xml:space="preserve">
+    <value>Consultando a winget las actualizaciones…</value>
+  </data>
+  <data name="AppUpdates_CheckedPinnedAppsAreOnly" xml:space="preserve">
+    <value>Comprobado a las {0:HH:mm}. Las aplicaciones ancladas solo se actualizan cuando usted las elige.</value>
+  </data>
+  <data name="AppUpdates_CheckCancelled" xml:space="preserve">
+    <value>Comprobación cancelada.</value>
+  </data>
+  <data name="AppUpdates_WingetCouldNotBeAsked" xml:space="preserve">
+    <value>No se pudo consultar a winget. Compruebe que App Installer está instalado (Configuración).</value>
+  </data>
+  <data name="AppUpdates_IsHiddenUntilANewer" xml:space="preserve">
+    <value>{0} {1} se oculta hasta que aparezca una versión más reciente.</value>
+  </data>
+  <data name="AppUpdates_UpdateFromGitHub" xml:space="preserve">
+    <value>Actualizar desde GitHub</value>
+  </data>
+  <data name="AppUpdates_DownloadFromAndInstallIt" xml:space="preserve">
+    <value>¿Descargar {0} {1} desde {2} e instalarlo sobre {3}?
+
+</value>
+  </data>
+  <data name="AppUpdates_CloseTheAppFirstThe" xml:space="preserve">
+    <value>Cierre primero la aplicación. La descarga se compara con el SHA-256 de la versión cuando la versión lo publica.</value>
+  </data>
+  <data name="AppUpdates_Update2" xml:space="preserve">
+    <value>Actualizar</value>
+  </data>
+  <data name="AppUpdates_Cancel2" xml:space="preserve">
+    <value>Cancelar</value>
+  </data>
+  <data name="AppUpdates_AnotherInstallOrUpdateIs" xml:space="preserve">
+    <value>Hay otra instalación o actualización en curso en este equipo. Inténtelo de nuevo cuando termine.</value>
+  </data>
+  <data name="AppUpdates_UpdatingApps" xml:space="preserve">
+    <value>Actualizando aplicaciones</value>
+  </data>
+  <data name="AppUpdates_Updating" xml:space="preserve">
+    <value>Actualizando…</value>
+  </data>
+  <data name="AppUpdates_UpdatedTo" xml:space="preserve">
+    <value>Actualizada a {0}.</value>
+  </data>
+  <data name="AppUpdates_TheUpdateDidNotFinish" xml:space="preserve">
+    <value>La actualización no terminó.</value>
+  </data>
+  <data name="AppUpdates_UpdatedTo2" xml:space="preserve">
+    <value>{0} se actualizó a {1}.</value>
+  </data>
+  <data name="AppUpdates_Cancelled" xml:space="preserve">
+    <value>Cancelada.</value>
+  </data>
+  <data name="AppUpdates_TheUpdateFailed" xml:space="preserve">
+    <value>Error en la actualización: </value>
+  </data>
+  <data name="AppUpdates_NothingSelectedToUpdate" xml:space="preserve">
+    <value>No hay nada seleccionado para actualizar.</value>
+  </data>
+  <data name="AppUpdates_AndMore" xml:space="preserve">
+    <value>
+…y {0} más</value>
+  </data>
+  <data name="AppUpdates_CloseTheseAppsFirstWindows" xml:space="preserve">
+    <value>Cierre primero estas aplicaciones. Windows puede pedir permiso para las aplicaciones instaladas para todos los usuarios.</value>
+  </data>
+  <data name="AppUpdates_Queued" xml:space="preserve">
+    <value>En cola</value>
+  </data>
+  <data name="AppUpdates_UpdatedFailed" xml:space="preserve">
+    <value>{0} actualizadas, {1} con error.</value>
+  </data>
+  <data name="AppUpdates_RestartWindowsToFinish" xml:space="preserve">
+    <value> Reinicie Windows para terminar.</value>
+  </data>
+  <data name="AppUpdates_YourAppsAreUpTo" xml:space="preserve">
+    <value>Sus aplicaciones están actualizadas</value>
+  </data>
+  <data name="BrowserItem_VersionUnknown" xml:space="preserve">
+    <value>Versión desconocida</value>
+  </data>
+  <data name="Browsers_Browsers2" xml:space="preserve">
+    <value>Navegadores</value>
+  </data>
+  <data name="Browsers_BackUpFirefoxAndChromium" xml:space="preserve">
+    <value>Haga copia de seguridad de los perfiles de Firefox y Chromium, y después restaure pestañas, marcadores, extensiones y configuración en un equipo limpio.</value>
+  </data>
+  <data name="Browsers_CacheCodeCacheGPUCacheShaderCache" xml:space="preserve">
+    <value>Cache/Code Cache/GPUCache/ShaderCache, volcados de bloqueo, contraseñas guardadas, cookies</value>
+  </data>
+  <data name="Browsers_DetectingFirefoxAndChromiumBrowsers" xml:space="preserve">
+    <value>Detectando navegadores Firefox y Chromium…</value>
+  </data>
+  <data name="Browsers_SelectABrowserAndAt" xml:space="preserve">
+    <value>Seleccione un navegador y al menos un perfil.</value>
+  </data>
+  <data name="Browsers_ReadyToBackUp" xml:space="preserve">
+    <value>Listo para la copia de seguridad.</value>
+  </data>
+  <data name="Browsers_ChooseAnArchiveToSee" xml:space="preserve">
+    <value>Elija un archivo para ver lo que se puede restaurar.</value>
+  </data>
+  <data name="Browsers_TabsSessions" xml:space="preserve">
+    <value>pestañas y sesiones</value>
+  </data>
+  <data name="Browsers_SearchEngines" xml:space="preserve">
+    <value>motores de búsqueda</value>
+  </data>
+  <data name="Browsers_SitePermissions" xml:space="preserve">
+    <value>permisos de sitios</value>
+  </data>
+  <data name="Browsers_ThisBackupIsFromWhich" xml:space="preserve">
+    <value>Esta copia de seguridad es de {0}, que no está instalado en este equipo. Instálelo aquí y después: {1}</value>
+  </data>
+  <data name="Browsers_ThisBackupIsFromWhich2" xml:space="preserve">
+    <value>Esta copia de seguridad es de {0}, que no está instalado en este equipo. Instálelo desde su sitio web y después: {1}</value>
+  </data>
+  <data name="Browsers_Install" xml:space="preserve">
+    <value>Instalar {0}</value>
+  </data>
+  <data name="Browsers_CTRLZWillInstallWith" xml:space="preserve">
+    <value>CTRL+Z instalará {0} con winget ({1}). Windows puede pedir permiso.
+
+</value>
+  </data>
+  <data name="Browsers_AfterItInstalls" xml:space="preserve">
+    <value>Cuando se instale: </value>
+  </data>
+  <data name="Browsers_Cancel2" xml:space="preserve">
+    <value>Cancelar</value>
+  </data>
+  <data name="Browsers_Installing" xml:space="preserve">
+    <value>Instalando {0}…</value>
+  </data>
+  <data name="Browsers_WingetIsNotAvailableOn" xml:space="preserve">
+    <value>winget todavía no está disponible en este equipo. Instale App Installer desde Configuración y vuelva a intentarlo.</value>
+  </data>
+  <data name="Browsers_WingetIsNotAvailable" xml:space="preserve">
+    <value>winget no está disponible.</value>
+  </data>
+  <data name="Browsers_IsInstalled" xml:space="preserve">
+    <value>{0} está instalado. {1}</value>
+  </data>
+  <data name="Browsers_IsInstalled2" xml:space="preserve">
+    <value>{0} está instalado.
+
+{1}</value>
+  </data>
+  <data name="Browsers_AlmostReadyToRestore" xml:space="preserve">
+    <value>Casi listo para restaurar</value>
+  </data>
+  <data name="Browsers_CouldNotBeInstalledWinget" xml:space="preserve">
+    <value>No se pudo instalar {0} (código de salida de winget {1}).</value>
+  </data>
+  <data name="Browsers_CouldNotBeInstalledWinget2" xml:space="preserve">
+    <value>No se pudo instalar {0} (código de salida de winget {1}). Instálelo desde su sitio web y pulse Actualizar.</value>
+  </data>
+  <data name="Browsers_CouldNotBeInstalled" xml:space="preserve">
+    <value>No se pudo instalar {0}.</value>
+  </data>
+  <data name="Browsers_CouldNotBeInstalled2" xml:space="preserve">
+    <value>No se pudo instalar {0}.
+
+</value>
+  </data>
+  <data name="Browsers_SelectTheBrowserSProfile" xml:space="preserve">
+    <value>Seleccione la raíz de perfiles del navegador (Local State para Chromium, profiles.ini para Firefox)</value>
+  </data>
+  <data name="Browsers_ThatProfileFolderIsAlready" xml:space="preserve">
+    <value>Esa carpeta de perfil ya está en la lista.</value>
+  </data>
+  <data name="Browsers_Added" xml:space="preserve">
+    <value>Se añadió {0}.</value>
+  </data>
+  <data name="Browsers_NotABrowserProfileFolder" xml:space="preserve">
+    <value>No es una carpeta de perfil de navegador</value>
+  </data>
+  <data name="Browsers_ThisFolderCouldNotBe" xml:space="preserve">
+    <value>No se pudo añadir esta carpeta.
+
+</value>
+  </data>
+  <data name="Browsers_ChooseWhereBrowserBackupsAre" xml:space="preserve">
+    <value>Elija dónde se guardan las copias de seguridad de los navegadores</value>
+  </data>
+  <data name="Browsers_CouldNotOpenTheBackup" xml:space="preserve">
+    <value>No se pudo abrir la carpeta de copias de seguridad.
+
+</value>
+  </data>
+  <data name="Browsers_UseAtLeast4Characters" xml:space="preserve">
+    <value>Use al menos 4 caracteres para la contraseña del archivo o déjela vacía.</value>
+  </data>
+  <data name="Browsers_TheBackupFolderCouldNot" xml:space="preserve">
+    <value>No se pudo crear la carpeta de copias de seguridad.
+
+</value>
+  </data>
+  <data name="Browsers_BackingUpBrowserProfiles" xml:space="preserve">
+    <value>Haciendo copia de seguridad de los perfiles del navegador</value>
+  </data>
+  <data name="Browsers_Preparing" xml:space="preserve">
+    <value>Preparando {0}…</value>
+  </data>
+  <data name="Browsers_SkippedBecauseItIsStill" xml:space="preserve">
+    <value>{0}: se omitió porque sigue en ejecución.</value>
+  </data>
+  <data name="Browsers_NoBackupsCompleted" xml:space="preserve">
+    <value>No se completó ninguna copia de seguridad.</value>
+  </data>
+  <data name="Browsers_BrowserBackupComplete" xml:space="preserve">
+    <value>Copia de seguridad de navegadores completada</value>
+  </data>
+  <data name="Browsers_BackupFailed" xml:space="preserve">
+    <value>Error en la copia de seguridad</value>
+  </data>
+  <data name="Browsers_BackupCancelledCompletedArchivesRemain" xml:space="preserve">
+    <value>Copia de seguridad cancelada. Los archivos completados se quedan en la carpeta.</value>
+  </data>
+  <data name="Browsers_BackupStoppedUnexpectedly" xml:space="preserve">
+    <value>La copia de seguridad se detuvo de forma inesperada.</value>
+  </data>
+  <data name="Browsers_TheBackupSessionStoppedUnexpectedly" xml:space="preserve">
+    <value>La sesión de copia de seguridad se detuvo de forma inesperada.
+
+</value>
+  </data>
+  <data name="Browsers_Cancelling" xml:space="preserve">
+    <value>Cancelando…</value>
+  </data>
+  <data name="Browsers_OpenACTRLZBrowser" xml:space="preserve">
+    <value>Abrir una copia de seguridad de navegador de CTRL+Z</value>
+  </data>
+  <data name="Browsers_CTRLZBrowserBackupZip" xml:space="preserve">
+    <value>Copia de seguridad de navegador de CTRL+Z (*.zip)|*.zip|Todos los archivos (*.*)|*.*</value>
+  </data>
+  <data name="Browsers_ReadingArchive" xml:space="preserve">
+    <value>Leyendo el archivo…</value>
+  </data>
+  <data name="Browsers_ProfileS" xml:space="preserve">
+    <value>{0} perfil(es) · </value>
+  </data>
+  <data name="Browsers_ArchiveLoadedNoBrowserIs" xml:space="preserve">
+    <value>Archivo cargado. No hay ningún navegador {0} instalado. Instale uno, actualice y vuelva a intentarlo.</value>
+  </data>
+  <data name="Browsers_ArchiveUnlockedChooseProfilesAnd" xml:space="preserve">
+    <value>Archivo desbloqueado. Elija los perfiles y un navegador de destino.</value>
+  </data>
+  <data name="Browsers_ArchiveReadyChooseProfilesAnd" xml:space="preserve">
+    <value>Archivo listo. Elija los perfiles y un navegador de destino.</value>
+  </data>
+  <data name="Browsers_ThisArchiveIsEncryptedEnter" xml:space="preserve">
+    <value>Este archivo está cifrado. Escriba su contraseña y vuelva a ver el contenido.</value>
+  </data>
+  <data name="Browsers_ArchiveCouldNotBeRead" xml:space="preserve">
+    <value>No se pudo leer el archivo.</value>
+  </data>
+  <data name="Browsers_ThisArchiveCouldNotBe" xml:space="preserve">
+    <value>No se pudo abrir este archivo.
+
+</value>
+  </data>
+  <data name="Browsers_VerifyingTheBackupReadingEvery" xml:space="preserve">
+    <value>Verificando la copia de seguridad: leyendo cada archivo…</value>
+  </data>
+  <data name="Browsers_VerifiedNothingWasChanged" xml:space="preserve">
+    <value>{0} {1} verificado. No se cambió nada.</value>
+  </data>
+  <data name="Browsers_ThisBackupCannotBeFully" xml:space="preserve">
+    <value>Esta copia de seguridad no se puede restaurar por completo:
+
+</value>
+  </data>
+  <data name="Browsers_AndMore" xml:space="preserve">
+    <value>
+…y {0} más.</value>
+  </data>
+  <data name="Browsers_MakeANewBackupBefore" xml:space="preserve">
+    <value>
+
+Haga una copia de seguridad nueva antes de borrar este equipo.</value>
+  </data>
+  <data name="Browsers_TheBackupCouldNotBe" xml:space="preserve">
+    <value>No se pudo verificar la copia de seguridad.</value>
+  </data>
+  <data name="Browsers_SelectAtLeastOneProfile" xml:space="preserve">
+    <value>Seleccione al menos un perfil del archivo.</value>
+  </data>
+  <data name="Browsers_OverwriteExistingProfiles" xml:space="preserve">
+    <value>Sobrescribir perfiles existentes</value>
+  </data>
+  <data name="Browsers_TheSelectedProfilesWillBe" xml:space="preserve">
+    <value>Los perfiles seleccionados se combinarán con las carpetas de perfil existentes de {0}. </value>
+  </data>
+  <data name="Browsers_YourCurrentCookiesAndSaved" xml:space="preserve">
+    <value>Sus cookies y contraseñas guardadas actuales no se tocan, pero se reemplazarán los marcadores, el historial, las sesiones y la configuración.
+
+</value>
+  </data>
+  <data name="Browsers_RestoreAsNewProfilesInstead" xml:space="preserve">
+    <value>Si quiere conservar ambos, restaure como perfiles nuevos.</value>
+  </data>
+  <data name="Browsers_OverwriteProfiles" xml:space="preserve">
+    <value>Sobrescribir perfiles</value>
+  </data>
+  <data name="Browsers_RestoringBrowserProfiles" xml:space="preserve">
+    <value>Restaurando perfiles del navegador</value>
+  </data>
+  <data name="Browsers_Restoring" xml:space="preserve">
+    <value>Restaurando…</value>
+  </data>
+  <data name="Browsers_ProfilesAlreadyExist" xml:space="preserve">
+    <value>Los perfiles ya existen</value>
+  </data>
+  <data name="Browsers_TheseProfilesAlreadyExistIn" xml:space="preserve">
+    <value>Estos perfiles ya existen en {0}: {1}.
+
+</value>
+  </data>
+  <data name="Browsers_RestoreThemAsNewProfiles" xml:space="preserve">
+    <value>¿Restaurarlos como perfiles nuevos? Así los perfiles actuales quedan intactos.</value>
+  </data>
+  <data name="Browsers_RestoreAsNew" xml:space="preserve">
+    <value>Restaurar como nuevos</value>
+  </data>
+  <data name="Browsers_RestoreCancelled" xml:space="preserve">
+    <value>Restauración cancelada.</value>
+  </data>
+  <data name="Browsers_RestoredInto" xml:space="preserve">
+    <value>Restaurado en {0}.</value>
+  </data>
+  <data name="Browsers_ASafetyCopyWasKept" xml:space="preserve">
+    <value>
+
+Se guardó una copia de seguridad previa en:
+{0}</value>
+  </data>
+  <data name="Browsers_RestoredProfileSInto" xml:space="preserve">
+    <value>Se restauraron {0} perfil(es) en {1}.
+
+</value>
+  </data>
+  <data name="Browsers_StartTheBrowserAndCheck" xml:space="preserve">
+    <value>Inicie el navegador y compruebe los marcadores, las pestañas, las extensiones y la configuración.</value>
+  </data>
+  <data name="Browsers_BrowserRestoreComplete" xml:space="preserve">
+    <value>Restauración del navegador completada</value>
+  </data>
+  <data name="Browsers_TheArchivePasswordIsIncorrect" xml:space="preserve">
+    <value>La contraseña del archivo no es correcta.</value>
+  </data>
+  <data name="Browsers_ThatPasswordCouldNotUnlock" xml:space="preserve">
+    <value>Esa contraseña no pudo desbloquear el archivo.</value>
+  </data>
+  <data name="Browsers_CloseTheBrowserFirst" xml:space="preserve">
+    <value>Cierre primero el navegador.</value>
+  </data>
+  <data name="Browsers_RestoreFailed" xml:space="preserve">
+    <value>Error en la restauración.</value>
+  </data>
+  <data name="Browsers_TheBrowserProfileCouldNot" xml:space="preserve">
+    <value>No se pudo restaurar el perfil del navegador.
+
+</value>
+  </data>
+  <data name="Browsers_NoFirefoxOrChromiumBrowsers2" xml:space="preserve">
+    <value>No se encontraron navegadores Firefox ni Chromium. Añada una carpeta de perfil personalizada.</value>
+  </data>
+  <data name="Browsers_FirefoxAndChromiumStoreProfiles" xml:space="preserve">
+    <value>Firefox y Chromium guardan los perfiles en carpetas distintas. Para variantes menos conocidas, añada la raíz de perfiles manualmente.</value>
+  </data>
+  <data name="Browsers_BrowserDetectionFailed" xml:space="preserve">
+    <value>Error al detectar navegadores.</value>
+  </data>
+  <data name="Browsers_CTRLZCouldNotDetect" xml:space="preserve">
+    <value>CTRL+Z no pudo detectar los navegadores.
+
+</value>
+  </data>
+  <data name="Browsers_SizeUnavailable" xml:space="preserve">
+    <value>Tamaño no disponible</value>
+  </data>
+  <data name="Browsers_CloseTheBrowser" xml:space="preserve">
+    <value>Cerrar el navegador</value>
+  </data>
+  <data name="Browsers_IsRunningABackupNeeds" xml:space="preserve">
+    <value>{0} está en ejecución. Una copia de seguridad necesita acceso casi exclusivo a los archivos del perfil, y una restauración debe escribirlos con el navegador cerrado.
+
+</value>
+  </data>
+  <data name="Browsers_CTRLZCanCloseIt" xml:space="preserve">
+    <value>CTRL+Z puede cerrarlo por usted. Puede perderse el trabajo sin guardar en las pestañas; el navegador suele ofrecer restaurarlas al iniciarse de nuevo.</value>
+  </data>
+  <data name="Browsers_CloseBrowser" xml:space="preserve">
+    <value>Cerrar navegador</value>
+  </data>
+  <data name="Browsers_Skip" xml:space="preserve">
+    <value>Omitir</value>
+  </data>
+  <data name="Browsers_ForceClose" xml:space="preserve">
+    <value>¿Forzar el cierre?</value>
+  </data>
+  <data name="Browsers_DidNotCloseGracefullyForce" xml:space="preserve">
+    <value>{0} no se cerró correctamente. Forzar el cierre puede hacer perder datos de formularios sin guardar, pero es la forma fiable de desbloquear los archivos del perfil.</value>
+  </data>
+  <data name="Browsers_ForceClose2" xml:space="preserve">
+    <value>Forzar cierre</value>
+  </data>
+  <data name="Catalog_NoWingetPackage" xml:space="preserve">
+    <value>Sin paquete de winget</value>
+  </data>
+  <data name="Catalog_Catalog" xml:space="preserve">
+    <value>Catálogo</value>
+  </data>
+  <data name="Catalog_RecommendedAppsFromChrisTitus" xml:space="preserve">
+    <value>Aplicaciones recomendadas del catálogo WinUtil de Chris Titus Tech, actualizado desde la fuente en línea.</value>
+  </data>
+  <data name="Catalog_AllCategories" xml:space="preserve">
+    <value>Todas las categorías</value>
+  </data>
+  <data name="Catalog_NotLoaded" xml:space="preserve">
+    <value>No cargado</value>
+  </data>
+  <data name="Catalog_PickAppsFromTheCatalog" xml:space="preserve">
+    <value>Elija aplicaciones del catálogo y añádalas a su perfil.</value>
+  </data>
+  <data name="Catalog_NothingSelected" xml:space="preserve">
+    <value>Nada seleccionado</value>
+  </data>
+  <data name="Catalog_SelectAtLeastOneCatalog" xml:space="preserve">
+    <value>Primero seleccione al menos una aplicación del catálogo.</value>
+  </data>
+  <data name="Catalog_AddedFromTheWinUtilCatalog" xml:space="preserve">
+    <value>Añadida desde el catálogo WinUtil.</value>
+  </data>
+  <data name="Catalog_NoNewAppsAddedAlready" xml:space="preserve">
+    <value>No se añadieron aplicaciones nuevas ({0} ya estaban en el perfil).</value>
+  </data>
+  <data name="Catalog_AlreadyPresent" xml:space="preserve">
+    <value> · {0} ya estaban.</value>
+  </data>
+  <data name="Catalog_RefreshingFromGitHub" xml:space="preserve">
+    <value>Actualizando desde GitHub…</value>
+  </data>
+  <data name="Catalog_LoadingTheAppCatalog" xml:space="preserve">
+    <value>Cargando el catálogo de aplicaciones…</value>
+  </data>
+  <data name="Catalog_ShowingRecommendedApps" xml:space="preserve">
+    <value>Se muestran {0} aplicaciones recomendadas.</value>
+  </data>
+  <data name="Catalog_ShowingALocalCatalogBecause" xml:space="preserve">
+    <value>Se muestra un catálogo local porque GitHub no está disponible.</value>
+  </data>
+  <data name="Catalog_TheCatalogCouldNotBe" xml:space="preserve">
+    <value>No se pudo cargar el catálogo.</value>
+  </data>
+  <data name="CommandReview_RiskyPattern" xml:space="preserve">
+    <value>Patrón peligroso: </value>
+  </data>
+  <data name="CommandReview_ThisProfileIsYoursIts" xml:space="preserve">
+    <value>Este perfil es suyo. Sus comandos se ejecutan después de instalar sin revisarlos uno por uno.</value>
+  </data>
+  <data name="CommandReview_ThisProfileDidNotOriginate" xml:space="preserve">
+    <value>Este perfil no se creó en este equipo. Sus comandos permanecen bloqueados hasta que apruebe cada uno.</value>
+  </data>
+  <data name="CommandReview_YouWillStillBeAsked" xml:space="preserve">
+    <value>Aun así, se le pedirá confirmación antes de que los comandos se ejecuten por primera vez en este equipo.</value>
+  </data>
+  <data name="CommandReview_AnApprovalIsStoredOn" xml:space="preserve">
+    <value>La aprobación se guarda solo en este equipo, nunca en el archivo del perfil. Si edita un comando más adelante, vuelve a bloquearse.</value>
+  </data>
+  <data name="CommandReview_NoCommands" xml:space="preserve">
+    <value>No hay comandos</value>
+  </data>
+  <data name="CommandReview_Of" xml:space="preserve">
+    <value>{0} de {1}</value>
+  </data>
+  <data name="CommandReview_ApproveARiskyCommand" xml:space="preserve">
+    <value>¿Aprobar un comando peligroso?</value>
+  </data>
+  <data name="CommandReview_ApproveItOnlyIfYou" xml:space="preserve">
+    <value>{0}
+
+{1}
+
+Apruébelo solo si entiende exactamente lo que hace. </value>
+  </data>
+  <data name="CommandReview_ItWillAlsoAskFor" xml:space="preserve">
+    <value>También pedirá confirmación cada vez que vaya a ejecutarse.</value>
+  </data>
+  <data name="CommandReview_TreatThisProfileAsYours" xml:space="preserve">
+    <value>¿Tratar este perfil como suyo?</value>
+  </data>
+  <data name="CommandReview_OnlyDoThisForA" xml:space="preserve">
+    <value>Hágalo solo con un perfil que haya creado usted, por ejemplo en otro de sus equipos.
+
+</value>
+  </data>
+  <data name="CommandReview_EveryCommandInItWill" xml:space="preserve">
+    <value>Todos sus comandos ({0}) se ejecutarán entonces después de instalar sin revisarlos uno por uno, </value>
+  </data>
+  <data name="CommandReview_AndYouWillBeAble" xml:space="preserve">
+    <value>y podrá editarlos aquí.</value>
+  </data>
+  <data name="Drift_SavedAs" xml:space="preserve">
+    <value>Guardada como {0} · {1}</value>
+  </data>
+  <data name="Drift_Installed" xml:space="preserve">
+    <value>Instalada {0}</value>
+  </data>
+  <data name="Drift_InstalledOnThisPC" xml:space="preserve">
+    <value>Instalada en este equipo</value>
+  </data>
+  <data name="Drift_InstalledAvailable" xml:space="preserve">
+    <value>Instalada {0} · disponible {1}</value>
+  </data>
+  <data name="Drift_NotInProfile" xml:space="preserve">
+    <value>No está en el perfil</value>
+  </data>
+  <data name="Drift_ExactMatch" xml:space="preserve">
+    <value>Coincidencia exacta</value>
+  </data>
+  <data name="Drift_LikelyMatch" xml:space="preserve">
+    <value>Coincidencia probable</value>
+  </data>
+  <data name="Drift_Uncertain" xml:space="preserve">
+    <value>Dudosa</value>
+  </data>
+  <data name="Drift_NoMatch" xml:space="preserve">
+    <value>Sin coincidencia</value>
+  </data>
+  <data name="Drift_ComparingYourSavedProfileWith" xml:space="preserve">
+    <value>Comparando su perfil guardado con este equipo…</value>
+  </data>
+  <data name="Drift_ScanningInstalledApps" xml:space="preserve">
+    <value>Examinando las aplicaciones instaladas…</value>
+  </data>
+  <data name="Drift_ReadingWingetVersions" xml:space="preserve">
+    <value>Leyendo las versiones de winget…</value>
+  </data>
+  <data name="Drift_TheDriftCheckCouldNot" xml:space="preserve">
+    <value>No se pudo terminar la comprobación de diferencias.</value>
+  </data>
+  <data name="Drift_TheDriftCheckCouldNot2" xml:space="preserve">
+    <value>No se pudo terminar la comprobación de diferencias.
+
+</value>
+  </data>
+  <data name="Drift_AddedToYourProfile" xml:space="preserve">
+    <value>Se añadió {0} a su perfil.</value>
+  </data>
+  <data name="Drift_IsAlreadyInYourProfile" xml:space="preserve">
+    <value>{0} ya está en su perfil.</value>
+  </data>
+  <data name="Drift_RemoveFromProfile" xml:space="preserve">
+    <value>Quitar del perfil</value>
+  </data>
+  <data name="Drift_RemoveFromTheAppStays" xml:space="preserve">
+    <value>¿Quitar {0} de «{1}»? La aplicación sigue instalada en este equipo; solo deja de formar parte de su lista de reinstalación.</value>
+  </data>
+  <data name="Drift_Remove2" xml:space="preserve">
+    <value>Quitar</value>
+  </data>
+  <data name="Drift_Cancel" xml:space="preserve">
+    <value>Cancelar</value>
+  </data>
+  <data name="Drift_RemovedFromYourProfile" xml:space="preserve">
+    <value>Se quitó {0} de su perfil.</value>
+  </data>
+  <data name="Drift_IgnoringFromNowOn" xml:space="preserve">
+    <value>{0} se omitirá a partir de ahora.</value>
+  </data>
+  <data name="Drift_YourProfileMatchesThisPC" xml:space="preserve">
+    <value>Su perfil coincide con este equipo</value>
+  </data>
+  <data name="Drift_MissingNotInProfileOutdated" xml:space="preserve">
+    <value>{0} faltan · {1} no están en el perfil · {2} desactualizadas</value>
+  </data>
+  <data name="InstallRow_Queued" xml:space="preserve">
+    <value>En cola</value>
+  </data>
+  <data name="InstallRow_Preparing" xml:space="preserve">
+    <value>Preparando</value>
+  </data>
+  <data name="InstallRow_Downloading" xml:space="preserve">
+    <value>Descargando</value>
+  </data>
+  <data name="InstallRow_Installing" xml:space="preserve">
+    <value>Instalando</value>
+  </data>
+  <data name="InstallRow_Installed" xml:space="preserve">
+    <value>Instalada</value>
+  </data>
+  <data name="InstallRow_Failed" xml:space="preserve">
+    <value>Error</value>
+  </data>
+  <data name="InstallRow_ManualAction" xml:space="preserve">
+    <value>Acción manual</value>
+  </data>
+  <data name="InstallRow_RestartNeeded" xml:space="preserve">
+    <value>Requiere reinicio</value>
+  </data>
+  <data name="InstallRow_Skipped" xml:space="preserve">
+    <value>Omitida</value>
+  </data>
+  <data name="InstallRow_Cancelled" xml:space="preserve">
+    <value>Cancelada</value>
+  </data>
+  <data name="InstallRow_YourNote" xml:space="preserve">
+    <value>Su nota: </value>
+  </data>
+  <data name="Install_Install" xml:space="preserve">
+    <value>Instalar</value>
+  </data>
+  <data name="Install_ReviewTheQueueAndReinstall" xml:space="preserve">
+    <value>Revise la cola y reinstale todo de forma silenciosa, con el estado en directo y una sesión que se puede reanudar.</value>
+  </data>
+  <data name="Install_ReviewTheQueueThenInstall" xml:space="preserve">
+    <value>Revise la cola y después instale.</value>
+  </data>
+  <data name="Install_ResumeInstall" xml:space="preserve">
+    <value>Reanudar instalación</value>
+  </data>
+  <data name="Install_InstallEverything" xml:space="preserve">
+    <value>Instalar todo</value>
+  </data>
+  <data name="Install_DoneNeedAttentionTotal" xml:space="preserve">
+    <value>{0} hechas · {1} requieren atención · {2} en total</value>
+  </data>
+  <data name="Install_ResumeAvailable" xml:space="preserve">
+    <value>Se puede reanudar</value>
+  </data>
+  <data name="Install_RestartRequired2" xml:space="preserve">
+    <value>Reinicio necesario</value>
+  </data>
+  <data name="Install_RunningAsAdministrator" xml:space="preserve">
+    <value>Ejecutándose como administrador</value>
+  </data>
+  <data name="Install_RunningAsStandardUser" xml:space="preserve">
+    <value>Ejecutándose como usuario estándar</value>
+  </data>
+  <data name="Install_FailedCompletePickUpWhere" xml:space="preserve">
+    <value>{0} con error · {1} completadas. Continúe donde se detuvo la última sesión.</value>
+  </data>
+  <data name="Install_EveryAppIsInstalledRestart" xml:space="preserve">
+    <value>Todas las aplicaciones están instaladas. Reinicie Windows para terminar los últimos instaladores.</value>
+  </data>
+  <data name="Install_TheLastInstallSessionIs" xml:space="preserve">
+    <value>La última sesión de instalación está completa.</value>
+  </data>
+  <data name="Install_APreviousInstallCanBe" xml:space="preserve">
+    <value>Se puede reanudar una instalación anterior.</value>
+  </data>
+  <data name="Install_LastSessionComplete" xml:space="preserve">
+    <value>Última sesión completada.</value>
+  </data>
+  <data name="Install_ThisProfileHasNoEnabled" xml:space="preserve">
+    <value>Este perfil no tiene aplicaciones activadas. Primero añada o active aplicaciones en Mis aplicaciones.</value>
+  </data>
+  <data name="Install_StartANewInstall" xml:space="preserve">
+    <value>Iniciar una instalación nueva</value>
+  </data>
+  <data name="Install_ACompletedInstallSessionIs" xml:space="preserve">
+    <value>Hay una sesión de instalación completada en el disco. ¿Iniciar una nueva a partir del perfil actual?</value>
+  </data>
+  <data name="Install_StartNewInstall" xml:space="preserve">
+    <value>Iniciar instalación nueva</value>
+  </data>
+  <data name="Install_Cancel" xml:space="preserve">
+    <value>Cancelar</value>
+  </data>
+  <data name="Install_StoppingAfterTheCurrentInstaller" xml:space="preserve">
+    <value>Se detendrá después del instalador actual…</value>
+  </data>
+  <data name="Install_InstallCancelledNothingRan" xml:space="preserve">
+    <value>Instalación cancelada. No se ejecutó nada.</value>
+  </data>
+  <data name="Install_StartOver2" xml:space="preserve">
+    <value>Empezar de nuevo</value>
+  </data>
+  <data name="Install_DiscardTheSavedInstallSession" xml:space="preserve">
+    <value>¿Descartar la sesión de instalación guardada y crear una cola nueva a partir del perfil activo?</value>
+  </data>
+  <data name="Install_FreshQueueReady" xml:space="preserve">
+    <value>Cola nueva lista.</value>
+  </data>
+  <data name="Install_RestartWindows2" xml:space="preserve">
+    <value>Reiniciar Windows</value>
+  </data>
+  <data name="Install_RestartNowToFinishPending" xml:space="preserve">
+    <value>¿Reiniciar ahora para terminar los instaladores pendientes? Guarde antes cualquier trabajo abierto.</value>
+  </data>
+  <data name="Install_RestartNow" xml:space="preserve">
+    <value>Reiniciar ahora</value>
+  </data>
+  <data name="Install_WindowsWillRestartIn10" xml:space="preserve">
+    <value>Windows se reiniciará en 10 segundos.</value>
+  </data>
+  <data name="Install_CouldNotRestartWindows" xml:space="preserve">
+    <value>No se pudo reiniciar Windows: </value>
+  </data>
+  <data name="Install_AdministratorAccess" xml:space="preserve">
+    <value>Acceso de administrador</value>
+  </data>
+  <data name="Install_WindowsInstallersUsuallyNeedAdministrato" xml:space="preserve">
+    <value>Los instaladores de Windows suelen necesitar derechos de administrador. CTRL+Z puede reiniciarse con privilegios elevados y reanudar esta instalación automáticamente.
+
+</value>
+  </data>
+  <data name="Install_YouCanAlsoContinueUnelevated" xml:space="preserve">
+    <value>También puede continuar sin privilegios elevados, pero los instaladores para todo el equipo pueden fallar.</value>
+  </data>
+  <data name="Install_RestartAsAdministrator" xml:space="preserve">
+    <value>Reiniciar como administrador</value>
+  </data>
+  <data name="Install_ContinueWithoutAdmin" xml:space="preserve">
+    <value>Continuar sin administrador</value>
+  </data>
+  <data name="Install_CouldNotRestartAsAdministrator" xml:space="preserve">
+    <value>No se pudo reiniciar como administrador.</value>
+  </data>
+  <data name="Install_InstallNotStartedThePost" xml:space="preserve">
+    <value>La instalación no se inició: no se confirmaron los comandos posteriores a la instalación. No se ejecutó nada.</value>
+  </data>
+  <data name="Install_AnotherCTRLZInstallIs" xml:space="preserve">
+    <value>Hay otra instalación de CTRL+Z en curso en este equipo (por ejemplo, desde la línea de comandos). Inténtelo de nuevo cuando termine.</value>
+  </data>
+  <data name="Install_InstallingApps" xml:space="preserve">
+    <value>Instalando aplicaciones</value>
+  </data>
+  <data name="Install_RetryingFailedApps" xml:space="preserve">
+    <value>Reintentando las aplicaciones con error…</value>
+  </data>
+  <data name="Install_Installing" xml:space="preserve">
+    <value>Instalando…</value>
+  </data>
+  <data name="Install_AllInstallsFinishedRestartWindows" xml:space="preserve">
+    <value>Todas las instalaciones terminaron. Reinicie Windows cuando le convenga.</value>
+  </data>
+  <data name="Install_AllInstallsFinishedSuccessfully" xml:space="preserve">
+    <value>Todas las instalaciones terminaron correctamente.</value>
+  </data>
+  <data name="Install_InstallPausedResumeWheneverYou" xml:space="preserve">
+    <value>Instalación en pausa. Reanúdela cuando esté listo.</value>
+  </data>
+  <data name="Install_TheQueueIsSavedResume" xml:space="preserve">
+    <value>La cola está guardada. Reanude después de cerrar los instaladores abiertos.</value>
+  </data>
+  <data name="Install_TheInstallSessionStoppedUnexpectedly" xml:space="preserve">
+    <value>La sesión de instalación se detuvo de forma inesperada.</value>
+  </data>
+  <data name="Install_CTRLZHitAnError" xml:space="preserve">
+    <value>CTRL+Z encontró un error durante la instalación.
+
+</value>
+  </data>
+  <data name="Install_Queued" xml:space="preserve">
+    <value>En cola</value>
+  </data>
+  <data name="Main_Settings" xml:space="preserve">
+    <value>Configuración</value>
+  </data>
+  <data name="Main_Scan" xml:space="preserve">
+    <value>Examinar</value>
+  </data>
+  <data name="Main_MyApps" xml:space="preserve">
+    <value>Mis aplicaciones</value>
+  </data>
+  <data name="Main_ReadyToWipe" xml:space="preserve">
+    <value>Listo para borrar</value>
+  </data>
+  <data name="Main_Install" xml:space="preserve">
+    <value>Instalar</value>
+  </data>
+  <data name="Main_Updates" xml:space="preserve">
+    <value>Actualizaciones</value>
+  </data>
+  <data name="Main_Tweaks" xml:space="preserve">
+    <value>Ajustes</value>
+  </data>
+  <data name="Main_AddApp" xml:space="preserve">
+    <value>Añadir aplicación</value>
+  </data>
+  <data name="Main_Catalog" xml:space="preserve">
+    <value>Catálogo</value>
+  </data>
+  <data name="Main_Browsers2" xml:space="preserve">
+    <value>Navegadores</value>
+  </data>
+  <data name="Main_ThisPageCouldNotBe" xml:space="preserve">
+    <value>No se pudo cargar esta página: {0}</value>
+  </data>
+  <data name="MyApps_MyApps" xml:space="preserve">
+    <value>Mis aplicaciones</value>
+  </data>
+  <data name="MyApps_YourPortableReinstallProfileTune" xml:space="preserve">
+    <value>Su perfil portátil de reinstalación. Ajuste la lista antes de pasar a una instalación nueva de Windows.</value>
+  </data>
+  <data name="MyApps_ChangesSaveAutomatically" xml:space="preserve">
+    <value>Los cambios se guardan automáticamente.</value>
+  </data>
+  <data name="MyApps_EnabledOf" xml:space="preserve">
+    <value>{0} activadas de {1}</value>
+  </data>
+  <data name="MyApps_NewProfile2" xml:space="preserve">
+    <value>Nuevo perfil</value>
+  </data>
+  <data name="MyApps_CreateASeparateAppList" xml:space="preserve">
+    <value>Cree una lista de aplicaciones aparte para otro equipo u otro fin.</value>
+  </data>
+  <data name="MyApps_ProfileName" xml:space="preserve">
+    <value>Nombre del perfil</value>
+  </data>
+  <data name="MyApps_CreatedProfile" xml:space="preserve">
+    <value>Se creó el perfil «{0}».</value>
+  </data>
+  <data name="MyApps_RenameProfile2" xml:space="preserve">
+    <value>Cambiar nombre del perfil</value>
+  </data>
+  <data name="MyApps_ProfilesArePortableJSONFiles" xml:space="preserve">
+    <value>Los perfiles son archivos JSON portátiles.</value>
+  </data>
+  <data name="MyApps_ImportACTRLZProfile" xml:space="preserve">
+    <value>Importar un perfil de CTRL+Z</value>
+  </data>
+  <data name="MyApps_Imported" xml:space="preserve">
+    <value>Se importó «{0}».</value>
+  </data>
+  <data name="MyApps_ThatProfileCouldNotBe" xml:space="preserve">
+    <value>No se pudo importar ese perfil.
+
+</value>
+  </data>
+  <data name="MyApps_ExportForAnotherPC" xml:space="preserve">
+    <value>Exportar para otro equipo</value>
+  </data>
+  <data name="MyApps_ChooseWhereToSave" xml:space="preserve">
+    <value>Elegir dónde guardar</value>
+  </data>
+  <data name="MyApps_Cancel" xml:space="preserve">
+    <value>Cancelar</value>
+  </data>
+  <data name="MyApps_IncludeMyNotesInThe" xml:space="preserve">
+    <value>Incluir mis notas en el archivo</value>
+  </data>
+  <data name="MyApps_ExportedTo" xml:space="preserve">
+    <value>Exportado a {0}</value>
+  </data>
+  <data name="MyApps_CopyItToAUSB" xml:space="preserve">
+    <value>Cópielo a una unidad USB u otro equipo, junto con las copias de seguridad de sus navegadores.</value>
+  </data>
+  <data name="MyApps_ProfileExported" xml:space="preserve">
+    <value>Perfil exportado</value>
+  </data>
+  <data name="MyApps_CouldNotExportTheProfile" xml:space="preserve">
+    <value>No se pudo exportar el perfil.
+
+</value>
+  </data>
+  <data name="MyApps_DeleteProfile2" xml:space="preserve">
+    <value>Eliminar perfil</value>
+  </data>
+  <data name="MyApps_DeleteItsJSONFileWill" xml:space="preserve">
+    <value>¿Eliminar «{0}»? Su archivo JSON se quitará de CTRL+Z. Las copias exportadas no se tocan.</value>
+  </data>
+  <data name="MyApps_Delete" xml:space="preserve">
+    <value>Eliminar</value>
+  </data>
+  <data name="MyApps_ProfileDeleted" xml:space="preserve">
+    <value>Perfil eliminado.</value>
+  </data>
+  <data name="MyApps_ImportAnAppListFrom" xml:space="preserve">
+    <value>Importar una lista de aplicaciones de winget, Scoop o Chocolatey</value>
+  </data>
+  <data name="MyApps_ThatFileCouldNotBe" xml:space="preserve">
+    <value>No se pudo leer ese archivo como lista de aplicaciones.
+
+</value>
+  </data>
+  <data name="MyApps_ImportAppList" xml:space="preserve">
+    <value>Importar lista de aplicaciones</value>
+  </data>
+  <data name="MyApps_NoAppsInThatList" xml:space="preserve">
+    <value>Ninguna aplicación de esa lista de {0} se pudo asociar con winget o Microsoft Store.</value>
+  </data>
+  <data name="MyApps_AndMore" xml:space="preserve">
+    <value>
+• …y {0} más</value>
+  </data>
+  <data name="MyApps_AppsAlreadyInTheProfile" xml:space="preserve">
+    <value>
+
+Se omiten las aplicaciones que ya están en el perfil. Puede revisar o quitar cualquiera después.</value>
+  </data>
+  <data name="MyApps_AddApps2" xml:space="preserve">
+    <value>Añadir aplicaciones</value>
+  </data>
+  <data name="MyApps_AlreadyPresent" xml:space="preserve">
+    <value> · {0} ya estaban</value>
+  </data>
+  <data name="MyApps_NotMatched" xml:space="preserve">
+    <value> · {0} sin coincidencia</value>
+  </data>
+  <data name="MyApps_NotMatchedAddTheseBy" xml:space="preserve">
+    <value>
+
+Sin coincidencia ({0}); añádalas a mano si las necesita:
+</value>
+  </data>
+  <data name="MyApps_RemoveDependency" xml:space="preserve">
+    <value>Quitar dependencia</value>
+  </data>
+  <data name="MyApps_WasAddedBecauseAnotherApp" xml:space="preserve">
+    <value>«{0}» se añadió porque otra aplicación la necesita. ¿Desactivarla para que no se instale ni se vuelva a añadir?</value>
+  </data>
+  <data name="MyApps_TurnOff" xml:space="preserve">
+    <value>Desactivar</value>
+  </data>
+  <data name="MyApps_IsTurnedOffAndWill" xml:space="preserve">
+    <value>{0} está desactivada y no se volverá a añadir.</value>
+  </data>
+  <data name="MyApps_RemoveApp" xml:space="preserve">
+    <value>Quitar aplicación</value>
+  </data>
+  <data name="MyApps_RemoveFromThisProfile" xml:space="preserve">
+    <value>¿Quitar «{0}» de este perfil?</value>
+  </data>
+  <data name="MyApps_Remove" xml:space="preserve">
+    <value>Quitar</value>
+  </data>
+  <data name="MyApps_Removed" xml:space="preserve">
+    <value>Se quitó {0}.</value>
+  </data>
+  <data name="MyApps_Updated" xml:space="preserve">
+    <value>Se actualizó {0}.</value>
+  </data>
+  <data name="MyApps_SaveARiskyCommand" xml:space="preserve">
+    <value>¿Guardar un comando peligroso?</value>
+  </data>
+  <data name="MyApps_SaveRiskyCommand" xml:space="preserve">
+    <value>Guardar comando peligroso</value>
+  </data>
+  <data name="MyApps_GoBack" xml:space="preserve">
+    <value>Volver</value>
+  </data>
+  <data name="MyApps_AllAppsEnabled" xml:space="preserve">
+    <value>Todas las aplicaciones activadas.</value>
+  </data>
+  <data name="Preview_MayNeedAdmin" xml:space="preserve">
+    <value>Puede necesitar administrador</value>
+  </data>
+  <data name="Preview_NoAdminNeeded" xml:space="preserve">
+    <value>No necesita administrador</value>
+  </data>
+  <data name="Preview_ThereIsNothingEnabledTo" xml:space="preserve">
+    <value>No hay nada activado para instalar.</value>
+  </data>
+  <data name="Preview_MayNeedAdminWithWarnings" xml:space="preserve">
+    <value>{0} pueden necesitar administrador · {1} con advertencias</value>
+  </data>
+  <data name="Preview_CommandReviewSavedOnThis" xml:space="preserve">
+    <value>La revisión de comandos se guardó en este equipo. La lista de abajo está actualizada.</value>
+  </data>
+  <data name="Preview_ReviewTheListThenRun" xml:space="preserve">
+    <value>Revise la lista y después ejecute la prueba en seco o inicie la instalación.</value>
+  </data>
+  <data name="Preview_CheckingEachSource" xml:space="preserve">
+    <value>Comprobando cada origen…</value>
+  </data>
+  <data name="Preview_ReadyWarningsFailed" xml:space="preserve">
+    <value>{0} listas · {1} advertencias · {2} con error</value>
+  </data>
+  <data name="Preview_KnownDownload" xml:space="preserve">
+    <value> · {0} de descarga conocida</value>
+  </data>
+  <data name="Preview_SomeAppsCannotBeInstalled" xml:space="preserve">
+    <value>Algunas aplicaciones no se pueden instalar tal como están configuradas. No se ha instalado nada.</value>
+  </data>
+  <data name="Preview_DryRunCompleteNothingHas" xml:space="preserve">
+    <value>Prueba en seco completada. No se ha instalado nada.</value>
+  </data>
+  <data name="Preview_TheDryRunCouldNot" xml:space="preserve">
+    <value>No se pudo terminar la prueba en seco.</value>
+  </data>
+  <data name="Preview_TheDryRunCouldNot2" xml:space="preserve">
+    <value>No se pudo terminar la prueba en seco.
+
+</value>
+  </data>
+  <data name="Preview_RunTheDryRunFirst" xml:space="preserve">
+    <value>Ejecute primero la prueba en seco y después exporte su informe.</value>
+  </data>
+  <data name="Preview_NothingToExport" xml:space="preserve">
+    <value>Nada que exportar</value>
+  </data>
+  <data name="Preview_ReportSaved" xml:space="preserve">
+    <value>Informe guardado.</value>
+  </data>
+  <data name="Preview_CouldNotSaveTheReport" xml:space="preserve">
+    <value>No se pudo guardar el informe.
+
+</value>
+  </data>
+  <data name="ProfileAppRow_AddedAutomaticallyAsADependency" xml:space="preserve">
+    <value>Añadida automáticamente como dependencia</value>
+  </data>
+  <data name="ProfileAppRow_Other" xml:space="preserve">
+    <value>Otros</value>
+  </data>
+  <data name="ReadinessRow_ActionNeeded" xml:space="preserve">
+    <value>Requiere acción</value>
+  </data>
+  <data name="ReadinessRow_CheckThis" xml:space="preserve">
+    <value>Compruébelo</value>
+  </data>
+  <data name="ReadinessRow_LooksFine" xml:space="preserve">
+    <value>Parece correcto</value>
+  </data>
+  <data name="Readiness_ReadyToWipe" xml:space="preserve">
+    <value>¿Listo para borrar?</value>
+  </data>
+  <data name="Readiness_WhatACleanInstallWould" xml:space="preserve">
+    <value>Lo que eliminaría una instalación limpia. Se ejecuta en local: sin red y sin telemetría.</value>
+  </data>
+  <data name="Readiness_RunACheckToSee" xml:space="preserve">
+    <value>Ejecute una comprobación para ver qué se perdería.</value>
+  </data>
+  <data name="Readiness_NotCheckedYet" xml:space="preserve">
+    <value>Todavía sin comprobar</value>
+  </data>
+  <data name="Readiness_FineToCheckNeedingAction" xml:space="preserve">
+    <value>{0} correctos · {1} por comprobar · {2} requieren acción</value>
+  </data>
+  <data name="Readiness_HandledOrIgnored" xml:space="preserve">
+    <value> · {0} resueltos u omitidos</value>
+  </data>
+  <data name="Readiness_Scanning" xml:space="preserve">
+    <value>Examinando…</value>
+  </data>
+  <data name="Readiness_Scanning2" xml:space="preserve">
+    <value>Examinando {0} ({1}/{2})…</value>
+  </data>
+  <data name="Readiness_CheckComplete" xml:space="preserve">
+    <value>Comprobación completada.</value>
+  </data>
+  <data name="Readiness_CheckCancelled" xml:space="preserve">
+    <value>Comprobación cancelada.</value>
+  </data>
+  <data name="Readiness_TheCheckCouldNotFinish" xml:space="preserve">
+    <value>No se pudo terminar la comprobación.</value>
+  </data>
+  <data name="Readiness_TheCheckCouldNotFinish2" xml:space="preserve">
+    <value>No se pudo terminar la comprobación.
+
+</value>
+  </data>
+  <data name="Readiness_ReadyToWipe2" xml:space="preserve">
+    <value>Listo para borrar</value>
+  </data>
+  <data name="Readiness_EverythingOnTheListIs" xml:space="preserve">
+    <value>Todo lo de la lista está resuelto u omitido. Antes, copie a un medio externo lo que todavía necesite.</value>
+  </data>
+  <data name="Readiness_ReadyToWipeAllItems" xml:space="preserve">
+    <value>Listo para borrar: los {0} elementos parecen correctos</value>
+  </data>
+  <data name="Readiness_ItemsYouMarkHandledOr" xml:space="preserve">
+    <value>Los elementos que marque como resueltos u omita desaparecen de esta lista y se recuerdan en este equipo.</value>
+  </data>
+  <data name="Readiness_Desktop" xml:space="preserve">
+    <value>Escritorio</value>
+  </data>
+  <data name="Readiness_Documents" xml:space="preserve">
+    <value>Documentos</value>
+  </data>
+  <data name="Readiness_Pictures" xml:space="preserve">
+    <value>Imágenes</value>
+  </data>
+  <data name="Readiness_Videos" xml:space="preserve">
+    <value>Vídeos</value>
+  </data>
+  <data name="Readiness_Music" xml:space="preserve">
+    <value>Música</value>
+  </data>
+  <data name="Readiness_Drive" xml:space="preserve">
+    <value>Unidad {0}</value>
+  </data>
+  <data name="ScanItem_WingetExact" xml:space="preserve">
+    <value>winget · exacta</value>
+  </data>
+  <data name="ScanItem_WingetStrong" xml:space="preserve">
+    <value>winget · fuerte</value>
+  </data>
+  <data name="ScanItem_WingetReview" xml:space="preserve">
+    <value>winget · revisar</value>
+  </data>
+  <data name="ScanItem_WingetManual" xml:space="preserve">
+    <value>winget · manual</value>
+  </data>
+  <data name="ScanItem_Unmatched" xml:space="preserve">
+    <value>Sin coincidencia</value>
+  </data>
+  <data name="ScanItem_Other" xml:space="preserve">
+    <value>Otros</value>
+  </data>
+  <data name="ScanItem_ManuallyMatchedTo" xml:space="preserve">
+    <value>Asociada manualmente con </value>
+  </data>
+  <data name="Scan_ScanThisPC2" xml:space="preserve">
+    <value>Examinar este equipo</value>
+  </data>
+  <data name="Scan_FindInstalledProgramsAndMatch" xml:space="preserve">
+    <value>Encuentre los programas instalados y asócielos con winget para poder reconstruir esta configuración más adelante.</value>
+  </data>
+  <data name="Scan_AllCategories" xml:space="preserve">
+    <value>Todas las categorías</value>
+  </data>
+  <data name="Scan_AllApps" xml:space="preserve">
+    <value>Todas las aplicaciones</value>
+  </data>
+  <data name="Scan_Matched2" xml:space="preserve">
+    <value>Con coincidencia</value>
+  </data>
+  <data name="Scan_Unmatched2" xml:space="preserve">
+    <value>Sin coincidencia</value>
+  </data>
+  <data name="Scan_ReadyScanToFindInstalled" xml:space="preserve">
+    <value>Listo. Examine para encontrar los programas instalados.</value>
+  </data>
+  <data name="Scan_SelectedOf" xml:space="preserve">
+    <value>{0} seleccionadas de {1}</value>
+  </data>
+  <data name="Scan_LookingForWingetPackages" xml:space="preserve">
+    <value>Buscando paquetes de winget…</value>
+  </data>
+  <data name="Scan_Scanned" xml:space="preserve">
+    <value>Examinado a las {0:HH:mm}</value>
+  </data>
+  <data name="Scan_FoundProgramsMatchedUnmatched" xml:space="preserve">
+    <value>Se encontraron {0} programas · {1} con coincidencia · {2} sin coincidencia</value>
+  </data>
+  <data name="Scan_ScanCancelled" xml:space="preserve">
+    <value>Examen cancelado.</value>
+  </data>
+  <data name="Scan_TheScanCouldNotBe" xml:space="preserve">
+    <value>No se pudo completar el examen.</value>
+  </data>
+  <data name="Scan_CTRLZCouldNotFinish" xml:space="preserve">
+    <value>CTRL+Z no pudo terminar de examinar este equipo.
+
+</value>
+  </data>
+  <data name="Scan_TickTheAppsYouWant" xml:space="preserve">
+    <value>Primero marque las aplicaciones que quiere añadir.</value>
+  </data>
+  <data name="Scan_UseFixOnThoseRows" xml:space="preserve">
+    <value>Use Corregir en esas filas, o desmárquelas, y después añada el resto.</value>
+  </data>
+  <data name="Scan_UnmatchedApps" xml:space="preserve">
+    <value>Aplicaciones sin coincidencia</value>
+  </data>
+  <data name="Scan_NoNewAppsAddedAlready" xml:space="preserve">
+    <value>No se añadieron aplicaciones nuevas ({0} ya estaban en el perfil).</value>
+  </data>
+  <data name="Scan_AlreadyPresent" xml:space="preserve">
+    <value> · {0} ya estaban.</value>
+  </data>
+  <data name="Scan_TickAtLeastOneMatched" xml:space="preserve">
+    <value>Marque al menos una aplicación con coincidencia antes de guardar un perfil.</value>
+  </data>
+  <data name="Scan_SaveProfile" xml:space="preserve">
+    <value>Guardar perfil</value>
+  </data>
+  <data name="Scan_CreateANewProfileFrom" xml:space="preserve">
+    <value>Cree un perfil nuevo con las aplicaciones seleccionadas.</value>
+  </data>
+  <data name="Scan_ProfileName" xml:space="preserve">
+    <value>Nombre del perfil</value>
+  </data>
+  <data name="Scan_SavedProfileWithApps" xml:space="preserve">
+    <value>Se guardó el perfil «{0}» con {1} aplicaciones.
+
+{2}
+
+</value>
+  </data>
+  <data name="Scan_KeepThisJSONWithYour" xml:space="preserve">
+    <value>Guarde este JSON con su instalador o en una unidad USB.</value>
+  </data>
+  <data name="Scan_ProfileSaved" xml:space="preserve">
+    <value>Perfil guardado</value>
+  </data>
+  <data name="Scan_SavedProfileWithAppsIn" xml:space="preserve">
+    <value>Se guardó el perfil «{0}» con {1} aplicaciones en CTRL+Z.</value>
+  </data>
+  <data name="Settings_Settings" xml:space="preserve">
+    <value>Configuración</value>
+  </data>
+  <data name="Settings_ThemeLogsAndLocalData" xml:space="preserve">
+    <value>Tema, registros y datos locales. Todo se queda en este equipo salvo que lo exporte.</value>
+  </data>
+  <data name="Settings_LightTheme" xml:space="preserve">
+    <value>Tema claro</value>
+  </data>
+  <data name="Settings_DarkTheme" xml:space="preserve">
+    <value>Tema oscuro</value>
+  </data>
+  <data name="Settings_FollowingWindows" xml:space="preserve">
+    <value>Según Windows</value>
+  </data>
+  <data name="Settings_CheckingWinget" xml:space="preserve">
+    <value>Comprobando winget…</value>
+  </data>
+  <data name="Settings_CTRLZ" xml:space="preserve">
+    <value>CTRL+Z {0}</value>
+  </data>
+  <data name="Settings_OnlyFullReleasesAreOffered" xml:space="preserve">
+    <value>Solo se ofrecen versiones finales.</value>
+  </data>
+  <data name="Settings_FullReleasesAndPreReleases" xml:space="preserve">
+    <value>Se ofrecen versiones finales y preliminares; gana la más reciente.</value>
+  </data>
+  <data name="Settings_LastChecked" xml:space="preserve">
+    <value>Última comprobación: {0:yyyy-MM-dd HH:mm}</value>
+  </data>
+  <data name="Settings_NotCheckedYet" xml:space="preserve">
+    <value>Todavía sin comprobar</value>
+  </data>
+  <data name="Settings_Theme2" xml:space="preserve">
+    <value>Tema: {0}.</value>
+  </data>
+  <data name="Settings_UpdateChannel" xml:space="preserve">
+    <value>Canal de actualización: {0}.</value>
+  </data>
+  <data name="Settings_CheckingForUpdates" xml:space="preserve">
+    <value>Buscando actualizaciones…</value>
+  </data>
+  <data name="Settings_LogRefreshed" xml:space="preserve">
+    <value>Registro actualizado.</value>
+  </data>
+  <data name="Settings_WingetReady" xml:space="preserve">
+    <value>winget {0} · listo</value>
+  </data>
+  <data name="Settings_WingetNotFoundInstallApp" xml:space="preserve">
+    <value>No se encontró winget · instale App Installer cuando inicie una instalación</value>
+  </data>
+  <data name="Settings_WingetCheckFailed" xml:space="preserve">
+    <value>Error al comprobar winget: </value>
+  </data>
+  <data name="Settings_UpdateAppInstaller" xml:space="preserve">
+    <value>Actualizar App Installer</value>
+  </data>
+  <data name="Settings_CTRLZWillAskMicrosoft" xml:space="preserve">
+    <value>CTRL+Z pedirá al administrador de paquetes de Microsoft que instale o actualice App Installer (winget). Puede aparecer un aviso del Control de cuentas de usuario.</value>
+  </data>
+  <data name="Settings_UpdateWinget2" xml:space="preserve">
+    <value>Actualizar winget</value>
+  </data>
+  <data name="Settings_Cancel" xml:space="preserve">
+    <value>Cancelar</value>
+  </data>
+  <data name="Settings_WingetIsNotAvailable" xml:space="preserve">
+    <value>winget no está disponible</value>
+  </data>
+  <data name="Settings_WingetIsReady" xml:space="preserve">
+    <value>winget está listo.</value>
+  </data>
+  <data name="Settings_WingetCouldNotBeInstalled" xml:space="preserve">
+    <value>No se pudo instalar winget.</value>
+  </data>
+  <data name="Settings_UpdateFailed" xml:space="preserve">
+    <value>Error en la actualización: </value>
+  </data>
+  <data name="Settings_DiagnosticsSummaryCopiedToThe" xml:space="preserve">
+    <value>Resumen de diagnóstico copiado al portapapeles. Solo contiene versiones, opciones y recuentos.</value>
+  </data>
+  <data name="Settings_CouldNotCopyDiagnostics" xml:space="preserve">
+    <value>No se pudo copiar el diagnóstico: </value>
+  </data>
+  <data name="Settings_SavingDiagnostics" xml:space="preserve">
+    <value>Guardando diagnóstico…</value>
+  </data>
+  <data name="Settings_DiagnosticsSavedNothingWasSent" xml:space="preserve">
+    <value>Diagnóstico guardado. No se envió nada; abra el ZIP para revisarlo antes de compartirlo.</value>
+  </data>
+  <data name="Settings_CouldNotSaveDiagnostics" xml:space="preserve">
+    <value>No se pudo guardar el diagnóstico.
+
+</value>
+  </data>
+  <data name="Settings_CustomFolderCTRLZDATADIR" xml:space="preserve">
+    <value>carpeta personalizada (CTRLZ_DATA_DIR)</value>
+  </data>
+  <data name="Settings_CTRLZIsReleasedUnder" xml:space="preserve">
+    <value>CTRL+Z se publica con la licencia GNU Affero General Public License v3.0 </value>
+  </data>
+  <data name="Settings_AGPL30OnlyThe" xml:space="preserve">
+    <value>(AGPL-3.0-only). El texto completo de la licencia y el código fuente están en {0}.</value>
+  </data>
+  <data name="Settings_License" xml:space="preserve">
+    <value>Licencia</value>
+  </data>
+  <data name="Settings_CouldNotOpenTheSource" xml:space="preserve">
+    <value>No se pudo abrir el enlace al código fuente.
+
+</value>
+  </data>
+  <data name="Settings_CouldNotReadTheLog" xml:space="preserve">
+    <value>No se pudo leer el registro: </value>
+  </data>
+  <data name="Settings_ThatFolderDoesNotExist" xml:space="preserve">
+    <value>Esa carpeta todavía no existe.</value>
+  </data>
+  <data name="Settings_CouldNotOpenThatLocation" xml:space="preserve">
+    <value>No se pudo abrir esa ubicación.
+
+</value>
+  </data>
+  <data name="Tweaks_Apply" xml:space="preserve">
+    <value>Aplicar</value>
+  </data>
+  <data name="Tweaks_Undo" xml:space="preserve">
+    <value>Deshacer</value>
+  </data>
+  <data name="Tweaks_PartlyOn" xml:space="preserve">
+    <value>Activado en parte</value>
+  </data>
+  <data name="Tweaks_Off" xml:space="preserve">
+    <value>Desactivado</value>
+  </data>
+  <data name="Tweaks_InYourProfile" xml:space="preserve">
+    <value> · en su perfil</value>
+  </data>
+  <data name="Tweaks_Tweaks" xml:space="preserve">
+    <value>Ajustes</value>
+  </data>
+  <data name="Tweaks_SmallWindowsSettingsToSet" xml:space="preserve">
+    <value>Pequeñas opciones de Windows para volver a configurar después de reinstalar. Cada una se puede deshacer exactamente.</value>
+  </data>
+  <data name="Tweaks_TweakNotChanged" xml:space="preserve">
+    <value>Ajuste sin cambios</value>
+  </data>
+  <data name="Tweaks_ApplyTweaksFromYourProfile" xml:space="preserve">
+    <value>Aplicar los ajustes de su perfil</value>
+  </data>
+  <data name="Tweaks_TheseWillBeSetOn" xml:space="preserve">
+    <value>Se configurarán en este equipo, y cada uno se puede deshacer aquí:
+
+</value>
+  </data>
+  <data name="Tweaks_Cancel" xml:space="preserve">
+    <value>Cancelar</value>
+  </data>
+  <data name="Tweaks_AppliedNotChanged" xml:space="preserve">
+    <value>Aplicados: {0}; sin cambios: {1}.</value>
+  </data>
+  <data name="Tweaks_RestartFileExplorer2" xml:space="preserve">
+    <value>Reiniciar el Explorador de archivos</value>
+  </data>
+  <data name="Tweaks_FileExplorerAndTheTaskbar" xml:space="preserve">
+    <value>El Explorador de archivos y la barra de tareas se cerrarán y volverán a abrirse. Las ventanas del Explorador abiertas se cerrarán; no afecta a nada más.</value>
+  </data>
+  <data name="Tweaks_RestartExplorer" xml:space="preserve">
+    <value>Reiniciar Explorador</value>
+  </data>
+  <data name="Tweaks_RestartingFileExplorer" xml:space="preserve">
+    <value>Reiniciando el Explorador de archivos…</value>
+  </data>
+  <data name="Tweaks_FileExplorerRestarted" xml:space="preserve">
+    <value>El Explorador de archivos se reinició.</value>
+  </data>
+  <data name="Tweaks_FileExplorerCouldNotBe" xml:space="preserve">
+    <value>No se pudo reiniciar el Explorador de archivos. Cierre la sesión y vuelva a iniciarla para aplicar el cambio.
+
+</value>
+  </data>
+  <data name="AppEditor_MicrosoftStore" xml:space="preserve">
+    <value>Microsoft Store</value>
+  </data>
+  <data name="AppEditor_GitHubRelease" xml:space="preserve">
+    <value>Versión de GitHub</value>
+  </data>
+  <data name="AppEditor_DirectDownloadLink" xml:space="preserve">
+    <value>Enlace de descarga directa</value>
+  </data>
+  <data name="AppEditor_LocalInstallerFile" xml:space="preserve">
+    <value>Archivo de instalador local</value>
+  </data>
+  <data name="AppEditor_Installer" xml:space="preserve">
+    <value>Instalador</value>
+  </data>
+  <data name="AppEditor_PortableArchiveZIP" xml:space="preserve">
+    <value>Archivo portátil (ZIP)</value>
+  </data>
+  <data name="AppEditor_PortableExecutable" xml:space="preserve">
+    <value>Ejecutable portátil</value>
+  </data>
+  <data name="AppEditor_NoCommand" xml:space="preserve">
+    <value>Sin comando.</value>
+  </data>
+  <data name="AppEditor_TheCommandWasNotSaved" xml:space="preserve">
+    <value>El comando no se guardó: coincide con un patrón peligroso y no se confirmó.</value>
+  </data>
+  <data name="AppEditor_SelectAnInstaller" xml:space="preserve">
+    <value>Seleccione un instalador</value>
+  </data>
+  <data name="AppEditor_GiveTheAppAName" xml:space="preserve">
+    <value>Asigne un nombre a la aplicación.</value>
+  </data>
+  <data name="AppEditor_ChooseAnInstallSource" xml:space="preserve">
+    <value>Elija un origen de instalación.</value>
+  </data>
+  <data name="AppEditor_SHA256MustBe64" xml:space="preserve">
+    <value>El SHA-256 debe tener 64 caracteres hexadecimales o quedar vacío.</value>
+  </data>
+  <data name="AppEditor_EnterTheWingetPackageId" xml:space="preserve">
+    <value>Escriba el id. del paquete de winget para este origen.</value>
+  </data>
+  <data name="AppEditor_EnterAValidAbsoluteHttp" xml:space="preserve">
+    <value>Escriba una URL de descarga http(s) completa y válida.</value>
+  </data>
+  <data name="AppEditor_ChooseTheLocalInstallerFile" xml:space="preserve">
+    <value>Elija el archivo de instalador local.</value>
+  </data>
+  <data name="UpdatePrompt_CTRLZPreReleaseIs" xml:space="preserve">
+    <value>CTRL+Z {0} (versión preliminar) está disponible</value>
+  </data>
+  <data name="UpdatePrompt_CTRLZIsAvailable" xml:space="preserve">
+    <value>CTRL+Z {0} está disponible</value>
+  </data>
+  <data name="UpdatePrompt_YouAreRunning" xml:space="preserve">
+    <value>Está usando {0}.</value>
+  </data>
+  <data name="UpdatePrompt_NoReleaseNotesWereProvided" xml:space="preserve">
+    <value>No se incluyeron notas de la versión.</value>
+  </data>
+  <data name="UpdatePrompt_Close2" xml:space="preserve">
+    <value>Cerrar</value>
+  </data>
+  <data name="UpdatePrompt_Cancelling" xml:space="preserve">
+    <value>Cancelando…</value>
+  </data>
+  <data name="WingetMatch_SearchingWinget" xml:space="preserve">
+    <value>Buscando en winget…</value>
+  </data>
+  <data name="WingetMatch_NoMatchesYouCanPaste" xml:space="preserve">
+    <value>Sin resultados. Puede pegar un id. de paquete manualmente.</value>
+  </data>
+  <data name="WingetMatch_SearchFailed" xml:space="preserve">
+    <value>Error en la búsqueda: </value>
+  </data>
+  <data name="WingetMatch_SelectAResultOrPaste" xml:space="preserve">
+    <value>Seleccione un resultado o pegue un id. de paquete de winget.</value>
+  </data>
+  <data name="DialogService_Ok" xml:space="preserve">
+    <value>Aceptar</value>
+  </data>
+  <data name="AddApp_AddAppToMyApps" xml:space="preserve">
+    <value>Añadir la aplicación a Mis aplicaciones</value>
+  </data>
+  <data name="AddApp_AddNameToMyApps" xml:space="preserve">
+    <value>Añadir {0} a Mis aplicaciones</value>
+  </data>
+  <data name="AddApp_ReleaseAssets_One" xml:space="preserve">
+    <value>{1} · {0} archivo para Windows · publicado el {2:MMM d, yyyy}</value>
+  </data>
+  <data name="AddApp_ReleaseAssets_Other" xml:space="preserve">
+    <value>{1} · {0} archivos para Windows · publicado el {2:MMM d, yyyy}</value>
+  </data>
+  <data name="AppUpdates_WingetWillUpdate_One" xml:space="preserve">
+    <value>winget actualizará {0} aplicación:
+
+{1}
+
+</value>
+  </data>
+  <data name="AppUpdates_WingetWillUpdate_Other" xml:space="preserve">
+    <value>winget actualizará {0} aplicaciones, una tras otra:
+
+{1}
+
+</value>
+  </data>
+  <data name="AppUpdates_UpdatesAvailable_One" xml:space="preserve">
+    <value>{0} actualización de aplicación disponible</value>
+  </data>
+  <data name="AppUpdates_UpdatesAvailable_Other" xml:space="preserve">
+    <value>{0} actualizaciones de aplicaciones disponibles</value>
+  </data>
+  <data name="BrowserItem_ProfileCount_One" xml:space="preserve">
+    <value>{0} perfil</value>
+  </data>
+  <data name="BrowserItem_ProfileCount_Other" xml:space="preserve">
+    <value>{0} perfiles</value>
+  </data>
+  <data name="Browsers_DetectedCount_One" xml:space="preserve">
+    <value>{0} navegador detectado</value>
+  </data>
+  <data name="Browsers_DetectedCount_Other" xml:space="preserve">
+    <value>{0} navegadores detectados</value>
+  </data>
+  <data name="Browsers_BackedUpCount_One" xml:space="preserve">
+    <value>Se hizo copia de seguridad de {0} navegador.</value>
+  </data>
+  <data name="Browsers_BackedUpCount_Other" xml:space="preserve">
+    <value>Se hizo copia de seguridad de {0} navegadores.</value>
+  </data>
+  <data name="Browsers_FoundCount_One" xml:space="preserve">
+    <value>Se encontró {0} navegador.</value>
+  </data>
+  <data name="Browsers_FoundCount_Other" xml:space="preserve">
+    <value>Se encontraron {0} navegadores.</value>
+  </data>
+  <data name="Browsers_ProfilesEstimated_One" xml:space="preserve">
+    <value>{0} perfil · {1} estimado</value>
+  </data>
+  <data name="Browsers_ProfilesEstimated_Other" xml:space="preserve">
+    <value>{0} perfiles · {1} estimado</value>
+  </data>
+  <data name="Catalog_AddedApps_One" xml:space="preserve">
+    <value>Se añadió {0} aplicación a «{1}»</value>
+  </data>
+  <data name="Catalog_AddedApps_Other" xml:space="preserve">
+    <value>Se añadieron {0} aplicaciones a «{1}»</value>
+  </data>
+  <data name="CommandReview_TimeoutAdmin" xml:space="preserve">
+    <value>Tiempo de espera {0} s · se ejecuta como administrador</value>
+  </data>
+  <data name="CommandReview_TimeoutNoAdmin" xml:space="preserve">
+    <value>Tiempo de espera {0} s · se ejecuta sin administrador</value>
+  </data>
+  <data name="Drift_CheckedApps_One" xml:space="preserve">
+    <value>Se comprobó {0} aplicación instalada.</value>
+  </data>
+  <data name="Drift_CheckedApps_Other" xml:space="preserve">
+    <value>Se comprobaron {0} aplicaciones instaladas.</value>
+  </data>
+  <data name="Install_AppsNeedAttention_One" xml:space="preserve">
+    <value>{0} aplicación requiere atención. Reintente cuando esté listo.</value>
+  </data>
+  <data name="Install_AppsNeedAttention_Other" xml:space="preserve">
+    <value>{0} aplicaciones requieren atención. Reintente cuando esté listo.</value>
+  </data>
+  <data name="MyApps_AppCount_One" xml:space="preserve">
+    <value>{0} aplicación</value>
+  </data>
+  <data name="MyApps_AppCount_Other" xml:space="preserve">
+    <value>{0} aplicaciones</value>
+  </data>
+  <data name="MyApps_ProfileExportedWithoutNotes" xml:space="preserve">
+    <value>Perfil exportado sin notas.
+
+{0}
+
+</value>
+  </data>
+  <data name="MyApps_ProfileExportedTo" xml:space="preserve">
+    <value>Perfil exportado.
+
+{0}
+
+</value>
+  </data>
+  <data name="MyApps_AddFromList_One" xml:space="preserve">
+    <value>¿Añadir {0} aplicación de esta lista de {1} a «{2}»?
+
+</value>
+  </data>
+  <data name="MyApps_AddFromList_Other" xml:space="preserve">
+    <value>¿Añadir {0} aplicaciones de esta lista de {1} a «{2}»?
+
+</value>
+  </data>
+  <data name="MyApps_AddedFromList_One" xml:space="preserve">
+    <value>Se añadió {0} aplicación de la lista de {1}</value>
+  </data>
+  <data name="MyApps_AddedFromList_Other" xml:space="preserve">
+    <value>Se añadieron {0} aplicaciones de la lista de {1}</value>
+  </data>
+  <data name="MyApps_SavedEnabled" xml:space="preserve">
+    <value>Guardado · {0} activada</value>
+  </data>
+  <data name="MyApps_SavedDisabled" xml:space="preserve">
+    <value>Guardado · {0} desactivada</value>
+  </data>
+  <data name="MyApps_RiskyCommandSave" xml:space="preserve">
+    <value>Este comando coincide con un patrón peligroso ({0}):
+
+{1}
+
+Guárdelo solo si lo escribió usted y entiende exactamente lo que hace.</value>
+  </data>
+  <data name="Preview_AppsInRun_One" xml:space="preserve">
+    <value>{0} aplicación en esta ejecución · </value>
+  </data>
+  <data name="Preview_AppsInRun_Other" xml:space="preserve">
+    <value>{0} aplicaciones en esta ejecución · </value>
+  </data>
+  <data name="Readiness_NeedAttention_One" xml:space="preserve">
+    <value>{0} elemento requiere su atención</value>
+  </data>
+  <data name="Readiness_NeedAttention_Other" xml:space="preserve">
+    <value>{0} elementos requieren su atención</value>
+  </data>
+  <data name="Readiness_Downloads" xml:space="preserve">
+    <value>Descargas</value>
+  </data>
+  <data name="Scan_SelectedNoMatch_One" xml:space="preserve">
+    <value>{0} aplicación seleccionada no tiene coincidencia en winget. </value>
+  </data>
+  <data name="Scan_SelectedNoMatch_Other" xml:space="preserve">
+    <value>{0} aplicaciones seleccionadas no tienen coincidencia en winget. </value>
+  </data>
+  <data name="Scan_AddedApps_One" xml:space="preserve">
+    <value>Se añadió {0} aplicación a {1}</value>
+  </data>
+  <data name="Scan_AddedApps_Other" xml:space="preserve">
+    <value>Se añadieron {0} aplicaciones a {1}</value>
+  </data>
+  <data name="Tweaks_PendingFromProfile_One" xml:space="preserve">
+    <value>Su perfil incluye {0} ajuste que todavía no está en este equipo.</value>
+  </data>
+  <data name="Tweaks_PendingFromProfile_Other" xml:space="preserve">
+    <value>Su perfil incluye {0} ajustes que todavía no están en este equipo.</value>
+  </data>
+  <data name="Tweaks_AppliedFromProfile_One" xml:space="preserve">
+    <value>Se aplicó {0} ajuste de su perfil.</value>
+  </data>
+  <data name="Tweaks_AppliedFromProfile_Other" xml:space="preserve">
+    <value>Se aplicaron {0} ajustes de su perfil.</value>
+  </data>
+  <data name="WingetMatch_Results_One" xml:space="preserve">
+    <value>{0} resultado. Seleccione uno y use este id.</value>
+  </data>
+  <data name="WingetMatch_Results_Other" xml:space="preserve">
+    <value>{0} resultados. Seleccione uno y use este id.</value>
+  </data>
+  <data name="App_UpdateRolledBack" xml:space="preserve">
+    <value>La versión nueva no terminó de iniciarse la última vez, así que CTRL+Z volvió a la versión anterior.</value>
+  </data>
+  <data name="Readiness_NoScanSummary" xml:space="preserve">
+    <value>Una comprobación mide sus carpetas y busca material del que CTRL+Z no puede hacer copia de seguridad. Nunca cambia un archivo.</value>
+  </data>
+  <data name="MyApps_ImportListHint" xml:space="preserve">
+    <value>
+
+Use el archivo de "winget export -o apps.json", "scoop export &gt; apps.json" o "choco export".</value>
+  </data>
+  <data name="MyApps_ProfileFilter" xml:space="preserve">
+    <value>Perfil de CTRL+Z (*.json)|*.json|Archivos JSON (*.json)|*.json</value>
+  </data>
+  <data name="MyApps_ExportProfileTitle" xml:space="preserve">
+    <value>Exportar perfil</value>
+  </data>
+  <data name="MyApps_AppListFilter" xml:space="preserve">
+    <value>Listas de aplicaciones (*.json;*.config;*.txt)|*.json;*.config;*.txt|Todos los archivos (*.*)|*.*</value>
+  </data>
+  <data name="AddApp_InstallerFilter" xml:space="preserve">
+    <value>Instaladores y archivos (*.exe;*.msi;*.msix;*.appx;*.zip)|*.exe;*.msi;*.msix;*.appx;*.zip|Todos los archivos (*.*)|*.*</value>
+  </data>
+  <data name="AppUpdates_UpdateSelectedApps" xml:space="preserve">
+    <value>Actualizar las aplicaciones seleccionadas</value>
+  </data>
+  <data name="AppUpdates_UpdateAllApps" xml:space="preserve">
+    <value>Actualizar todas las aplicaciones</value>
+  </data>
+  <data name="AppUpdates_UnknownVersion" xml:space="preserve">
+    <value>desconocida</value>
+  </data>
+  <data name="Preview_SaveReportTitle" xml:space="preserve">
+    <value>Guardar informe de la prueba en seco</value>
+  </data>
+  <data name="Preview_ReportFilter" xml:space="preserve">
+    <value>Archivo de texto (*.txt)|*.txt</value>
+  </data>
+  <data name="Scan_ExportProfileTitle" xml:space="preserve">
+    <value>Exportar perfil portátil</value>
+  </data>
+  <data name="Settings_SaveDiagnosticsTitle" xml:space="preserve">
+    <value>Guardar diagnóstico</value>
+  </data>
+  <data name="Settings_DiagnosticsFilter" xml:space="preserve">
+    <value>Archivo ZIP (*.zip)|*.zip</value>
+  </data>
+  <data name="AppEditor_InstallerFilter" xml:space="preserve">
+    <value>Instaladores (*.exe;*.msi;*.msix;*.appx;*.zip)|*.exe;*.msi;*.msix;*.appx;*.zip|Todos los archivos (*.*)|*.*</value>
+  </data>
+  <data name="Settings_Language" xml:space="preserve">
+    <value>Idioma</value>
+  </data>
+  <data name="Settings_LanguageWindowsDefault" xml:space="preserve">
+    <value>Predeterminado de Windows</value>
+  </data>
+  <data name="Settings_LanguageNote" xml:space="preserve">
+    <value>El idioma nuevo se usa la próxima vez que se inicie CTRL+Z.</value>
+  </data>
+  <data name="Settings_LanguageRestart" xml:space="preserve">
+    <value>Idioma cambiado a {0}. Reinicie CTRL+Z para usarlo.</value>
+  </data>
+  <data name="Tweaks_RowOn" xml:space="preserve">
+    <value>{0}: activado.</value>
+  </data>
+  <data name="Tweaks_RowUndone" xml:space="preserve">
+    <value>{0}: deshecho.</value>
+  </data>
+  <data name="AppUpdates_PinnedCount" xml:space="preserve">
+    <value> ({0} ancladas)</value>
+  </data>
+  <data name="Browsers_EstimateFiles_One" xml:space="preserve">
+    <value>{1} · {0} archivo</value>
+  </data>
+  <data name="Browsers_EstimateFiles_Other" xml:space="preserve">
+    <value>{1} · {0} archivos</value>
+  </data>
+  <data name="Drift_IgnoredInParens" xml:space="preserve">
+    <value> ({0} omitidas).</value>
+  </data>
+  <data name="Drift_IgnoredCount" xml:space="preserve">
+    <value> · {0} omitidas</value>
+  </data>
+  <data name="Main_ProfileLabel_One" xml:space="preserve">
+    <value>{1} · {0} aplicación</value>
+  </data>
+  <data name="Main_ProfileLabel_Other" xml:space="preserve">
+    <value>{1} · {0} aplicaciones</value>
+  </data>
+  <data name="Scan_AppCount_One" xml:space="preserve">
+    <value>{0} aplicación</value>
+  </data>
+  <data name="Scan_AppCount_Other" xml:space="preserve">
+    <value>{0} aplicaciones</value>
+  </data>
+  <data name="Catalog_SelectedCount" xml:space="preserve">
+    <value>{0} seleccionadas</value>
+  </data>
+  <data name="AddApp_InspectToPreviewCommand" xml:space="preserve">
+    <value>Inspeccione un instalador para ver una vista previa del comando.</value>
+  </data>
+</root>
