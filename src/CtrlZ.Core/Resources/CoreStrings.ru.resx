@@ -1,0 +1,1280 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AppUpdates_UpdatedTo" xml:space="preserve">
+    <value>Обновлено до {0}.</value>
+  </data>
+  <data name="AppUpdates_UpdatedRestartWindowsToFinish" xml:space="preserve">
+    <value>Обновлено; для завершения перезагрузите Windows.</value>
+  </data>
+  <data name="AppUpdates_AlreadyUpToDate" xml:space="preserve">
+    <value>Уже последняя версия.</value>
+  </data>
+  <data name="AppUpdates_WingetCouldNotUpdateIt" xml:space="preserve">
+    <value>winget не смог обновить приложение (код 0x{0:X8}).</value>
+  </data>
+  <data name="AppUpdates_NotStartedCancelled" xml:space="preserve">
+    <value>Не начато: отменено.</value>
+  </data>
+  <data name="AppUpdates_StoppedCancelled" xml:space="preserve">
+    <value>Остановлено: отменено.</value>
+  </data>
+  <data name="AppUpdates_CouldNotStartWinget" xml:space="preserve">
+    <value>Не удалось запустить winget: </value>
+  </data>
+  <data name="CommandPreview_WarningRiskyPattern" xml:space="preserve">
+    <value> - Внимание: опасный шаблон</value>
+  </data>
+  <data name="CommandStateResolver_RunsAfterInstall" xml:space="preserve">
+    <value>Выполняется после установки</value>
+  </data>
+  <data name="CommandStateResolver_ApprovedRunsAfterInstall" xml:space="preserve">
+    <value>Одобрено - выполняется после установки</value>
+  </data>
+  <data name="CommandStateResolver_EditedSinceApprovalNeedsReview" xml:space="preserve">
+    <value>Изменено после одобрения - нужна проверка</value>
+  </data>
+  <data name="CommandStateResolver_BlockedImportedProfileReviewRequired" xml:space="preserve">
+    <value>Заблокировано - импортированный профиль, нужна проверка</value>
+  </data>
+  <data name="CommandStateResolver_WarningRiskyPattern" xml:space="preserve">
+    <value> - Внимание: опасный шаблон</value>
+  </data>
+  <data name="DirectUrlSourceInstaller_ThisAppHasNoDownload" xml:space="preserve">
+    <value>У этого приложения нет URL для скачивания. Измените его в «Моих приложениях».</value>
+  </data>
+  <data name="DirectUrlSourceInstaller_DownloadingInstaller" xml:space="preserve">
+    <value>Скачивание установщика…</value>
+  </data>
+  <data name="DirectUrlSourceInstaller_SHA256VerificationFailed" xml:space="preserve">
+    <value>Проверка SHA-256 не пройдена.</value>
+  </data>
+  <data name="DirectUrlSourceInstaller_DownloadFailed" xml:space="preserve">
+    <value>Скачивание не удалось: {0}</value>
+  </data>
+  <data name="GitHubSourceInstaller_ThisAppHasNoGitHub" xml:space="preserve">
+    <value>Для этого приложения не указан репозиторий GitHub.</value>
+  </data>
+  <data name="GitHubSourceInstaller_CheckingTheLatestGitHubRelease" xml:space="preserve">
+    <value>Проверка последнего выпуска на GitHub…</value>
+  </data>
+  <data name="GitHubSourceInstaller_ResolvingLatestReleaseFor" xml:space="preserve">
+    <value>Определение последнего выпуска {0}…</value>
+  </data>
+  <data name="GitHubSourceInstaller_NoDownloadableWindowsAssetWas" xml:space="preserve">
+    <value>В {0} не найден файл для Windows, который можно скачать. Откройте {1} и добавьте вместо этого прямую ссылку.</value>
+  </data>
+  <data name="GitHubSourceInstaller_ReleaseDownloading" xml:space="preserve">
+    <value>Выпуск {0}: скачивание {1} ({2}).</value>
+  </data>
+  <data name="GitHubSourceInstaller_SHA256ForTakenFrom" xml:space="preserve">
+    <value>SHA-256 для {0} взят из {1} в выпуске.</value>
+  </data>
+  <data name="GitHubSourceInstaller_TheReleaseSChecksumFile" xml:space="preserve">
+    <value>Файл контрольных сумм выпуска противоречив.</value>
+  </data>
+  <data name="GitHubSourceInstaller_TheSavedSHA256Does" xml:space="preserve">
+    <value>Сохранённый SHA-256 не совпадает с последним выпуском на GitHub. Проверьте запись приложения.</value>
+  </data>
+  <data name="GitHubSourceInstaller_ThisReleasePublishesNoSHA" xml:space="preserve">
+    <value>Этот выпуск не публикует SHA-256 для файла; его целостность нельзя сверить с опубликованным хэшем. Добавьте SHA-256 в запись приложения, чтобы закрепить его.</value>
+  </data>
+  <data name="GitHubSourceInstaller_Downloading" xml:space="preserve">
+    <value>Скачивание {0}…</value>
+  </data>
+  <data name="GitHubSourceInstaller_AssetIsAZIPCTRL" xml:space="preserve">
+    <value>Файл — ZIP-архив; CTRL+Z поищет в нём установщик.</value>
+  </data>
+  <data name="GitHubSourceInstaller_SHA256VerificationFailed" xml:space="preserve">
+    <value>Проверка SHA-256 не пройдена.</value>
+  </data>
+  <data name="GitHubSourceInstaller_GitHubInstallFailed" xml:space="preserve">
+    <value>Установка с GitHub не удалась: {0}</value>
+  </data>
+  <data name="InstallEngine_CTRLZInstallSessionProfile" xml:space="preserve">
+    <value>Сеанс установки CTRL+Z · профиль '{0}' · приложений: {1}</value>
+  </data>
+  <data name="InstallEngine_CheckingWingetAvailability" xml:space="preserve">
+    <value>Проверка доступности winget…</value>
+  </data>
+  <data name="InstallEngine_WingetIsNotReady" xml:space="preserve">
+    <value>winget не готов: </value>
+  </data>
+  <data name="InstallEngine_AlreadyComplete" xml:space="preserve">
+    <value>Уже готово.</value>
+  </data>
+  <data name="InstallEngine_SkippingFailedAppUseRetry" xml:space="preserve">
+    <value>Пропуск приложения с ошибкой '{0}' (для повтора нажмите «Повторить неудачные»).</value>
+  </data>
+  <data name="InstallEngine_RemovedFromTheProfile" xml:space="preserve">
+    <value>Убрано из профиля.</value>
+  </data>
+  <data name="InstallEngine_NeedsWhichDidNotInstall" xml:space="preserve">
+    <value>нужно {0}, но оно не установилось.</value>
+  </data>
+  <data name="InstallEngine_NoInstallerIsAvailableFor" xml:space="preserve">
+    <value>Для {0} нет установщика.</value>
+  </data>
+  <data name="InstallEngine_Starting" xml:space="preserve">
+    <value>Запуск ({0}/{1})…</value>
+  </data>
+  <data name="InstallEngine_RestartRequired" xml:space="preserve">
+    <value>Нужна перезагрузка.</value>
+  </data>
+  <data name="InstallEngine_InstalledARestartIsRequired" xml:space="preserve">
+    <value>[{0}] установлено; нужна перезагрузка.</value>
+  </data>
+  <data name="InstallEngine_NeedsManualAction" xml:space="preserve">
+    <value>[{0}] нужно действие вручную: {1}</value>
+  </data>
+  <data name="InstallEngine_Failed" xml:space="preserve">
+    <value>[{0}] ошибка: {1}</value>
+  </data>
+  <data name="InstallEngine_Paused" xml:space="preserve">
+    <value>Приостановлено.</value>
+  </data>
+  <data name="InstallEngine_InstallationPaused" xml:space="preserve">
+    <value>[{0}] установка приостановлена.</value>
+  </data>
+  <data name="InstallEngine_UnexpectedFailure" xml:space="preserve">
+    <value>[{0}] непредвиденная ошибка: {1}</value>
+  </data>
+  <data name="InstallEngine_InstalledCommandNotRun" xml:space="preserve">
+    <value>Установлено; команда не запускалась ({0}).</value>
+  </data>
+  <data name="InstallEngine_PostInstallCommandNotRun" xml:space="preserve">
+    <value>[{0}] команда после установки не запускалась: {1}</value>
+  </data>
+  <data name="InstallEngine_InstalledPostInstallCommandOk" xml:space="preserve">
+    <value>Установлено; команда после установки выполнена.</value>
+  </data>
+  <data name="InstallEngine_PostInstallCommandOk" xml:space="preserve">
+    <value>[{0}] команда после установки выполнена.</value>
+  </data>
+  <data name="InstallEngine_PostInstallCommandTimedOut" xml:space="preserve">
+    <value>Команда после установки превысила тайм-аут.</value>
+  </data>
+  <data name="InstallEngine_PostInstallCommandFailed" xml:space="preserve">
+    <value>Команда после установки завершилась ошибкой ({0}).</value>
+  </data>
+  <data name="InstallEngine_InstalledPostInstallFailed" xml:space="preserve">
+    <value>Установлено, но шаг после установки не удался.</value>
+  </data>
+  <data name="InstallEngine_InstalledPostInstallFailed2" xml:space="preserve">
+    <value>[{0}] установлено, но шаг после установки не удался ({1}).</value>
+  </data>
+  <data name="InstallEngine_FinishedCompleteNeedAttention" xml:space="preserve">
+    <value>Готово: успешно {0}, требуют внимания {1}.</value>
+  </data>
+  <data name="InstallEngine_OneOrMoreInstallersRequested" xml:space="preserve">
+    <value>Один или несколько установщиков запросили перезагрузку. Перезагрузите Windows, когда будет удобно.</value>
+  </data>
+  <data name="InstallEngine_NotInTheActiveProfile" xml:space="preserve">
+    <value>Нет в активном профиле.</value>
+  </data>
+  <data name="InstallOrderPlanner_IsSetToInstallAfter" xml:space="preserve">
+    <value>{0} должно устанавливаться после '{1}', но его нет в этом запуске.</value>
+  </data>
+  <data name="InstallOrderPlanner_ItIsPartOfAn" xml:space="preserve">
+    <value>Оно входит в цикл порядка установки.</value>
+  </data>
+  <data name="InstallOrderPlanner_NeedsWhichFailedToInstall" xml:space="preserve">
+    <value>Нужно {0}, но его не удалось установить.</value>
+  </data>
+  <data name="InstallOrderPlanner_NeedsWhichWillNotInstall" xml:space="preserve">
+    <value>Нужно {0}, но оно не будет установлено.</value>
+  </data>
+  <data name="LocalFileSourceInstaller_NoLocalInstallerPathIs" xml:space="preserve">
+    <value>Путь к локальному установщику не указан.</value>
+  </data>
+  <data name="LocalFileSourceInstaller_TheInstallerWasNotFound" xml:space="preserve">
+    <value>Установщик не найден по пути {0}. Подключите USB-накопитель снова или исправьте путь.</value>
+  </data>
+  <data name="LocalFileSourceInstaller_SHA256VerificationFailed" xml:space="preserve">
+    <value>Проверка SHA-256 не пройдена.</value>
+  </data>
+  <data name="LocalFileSourceInstaller_LocalInstallerHashMismatchExpected" xml:space="preserve">
+    <value>Хэш локального установщика не совпадает. Ожидался {0}, получен {1}.</value>
+  </data>
+  <data name="LocalFileSourceInstaller_LocalInstallerSHA256Verified" xml:space="preserve">
+    <value>SHA-256 локального установщика проверен.</value>
+  </data>
+  <data name="PostInstallCommandForm_EnterTheProgramToRun" xml:space="preserve">
+    <value>Укажите программу для запуска или очистите аргументы, чтобы убрать команду.</value>
+  </data>
+  <data name="PostInstallCommandForm_TheProgramMustBeOn" xml:space="preserve">
+    <value>Программа должна быть в одной строке. Каждый аргумент укажите ниже на отдельной строке.</value>
+  </data>
+  <data name="PostInstallCommandForm_TimeoutMustBeAWhole" xml:space="preserve">
+    <value>Тайм-аут должен быть целым числом секунд от {0} до {1}.</value>
+  </data>
+  <data name="PostInstallCommandForm_WorkingDirectoryMustBeA" xml:space="preserve">
+    <value>Рабочая папка должна быть полным путём, например C:\Tools, или пустой.</value>
+  </data>
+  <data name="PostInstallCommandGate_ThisCommandChangedAfterIt" xml:space="preserve">
+    <value>Эта команда изменилась после одобрения. Проверьте её снова, чтобы включить.</value>
+  </data>
+  <data name="PostInstallCommandGate_ThisProfileCameFromOutside" xml:space="preserve">
+    <value>Этот профиль получен не с этого компьютера. Проверьте команду, чтобы включить её.</value>
+  </data>
+  <data name="PostInstallCommandGate_ThisProfileHasNoLocal" xml:space="preserve">
+    <value>У этого профиля нет записи о локальном происхождении, поэтому его команды остаются отключёнными.</value>
+  </data>
+  <data name="PostInstallCommandGate_DisabledInTheProfile" xml:space="preserve">
+    <value>Отключено в профиле.</value>
+  </data>
+  <data name="PostInstallCommandGate_ApprovedForThisProfileBut" xml:space="preserve">
+    <value>Одобрено для этого профиля, но совпадает с опасным шаблоном.</value>
+  </data>
+  <data name="PostInstallCommandGate_ReviewedAndApprovedForThis" xml:space="preserve">
+    <value>Проверено и одобрено для этого профиля.</value>
+  </data>
+  <data name="PostInstallCommandGate_MatchesARiskyPatternNeeds" xml:space="preserve">
+    <value>Совпадает с опасным шаблоном; при каждом запуске нужно усиленное подтверждение.</value>
+  </data>
+  <data name="PostInstallCommandGate_LocalProfileCommand" xml:space="preserve">
+    <value>Команда локального профиля.</value>
+  </data>
+  <data name="PostInstallCommandRisk_DownloadsAndRunsRemoteContent" xml:space="preserve">
+    <value>скачивает и запускает удалённое содержимое</value>
+  </data>
+  <data name="PostInstallCommandRisk_RunsAnEncodedOrHidden" xml:space="preserve">
+    <value>запускает закодированную или скрытую команду</value>
+  </data>
+  <data name="PostInstallCommandRisk_DeletesOrWritesOutsideYour" xml:space="preserve">
+    <value>удаляет или записывает файлы вне ваших папок</value>
+  </data>
+  <data name="PostInstallCommandRisk_ChangesTheRegistryServicesOr" xml:space="preserve">
+    <value>изменяет реестр, службы или запланированные задачи</value>
+  </data>
+  <data name="PostInstallCommandRisk_ChangesStartupEntries" xml:space="preserve">
+    <value>изменяет элементы автозагрузки</value>
+  </data>
+  <data name="PostInstallCommandRisk_WeakensSecuritySettings" xml:space="preserve">
+    <value>ослабляет параметры безопасности</value>
+  </data>
+  <data name="PostInstallConsent_RunPostInstallCommands" xml:space="preserve">
+    <value>Запустить команды после установки?</value>
+  </data>
+  <data name="PostInstallConsent_RunARiskyCommand" xml:space="preserve">
+    <value>Запустить опасную команду?</value>
+  </data>
+  <data name="PostInstallConsent_WillRunACommandThat" xml:space="preserve">
+    <value>{0} запустит команду, которая совпадает с опасным шаблоном:
+
+{1}
+
+</value>
+  </data>
+  <data name="PostInstallConsent_ThisIsAskedOnEvery" xml:space="preserve">
+    <value>Этот вопрос задаётся при каждом запуске.</value>
+  </data>
+  <data name="PostInstallRunner_NoExecutable" xml:space="preserve">
+    <value>Нет исполняемого файла.</value>
+  </data>
+  <data name="PostInstallRunner_CouldNotStart" xml:space="preserve">
+    <value>Не удалось запустить.</value>
+  </data>
+  <data name="PostInstallRunner_TimedOut2" xml:space="preserve">
+    <value>Превышен тайм-аут.</value>
+  </data>
+  <data name="PostInstallRunner_ExitCode" xml:space="preserve">
+    <value>Код выхода {0}.</value>
+  </data>
+  <data name="PostInstallStep_TheInstallDidNotSucceed" xml:space="preserve">
+    <value>Установка не удалась.</value>
+  </data>
+  <data name="PostInstallStep_TimedOut" xml:space="preserve">
+    <value>Превышен тайм-аут.</value>
+  </data>
+  <data name="FileInstallService_InstallerSignatureIsBroken" xml:space="preserve">
+    <value>Подпись установщика повреждена.</value>
+  </data>
+  <data name="FileInstallService_AddedToTheStartMenu" xml:space="preserve">
+    <value>{0} добавлено в меню «Пуск».</value>
+  </data>
+  <data name="FileInstallService_TheDownloadedInstallerNoLonger" xml:space="preserve">
+    <value>Скачанного установщика больше нет: {0}</value>
+  </data>
+  <data name="FileInstallService_InstallerTypeWasNotRecognized" xml:space="preserve">
+    <value>Тип установщика не распознан; используется /S. Проверьте ключи, если установщик открывает окно.</value>
+  </data>
+  <data name="FileInstallService_DetectedRunning" xml:space="preserve">
+    <value>Обнаружен {0}; запуск: {1}</value>
+  </data>
+  <data name="FileInstallService_InstallingSilentlyWith" xml:space="preserve">
+    <value>Тихая установка с ключами {0}.</value>
+  </data>
+  <data name="FileInstallService_InstallerTimedOutReviewThe" xml:space="preserve">
+    <value>Установщик превысил тайм-аут. Проверьте ключи тихой установки.</value>
+  </data>
+  <data name="FileInstallService_TheInstallerTimedOutIt" xml:space="preserve">
+    <value>Установщик превысил тайм-аут. Возможно, он открыл окно и ждёт ввода. Проверьте ключи тихой установки в разделе «Добавить приложение».</value>
+  </data>
+  <data name="FileInstallService_InstalledSilently" xml:space="preserve">
+    <value>Установлено в тихом режиме.</value>
+  </data>
+  <data name="FileInstallService_InstalledRestartRequired" xml:space="preserve">
+    <value>Установлено; нужна перезагрузка.</value>
+  </data>
+  <data name="FileInstallService_InstalledButWindowsNeedsA" xml:space="preserve">
+    <value>Установлено, но Windows нужно перезагрузить.</value>
+  </data>
+  <data name="FileInstallService_TheInstallationWasCancelledOr" xml:space="preserve">
+    <value>Установка отменена или в правах администратора отказано.</value>
+  </data>
+  <data name="FileInstallService_InstallerExitedWithCode" xml:space="preserve">
+    <value>Установщик завершился с кодом {0}.</value>
+  </data>
+  <data name="FileInstallService_RegisteringMSIXPackage" xml:space="preserve">
+    <value>Регистрация пакета MSIX…</value>
+  </data>
+  <data name="FileInstallService_MSIXPackageRegistered" xml:space="preserve">
+    <value>Пакет MSIX зарегистрирован.</value>
+  </data>
+  <data name="FileInstallService_AddAppxPackageFailed" xml:space="preserve">
+    <value>Add-AppxPackage завершился ошибкой.</value>
+  </data>
+  <data name="FileInstallService_ExtractingPortableAppTo" xml:space="preserve">
+    <value>Распаковка портативного приложения в {0}</value>
+  </data>
+  <data name="FileInstallService_ExtractedTo" xml:space="preserve">
+    <value>Распаковано в {0}</value>
+  </data>
+  <data name="FileInstallService_ExtractedTo2" xml:space="preserve">
+    <value>Распаковано в {0} ({1})</value>
+  </data>
+  <data name="FileInstallService_CouldNotExtractTheArchive" xml:space="preserve">
+    <value>Не удалось распаковать архив.</value>
+  </data>
+  <data name="FileInstallService_CouldNotExtractThePortable" xml:space="preserve">
+    <value>Не удалось распаковать портативный архив: {0}</value>
+  </data>
+  <data name="FileInstallService_CopiedPortableAppTo" xml:space="preserve">
+    <value>Портативное приложение скопировано в {0}</value>
+  </data>
+  <data name="FileInstallService_PortableAppCopiedTo" xml:space="preserve">
+    <value>Портативное приложение скопировано в {0}</value>
+  </data>
+  <data name="FileInstallService_CouldNotCopyThePortable" xml:space="preserve">
+    <value>Не удалось скопировать портативный исполняемый файл.</value>
+  </data>
+  <data name="FileInstallService_CouldNotCopyThePortable2" xml:space="preserve">
+    <value>Не удалось скопировать портативный исполняемый файл: {0}</value>
+  </data>
+  <data name="FileInstallService_ExtractingInstallerArchive" xml:space="preserve">
+    <value>Распаковка архива установщика…</value>
+  </data>
+  <data name="FileInstallService_FoundBundledInstaller" xml:space="preserve">
+    <value>Найден установщик {0}.</value>
+  </data>
+  <data name="FileInstallService_CouldNotUnpackTheInstaller" xml:space="preserve">
+    <value>Не удалось распаковать архив установщика: {0}</value>
+  </data>
+  <data name="FileInstallService_InnoSetup" xml:space="preserve">
+    <value>Inno Setup</value>
+  </data>
+  <data name="FileInstallService_WindowsInstaller" xml:space="preserve">
+    <value>Windows Installer</value>
+  </data>
+  <data name="FileInstallService_Squirrel" xml:space="preserve">
+    <value>Squirrel</value>
+  </data>
+  <data name="FileInstallService_WiXBurn" xml:space="preserve">
+    <value>WiX Burn</value>
+  </data>
+  <data name="FileInstallService_PortableArchive" xml:space="preserve">
+    <value>портативный архив</value>
+  </data>
+  <data name="FileInstallService_PortableExecutable" xml:space="preserve">
+    <value>портативный исполняемый файл</value>
+  </data>
+  <data name="FileInstallService_UnknownInstaller" xml:space="preserve">
+    <value>неизвестный установщик</value>
+  </data>
+  <data name="WingetSourceInstaller_NoWingetPackageIdIs" xml:space="preserve">
+    <value>ID пакета winget не назначен. Исправьте приложение в группе «Не сопоставлено» или измените его в «Моих приложениях».</value>
+  </data>
+  <data name="WingetSourceInstaller_WingetIsNotAvailableInstall" xml:space="preserve">
+    <value>winget недоступен. Установите или обновите Microsoft App Installer с https://aka.ms/getwinget и повторите.</value>
+  </data>
+  <data name="WingetSourceInstaller_DownloadingOrInstalling" xml:space="preserve">
+    <value>Скачивание или установка… {0}%</value>
+  </data>
+  <data name="WingetSourceInstaller_InstalledWithWinget" xml:space="preserve">
+    <value>Установлено через winget.</value>
+  </data>
+  <data name="WingetSourceInstaller_ARestartIsNeededTo" xml:space="preserve">
+    <value>Для завершения нужна перезагрузка.</value>
+  </data>
+  <data name="WingetSourceInstaller_InstalledButWindowsNeedsA" xml:space="preserve">
+    <value>Установлено, но Windows нужно перезагрузить.</value>
+  </data>
+  <data name="WingetSourceInstaller_AlreadyInstalled" xml:space="preserve">
+    <value>Уже установлено.</value>
+  </data>
+  <data name="WingetSourceInstaller_AnotherInstallerIsAlreadyRunning" xml:space="preserve">
+    <value>Уже запущен другой установщик. Закройте его и повторите.</value>
+  </data>
+  <data name="WingetSourceInstaller_WingetTimedOutAfter45" xml:space="preserve">
+    <value>winget превысил тайм-аут в 45 минут.</value>
+  </data>
+  <data name="WingetSourceInstaller_WingetFailedWithExitCode" xml:space="preserve">
+    <value>winget завершился с кодом выхода {0}.</value>
+  </data>
+  <data name="WingetSourceInstaller_WingetFailed" xml:space="preserve">
+    <value>Ошибка winget ({0}): {1}</value>
+  </data>
+  <data name="InstallerSignature_TheInstallerIsNotSigned" xml:space="preserve">
+    <value>Установщик не подписан. Его SHA-256 — единственная проверка.</value>
+  </data>
+  <data name="InstallerSignature_TheInstallerSSignatureIs" xml:space="preserve">
+    <value>Подпись установщика повреждена (0x{0:X8}): файл изменён после подписания или его сертификат не считается доверенным на этом компьютере. CTRL+Z не будет его запускать.</value>
+  </data>
+  <data name="InstallerSignature_TheInstallerSSignatureCould" xml:space="preserve">
+    <value>Не удалось проверить подпись установщика.</value>
+  </data>
+  <data name="InstallerSignature_TheInstallerSSignatureCould2" xml:space="preserve">
+    <value>Не удалось подтвердить подпись установщика (0x{0:X8}).</value>
+  </data>
+  <data name="DriftAnalyzer_AddedFromDriftDetection" xml:space="preserve">
+    <value>Добавлено из проверки расхождений.</value>
+  </data>
+  <data name="DriftAnalyzer_InstalledButNotSavedIn" xml:space="preserve">
+    <value>Установлено, но не сохранено в профиле</value>
+  </data>
+  <data name="DriftAnalyzer_NewerVersionAvailable" xml:space="preserve">
+    <value>Есть новая версия ({0})</value>
+  </data>
+  <data name="DriftAnalyzer_SamePackageId" xml:space="preserve">
+    <value>Тот же ID пакета</value>
+  </data>
+  <data name="DriftAnalyzer_SameWingetId" xml:space="preserve">
+    <value>Тот же ID winget</value>
+  </data>
+  <data name="DriftAnalyzer_SavedAppHasNoUsable" xml:space="preserve">
+    <value>У сохранённого приложения нет пригодного названия</value>
+  </data>
+  <data name="DriftAnalyzer_SameName" xml:space="preserve">
+    <value>То же название</value>
+  </data>
+  <data name="DriftAnalyzer_SimilarName" xml:space="preserve">
+    <value>Похожее название</value>
+  </data>
+  <data name="DriftAnalyzer_SimilarNameOnlyOneShared" xml:space="preserve">
+    <value>Похожее название (совпадает только одно слово)</value>
+  </data>
+  <data name="DriftAnalyzer_AndPublisher" xml:space="preserve">
+    <value> и издатель</value>
+  </data>
+  <data name="DriftAnalyzer_DifferentPublisher" xml:space="preserve">
+    <value>, другой издатель</value>
+  </data>
+  <data name="DriftAnalyzer_NotInstalled" xml:space="preserve">
+    <value>Не установлено</value>
+  </data>
+  <data name="DriftAnalyzer_NotFoundByNameCustom" xml:space="preserve">
+    <value>Не найдено по названию (свой источник: {0})</value>
+  </data>
+  <data name="DriftAnalyzer_AmbiguousInstalledAppsLookSimilar" xml:space="preserve">
+    <value>Неоднозначно: похожих установленных приложений — {0}</value>
+  </data>
+  <data name="DriftAnalyzer_UncertainClosestIsButThe" xml:space="preserve">
+    <value>Неточно: ближайшее — '{0}', но в названиях совпадает только одно слово</value>
+  </data>
+  <data name="DryRunRunner_Checking" xml:space="preserve">
+    <value>Проверка {0} ({1}/{2})…</value>
+  </data>
+  <data name="DryRunRunner_TheAppIsNoLonger" xml:space="preserve">
+    <value>Приложения больше нет в профиле.</value>
+  </data>
+  <data name="DryRunRunner_UnsupportedSource" xml:space="preserve">
+    <value>Неподдерживаемый источник.</value>
+  </data>
+  <data name="DryRunRunner_TheCheckFailed" xml:space="preserve">
+    <value>Проверка не удалась: </value>
+  </data>
+  <data name="DryRunRunner_NoWingetPackageIdIs" xml:space="preserve">
+    <value>ID пакета winget не записан.</value>
+  </data>
+  <data name="DryRunRunner_WingetCannotFind" xml:space="preserve">
+    <value>winget не находит '{0}'.</value>
+  </data>
+  <data name="DryRunRunner_WingetResolves" xml:space="preserve">
+    <value>winget находит {0}.</value>
+  </data>
+  <data name="DryRunRunner_WingetResolvesVersion" xml:space="preserve">
+    <value>winget находит {0} (версия {1}).</value>
+  </data>
+  <data name="DryRunRunner_NoGitHubRepositoryIsRecorded" xml:space="preserve">
+    <value>Репозиторий GitHub не записан.</value>
+  </data>
+  <data name="DryRunRunner_ReleaseHasNoAssetThat" xml:space="preserve">
+    <value>В выпуске {0} нет файла, подходящего для этого приложения.</value>
+  </data>
+  <data name="DryRunRunner_TheRecordedAssetIsNot" xml:space="preserve">
+    <value>Записанного файла '{0}' нет в выпуске {1}; </value>
+  </data>
+  <data name="DryRunRunner_TheInstallerWillFallBack" xml:space="preserve">
+    <value>установщик возьмёт вместо него '{0}'.</value>
+  </data>
+  <data name="DryRunRunner_ReleasePublishes" xml:space="preserve">
+    <value>Выпуск {0} публикует {1}.</value>
+  </data>
+  <data name="DryRunRunner_NoDownloadURLIsRecorded" xml:space="preserve">
+    <value>URL для скачивания не записан.</value>
+  </data>
+  <data name="DryRunRunner_TheLinkResponds" xml:space="preserve">
+    <value>Ссылка отвечает ({0}).</value>
+  </data>
+  <data name="DryRunRunner_TheLinkResponds2" xml:space="preserve">
+    <value>Ссылка отвечает.</value>
+  </data>
+  <data name="DryRunRunner_TheServerDoesNotSupport" xml:space="preserve">
+    <value>Сервер не поддерживает проверку HEAD, поэтому ссылку проверить не удалось.</value>
+  </data>
+  <data name="DryRunRunner_TheLinkDidNotRespond" xml:space="preserve">
+    <value>Ссылка не ответила: </value>
+  </data>
+  <data name="DryRunRunner_NoLocalFileIsRecorded" xml:space="preserve">
+    <value>Локальный файл не записан.</value>
+  </data>
+  <data name="DryRunRunner_TheInstallerFileIsNot" xml:space="preserve">
+    <value>Файла установщика нет на этом компьютере.</value>
+  </data>
+  <data name="DryRunRunner_TheInstallerIsPresentBut" xml:space="preserve">
+    <value>Установщик есть, но он не подписан.</value>
+  </data>
+  <data name="DryRunRunner_TheInstallerFileIsPresent" xml:space="preserve">
+    <value>Файл установщика на месте.</value>
+  </data>
+  <data name="InstallPlanModels_CTRLZDryRun" xml:space="preserve">
+    <value>Пробный прогон CTRL+Z</value>
+  </data>
+  <data name="InstallPlanModels_Profile" xml:space="preserve">
+    <value>Профиль: {0}</value>
+  </data>
+  <data name="InstallPlanModels_Generated" xml:space="preserve">
+    <value>Создано: {0:yyyy-MM-dd HH:mm}</value>
+  </data>
+  <data name="InstallPlanModels_Note" xml:space="preserve">
+    <value>       заметка: {0}</value>
+  </data>
+  <data name="InstallPlanModels_Size" xml:space="preserve">
+    <value>       размер: {0}</value>
+  </data>
+  <data name="InstallPlanModels_SummaryReadyWarningsFailed" xml:space="preserve">
+    <value>Итого: готово {0}, предупреждений {1}, ошибок {2}</value>
+  </data>
+  <data name="InstallPlanModels_KnownDownloadSize" xml:space="preserve">
+    <value>Известный объём скачивания: {0}</value>
+  </data>
+  <data name="InstallPlanModels_PostInstallCommands" xml:space="preserve">
+    <value>Команды после установки</value>
+  </data>
+  <data name="InstallPlanModels_NoPostInstallCommandWas" xml:space="preserve">
+    <value>Эта проверка не запускала команды после установки.</value>
+  </data>
+  <data name="InstallPlanModels_NothingWasInstalledDownloadedTo" xml:space="preserve">
+    <value>Эта проверка ничего не установила, не скачала на диск и не изменила.</value>
+  </data>
+  <data name="InstallPlanner_AddedAutomatically" xml:space="preserve">
+    <value>Добавлено автоматически</value>
+  </data>
+  <data name="InstallPlanner_WillNotInstall" xml:space="preserve">
+    <value>Не будет установлено: </value>
+  </data>
+  <data name="InstallPlanner_AppsInstallOneAfterAnother" xml:space="preserve">
+    <value>Приложения устанавливаются по очереди в порядке ниже. Известные зависимости ставятся первыми, а приложение, зависимость которого не установилась, не устанавливается.</value>
+  </data>
+  <data name="InstallPlanner_InstallOrderLoop" xml:space="preserve">
+    <value>Цикл в порядке установки: {0}.</value>
+  </data>
+  <data name="InstallPlanner_ThereIsNothingEnabledTo" xml:space="preserve">
+    <value>Нет включённых приложений для установки.</value>
+  </data>
+  <data name="InstallPlanner_WingetNoPackageId" xml:space="preserve">
+    <value>winget (нет ID пакета)</value>
+  </data>
+  <data name="InstallPlanner_Winget" xml:space="preserve">
+    <value>winget {0}</value>
+  </data>
+  <data name="InstallPlanner_WingetDecidesWhetherThePackage" xml:space="preserve">
+    <value>winget сам решает, нужны ли пакету повышенные права.</value>
+  </data>
+  <data name="InstallPlanner_NoWingetPackageIdIs" xml:space="preserve">
+    <value>ID пакета winget не записан.</value>
+  </data>
+  <data name="InstallPlanner_GitHubNoRepository" xml:space="preserve">
+    <value>GitHub (нет репозитория)</value>
+  </data>
+  <data name="InstallPlanner_GitHub" xml:space="preserve">
+    <value>GitHub {0}</value>
+  </data>
+  <data name="InstallPlanner_NoGitHubRepositoryIsRecorded" xml:space="preserve">
+    <value>Репозиторий GitHub не записан.</value>
+  </data>
+  <data name="InstallPlanner_NoSHA256RecordedSo" xml:space="preserve">
+    <value>SHA-256 не записан, поэтому скачанный файл нельзя проверить.</value>
+  </data>
+  <data name="InstallPlanner_DownloadFrom" xml:space="preserve">
+    <value>Скачать с {0}</value>
+  </data>
+  <data name="InstallPlanner_DownloadNoValidURL" xml:space="preserve">
+    <value>Скачивание (нет правильного URL)</value>
+  </data>
+  <data name="InstallPlanner_TheDownloadURLIsMissing" xml:space="preserve">
+    <value>URL для скачивания отсутствует или неправилен.</value>
+  </data>
+  <data name="InstallPlanner_LocalFile" xml:space="preserve">
+    <value>Локальный файл {0}</value>
+  </data>
+  <data name="InstallPlanner_LocalFileMissing" xml:space="preserve">
+    <value>Локальный файл (отсутствует)</value>
+  </data>
+  <data name="InstallPlanner_TheInstallerFileIsNot" xml:space="preserve">
+    <value>Файла установщика нет на этом компьютере.</value>
+  </data>
+  <data name="InstallPlanner_TheInstallerIsNotCode" xml:space="preserve">
+    <value>Установщик не подписан.</value>
+  </data>
+  <data name="InstallPlanner_UnknownSource" xml:space="preserve">
+    <value>Неизвестный источник</value>
+  </data>
+  <data name="InstallPlanner_ThisAppHasAnUnsupported" xml:space="preserve">
+    <value>У этого приложения неподдерживаемый источник.</value>
+  </data>
+  <data name="InstallPlanner_InstallerDefaults" xml:space="preserve">
+    <value>параметры установщика по умолчанию</value>
+  </data>
+  <data name="ReadinessScanner_GamesAndLaunchers" xml:space="preserve">
+    <value>Игры и лаунчеры</value>
+  </data>
+  <data name="ReadinessScanner_DeveloperItems" xml:space="preserve">
+    <value>Файлы разработчика</value>
+  </data>
+  <data name="ReadinessScanner_Browsers" xml:space="preserve">
+    <value>Браузеры</value>
+  </data>
+  <data name="ReadinessScanner_Profile" xml:space="preserve">
+    <value>Профиль</value>
+  </data>
+  <data name="ReadinessScanner_ConfirmThisYourselfCTRLZ" xml:space="preserve">
+    <value>Проверьте это сами — CTRL+Z не может это проверить</value>
+  </data>
+  <data name="ReadinessScanner_NotPresentOnThisPC" xml:space="preserve">
+    <value>Нет на этом компьютере</value>
+  </data>
+  <data name="ReadinessScanner_Files" xml:space="preserve">
+    <value>Файлов: {0:N0} · {1}</value>
+  </data>
+  <data name="ReadinessScanner_LastChange" xml:space="preserve">
+    <value>Последнее изменение: {0}</value>
+  </data>
+  <data name="ReadinessScanner_ScanStoppedAtALimit" xml:space="preserve">
+    <value>Сканирование остановлено на пределе — числа занижены.</value>
+  </data>
+  <data name="ReadinessScanner_SomeFoldersCouldNotBe" xml:space="preserve">
+    <value>Некоторые папки не удалось прочитать, поэтому размер занижен.</value>
+  </data>
+  <data name="ReadinessScanner_InsideYourCTRLZBackup" xml:space="preserve">
+    <value>Внутри папки резервных копий CTRL+Z.</value>
+  </data>
+  <data name="ReadinessScanner_NoCTRLZBackupCovers" xml:space="preserve">
+    <value>Ни одна резервная копия CTRL+Z не охватывает эту папку.</value>
+  </data>
+  <data name="ReadinessScanner_CoveredByYourBackupFolder" xml:space="preserve">
+    <value>Входит в вашу папку резервных копий</value>
+  </data>
+  <data name="ReadinessScanner_LargeAndRecentlyChangedNo" xml:space="preserve">
+    <value>Большая и недавно изменялась — нет резервной копии</value>
+  </data>
+  <data name="ReadinessScanner_LargeNoBackup" xml:space="preserve">
+    <value>Большая — нет резервной копии</value>
+  </data>
+  <data name="ReadinessScanner_RecentlyChangedNoBackup" xml:space="preserve">
+    <value>Недавно изменялась — нет резервной копии</value>
+  </data>
+  <data name="ReadinessScanner_NoBackupButQuiet" xml:space="preserve">
+    <value>Нет резервной копии, но давно не изменялась ({0})</value>
+  </data>
+  <data name="ReadinessScanner_CopyThisFolderToExternal" xml:space="preserve">
+    <value>Перед очисткой скопируйте эту папку на внешний носитель, в OneDrive или на другой компьютер.</value>
+  </data>
+  <data name="ReadinessScanner_NoGameLaunchersDetected" xml:space="preserve">
+    <value>Игровые лаунчеры не найдены</value>
+  </data>
+  <data name="ReadinessScanner_LauncherLibrariesAndGameSaves" xml:space="preserve">
+    <value>CTRL+Z не копирует библиотеки лаунчеров и сохранения игр. Сохранения, которые синхронизируются с облаком, </value>
+  </data>
+  <data name="ReadinessScanner_AreOnlySafeOnceThe" xml:space="preserve">
+    <value>в безопасности, только когда лаунчер действительно их выгрузил.</value>
+  </data>
+  <data name="ReadinessScanner_CheckEachLauncherReportsIts" xml:space="preserve">
+    <value>Убедитесь, что каждый лаунчер показывает сохранения как синхронизированные, а локальные сохранения скопируйте отдельно.</value>
+  </data>
+  <data name="ReadinessScanner_NoSaveFoldersFound" xml:space="preserve">
+    <value>папки сохранений не найдены</value>
+  </data>
+  <data name="ReadinessScanner_KindSOfDeveloperMaterial" xml:space="preserve">
+    <value>Найдено видов файлов разработчика: {0}</value>
+  </data>
+  <data name="ReadinessScanner_NoDeveloperMaterialDetected" xml:space="preserve">
+    <value>Файлы разработчика не найдены</value>
+  </data>
+  <data name="ReadinessScanner_SSHKeysGitConfigurationEnv" xml:space="preserve">
+    <value>Ключи SSH, настройки Git, файлы .env, дистрибутивы WSL и кэши пакетов не копируются </value>
+  </data>
+  <data name="ReadinessScanner_ByCTRLZTheirContents" xml:space="preserve">
+    <value>программой CTRL+Z. Их содержимое никогда не читается и не показывается.</value>
+  </data>
+  <data name="ReadinessScanner_CopySshAndYourGitconfig" xml:space="preserve">
+    <value>Скопируйте ~/.ssh и .gitconfig в надёжное место и экспортируйте нужные дистрибутивы WSL.</value>
+  </data>
+  <data name="ReadinessScanner_NoBrowsersDetected" xml:space="preserve">
+    <value>Браузеры не найдены</value>
+  </data>
+  <data name="ReadinessScanner_CTRLZBacksUpBrowser" xml:space="preserve">
+    <value>CTRL+Z копирует профили браузеров отдельно, на странице «Браузеры».</value>
+  </data>
+  <data name="ReadinessScanner_NoCTRLZBackupFound" xml:space="preserve">
+    <value>Резервная копия CTRL+Z не найдена</value>
+  </data>
+  <data name="ReadinessScanner_BookmarksHistoryAndProfileSettings" xml:space="preserve">
+    <value>Закладки, история и настройки профиля пропадут при очистке, если они не синхронизированы с аккаунтом браузера.</value>
+  </data>
+  <data name="ReadinessScanner_CreateABackupOnThe" xml:space="preserve">
+    <value>Перед очисткой создайте резервную копию на странице «Браузеры».</value>
+  </data>
+  <data name="ReadinessScanner_NoMatchingArchiveInThe" xml:space="preserve">
+    <value>В папке резервных копий нет подходящего архива.</value>
+  </data>
+  <data name="ReadinessScanner_BackedUp" xml:space="preserve">
+    <value>Резервная копия: {0}</value>
+  </data>
+  <data name="ReadinessScanner_BrowserProfilesAreBackedUp" xml:space="preserve">
+    <value>Профили браузеров копируются отдельно от списков приложений; закладки и история, добавленные после того, как </value>
+  </data>
+  <data name="ReadinessScanner_TheArchiveWasMadeAre" xml:space="preserve">
+    <value>был создан архив, в него не входят.</value>
+  </data>
+  <data name="ReadinessScanner_MakeAFreshBackupThe" xml:space="preserve">
+    <value>Сделайте свежую резервную копию (порог предупреждения — {0} дн.).</value>
+  </data>
+  <data name="ReadinessScanner_NewestArchive" xml:space="preserve">
+    <value>Самый новый архив: {0}</value>
+  </data>
+  <data name="ReadinessScanner_AppProfile" xml:space="preserve">
+    <value>Профиль приложений</value>
+  </data>
+  <data name="ReadinessScanner_NoSavedProfileYet" xml:space="preserve">
+    <value>Сохранённого профиля пока нет</value>
+  </data>
+  <data name="ReadinessScanner_WithoutAProfileCTRLZ" xml:space="preserve">
+    <value>Без профиля CTRL+Z не сможет восстановить список приложений после очистки.</value>
+  </data>
+  <data name="ReadinessScanner_ScanThisPCAndSave" xml:space="preserve">
+    <value>Перед очисткой отсканируйте этот компьютер и сохраните приложения в «Моих приложениях».</value>
+  </data>
+  <data name="ReadinessScanner_LastUpdated" xml:space="preserve">
+    <value>Последнее обновление: {0}</value>
+  </data>
+  <data name="ReadinessScanner_ProfileIsUpToDate" xml:space="preserve">
+    <value>Профиль актуален</value>
+  </data>
+  <data name="ReadinessScanner_DriftMissingExtraOutdated" xml:space="preserve">
+    <value>Расхождения: не хватает {0}, лишних {1}, устарело {2}</value>
+  </data>
+  <data name="ReadinessScanner_TheProfileIsTheList" xml:space="preserve">
+    <value>Профиль — это список, по которому CTRL+Z всё восстанавливает. Приложений, установленных после последнего сохранения, в нём нет.</value>
+  </data>
+  <data name="ReadinessScanner_OpenDriftDetectionFromMy" xml:space="preserve">
+    <value>Откройте проверку расхождений в «Моих приложениях», чтобы посмотреть, что изменилось.</value>
+  </data>
+  <data name="ReadinessRequest_ExportYourPasswordManager" xml:space="preserve">
+    <value>Экспортируйте данные менеджера паролей</value>
+  </data>
+  <data name="ReadinessRequest_ACleanInstallRemovesBrowser" xml:space="preserve">
+    <value>Чистая установка удаляет хранилища паролей браузеров и любые локальные хранилища.</value>
+  </data>
+  <data name="ReadinessRequest_ExportAnEncryptedCopyTo" xml:space="preserve">
+    <value>Экспортируйте зашифрованную копию на внешний носитель, который останется у вас после очистки.</value>
+  </data>
+  <data name="ReadinessRequest_NoteYourLicenceKeys" xml:space="preserve">
+    <value>Запишите лицензионные ключи</value>
+  </data>
+  <data name="ReadinessRequest_SomePaidApplicationsNeedThe" xml:space="preserve">
+    <value>Некоторым платным программам для повторной активации нужен исходный ключ.</value>
+  </data>
+  <data name="ReadinessRequest_KeepTheKeysInYour" xml:space="preserve">
+    <value>Храните ключи в менеджере паролей или на другом устройстве.</value>
+  </data>
+  <data name="ReadinessRequest_DeactivateLicensedSoftware" xml:space="preserve">
+    <value>Деактивируйте лицензионные программы</value>
+  </data>
+  <data name="ReadinessRequest_ManyLicencesAllowOnlyOne" xml:space="preserve">
+    <value>Многие лицензии разрешают только один компьютер одновременно и после очистки откажутся активироваться.</value>
+  </data>
+  <data name="ReadinessRequest_DeactivateInsideEachApplicationBefore" xml:space="preserve">
+    <value>Перед очисткой деактивируйте каждую программу изнутри.</value>
+  </data>
+  <data name="ReadinessRequest_SignOutOfServices" xml:space="preserve">
+    <value>Выйдите из сервисов</value>
+  </data>
+  <data name="ReadinessRequest_OldDevicesLeftSignedIn" xml:space="preserve">
+    <value>Старые устройства, оставшиеся в системе, могут заблокировать вход или оставить устаревшие сеансы.</value>
+  </data>
+  <data name="ReadinessRequest_SignOutOfTheAccounts" xml:space="preserve">
+    <value>Выйдите из учётных записей, которые потом добавите снова.</value>
+  </data>
+  <data name="ReadinessRequest_SaveYourWiFiPasswords" xml:space="preserve">
+    <value>Сохраните пароли Wi-Fi</value>
+  </data>
+  <data name="ReadinessRequest_WindowsMayNotRememberYour" xml:space="preserve">
+    <value>После переустановки Windows может не помнить ваши сети.</value>
+  </data>
+  <data name="ReadinessRequest_WriteThemDownOrStore" xml:space="preserve">
+    <value>Запишите их или сохраните в менеджере паролей.</value>
+  </data>
+  <data name="ReadinessRequest_CheckYourRecoveryKeys" xml:space="preserve">
+    <value>Проверьте ключи восстановления</value>
+  </data>
+  <data name="ReadinessRequest_BitLockerAndAccountRecoveryKeys" xml:space="preserve">
+    <value>Ключи восстановления BitLocker и учётных записей, хранящиеся только на этом компьютере, пропадут при его очистке.</value>
+  </data>
+  <data name="ReadinessRequest_ConfirmYouCanReachThose" xml:space="preserve">
+    <value>Убедитесь, что можете получить эти ключи с другого устройства.</value>
+  </data>
+  <data name="AppScanner_LookingForWingetPackages" xml:space="preserve">
+    <value>Поиск пакетов winget</value>
+  </data>
+  <data name="AppScanner_WingetInventoryCouldNotBe" xml:space="preserve">
+    <value>Не удалось прочитать список winget. Сопоставление будет менее точным.</value>
+  </data>
+  <data name="AppScanner_ReadingInstalledPrograms" xml:space="preserve">
+    <value>Чтение установленных программ</value>
+  </data>
+  <data name="AppScanner_TheRegistryCouldNotBe" xml:space="preserve">
+    <value>Не удалось прочитать реестр. Попробуйте запустить CTRL+Z от имени администратора.</value>
+  </data>
+  <data name="AppScanner_ReadingMicrosoftStoreApps" xml:space="preserve">
+    <value>Чтение приложений Microsoft Store</value>
+  </data>
+  <data name="AppScanner_MicrosoftStoreAppsCouldNot" xml:space="preserve">
+    <value>Не удалось прочитать приложения Microsoft Store. Возможно, Windows ограничивает запросы Appx.</value>
+  </data>
+  <data name="AppScanner_MatchingAppsToWinget" xml:space="preserve">
+    <value>Сопоставление приложений с winget</value>
+  </data>
+  <data name="AppScanner_ReportedDirectlyByWinget" xml:space="preserve">
+    <value>Получено напрямую от winget.</value>
+  </data>
+  <data name="AppScanner_ScanComplete" xml:space="preserve">
+    <value>Сканирование завершено</value>
+  </data>
+  <data name="AppScanner_AppsFound" xml:space="preserve">
+    <value>Найдено приложений: {0}</value>
+  </data>
+  <data name="AppScanner_WeakWingetMatchReviewBefore" xml:space="preserve">
+    <value>Слабое совпадение в winget; проверьте перед установкой.</value>
+  </data>
+  <data name="BrowserArchiveVerifier_FilesReadAndChecked" xml:space="preserve">
+    <value>Прочитано и проверено файлов: {0}.</value>
+  </data>
+  <data name="BrowserArchiveVerifier_TheFileIsDamagedIts" xml:space="preserve">
+    <value>{0}: файл повреждён (контрольная сумма не совпадает).</value>
+  </data>
+  <data name="BrowserArchiveVerifier_TheFileIsDamagedAnd" xml:space="preserve">
+    <value>{0}: файл повреждён и не читается ({1}).</value>
+  </data>
+  <data name="BrowserArchiveVerifier_TheArchiveCouldNotBe" xml:space="preserve">
+    <value>Не удалось прочитать архив до конца: </value>
+  </data>
+  <data name="BrowserArchiveVerifier_ProfileIsListedInThe" xml:space="preserve">
+    <value>Профиль '{0}' указан в манифесте, но его файлов в архиве нет.</value>
+  </data>
+  <data name="BrowserArchiveVerifier_TheArchiveContainsFilesCTRL" xml:space="preserve">
+    <value>В архиве есть файлы, которые CTRL+Z никогда не копирует (пароли или файлы cookie): </value>
+  </data>
+  <data name="BrowserInstallHelp_OpenOnceSoItCreates" xml:space="preserve">
+    <value>Откройте {0} один раз, чтобы он создал свой профиль, закройте его, затем нажмите «Обновить» и восстановите.</value>
+  </data>
+  <data name="BrowserInstallHelp_OpenOnceSoItCreates2" xml:space="preserve">
+    <value>Откройте {0} один раз, чтобы он создал папку данных, закройте его, затем нажмите «Обновить» и восстановите.</value>
+  </data>
+  <data name="ElevationService_CTRLZCouldNotDetermine" xml:space="preserve">
+    <value>CTRL+Z не удалось определить путь к собственному исполняемому файлу.</value>
+  </data>
+  <data name="ElevationService_AdministratorAccessWasDeclined" xml:space="preserve">
+    <value>В правах администратора отказано.</value>
+  </data>
+  <data name="ElevationService_CouldNotRestartWithAdministrator" xml:space="preserve">
+    <value>Не удалось перезапустить с правами администратора: {0}</value>
+  </data>
+  <data name="WingetBootstrapService_WingetIsAvailable" xml:space="preserve">
+    <value>winget {0} доступен.</value>
+  </data>
+  <data name="WingetBootstrapService_WingetIsOlderThanThe" xml:space="preserve">
+    <value>winget {0} старее рекомендуемой версии {1}. Попытка обновить App Installer…</value>
+  </data>
+  <data name="WingetBootstrapService_WingetUpdateCompleted" xml:space="preserve">
+    <value>Обновление winget завершено.</value>
+  </data>
+  <data name="WingetBootstrapService_WingetCouldNotUpdateItself" xml:space="preserve">
+    <value>winget не смог обновиться автоматически. Будет использоваться текущая версия.</value>
+  </data>
+  <data name="WingetBootstrapService_WingetIsMissingDownloadingMicrosoft" xml:space="preserve">
+    <value>winget отсутствует. Скачивание Microsoft App Installer…</value>
+  </data>
+  <data name="WingetBootstrapService_DownloadedAppInstallerRegisteringIt" xml:space="preserve">
+    <value>App Installer скачан ({0}). Регистрация…</value>
+  </data>
+  <data name="WingetBootstrapService_WingetIsReady" xml:space="preserve">
+    <value>winget {0} готов.</value>
+  </data>
+  <data name="ProfileExport_OnTheOtherPCOpen" xml:space="preserve">
+    <value>На другом компьютере откройте «Мои приложения» → «Импорт» и выберите его.</value>
+  </data>
+  <data name="ProfileExport_OnTheOtherPCThey" xml:space="preserve">
+    <value>На другом компьютере они остаются заблокированными, пока вы не проверите и не одобрите каждую там.</value>
+  </data>
+  <data name="ProfileExport_LeaveThemOutIfYou" xml:space="preserve">
+    <value>не включайте их, если будете передавать этот файл.</value>
+  </data>
+  <data name="BrowserBackupService_PreparingArchive" xml:space="preserve">
+    <value>Подготовка архива…</value>
+  </data>
+  <data name="BrowserBackupService_SkippedWebDataForSearch" xml:space="preserve">
+    <value>Web Data для {0} пропущен; не удалось очистить поисковые системы.</value>
+  </data>
+  <data name="BrowserBackupService_VolumeShadowCopyIsUsed" xml:space="preserve">
+    <value>Теневое копирование тома (Volume Shadow Copy) используется автоматически, если доступно.</value>
+  </data>
+  <data name="BrowserBackupService_BackupComplete" xml:space="preserve">
+    <value>Резервное копирование завершено.</value>
+  </data>
+  <data name="BrowserBackupService_WebDataSkippedFor" xml:space="preserve">
+    <value>Web Data для {0} пропущен: {1}</value>
+  </data>
+  <data name="BrowserBackupService_Compressing" xml:space="preserve">
+    <value>Сжатие {0}…</value>
+  </data>
+  <data name="BrowserModels_ProfileFolderNotFound" xml:space="preserve">
+    <value>Папка профиля не найдена</value>
+  </data>
+  <data name="BrowserModels_NoProfilesFound" xml:space="preserve">
+    <value>Профили не найдены</value>
+  </data>
+  <data name="BrowserModels_IsStillRunningCloseIt" xml:space="preserve">
+    <value>{0} ещё запущен ({1}). Закройте его и повторите.</value>
+  </data>
+  <data name="BrowserModels_TheseProfilesAlreadyExistChoose" xml:space="preserve">
+    <value>Эти профили уже существуют. Выберите перезапись или восстановление как новых профилей.</value>
+  </data>
+  <data name="InstallEngine_RunningElevated" xml:space="preserve">
+    <value>Запущено с повышенными правами.</value>
+  </data>
+  <data name="InstallEngine_RunningNotElevated" xml:space="preserve">
+    <value>Запущено без повышенных прав.</value>
+  </data>
+  <data name="InstallEngine_AppsNeedAttention_One" xml:space="preserve">
+    <value>Требуют внимания: {0}.</value>
+  </data>
+  <data name="InstallEngine_AppsNeedAttention_Other" xml:space="preserve">
+    <value>Требуют внимания: {0}.</value>
+  </data>
+  <data name="PostInstallConsent_ProfileWillRun_One" xml:space="preserve">
+    <value>Этот профиль запустит на этом компьютере команды после установки приложений (всего: {0}):
+
+{1}</value>
+  </data>
+  <data name="PostInstallConsent_ProfileWillRun_Other" xml:space="preserve">
+    <value>Этот профиль запустит на этом компьютере команды после установки приложений (всего: {0}):
+
+{1}</value>
+  </data>
+  <data name="InstallerSignature_Valid" xml:space="preserve">
+    <value>Подпись действительна: подписано {0}.</value>
+  </data>
+  <data name="InstallerSignature_Untrusted" xml:space="preserve">
+    <value>Подписано {0}, и файл совпадает с подписью, но сертификат не считается доверенным на этом компьютере (0x{1:X8}).</value>
+  </data>
+  <data name="InstallerSignature_UnnamedPublisher" xml:space="preserve">
+    <value>неизвестным издателем</value>
+  </data>
+  <data name="InstallPlanner_AppsHaveWarning_One" xml:space="preserve">
+    <value>Приложений с предупреждением: {0} — проверьте перед запуском.</value>
+  </data>
+  <data name="InstallPlanner_AppsHaveWarning_Other" xml:space="preserve">
+    <value>Приложений с предупреждением: {0} — проверьте перед запуском.</value>
+  </data>
+  <data name="ReadinessScanner_SaveFolders_One" xml:space="preserve">
+    <value>Найдено обычных папок сохранений: {0}</value>
+  </data>
+  <data name="ReadinessScanner_SaveFolders_Other" xml:space="preserve">
+    <value>Найдено обычных папок сохранений: {0}</value>
+  </data>
+  <data name="ReadinessScanner_AgeDays_One" xml:space="preserve">
+    <value>Возраст: {0} день</value>
+  </data>
+  <data name="ReadinessScanner_AgeDays_Few" xml:space="preserve">
+    <value>Возраст: {0} дня</value>
+  </data>
+  <data name="ReadinessScanner_AgeDays_Many" xml:space="preserve">
+    <value>Возраст: {0} дней</value>
+  </data>
+  <data name="ReadinessScanner_AgeDays_Other" xml:space="preserve">
+    <value>Возраст: {0} дня</value>
+  </data>
+  <data name="ReadinessScanner_AppsSaved_One" xml:space="preserve">
+    <value>Сохранено приложений: {0}</value>
+  </data>
+  <data name="ReadinessScanner_AppsSaved_Other" xml:space="preserve">
+    <value>Сохранено приложений: {0}</value>
+  </data>
+  <data name="ReadinessScanner_SavedAppsMissing_One" xml:space="preserve">
+    <value>Нет сохранённых приложений: {0}, </value>
+  </data>
+  <data name="ReadinessScanner_SavedAppsMissing_Other" xml:space="preserve">
+    <value>Нет сохранённых приложений: {0}, </value>
+  </data>
+  <data name="ReadinessScanner_InstalledAppsNotSaved_One" xml:space="preserve">
+    <value>не сохранено установленных: {0}</value>
+  </data>
+  <data name="ReadinessScanner_InstalledAppsNotSaved_Other" xml:space="preserve">
+    <value>не сохранено установленных: {0}</value>
+  </data>
+  <data name="BrowserArchiveVerifier_Restorable_One" xml:space="preserve">
+    <value>Можно восстановить: {1}, профилей: {0}, </value>
+  </data>
+  <data name="BrowserArchiveVerifier_Restorable_Other" xml:space="preserve">
+    <value>Можно восстановить: {1}, профилей: {0}, </value>
+  </data>
+  <data name="BrowserArchiveVerifier_NotRestorable_One" xml:space="preserve">
+    <value>Нельзя восстановить: найдено проблем: {0}.</value>
+  </data>
+  <data name="BrowserArchiveVerifier_NotRestorable_Other" xml:space="preserve">
+    <value>Нельзя восстановить: найдено проблем: {0}.</value>
+  </data>
+  <data name="ProfileExport_AppsSaved_One" xml:space="preserve">
+    <value>В один файл будет сохранено приложений: {0} (включено: {1}). </value>
+  </data>
+  <data name="ProfileExport_AppsSaved_Other" xml:space="preserve">
+    <value>В один файл будет сохранено приложений: {0} (включено: {1}). </value>
+  </data>
+  <data name="ProfileExport_LocalInstallers_One" xml:space="preserve">
+    <value>Приложений, устанавливаемых из файла на этом компьютере: {0} ({1}). Скопируйте и этот установщик, а там укажите приложению его новое расположение.</value>
+  </data>
+  <data name="ProfileExport_LocalInstallers_Other" xml:space="preserve">
+    <value>Приложений, устанавливаемых из файлов на этом компьютере: {0} ({1}). Скопируйте и эти установщики, а там укажите каждому приложению новое расположение.</value>
+  </data>
+  <data name="ProfileExport_AppsWithCommand_One" xml:space="preserve">
+    <value>Приложений с командой после установки: {0}. </value>
+  </data>
+  <data name="ProfileExport_AppsWithCommand_Other" xml:space="preserve">
+    <value>Приложений с командой после установки: {0}. </value>
+  </data>
+  <data name="ProfileExport_AppsWithNote_One" xml:space="preserve">
+    <value>Приложений с заметкой: {0}. В заметках могут быть лицензионные ключи; </value>
+  </data>
+  <data name="ProfileExport_AppsWithNote_Other" xml:space="preserve">
+    <value>Приложений с заметкой: {0}. В заметках могут быть лицензионные ключи; </value>
+  </data>
+  <data name="Tweak_ShowFileExtensions_Title" xml:space="preserve">
+    <value>Показывать расширения файлов</value>
+  </data>
+  <data name="Tweak_ShowFileExtensions_Description" xml:space="preserve">
+    <value>Проводник показывает .exe, .pdf и другие расширения, чтобы файл не мог скрыть, что он такое.</value>
+  </data>
+  <data name="Tweak_ShowHiddenFiles_Title" xml:space="preserve">
+    <value>Показывать скрытые файлы</value>
+  </data>
+  <data name="Tweak_ShowHiddenFiles_Description" xml:space="preserve">
+    <value>Проводник показывает скрытые файлы и папки, например AppData.</value>
+  </data>
+  <data name="Tweak_ExplorerOpensThisPc_Title" xml:space="preserve">
+    <value>Открывать Проводник на «Этот компьютер»</value>
+  </data>
+  <data name="Tweak_ExplorerOpensThisPc_Description" xml:space="preserve">
+    <value>Проводник открывается на списке дисков, а не на «Главной» или «Быстром доступе».</value>
+  </data>
+  <data name="Tweak_DarkMode_Title" xml:space="preserve">
+    <value>Тёмный режим для приложений и Windows</value>
+  </data>
+  <data name="Tweak_DarkMode_Description" xml:space="preserve">
+    <value>Приложения, панель задач и меню «Пуск» Windows используют тёмную тему.</value>
+  </data>
+  <data name="Tweak_TaskbarLeft_Title" xml:space="preserve">
+    <value>Значки панели задач слева</value>
+  </data>
+  <data name="Tweak_TaskbarLeft_Description" xml:space="preserve">
+    <value>Windows 11 размещает кнопку «Пуск» и значки панели задач слева, как в Windows 10.</value>
+  </data>
+  <data name="Tweak_NoWebSearchInStart_Title" xml:space="preserve">
+    <value>Без результатов из интернета в поиске «Пуска»</value>
+  </data>
+  <data name="Tweak_NoWebSearchInStart_Description" xml:space="preserve">
+    <value>Поиск из меню «Пуск» ищет только на этом компьютере, а не в Bing.</value>
+  </data>
+  <data name="Tweak_ClassicContextMenu_Title" xml:space="preserve">
+    <value>Классическое контекстное меню</value>
+  </data>
+  <data name="Tweak_ClassicContextMenu_Description" xml:space="preserve">
+    <value>Windows 11 сразу показывает полное контекстное меню, без пункта «Показать дополнительные параметры».</value>
+  </data>
+  <data name="Tweak_NoStartRecommendations_Title" xml:space="preserve">
+    <value>Меньше рекомендаций в «Пуске»</value>
+  </data>
+  <data name="Tweak_NoStartRecommendations_Description" xml:space="preserve">
+    <value>«Пуск» перестаёт предлагать советы, ярлыки и новые приложения.</value>
+  </data>
+  <data name="Category_Browser" xml:space="preserve">
+    <value>Браузеры</value>
+  </data>
+  <data name="Category_Communication" xml:space="preserve">
+    <value>Общение</value>
+  </data>
+  <data name="Category_Development" xml:space="preserve">
+    <value>Разработка</value>
+  </data>
+  <data name="Category_Gaming" xml:space="preserve">
+    <value>Игры</value>
+  </data>
+  <data name="Category_Media" xml:space="preserve">
+    <value>Мультимедиа</value>
+  </data>
+  <data name="Category_Productivity" xml:space="preserve">
+    <value>Офис и продуктивность</value>
+  </data>
+  <data name="Category_Security" xml:space="preserve">
+    <value>Безопасность</value>
+  </data>
+  <data name="Category_Utilities" xml:space="preserve">
+    <value>Утилиты</value>
+  </data>
+  <data name="Category_Other" xml:space="preserve">
+    <value>Другое</value>
+  </data>
+  <data name="Source_DirectLink" xml:space="preserve">
+    <value>Прямая ссылка</value>
+  </data>
+  <data name="Source_LocalFile" xml:space="preserve">
+    <value>Локальный файл</value>
+  </data>
+  <data name="Source_Store" xml:space="preserve">
+    <value>Store</value>
+  </data>
+  <data name="AppEntry_LatestRelease" xml:space="preserve">
+    <value>последний выпуск</value>
+  </data>
+  <data name="AppEntry_MissingUrl" xml:space="preserve">
+    <value>Нет URL</value>
+  </data>
+  <data name="AppEntry_MissingFile" xml:space="preserve">
+    <value>Нет файла</value>
+  </data>
+  <data name="AppEntry_UnknownSource" xml:space="preserve">
+    <value>Неизвестный источник</value>
+  </data>
+  <data name="CommandPreview_OffInProfile" xml:space="preserve">
+    <value>Отключено в профиле - не запустится</value>
+  </data>
+  <data name="FileInstallService_ZipHasNoInstaller" xml:space="preserve">
+    <value>В ZIP не найден распознаваемый setup.exe или .msi. Отметьте его как портативный архив в разделе «Добавить приложение» или установите вручную.</value>
+  </data>
+  <data name="InstallEngine_ProfileMissing" xml:space="preserve">
+    <value>Сохранённый профиль для этого сеанса установки отсутствует. Начните новую установку из «Моих приложений».</value>
+  </data>
+  <data name="ReadinessScanner_FolderMeaning" xml:space="preserve">
+    <value>Эти файлы есть только на этом компьютере. Чистая установка удалит их, если нет копии в другом месте.</value>
+  </data>
+  <data name="ReadinessScanner_Today" xml:space="preserve">
+    <value>сегодня</value>
+  </data>
+  <data name="ReadinessScanner_Yesterday" xml:space="preserve">
+    <value>вчера</value>
+  </data>
+  <data name="DeveloperItems_SshKeys" xml:space="preserve">
+    <value>Ключи SSH</value>
+  </data>
+  <data name="DeveloperItems_SshKeysDetail" xml:space="preserve">
+    <value>Найдены файлы ключей. CTRL+Z не копирует их и никогда не читает.</value>
+  </data>
+  <data name="DeveloperItems_GitConfig" xml:space="preserve">
+    <value>Настройки Git</value>
+  </data>
+  <data name="DeveloperItems_GitConfigDetail" xml:space="preserve">
+    <value>Содержат ваше имя, адрес электронной почты и все настроенные удалённые репозитории и помощники учётных данных.</value>
+  </data>
+  <data name="DeveloperItems_EnvFiles" xml:space="preserve">
+    <value>Файлы .env в папках проектов</value>
+  </data>
+  <data name="DeveloperItems_EnvFilesDetail" xml:space="preserve">
+    <value>Часто содержат ключи API и пароли баз данных. CTRL+Z не копирует их и не читает.</value>
+  </data>
+  <data name="DeveloperItems_Wsl" xml:space="preserve">
+    <value>Дистрибутивы WSL</value>
+  </data>
+  <data name="DeveloperItems_WslDetail" xml:space="preserve">
+    <value>Дистрибутив WSL содержит целую файловую систему Linux, которую удалит переустановка Windows.</value>
+  </data>
+  <data name="DeveloperItems_NpmPackages" xml:space="preserve">
+    <value>Глобальные пакеты npm</value>
+  </data>
+  <data name="DeveloperItems_NuGetCache" xml:space="preserve">
+    <value>Кэш NuGet</value>
+  </data>
+  <data name="DeveloperItems_CargoRegistry" xml:space="preserve">
+    <value>Реестр Cargo</value>
+  </data>
+  <data name="DeveloperItems_GradleCache" xml:space="preserve">
+    <value>Кэш Gradle</value>
+  </data>
+  <data name="DeveloperItems_MavenRepository" xml:space="preserve">
+    <value>Репозиторий Maven</value>
+  </data>
+  <data name="DeveloperItems_PackageCaches" xml:space="preserve">
+    <value>Глобальные кэши пакетов</value>
+  </data>
+  <data name="DeveloperItems_NoPackageCaches" xml:space="preserve">
+    <value>Глобальные кэши пакетов не найдены.</value>
+  </data>
+  <data name="DeveloperItems_PackageCachesDetected" xml:space="preserve">
+    <value>Найдено: {0}. Их можно скачать заново.</value>
+  </data>
+  <data name="ReadinessScanner_BackupIsOld_One" xml:space="preserve">
+    <value>Резервной копии {0} день</value>
+  </data>
+  <data name="ReadinessScanner_BackupIsOld_Few" xml:space="preserve">
+    <value>Резервной копии {0} дня</value>
+  </data>
+  <data name="ReadinessScanner_BackupIsOld_Many" xml:space="preserve">
+    <value>Резервной копии {0} дней</value>
+  </data>
+  <data name="ReadinessScanner_BackupIsOld_Other" xml:space="preserve">
+    <value>Резервной копии {0} дня</value>
+  </data>
+  <data name="ReadinessScanner_DaysAgo_One" xml:space="preserve">
+    <value>{0} день назад</value>
+  </data>
+  <data name="ReadinessScanner_DaysAgo_Few" xml:space="preserve">
+    <value>{0} дня назад</value>
+  </data>
+  <data name="ReadinessScanner_DaysAgo_Many" xml:space="preserve">
+    <value>{0} дней назад</value>
+  </data>
+  <data name="ReadinessScanner_DaysAgo_Other" xml:space="preserve">
+    <value>{0} дня назад</value>
+  </data>
+</root>

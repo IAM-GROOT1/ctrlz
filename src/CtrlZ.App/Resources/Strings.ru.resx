@@ -1,0 +1,3159 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Main_Minimize" xml:space="preserve">
+    <value>Свернуть</value>
+  </data>
+  <data name="Main_Maximize" xml:space="preserve">
+    <value>Развернуть</value>
+  </data>
+  <data name="Main_Close" xml:space="preserve">
+    <value>Закрыть</value>
+  </data>
+  <data name="Main_WORKSPACE" xml:space="preserve">
+    <value>РАБОТА</value>
+  </data>
+  <data name="Main_DISCOVER" xml:space="preserve">
+    <value>ОБЗОР</value>
+  </data>
+  <data name="Main_BROWSERS" xml:space="preserve">
+    <value>БРАУЗЕРЫ</value>
+  </data>
+  <data name="Main_LocalFirstNoAccount" xml:space="preserve">
+    <value>Всё локально · без учётной записи</value>
+  </data>
+  <data name="AddApp_DirectLink" xml:space="preserve">
+    <value>Прямая ссылка</value>
+  </data>
+  <data name="AddApp_GitHubRelease" xml:space="preserve">
+    <value>Выпуск на GitHub</value>
+  </data>
+  <data name="AddApp_LocalFile" xml:space="preserve">
+    <value>Локальный файл</value>
+  </data>
+  <data name="AddApp_APPDETAILS" xml:space="preserve">
+    <value>СВЕДЕНИЯ О ПРИЛОЖЕНИИ</value>
+  </data>
+  <data name="AddApp_Name" xml:space="preserve">
+    <value>Название</value>
+  </data>
+  <data name="AddApp_PublisherOptional" xml:space="preserve">
+    <value>Издатель (необязательно)</value>
+  </data>
+  <data name="AddApp_Category" xml:space="preserve">
+    <value>Категория</value>
+  </data>
+  <data name="AddApp_INSTALLERSOURCE" xml:space="preserve">
+    <value>ИСТОЧНИК УСТАНОВЩИКА</value>
+  </data>
+  <data name="AddApp_DownloadURL" xml:space="preserve">
+    <value>URL для скачивания</value>
+  </data>
+  <data name="AddApp_SaveAsFileNameOptional" xml:space="preserve">
+    <value>Сохранить под именем файла (необязательно)</value>
+  </data>
+  <data name="AddApp_TheAppDownloadsAtInstall" xml:space="preserve">
+    <value>Приложение скачивается во время установки. Добавьте ключи справа, чтобы оно устанавливалось в тихом режиме.</value>
+  </data>
+  <data name="AddApp_Repository" xml:space="preserve">
+    <value>Репозиторий</value>
+  </data>
+  <data name="AddApp_GitHubRepository" xml:space="preserve">
+    <value>Репозиторий GitHub</value>
+  </data>
+  <data name="AddApp_FindLatest" xml:space="preserve">
+    <value>Найти последний</value>
+  </data>
+  <data name="AddApp_ReleaseAssets" xml:space="preserve">
+    <value>Файлы выпуска</value>
+  </data>
+  <data name="AddApp_FindTheLatestReleaseTo" xml:space="preserve">
+    <value>Найдите последний выпуск, чтобы выбрать файл для Windows.</value>
+  </data>
+  <data name="AddApp_AssetHandling" xml:space="preserve">
+    <value>Обработка файла</value>
+  </data>
+  <data name="AddApp_TheLatestReleaseIsChecked" xml:space="preserve">
+    <value>Во время установки последний выпуск проверяется снова; используется выбранный тип файла, а не устаревшая версия.</value>
+  </data>
+  <data name="AddApp_InstallerFile" xml:space="preserve">
+    <value>Файл установщика</value>
+  </data>
+  <data name="AddApp_InstallerPath" xml:space="preserve">
+    <value>Путь к установщику</value>
+  </data>
+  <data name="AddApp_File" xml:space="preserve">
+    <value>Файл…</value>
+  </data>
+  <data name="AddApp_Folder" xml:space="preserve">
+    <value>Папка…</value>
+  </data>
+  <data name="AddApp_KeepTheUSBDriveOr" xml:space="preserve">
+    <value>Не отключайте USB-накопитель и не удаляйте папку, пока идёт установка.</value>
+  </data>
+  <data name="AddApp_NotesHeading" xml:space="preserve">
+    <value>ЗАМЕТКИ</value>
+  </data>
+  <data name="AddApp_Notes" xml:space="preserve">
+    <value>Заметки</value>
+  </data>
+  <data name="AddApp_SILENTINSTALL" xml:space="preserve">
+    <value>ТИХАЯ УСТАНОВКА</value>
+  </data>
+  <data name="AddApp_CTRLZDetectsTheInstaller" xml:space="preserve">
+    <value>CTRL+Z определяет тип установщика и подбирает известный набор ключей. Собственные ключи всегда имеют приоритет.</value>
+  </data>
+  <data name="AddApp_Detected" xml:space="preserve">
+    <value>Обнаружено</value>
+  </data>
+  <data name="AddApp_SilentSwitches" xml:space="preserve">
+    <value>Ключи тихой установки</value>
+  </data>
+  <data name="AddApp_InspectInstaller" xml:space="preserve">
+    <value>Проверить установщик</value>
+  </data>
+  <data name="AddApp_UseRecommended" xml:space="preserve">
+    <value>Использовать рекомендуемые</value>
+  </data>
+  <data name="AddApp_Test" xml:space="preserve">
+    <value>Проверить…</value>
+  </data>
+  <data name="AddApp_CommandPreview" xml:space="preserve">
+    <value>Предпросмотр команды</value>
+  </data>
+  <data name="AddApp_SHA256Optional" xml:space="preserve">
+    <value>SHA-256 (необязательно)</value>
+  </data>
+  <data name="AddApp_GitHubReleaseDigestsAreFilled" xml:space="preserve">
+    <value>Хэши выпусков GitHub заполняются автоматически, если они доступны. winget сам проверяет свои манифесты.</value>
+  </data>
+  <data name="AddApp_TestOutput" xml:space="preserve">
+    <value>Результат проверки</value>
+  </data>
+  <data name="AddApp_PasswordsAndCookiesAreExcluded" xml:space="preserve">
+    <value>Пароли и файлы cookie не попадают в резервные копии браузеров. Скачанные установщики проверяются, если доступен хэш.</value>
+  </data>
+  <data name="AddApp_TheAppIsSavedIn" xml:space="preserve">
+    <value>Приложение сохраняется только в профиле. Установщики скачиваются только во время установки.</value>
+  </data>
+  <data name="AddApp_Clear" xml:space="preserve">
+    <value>Очистить</value>
+  </data>
+  <data name="AppEditor_EditApp" xml:space="preserve">
+    <value>Изменить приложение</value>
+  </data>
+  <data name="AppEditor_Close" xml:space="preserve">
+    <value>Закрыть</value>
+  </data>
+  <data name="AppEditor_IDENTITY" xml:space="preserve">
+    <value>ОПИСАНИЕ</value>
+  </data>
+  <data name="AppEditor_Name" xml:space="preserve">
+    <value>Название</value>
+  </data>
+  <data name="AppEditor_Publisher" xml:space="preserve">
+    <value>Издатель</value>
+  </data>
+  <data name="AppEditor_Category" xml:space="preserve">
+    <value>Категория</value>
+  </data>
+  <data name="AppEditor_SOURCE" xml:space="preserve">
+    <value>ИСТОЧНИК</value>
+  </data>
+  <data name="AppEditor_InstallFrom" xml:space="preserve">
+    <value>Источник установки</value>
+  </data>
+  <data name="AppEditor_WingetPackageId" xml:space="preserve">
+    <value>ID пакета winget</value>
+  </data>
+  <data name="AppEditor_UseTheExactIdFor" xml:space="preserve">
+    <value>Укажите точный ID, например Mozilla.Firefox или 7zip.7zip.</value>
+  </data>
+  <data name="AppEditor_DownloadURL" xml:space="preserve">
+    <value>URL для скачивания</value>
+  </data>
+  <data name="AppEditor_FileNameOverrideOptional" xml:space="preserve">
+    <value>Другое имя файла (необязательно)</value>
+  </data>
+  <data name="AppEditor_RepositoryOwnerProject" xml:space="preserve">
+    <value>Репозиторий (владелец/проект)</value>
+  </data>
+  <data name="AppEditor_AssetNameBlankBestWindows" xml:space="preserve">
+    <value>Имя файла (пусто = лучший файл для Windows)</value>
+  </data>
+  <data name="AppEditor_AssetNameBlankMeansThe" xml:space="preserve">
+    <value>Имя файла (если пусто, выбирается лучший файл для Windows)</value>
+  </data>
+  <data name="AppEditor_AssetType" xml:space="preserve">
+    <value>Тип файла</value>
+  </data>
+  <data name="AppEditor_InstallerPath" xml:space="preserve">
+    <value>Путь к установщику</value>
+  </data>
+  <data name="AppEditor_LocalInstallerPath" xml:space="preserve">
+    <value>Путь к локальному установщику</value>
+  </data>
+  <data name="AppEditor_Browse" xml:space="preserve">
+    <value>Обзор…</value>
+  </data>
+  <data name="AppEditor_INSTALLBEHAVIOUR" xml:space="preserve">
+    <value>ПАРАМЕТРЫ УСТАНОВКИ</value>
+  </data>
+  <data name="AppEditor_SilentSwitchesBlankAutoDetect" xml:space="preserve">
+    <value>Ключи тихой установки (пусто = определить во время установки)</value>
+  </data>
+  <data name="AppEditor_SilentSwitchesBlankMeansAuto" xml:space="preserve">
+    <value>Ключи тихой установки (если пусто, определяются во время установки)</value>
+  </data>
+  <data name="AppEditor_SHA256OptionalDirectGitHub" xml:space="preserve">
+    <value>SHA-256 (необязательно; прямые ссылки, GitHub и локальные файлы)</value>
+  </data>
+  <data name="AppEditor_SHA256Optional" xml:space="preserve">
+    <value>SHA-256 (необязательно)</value>
+  </data>
+  <data name="AppEditor_Notes" xml:space="preserve">
+    <value>Заметки</value>
+  </data>
+  <data name="AppEditor_StoredAsPlainTextIn" xml:space="preserve">
+    <value>Хранится открытым текстом в файле профиля. Не записывайте сюда пароли.</value>
+  </data>
+  <data name="AppEditor_IncludeThisAppInInstalls" xml:space="preserve">
+    <value>Включать это приложение в установку</value>
+  </data>
+  <data name="AppEditor_AFTERINSTALL" xml:space="preserve">
+    <value>ПОСЛЕ УСТАНОВКИ</value>
+  </data>
+  <data name="AppEditor_ProgramToRunBlankNo" xml:space="preserve">
+    <value>Программа для запуска (пусто = без команды)</value>
+  </data>
+  <data name="AppEditor_ProgramToRunBlankMeans" xml:space="preserve">
+    <value>Программа для запуска (если пусто, команды нет)</value>
+  </data>
+  <data name="AppEditor_ArgumentsOnePerLineNo" xml:space="preserve">
+    <value>Аргументы, по одному в строке (командная оболочка не используется)</value>
+  </data>
+  <data name="AppEditor_ArgumentsOnePerLine" xml:space="preserve">
+    <value>Аргументы, по одному в строке</value>
+  </data>
+  <data name="AppEditor_WorkingDirectoryOptional" xml:space="preserve">
+    <value>Рабочая папка (необязательно)</value>
+  </data>
+  <data name="AppEditor_TimeoutSeconds" xml:space="preserve">
+    <value>Тайм-аут (секунды)</value>
+  </data>
+  <data name="AppEditor_TimeoutInSeconds" xml:space="preserve">
+    <value>Тайм-аут в секундах</value>
+  </data>
+  <data name="AppEditor_RunThisCommandAsAdministrator" xml:space="preserve">
+    <value>Запускать эту команду от имени администратора</value>
+  </data>
+  <data name="AppEditor_RunThisCommandAfterThe" xml:space="preserve">
+    <value>Запускать эту команду после установки приложения</value>
+  </data>
+  <data name="AppEditor_CommandsRunWithoutAShell" xml:space="preserve">
+    <value>Команды выполняются без командной оболочки и полностью показываются в предпросмотре установки.</value>
+  </data>
+  <data name="AppEditor_ThisProfileDidNotOriginate" xml:space="preserve">
+    <value>Этот профиль создан не на этом компьютере, поэтому его команды здесь изменить нельзя. Проверьте их на экране проверки, прежде чем они смогут выполняться.</value>
+  </data>
+  <data name="AppEditor_Cancel" xml:space="preserve">
+    <value>Отмена</value>
+  </data>
+  <data name="AppEditor_SaveChanges" xml:space="preserve">
+    <value>Сохранить изменения</value>
+  </data>
+  <data name="AppUpdates_Pinned" xml:space="preserve">
+    <value>Закреплено</value>
+  </data>
+  <data name="AppUpdates_IgnoreThisVersion" xml:space="preserve">
+    <value>Пропустить эту версию</value>
+  </data>
+  <data name="AppUpdates_CheckAgain" xml:space="preserve">
+    <value>Проверить снова</value>
+  </data>
+  <data name="AppUpdates_UpdateSelected" xml:space="preserve">
+    <value>Обновить выбранные</value>
+  </data>
+  <data name="AppUpdates_UpdateAll" xml:space="preserve">
+    <value>Обновить все</value>
+  </data>
+  <data name="AppUpdates_Cancel" xml:space="preserve">
+    <value>Отмена</value>
+  </data>
+  <data name="AppUpdates_ShowIgnoredVersions" xml:space="preserve">
+    <value>Показать пропущенные версии</value>
+  </data>
+  <data name="AppUpdates_UpdatesComeFromWingetPinned" xml:space="preserve">
+    <value>Обновления поступают из winget. Закреплённые приложения никогда не входят в «Обновить все».</value>
+  </data>
+  <data name="AppUpdates_NoUpdatesToShowApps" xml:space="preserve">
+    <value>Нет обновлений. Приложения, которые winget не знает или версию которых не может прочитать, здесь не показываются.</value>
+  </data>
+  <data name="AppUpdates_FROMGITHUBRELEASES" xml:space="preserve">
+    <value>ИЗ ВЫПУСКОВ GITHUB</value>
+  </data>
+  <data name="AppUpdates_Update" xml:space="preserve">
+    <value>Обновить</value>
+  </data>
+  <data name="AppUpdates_AppsInstalledFromAGitHub" xml:space="preserve">
+    <value>Приложения, установленные CTRL+Z из выпуска на GitHub, в сравнении с последним выпуском в репозитории.</value>
+  </data>
+  <data name="Browsers_Custom" xml:space="preserve">
+    <value>свой</value>
+  </data>
+  <data name="Browsers_ProfileFolderNotFoundUse" xml:space="preserve">
+    <value>Папка профиля не найдена. Нажмите «Добавить свой браузер» и укажите CTRL+Z папку, где находится Local State (Chromium) или profiles.ini (Firefox).</value>
+  </data>
+  <data name="Browsers_AllProfiles" xml:space="preserve">
+    <value>Все профили</value>
+  </data>
+  <data name="Browsers_None" xml:space="preserve">
+    <value>Нет</value>
+  </data>
+  <data name="Browsers_BackUp" xml:space="preserve">
+    <value>Резервная копия</value>
+  </data>
+  <data name="Browsers_Restore" xml:space="preserve">
+    <value>Восстановление</value>
+  </data>
+  <data name="Browsers_AddCustomBrowser" xml:space="preserve">
+    <value>Добавить свой браузер</value>
+  </data>
+  <data name="Browsers_Refresh" xml:space="preserve">
+    <value>Обновить</value>
+  </data>
+  <data name="Browsers_BROWSERS" xml:space="preserve">
+    <value>БРАУЗЕРЫ</value>
+  </data>
+  <data name="Browsers_ChooseABrowserThenIts" xml:space="preserve">
+    <value>Выберите браузер, затем его профили</value>
+  </data>
+  <data name="Browsers_NoFirefoxOrChromiumBrowsers" xml:space="preserve">
+    <value>Браузеры Firefox и Chromium не найдены</value>
+  </data>
+  <data name="Browsers_IfYouUseALess" xml:space="preserve">
+    <value>Если вы используете менее распространённую сборку, укажите CTRL+Z корневую папку её профилей: папку с Local State для Chromium или папку Firefox с файлом profiles.ini.</value>
+  </data>
+  <data name="Browsers_BackupHeading" xml:space="preserve">
+    <value>РЕЗЕРВНАЯ КОПИЯ</value>
+  </data>
+  <data name="Browsers_Destination" xml:space="preserve">
+    <value>Куда сохранить</value>
+  </data>
+  <data name="Browsers_OpenTheBackupFolder" xml:space="preserve">
+    <value>Открыть папку резервных копий</value>
+  </data>
+  <data name="Browsers_OpenFolder" xml:space="preserve">
+    <value>Открыть папку</value>
+  </data>
+  <data name="Browsers_ChangeFolder" xml:space="preserve">
+    <value>Сменить папку</value>
+  </data>
+  <data name="Browsers_PasswordOptional" xml:space="preserve">
+    <value>Пароль (необязательно)</value>
+  </data>
+  <data name="Browsers_BackupPasswordOptional" xml:space="preserve">
+    <value>Пароль резервной копии (необязательно)</value>
+  </data>
+  <data name="Browsers_AES256EncryptedZIPWindows" xml:space="preserve">
+    <value>ZIP-архив с шифрованием AES-256. Проводник Windows не открывает зашифрованные архивы; для восстановления используйте CTRL+Z. Оставьте пустым для обычного ZIP.</value>
+  </data>
+  <data name="Browsers_EstimatedBackupSizeActualZIP" xml:space="preserve">
+    <value>Примерный размер резервной копии. Настоящий ZIP обычно меньше.</value>
+  </data>
+  <data name="Browsers_Excluded" xml:space="preserve">
+    <value>Исключено</value>
+  </data>
+  <data name="Browsers_BackUpSelected" xml:space="preserve">
+    <value>Создать копию выбранных</value>
+  </data>
+  <data name="Browsers_Cancel" xml:space="preserve">
+    <value>Отмена</value>
+  </data>
+  <data name="Browsers_PasswordsAndCookiesAreNever" xml:space="preserve">
+    <value>Пароли и файлы cookie никогда не копируются. Базы входа и ключей Firefox и файлы Login Data/Cookies Chromium исключаются. Закройте браузер, когда появится запрос, чтобы файлы не были заблокированы.</value>
+  </data>
+  <data name="Browsers_ARCHIVE" xml:space="preserve">
+    <value>АРХИВ</value>
+  </data>
+  <data name="Browsers_CTRLZBrowserBackup" xml:space="preserve">
+    <value>Резервная копия браузера CTRL+Z</value>
+  </data>
+  <data name="Browsers_BackupArchiveToRestore" xml:space="preserve">
+    <value>Архив резервной копии для восстановления</value>
+  </data>
+  <data name="Browsers_Browse" xml:space="preserve">
+    <value>Обзор…</value>
+  </data>
+  <data name="Browsers_Password" xml:space="preserve">
+    <value>Пароль</value>
+  </data>
+  <data name="Browsers_ArchivePassword" xml:space="preserve">
+    <value>Пароль архива</value>
+  </data>
+  <data name="Browsers_Inspect" xml:space="preserve">
+    <value>Показать содержимое</value>
+  </data>
+  <data name="Browsers_Verify" xml:space="preserve">
+    <value>Проверить</value>
+  </data>
+  <data name="Browsers_ReadsEveryFileInThe" xml:space="preserve">
+    <value>Читает и проверяет каждый файл резервной копии, ничего не восстанавливая.</value>
+  </data>
+  <data name="Browsers_PROFILESINTHISARCHIVE" xml:space="preserve">
+    <value>ПРОФИЛИ В ЭТОМ АРХИВЕ</value>
+  </data>
+  <data name="Browsers_All" xml:space="preserve">
+    <value>Все</value>
+  </data>
+  <data name="Browsers_RestoreHeading" xml:space="preserve">
+    <value>ВОССТАНОВЛЕНИЕ</value>
+  </data>
+  <data name="Browsers_TargetBrowser" xml:space="preserve">
+    <value>Браузер для восстановления</value>
+  </data>
+  <data name="Browsers_TheBrowserMustBeInstalled" xml:space="preserve">
+    <value>Браузер должен быть установлен и закрыт. Существующие профили никогда не удаляются; CTRL+Z записывает только файлы из архива.</value>
+  </data>
+  <data name="Browsers_RestoreAsNewProfiles" xml:space="preserve">
+    <value>Восстановить как новые профили</value>
+  </data>
+  <data name="Browsers_RecommendedNewProfileFoldersAre" xml:space="preserve">
+    <value>Рекомендуется. Создаются новые папки профилей и регистрируются в списке профилей браузера (Local State или profiles.ini), так что текущие профили не затрагиваются. Снимите флажок, чтобы объединить с профилями под исходными именами.</value>
+  </data>
+  <data name="Browsers_CookiesAndSavedPasswordsAre" xml:space="preserve">
+    <value>Файлов cookie и сохранённых паролей в архиве нет, поэтому на новом компьютере нужно будет снова войти в учётные записи. Расширения и их настройки восстанавливаются.</value>
+  </data>
+  <data name="Browsers_RestoreSelectedProfiles" xml:space="preserve">
+    <value>Восстановить выбранные профили</value>
+  </data>
+  <data name="Catalog_OpenSource" xml:space="preserve">
+    <value>открытый код</value>
+  </data>
+  <data name="Catalog_OpenProjectPage" xml:space="preserve">
+    <value>Открыть страницу проекта</value>
+  </data>
+  <data name="Catalog_SearchTheCatalog" xml:space="preserve">
+    <value>Поиск в каталоге</value>
+  </data>
+  <data name="Catalog_Search300RecommendedApps" xml:space="preserve">
+    <value>Поиск среди 300+ рекомендуемых приложений</value>
+  </data>
+  <data name="Catalog_Category" xml:space="preserve">
+    <value>Категория</value>
+  </data>
+  <data name="Catalog_Refresh" xml:space="preserve">
+    <value>Обновить</value>
+  </data>
+  <data name="Catalog_NoCatalogEntriesToShow" xml:space="preserve">
+    <value>В каталоге нечего показать</value>
+  </data>
+  <data name="Catalog_RefreshCatalog" xml:space="preserve">
+    <value>Обновить каталог</value>
+  </data>
+  <data name="Catalog_SelectAll" xml:space="preserve">
+    <value>Выбрать все</value>
+  </data>
+  <data name="Catalog_Clear" xml:space="preserve">
+    <value>Очистить</value>
+  </data>
+  <data name="Catalog_AddSelected" xml:space="preserve">
+    <value>Добавить выбранные</value>
+  </data>
+  <data name="CommandReview_ReviewCommands" xml:space="preserve">
+    <value>Проверка команд</value>
+  </data>
+  <data name="CommandReview_ReviewPostInstallCommands" xml:space="preserve">
+    <value>Проверка команд после установки</value>
+  </data>
+  <data name="CommandReview_Close" xml:space="preserve">
+    <value>Закрыть</value>
+  </data>
+  <data name="CommandReview_Previous" xml:space="preserve">
+    <value>Назад</value>
+  </data>
+  <data name="CommandReview_Next" xml:space="preserve">
+    <value>Далее</value>
+  </data>
+  <data name="CommandReview_ThisProfileIsMine" xml:space="preserve">
+    <value>Это мой профиль…</value>
+  </data>
+  <data name="CommandReview_Done" xml:space="preserve">
+    <value>Готово</value>
+  </data>
+  <data name="CommandReview_ApproveThisCommand" xml:space="preserve">
+    <value>Одобрить эту команду</value>
+  </data>
+  <data name="Dialog_Close" xml:space="preserve">
+    <value>Закрыть</value>
+  </data>
+  <data name="Drift_ProfileDrift" xml:space="preserve">
+    <value>Расхождения с профилем</value>
+  </data>
+  <data name="Drift_AddToProfile" xml:space="preserve">
+    <value>Добавить в профиль</value>
+  </data>
+  <data name="Drift_Install" xml:space="preserve">
+    <value>Установить</value>
+  </data>
+  <data name="Drift_Remove" xml:space="preserve">
+    <value>Убрать</value>
+  </data>
+  <data name="Drift_Ignore" xml:space="preserve">
+    <value>Игнорировать</value>
+  </data>
+  <data name="Drift_Close" xml:space="preserve">
+    <value>Закрыть</value>
+  </data>
+  <data name="Drift_INYOURPROFILENOTINSTALLED" xml:space="preserve">
+    <value>В ПРОФИЛЕ, НЕ УСТАНОВЛЕНЫ</value>
+  </data>
+  <data name="Drift_INSTALLEDNOTINYOURPROFILE" xml:space="preserve">
+    <value>УСТАНОВЛЕНЫ, НЕ В ПРОФИЛЕ</value>
+  </data>
+  <data name="Drift_OUTDATED" xml:space="preserve">
+    <value>УСТАРЕЛИ</value>
+  </data>
+  <data name="Drift_NoDifferencesFoundYourSaved" xml:space="preserve">
+    <value>Расхождений нет. Сохранённый профиль совпадает с тем, что установлено на этом компьютере.</value>
+  </data>
+  <data name="Drift_MatchingUsesTheWingetPackage" xml:space="preserve">
+    <value>Сопоставление идёт сначала по ID пакета winget, затем по названию и издателю. Строки «Неточно» остаются на ваше решение, без догадок.</value>
+  </data>
+  <data name="Drift_ReCheck" xml:space="preserve">
+    <value>Проверить снова</value>
+  </data>
+  <data name="Install_StartOver" xml:space="preserve">
+    <value>Начать заново</value>
+  </data>
+  <data name="Install_RestartRequired" xml:space="preserve">
+    <value>Нужна перезагрузка</value>
+  </data>
+  <data name="Install_SomeInstallersFinishedButNeed" xml:space="preserve">
+    <value>Некоторые установщики завершили работу, но для завершения нужна перезагрузка.</value>
+  </data>
+  <data name="Install_RestartWindows" xml:space="preserve">
+    <value>Перезагрузить Windows</value>
+  </data>
+  <data name="Install_RetryFailed" xml:space="preserve">
+    <value>Повторить неудачные</value>
+  </data>
+  <data name="Install_Pause" xml:space="preserve">
+    <value>Пауза</value>
+  </data>
+  <data name="Install_APP" xml:space="preserve">
+    <value>ПРИЛОЖЕНИЕ</value>
+  </data>
+  <data name="Install_SOURCE" xml:space="preserve">
+    <value>ИСТОЧНИК</value>
+  </data>
+  <data name="Install_STATUS" xml:space="preserve">
+    <value>СОСТОЯНИЕ</value>
+  </data>
+  <data name="Install_NothingQueuedYet" xml:space="preserve">
+    <value>Очередь пока пуста</value>
+  </data>
+  <data name="Install_AddAppsToAProfile" xml:space="preserve">
+    <value>Сначала добавьте приложения в профиль. Очередь установки строится из включённых приложений этого профиля.</value>
+  </data>
+  <data name="Install_OpenMyApps" xml:space="preserve">
+    <value>Открыть «Мои приложения»</value>
+  </data>
+  <data name="Install_ScanThisPC" xml:space="preserve">
+    <value>Сканировать этот компьютер</value>
+  </data>
+  <data name="Install_BrowseCatalog" xml:space="preserve">
+    <value>Открыть каталог</value>
+  </data>
+  <data name="Install_LIVELOG" xml:space="preserve">
+    <value>ЖУРНАЛ В РЕАЛЬНОМ ВРЕМЕНИ</value>
+  </data>
+  <data name="Install_AutoScroll" xml:space="preserve">
+    <value>Автопрокрутка</value>
+  </data>
+  <data name="Install_Clear" xml:space="preserve">
+    <value>Очистить</value>
+  </data>
+  <data name="Install_OpenLog" xml:space="preserve">
+    <value>Открыть журнал</value>
+  </data>
+  <data name="Install_Hide" xml:space="preserve">
+    <value>Скрыть</value>
+  </data>
+  <data name="Install_ShowLiveLog" xml:space="preserve">
+    <value>Показать журнал</value>
+  </data>
+  <data name="MyApps_IncludeInInstalls" xml:space="preserve">
+    <value>Включать в установку</value>
+  </data>
+  <data name="MyApps_ThisAppHasANote" xml:space="preserve">
+    <value>У этого приложения есть заметка</value>
+  </data>
+  <data name="MyApps_NeedsId" xml:space="preserve">
+    <value>Нужен ID</value>
+  </data>
+  <data name="MyApps_MoveEarlier" xml:space="preserve">
+    <value>Переместить выше</value>
+  </data>
+  <data name="MyApps_MoveLater" xml:space="preserve">
+    <value>Переместить ниже</value>
+  </data>
+  <data name="MyApps_EditApp" xml:space="preserve">
+    <value>Изменить приложение</value>
+  </data>
+  <data name="MyApps_RemoveFromProfile" xml:space="preserve">
+    <value>Убрать из профиля</value>
+  </data>
+  <data name="MyApps_Profile" xml:space="preserve">
+    <value>Профиль</value>
+  </data>
+  <data name="MyApps_NewProfile" xml:space="preserve">
+    <value>Новый профиль</value>
+  </data>
+  <data name="MyApps_RenameProfile" xml:space="preserve">
+    <value>Переименовать профиль</value>
+  </data>
+  <data name="MyApps_ImportProfile" xml:space="preserve">
+    <value>Импортировать профиль</value>
+  </data>
+  <data name="MyApps_ExportProfile" xml:space="preserve">
+    <value>Экспортировать профиль</value>
+  </data>
+  <data name="MyApps_DeleteProfile" xml:space="preserve">
+    <value>Удалить профиль</value>
+  </data>
+  <data name="MyApps_Install" xml:space="preserve">
+    <value>Установить</value>
+  </data>
+  <data name="MyApps_SearchApps" xml:space="preserve">
+    <value>Поиск приложений</value>
+  </data>
+  <data name="MyApps_SearchThisProfile" xml:space="preserve">
+    <value>Поиск в этом профиле</value>
+  </data>
+  <data name="MyApps_Source" xml:space="preserve">
+    <value>Источник</value>
+  </data>
+  <data name="MyApps_Category" xml:space="preserve">
+    <value>Категория</value>
+  </data>
+  <data name="MyApps_AddApp" xml:space="preserve">
+    <value>Добавить приложение</value>
+  </data>
+  <data name="MyApps_ImportList" xml:space="preserve">
+    <value>Импортировать список</value>
+  </data>
+  <data name="MyApps_AddAppsFromAWinget" xml:space="preserve">
+    <value>Добавить приложения из файла экспорта winget, Scoop или Chocolatey</value>
+  </data>
+  <data name="MyApps_CheckDrift" xml:space="preserve">
+    <value>Проверить расхождения</value>
+  </data>
+  <data name="MyApps_APP" xml:space="preserve">
+    <value>ПРИЛОЖЕНИЕ</value>
+  </data>
+  <data name="MyApps_SourceHeading" xml:space="preserve">
+    <value>ИСТОЧНИК</value>
+  </data>
+  <data name="MyApps_INSTALLMETHOD" xml:space="preserve">
+    <value>СПОСОБ УСТАНОВКИ</value>
+  </data>
+  <data name="MyApps_ThisProfileIsEmpty" xml:space="preserve">
+    <value>Этот профиль пуст</value>
+  </data>
+  <data name="MyApps_ScanThisPCToBuild" xml:space="preserve">
+    <value>Отсканируйте этот компьютер, чтобы составить список автоматически, или откройте каталог и добавьте приложения вручную.</value>
+  </data>
+  <data name="MyApps_ScanThisPC" xml:space="preserve">
+    <value>Сканировать этот компьютер</value>
+  </data>
+  <data name="MyApps_BrowseCatalog" xml:space="preserve">
+    <value>Открыть каталог</value>
+  </data>
+  <data name="MyApps_SelectAll" xml:space="preserve">
+    <value>Выбрать все</value>
+  </data>
+  <data name="MyApps_AddApps" xml:space="preserve">
+    <value>Добавить приложения</value>
+  </data>
+  <data name="Preview_PreviewInstall" xml:space="preserve">
+    <value>Предпросмотр установки</value>
+  </data>
+  <data name="Preview_Switches" xml:space="preserve">
+    <value>Ключи:</value>
+  </data>
+  <data name="Preview_AfterInstallRuns" xml:space="preserve">
+    <value>После установки запускает:</value>
+  </data>
+  <data name="Preview_Close" xml:space="preserve">
+    <value>Закрыть</value>
+  </data>
+  <data name="Preview_NothingHasBeenInstalledYet" xml:space="preserve">
+    <value>Пока ничего не установлено. Пробный прогон только проверяет: ID winget, файлы выпусков и ссылки, а также читает локальные файлы. Он никогда не скачивает установщик на диск и не запускает его.</value>
+  </data>
+  <data name="Preview_DryRun" xml:space="preserve">
+    <value>Пробный прогон</value>
+  </data>
+  <data name="Preview_ExportReport" xml:space="preserve">
+    <value>Экспортировать отчёт</value>
+  </data>
+  <data name="Preview_ReviewCommands" xml:space="preserve">
+    <value>Проверить команды</value>
+  </data>
+  <data name="Preview_Cancel" xml:space="preserve">
+    <value>Отмена</value>
+  </data>
+  <data name="Preview_InstallNow" xml:space="preserve">
+    <value>Установить сейчас</value>
+  </data>
+  <data name="Readiness_Handled" xml:space="preserve">
+    <value>Сделано</value>
+  </data>
+  <data name="Readiness_Ignore" xml:space="preserve">
+    <value>Игнорировать</value>
+  </data>
+  <data name="Readiness_UnIgnore" xml:space="preserve">
+    <value>Не игнорировать</value>
+  </data>
+  <data name="Readiness_ReviewDriftInMyApps" xml:space="preserve">
+    <value>Проверить расхождения в «Моих приложениях»</value>
+  </data>
+  <data name="Readiness_ReScan" xml:space="preserve">
+    <value>Проверить снова</value>
+  </data>
+  <data name="Readiness_Cancel" xml:space="preserve">
+    <value>Отмена</value>
+  </data>
+  <data name="Readiness_ShowHandledAndIgnored" xml:space="preserve">
+    <value>Показывать сделанное и проигнорированное</value>
+  </data>
+  <data name="Readiness_NothingHereIsUploadedAnd" xml:space="preserve">
+    <value>Здесь ничего не отправляется в сеть и ни один файл не изменяется.</value>
+  </data>
+  <data name="Readiness_NothingToShowRunA" xml:space="preserve">
+    <value>Нечего показать. Запустите проверку или включите «Показывать сделанное и проигнорированное», чтобы увидеть то, чем вы уже занялись.</value>
+  </data>
+  <data name="Readiness_WhatThisDoesNotCover" xml:space="preserve">
+    <value>Что здесь не учитывается: CTRL+Z не видит файлы внутри программ резервного копирования, защищённых паролем, файлы, которые хранятся только в облаке и не скачаны, и данные, которые есть только в онлайн-аккаунте. Кроме того, на этой странице ничего не копируется — для этого используйте страницу «Браузеры» и собственные внешние копии.</value>
+  </data>
+  <data name="Scan_IncludeApp" xml:space="preserve">
+    <value>Включить приложение</value>
+  </data>
+  <data name="Scan_Fix" xml:space="preserve">
+    <value>Исправить</value>
+  </data>
+  <data name="Scan_AssignAWingetPackageId" xml:space="preserve">
+    <value>Указать ID пакета winget вручную</value>
+  </data>
+  <data name="Scan_ScanThisPC" xml:space="preserve">
+    <value>Сканировать этот компьютер</value>
+  </data>
+  <data name="Scan_CancelScan" xml:space="preserve">
+    <value>Отменить сканирование</value>
+  </data>
+  <data name="Scan_SearchPrograms" xml:space="preserve">
+    <value>Поиск программ</value>
+  </data>
+  <data name="Scan_FilterByCategory" xml:space="preserve">
+    <value>Фильтр по категории</value>
+  </data>
+  <data name="Scan_Category" xml:space="preserve">
+    <value>Категория</value>
+  </data>
+  <data name="Scan_Source" xml:space="preserve">
+    <value>Источник</value>
+  </data>
+  <data name="Scan_FilterByMatchStatus" xml:space="preserve">
+    <value>Фильтр по сопоставлению</value>
+  </data>
+  <data name="Scan_ShowAllAppsOnlyMatched" xml:space="preserve">
+    <value>Показывать все приложения, только сопоставленные или только несопоставленные</value>
+  </data>
+  <data name="Scan_Total" xml:space="preserve">
+    <value> всего</value>
+  </data>
+  <data name="Scan_Matched" xml:space="preserve">
+    <value> сопоставлено</value>
+  </data>
+  <data name="Scan_Unmatched" xml:space="preserve">
+    <value> не сопоставлено</value>
+  </data>
+  <data name="Scan_ReadingInstalledPrograms" xml:space="preserve">
+    <value>Чтение установленных программ</value>
+  </data>
+  <data name="Scan_Cancel" xml:space="preserve">
+    <value>Отмена</value>
+  </data>
+  <data name="Scan_StartWithThisPC" xml:space="preserve">
+    <value>Начните с этого компьютера</value>
+  </data>
+  <data name="Scan_CTRLZReadsWingetThe" xml:space="preserve">
+    <value>CTRL+Z читает данные winget, реестра Windows и приложений из Store, а затем находит для каждого ID пакета winget. Ничего не покидает этот компьютер.</value>
+  </data>
+  <data name="Scan_F5AlsoStartsAScan" xml:space="preserve">
+    <value>Сканирование запускается и клавишей F5</value>
+  </data>
+  <data name="Scan_PROGRAM" xml:space="preserve">
+    <value>ПРОГРАММА</value>
+  </data>
+  <data name="Scan_SourceHeading" xml:space="preserve">
+    <value>ИСТОЧНИК</value>
+  </data>
+  <data name="Scan_WINGETMATCH" xml:space="preserve">
+    <value>СОПОСТАВЛЕНИЕ WINGET</value>
+  </data>
+  <data name="Scan_NoProgramsMatchTheseFilters" xml:space="preserve">
+    <value>Нет программ, подходящих под эти фильтры.</value>
+  </data>
+  <data name="Scan_SelectAll" xml:space="preserve">
+    <value>Выбрать все</value>
+  </data>
+  <data name="Scan_SelectEveryAppVisibleUnder" xml:space="preserve">
+    <value>Выбрать все приложения, видимые с текущим фильтром сопоставления</value>
+  </data>
+  <data name="Scan_SelectMatched" xml:space="preserve">
+    <value>Выбрать сопоставленные</value>
+  </data>
+  <data name="Scan_SelectMatchedAppsVisibleUnder" xml:space="preserve">
+    <value>Выбрать сопоставленные приложения, видимые с текущими фильтрами</value>
+  </data>
+  <data name="Scan_Clear" xml:space="preserve">
+    <value>Очистить</value>
+  </data>
+  <data name="Scan_SaveAsProfile" xml:space="preserve">
+    <value>Сохранить как профиль…</value>
+  </data>
+  <data name="Scan_AddToMyApps" xml:space="preserve">
+    <value>Добавить в «Мои приложения»</value>
+  </data>
+  <data name="Settings_APPEARANCE" xml:space="preserve">
+    <value>ОФОРМЛЕНИЕ</value>
+  </data>
+  <data name="Settings_Theme" xml:space="preserve">
+    <value>Тема</value>
+  </data>
+  <data name="Settings_System" xml:space="preserve">
+    <value>Системная</value>
+  </data>
+  <data name="Settings_Light" xml:space="preserve">
+    <value>Светлая</value>
+  </data>
+  <data name="Settings_Dark" xml:space="preserve">
+    <value>Тёмная</value>
+  </data>
+  <data name="Settings_LOCALDATA" xml:space="preserve">
+    <value>ЛОКАЛЬНЫЕ ДАННЫЕ</value>
+  </data>
+  <data name="Settings_ProfilesDownloadsArchivesAndLogs" xml:space="preserve">
+    <value>Профили, загрузки, архивы и журналы хранятся в одной папке. Ничего не отправляется в сеть.</value>
+  </data>
+  <data name="Settings_OpenDataFolder" xml:space="preserve">
+    <value>Открыть папку данных</value>
+  </data>
+  <data name="Settings_Profiles" xml:space="preserve">
+    <value>Профили</value>
+  </data>
+  <data name="Settings_Logs" xml:space="preserve">
+    <value>Журналы</value>
+  </data>
+  <data name="Settings_INSTALLING" xml:space="preserve">
+    <value>УСТАНОВКА</value>
+  </data>
+  <data name="Settings_ShowAPreviewBeforeInstalling" xml:space="preserve">
+    <value>Показывать предпросмотр перед установкой</value>
+  </data>
+  <data name="Settings_ThePreviewListsEachApp" xml:space="preserve">
+    <value>В предпросмотре видно каждое приложение, его источник, ключи и предупреждения; можно сделать пробный прогон всего списка, ничего не устанавливая.</value>
+  </data>
+  <data name="Settings_AddPortableAppsToThe" xml:space="preserve">
+    <value>Добавлять портативные приложения в меню «Пуск»</value>
+  </data>
+  <data name="Settings_PortableAppsGetAShortcut" xml:space="preserve">
+    <value>Портативные приложения получают ярлык в меню «Пуск» в разделе CTRL+Z apps, в вашем собственном профиле пользователя.</value>
+  </data>
+  <data name="Settings_IncludeNotesInExports" xml:space="preserve">
+    <value>Включать заметки в экспорт</value>
+  </data>
+  <data name="Settings_OffByDefaultWhenOff" xml:space="preserve">
+    <value>По умолчанию выключено. Когда выключено, в экспортированных отчётах вместо заметок к приложениям стоит (заметка скрыта). Заметки никогда не записываются в журнал приложения.</value>
+  </data>
+  <data name="Settings_UPDATES" xml:space="preserve">
+    <value>ОБНОВЛЕНИЯ</value>
+  </data>
+  <data name="Settings_CheckForUpdatesAutomatically" xml:space="preserve">
+    <value>Проверять обновления автоматически</value>
+  </data>
+  <data name="Settings_Channel" xml:space="preserve">
+    <value>Канал</value>
+  </data>
+  <data name="Settings_Stable" xml:space="preserve">
+    <value>Стабильный</value>
+  </data>
+  <data name="Settings_PreRelease" xml:space="preserve">
+    <value>Предварительный</value>
+  </data>
+  <data name="Settings_CheckForUpdates" xml:space="preserve">
+    <value>Проверить обновления</value>
+  </data>
+  <data name="Settings_OnlyTheVersionCheckAnd" xml:space="preserve">
+    <value>С GitHub связываются только проверка версии и скачивание обновления. Больше ничего не отправляется, и в CTRL+Z нет телеметрии.</value>
+  </data>
+  <data name="Settings_ABOUT" xml:space="preserve">
+    <value>О ПРОГРАММЕ</value>
+  </data>
+  <data name="Settings_ALocalFirstWindowsReinstall" xml:space="preserve">
+    <value>Локальный помощник для переустановки Windows. Без учётной записи и без телеметрии. Резервные копии браузеров намеренно не включают пароли и файлы cookie.</value>
+  </data>
+  <data name="Settings_AGPL30Only" xml:space="preserve">
+    <value>AGPL-3.0-only</value>
+  </data>
+  <data name="Settings_SourceCode" xml:space="preserve">
+    <value>Исходный код</value>
+  </data>
+  <data name="Settings_CopyDiagnostics" xml:space="preserve">
+    <value>Копировать диагностику</value>
+  </data>
+  <data name="Settings_SaveDiagnostics" xml:space="preserve">
+    <value>Сохранить диагностику…</value>
+  </data>
+  <data name="Settings_SavesAZIPWithVersions" xml:space="preserve">
+    <value>Сохраняет ZIP с версиями, переключателями настроек, счётчиками и последними журналами без путей и имён. Ничего не отправляется.</value>
+  </data>
+  <data name="Settings_WelcomeGuide" xml:space="preserve">
+    <value>Приветственное руководство</value>
+  </data>
+  <data name="Settings_PACKAGEMANAGER" xml:space="preserve">
+    <value>МЕНЕДЖЕР ПАКЕТОВ</value>
+  </data>
+  <data name="Settings_WingetIsUsedForCatalog" xml:space="preserve">
+    <value>winget используется для приложений из каталога. CTRL+Z может установить его на чистую Windows с помощью Microsoft App Installer.</value>
+  </data>
+  <data name="Settings_CheckAgain" xml:space="preserve">
+    <value>Проверить снова</value>
+  </data>
+  <data name="Settings_UpdateWinget" xml:space="preserve">
+    <value>Обновить winget</value>
+  </data>
+  <data name="Settings_ApplicationLogHeading" xml:space="preserve">
+    <value>ЖУРНАЛ ПРИЛОЖЕНИЯ</value>
+  </data>
+  <data name="Settings_Refresh" xml:space="preserve">
+    <value>Обновить</value>
+  </data>
+  <data name="Settings_OpenLog" xml:space="preserve">
+    <value>Открыть журнал</value>
+  </data>
+  <data name="Settings_ApplicationLog" xml:space="preserve">
+    <value>Журнал приложения</value>
+  </data>
+  <data name="Tweaks_SetWindowsUpTheWay" xml:space="preserve">
+    <value>Настройте Windows под себя</value>
+  </data>
+  <data name="Tweaks_EachTweakChangesAFew" xml:space="preserve">
+    <value>Каждая настройка меняет несколько параметров только для вашей учётной записи Windows, без прав администратора. CTRL+Z сначала сохраняет прежние значения, поэтому «Отменить» возвращает их в точности. Применённые настройки сохраняются в профиле для следующей переустановки.</value>
+  </data>
+  <data name="Tweaks_RestartFileExplorer" xml:space="preserve">
+    <value>Перезапустить Проводник</value>
+  </data>
+  <data name="Tweaks_SomeChangesShowUpOnly" xml:space="preserve">
+    <value>Некоторые изменения видны только после перезапуска Проводника.</value>
+  </data>
+  <data name="Tweaks_ApplyThem" xml:space="preserve">
+    <value>Применить</value>
+  </data>
+  <data name="UpdatePrompt_UpdateAvailable" xml:space="preserve">
+    <value>Доступно обновление</value>
+  </data>
+  <data name="UpdatePrompt_Close" xml:space="preserve">
+    <value>Закрыть</value>
+  </data>
+  <data name="UpdatePrompt_ViewReleaseOnGitHub" xml:space="preserve">
+    <value>Открыть выпуск на GitHub</value>
+  </data>
+  <data name="UpdatePrompt_SkipThisVersion" xml:space="preserve">
+    <value>Пропустить эту версию</value>
+  </data>
+  <data name="UpdatePrompt_RemindMeLater" xml:space="preserve">
+    <value>Напомнить позже</value>
+  </data>
+  <data name="UpdatePrompt_UpdateNow" xml:space="preserve">
+    <value>Обновить сейчас</value>
+  </data>
+  <data name="UpdatePrompt_Cancel" xml:space="preserve">
+    <value>Отмена</value>
+  </data>
+  <data name="Welcome_WelcomeToCTRLZ" xml:space="preserve">
+    <value>Добро пожаловать в CTRL+Z</value>
+  </data>
+  <data name="Welcome_Close" xml:space="preserve">
+    <value>Закрыть</value>
+  </data>
+  <data name="Welcome_ReinstallWindowsWithoutLosingYour" xml:space="preserve">
+    <value>Переустановите Windows, не теряя своих настроек.</value>
+  </data>
+  <data name="Welcome_CTRLZKeepsAList" xml:space="preserve">
+    <value>CTRL+Z хранит список ваших приложений и делает резервные копии браузеров, а затем возвращает всё это на свежую систему. Всё остаётся на этом компьютере, пока вы сами не скопируете это куда-то ещё.</value>
+  </data>
+  <data name="Welcome_BEFOREYOUREINSTALL" xml:space="preserve">
+    <value>ПЕРЕД ПЕРЕУСТАНОВКОЙ</value>
+  </data>
+  <data name="Welcome_1ScanThisPCTo" xml:space="preserve">
+    <value>1.  Отсканируйте этот компьютер, чтобы составить список приложений, и приведите его в порядок в «Моих приложениях».</value>
+  </data>
+  <data name="Welcome_2BackUpYourBrowsers" xml:space="preserve">
+    <value>2.  Сделайте резервную копию браузеров (закладки, история, расширения; никогда не пароли и не файлы cookie).</value>
+  </data>
+  <data name="Welcome_3OpenReadyToWipe" xml:space="preserve">
+    <value>3.  Откройте «Готовность к очистке» и пройдите контрольный список.</value>
+  </data>
+  <data name="Welcome_4CopyYourProfileAnd" xml:space="preserve">
+    <value>4.  Скопируйте профиль и резервные копии браузеров на USB-накопитель или другой компьютер.</value>
+  </data>
+  <data name="Welcome_ONAFRESHINSTALL" xml:space="preserve">
+    <value>НА СВЕЖЕЙ СИСТЕМЕ</value>
+  </data>
+  <data name="Welcome_1ImportYourProfileIn" xml:space="preserve">
+    <value>1.  Импортируйте профиль в «Моих приложениях».</value>
+  </data>
+  <data name="Welcome_2CheckTheInstallPreview" xml:space="preserve">
+    <value>2.  Проверьте предпросмотр установки и установите всё за один раз.</value>
+  </data>
+  <data name="Welcome_3RestoreYourBrowserBackups" xml:space="preserve">
+    <value>3.  Восстановите резервные копии браузеров на странице «Браузеры».</value>
+  </data>
+  <data name="Welcome_YouCanOpenThisGuide" xml:space="preserve">
+    <value>Это руководство можно снова открыть в «Параметрах». Ctrl+1 … Ctrl+9 переключают страницы.</value>
+  </data>
+  <data name="Welcome_IMOnAFresh" xml:space="preserve">
+    <value>У меня свежая система</value>
+  </data>
+  <data name="Welcome_StartWithAScan" xml:space="preserve">
+    <value>Начать со сканирования</value>
+  </data>
+  <data name="WingetMatch_MatchToWinget" xml:space="preserve">
+    <value>Сопоставить с winget</value>
+  </data>
+  <data name="WingetMatch_Close" xml:space="preserve">
+    <value>Закрыть</value>
+  </data>
+  <data name="WingetMatch_FindTheWingetPackageFor" xml:space="preserve">
+    <value>Найдите пакет winget для этого установленного приложения.</value>
+  </data>
+  <data name="WingetMatch_SearchWinget" xml:space="preserve">
+    <value>Поиск в winget</value>
+  </data>
+  <data name="WingetMatch_Search" xml:space="preserve">
+    <value>Найти</value>
+  </data>
+  <data name="WingetMatch_SearchForTheAppName" xml:space="preserve">
+    <value>Найдите приложение по названию или вставьте ID пакета ниже.</value>
+  </data>
+  <data name="WingetMatch_PackageId" xml:space="preserve">
+    <value>ID пакета</value>
+  </data>
+  <data name="WingetMatch_Cancel" xml:space="preserve">
+    <value>Отмена</value>
+  </data>
+  <data name="WingetMatch_UseThisId" xml:space="preserve">
+    <value>Использовать этот ID</value>
+  </data>
+  <data name="Browsers_BackUpName" xml:space="preserve">
+    <value>Создать резервную копию {0}</value>
+  </data>
+  <data name="Catalog_SelectName" xml:space="preserve">
+    <value>Выбрать {0}</value>
+  </data>
+  <data name="Catalog_OpenNameWebsite" xml:space="preserve">
+    <value>Открыть сайт {0}</value>
+  </data>
+  <data name="Install_AttemptNumber" xml:space="preserve">
+    <value>Попытка {0}</value>
+  </data>
+  <data name="MyApps_MoveNameUp" xml:space="preserve">
+    <value>Переместить {0} выше</value>
+  </data>
+  <data name="MyApps_MoveNameDown" xml:space="preserve">
+    <value>Переместить {0} ниже</value>
+  </data>
+  <data name="MyApps_EditName" xml:space="preserve">
+    <value>Изменить {0}</value>
+  </data>
+  <data name="MyApps_RemoveName" xml:space="preserve">
+    <value>Убрать {0}</value>
+  </data>
+  <data name="Settings_VersionNumber" xml:space="preserve">
+    <value>Версия {0}</value>
+  </data>
+  <data name="Tweaks_ApplyOrUndoName" xml:space="preserve">
+    <value>Применить или отменить: {0}</value>
+  </data>
+  <data name="App_CTRLZCouldNotStart" xml:space="preserve">
+    <value>Не удалось запустить CTRL+Z.
+
+</value>
+  </data>
+  <data name="App_Log" xml:space="preserve">
+    <value>
+
+Журнал: {0}</value>
+  </data>
+  <data name="App_CTRLZHitAnUnexpected" xml:space="preserve">
+    <value>В CTRL+Z произошла непредвиденная ошибка, но ваш профиль и состояние установки в безопасности.
+
+</value>
+  </data>
+  <data name="Main_Restore" xml:space="preserve">
+    <value>Восстановить</value>
+  </data>
+  <data name="Main_Maximize2" xml:space="preserve">
+    <value>Развернуть</value>
+  </data>
+  <data name="AppState_MyApps" xml:space="preserve">
+    <value>Мои приложения</value>
+  </data>
+  <data name="DialogService_Continue" xml:space="preserve">
+    <value>Продолжить</value>
+  </data>
+  <data name="DialogService_Cancel" xml:space="preserve">
+    <value>Отмена</value>
+  </data>
+  <data name="DialogService_Save" xml:space="preserve">
+    <value>Сохранить</value>
+  </data>
+  <data name="DialogService_SomethingWentWrong" xml:space="preserve">
+    <value>Что-то пошло не так</value>
+  </data>
+  <data name="DialogService_Close" xml:space="preserve">
+    <value>Закрыть</value>
+  </data>
+  <data name="DialogService_YesIUnderstand" xml:space="preserve">
+    <value>Да, я понимаю</value>
+  </data>
+  <data name="DialogService_RunIt" xml:space="preserve">
+    <value>Запустить</value>
+  </data>
+  <data name="DialogService_RunThem" xml:space="preserve">
+    <value>Запустить их</value>
+  </data>
+  <data name="DialogService_CancelInstall" xml:space="preserve">
+    <value>Отменить установку</value>
+  </data>
+  <data name="Update_AnInstallBackupOrRestore" xml:space="preserve">
+    <value>Ещё идёт установка, резервное копирование или восстановление, поэтому предложение обновиться отложено до их завершения.</value>
+  </data>
+  <data name="Update_UpdateDeferred" xml:space="preserve">
+    <value>Обновление отложено</value>
+  </data>
+  <data name="Update_YouAreRunningCTRLZ" xml:space="preserve">
+    <value>У вас CTRL+Z {0}. Для этого канала пока нет опубликованных выпусков.</value>
+  </data>
+  <data name="Update_YouAreRunningCTRLZ2" xml:space="preserve">
+    <value>У вас CTRL+Z {0} — это последняя версия.</value>
+  </data>
+  <data name="Update_NoUpdates" xml:space="preserve">
+    <value>Обновлений нет</value>
+  </data>
+  <data name="Update_CouldNotCheckForUpdates" xml:space="preserve">
+    <value>Не удалось проверить обновления</value>
+  </data>
+  <data name="Update_CTRLZIsAvailableBut" xml:space="preserve">
+    <value>Доступен CTRL+Z {0}, но вы решили пропустить эту версию. </value>
+  </data>
+  <data name="Update_ANewerReleaseWillPrompt" xml:space="preserve">
+    <value>О более новом выпуске вы снова получите уведомление.</value>
+  </data>
+  <data name="Update_ThisVersionIsSkipped" xml:space="preserve">
+    <value>Эта версия пропущена</value>
+  </data>
+  <data name="Update_UpdateNotAvailable" xml:space="preserve">
+    <value>Обновление недоступно</value>
+  </data>
+  <data name="Update_Preparing" xml:space="preserve">
+    <value>Подготовка…</value>
+  </data>
+  <data name="Update_Downloading" xml:space="preserve">
+    <value>Скачивание… {0:P0}</value>
+  </data>
+  <data name="Update_Downloading2" xml:space="preserve">
+    <value>Скачивание…</value>
+  </data>
+  <data name="Update_Verifying" xml:space="preserve">
+    <value>Проверка…</value>
+  </data>
+  <data name="Update_WaitingForTheCurrentOperation" xml:space="preserve">
+    <value>Ожидание завершения текущей операции…</value>
+  </data>
+  <data name="Update_AnInstallOrBackupIs" xml:space="preserve">
+    <value>Ещё идёт установка или резервное копирование, поэтому обновление не применено. Проверьте обновления снова, когда они завершатся.</value>
+  </data>
+  <data name="Update_AnInstallOrBackupIs2" xml:space="preserve">
+    <value>Идёт установка или резервное копирование (в приложении или из командной строки), поэтому обновление не применено. Проверьте обновления снова, когда они завершатся.</value>
+  </data>
+  <data name="Update_RestartingToFinishTheUpdate" xml:space="preserve">
+    <value>Перезапуск для завершения обновления…</value>
+  </data>
+  <data name="Update_ThePreviousUpdateDidNot" xml:space="preserve">
+    <value>Предыдущее обновление не завершилось. Ваша текущая версия не изменилась.</value>
+  </data>
+  <data name="Update_UpdateNotApplied" xml:space="preserve">
+    <value>Обновление не применено</value>
+  </data>
+  <data name="AddApp_AddApp" xml:space="preserve">
+    <value>Добавить приложение</value>
+  </data>
+  <data name="AddApp_AddInstallersWingetDoesNot" xml:space="preserve">
+    <value>Добавьте установщики, которых нет в winget: прямую ссылку, выпуск на GitHub или локальный файл.</value>
+  </data>
+  <data name="AddApp_InstallerRunSilently" xml:space="preserve">
+    <value>Установщик (тихий режим)</value>
+  </data>
+  <data name="AddApp_PortableArchiveExtract" xml:space="preserve">
+    <value>Портативный архив (распаковать)</value>
+  </data>
+  <data name="AddApp_PortableExecutableCopy" xml:space="preserve">
+    <value>Портативный исполняемый файл (скопировать)</value>
+  </data>
+  <data name="AddApp_NotInspectedYet" xml:space="preserve">
+    <value>Ещё не проверено</value>
+  </data>
+  <data name="AddApp_ChooseASourceAndFill" xml:space="preserve">
+    <value>Выберите источник и заполните то, что нужно CTRL+Z.</value>
+  </data>
+  <data name="AddApp_FetchingTheLatestRelease" xml:space="preserve">
+    <value>Получение последнего выпуска…</value>
+  </data>
+  <data name="AddApp_ReleaseHasNoSupportedWindows" xml:space="preserve">
+    <value>В выпуске {0} нет подходящего файла для Windows.</value>
+  </data>
+  <data name="AddApp_CouldNotLoadTheRelease" xml:space="preserve">
+    <value>Не удалось загрузить выпуск.</value>
+  </data>
+  <data name="AddApp_SelectALocalInstaller" xml:space="preserve">
+    <value>Выберите локальный установщик</value>
+  </data>
+  <data name="AddApp_SelectAFolderContainingThe" xml:space="preserve">
+    <value>Выберите папку с установщиком</value>
+  </data>
+  <data name="AddApp_NoSupportedInstallerWasFound" xml:space="preserve">
+    <value>В этой папке не найден подходящий установщик.</value>
+  </data>
+  <data name="AddApp_MoreThanOneInstallerWas" xml:space="preserve">
+    <value>Найдено несколько установщиков. Выберите файл напрямую.</value>
+  </data>
+  <data name="AddApp_DownloadingAndInspecting" xml:space="preserve">
+    <value>Скачивание и проверка…</value>
+  </data>
+  <data name="AddApp_UnrecognizedInstaller" xml:space="preserve">
+    <value>Неизвестный установщик</value>
+  </data>
+  <data name="AddApp_InstallerTypeWasNotRecognized" xml:space="preserve">
+    <value>Тип установщика не распознан. /S — разумный вариант для начала, но проверьте его.</value>
+  </data>
+  <data name="AddApp_DetectedReviewTheSwitchesAnd" xml:space="preserve">
+    <value>Обнаружен {0}. Проверьте ключи и при необходимости протестируйте.</value>
+  </data>
+  <data name="AddApp_InspectionFailed" xml:space="preserve">
+    <value>Проверка не удалась</value>
+  </data>
+  <data name="AddApp_TestThisInstaller" xml:space="preserve">
+    <value>Проверить этот установщик</value>
+  </data>
+  <data name="AddApp_CTRLZWillRunThe" xml:space="preserve">
+    <value>CTRL+Z запустит установщик на этом компьютере с показанными ключами. </value>
+  </data>
+  <data name="AddApp_ThisIsARealInstallation" xml:space="preserve">
+    <value>Это настоящая установка, и она может изменить этот компьютер. Продолжить?</value>
+  </data>
+  <data name="AddApp_RunTestInstall" xml:space="preserve">
+    <value>Запустить пробную установку</value>
+  </data>
+  <data name="AddApp_Cancel" xml:space="preserve">
+    <value>Отмена</value>
+  </data>
+  <data name="AddApp_TestInstallSucceededReviewThe" xml:space="preserve">
+    <value>Пробная установка прошла успешно. Проверьте результат и добавьте приложение.</value>
+  </data>
+  <data name="AddApp_TestInstallDidNotComplete" xml:space="preserve">
+    <value>Пробная установка не завершилась: </value>
+  </data>
+  <data name="AddApp_TestInstallFailed" xml:space="preserve">
+    <value>Пробная установка не удалась: </value>
+  </data>
+  <data name="AddApp_GiveTheAppAName" xml:space="preserve">
+    <value>Укажите название приложения.</value>
+  </data>
+  <data name="AddApp_SHA256MustBe64" xml:space="preserve">
+    <value>SHA-256 должен состоять из 64 шестнадцатеричных символов или быть пустым.</value>
+  </data>
+  <data name="AddApp_ThatAppIsAlreadyIn" xml:space="preserve">
+    <value>Это приложение уже есть в профиле.</value>
+  </data>
+  <data name="AddApp_AddedTo" xml:space="preserve">
+    <value>{0} добавлено в «{1}».</value>
+  </data>
+  <data name="AddApp_DuplicateWasSkipped" xml:space="preserve">
+    <value> Пропущено дубликатов: {0}.</value>
+  </data>
+  <data name="AddApp_AppAdded" xml:space="preserve">
+    <value>Приложение добавлено</value>
+  </data>
+  <data name="AddApp_ChooseAnExistingLocalInstaller" xml:space="preserve">
+    <value>Выберите существующий файл локального установщика.</value>
+  </data>
+  <data name="AddApp_EnterAValidDownloadURL" xml:space="preserve">
+    <value>Сначала введите правильный URL для скачивания.</value>
+  </data>
+  <data name="AddApp_InspectingInstaller" xml:space="preserve">
+    <value>Проверка установщика… {0:P0}</value>
+  </data>
+  <data name="AddApp_InspectingInstaller2" xml:space="preserve">
+    <value>Проверка установщика…</value>
+  </data>
+  <data name="AddApp_FindAReleaseAndChoose" xml:space="preserve">
+    <value>Сначала найдите выпуск и выберите файл.</value>
+  </data>
+  <data name="AddApp_Inspecting" xml:space="preserve">
+    <value>Проверка {0}… {1:P0}</value>
+  </data>
+  <data name="AddApp_InspectingAsset" xml:space="preserve">
+    <value>Проверка файла…</value>
+  </data>
+  <data name="AppUpdates_Updates" xml:space="preserve">
+    <value>Обновления</value>
+  </data>
+  <data name="AppUpdates_AppsWingetCanUpdateOn" xml:space="preserve">
+    <value>Приложения, которые winget может обновить на этом компьютере. Ничего не меняется, пока вы не выберете.</value>
+  </data>
+  <data name="AppUpdates_CheckForAppUpdates" xml:space="preserve">
+    <value>Проверить обновления приложений</value>
+  </data>
+  <data name="AppUpdates_WingetIsAskedWhichInstalled" xml:space="preserve">
+    <value>winget сообщает, для каких установленных приложений есть новая версия.</value>
+  </data>
+  <data name="AppUpdates_AskingWingetForUpdates" xml:space="preserve">
+    <value>Запрос обновлений у winget…</value>
+  </data>
+  <data name="AppUpdates_CheckedPinnedAppsAreOnly" xml:space="preserve">
+    <value>Проверено в {0:HH:mm}. Закреплённые приложения обновляются, только если выбрать их.</value>
+  </data>
+  <data name="AppUpdates_CheckCancelled" xml:space="preserve">
+    <value>Проверка отменена.</value>
+  </data>
+  <data name="AppUpdates_WingetCouldNotBeAsked" xml:space="preserve">
+    <value>Не удалось запросить обновления у winget. Проверьте, установлен ли App Installer (Параметры).</value>
+  </data>
+  <data name="AppUpdates_IsHiddenUntilANewer" xml:space="preserve">
+    <value>{0} {1} скрыто, пока не выйдет более новая версия.</value>
+  </data>
+  <data name="AppUpdates_UpdateFromGitHub" xml:space="preserve">
+    <value>Обновить с GitHub</value>
+  </data>
+  <data name="AppUpdates_DownloadFromAndInstallIt" xml:space="preserve">
+    <value>Скачать {0} {1} с {2} и установить поверх {3}?
+
+</value>
+  </data>
+  <data name="AppUpdates_CloseTheAppFirstThe" xml:space="preserve">
+    <value>Сначала закройте приложение. Скачанный файл сверяется с SHA-256 выпуска, если выпуск его публикует.</value>
+  </data>
+  <data name="AppUpdates_Update2" xml:space="preserve">
+    <value>Обновить</value>
+  </data>
+  <data name="AppUpdates_Cancel2" xml:space="preserve">
+    <value>Отмена</value>
+  </data>
+  <data name="AppUpdates_AnotherInstallOrUpdateIs" xml:space="preserve">
+    <value>На этом компьютере уже идёт другая установка или обновление. Повторите, когда она завершится.</value>
+  </data>
+  <data name="AppUpdates_UpdatingApps" xml:space="preserve">
+    <value>Обновление приложений</value>
+  </data>
+  <data name="AppUpdates_Updating" xml:space="preserve">
+    <value>Обновление…</value>
+  </data>
+  <data name="AppUpdates_UpdatedTo" xml:space="preserve">
+    <value>Обновлено до {0}.</value>
+  </data>
+  <data name="AppUpdates_TheUpdateDidNotFinish" xml:space="preserve">
+    <value>Обновление не завершилось.</value>
+  </data>
+  <data name="AppUpdates_UpdatedTo2" xml:space="preserve">
+    <value>{0} обновлено до {1}.</value>
+  </data>
+  <data name="AppUpdates_Cancelled" xml:space="preserve">
+    <value>Отменено.</value>
+  </data>
+  <data name="AppUpdates_TheUpdateFailed" xml:space="preserve">
+    <value>Обновление не удалось: </value>
+  </data>
+  <data name="AppUpdates_NothingSelectedToUpdate" xml:space="preserve">
+    <value>Ничего не выбрано для обновления.</value>
+  </data>
+  <data name="AppUpdates_AndMore" xml:space="preserve">
+    <value>
+…и ещё {0}</value>
+  </data>
+  <data name="AppUpdates_CloseTheseAppsFirstWindows" xml:space="preserve">
+    <value>Сначала закройте эти приложения. Для приложений, установленных для всех пользователей, Windows может запросить разрешение.</value>
+  </data>
+  <data name="AppUpdates_Queued" xml:space="preserve">
+    <value>В очереди</value>
+  </data>
+  <data name="AppUpdates_UpdatedFailed" xml:space="preserve">
+    <value>Обновлено: {0}, не удалось: {1}.</value>
+  </data>
+  <data name="AppUpdates_RestartWindowsToFinish" xml:space="preserve">
+    <value> Перезагрузите Windows для завершения.</value>
+  </data>
+  <data name="AppUpdates_YourAppsAreUpTo" xml:space="preserve">
+    <value>Ваши приложения обновлены</value>
+  </data>
+  <data name="BrowserItem_VersionUnknown" xml:space="preserve">
+    <value>Версия неизвестна</value>
+  </data>
+  <data name="Browsers_Browsers2" xml:space="preserve">
+    <value>Браузеры</value>
+  </data>
+  <data name="Browsers_BackUpFirefoxAndChromium" xml:space="preserve">
+    <value>Сделайте резервную копию профилей Firefox и Chromium, а затем восстановите вкладки, закладки, расширения и настройки на чистом компьютере.</value>
+  </data>
+  <data name="Browsers_CacheCodeCacheGPUCacheShaderCache" xml:space="preserve">
+    <value>Cache/Code Cache/GPUCache/ShaderCache, аварийные дампы, сохранённые пароли, файлы cookie</value>
+  </data>
+  <data name="Browsers_DetectingFirefoxAndChromiumBrowsers" xml:space="preserve">
+    <value>Поиск браузеров Firefox и Chromium…</value>
+  </data>
+  <data name="Browsers_SelectABrowserAndAt" xml:space="preserve">
+    <value>Выберите браузер и хотя бы один профиль.</value>
+  </data>
+  <data name="Browsers_ReadyToBackUp" xml:space="preserve">
+    <value>Готово к созданию резервной копии.</value>
+  </data>
+  <data name="Browsers_ChooseAnArchiveToSee" xml:space="preserve">
+    <value>Выберите архив, чтобы увидеть, что можно восстановить.</value>
+  </data>
+  <data name="Browsers_TabsSessions" xml:space="preserve">
+    <value>вкладки и сеансы</value>
+  </data>
+  <data name="Browsers_SearchEngines" xml:space="preserve">
+    <value>поисковые системы</value>
+  </data>
+  <data name="Browsers_SitePermissions" xml:space="preserve">
+    <value>разрешения сайтов</value>
+  </data>
+  <data name="Browsers_ThisBackupIsFromWhich" xml:space="preserve">
+    <value>Эта резервная копия сделана в {0}, а он не установлен на этом компьютере. Установите его здесь, затем: {1}</value>
+  </data>
+  <data name="Browsers_ThisBackupIsFromWhich2" xml:space="preserve">
+    <value>Эта резервная копия сделана в {0}, а он не установлен на этом компьютере. Установите его с сайта, затем: {1}</value>
+  </data>
+  <data name="Browsers_Install" xml:space="preserve">
+    <value>Установить {0}</value>
+  </data>
+  <data name="Browsers_CTRLZWillInstallWith" xml:space="preserve">
+    <value>CTRL+Z установит {0} с помощью winget ({1}). Windows может запросить разрешение.
+
+</value>
+  </data>
+  <data name="Browsers_AfterItInstalls" xml:space="preserve">
+    <value>После установки: </value>
+  </data>
+  <data name="Browsers_Cancel2" xml:space="preserve">
+    <value>Отмена</value>
+  </data>
+  <data name="Browsers_Installing" xml:space="preserve">
+    <value>Установка {0}…</value>
+  </data>
+  <data name="Browsers_WingetIsNotAvailableOn" xml:space="preserve">
+    <value>winget пока недоступен на этом компьютере. Установите App Installer в «Параметрах» и повторите.</value>
+  </data>
+  <data name="Browsers_WingetIsNotAvailable" xml:space="preserve">
+    <value>winget недоступен.</value>
+  </data>
+  <data name="Browsers_IsInstalled" xml:space="preserve">
+    <value>{0} установлен. {1}</value>
+  </data>
+  <data name="Browsers_IsInstalled2" xml:space="preserve">
+    <value>{0} установлен.
+
+{1}</value>
+  </data>
+  <data name="Browsers_AlmostReadyToRestore" xml:space="preserve">
+    <value>Почти готово к восстановлению</value>
+  </data>
+  <data name="Browsers_CouldNotBeInstalledWinget" xml:space="preserve">
+    <value>Не удалось установить {0} (код выхода winget {1}).</value>
+  </data>
+  <data name="Browsers_CouldNotBeInstalledWinget2" xml:space="preserve">
+    <value>Не удалось установить {0} (код выхода winget {1}). Установите его с сайта и нажмите «Обновить».</value>
+  </data>
+  <data name="Browsers_CouldNotBeInstalled" xml:space="preserve">
+    <value>Не удалось установить {0}.</value>
+  </data>
+  <data name="Browsers_CouldNotBeInstalled2" xml:space="preserve">
+    <value>Не удалось установить {0}.
+
+</value>
+  </data>
+  <data name="Browsers_SelectTheBrowserSProfile" xml:space="preserve">
+    <value>Выберите корневую папку профилей браузера (Local State для Chromium, profiles.ini для Firefox)</value>
+  </data>
+  <data name="Browsers_ThatProfileFolderIsAlready" xml:space="preserve">
+    <value>Эта папка профиля уже в списке.</value>
+  </data>
+  <data name="Browsers_Added" xml:space="preserve">
+    <value>{0} добавлен.</value>
+  </data>
+  <data name="Browsers_NotABrowserProfileFolder" xml:space="preserve">
+    <value>Это не папка профиля браузера</value>
+  </data>
+  <data name="Browsers_ThisFolderCouldNotBe" xml:space="preserve">
+    <value>Не удалось добавить эту папку.
+
+</value>
+  </data>
+  <data name="Browsers_ChooseWhereBrowserBackupsAre" xml:space="preserve">
+    <value>Выберите, где сохранять резервные копии браузеров</value>
+  </data>
+  <data name="Browsers_CouldNotOpenTheBackup" xml:space="preserve">
+    <value>Не удалось открыть папку резервных копий.
+
+</value>
+  </data>
+  <data name="Browsers_UseAtLeast4Characters" xml:space="preserve">
+    <value>Пароль архива должен содержать не менее 4 символов; или оставьте поле пустым.</value>
+  </data>
+  <data name="Browsers_TheBackupFolderCouldNot" xml:space="preserve">
+    <value>Не удалось создать папку резервных копий.
+
+</value>
+  </data>
+  <data name="Browsers_BackingUpBrowserProfiles" xml:space="preserve">
+    <value>Резервное копирование профилей браузера</value>
+  </data>
+  <data name="Browsers_Preparing" xml:space="preserve">
+    <value>Подготовка {0}…</value>
+  </data>
+  <data name="Browsers_SkippedBecauseItIsStill" xml:space="preserve">
+    <value>{0}: пропущен, потому что ещё запущен.</value>
+  </data>
+  <data name="Browsers_NoBackupsCompleted" xml:space="preserve">
+    <value>Ни одна резервная копия не создана.</value>
+  </data>
+  <data name="Browsers_BrowserBackupComplete" xml:space="preserve">
+    <value>Резервное копирование браузеров завершено</value>
+  </data>
+  <data name="Browsers_BackupFailed" xml:space="preserve">
+    <value>Резервное копирование не удалось</value>
+  </data>
+  <data name="Browsers_BackupCancelledCompletedArchivesRemain" xml:space="preserve">
+    <value>Резервное копирование отменено. Готовые архивы остаются в папке.</value>
+  </data>
+  <data name="Browsers_BackupStoppedUnexpectedly" xml:space="preserve">
+    <value>Резервное копирование неожиданно остановилось.</value>
+  </data>
+  <data name="Browsers_TheBackupSessionStoppedUnexpectedly" xml:space="preserve">
+    <value>Сеанс резервного копирования неожиданно остановился.
+
+</value>
+  </data>
+  <data name="Browsers_Cancelling" xml:space="preserve">
+    <value>Отмена…</value>
+  </data>
+  <data name="Browsers_OpenACTRLZBrowser" xml:space="preserve">
+    <value>Открыть резервную копию браузера CTRL+Z</value>
+  </data>
+  <data name="Browsers_CTRLZBrowserBackupZip" xml:space="preserve">
+    <value>Резервная копия браузера CTRL+Z (*.zip)|*.zip|Все файлы (*.*)|*.*</value>
+  </data>
+  <data name="Browsers_ReadingArchive" xml:space="preserve">
+    <value>Чтение архива…</value>
+  </data>
+  <data name="Browsers_ProfileS" xml:space="preserve">
+    <value>Профилей: {0} · </value>
+  </data>
+  <data name="Browsers_ArchiveLoadedNoBrowserIs" xml:space="preserve">
+    <value>Архив загружен. Браузер {0} не установлен. Установите его, обновите список и повторите.</value>
+  </data>
+  <data name="Browsers_ArchiveUnlockedChooseProfilesAnd" xml:space="preserve">
+    <value>Архив разблокирован. Выберите профили и браузер для восстановления.</value>
+  </data>
+  <data name="Browsers_ArchiveReadyChooseProfilesAnd" xml:space="preserve">
+    <value>Архив готов. Выберите профили и браузер для восстановления.</value>
+  </data>
+  <data name="Browsers_ThisArchiveIsEncryptedEnter" xml:space="preserve">
+    <value>Этот архив зашифрован. Введите пароль и снова нажмите «Показать содержимое».</value>
+  </data>
+  <data name="Browsers_ArchiveCouldNotBeRead" xml:space="preserve">
+    <value>Не удалось прочитать архив.</value>
+  </data>
+  <data name="Browsers_ThisArchiveCouldNotBe" xml:space="preserve">
+    <value>Не удалось открыть этот архив.
+
+</value>
+  </data>
+  <data name="Browsers_VerifyingTheBackupReadingEvery" xml:space="preserve">
+    <value>Проверка резервной копии: чтение каждого файла…</value>
+  </data>
+  <data name="Browsers_VerifiedNothingWasChanged" xml:space="preserve">
+    <value>{0} {1} проверено. Ничего не изменено.</value>
+  </data>
+  <data name="Browsers_ThisBackupCannotBeFully" xml:space="preserve">
+    <value>Эту резервную копию нельзя восстановить полностью:
+
+</value>
+  </data>
+  <data name="Browsers_AndMore" xml:space="preserve">
+    <value>
+…и ещё {0}.</value>
+  </data>
+  <data name="Browsers_MakeANewBackupBefore" xml:space="preserve">
+    <value>
+
+Сделайте новую резервную копию, прежде чем очищать этот компьютер.</value>
+  </data>
+  <data name="Browsers_TheBackupCouldNotBe" xml:space="preserve">
+    <value>Не удалось проверить резервную копию.</value>
+  </data>
+  <data name="Browsers_SelectAtLeastOneProfile" xml:space="preserve">
+    <value>Выберите в архиве хотя бы один профиль.</value>
+  </data>
+  <data name="Browsers_OverwriteExistingProfiles" xml:space="preserve">
+    <value>Перезаписать существующие профили</value>
+  </data>
+  <data name="Browsers_TheSelectedProfilesWillBe" xml:space="preserve">
+    <value>Выбранные профили будут объединены с существующими папками профилей {0}. </value>
+  </data>
+  <data name="Browsers_YourCurrentCookiesAndSaved" xml:space="preserve">
+    <value>Текущие файлы cookie и сохранённые пароли не затрагиваются, но закладки, история, сеансы и настройки будут заменены.
+
+</value>
+  </data>
+  <data name="Browsers_RestoreAsNewProfilesInstead" xml:space="preserve">
+    <value>Если хотите сохранить и то и другое, восстановите их как новые профили.</value>
+  </data>
+  <data name="Browsers_OverwriteProfiles" xml:space="preserve">
+    <value>Перезаписать профили</value>
+  </data>
+  <data name="Browsers_RestoringBrowserProfiles" xml:space="preserve">
+    <value>Восстановление профилей браузера</value>
+  </data>
+  <data name="Browsers_Restoring" xml:space="preserve">
+    <value>Восстановление…</value>
+  </data>
+  <data name="Browsers_ProfilesAlreadyExist" xml:space="preserve">
+    <value>Профили уже существуют</value>
+  </data>
+  <data name="Browsers_TheseProfilesAlreadyExistIn" xml:space="preserve">
+    <value>Эти профили уже есть в {0}: {1}.
+
+</value>
+  </data>
+  <data name="Browsers_RestoreThemAsNewProfiles" xml:space="preserve">
+    <value>Восстановить их как новые профили? Тогда текущие профили не будут затронуты.</value>
+  </data>
+  <data name="Browsers_RestoreAsNew" xml:space="preserve">
+    <value>Восстановить как новые</value>
+  </data>
+  <data name="Browsers_RestoreCancelled" xml:space="preserve">
+    <value>Восстановление отменено.</value>
+  </data>
+  <data name="Browsers_RestoredInto" xml:space="preserve">
+    <value>Восстановлено в {0}.</value>
+  </data>
+  <data name="Browsers_ASafetyCopyWasKept" xml:space="preserve">
+    <value>
+
+Страховочная копия сохранена здесь:
+{0}</value>
+  </data>
+  <data name="Browsers_RestoredProfileSInto" xml:space="preserve">
+    <value>Восстановлено профилей: {0}, в {1}.
+
+</value>
+  </data>
+  <data name="Browsers_StartTheBrowserAndCheck" xml:space="preserve">
+    <value>Запустите браузер и проверьте закладки, вкладки, расширения и настройки.</value>
+  </data>
+  <data name="Browsers_BrowserRestoreComplete" xml:space="preserve">
+    <value>Восстановление браузера завершено</value>
+  </data>
+  <data name="Browsers_TheArchivePasswordIsIncorrect" xml:space="preserve">
+    <value>Неверный пароль архива.</value>
+  </data>
+  <data name="Browsers_ThatPasswordCouldNotUnlock" xml:space="preserve">
+    <value>Этот пароль не подходит к архиву.</value>
+  </data>
+  <data name="Browsers_CloseTheBrowserFirst" xml:space="preserve">
+    <value>Сначала закройте браузер.</value>
+  </data>
+  <data name="Browsers_RestoreFailed" xml:space="preserve">
+    <value>Восстановление не удалось.</value>
+  </data>
+  <data name="Browsers_TheBrowserProfileCouldNot" xml:space="preserve">
+    <value>Не удалось восстановить профиль браузера.
+
+</value>
+  </data>
+  <data name="Browsers_NoFirefoxOrChromiumBrowsers2" xml:space="preserve">
+    <value>Браузеры Firefox и Chromium не найдены. Добавьте свою папку профиля.</value>
+  </data>
+  <data name="Browsers_FirefoxAndChromiumStoreProfiles" xml:space="preserve">
+    <value>Firefox и Chromium хранят профили в разных папках. Для малоизвестных сборок добавьте корневую папку профилей вручную.</value>
+  </data>
+  <data name="Browsers_BrowserDetectionFailed" xml:space="preserve">
+    <value>Не удалось найти браузеры.</value>
+  </data>
+  <data name="Browsers_CTRLZCouldNotDetect" xml:space="preserve">
+    <value>CTRL+Z не удалось найти браузеры.
+
+</value>
+  </data>
+  <data name="Browsers_SizeUnavailable" xml:space="preserve">
+    <value>Размер недоступен</value>
+  </data>
+  <data name="Browsers_CloseTheBrowser" xml:space="preserve">
+    <value>Закройте браузер</value>
+  </data>
+  <data name="Browsers_IsRunningABackupNeeds" xml:space="preserve">
+    <value>{0} запущен. Резервному копированию нужен почти монопольный доступ к файлам профиля, а восстановление может записать их только при закрытом браузере.
+
+</value>
+  </data>
+  <data name="Browsers_CTRLZCanCloseIt" xml:space="preserve">
+    <value>CTRL+Z может закрыть его за вас. Несохранённые данные во вкладках могут пропасть; при следующем запуске браузер обычно предлагает восстановить вкладки.</value>
+  </data>
+  <data name="Browsers_CloseBrowser" xml:space="preserve">
+    <value>Закрыть браузер</value>
+  </data>
+  <data name="Browsers_Skip" xml:space="preserve">
+    <value>Пропустить</value>
+  </data>
+  <data name="Browsers_ForceClose" xml:space="preserve">
+    <value>Закрыть принудительно?</value>
+  </data>
+  <data name="Browsers_DidNotCloseGracefullyForce" xml:space="preserve">
+    <value>{0} не закрылся обычным способом. При принудительном закрытии можно потерять несохранённые данные форм, но это надёжный способ разблокировать файлы профиля.</value>
+  </data>
+  <data name="Browsers_ForceClose2" xml:space="preserve">
+    <value>Закрыть принудительно</value>
+  </data>
+  <data name="Catalog_NoWingetPackage" xml:space="preserve">
+    <value>Нет пакета winget</value>
+  </data>
+  <data name="Catalog_Catalog" xml:space="preserve">
+    <value>Каталог</value>
+  </data>
+  <data name="Catalog_RecommendedAppsFromChrisTitus" xml:space="preserve">
+    <value>Рекомендуемые приложения из каталога WinUtil от Chris Titus Tech, обновляемого из источника.</value>
+  </data>
+  <data name="Catalog_AllCategories" xml:space="preserve">
+    <value>Все категории</value>
+  </data>
+  <data name="Catalog_NotLoaded" xml:space="preserve">
+    <value>Не загружено</value>
+  </data>
+  <data name="Catalog_PickAppsFromTheCatalog" xml:space="preserve">
+    <value>Выберите приложения в каталоге и добавьте их в профиль.</value>
+  </data>
+  <data name="Catalog_NothingSelected" xml:space="preserve">
+    <value>Ничего не выбрано</value>
+  </data>
+  <data name="Catalog_SelectAtLeastOneCatalog" xml:space="preserve">
+    <value>Сначала выберите хотя бы одно приложение из каталога.</value>
+  </data>
+  <data name="Catalog_AddedFromTheWinUtilCatalog" xml:space="preserve">
+    <value>Добавлено из каталога WinUtil.</value>
+  </data>
+  <data name="Catalog_NoNewAppsAddedAlready" xml:space="preserve">
+    <value>Новые приложения не добавлены (уже в профиле: {0}).</value>
+  </data>
+  <data name="Catalog_AlreadyPresent" xml:space="preserve">
+    <value> · уже были: {0}.</value>
+  </data>
+  <data name="Catalog_RefreshingFromGitHub" xml:space="preserve">
+    <value>Обновление с GitHub…</value>
+  </data>
+  <data name="Catalog_LoadingTheAppCatalog" xml:space="preserve">
+    <value>Загрузка каталога приложений…</value>
+  </data>
+  <data name="Catalog_ShowingRecommendedApps" xml:space="preserve">
+    <value>Показано рекомендуемых приложений: {0}.</value>
+  </data>
+  <data name="Catalog_ShowingALocalCatalogBecause" xml:space="preserve">
+    <value>Показан локальный каталог, потому что GitHub недоступен.</value>
+  </data>
+  <data name="Catalog_TheCatalogCouldNotBe" xml:space="preserve">
+    <value>Не удалось загрузить каталог.</value>
+  </data>
+  <data name="CommandReview_RiskyPattern" xml:space="preserve">
+    <value>Опасный шаблон: </value>
+  </data>
+  <data name="CommandReview_ThisProfileIsYoursIts" xml:space="preserve">
+    <value>Это ваш профиль. Его команды выполняются после установки без проверки каждой команды.</value>
+  </data>
+  <data name="CommandReview_ThisProfileDidNotOriginate" xml:space="preserve">
+    <value>Этот профиль создан не на этом компьютере. Его команды заблокированы, пока вы не одобрите каждую.</value>
+  </data>
+  <data name="CommandReview_YouWillStillBeAsked" xml:space="preserve">
+    <value>Перед первым запуском команд на этом компьютере подтверждение всё равно будет запрошено.</value>
+  </data>
+  <data name="CommandReview_AnApprovalIsStoredOn" xml:space="preserve">
+    <value>Одобрение хранится только на этом компьютере и никогда не попадает в файл профиля. Если позже изменить команду, она снова будет заблокирована.</value>
+  </data>
+  <data name="CommandReview_NoCommands" xml:space="preserve">
+    <value>Команд нет</value>
+  </data>
+  <data name="CommandReview_Of" xml:space="preserve">
+    <value>{0} из {1}</value>
+  </data>
+  <data name="CommandReview_ApproveARiskyCommand" xml:space="preserve">
+    <value>Одобрить опасную команду?</value>
+  </data>
+  <data name="CommandReview_ApproveItOnlyIfYou" xml:space="preserve">
+    <value>{0}
+
+{1}
+
+Одобряйте её, только если точно понимаете, что она делает. </value>
+  </data>
+  <data name="CommandReview_ItWillAlsoAskFor" xml:space="preserve">
+    <value>Кроме того, подтверждение будет запрашиваться при каждом её запуске.</value>
+  </data>
+  <data name="CommandReview_TreatThisProfileAsYours" xml:space="preserve">
+    <value>Считать этот профиль своим?</value>
+  </data>
+  <data name="CommandReview_OnlyDoThisForA" xml:space="preserve">
+    <value>Делайте это только для профиля, который вы создали сами, например на другом своём компьютере.
+
+</value>
+  </data>
+  <data name="CommandReview_EveryCommandInItWill" xml:space="preserve">
+    <value>Тогда все его команды ({0}) будут выполняться после установки без проверки каждой команды, </value>
+  </data>
+  <data name="CommandReview_AndYouWillBeAble" xml:space="preserve">
+    <value>и вы сможете изменять их здесь.</value>
+  </data>
+  <data name="Drift_SavedAs" xml:space="preserve">
+    <value>Сохранено как {0} · {1}</value>
+  </data>
+  <data name="Drift_Installed" xml:space="preserve">
+    <value>Установлено {0}</value>
+  </data>
+  <data name="Drift_InstalledOnThisPC" xml:space="preserve">
+    <value>Установлено на этом компьютере</value>
+  </data>
+  <data name="Drift_InstalledAvailable" xml:space="preserve">
+    <value>Установлено {0} · доступно {1}</value>
+  </data>
+  <data name="Drift_NotInProfile" xml:space="preserve">
+    <value>Нет в профиле</value>
+  </data>
+  <data name="Drift_ExactMatch" xml:space="preserve">
+    <value>Точное совпадение</value>
+  </data>
+  <data name="Drift_LikelyMatch" xml:space="preserve">
+    <value>Вероятное совпадение</value>
+  </data>
+  <data name="Drift_Uncertain" xml:space="preserve">
+    <value>Неточно</value>
+  </data>
+  <data name="Drift_NoMatch" xml:space="preserve">
+    <value>Нет совпадения</value>
+  </data>
+  <data name="Drift_ComparingYourSavedProfileWith" xml:space="preserve">
+    <value>Сравнение сохранённого профиля с этим компьютером…</value>
+  </data>
+  <data name="Drift_ScanningInstalledApps" xml:space="preserve">
+    <value>Сканирование установленных приложений…</value>
+  </data>
+  <data name="Drift_ReadingWingetVersions" xml:space="preserve">
+    <value>Чтение версий winget…</value>
+  </data>
+  <data name="Drift_TheDriftCheckCouldNot" xml:space="preserve">
+    <value>Не удалось завершить проверку расхождений.</value>
+  </data>
+  <data name="Drift_TheDriftCheckCouldNot2" xml:space="preserve">
+    <value>Не удалось завершить проверку расхождений.
+
+</value>
+  </data>
+  <data name="Drift_AddedToYourProfile" xml:space="preserve">
+    <value>{0} добавлено в ваш профиль.</value>
+  </data>
+  <data name="Drift_IsAlreadyInYourProfile" xml:space="preserve">
+    <value>{0} уже есть в вашем профиле.</value>
+  </data>
+  <data name="Drift_RemoveFromProfile" xml:space="preserve">
+    <value>Убрать из профиля</value>
+  </data>
+  <data name="Drift_RemoveFromTheAppStays" xml:space="preserve">
+    <value>Убрать {0} из «{1}»? Приложение останется установленным на этом компьютере; оно просто перестанет входить в список для переустановки.</value>
+  </data>
+  <data name="Drift_Remove2" xml:space="preserve">
+    <value>Убрать</value>
+  </data>
+  <data name="Drift_Cancel" xml:space="preserve">
+    <value>Отмена</value>
+  </data>
+  <data name="Drift_RemovedFromYourProfile" xml:space="preserve">
+    <value>{0} убрано из вашего профиля.</value>
+  </data>
+  <data name="Drift_IgnoringFromNowOn" xml:space="preserve">
+    <value>{0} теперь игнорируется.</value>
+  </data>
+  <data name="Drift_YourProfileMatchesThisPC" xml:space="preserve">
+    <value>Профиль совпадает с этим компьютером</value>
+  </data>
+  <data name="Drift_MissingNotInProfileOutdated" xml:space="preserve">
+    <value>Не хватает: {0} · нет в профиле: {1} · устарело: {2}</value>
+  </data>
+  <data name="InstallRow_Queued" xml:space="preserve">
+    <value>В очереди</value>
+  </data>
+  <data name="InstallRow_Preparing" xml:space="preserve">
+    <value>Подготовка</value>
+  </data>
+  <data name="InstallRow_Downloading" xml:space="preserve">
+    <value>Скачивание</value>
+  </data>
+  <data name="InstallRow_Installing" xml:space="preserve">
+    <value>Установка</value>
+  </data>
+  <data name="InstallRow_Installed" xml:space="preserve">
+    <value>Установлено</value>
+  </data>
+  <data name="InstallRow_Failed" xml:space="preserve">
+    <value>Ошибка</value>
+  </data>
+  <data name="InstallRow_ManualAction" xml:space="preserve">
+    <value>Нужно действие</value>
+  </data>
+  <data name="InstallRow_RestartNeeded" xml:space="preserve">
+    <value>Нужна перезагрузка</value>
+  </data>
+  <data name="InstallRow_Skipped" xml:space="preserve">
+    <value>Пропущено</value>
+  </data>
+  <data name="InstallRow_Cancelled" xml:space="preserve">
+    <value>Отменено</value>
+  </data>
+  <data name="InstallRow_YourNote" xml:space="preserve">
+    <value>Ваша заметка: </value>
+  </data>
+  <data name="Install_Install" xml:space="preserve">
+    <value>Установка</value>
+  </data>
+  <data name="Install_ReviewTheQueueAndReinstall" xml:space="preserve">
+    <value>Проверьте очередь и переустановите всё в тихом режиме, с состоянием в реальном времени и возможностью продолжить сеанс.</value>
+  </data>
+  <data name="Install_ReviewTheQueueThenInstall" xml:space="preserve">
+    <value>Проверьте очередь, затем установите.</value>
+  </data>
+  <data name="Install_ResumeInstall" xml:space="preserve">
+    <value>Продолжить установку</value>
+  </data>
+  <data name="Install_InstallEverything" xml:space="preserve">
+    <value>Установить всё</value>
+  </data>
+  <data name="Install_DoneNeedAttentionTotal" xml:space="preserve">
+    <value>Готово: {0} · требуют внимания: {1} · всего: {2}</value>
+  </data>
+  <data name="Install_ResumeAvailable" xml:space="preserve">
+    <value>Можно продолжить</value>
+  </data>
+  <data name="Install_RestartRequired2" xml:space="preserve">
+    <value>Нужна перезагрузка</value>
+  </data>
+  <data name="Install_RunningAsAdministrator" xml:space="preserve">
+    <value>Запущено от имени администратора</value>
+  </data>
+  <data name="Install_RunningAsStandardUser" xml:space="preserve">
+    <value>Запущено от имени обычного пользователя</value>
+  </data>
+  <data name="Install_FailedCompletePickUpWhere" xml:space="preserve">
+    <value>Ошибок: {0} · готово: {1}. Продолжите с места, где остановился прошлый сеанс.</value>
+  </data>
+  <data name="Install_EveryAppIsInstalledRestart" xml:space="preserve">
+    <value>Все приложения установлены. Перезагрузите Windows, чтобы завершить работу последних установщиков.</value>
+  </data>
+  <data name="Install_TheLastInstallSessionIs" xml:space="preserve">
+    <value>Последний сеанс установки завершён.</value>
+  </data>
+  <data name="Install_APreviousInstallCanBe" xml:space="preserve">
+    <value>Предыдущую установку можно продолжить.</value>
+  </data>
+  <data name="Install_LastSessionComplete" xml:space="preserve">
+    <value>Последний сеанс завершён.</value>
+  </data>
+  <data name="Install_ThisProfileHasNoEnabled" xml:space="preserve">
+    <value>В этом профиле нет включённых приложений. Сначала добавьте или включите приложения в «Моих приложениях».</value>
+  </data>
+  <data name="Install_StartANewInstall" xml:space="preserve">
+    <value>Начать новую установку</value>
+  </data>
+  <data name="Install_ACompletedInstallSessionIs" xml:space="preserve">
+    <value>На диске есть завершённый сеанс установки. Начать новый из текущего профиля?</value>
+  </data>
+  <data name="Install_StartNewInstall" xml:space="preserve">
+    <value>Начать новую установку</value>
+  </data>
+  <data name="Install_Cancel" xml:space="preserve">
+    <value>Отмена</value>
+  </data>
+  <data name="Install_StoppingAfterTheCurrentInstaller" xml:space="preserve">
+    <value>Остановка после текущего установщика…</value>
+  </data>
+  <data name="Install_InstallCancelledNothingRan" xml:space="preserve">
+    <value>Установка отменена. Ничего не запускалось.</value>
+  </data>
+  <data name="Install_StartOver2" xml:space="preserve">
+    <value>Начать заново</value>
+  </data>
+  <data name="Install_DiscardTheSavedInstallSession" xml:space="preserve">
+    <value>Отбросить сохранённый сеанс установки и составить новую очередь из активного профиля?</value>
+  </data>
+  <data name="Install_FreshQueueReady" xml:space="preserve">
+    <value>Новая очередь готова.</value>
+  </data>
+  <data name="Install_RestartWindows2" xml:space="preserve">
+    <value>Перезагрузить Windows</value>
+  </data>
+  <data name="Install_RestartNowToFinishPending" xml:space="preserve">
+    <value>Перезагрузить сейчас, чтобы завершить ожидающие установщики? Сначала сохраните открытые документы.</value>
+  </data>
+  <data name="Install_RestartNow" xml:space="preserve">
+    <value>Перезагрузить сейчас</value>
+  </data>
+  <data name="Install_WindowsWillRestartIn10" xml:space="preserve">
+    <value>Windows перезагрузится через 10 секунд.</value>
+  </data>
+  <data name="Install_CouldNotRestartWindows" xml:space="preserve">
+    <value>Не удалось перезагрузить Windows: </value>
+  </data>
+  <data name="Install_AdministratorAccess" xml:space="preserve">
+    <value>Права администратора</value>
+  </data>
+  <data name="Install_WindowsInstallersUsuallyNeedAdministrato" xml:space="preserve">
+    <value>Установщикам Windows обычно нужны права администратора. CTRL+Z может перезапуститься с повышенными правами и автоматически продолжить эту установку.
+
+</value>
+  </data>
+  <data name="Install_YouCanAlsoContinueUnelevated" xml:space="preserve">
+    <value>Можно продолжить и без повышения прав, но установщики для всего компьютера могут завершиться ошибкой.</value>
+  </data>
+  <data name="Install_RestartAsAdministrator" xml:space="preserve">
+    <value>Перезапустить от имени администратора</value>
+  </data>
+  <data name="Install_ContinueWithoutAdmin" xml:space="preserve">
+    <value>Продолжить без прав администратора</value>
+  </data>
+  <data name="Install_CouldNotRestartAsAdministrator" xml:space="preserve">
+    <value>Не удалось перезапустить от имени администратора.</value>
+  </data>
+  <data name="Install_InstallNotStartedThePost" xml:space="preserve">
+    <value>Установка не начата: команды после установки не подтверждены. Ничего не запускалось.</value>
+  </data>
+  <data name="Install_AnotherCTRLZInstallIs" xml:space="preserve">
+    <value>На этом компьютере уже идёт другая установка CTRL+Z (например, из командной строки). Повторите, когда она завершится.</value>
+  </data>
+  <data name="Install_InstallingApps" xml:space="preserve">
+    <value>Установка приложений</value>
+  </data>
+  <data name="Install_RetryingFailedApps" xml:space="preserve">
+    <value>Повтор для приложений с ошибками…</value>
+  </data>
+  <data name="Install_Installing" xml:space="preserve">
+    <value>Установка…</value>
+  </data>
+  <data name="Install_AllInstallsFinishedRestartWindows" xml:space="preserve">
+    <value>Все установки завершены. Перезагрузите Windows, когда будет удобно.</value>
+  </data>
+  <data name="Install_AllInstallsFinishedSuccessfully" xml:space="preserve">
+    <value>Все установки успешно завершены.</value>
+  </data>
+  <data name="Install_InstallPausedResumeWheneverYou" xml:space="preserve">
+    <value>Установка приостановлена. Продолжите, когда будете готовы.</value>
+  </data>
+  <data name="Install_TheQueueIsSavedResume" xml:space="preserve">
+    <value>Очередь сохранена. Продолжите, закрыв открытые установщики.</value>
+  </data>
+  <data name="Install_TheInstallSessionStoppedUnexpectedly" xml:space="preserve">
+    <value>Сеанс установки неожиданно остановился.</value>
+  </data>
+  <data name="Install_CTRLZHitAnError" xml:space="preserve">
+    <value>Во время установки в CTRL+Z произошла ошибка.
+
+</value>
+  </data>
+  <data name="Install_Queued" xml:space="preserve">
+    <value>В очереди</value>
+  </data>
+  <data name="Main_Settings" xml:space="preserve">
+    <value>Параметры</value>
+  </data>
+  <data name="Main_Scan" xml:space="preserve">
+    <value>Сканирование</value>
+  </data>
+  <data name="Main_MyApps" xml:space="preserve">
+    <value>Мои приложения</value>
+  </data>
+  <data name="Main_ReadyToWipe" xml:space="preserve">
+    <value>Готовность к очистке</value>
+  </data>
+  <data name="Main_Install" xml:space="preserve">
+    <value>Установка</value>
+  </data>
+  <data name="Main_Updates" xml:space="preserve">
+    <value>Обновления</value>
+  </data>
+  <data name="Main_Tweaks" xml:space="preserve">
+    <value>Настройки Windows</value>
+  </data>
+  <data name="Main_AddApp" xml:space="preserve">
+    <value>Добавить приложение</value>
+  </data>
+  <data name="Main_Catalog" xml:space="preserve">
+    <value>Каталог</value>
+  </data>
+  <data name="Main_Browsers2" xml:space="preserve">
+    <value>Браузеры</value>
+  </data>
+  <data name="Main_ThisPageCouldNotBe" xml:space="preserve">
+    <value>Не удалось загрузить эту страницу: {0}</value>
+  </data>
+  <data name="MyApps_MyApps" xml:space="preserve">
+    <value>Мои приложения</value>
+  </data>
+  <data name="MyApps_YourPortableReinstallProfileTune" xml:space="preserve">
+    <value>Ваш переносимый профиль для переустановки. Доведите список до ума, прежде чем переходить на свежую Windows.</value>
+  </data>
+  <data name="MyApps_ChangesSaveAutomatically" xml:space="preserve">
+    <value>Изменения сохраняются автоматически.</value>
+  </data>
+  <data name="MyApps_EnabledOf" xml:space="preserve">
+    <value>Включено {0} из {1}</value>
+  </data>
+  <data name="MyApps_NewProfile2" xml:space="preserve">
+    <value>Новый профиль</value>
+  </data>
+  <data name="MyApps_CreateASeparateAppList" xml:space="preserve">
+    <value>Создайте отдельный список приложений для другого компьютера или другой задачи.</value>
+  </data>
+  <data name="MyApps_ProfileName" xml:space="preserve">
+    <value>Имя профиля</value>
+  </data>
+  <data name="MyApps_CreatedProfile" xml:space="preserve">
+    <value>Создан профиль «{0}».</value>
+  </data>
+  <data name="MyApps_RenameProfile2" xml:space="preserve">
+    <value>Переименовать профиль</value>
+  </data>
+  <data name="MyApps_ProfilesArePortableJSONFiles" xml:space="preserve">
+    <value>Профили — это переносимые файлы JSON.</value>
+  </data>
+  <data name="MyApps_ImportACTRLZProfile" xml:space="preserve">
+    <value>Импортировать профиль CTRL+Z</value>
+  </data>
+  <data name="MyApps_Imported" xml:space="preserve">
+    <value>Импортирован «{0}».</value>
+  </data>
+  <data name="MyApps_ThatProfileCouldNotBe" xml:space="preserve">
+    <value>Не удалось импортировать этот профиль.
+
+</value>
+  </data>
+  <data name="MyApps_ExportForAnotherPC" xml:space="preserve">
+    <value>Экспорт для другого компьютера</value>
+  </data>
+  <data name="MyApps_ChooseWhereToSave" xml:space="preserve">
+    <value>Выбрать, куда сохранить</value>
+  </data>
+  <data name="MyApps_Cancel" xml:space="preserve">
+    <value>Отмена</value>
+  </data>
+  <data name="MyApps_IncludeMyNotesInThe" xml:space="preserve">
+    <value>Включить мои заметки в файл</value>
+  </data>
+  <data name="MyApps_ExportedTo" xml:space="preserve">
+    <value>Экспортировано в {0}</value>
+  </data>
+  <data name="MyApps_CopyItToAUSB" xml:space="preserve">
+    <value>Скопируйте его на USB-накопитель или другой компьютер вместе с резервными копиями браузеров.</value>
+  </data>
+  <data name="MyApps_ProfileExported" xml:space="preserve">
+    <value>Профиль экспортирован</value>
+  </data>
+  <data name="MyApps_CouldNotExportTheProfile" xml:space="preserve">
+    <value>Не удалось экспортировать профиль.
+
+</value>
+  </data>
+  <data name="MyApps_DeleteProfile2" xml:space="preserve">
+    <value>Удалить профиль</value>
+  </data>
+  <data name="MyApps_DeleteItsJSONFileWill" xml:space="preserve">
+    <value>Удалить «{0}»? Его файл JSON будет удалён из CTRL+Z. Экспортированные копии не затрагиваются.</value>
+  </data>
+  <data name="MyApps_Delete" xml:space="preserve">
+    <value>Удалить</value>
+  </data>
+  <data name="MyApps_ProfileDeleted" xml:space="preserve">
+    <value>Профиль удалён.</value>
+  </data>
+  <data name="MyApps_ImportAnAppListFrom" xml:space="preserve">
+    <value>Импортировать список приложений из winget, Scoop или Chocolatey</value>
+  </data>
+  <data name="MyApps_ThatFileCouldNotBe" xml:space="preserve">
+    <value>Не удалось прочитать этот файл как список приложений.
+
+</value>
+  </data>
+  <data name="MyApps_ImportAppList" xml:space="preserve">
+    <value>Импорт списка приложений</value>
+  </data>
+  <data name="MyApps_NoAppsInThatList" xml:space="preserve">
+    <value>Ни одно приложение из этого списка {0} не удалось сопоставить с winget или Microsoft Store.</value>
+  </data>
+  <data name="MyApps_AndMore" xml:space="preserve">
+    <value>
+• …и ещё {0}</value>
+  </data>
+  <data name="MyApps_AppsAlreadyInTheProfile" xml:space="preserve">
+    <value>
+
+Приложения, которые уже есть в профиле, пропускаются. Любое из них можно потом проверить или убрать.</value>
+  </data>
+  <data name="MyApps_AddApps2" xml:space="preserve">
+    <value>Добавить приложения</value>
+  </data>
+  <data name="MyApps_AlreadyPresent" xml:space="preserve">
+    <value> · уже были: {0}</value>
+  </data>
+  <data name="MyApps_NotMatched" xml:space="preserve">
+    <value> · не сопоставлено: {0}</value>
+  </data>
+  <data name="MyApps_NotMatchedAddTheseBy" xml:space="preserve">
+    <value>
+
+Не сопоставлено ({0}); если они нужны, добавьте их вручную:
+</value>
+  </data>
+  <data name="MyApps_RemoveDependency" xml:space="preserve">
+    <value>Убрать зависимость</value>
+  </data>
+  <data name="MyApps_WasAddedBecauseAnotherApp" xml:space="preserve">
+    <value>«{0}» добавлено, потому что оно нужно другому приложению. Отключить его, чтобы оно не устанавливалось и больше не добавлялось?</value>
+  </data>
+  <data name="MyApps_TurnOff" xml:space="preserve">
+    <value>Отключить</value>
+  </data>
+  <data name="MyApps_IsTurnedOffAndWill" xml:space="preserve">
+    <value>{0} отключено и больше не будет добавляться.</value>
+  </data>
+  <data name="MyApps_RemoveApp" xml:space="preserve">
+    <value>Убрать приложение</value>
+  </data>
+  <data name="MyApps_RemoveFromThisProfile" xml:space="preserve">
+    <value>Убрать «{0}» из этого профиля?</value>
+  </data>
+  <data name="MyApps_Remove" xml:space="preserve">
+    <value>Убрать</value>
+  </data>
+  <data name="MyApps_Removed" xml:space="preserve">
+    <value>{0} убрано.</value>
+  </data>
+  <data name="MyApps_Updated" xml:space="preserve">
+    <value>{0} изменено.</value>
+  </data>
+  <data name="MyApps_SaveARiskyCommand" xml:space="preserve">
+    <value>Сохранить опасную команду?</value>
+  </data>
+  <data name="MyApps_SaveRiskyCommand" xml:space="preserve">
+    <value>Сохранить опасную команду</value>
+  </data>
+  <data name="MyApps_GoBack" xml:space="preserve">
+    <value>Назад</value>
+  </data>
+  <data name="MyApps_AllAppsEnabled" xml:space="preserve">
+    <value>Все приложения включены.</value>
+  </data>
+  <data name="Preview_MayNeedAdmin" xml:space="preserve">
+    <value>Могут понадобиться права администратора</value>
+  </data>
+  <data name="Preview_NoAdminNeeded" xml:space="preserve">
+    <value>Права администратора не нужны</value>
+  </data>
+  <data name="Preview_ThereIsNothingEnabledTo" xml:space="preserve">
+    <value>Нет включённых приложений для установки.</value>
+  </data>
+  <data name="Preview_MayNeedAdminWithWarnings" xml:space="preserve">
+    <value>Права администратора могут понадобиться: {0} · с предупреждениями: {1}</value>
+  </data>
+  <data name="Preview_CommandReviewSavedOnThis" xml:space="preserve">
+    <value>Проверка команд сохранена на этом компьютере. Список ниже обновлён.</value>
+  </data>
+  <data name="Preview_ReviewTheListThenRun" xml:space="preserve">
+    <value>Проверьте список, затем запустите пробный прогон или начните установку.</value>
+  </data>
+  <data name="Preview_CheckingEachSource" xml:space="preserve">
+    <value>Проверка каждого источника…</value>
+  </data>
+  <data name="Preview_ReadyWarningsFailed" xml:space="preserve">
+    <value>Готово: {0} · предупреждений: {1} · ошибок: {2}</value>
+  </data>
+  <data name="Preview_KnownDownload" xml:space="preserve">
+    <value> · известный объём скачивания: {0}</value>
+  </data>
+  <data name="Preview_SomeAppsCannotBeInstalled" xml:space="preserve">
+    <value>Некоторые приложения нельзя установить в текущей настройке. Ничего не установлено.</value>
+  </data>
+  <data name="Preview_DryRunCompleteNothingHas" xml:space="preserve">
+    <value>Пробный прогон завершён. Ничего не установлено.</value>
+  </data>
+  <data name="Preview_TheDryRunCouldNot" xml:space="preserve">
+    <value>Не удалось завершить пробный прогон.</value>
+  </data>
+  <data name="Preview_TheDryRunCouldNot2" xml:space="preserve">
+    <value>Не удалось завершить пробный прогон.
+
+</value>
+  </data>
+  <data name="Preview_RunTheDryRunFirst" xml:space="preserve">
+    <value>Сначала выполните пробный прогон, затем экспортируйте отчёт.</value>
+  </data>
+  <data name="Preview_NothingToExport" xml:space="preserve">
+    <value>Нечего экспортировать</value>
+  </data>
+  <data name="Preview_ReportSaved" xml:space="preserve">
+    <value>Отчёт сохранён.</value>
+  </data>
+  <data name="Preview_CouldNotSaveTheReport" xml:space="preserve">
+    <value>Не удалось сохранить отчёт.
+
+</value>
+  </data>
+  <data name="ProfileAppRow_AddedAutomaticallyAsADependency" xml:space="preserve">
+    <value>Добавлено автоматически как зависимость</value>
+  </data>
+  <data name="ProfileAppRow_Other" xml:space="preserve">
+    <value>Другое</value>
+  </data>
+  <data name="ReadinessRow_ActionNeeded" xml:space="preserve">
+    <value>Нужно действие</value>
+  </data>
+  <data name="ReadinessRow_CheckThis" xml:space="preserve">
+    <value>Проверьте</value>
+  </data>
+  <data name="ReadinessRow_LooksFine" xml:space="preserve">
+    <value>Всё в порядке</value>
+  </data>
+  <data name="Readiness_ReadyToWipe" xml:space="preserve">
+    <value>Готовы к очистке?</value>
+  </data>
+  <data name="Readiness_WhatACleanInstallWould" xml:space="preserve">
+    <value>Что удалит чистая установка. Работает локально: без сети и без телеметрии.</value>
+  </data>
+  <data name="Readiness_RunACheckToSee" xml:space="preserve">
+    <value>Запустите проверку, чтобы узнать, что будет потеряно.</value>
+  </data>
+  <data name="Readiness_NotCheckedYet" xml:space="preserve">
+    <value>Ещё не проверено</value>
+  </data>
+  <data name="Readiness_FineToCheckNeedingAction" xml:space="preserve">
+    <value>В порядке: {0} · проверить: {1} · нужно действие: {2}</value>
+  </data>
+  <data name="Readiness_HandledOrIgnored" xml:space="preserve">
+    <value> · сделано или игнорируется: {0}</value>
+  </data>
+  <data name="Readiness_Scanning" xml:space="preserve">
+    <value>Сканирование…</value>
+  </data>
+  <data name="Readiness_Scanning2" xml:space="preserve">
+    <value>Сканирование: {0} ({1}/{2})…</value>
+  </data>
+  <data name="Readiness_CheckComplete" xml:space="preserve">
+    <value>Проверка завершена.</value>
+  </data>
+  <data name="Readiness_CheckCancelled" xml:space="preserve">
+    <value>Проверка отменена.</value>
+  </data>
+  <data name="Readiness_TheCheckCouldNotFinish" xml:space="preserve">
+    <value>Не удалось завершить проверку.</value>
+  </data>
+  <data name="Readiness_TheCheckCouldNotFinish2" xml:space="preserve">
+    <value>Не удалось завершить проверку.
+
+</value>
+  </data>
+  <data name="Readiness_ReadyToWipe2" xml:space="preserve">
+    <value>Готово к очистке</value>
+  </data>
+  <data name="Readiness_EverythingOnTheListIs" xml:space="preserve">
+    <value>Всё в списке сделано или игнорируется. Сначала скопируйте на внешний носитель всё, что ещё нужно.</value>
+  </data>
+  <data name="Readiness_ReadyToWipeAllItems" xml:space="preserve">
+    <value>Готово к очистке — все пункты в порядке ({0})</value>
+  </data>
+  <data name="Readiness_ItemsYouMarkHandledOr" xml:space="preserve">
+    <value>Пункты, отмеченные как сделанные или игнорируемые, исчезают из этого списка и запоминаются на этом компьютере.</value>
+  </data>
+  <data name="Readiness_Desktop" xml:space="preserve">
+    <value>Рабочий стол</value>
+  </data>
+  <data name="Readiness_Documents" xml:space="preserve">
+    <value>Документы</value>
+  </data>
+  <data name="Readiness_Pictures" xml:space="preserve">
+    <value>Изображения</value>
+  </data>
+  <data name="Readiness_Videos" xml:space="preserve">
+    <value>Видео</value>
+  </data>
+  <data name="Readiness_Music" xml:space="preserve">
+    <value>Музыка</value>
+  </data>
+  <data name="Readiness_Drive" xml:space="preserve">
+    <value>Диск {0}</value>
+  </data>
+  <data name="ScanItem_WingetExact" xml:space="preserve">
+    <value>winget · точно</value>
+  </data>
+  <data name="ScanItem_WingetStrong" xml:space="preserve">
+    <value>winget · надёжно</value>
+  </data>
+  <data name="ScanItem_WingetReview" xml:space="preserve">
+    <value>winget · проверить</value>
+  </data>
+  <data name="ScanItem_WingetManual" xml:space="preserve">
+    <value>winget · вручную</value>
+  </data>
+  <data name="ScanItem_Unmatched" xml:space="preserve">
+    <value>Не сопоставлено</value>
+  </data>
+  <data name="ScanItem_Other" xml:space="preserve">
+    <value>Другое</value>
+  </data>
+  <data name="ScanItem_ManuallyMatchedTo" xml:space="preserve">
+    <value>Вручную сопоставлено с </value>
+  </data>
+  <data name="Scan_ScanThisPC2" xml:space="preserve">
+    <value>Сканировать этот компьютер</value>
+  </data>
+  <data name="Scan_FindInstalledProgramsAndMatch" xml:space="preserve">
+    <value>Найдите установленные программы и сопоставьте их с winget, чтобы потом восстановить эту конфигурацию.</value>
+  </data>
+  <data name="Scan_AllCategories" xml:space="preserve">
+    <value>Все категории</value>
+  </data>
+  <data name="Scan_AllApps" xml:space="preserve">
+    <value>Все приложения</value>
+  </data>
+  <data name="Scan_Matched2" xml:space="preserve">
+    <value>Сопоставленные</value>
+  </data>
+  <data name="Scan_Unmatched2" xml:space="preserve">
+    <value>Несопоставленные</value>
+  </data>
+  <data name="Scan_ReadyScanToFindInstalled" xml:space="preserve">
+    <value>Готово. Запустите сканирование, чтобы найти установленные программы.</value>
+  </data>
+  <data name="Scan_SelectedOf" xml:space="preserve">
+    <value>Выбрано {0} из {1}</value>
+  </data>
+  <data name="Scan_LookingForWingetPackages" xml:space="preserve">
+    <value>Поиск пакетов winget…</value>
+  </data>
+  <data name="Scan_Scanned" xml:space="preserve">
+    <value>Отсканировано в {0:HH:mm}</value>
+  </data>
+  <data name="Scan_FoundProgramsMatchedUnmatched" xml:space="preserve">
+    <value>Найдено программ: {0} · сопоставлено: {1} · не сопоставлено: {2}</value>
+  </data>
+  <data name="Scan_ScanCancelled" xml:space="preserve">
+    <value>Сканирование отменено.</value>
+  </data>
+  <data name="Scan_TheScanCouldNotBe" xml:space="preserve">
+    <value>Не удалось завершить сканирование.</value>
+  </data>
+  <data name="Scan_CTRLZCouldNotFinish" xml:space="preserve">
+    <value>CTRL+Z не удалось завершить сканирование этого компьютера.
+
+</value>
+  </data>
+  <data name="Scan_TickTheAppsYouWant" xml:space="preserve">
+    <value>Сначала отметьте приложения, которые хотите добавить.</value>
+  </data>
+  <data name="Scan_UseFixOnThoseRows" xml:space="preserve">
+    <value>Нажмите «Исправить» в этих строках или снимите с них отметку, затем добавьте остальные.</value>
+  </data>
+  <data name="Scan_UnmatchedApps" xml:space="preserve">
+    <value>Несопоставленные приложения</value>
+  </data>
+  <data name="Scan_NoNewAppsAddedAlready" xml:space="preserve">
+    <value>Новые приложения не добавлены (уже в профиле: {0}).</value>
+  </data>
+  <data name="Scan_AlreadyPresent" xml:space="preserve">
+    <value> · уже были: {0}.</value>
+  </data>
+  <data name="Scan_TickAtLeastOneMatched" xml:space="preserve">
+    <value>Перед сохранением профиля отметьте хотя бы одно сопоставленное приложение.</value>
+  </data>
+  <data name="Scan_SaveProfile" xml:space="preserve">
+    <value>Сохранить профиль</value>
+  </data>
+  <data name="Scan_CreateANewProfileFrom" xml:space="preserve">
+    <value>Создайте новый профиль из выбранных приложений.</value>
+  </data>
+  <data name="Scan_ProfileName" xml:space="preserve">
+    <value>Имя профиля</value>
+  </data>
+  <data name="Scan_SavedProfileWithApps" xml:space="preserve">
+    <value>Профиль «{0}» сохранён, приложений: {1}.
+
+{2}
+
+</value>
+  </data>
+  <data name="Scan_KeepThisJSONWithYour" xml:space="preserve">
+    <value>Храните этот JSON вместе с установщиком или на USB-накопителе.</value>
+  </data>
+  <data name="Scan_ProfileSaved" xml:space="preserve">
+    <value>Профиль сохранён</value>
+  </data>
+  <data name="Scan_SavedProfileWithAppsIn" xml:space="preserve">
+    <value>Профиль «{0}» сохранён в CTRL+Z, приложений: {1}.</value>
+  </data>
+  <data name="Settings_Settings" xml:space="preserve">
+    <value>Параметры</value>
+  </data>
+  <data name="Settings_ThemeLogsAndLocalData" xml:space="preserve">
+    <value>Тема, журналы и локальные данные. Всё остаётся на этом компьютере, пока вы не экспортируете это сами.</value>
+  </data>
+  <data name="Settings_LightTheme" xml:space="preserve">
+    <value>Светлая тема</value>
+  </data>
+  <data name="Settings_DarkTheme" xml:space="preserve">
+    <value>Тёмная тема</value>
+  </data>
+  <data name="Settings_FollowingWindows" xml:space="preserve">
+    <value>Как в Windows</value>
+  </data>
+  <data name="Settings_CheckingWinget" xml:space="preserve">
+    <value>Проверка winget…</value>
+  </data>
+  <data name="Settings_CTRLZ" xml:space="preserve">
+    <value>CTRL+Z {0}</value>
+  </data>
+  <data name="Settings_OnlyFullReleasesAreOffered" xml:space="preserve">
+    <value>Предлагаются только окончательные выпуски.</value>
+  </data>
+  <data name="Settings_FullReleasesAndPreReleases" xml:space="preserve">
+    <value>Предлагаются окончательные и предварительные выпуски; выбирается самый новый.</value>
+  </data>
+  <data name="Settings_LastChecked" xml:space="preserve">
+    <value>Последняя проверка: {0:yyyy-MM-dd HH:mm}</value>
+  </data>
+  <data name="Settings_NotCheckedYet" xml:space="preserve">
+    <value>Ещё не проверялось</value>
+  </data>
+  <data name="Settings_Theme2" xml:space="preserve">
+    <value>Тема: {0}.</value>
+  </data>
+  <data name="Settings_UpdateChannel" xml:space="preserve">
+    <value>Канал обновлений: {0}.</value>
+  </data>
+  <data name="Settings_CheckingForUpdates" xml:space="preserve">
+    <value>Проверка обновлений…</value>
+  </data>
+  <data name="Settings_LogRefreshed" xml:space="preserve">
+    <value>Журнал обновлён.</value>
+  </data>
+  <data name="Settings_WingetReady" xml:space="preserve">
+    <value>winget {0} · готов</value>
+  </data>
+  <data name="Settings_WingetNotFoundInstallApp" xml:space="preserve">
+    <value>winget не найден · установите App Installer, когда начнёте установку</value>
+  </data>
+  <data name="Settings_WingetCheckFailed" xml:space="preserve">
+    <value>Не удалось проверить winget: </value>
+  </data>
+  <data name="Settings_UpdateAppInstaller" xml:space="preserve">
+    <value>Обновить App Installer</value>
+  </data>
+  <data name="Settings_CTRLZWillAskMicrosoft" xml:space="preserve">
+    <value>CTRL+Z попросит менеджер пакетов Microsoft установить или обновить App Installer (winget). Может появиться запрос контроля учётных записей.</value>
+  </data>
+  <data name="Settings_UpdateWinget2" xml:space="preserve">
+    <value>Обновить winget</value>
+  </data>
+  <data name="Settings_Cancel" xml:space="preserve">
+    <value>Отмена</value>
+  </data>
+  <data name="Settings_WingetIsNotAvailable" xml:space="preserve">
+    <value>winget недоступен</value>
+  </data>
+  <data name="Settings_WingetIsReady" xml:space="preserve">
+    <value>winget готов.</value>
+  </data>
+  <data name="Settings_WingetCouldNotBeInstalled" xml:space="preserve">
+    <value>Не удалось установить winget.</value>
+  </data>
+  <data name="Settings_UpdateFailed" xml:space="preserve">
+    <value>Обновление не удалось: </value>
+  </data>
+  <data name="Settings_DiagnosticsSummaryCopiedToThe" xml:space="preserve">
+    <value>Сводка диагностики скопирована в буфер обмена. В ней только версии, переключатели и счётчики.</value>
+  </data>
+  <data name="Settings_CouldNotCopyDiagnostics" xml:space="preserve">
+    <value>Не удалось скопировать диагностику: </value>
+  </data>
+  <data name="Settings_SavingDiagnostics" xml:space="preserve">
+    <value>Сохранение диагностики…</value>
+  </data>
+  <data name="Settings_DiagnosticsSavedNothingWasSent" xml:space="preserve">
+    <value>Диагностика сохранена. Ничего не отправлено; откройте ZIP и проверьте его, прежде чем кому-то передавать.</value>
+  </data>
+  <data name="Settings_CouldNotSaveDiagnostics" xml:space="preserve">
+    <value>Не удалось сохранить диагностику.
+
+</value>
+  </data>
+  <data name="Settings_CustomFolderCTRLZDATADIR" xml:space="preserve">
+    <value>своя папка (CTRLZ_DATA_DIR)</value>
+  </data>
+  <data name="Settings_CTRLZIsReleasedUnder" xml:space="preserve">
+    <value>CTRL+Z распространяется по лицензии GNU Affero General Public License v3.0 </value>
+  </data>
+  <data name="Settings_AGPL30OnlyThe" xml:space="preserve">
+    <value>(AGPL-3.0-only). Полный текст лицензии и исходный код находятся по адресу {0}.</value>
+  </data>
+  <data name="Settings_License" xml:space="preserve">
+    <value>Лицензия</value>
+  </data>
+  <data name="Settings_CouldNotOpenTheSource" xml:space="preserve">
+    <value>Не удалось открыть ссылку на исходный код.
+
+</value>
+  </data>
+  <data name="Settings_CouldNotReadTheLog" xml:space="preserve">
+    <value>Не удалось прочитать журнал: </value>
+  </data>
+  <data name="Settings_ThatFolderDoesNotExist" xml:space="preserve">
+    <value>Этой папки пока нет.</value>
+  </data>
+  <data name="Settings_CouldNotOpenThatLocation" xml:space="preserve">
+    <value>Не удалось открыть это расположение.
+
+</value>
+  </data>
+  <data name="Tweaks_Apply" xml:space="preserve">
+    <value>Применить</value>
+  </data>
+  <data name="Tweaks_Undo" xml:space="preserve">
+    <value>Отменить</value>
+  </data>
+  <data name="Tweaks_PartlyOn" xml:space="preserve">
+    <value>Частично включено</value>
+  </data>
+  <data name="Tweaks_Off" xml:space="preserve">
+    <value>Выключено</value>
+  </data>
+  <data name="Tweaks_InYourProfile" xml:space="preserve">
+    <value> · в вашем профиле</value>
+  </data>
+  <data name="Tweaks_Tweaks" xml:space="preserve">
+    <value>Настройки Windows</value>
+  </data>
+  <data name="Tweaks_SmallWindowsSettingsToSet" xml:space="preserve">
+    <value>Небольшие настройки Windows, которые стоит вернуть после переустановки. Каждую можно отменить в точности.</value>
+  </data>
+  <data name="Tweaks_TweakNotChanged" xml:space="preserve">
+    <value>Настройка не изменена</value>
+  </data>
+  <data name="Tweaks_ApplyTweaksFromYourProfile" xml:space="preserve">
+    <value>Применить настройки из профиля</value>
+  </data>
+  <data name="Tweaks_TheseWillBeSetOn" xml:space="preserve">
+    <value>Они будут применены на этом компьютере, и каждую можно отменить здесь:
+
+</value>
+  </data>
+  <data name="Tweaks_Cancel" xml:space="preserve">
+    <value>Отмена</value>
+  </data>
+  <data name="Tweaks_AppliedNotChanged" xml:space="preserve">
+    <value>Применено: {0}; не изменено: {1}.</value>
+  </data>
+  <data name="Tweaks_RestartFileExplorer2" xml:space="preserve">
+    <value>Перезапустить Проводник</value>
+  </data>
+  <data name="Tweaks_FileExplorerAndTheTaskbar" xml:space="preserve">
+    <value>Проводник и панель задач закроются и откроются снова. Открытые окна Проводника закроются; больше ничего не затрагивается.</value>
+  </data>
+  <data name="Tweaks_RestartExplorer" xml:space="preserve">
+    <value>Перезапустить Проводник</value>
+  </data>
+  <data name="Tweaks_RestartingFileExplorer" xml:space="preserve">
+    <value>Перезапуск Проводника…</value>
+  </data>
+  <data name="Tweaks_FileExplorerRestarted" xml:space="preserve">
+    <value>Проводник перезапущен.</value>
+  </data>
+  <data name="Tweaks_FileExplorerCouldNotBe" xml:space="preserve">
+    <value>Не удалось перезапустить Проводник. Выйдите из системы и войдите снова, чтобы применить изменение.
+
+</value>
+  </data>
+  <data name="AppEditor_MicrosoftStore" xml:space="preserve">
+    <value>Microsoft Store</value>
+  </data>
+  <data name="AppEditor_GitHubRelease" xml:space="preserve">
+    <value>Выпуск на GitHub</value>
+  </data>
+  <data name="AppEditor_DirectDownloadLink" xml:space="preserve">
+    <value>Прямая ссылка для скачивания</value>
+  </data>
+  <data name="AppEditor_LocalInstallerFile" xml:space="preserve">
+    <value>Локальный файл установщика</value>
+  </data>
+  <data name="AppEditor_Installer" xml:space="preserve">
+    <value>Установщик</value>
+  </data>
+  <data name="AppEditor_PortableArchiveZIP" xml:space="preserve">
+    <value>Портативный архив (ZIP)</value>
+  </data>
+  <data name="AppEditor_PortableExecutable" xml:space="preserve">
+    <value>Портативный исполняемый файл</value>
+  </data>
+  <data name="AppEditor_NoCommand" xml:space="preserve">
+    <value>Команды нет.</value>
+  </data>
+  <data name="AppEditor_TheCommandWasNotSaved" xml:space="preserve">
+    <value>Команда не сохранена: она совпадает с опасным шаблоном и не была подтверждена.</value>
+  </data>
+  <data name="AppEditor_SelectAnInstaller" xml:space="preserve">
+    <value>Выберите установщик</value>
+  </data>
+  <data name="AppEditor_GiveTheAppAName" xml:space="preserve">
+    <value>Укажите название приложения.</value>
+  </data>
+  <data name="AppEditor_ChooseAnInstallSource" xml:space="preserve">
+    <value>Выберите источник установки.</value>
+  </data>
+  <data name="AppEditor_SHA256MustBe64" xml:space="preserve">
+    <value>SHA-256 должен состоять из 64 шестнадцатеричных символов или быть пустым.</value>
+  </data>
+  <data name="AppEditor_EnterTheWingetPackageId" xml:space="preserve">
+    <value>Введите ID пакета winget для этого источника.</value>
+  </data>
+  <data name="AppEditor_EnterAValidAbsoluteHttp" xml:space="preserve">
+    <value>Введите полный правильный URL http(s) для скачивания.</value>
+  </data>
+  <data name="AppEditor_ChooseTheLocalInstallerFile" xml:space="preserve">
+    <value>Выберите локальный файл установщика.</value>
+  </data>
+  <data name="UpdatePrompt_CTRLZPreReleaseIs" xml:space="preserve">
+    <value>Доступен CTRL+Z {0} (предварительный выпуск)</value>
+  </data>
+  <data name="UpdatePrompt_CTRLZIsAvailable" xml:space="preserve">
+    <value>Доступен CTRL+Z {0}</value>
+  </data>
+  <data name="UpdatePrompt_YouAreRunning" xml:space="preserve">
+    <value>У вас версия {0}.</value>
+  </data>
+  <data name="UpdatePrompt_NoReleaseNotesWereProvided" xml:space="preserve">
+    <value>Описание выпуска не приложено.</value>
+  </data>
+  <data name="UpdatePrompt_Close2" xml:space="preserve">
+    <value>Закрыть</value>
+  </data>
+  <data name="UpdatePrompt_Cancelling" xml:space="preserve">
+    <value>Отмена…</value>
+  </data>
+  <data name="WingetMatch_SearchingWinget" xml:space="preserve">
+    <value>Поиск в winget…</value>
+  </data>
+  <data name="WingetMatch_NoMatchesYouCanPaste" xml:space="preserve">
+    <value>Ничего не найдено. Можно вставить ID пакета вручную.</value>
+  </data>
+  <data name="WingetMatch_SearchFailed" xml:space="preserve">
+    <value>Поиск не удался: </value>
+  </data>
+  <data name="WingetMatch_SelectAResultOrPaste" xml:space="preserve">
+    <value>Выберите результат или вставьте ID пакета winget.</value>
+  </data>
+  <data name="DialogService_Ok" xml:space="preserve">
+    <value>ОК</value>
+  </data>
+  <data name="AddApp_AddAppToMyApps" xml:space="preserve">
+    <value>Добавить приложение в «Мои приложения»</value>
+  </data>
+  <data name="AddApp_AddNameToMyApps" xml:space="preserve">
+    <value>Добавить {0} в «Мои приложения»</value>
+  </data>
+  <data name="AddApp_ReleaseAssets_One" xml:space="preserve">
+    <value>{1} · {0} файл для Windows · опубликован {2:d MMM yyyy}</value>
+  </data>
+  <data name="AddApp_ReleaseAssets_Few" xml:space="preserve">
+    <value>{1} · {0} файла для Windows · опубликован {2:d MMM yyyy}</value>
+  </data>
+  <data name="AddApp_ReleaseAssets_Many" xml:space="preserve">
+    <value>{1} · {0} файлов для Windows · опубликован {2:d MMM yyyy}</value>
+  </data>
+  <data name="AddApp_ReleaseAssets_Other" xml:space="preserve">
+    <value>{1} · {0} файла для Windows · опубликован {2:d MMM yyyy}</value>
+  </data>
+  <data name="AppUpdates_WingetWillUpdate_One" xml:space="preserve">
+    <value>winget обновит приложения по очереди (всего: {0}):
+
+{1}
+
+</value>
+  </data>
+  <data name="AppUpdates_WingetWillUpdate_Other" xml:space="preserve">
+    <value>winget обновит приложения по очереди (всего: {0}):
+
+{1}
+
+</value>
+  </data>
+  <data name="AppUpdates_UpdatesAvailable_One" xml:space="preserve">
+    <value>Доступно {0} обновление приложений</value>
+  </data>
+  <data name="AppUpdates_UpdatesAvailable_Few" xml:space="preserve">
+    <value>Доступно {0} обновления приложений</value>
+  </data>
+  <data name="AppUpdates_UpdatesAvailable_Many" xml:space="preserve">
+    <value>Доступно {0} обновлений приложений</value>
+  </data>
+  <data name="AppUpdates_UpdatesAvailable_Other" xml:space="preserve">
+    <value>Доступно {0} обновления приложений</value>
+  </data>
+  <data name="BrowserItem_ProfileCount_One" xml:space="preserve">
+    <value>{0} профиль</value>
+  </data>
+  <data name="BrowserItem_ProfileCount_Few" xml:space="preserve">
+    <value>{0} профиля</value>
+  </data>
+  <data name="BrowserItem_ProfileCount_Many" xml:space="preserve">
+    <value>{0} профилей</value>
+  </data>
+  <data name="BrowserItem_ProfileCount_Other" xml:space="preserve">
+    <value>{0} профиля</value>
+  </data>
+  <data name="Browsers_DetectedCount_One" xml:space="preserve">
+    <value>Найден {0} браузер</value>
+  </data>
+  <data name="Browsers_DetectedCount_Few" xml:space="preserve">
+    <value>Найдено {0} браузера</value>
+  </data>
+  <data name="Browsers_DetectedCount_Many" xml:space="preserve">
+    <value>Найдено {0} браузеров</value>
+  </data>
+  <data name="Browsers_DetectedCount_Other" xml:space="preserve">
+    <value>Найдено {0} браузера</value>
+  </data>
+  <data name="Browsers_BackedUpCount_One" xml:space="preserve">
+    <value>Скопирован {0} браузер.</value>
+  </data>
+  <data name="Browsers_BackedUpCount_Few" xml:space="preserve">
+    <value>Скопировано {0} браузера.</value>
+  </data>
+  <data name="Browsers_BackedUpCount_Many" xml:space="preserve">
+    <value>Скопировано {0} браузеров.</value>
+  </data>
+  <data name="Browsers_BackedUpCount_Other" xml:space="preserve">
+    <value>Скопировано {0} браузера.</value>
+  </data>
+  <data name="Browsers_FoundCount_One" xml:space="preserve">
+    <value>Найден {0} браузер.</value>
+  </data>
+  <data name="Browsers_FoundCount_Few" xml:space="preserve">
+    <value>Найдено {0} браузера.</value>
+  </data>
+  <data name="Browsers_FoundCount_Many" xml:space="preserve">
+    <value>Найдено {0} браузеров.</value>
+  </data>
+  <data name="Browsers_FoundCount_Other" xml:space="preserve">
+    <value>Найдено {0} браузера.</value>
+  </data>
+  <data name="Browsers_ProfilesEstimated_One" xml:space="preserve">
+    <value>{0} профиль · примерно {1}</value>
+  </data>
+  <data name="Browsers_ProfilesEstimated_Few" xml:space="preserve">
+    <value>{0} профиля · примерно {1}</value>
+  </data>
+  <data name="Browsers_ProfilesEstimated_Many" xml:space="preserve">
+    <value>{0} профилей · примерно {1}</value>
+  </data>
+  <data name="Browsers_ProfilesEstimated_Other" xml:space="preserve">
+    <value>{0} профиля · примерно {1}</value>
+  </data>
+  <data name="Catalog_AddedApps_One" xml:space="preserve">
+    <value>{0} приложение добавлено в «{1}»</value>
+  </data>
+  <data name="Catalog_AddedApps_Few" xml:space="preserve">
+    <value>{0} приложения добавлено в «{1}»</value>
+  </data>
+  <data name="Catalog_AddedApps_Many" xml:space="preserve">
+    <value>{0} приложений добавлено в «{1}»</value>
+  </data>
+  <data name="Catalog_AddedApps_Other" xml:space="preserve">
+    <value>{0} приложения добавлено в «{1}»</value>
+  </data>
+  <data name="CommandReview_TimeoutAdmin" xml:space="preserve">
+    <value>Тайм-аут {0} с · от имени администратора</value>
+  </data>
+  <data name="CommandReview_TimeoutNoAdmin" xml:space="preserve">
+    <value>Тайм-аут {0} с · без прав администратора</value>
+  </data>
+  <data name="Drift_CheckedApps_One" xml:space="preserve">
+    <value>Проверено {0} установленное приложение.</value>
+  </data>
+  <data name="Drift_CheckedApps_Few" xml:space="preserve">
+    <value>Проверено {0} установленных приложения.</value>
+  </data>
+  <data name="Drift_CheckedApps_Many" xml:space="preserve">
+    <value>Проверено {0} установленных приложений.</value>
+  </data>
+  <data name="Drift_CheckedApps_Other" xml:space="preserve">
+    <value>Проверено {0} установленного приложения.</value>
+  </data>
+  <data name="Install_AppsNeedAttention_One" xml:space="preserve">
+    <value>Требуют внимания: {0}. Повторите, когда будете готовы.</value>
+  </data>
+  <data name="Install_AppsNeedAttention_Other" xml:space="preserve">
+    <value>Требуют внимания: {0}. Повторите, когда будете готовы.</value>
+  </data>
+  <data name="MyApps_AppCount_One" xml:space="preserve">
+    <value>{0} приложение</value>
+  </data>
+  <data name="MyApps_AppCount_Few" xml:space="preserve">
+    <value>{0} приложения</value>
+  </data>
+  <data name="MyApps_AppCount_Many" xml:space="preserve">
+    <value>{0} приложений</value>
+  </data>
+  <data name="MyApps_AppCount_Other" xml:space="preserve">
+    <value>{0} приложения</value>
+  </data>
+  <data name="MyApps_ProfileExportedWithoutNotes" xml:space="preserve">
+    <value>Профиль экспортирован без заметок.
+
+{0}
+
+</value>
+  </data>
+  <data name="MyApps_ProfileExportedTo" xml:space="preserve">
+    <value>Профиль экспортирован.
+
+{0}
+
+</value>
+  </data>
+  <data name="MyApps_AddFromList_One" xml:space="preserve">
+    <value>Добавить приложения из этого списка {1} в «{2}»? Всего: {0}.
+
+</value>
+  </data>
+  <data name="MyApps_AddFromList_Other" xml:space="preserve">
+    <value>Добавить приложения из этого списка {1} в «{2}»? Всего: {0}.
+
+</value>
+  </data>
+  <data name="MyApps_AddedFromList_One" xml:space="preserve">
+    <value>Добавлено приложений из списка {1}: {0}</value>
+  </data>
+  <data name="MyApps_AddedFromList_Other" xml:space="preserve">
+    <value>Добавлено приложений из списка {1}: {0}</value>
+  </data>
+  <data name="MyApps_SavedEnabled" xml:space="preserve">
+    <value>Сохранено · {0} включено</value>
+  </data>
+  <data name="MyApps_SavedDisabled" xml:space="preserve">
+    <value>Сохранено · {0} отключено</value>
+  </data>
+  <data name="MyApps_RiskyCommandSave" xml:space="preserve">
+    <value>Эта команда совпадает с опасным шаблоном ({0}):
+
+{1}
+
+Сохраняйте её, только если вы написали её сами и точно понимаете, что она делает.</value>
+  </data>
+  <data name="Preview_AppsInRun_One" xml:space="preserve">
+    <value>Приложений в этом запуске: {0} · </value>
+  </data>
+  <data name="Preview_AppsInRun_Other" xml:space="preserve">
+    <value>Приложений в этом запуске: {0} · </value>
+  </data>
+  <data name="Readiness_NeedAttention_One" xml:space="preserve">
+    <value>Требуют вашего внимания: {0}</value>
+  </data>
+  <data name="Readiness_NeedAttention_Other" xml:space="preserve">
+    <value>Требуют вашего внимания: {0}</value>
+  </data>
+  <data name="Readiness_Downloads" xml:space="preserve">
+    <value>Загрузки</value>
+  </data>
+  <data name="Scan_SelectedNoMatch_One" xml:space="preserve">
+    <value>Выбранных приложений без сопоставления в winget: {0}. </value>
+  </data>
+  <data name="Scan_SelectedNoMatch_Other" xml:space="preserve">
+    <value>Выбранных приложений без сопоставления в winget: {0}. </value>
+  </data>
+  <data name="Scan_AddedApps_One" xml:space="preserve">
+    <value>Добавлено приложений в {1}: {0}</value>
+  </data>
+  <data name="Scan_AddedApps_Other" xml:space="preserve">
+    <value>Добавлено приложений в {1}: {0}</value>
+  </data>
+  <data name="Tweaks_PendingFromProfile_One" xml:space="preserve">
+    <value>В профиле есть настройки, которых ещё нет на этом компьютере: {0}.</value>
+  </data>
+  <data name="Tweaks_PendingFromProfile_Other" xml:space="preserve">
+    <value>В профиле есть настройки, которых ещё нет на этом компьютере: {0}.</value>
+  </data>
+  <data name="Tweaks_AppliedFromProfile_One" xml:space="preserve">
+    <value>Применено настроек из профиля: {0}.</value>
+  </data>
+  <data name="Tweaks_AppliedFromProfile_Other" xml:space="preserve">
+    <value>Применено настроек из профиля: {0}.</value>
+  </data>
+  <data name="WingetMatch_Results_One" xml:space="preserve">
+    <value>Результатов: {0}. Выберите один и используйте этот ID.</value>
+  </data>
+  <data name="WingetMatch_Results_Other" xml:space="preserve">
+    <value>Результатов: {0}. Выберите один и используйте этот ID.</value>
+  </data>
+  <data name="App_UpdateRolledBack" xml:space="preserve">
+    <value>В прошлый раз новая версия не запустилась до конца, поэтому CTRL+Z вернулся к предыдущей версии.</value>
+  </data>
+  <data name="Readiness_NoScanSummary" xml:space="preserve">
+    <value>Проверка измеряет ваши папки и ищет то, что CTRL+Z не может скопировать. Она никогда не изменяет файлы.</value>
+  </data>
+  <data name="MyApps_ImportListHint" xml:space="preserve">
+    <value>
+
+Используйте файл, полученный командой "winget export -o apps.json", "scoop export &gt; apps.json" или "choco export".</value>
+  </data>
+  <data name="MyApps_ProfileFilter" xml:space="preserve">
+    <value>Профиль CTRL+Z (*.json)|*.json|Файлы JSON (*.json)|*.json</value>
+  </data>
+  <data name="MyApps_ExportProfileTitle" xml:space="preserve">
+    <value>Экспорт профиля</value>
+  </data>
+  <data name="MyApps_AppListFilter" xml:space="preserve">
+    <value>Списки приложений (*.json;*.config;*.txt)|*.json;*.config;*.txt|Все файлы (*.*)|*.*</value>
+  </data>
+  <data name="AddApp_InstallerFilter" xml:space="preserve">
+    <value>Установщики и архивы (*.exe;*.msi;*.msix;*.appx;*.zip)|*.exe;*.msi;*.msix;*.appx;*.zip|Все файлы (*.*)|*.*</value>
+  </data>
+  <data name="AppUpdates_UpdateSelectedApps" xml:space="preserve">
+    <value>Обновить выбранные приложения</value>
+  </data>
+  <data name="AppUpdates_UpdateAllApps" xml:space="preserve">
+    <value>Обновить все приложения</value>
+  </data>
+  <data name="AppUpdates_UnknownVersion" xml:space="preserve">
+    <value>неизвестно</value>
+  </data>
+  <data name="Preview_SaveReportTitle" xml:space="preserve">
+    <value>Сохранить отчёт пробного прогона</value>
+  </data>
+  <data name="Preview_ReportFilter" xml:space="preserve">
+    <value>Текстовый файл (*.txt)|*.txt</value>
+  </data>
+  <data name="Scan_ExportProfileTitle" xml:space="preserve">
+    <value>Экспорт переносимого профиля</value>
+  </data>
+  <data name="Settings_SaveDiagnosticsTitle" xml:space="preserve">
+    <value>Сохранить диагностику</value>
+  </data>
+  <data name="Settings_DiagnosticsFilter" xml:space="preserve">
+    <value>Архив ZIP (*.zip)|*.zip</value>
+  </data>
+  <data name="AppEditor_InstallerFilter" xml:space="preserve">
+    <value>Установщики (*.exe;*.msi;*.msix;*.appx;*.zip)|*.exe;*.msi;*.msix;*.appx;*.zip|Все файлы (*.*)|*.*</value>
+  </data>
+  <data name="Settings_Language" xml:space="preserve">
+    <value>Язык</value>
+  </data>
+  <data name="Settings_LanguageWindowsDefault" xml:space="preserve">
+    <value>Как в Windows</value>
+  </data>
+  <data name="Settings_LanguageNote" xml:space="preserve">
+    <value>Новый язык будет использоваться при следующем запуске CTRL+Z.</value>
+  </data>
+  <data name="Settings_LanguageRestart" xml:space="preserve">
+    <value>Выбран язык: {0}. Перезапустите CTRL+Z, чтобы он применился.</value>
+  </data>
+  <data name="Tweaks_RowOn" xml:space="preserve">
+    <value>{0}: включено.</value>
+  </data>
+  <data name="Tweaks_RowUndone" xml:space="preserve">
+    <value>{0}: отменено.</value>
+  </data>
+  <data name="AppUpdates_PinnedCount" xml:space="preserve">
+    <value> (закреплено: {0})</value>
+  </data>
+  <data name="Browsers_EstimateFiles_One" xml:space="preserve">
+    <value>{1} · {0} файл</value>
+  </data>
+  <data name="Browsers_EstimateFiles_Few" xml:space="preserve">
+    <value>{1} · {0} файла</value>
+  </data>
+  <data name="Browsers_EstimateFiles_Many" xml:space="preserve">
+    <value>{1} · {0} файлов</value>
+  </data>
+  <data name="Browsers_EstimateFiles_Other" xml:space="preserve">
+    <value>{1} · {0} файла</value>
+  </data>
+  <data name="Drift_IgnoredInParens" xml:space="preserve">
+    <value> (игнорируется: {0}).</value>
+  </data>
+  <data name="Drift_IgnoredCount" xml:space="preserve">
+    <value> · игнорируется: {0}</value>
+  </data>
+  <data name="Main_ProfileLabel_One" xml:space="preserve">
+    <value>{1} · {0} приложение</value>
+  </data>
+  <data name="Main_ProfileLabel_Few" xml:space="preserve">
+    <value>{1} · {0} приложения</value>
+  </data>
+  <data name="Main_ProfileLabel_Many" xml:space="preserve">
+    <value>{1} · {0} приложений</value>
+  </data>
+  <data name="Main_ProfileLabel_Other" xml:space="preserve">
+    <value>{1} · {0} приложения</value>
+  </data>
+  <data name="Scan_AppCount_One" xml:space="preserve">
+    <value>{0} приложение</value>
+  </data>
+  <data name="Scan_AppCount_Few" xml:space="preserve">
+    <value>{0} приложения</value>
+  </data>
+  <data name="Scan_AppCount_Many" xml:space="preserve">
+    <value>{0} приложений</value>
+  </data>
+  <data name="Scan_AppCount_Other" xml:space="preserve">
+    <value>{0} приложения</value>
+  </data>
+  <data name="Catalog_SelectedCount" xml:space="preserve">
+    <value>Выбрано: {0}</value>
+  </data>
+  <data name="AddApp_InspectToPreviewCommand" xml:space="preserve">
+    <value>Проверьте установщик, чтобы увидеть команду.</value>
+  </data>
+</root>
