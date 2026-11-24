@@ -17,18 +17,18 @@ promise of a date, and a section can be reordered if a bug matters more.
 
 - [x] **0. Self-update and tag-driven releases** - done, shipped in v1.2.0
 - [x] **1. Safety checks before a wipe** - done, shipped in v1.3.0
-- [x] **2. Install improvements** - done, shipping in v1.4.0
-- [x] **3. App updates through winget** - done, shipping in v1.4.0
-- [x] **4. Reliability and security** - done, shipping in v1.4.0 (ARM64 builds deferred)
+- [x] **2. Install improvements** - done, shipped in v1.4.0
+- [x] **3. App updates through winget** - done, shipped in v1.4.0
+- [x] **4. Reliability and security** - done, shipped in v1.4.0 (ARM64 builds deferred)
 - [ ] **5. Foundation for optional extras** - planned
-- [x] **6. UI polish and motion** - done, shipping in v1.4.0
-- [x] **7. Onboarding and sharing profiles** - done, shipping in v1.4.0
+- [x] **6. UI polish and motion** - done, shipped in v1.4.0
+- [x] **7. Onboarding and sharing profiles** - done, shipped in v1.4.0
 - [ ] **8. Release and distribution** - planned
 - [ ] **9. Optional extra: scheduled and local backups** - planned
 - [ ] **10. Optional extra: settings backup** - planned
 - [ ] **11. Optional extras: availability** - planned
 - [ ] **12. Optional extra: encrypted backup off this PC** - later
-- [x] **13. Post-install tweaks** - done, shipping in v1.4.0
+- [x] **13. Post-install tweaks** - done, shipped in v1.4.0
 
 Optional extras planned (sections 9 to 12). The free app stays local, complete and useful on its
 own, and everything free today stays free.
@@ -150,8 +150,7 @@ itself, smaller artifacts, a proper uninstall path, and a short demo.
   every pull request.
 - [ ] **C. Code signing.** Later.
 - [ ] **D. A winget listing for CTRL+Z.** The manifests are ready: `build/winget-manifest.ps1 -Tag vX.Y.Z`
-  writes them from a published release (they pass `winget validate`). They are submitted to
-  winget-pkgs after the next stable release.
+  writes them from a published release (they pass `winget validate`). v1.4.0 is the first stable release they can be submitted for.
 - [x] **E. A short demo.** A short animated tour at the top of the README, recorded in Windows
   Sandbox with a sample profile, so it shows no personal data.
 
