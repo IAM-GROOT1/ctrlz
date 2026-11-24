@@ -74,6 +74,9 @@ Filename: "{app}\{#MyAppExeName}"; Description: "{cm:LaunchProgram,{#StringChang
 [UninstallDelete]
 ; User data under LocalAppData\CTRL+Z is kept unless the user chooses to delete it (see [Code]).
 Type: filesandordirs; Name: "{app}\Data"
+; Rollback copies an update keeps beside the app until the new version has started twice.
+Type: files; Name: "{app}\*.old"
+Type: files; Name: "{app}\*.failed"
 
 [Code]
 var

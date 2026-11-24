@@ -194,8 +194,12 @@ A stronger design would:
   launches. If a later start of the new build never shows its window, the next start puts the
   previous build back and opens it, with a message saying why. The logic lives in
   `src/CtrlZ.Core/Updates/UpdateProbation.cs`. It applies to updates made *from* this version
-  onward, because the update helper is a copy of the version being replaced. Installed copies
-  are unchanged (the installer replaces them).
+  onward, because the update helper is a copy of the version being replaced.
+- [x] **Done for installed copies.** Before the Setup runs, the helper copies the installed
+  `CTRL+Z.exe` (and `ctrlz.exe`) to `.old`, then watches the new build the same way and restores
+  the copy if it fails to start. If the install folder cannot be written (a machine-wide install
+  updated without administrator rights), the update runs as before, without a rollback copy. The
+  uninstaller removes any leftover `.old` or `.failed` file.
 
 ## Keeping this in sync
 

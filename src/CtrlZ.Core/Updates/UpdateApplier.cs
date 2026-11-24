@@ -14,9 +14,10 @@ namespace CtrlZ.Core.Updates;
 /// If it exits first, the backup is restored. The backup is kept until the new build has shown
 /// its window on <see cref="UpdateProbation.LaunchesToCommit"/> launches (see
 /// <see cref="UpdateProbation"/>), so a build that fails on a later start can still be rolled
-/// back. Installed copies run the new
-/// Setup.exe silently and are relaunched by this helper, because the installer's
-/// <c>[Run]</c> entry is skipped in silent mode.
+/// back. Installed copies run the new Setup.exe silently and are relaunched by this helper,
+/// because the installer's <c>[Run]</c> entry is skipped in silent mode. Before the installer
+/// runs, the current exe is copied to <c>.old</c>, so the same probation can put it back if the
+/// new build fails to start.
 /// </para>
 /// </summary>
 public sealed class UpdateApplier
@@ -184,9 +185,15 @@ public sealed class UpdateApplier
             WorkingDirectory = Path.GetDirectoryName(request.DownloadedFile) ?? Environment.CurrentDirectory
         };
 
+        // A copy of the current build, so a new version that fails to start can be undone the same
+        // way as a portable update. Copied, not moved: the installer replaces the files in place.
+        var target = request.TargetExe;
+        var backedUp = TryKeepInstalledBuild(target, out var companionBackedUp);
+
         using var installer = Process.Start(startInfo);
         if (installer is null)
         {
+            DropInstalledBackup(target, companionBackedUp);
             return UpdateApplyResult.Failed("The installer could not be started. Your previous version is still installed.");
         }
 
@@ -194,13 +201,130 @@ public sealed class UpdateApplier
 
         if (installer.ExitCode != 0)
         {
+            // Inno Setup undoes its own changes when it fails, so the copy is not needed.
+            DropInstalledBackup(target, companionBackedUp);
             _log.Write(LogLevel.Error, $"The installer exited with code {installer.ExitCode}.");
             return UpdateApplyResult.Failed(
                 $"The installer reported an error (code {installer.ExitCode}). Your previous version is still installed.");
         }
 
-        TryStart(request.TargetExe);
+        if (!backedUp)
+        {
+            TryStart(target);
+            return UpdateApplyResult.Ok(request.Version);
+        }
+
+        try
+        {
+            _probation.Begin(target, request.Version, companionBackedUp);
+        }
+        catch (Exception ex)
+        {
+            // The update itself succeeded; it just cannot be watched. Keep it, drop the copy.
+            _log.Write(LogLevel.Warning, "Could not record the update probation; the new version is kept without a rollback copy.", ex);
+            DropInstalledBackup(target, companionBackedUp);
+            TryStart(target);
+            return UpdateApplyResult.Ok(request.Version);
+        }
+
+        var started = TryStart(target);
+        if (started is null)
+        {
+            _probation.Clear();
+            RestoreInstalled(target, companionBackedUp);
+            return UpdateApplyResult.Failed("The new version could not be started. The previous version was restored.");
+        }
+
+        var health = await WaitForMainWindowAsync(started, LoadWindow, cancellationToken).ConfigureAwait(false);
+        if (health == StartupHealth.Exited)
+        {
+            _log.Write(LogLevel.Error, "The updated build exited before showing its main window; rolling back.");
+            try
+            {
+                if (!started.HasExited)
+                {
+                    started.Kill(entireProcessTree: true);
+                }
+            }
+            catch
+            {
+                // Already gone.
+            }
+
+            _probation.Clear();
+            RestoreInstalled(target, companionBackedUp);
+            return UpdateApplyResult.Failed(
+                "The new version closed unexpectedly, so CTRL+Z rolled back to the previous version.");
+        }
+
+        _log.Write(LogLevel.Info, health == StartupHealth.Loaded
+            ? $"Update to {request.Version} showed its main window; the previous build is kept until it has loaded {UpdateProbation.LaunchesToCommit} times."
+            : $"Update to {request.Version} is still starting after {LoadWindow.TotalSeconds:0} s; its next start decides whether to keep it.");
         return UpdateApplyResult.Ok(request.Version);
+    }
+
+    /// <summary>
+    /// Copies the installed <c>CTRL+Z.exe</c> (and <c>ctrlz.exe</c> when present) to <c>.old</c>
+    /// beside it. Returns false when the folder cannot be written, for example a machine-wide
+    /// install updated without administrator rights; the update then runs without a rollback copy.
+    /// </summary>
+    private bool TryKeepInstalledBuild(string? target, out bool companionBackedUp)
+    {
+        companionBackedUp = false;
+        if (string.IsNullOrWhiteSpace(target) || !File.Exists(target))
+        {
+            return false;
+        }
+
+        try
+        {
+            File.Copy(target, UpdateProbation.BackupPath(target), overwrite: true);
+        }
+        catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
+        {
+            _log.Write(LogLevel.Warning, $"No rollback copy of the installed build could be made: {LogPrivacy.Describe(ex)}");
+            return false;
+        }
+
+        var companion = UpdateProbation.CompanionPath(target);
+        if (File.Exists(companion))
+        {
+            try
+            {
+                File.Copy(companion, UpdateProbation.BackupPath(companion), overwrite: true);
+                companionBackedUp = true;
+            }
+            catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
+            {
+                _log.Write(LogLevel.Warning, $"No rollback copy of the command line could be made: {LogPrivacy.Describe(ex)}");
+            }
+        }
+
+        return true;
+    }
+
+    private void RestoreInstalled(string target, bool companionBackedUp)
+    {
+        Restore(UpdateProbation.BackupPath(target), target);
+        if (companionBackedUp)
+        {
+            var companion = UpdateProbation.CompanionPath(target);
+            Restore(UpdateProbation.BackupPath(companion), companion);
+        }
+    }
+
+    private static void DropInstalledBackup(string? target, bool companionBackedUp)
+    {
+        if (string.IsNullOrWhiteSpace(target))
+        {
+            return;
+        }
+
+        TryDelete(UpdateProbation.BackupPath(target));
+        if (companionBackedUp)
+        {
+            TryDelete(UpdateProbation.BackupPath(UpdateProbation.CompanionPath(target)));
+        }
     }
 
     /// <summary>Starts an executable detached; returns null when it could not be started.</summary>

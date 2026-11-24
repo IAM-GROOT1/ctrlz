@@ -10,7 +10,7 @@ using CtrlZ.Core.Logging;
 namespace CtrlZ.Core.Updates;
 
 /// <summary>
-/// A portable update that has not yet proved itself; stored as state/update-probation.json.
+/// An update (portable or installed) that has not yet proved itself; stored as state/update-probation.json.
 /// <para>
 /// The record holds no file paths CTRL+Z acts on. The previous build and the command line are
 /// always found beside the running exe (<c>CTRL+Z.exe.old</c>, <c>ctrlz.exe</c>,
@@ -52,7 +52,7 @@ public enum ProbationStartup
 }
 
 /// <summary>
-/// Keeps the previous portable build until the new one has shown its main window on
+/// Keeps the previous build until the new one has shown its main window on
 /// <see cref="LaunchesToCommit"/> launches. A launch that starts but never shows its window is
 /// noticed on the next start, which puts the previous build back.
 /// </summary>
