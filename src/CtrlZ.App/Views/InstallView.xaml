@@ -246,7 +246,7 @@
                         <StackPanel Orientation="Horizontal">
                             <TextBlock Text="{l:Tr Install_LIVELOG}" Style="{StaticResource Text.NavSection}" Margin="0" />
                             <TextBlock Text="{Binding LogPath}" Style="{StaticResource Text.Caption}"
-                                       FontFamily="{StaticResource Font.Mono}" FontSize="9.5" Margin="10,0,0,0"
+                                       FontFamily="{StaticResource Font.Mono}" FlowDirection="LeftToRight" FontSize="9.5" Margin="10,0,0,0"
                                        TextTrimming="CharacterEllipsis" MaxWidth="470" />
                         </StackPanel>
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
@@ -265,7 +265,8 @@
                          ScrollViewer.VerticalScrollBarVisibility="Auto" VirtualizingPanel.IsVirtualizing="True">
                     <ListBox.ItemTemplate>
                         <DataTemplate>
-                            <TextBlock Text="{Binding}" FontFamily="{StaticResource Font.Mono}" FontSize="10.5"
+                            <!-- Install messages are translated, so they follow the language direction. -->
+                            <TextBlock Text="{Binding}" FontFamily="{StaticResource Font.Mono}" FlowDirection="{x:Static l:AppLanguage.FlowDirection}" FontSize="10.5"
                                        Foreground="{DynamicResource Brush.TextSecondary}" TextWrapping="NoWrap" />
                         </DataTemplate>
                     </ListBox.ItemTemplate>

@@ -11,6 +11,7 @@ using CommunityToolkit.Mvvm.Input;
 using CtrlZ.App.Services;
 using CtrlZ.App.Views;
 using CtrlZ.Core.Install;
+using CtrlZ.Core.Localization;
 using CtrlZ.Core.Models;
 using CtrlZ.Core.Services;
 
@@ -418,7 +419,7 @@ public sealed partial class MyAppsViewModel : PageViewModelBase
     /// <summary>Second, explicit confirmation before a risky command is saved.</summary>
     private bool ConfirmRiskyCommand(PostInstallCommand command) => _dialogs.Confirm(
         Loc.Get("MyApps_SaveARiskyCommand"),
-        Loc.Format("MyApps_RiskyCommandSave", string.Join(", ", PostInstallCommandRisk.Scan(command)), command.Describe()),
+        Loc.Format("MyApps_RiskyCommandSave", string.Join(", ", PostInstallCommandRisk.Scan(command)), CoreText.LeftToRight(command.Describe())),
         Loc.Get("MyApps_SaveRiskyCommand"),
         Loc.Get("MyApps_GoBack"),
         danger: true);

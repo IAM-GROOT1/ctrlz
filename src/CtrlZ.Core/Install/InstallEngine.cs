@@ -126,7 +126,7 @@ public sealed partial class InstallEngine
         if (profile is null)
         {
             throw new InvalidOperationException(
-                "The saved profile for this install session is missing. Start a new install from My Apps.");
+                CoreText.Get("InstallEngine_ProfileMissing"));
         }
 
         using var sessionLog = new SessionLog(_paths, state, _log, sink);

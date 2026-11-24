@@ -1,0 +1,1291 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AppUpdates_UpdatedTo" xml:space="preserve">
+    <value>تم التحديث إلى {0}.</value>
+  </data>
+  <data name="AppUpdates_UpdatedRestartWindowsToFinish" xml:space="preserve">
+    <value>تم التحديث؛ أعد تشغيل Windows للإنهاء.</value>
+  </data>
+  <data name="AppUpdates_AlreadyUpToDate" xml:space="preserve">
+    <value>محدَّث بالفعل.</value>
+  </data>
+  <data name="AppUpdates_WingetCouldNotUpdateIt" xml:space="preserve">
+    <value>تعذّر على winget تحديثه (الرمز 0x{0:X8}).</value>
+  </data>
+  <data name="AppUpdates_NotStartedCancelled" xml:space="preserve">
+    <value>لم يبدأ: أُلغي.</value>
+  </data>
+  <data name="AppUpdates_StoppedCancelled" xml:space="preserve">
+    <value>توقف: أُلغي.</value>
+  </data>
+  <data name="AppUpdates_CouldNotStartWinget" xml:space="preserve">
+    <value>تعذّر بدء تشغيل winget: </value>
+  </data>
+  <data name="CommandPreview_WarningRiskyPattern" xml:space="preserve">
+    <value> - تحذير: نمط خطِر</value>
+  </data>
+  <data name="CommandStateResolver_RunsAfterInstall" xml:space="preserve">
+    <value>يعمل بعد التثبيت</value>
+  </data>
+  <data name="CommandStateResolver_ApprovedRunsAfterInstall" xml:space="preserve">
+    <value>موافَق عليه - يعمل بعد التثبيت</value>
+  </data>
+  <data name="CommandStateResolver_EditedSinceApprovalNeedsReview" xml:space="preserve">
+    <value>عُدّل منذ الموافقة - يحتاج إلى مراجعة</value>
+  </data>
+  <data name="CommandStateResolver_BlockedImportedProfileReviewRequired" xml:space="preserve">
+    <value>محظور - ملف تعريف مستورد، تلزم المراجعة</value>
+  </data>
+  <data name="CommandStateResolver_WarningRiskyPattern" xml:space="preserve">
+    <value> - تحذير: نمط خطِر</value>
+  </data>
+  <data name="DirectUrlSourceInstaller_ThisAppHasNoDownload" xml:space="preserve">
+    <value>لا يحتوي هذا التطبيق على رابط تنزيل. عدّله في «تطبيقاتي».</value>
+  </data>
+  <data name="DirectUrlSourceInstaller_DownloadingInstaller" xml:space="preserve">
+    <value>جارٍ تنزيل المثبّت…</value>
+  </data>
+  <data name="DirectUrlSourceInstaller_SHA256VerificationFailed" xml:space="preserve">
+    <value>فشل التحقق من SHA-256.</value>
+  </data>
+  <data name="DirectUrlSourceInstaller_DownloadFailed" xml:space="preserve">
+    <value>فشل التنزيل: {0}</value>
+  </data>
+  <data name="GitHubSourceInstaller_ThisAppHasNoGitHub" xml:space="preserve">
+    <value>لم يُضبط مستودع GitHub لهذا التطبيق.</value>
+  </data>
+  <data name="GitHubSourceInstaller_CheckingTheLatestGitHubRelease" xml:space="preserve">
+    <value>جارٍ التحقق من أحدث إصدار على GitHub…</value>
+  </data>
+  <data name="GitHubSourceInstaller_ResolvingLatestReleaseFor" xml:space="preserve">
+    <value>جارٍ تحديد أحدث إصدار لـ {0}…</value>
+  </data>
+  <data name="GitHubSourceInstaller_NoDownloadableWindowsAssetWas" xml:space="preserve">
+    <value>لم يُعثر على ملف قابل للتنزيل لنظام Windows في {0}. افتح {1} وأضف رابطًا مباشرًا بدلاً من ذلك.</value>
+  </data>
+  <data name="GitHubSourceInstaller_ReleaseDownloading" xml:space="preserve">
+    <value>الإصدار {0}: جارٍ تنزيل {1} ({2}).</value>
+  </data>
+  <data name="GitHubSourceInstaller_SHA256ForTakenFrom" xml:space="preserve">
+    <value>أُخذ SHA-256 الخاص بـ {0} من {1} في الإصدار.</value>
+  </data>
+  <data name="GitHubSourceInstaller_TheReleaseSChecksumFile" xml:space="preserve">
+    <value>ملف المجاميع الاختبارية للإصدار غير متسق.</value>
+  </data>
+  <data name="GitHubSourceInstaller_TheSavedSHA256Does" xml:space="preserve">
+    <value>لا يطابق SHA-256 المحفوظ أحدث إصدار على GitHub. راجع بيانات التطبيق.</value>
+  </data>
+  <data name="GitHubSourceInstaller_ThisReleasePublishesNoSHA" xml:space="preserve">
+    <value>لا ينشر هذا الإصدار SHA-256 للملف؛ لذا لا يمكن التحقق من سلامته مقابل بصمة منشورة. أضف SHA-256 إلى بيانات التطبيق لتثبيت قيمته المتوقعة.</value>
+  </data>
+  <data name="GitHubSourceInstaller_Downloading" xml:space="preserve">
+    <value>جارٍ تنزيل {0}…</value>
+  </data>
+  <data name="GitHubSourceInstaller_AssetIsAZIPCTRL" xml:space="preserve">
+    <value>الملف أرشيف ZIP؛ سيبحث CTRL+Z عن مثبّت مضمَّن فيه.</value>
+  </data>
+  <data name="GitHubSourceInstaller_SHA256VerificationFailed" xml:space="preserve">
+    <value>فشل التحقق من SHA-256.</value>
+  </data>
+  <data name="GitHubSourceInstaller_GitHubInstallFailed" xml:space="preserve">
+    <value>فشل التثبيت من GitHub: {0}</value>
+  </data>
+  <data name="InstallEngine_CTRLZInstallSessionProfile" xml:space="preserve">
+    <value>جلسة تثبيت CTRL+Z · ملف التعريف '{0}' · التطبيقات: {1}</value>
+  </data>
+  <data name="InstallEngine_CheckingWingetAvailability" xml:space="preserve">
+    <value>جارٍ التحقق من توفر winget…</value>
+  </data>
+  <data name="InstallEngine_WingetIsNotReady" xml:space="preserve">
+    <value>winget غير جاهز: </value>
+  </data>
+  <data name="InstallEngine_AlreadyComplete" xml:space="preserve">
+    <value>مكتمل بالفعل.</value>
+  </data>
+  <data name="InstallEngine_SkippingFailedAppUseRetry" xml:space="preserve">
+    <value>تخطي التطبيق الفاشل '{0}' (استخدم «إعادة محاولة الفاشلة» للمحاولة مرة أخرى).</value>
+  </data>
+  <data name="InstallEngine_RemovedFromTheProfile" xml:space="preserve">
+    <value>أُزيل من ملف التعريف.</value>
+  </data>
+  <data name="InstallEngine_NeedsWhichDidNotInstall" xml:space="preserve">
+    <value>يحتاج إلى {0}، الذي لم يُثبَّت.</value>
+  </data>
+  <data name="InstallEngine_NoInstallerIsAvailableFor" xml:space="preserve">
+    <value>لا يتوفر مثبّت لـ {0}.</value>
+  </data>
+  <data name="InstallEngine_Starting" xml:space="preserve">
+    <value>جارٍ البدء ({0}/{1})…</value>
+  </data>
+  <data name="InstallEngine_RestartRequired" xml:space="preserve">
+    <value>يلزم إعادة التشغيل.</value>
+  </data>
+  <data name="InstallEngine_InstalledARestartIsRequired" xml:space="preserve">
+    <value>[{0}] مثبّت؛ يلزم إعادة التشغيل.</value>
+  </data>
+  <data name="InstallEngine_NeedsManualAction" xml:space="preserve">
+    <value>[{0}] يحتاج إلى إجراء يدوي: {1}</value>
+  </data>
+  <data name="InstallEngine_Failed" xml:space="preserve">
+    <value>[{0}] فشل: {1}</value>
+  </data>
+  <data name="InstallEngine_Paused" xml:space="preserve">
+    <value>متوقف مؤقتًا.</value>
+  </data>
+  <data name="InstallEngine_InstallationPaused" xml:space="preserve">
+    <value>[{0}] التثبيت متوقف مؤقتًا.</value>
+  </data>
+  <data name="InstallEngine_UnexpectedFailure" xml:space="preserve">
+    <value>[{0}] فشل غير متوقع: {1}</value>
+  </data>
+  <data name="InstallEngine_InstalledCommandNotRun" xml:space="preserve">
+    <value>مثبّت؛ لم يُشغَّل الأمر ({0}).</value>
+  </data>
+  <data name="InstallEngine_PostInstallCommandNotRun" xml:space="preserve">
+    <value>[{0}] لم يُشغَّل أمر ما بعد التثبيت: {1}</value>
+  </data>
+  <data name="InstallEngine_InstalledPostInstallCommandOk" xml:space="preserve">
+    <value>مثبّت؛ نجح أمر ما بعد التثبيت.</value>
+  </data>
+  <data name="InstallEngine_PostInstallCommandOk" xml:space="preserve">
+    <value>[{0}] نجح أمر ما بعد التثبيت.</value>
+  </data>
+  <data name="InstallEngine_PostInstallCommandTimedOut" xml:space="preserve">
+    <value>انتهت مهلة أمر ما بعد التثبيت.</value>
+  </data>
+  <data name="InstallEngine_PostInstallCommandFailed" xml:space="preserve">
+    <value>فشل أمر ما بعد التثبيت ({0}).</value>
+  </data>
+  <data name="InstallEngine_InstalledPostInstallFailed" xml:space="preserve">
+    <value>مثبّت، لكن فشلت خطوة ما بعد التثبيت.</value>
+  </data>
+  <data name="InstallEngine_InstalledPostInstallFailed2" xml:space="preserve">
+    <value>[{0}] مثبّت، لكن فشلت خطوة ما بعد التثبيت ({1}).</value>
+  </data>
+  <data name="InstallEngine_FinishedCompleteNeedAttention" xml:space="preserve">
+    <value>انتهى: {0} اكتمل، {1} يحتاج إلى انتباه.</value>
+  </data>
+  <data name="InstallEngine_OneOrMoreInstallersRequested" xml:space="preserve">
+    <value>طلب مثبّت واحد أو أكثر إعادة التشغيل. أعد تشغيل Windows متى ناسبك.</value>
+  </data>
+  <data name="InstallEngine_NotInTheActiveProfile" xml:space="preserve">
+    <value>ليس في ملف التعريف النشط.</value>
+  </data>
+  <data name="InstallOrderPlanner_IsSetToInstallAfter" xml:space="preserve">
+    <value>{0} مضبوط ليُثبَّت بعد '{1}'، وهو ليس ضمن هذا التشغيل.</value>
+  </data>
+  <data name="InstallOrderPlanner_ItIsPartOfAn" xml:space="preserve">
+    <value>إنه جزء من حلقة في ترتيب التثبيت.</value>
+  </data>
+  <data name="InstallOrderPlanner_NeedsWhichFailedToInstall" xml:space="preserve">
+    <value>يحتاج إلى {0}، الذي فشل تثبيته.</value>
+  </data>
+  <data name="InstallOrderPlanner_NeedsWhichWillNotInstall" xml:space="preserve">
+    <value>يحتاج إلى {0}، الذي لن يُثبَّت.</value>
+  </data>
+  <data name="LocalFileSourceInstaller_NoLocalInstallerPathIs" xml:space="preserve">
+    <value>لم يُضبط مسار مثبّت محلي.</value>
+  </data>
+  <data name="LocalFileSourceInstaller_TheInstallerWasNotFound" xml:space="preserve">
+    <value>لم يُعثر على المثبّت في {0}. أعد توصيل محرك USB أو حدّث المسار.</value>
+  </data>
+  <data name="LocalFileSourceInstaller_SHA256VerificationFailed" xml:space="preserve">
+    <value>فشل التحقق من SHA-256.</value>
+  </data>
+  <data name="LocalFileSourceInstaller_LocalInstallerHashMismatchExpected" xml:space="preserve">
+    <value>بصمة المثبّت المحلي غير مطابقة. المتوقع {0}، والفعلي {1}.</value>
+  </data>
+  <data name="LocalFileSourceInstaller_LocalInstallerSHA256Verified" xml:space="preserve">
+    <value>تم التحقق من SHA-256 للمثبّت المحلي.</value>
+  </data>
+  <data name="PostInstallCommandForm_EnterTheProgramToRun" xml:space="preserve">
+    <value>أدخل البرنامج المراد تشغيله، أو امسح الوسائط لإزالة الأمر.</value>
+  </data>
+  <data name="PostInstallCommandForm_TheProgramMustBeOn" xml:space="preserve">
+    <value>يجب أن يكون البرنامج في سطر واحد. ضع كل وسيطة في سطرها الخاص أدناه.</value>
+  </data>
+  <data name="PostInstallCommandForm_TimeoutMustBeAWhole" xml:space="preserve">
+    <value>يجب أن تكون المهلة عددًا صحيحًا من الثواني بين {0} و{1}.</value>
+  </data>
+  <data name="PostInstallCommandForm_WorkingDirectoryMustBeA" xml:space="preserve">
+    <value>يجب أن يكون مجلد العمل مسارًا كاملاً، مثل C:\Tools، أو أن يُترك فارغًا.</value>
+  </data>
+  <data name="PostInstallCommandGate_ThisCommandChangedAfterIt" xml:space="preserve">
+    <value>تغيّر هذا الأمر بعد الموافقة عليه. راجعه مرة أخرى لتفعيله.</value>
+  </data>
+  <data name="PostInstallCommandGate_ThisProfileCameFromOutside" xml:space="preserve">
+    <value>جاء ملف التعريف هذا من خارج هذا الكمبيوتر. راجع الأمر لتفعيله.</value>
+  </data>
+  <data name="PostInstallCommandGate_ThisProfileHasNoLocal" xml:space="preserve">
+    <value>لا يحتوي ملف التعريف هذا على سجل منشأ محلي، لذا تبقى أوامره معطّلة.</value>
+  </data>
+  <data name="PostInstallCommandGate_DisabledInTheProfile" xml:space="preserve">
+    <value>معطّل في ملف التعريف.</value>
+  </data>
+  <data name="PostInstallCommandGate_ApprovedForThisProfileBut" xml:space="preserve">
+    <value>موافَق عليه لملف التعريف هذا، لكنه يطابق نمطًا خطِرًا.</value>
+  </data>
+  <data name="PostInstallCommandGate_ReviewedAndApprovedForThis" xml:space="preserve">
+    <value>تمت مراجعته والموافقة عليه لملف التعريف هذا.</value>
+  </data>
+  <data name="PostInstallCommandGate_MatchesARiskyPatternNeeds" xml:space="preserve">
+    <value>يطابق نمطًا خطِرًا؛ يحتاج إلى تأكيد مشدَّد في كل تشغيل.</value>
+  </data>
+  <data name="PostInstallCommandGate_LocalProfileCommand" xml:space="preserve">
+    <value>أمر من ملف تعريف محلي.</value>
+  </data>
+  <data name="PostInstallCommandRisk_DownloadsAndRunsRemoteContent" xml:space="preserve">
+    <value>يُنزّل محتوى بعيدًا ويشغّله</value>
+  </data>
+  <data name="PostInstallCommandRisk_RunsAnEncodedOrHidden" xml:space="preserve">
+    <value>يشغّل أمرًا مرمَّزًا أو مخفيًا</value>
+  </data>
+  <data name="PostInstallCommandRisk_DeletesOrWritesOutsideYour" xml:space="preserve">
+    <value>يحذف أو يكتب خارج مجلداتك</value>
+  </data>
+  <data name="PostInstallCommandRisk_ChangesTheRegistryServicesOr" xml:space="preserve">
+    <value>يغيّر السجل أو الخدمات أو المهام المجدولة</value>
+  </data>
+  <data name="PostInstallCommandRisk_ChangesStartupEntries" xml:space="preserve">
+    <value>يغيّر عناصر بدء التشغيل</value>
+  </data>
+  <data name="PostInstallCommandRisk_WeakensSecuritySettings" xml:space="preserve">
+    <value>يُضعف إعدادات الأمان</value>
+  </data>
+  <data name="PostInstallConsent_RunPostInstallCommands" xml:space="preserve">
+    <value>هل تريد تشغيل أوامر ما بعد التثبيت؟</value>
+  </data>
+  <data name="PostInstallConsent_RunARiskyCommand" xml:space="preserve">
+    <value>هل تريد تشغيل أمر خطِر؟</value>
+  </data>
+  <data name="PostInstallConsent_WillRunACommandThat" xml:space="preserve">
+    <value>سيشغّل {0} أمرًا يطابق نمطًا خطِرًا:
+
+{1}
+
+</value>
+  </data>
+  <data name="PostInstallConsent_ThisIsAskedOnEvery" xml:space="preserve">
+    <value>يُطرح هذا السؤال في كل تشغيل.</value>
+  </data>
+  <data name="PostInstallRunner_NoExecutable" xml:space="preserve">
+    <value>لا يوجد ملف تنفيذي.</value>
+  </data>
+  <data name="PostInstallRunner_CouldNotStart" xml:space="preserve">
+    <value>تعذّر البدء.</value>
+  </data>
+  <data name="PostInstallRunner_TimedOut2" xml:space="preserve">
+    <value>انتهت المهلة.</value>
+  </data>
+  <data name="PostInstallRunner_ExitCode" xml:space="preserve">
+    <value>رمز الخروج {0}.</value>
+  </data>
+  <data name="PostInstallStep_TheInstallDidNotSucceed" xml:space="preserve">
+    <value>لم ينجح التثبيت.</value>
+  </data>
+  <data name="PostInstallStep_TimedOut" xml:space="preserve">
+    <value>انتهت المهلة.</value>
+  </data>
+  <data name="FileInstallService_InstallerSignatureIsBroken" xml:space="preserve">
+    <value>توقيع المثبّت تالف.</value>
+  </data>
+  <data name="FileInstallService_AddedToTheStartMenu" xml:space="preserve">
+    <value>أُضيف {0} إلى قائمة ابدأ.</value>
+  </data>
+  <data name="FileInstallService_TheDownloadedInstallerNoLonger" xml:space="preserve">
+    <value>المثبّت المنزَّل لم يعد موجودًا: {0}</value>
+  </data>
+  <data name="FileInstallService_InstallerTypeWasNotRecognized" xml:space="preserve">
+    <value>لم يُتعرَّف على نوع المثبّت؛ يُستخدم /S. اختبر المفاتيح إذا فتح المثبّت نافذة.</value>
+  </data>
+  <data name="FileInstallService_DetectedRunning" xml:space="preserve">
+    <value>اكتُشف {0}؛ جارٍ التشغيل: {1}</value>
+  </data>
+  <data name="FileInstallService_InstallingSilentlyWith" xml:space="preserve">
+    <value>جارٍ التثبيت بصمت باستخدام {0}.</value>
+  </data>
+  <data name="FileInstallService_InstallerTimedOutReviewThe" xml:space="preserve">
+    <value>انتهت مهلة المثبّت. راجع مفاتيح التثبيت الصامت.</value>
+  </data>
+  <data name="FileInstallService_TheInstallerTimedOutIt" xml:space="preserve">
+    <value>انتهت مهلة المثبّت. ربما فتح نافذة تنتظر إدخالاً. اختبر مفاتيح التثبيت الصامت في «إضافة تطبيق».</value>
+  </data>
+  <data name="FileInstallService_InstalledSilently" xml:space="preserve">
+    <value>تم التثبيت بصمت.</value>
+  </data>
+  <data name="FileInstallService_InstalledRestartRequired" xml:space="preserve">
+    <value>مثبّت؛ يلزم إعادة التشغيل.</value>
+  </data>
+  <data name="FileInstallService_InstalledButWindowsNeedsA" xml:space="preserve">
+    <value>مثبّت، لكن Windows يحتاج إلى إعادة التشغيل.</value>
+  </data>
+  <data name="FileInstallService_TheInstallationWasCancelledOr" xml:space="preserve">
+    <value>أُلغي التثبيت أو رُفض منح صلاحيات المسؤول.</value>
+  </data>
+  <data name="FileInstallService_InstallerExitedWithCode" xml:space="preserve">
+    <value>خرج المثبّت بالرمز {0}.</value>
+  </data>
+  <data name="FileInstallService_RegisteringMSIXPackage" xml:space="preserve">
+    <value>جارٍ تسجيل حزمة MSIX…</value>
+  </data>
+  <data name="FileInstallService_MSIXPackageRegistered" xml:space="preserve">
+    <value>سُجّلت حزمة MSIX.</value>
+  </data>
+  <data name="FileInstallService_AddAppxPackageFailed" xml:space="preserve">
+    <value>فشل Add-AppxPackage.</value>
+  </data>
+  <data name="FileInstallService_ExtractingPortableAppTo" xml:space="preserve">
+    <value>جارٍ استخراج التطبيق المحمول إلى {0}</value>
+  </data>
+  <data name="FileInstallService_ExtractedTo" xml:space="preserve">
+    <value>تم الاستخراج إلى {0}</value>
+  </data>
+  <data name="FileInstallService_ExtractedTo2" xml:space="preserve">
+    <value>تم الاستخراج إلى {0} ({1})</value>
+  </data>
+  <data name="FileInstallService_CouldNotExtractTheArchive" xml:space="preserve">
+    <value>تعذّر استخراج الأرشيف.</value>
+  </data>
+  <data name="FileInstallService_CouldNotExtractThePortable" xml:space="preserve">
+    <value>تعذّر استخراج الأرشيف المحمول: {0}</value>
+  </data>
+  <data name="FileInstallService_CopiedPortableAppTo" xml:space="preserve">
+    <value>نُسخ التطبيق المحمول إلى {0}</value>
+  </data>
+  <data name="FileInstallService_PortableAppCopiedTo" xml:space="preserve">
+    <value>نُسخ التطبيق المحمول إلى {0}</value>
+  </data>
+  <data name="FileInstallService_CouldNotCopyThePortable" xml:space="preserve">
+    <value>تعذّر نسخ الملف التنفيذي المحمول.</value>
+  </data>
+  <data name="FileInstallService_CouldNotCopyThePortable2" xml:space="preserve">
+    <value>تعذّر نسخ الملف التنفيذي المحمول: {0}</value>
+  </data>
+  <data name="FileInstallService_ExtractingInstallerArchive" xml:space="preserve">
+    <value>جارٍ استخراج أرشيف المثبّت…</value>
+  </data>
+  <data name="FileInstallService_FoundBundledInstaller" xml:space="preserve">
+    <value>عُثر على المثبّت المضمَّن {0}.</value>
+  </data>
+  <data name="FileInstallService_CouldNotUnpackTheInstaller" xml:space="preserve">
+    <value>تعذّر فك أرشيف المثبّت: {0}</value>
+  </data>
+  <data name="FileInstallService_InnoSetup" xml:space="preserve">
+    <value>Inno Setup</value>
+  </data>
+  <data name="FileInstallService_WindowsInstaller" xml:space="preserve">
+    <value>Windows Installer</value>
+  </data>
+  <data name="FileInstallService_Squirrel" xml:space="preserve">
+    <value>Squirrel</value>
+  </data>
+  <data name="FileInstallService_WiXBurn" xml:space="preserve">
+    <value>WiX Burn</value>
+  </data>
+  <data name="FileInstallService_PortableArchive" xml:space="preserve">
+    <value>أرشيف محمول</value>
+  </data>
+  <data name="FileInstallService_PortableExecutable" xml:space="preserve">
+    <value>ملف تنفيذي محمول</value>
+  </data>
+  <data name="FileInstallService_UnknownInstaller" xml:space="preserve">
+    <value>مثبّت غير معروف</value>
+  </data>
+  <data name="WingetSourceInstaller_NoWingetPackageIdIs" xml:space="preserve">
+    <value>لم يُعيَّن معرّف حزمة winget. أصلح هذا التطبيق من مجموعة «غير مطابق»، أو عدّله في «تطبيقاتي».</value>
+  </data>
+  <data name="WingetSourceInstaller_WingetIsNotAvailableInstall" xml:space="preserve">
+    <value>winget غير متوفر. ثبّت Microsoft App Installer أو حدّثه من https://aka.ms/getwinget، ثم أعد المحاولة.</value>
+  </data>
+  <data name="WingetSourceInstaller_DownloadingOrInstalling" xml:space="preserve">
+    <value>جارٍ التنزيل أو التثبيت… {0}%</value>
+  </data>
+  <data name="WingetSourceInstaller_InstalledWithWinget" xml:space="preserve">
+    <value>تم التثبيت باستخدام winget.</value>
+  </data>
+  <data name="WingetSourceInstaller_ARestartIsNeededTo" xml:space="preserve">
+    <value>يلزم إعادة التشغيل للإنهاء.</value>
+  </data>
+  <data name="WingetSourceInstaller_InstalledButWindowsNeedsA" xml:space="preserve">
+    <value>مثبّت، لكن Windows يحتاج إلى إعادة التشغيل.</value>
+  </data>
+  <data name="WingetSourceInstaller_AlreadyInstalled" xml:space="preserve">
+    <value>مثبّت بالفعل.</value>
+  </data>
+  <data name="WingetSourceInstaller_AnotherInstallerIsAlreadyRunning" xml:space="preserve">
+    <value>هناك مثبّت آخر قيد التشغيل بالفعل. أغلقه وأعد المحاولة.</value>
+  </data>
+  <data name="WingetSourceInstaller_WingetTimedOutAfter45" xml:space="preserve">
+    <value>انتهت مهلة winget بعد 45 دقيقة.</value>
+  </data>
+  <data name="WingetSourceInstaller_WingetFailedWithExitCode" xml:space="preserve">
+    <value>فشل winget برمز الخروج {0}.</value>
+  </data>
+  <data name="WingetSourceInstaller_WingetFailed" xml:space="preserve">
+    <value>فشل winget ({0}): {1}</value>
+  </data>
+  <data name="InstallerSignature_TheInstallerIsNotSigned" xml:space="preserve">
+    <value>المثبّت غير موقَّع. SHA-256 هو الفحص الوحيد له.</value>
+  </data>
+  <data name="InstallerSignature_TheInstallerSSignatureIs" xml:space="preserve">
+    <value>توقيع المثبّت تالف (0x{0:X8}): إما أن الملف تغيّر بعد توقيعه، أو أن شهادته غير موثوق بها على هذا الكمبيوتر. لن يشغّله CTRL+Z.</value>
+  </data>
+  <data name="InstallerSignature_TheInstallerSSignatureCould" xml:space="preserve">
+    <value>تعذّر فحص توقيع المثبّت.</value>
+  </data>
+  <data name="InstallerSignature_TheInstallerSSignatureCould2" xml:space="preserve">
+    <value>تعذّر التحقق من توقيع المثبّت (0x{0:X8}).</value>
+  </data>
+  <data name="DriftAnalyzer_AddedFromDriftDetection" xml:space="preserve">
+    <value>أُضيف من اكتشاف الاختلافات.</value>
+  </data>
+  <data name="DriftAnalyzer_InstalledButNotSavedIn" xml:space="preserve">
+    <value>مثبّت لكنه غير محفوظ في ملف تعريفك</value>
+  </data>
+  <data name="DriftAnalyzer_NewerVersionAvailable" xml:space="preserve">
+    <value>يتوفر إصدار أحدث ({0})</value>
+  </data>
+  <data name="DriftAnalyzer_SamePackageId" xml:space="preserve">
+    <value>معرّف الحزمة نفسه</value>
+  </data>
+  <data name="DriftAnalyzer_SameWingetId" xml:space="preserve">
+    <value>معرّف winget نفسه</value>
+  </data>
+  <data name="DriftAnalyzer_SavedAppHasNoUsable" xml:space="preserve">
+    <value>التطبيق المحفوظ ليس له اسم قابل للاستخدام</value>
+  </data>
+  <data name="DriftAnalyzer_SameName" xml:space="preserve">
+    <value>الاسم نفسه</value>
+  </data>
+  <data name="DriftAnalyzer_SimilarName" xml:space="preserve">
+    <value>اسم مشابه</value>
+  </data>
+  <data name="DriftAnalyzer_SimilarNameOnlyOneShared" xml:space="preserve">
+    <value>اسم مشابه (كلمة مشتركة واحدة فقط)</value>
+  </data>
+  <data name="DriftAnalyzer_AndPublisher" xml:space="preserve">
+    <value> والناشر</value>
+  </data>
+  <data name="DriftAnalyzer_DifferentPublisher" xml:space="preserve">
+    <value>، ناشر مختلف</value>
+  </data>
+  <data name="DriftAnalyzer_NotInstalled" xml:space="preserve">
+    <value>غير مثبّت</value>
+  </data>
+  <data name="DriftAnalyzer_NotFoundByNameCustom" xml:space="preserve">
+    <value>لم يُعثر عليه بالاسم (مصدر {0} مخصص)</value>
+  </data>
+  <data name="DriftAnalyzer_AmbiguousInstalledAppsLookSimilar" xml:space="preserve">
+    <value>غامض: {0} من التطبيقات المثبّتة تبدو متشابهة</value>
+  </data>
+  <data name="DriftAnalyzer_UncertainClosestIsButThe" xml:space="preserve">
+    <value>غير مؤكد: الأقرب هو '{0}'، لكن الاسمين لا يشتركان إلا في كلمة واحدة</value>
+  </data>
+  <data name="DryRunRunner_Checking" xml:space="preserve">
+    <value>جارٍ التحقق من {0} ({1}/{2})…</value>
+  </data>
+  <data name="DryRunRunner_TheAppIsNoLonger" xml:space="preserve">
+    <value>لم يعد التطبيق في ملف التعريف.</value>
+  </data>
+  <data name="DryRunRunner_UnsupportedSource" xml:space="preserve">
+    <value>مصدر غير مدعوم.</value>
+  </data>
+  <data name="DryRunRunner_TheCheckFailed" xml:space="preserve">
+    <value>فشل الفحص: </value>
+  </data>
+  <data name="DryRunRunner_NoWingetPackageIdIs" xml:space="preserve">
+    <value>لم يُسجَّل معرّف حزمة winget.</value>
+  </data>
+  <data name="DryRunRunner_WingetCannotFind" xml:space="preserve">
+    <value>لا يستطيع winget العثور على '{0}'.</value>
+  </data>
+  <data name="DryRunRunner_WingetResolves" xml:space="preserve">
+    <value>يجد winget الحزمة {0}.</value>
+  </data>
+  <data name="DryRunRunner_WingetResolvesVersion" xml:space="preserve">
+    <value>يجد winget الحزمة {0} (الإصدار {1}).</value>
+  </data>
+  <data name="DryRunRunner_NoGitHubRepositoryIsRecorded" xml:space="preserve">
+    <value>لم يُسجَّل مستودع GitHub.</value>
+  </data>
+  <data name="DryRunRunner_ReleaseHasNoAssetThat" xml:space="preserve">
+    <value>الإصدار {0} لا يحتوي على ملف يطابق هذا التطبيق.</value>
+  </data>
+  <data name="DryRunRunner_TheRecordedAssetIsNot" xml:space="preserve">
+    <value>الملف المسجَّل '{0}' ليس في الإصدار {1}؛ </value>
+  </data>
+  <data name="DryRunRunner_TheInstallerWillFallBack" xml:space="preserve">
+    <value>سيلجأ المثبّت إلى '{0}' بدلاً منه.</value>
+  </data>
+  <data name="DryRunRunner_ReleasePublishes" xml:space="preserve">
+    <value>ينشر الإصدار {0} الملف {1}.</value>
+  </data>
+  <data name="DryRunRunner_NoDownloadURLIsRecorded" xml:space="preserve">
+    <value>لم يُسجَّل رابط تنزيل.</value>
+  </data>
+  <data name="DryRunRunner_TheLinkResponds" xml:space="preserve">
+    <value>الرابط يستجيب ({0}).</value>
+  </data>
+  <data name="DryRunRunner_TheLinkResponds2" xml:space="preserve">
+    <value>الرابط يستجيب.</value>
+  </data>
+  <data name="DryRunRunner_TheServerDoesNotSupport" xml:space="preserve">
+    <value>لا يدعم الخادم فحص HEAD، لذا تعذّر التحقق من الرابط.</value>
+  </data>
+  <data name="DryRunRunner_TheLinkDidNotRespond" xml:space="preserve">
+    <value>لم يستجب الرابط: </value>
+  </data>
+  <data name="DryRunRunner_NoLocalFileIsRecorded" xml:space="preserve">
+    <value>لم يُسجَّل ملف محلي.</value>
+  </data>
+  <data name="DryRunRunner_TheInstallerFileIsNot" xml:space="preserve">
+    <value>ملف المثبّت ليس على هذا الكمبيوتر.</value>
+  </data>
+  <data name="DryRunRunner_TheInstallerIsPresentBut" xml:space="preserve">
+    <value>المثبّت موجود لكنه غير موقَّع رقميًا.</value>
+  </data>
+  <data name="DryRunRunner_TheInstallerFileIsPresent" xml:space="preserve">
+    <value>ملف المثبّت موجود.</value>
+  </data>
+  <data name="InstallPlanModels_CTRLZDryRun" xml:space="preserve">
+    <value>تشغيل CTRL+Z التجريبي</value>
+  </data>
+  <data name="InstallPlanModels_Profile" xml:space="preserve">
+    <value>ملف التعريف: {0}</value>
+  </data>
+  <data name="InstallPlanModels_Generated" xml:space="preserve">
+    <value>أُنشئ: {0:yyyy-MM-dd HH:mm}</value>
+  </data>
+  <data name="InstallPlanModels_Note" xml:space="preserve">
+    <value>       ملاحظة: {0}</value>
+  </data>
+  <data name="InstallPlanModels_Size" xml:space="preserve">
+    <value>       الحجم: {0}</value>
+  </data>
+  <data name="InstallPlanModels_SummaryReadyWarningsFailed" xml:space="preserve">
+    <value>الملخص: {0} جاهز، {1} تحذيرات، {2} فشل</value>
+  </data>
+  <data name="InstallPlanModels_KnownDownloadSize" xml:space="preserve">
+    <value>حجم التنزيل المعروف: {0}</value>
+  </data>
+  <data name="InstallPlanModels_PostInstallCommands" xml:space="preserve">
+    <value>أوامر ما بعد التثبيت</value>
+  </data>
+  <data name="InstallPlanModels_NoPostInstallCommandWas" xml:space="preserve">
+    <value>لم يُشغّل هذا الفحص أي أمر ما بعد التثبيت.</value>
+  </data>
+  <data name="InstallPlanModels_NothingWasInstalledDownloadedTo" xml:space="preserve">
+    <value>لم يُثبّت هذا الفحص أي شيء، ولم يُنزّل شيئًا إلى القرص، ولم يغيّر شيئًا.</value>
+  </data>
+  <data name="InstallPlanner_AddedAutomatically" xml:space="preserve">
+    <value>أُضيف تلقائيًا</value>
+  </data>
+  <data name="InstallPlanner_WillNotInstall" xml:space="preserve">
+    <value>لن يُثبَّت: </value>
+  </data>
+  <data name="InstallPlanner_AppsInstallOneAfterAnother" xml:space="preserve">
+    <value>تُثبَّت التطبيقات واحدًا تلو الآخر بالترتيب أدناه. تُثبَّت التبعيات المعروفة أولاً، ولا يُحاوَل تثبيت تطبيق فشلت تبعيته.</value>
+  </data>
+  <data name="InstallPlanner_InstallOrderLoop" xml:space="preserve">
+    <value>حلقة في ترتيب التثبيت: {0}.</value>
+  </data>
+  <data name="InstallPlanner_ThereIsNothingEnabledTo" xml:space="preserve">
+    <value>لا يوجد شيء مفعّل لتثبيته.</value>
+  </data>
+  <data name="InstallPlanner_WingetNoPackageId" xml:space="preserve">
+    <value>winget (بلا معرّف حزمة)</value>
+  </data>
+  <data name="InstallPlanner_Winget" xml:space="preserve">
+    <value>winget {0}</value>
+  </data>
+  <data name="InstallPlanner_WingetDecidesWhetherThePackage" xml:space="preserve">
+    <value>يقرر winget ما إذا كانت الحزمة تحتاج إلى صلاحيات مرتفعة.</value>
+  </data>
+  <data name="InstallPlanner_NoWingetPackageIdIs" xml:space="preserve">
+    <value>لم يُسجَّل معرّف حزمة winget.</value>
+  </data>
+  <data name="InstallPlanner_GitHubNoRepository" xml:space="preserve">
+    <value>GitHub (بلا مستودع)</value>
+  </data>
+  <data name="InstallPlanner_GitHub" xml:space="preserve">
+    <value>GitHub {0}</value>
+  </data>
+  <data name="InstallPlanner_NoGitHubRepositoryIsRecorded" xml:space="preserve">
+    <value>لم يُسجَّل مستودع GitHub.</value>
+  </data>
+  <data name="InstallPlanner_NoSHA256RecordedSo" xml:space="preserve">
+    <value>لم يُسجَّل SHA-256، لذا لا يمكن التحقق من التنزيل.</value>
+  </data>
+  <data name="InstallPlanner_DownloadFrom" xml:space="preserve">
+    <value>التنزيل من {0}</value>
+  </data>
+  <data name="InstallPlanner_DownloadNoValidURL" xml:space="preserve">
+    <value>تنزيل (بلا رابط صالح)</value>
+  </data>
+  <data name="InstallPlanner_TheDownloadURLIsMissing" xml:space="preserve">
+    <value>رابط التنزيل مفقود أو غير صالح.</value>
+  </data>
+  <data name="InstallPlanner_LocalFile" xml:space="preserve">
+    <value>ملف محلي {0}</value>
+  </data>
+  <data name="InstallPlanner_LocalFileMissing" xml:space="preserve">
+    <value>ملف محلي (مفقود)</value>
+  </data>
+  <data name="InstallPlanner_TheInstallerFileIsNot" xml:space="preserve">
+    <value>ملف المثبّت ليس على هذا الكمبيوتر.</value>
+  </data>
+  <data name="InstallPlanner_TheInstallerIsNotCode" xml:space="preserve">
+    <value>المثبّت غير موقَّع رقميًا.</value>
+  </data>
+  <data name="InstallPlanner_UnknownSource" xml:space="preserve">
+    <value>مصدر غير معروف</value>
+  </data>
+  <data name="InstallPlanner_ThisAppHasAnUnsupported" xml:space="preserve">
+    <value>لهذا التطبيق مصدر غير مدعوم.</value>
+  </data>
+  <data name="InstallPlanner_InstallerDefaults" xml:space="preserve">
+    <value>الإعدادات الافتراضية للمثبّت</value>
+  </data>
+  <data name="ReadinessScanner_GamesAndLaunchers" xml:space="preserve">
+    <value>الألعاب ومشغّلاتها</value>
+  </data>
+  <data name="ReadinessScanner_DeveloperItems" xml:space="preserve">
+    <value>عناصر المطورين</value>
+  </data>
+  <data name="ReadinessScanner_Browsers" xml:space="preserve">
+    <value>المتصفحات</value>
+  </data>
+  <data name="ReadinessScanner_Profile" xml:space="preserve">
+    <value>ملف التعريف</value>
+  </data>
+  <data name="ReadinessScanner_ConfirmThisYourselfCTRLZ" xml:space="preserve">
+    <value>تأكد من هذا بنفسك — لا يستطيع CTRL+Z التحقق منه</value>
+  </data>
+  <data name="ReadinessScanner_NotPresentOnThisPC" xml:space="preserve">
+    <value>غير موجود على هذا الكمبيوتر</value>
+  </data>
+  <data name="ReadinessScanner_Files" xml:space="preserve">
+    <value>الملفات: {0:N0} · {1}</value>
+  </data>
+  <data name="ReadinessScanner_LastChange" xml:space="preserve">
+    <value>آخر تغيير {0}</value>
+  </data>
+  <data name="ReadinessScanner_ScanStoppedAtALimit" xml:space="preserve">
+    <value>توقف الفحص عند حد معيّن — الأعداد حد أدنى.</value>
+  </data>
+  <data name="ReadinessScanner_SomeFoldersCouldNotBe" xml:space="preserve">
+    <value>تعذّرت قراءة بعض المجلدات، لذا الحجم حد أدنى.</value>
+  </data>
+  <data name="ReadinessScanner_InsideYourCTRLZBackup" xml:space="preserve">
+    <value>داخل مجلد النسخ الاحتياطي لـ CTRL+Z.</value>
+  </data>
+  <data name="ReadinessScanner_NoCTRLZBackupCovers" xml:space="preserve">
+    <value>لا توجد نسخة احتياطية من CTRL+Z تشمل هذا المجلد.</value>
+  </data>
+  <data name="ReadinessScanner_CoveredByYourBackupFolder" xml:space="preserve">
+    <value>مشمول بمجلد النسخ الاحتياطي الخاص بك</value>
+  </data>
+  <data name="ReadinessScanner_LargeAndRecentlyChangedNo" xml:space="preserve">
+    <value>كبير وتغيّر مؤخرًا — بلا نسخة احتياطية</value>
+  </data>
+  <data name="ReadinessScanner_LargeNoBackup" xml:space="preserve">
+    <value>كبير — بلا نسخة احتياطية</value>
+  </data>
+  <data name="ReadinessScanner_RecentlyChangedNoBackup" xml:space="preserve">
+    <value>تغيّر مؤخرًا — بلا نسخة احتياطية</value>
+  </data>
+  <data name="ReadinessScanner_NoBackupButQuiet" xml:space="preserve">
+    <value>بلا نسخة احتياطية، لكنه لم يتغيّر مؤخرًا ({0})</value>
+  </data>
+  <data name="ReadinessScanner_CopyThisFolderToExternal" xml:space="preserve">
+    <value>انسخ هذا المجلد إلى وسائط خارجية أو OneDrive أو كمبيوتر آخر قبل المسح.</value>
+  </data>
+  <data name="ReadinessScanner_NoGameLaunchersDetected" xml:space="preserve">
+    <value>لم تُكتشف مشغّلات ألعاب</value>
+  </data>
+  <data name="ReadinessScanner_LauncherLibrariesAndGameSaves" xml:space="preserve">
+    <value>لا ينسخ CTRL+Z مكتبات المشغّلات وحفظ الألعاب احتياطيًا. ملفات الحفظ التي تُزامَن مع السحابة </value>
+  </data>
+  <data name="ReadinessScanner_AreOnlySafeOnceThe" xml:space="preserve">
+    <value>لا تكون آمنة إلا بعد أن يرفعها المشغّل فعلاً.</value>
+  </data>
+  <data name="ReadinessScanner_CheckEachLauncherReportsIts" xml:space="preserve">
+    <value>تأكد أن كل مشغّل يُظهر ملفات الحفظ على أنها متزامنة، وانسخ أي ملفات حفظ محلية بشكل منفصل.</value>
+  </data>
+  <data name="ReadinessScanner_NoSaveFoldersFound" xml:space="preserve">
+    <value>لم يُعثر على مجلدات حفظ</value>
+  </data>
+  <data name="ReadinessScanner_KindSOfDeveloperMaterial" xml:space="preserve">
+    <value>أنواع مواد المطورين التي عُثر عليها: {0}</value>
+  </data>
+  <data name="ReadinessScanner_NoDeveloperMaterialDetected" xml:space="preserve">
+    <value>لم تُكتشف مواد خاصة بالمطورين</value>
+  </data>
+  <data name="ReadinessScanner_SSHKeysGitConfigurationEnv" xml:space="preserve">
+    <value>لا تُنسخ مفاتيح SSH وإعدادات Git وملفات .env وتوزيعات WSL وذاكرات الحزم المؤقتة احتياطيًا </value>
+  </data>
+  <data name="ReadinessScanner_ByCTRLZTheirContents" xml:space="preserve">
+    <value>بواسطة CTRL+Z. لا تُقرأ محتوياتها ولا تُعرض أبدًا.</value>
+  </data>
+  <data name="ReadinessScanner_CopySshAndYourGitconfig" xml:space="preserve">
+    <value>انسخ ~/.ssh وملف .gitconfig إلى مكان آمن، وصدّر أي توزيعة WSL لا تزال تحتاج إليها.</value>
+  </data>
+  <data name="ReadinessScanner_NoBrowsersDetected" xml:space="preserve">
+    <value>لم تُكتشف متصفحات</value>
+  </data>
+  <data name="ReadinessScanner_CTRLZBacksUpBrowser" xml:space="preserve">
+    <value>ينسخ CTRL+Z ملفات تعريف المتصفحات احتياطيًا بشكل منفصل في صفحة «المتصفحات».</value>
+  </data>
+  <data name="ReadinessScanner_NoCTRLZBackupFound" xml:space="preserve">
+    <value>لم يُعثر على نسخة احتياطية من CTRL+Z</value>
+  </data>
+  <data name="ReadinessScanner_BookmarksHistoryAndProfileSettings" xml:space="preserve">
+    <value>تُفقد الإشارات المرجعية والسجل وإعدادات ملف التعريف عند المسح ما لم تكن متزامنة مع حساب في المتصفح.</value>
+  </data>
+  <data name="ReadinessScanner_CreateABackupOnThe" xml:space="preserve">
+    <value>أنشئ نسخة احتياطية في صفحة «المتصفحات» قبل المسح.</value>
+  </data>
+  <data name="ReadinessScanner_NoMatchingArchiveInThe" xml:space="preserve">
+    <value>لا يوجد أرشيف مطابق في مجلد النسخ الاحتياطي.</value>
+  </data>
+  
+  <data name="ReadinessScanner_BackedUp" xml:space="preserve">
+    <value>نُسخ احتياطيًا {0}</value>
+  </data>
+  <data name="ReadinessScanner_BrowserProfilesAreBackedUp" xml:space="preserve">
+    <value>تُنسخ ملفات تعريف المتصفحات احتياطيًا بشكل منفصل عن قوائم التطبيقات؛ والإشارات المرجعية والسجل المضافة منذ </value>
+  </data>
+  <data name="ReadinessScanner_TheArchiveWasMadeAre" xml:space="preserve">
+    <value>إنشاء الأرشيف ليست فيه.</value>
+  </data>
+  <data name="ReadinessScanner_MakeAFreshBackupThe" xml:space="preserve">
+    <value>أنشئ نسخة احتياطية جديدة (حد التحذير {0} يومًا).</value>
+  </data>
+  <data name="ReadinessScanner_NewestArchive" xml:space="preserve">
+    <value>أحدث أرشيف: {0}</value>
+  </data>
+  <data name="ReadinessScanner_AppProfile" xml:space="preserve">
+    <value>ملف تعريف التطبيقات</value>
+  </data>
+  <data name="ReadinessScanner_NoSavedProfileYet" xml:space="preserve">
+    <value>لا يوجد ملف تعريف محفوظ بعد</value>
+  </data>
+  <data name="ReadinessScanner_WithoutAProfileCTRLZ" xml:space="preserve">
+    <value>بدون ملف تعريف، لا يستطيع CTRL+Z إعادة بناء قائمة تطبيقاتك بعد المسح.</value>
+  </data>
+  <data name="ReadinessScanner_ScanThisPCAndSave" xml:space="preserve">
+    <value>افحص هذا الكمبيوتر واحفظ تطبيقاتك في «تطبيقاتي» قبل المسح.</value>
+  </data>
+  <data name="ReadinessScanner_LastUpdated" xml:space="preserve">
+    <value>آخر تحديث {0}</value>
+  </data>
+  <data name="ReadinessScanner_ProfileIsUpToDate" xml:space="preserve">
+    <value>ملف التعريف محدَّث</value>
+  </data>
+  <data name="ReadinessScanner_DriftMissingExtraOutdated" xml:space="preserve">
+    <value>الاختلافات: {0} مفقود، {1} إضافي، {2} قديم</value>
+  </data>
+  <data name="ReadinessScanner_TheProfileIsTheList" xml:space="preserve">
+    <value>ملف التعريف هو القائمة التي يعيد CTRL+Z البناء منها. التطبيقات المثبّتة بعد آخر حفظ ليست فيه.</value>
+  </data>
+  <data name="ReadinessScanner_OpenDriftDetectionFromMy" xml:space="preserve">
+    <value>افتح اكتشاف الاختلافات من «تطبيقاتي» لمراجعة ما تغيّر.</value>
+  </data>
+  
+  <data name="ReadinessRequest_ExportYourPasswordManager" xml:space="preserve">
+    <value>صدّر بيانات مدير كلمات المرور</value>
+  </data>
+  <data name="ReadinessRequest_ACleanInstallRemovesBrowser" xml:space="preserve">
+    <value>يزيل التثبيت النظيف مخازن كلمات المرور في المتصفحات وأي خزنة محلية.</value>
+  </data>
+  <data name="ReadinessRequest_ExportAnEncryptedCopyTo" xml:space="preserve">
+    <value>صدّر نسخة مشفّرة إلى وسائط خارجية ستبقى معك بعد المسح.</value>
+  </data>
+  <data name="ReadinessRequest_NoteYourLicenceKeys" xml:space="preserve">
+    <value>دوّن مفاتيح التراخيص</value>
+  </data>
+  <data name="ReadinessRequest_SomePaidApplicationsNeedThe" xml:space="preserve">
+    <value>تحتاج بعض التطبيقات المدفوعة إلى المفتاح الأصلي لتفعيلها من جديد.</value>
+  </data>
+  <data name="ReadinessRequest_KeepTheKeysInYour" xml:space="preserve">
+    <value>احتفظ بالمفاتيح في مدير كلمات المرور أو على جهاز آخر.</value>
+  </data>
+  <data name="ReadinessRequest_DeactivateLicensedSoftware" xml:space="preserve">
+    <value>ألغِ تفعيل البرامج المرخَّصة</value>
+  </data>
+  <data name="ReadinessRequest_ManyLicencesAllowOnlyOne" xml:space="preserve">
+    <value>تسمح تراخيص كثيرة بجهاز واحد فقط في كل مرة، وسترفض التفعيل بعد المسح.</value>
+  </data>
+  <data name="ReadinessRequest_DeactivateInsideEachApplicationBefore" xml:space="preserve">
+    <value>ألغِ التفعيل من داخل كل تطبيق قبل المسح.</value>
+  </data>
+  <data name="ReadinessRequest_SignOutOfServices" xml:space="preserve">
+    <value>سجّل الخروج من الخدمات</value>
+  </data>
+  <data name="ReadinessRequest_OldDevicesLeftSignedIn" xml:space="preserve">
+    <value>قد تمنعك الأجهزة القديمة التي بقيت مسجّلة الدخول من الوصول أو تترك جلسات قديمة.</value>
+  </data>
+  <data name="ReadinessRequest_SignOutOfTheAccounts" xml:space="preserve">
+    <value>سجّل الخروج من الحسابات التي ستضيفها لاحقًا من جديد.</value>
+  </data>
+  <data name="ReadinessRequest_SaveYourWiFiPasswords" xml:space="preserve">
+    <value>احفظ كلمات مرور Wi-Fi</value>
+  </data>
+  <data name="ReadinessRequest_WindowsMayNotRememberYour" xml:space="preserve">
+    <value>قد لا يتذكر Windows شبكاتك بعد إعادة التثبيت.</value>
+  </data>
+  <data name="ReadinessRequest_WriteThemDownOrStore" xml:space="preserve">
+    <value>دوّنها أو خزّنها في مدير كلمات المرور.</value>
+  </data>
+  <data name="ReadinessRequest_CheckYourRecoveryKeys" xml:space="preserve">
+    <value>تحقق من مفاتيح الاسترداد</value>
+  </data>
+  <data name="ReadinessRequest_BitLockerAndAccountRecoveryKeys" xml:space="preserve">
+    <value>تُفقد مفاتيح استرداد BitLocker والحسابات المخزّنة على هذا الكمبيوتر فقط عند مسحه.</value>
+  </data>
+  <data name="ReadinessRequest_ConfirmYouCanReachThose" xml:space="preserve">
+    <value>تأكد أنك تستطيع الوصول إلى تلك المفاتيح من جهاز آخر.</value>
+  </data>
+  <data name="AppScanner_LookingForWingetPackages" xml:space="preserve">
+    <value>جارٍ البحث عن حزم winget</value>
+  </data>
+  <data name="AppScanner_WingetInventoryCouldNotBe" xml:space="preserve">
+    <value>تعذّرت قراءة قائمة winget. ستكون المطابقة أقل دقة.</value>
+  </data>
+  <data name="AppScanner_ReadingInstalledPrograms" xml:space="preserve">
+    <value>جارٍ قراءة البرامج المثبّتة</value>
+  </data>
+  <data name="AppScanner_TheRegistryCouldNotBe" xml:space="preserve">
+    <value>تعذّرت قراءة السجل. جرّب تشغيل CTRL+Z كمسؤول.</value>
+  </data>
+  <data name="AppScanner_ReadingMicrosoftStoreApps" xml:space="preserve">
+    <value>جارٍ قراءة تطبيقات Microsoft Store</value>
+  </data>
+  <data name="AppScanner_MicrosoftStoreAppsCouldNot" xml:space="preserve">
+    <value>تعذّرت قراءة تطبيقات Microsoft Store. ربما يقيّد Windows استعلامات Appx.</value>
+  </data>
+  <data name="AppScanner_MatchingAppsToWinget" xml:space="preserve">
+    <value>جارٍ مطابقة التطبيقات مع winget</value>
+  </data>
+  <data name="AppScanner_ReportedDirectlyByWinget" xml:space="preserve">
+    <value>أبلغ عنه winget مباشرة.</value>
+  </data>
+  <data name="AppScanner_ScanComplete" xml:space="preserve">
+    <value>اكتمل الفحص</value>
+  </data>
+  <data name="AppScanner_AppsFound" xml:space="preserve">
+    <value>عُثر على تطبيقات: {0}</value>
+  </data>
+  <data name="AppScanner_WeakWingetMatchReviewBefore" xml:space="preserve">
+    <value>مطابقة ضعيفة مع winget؛ راجعها قبل التثبيت.</value>
+  </data>
+  <data name="BrowserArchiveVerifier_FilesReadAndChecked" xml:space="preserve">
+    <value>قُرئت الملفات وفُحصت: {0}.</value>
+  </data>
+  <data name="BrowserArchiveVerifier_TheFileIsDamagedIts" xml:space="preserve">
+    <value>{0}: الملف تالف (مجموعه الاختباري غير مطابق).</value>
+  </data>
+  <data name="BrowserArchiveVerifier_TheFileIsDamagedAnd" xml:space="preserve">
+    <value>{0}: الملف تالف ولا يمكن قراءته ({1}).</value>
+  </data>
+  <data name="BrowserArchiveVerifier_TheArchiveCouldNotBe" xml:space="preserve">
+    <value>تعذّرت قراءة الأرشيف حتى النهاية: </value>
+  </data>
+  <data name="BrowserArchiveVerifier_ProfileIsListedInThe" xml:space="preserve">
+    <value>ملف التعريف '{0}' مُدرج في البيان لكن لا توجد له ملفات في الأرشيف.</value>
+  </data>
+  <data name="BrowserArchiveVerifier_TheArchiveContainsFilesCTRL" xml:space="preserve">
+    <value>يحتوي الأرشيف على ملفات لا ينسخها CTRL+Z احتياطيًا أبدًا (كلمات مرور أو ملفات تعريف ارتباط): </value>
+  </data>
+  <data name="BrowserInstallHelp_OpenOnceSoItCreates" xml:space="preserve">
+    <value>افتح {0} مرة واحدة لينشئ ملف تعريفه، ثم أغلقه، ثم اضغط «تحديث» واستعد.</value>
+  </data>
+  <data name="BrowserInstallHelp_OpenOnceSoItCreates2" xml:space="preserve">
+    <value>افتح {0} مرة واحدة لينشئ مجلد بياناته، ثم أغلقه، ثم اضغط «تحديث» واستعد.</value>
+  </data>
+  <data name="ElevationService_CTRLZCouldNotDetermine" xml:space="preserve">
+    <value>تعذّر على CTRL+Z تحديد مسار ملفه التنفيذي.</value>
+  </data>
+  <data name="ElevationService_AdministratorAccessWasDeclined" xml:space="preserve">
+    <value>رُفض منح صلاحيات المسؤول.</value>
+  </data>
+  <data name="ElevationService_CouldNotRestartWithAdministrator" xml:space="preserve">
+    <value>تعذّرت إعادة التشغيل بصلاحيات المسؤول: {0}</value>
+  </data>
+  <data name="WingetBootstrapService_WingetIsAvailable" xml:space="preserve">
+    <value>winget {0} متوفر.</value>
+  </data>
+  <data name="WingetBootstrapService_WingetIsOlderThanThe" xml:space="preserve">
+    <value>winget {0} أقدم من الإصدار الموصى به {1}. جارٍ محاولة تحديث App Installer…</value>
+  </data>
+  <data name="WingetBootstrapService_WingetUpdateCompleted" xml:space="preserve">
+    <value>اكتمل تحديث winget.</value>
+  </data>
+  <data name="WingetBootstrapService_WingetCouldNotUpdateItself" xml:space="preserve">
+    <value>تعذّر على winget تحديث نفسه تلقائيًا. سيُستخدم الإصدار الحالي.</value>
+  </data>
+  <data name="WingetBootstrapService_WingetIsMissingDownloadingMicrosoft" xml:space="preserve">
+    <value>winget مفقود. جارٍ تنزيل Microsoft App Installer…</value>
+  </data>
+  <data name="WingetBootstrapService_DownloadedAppInstallerRegisteringIt" xml:space="preserve">
+    <value>نُزّل App Installer ({0}). جارٍ تسجيله…</value>
+  </data>
+  <data name="WingetBootstrapService_WingetIsReady" xml:space="preserve">
+    <value>winget {0} جاهز.</value>
+  </data>
+  <data name="ProfileExport_OnTheOtherPCOpen" xml:space="preserve">
+    <value>على الكمبيوتر الآخر، افتح «تطبيقاتي» ← استيراد واختره.</value>
+  </data>
+  <data name="ProfileExport_OnTheOtherPCThey" xml:space="preserve">
+    <value>على الكمبيوتر الآخر تبقى محظورة حتى تراجع كلاً منها وتوافق عليه هناك.</value>
+  </data>
+  <data name="ProfileExport_LeaveThemOutIfYou" xml:space="preserve">
+    <value>استبعدها إذا كنت ستشارك هذا الملف.</value>
+  </data>
+  <data name="BrowserBackupService_PreparingArchive" xml:space="preserve">
+    <value>جارٍ تحضير الأرشيف…</value>
+  </data>
+  <data name="BrowserBackupService_SkippedWebDataForSearch" xml:space="preserve">
+    <value>تم تخطي Web Data لـ {0}؛ تعذّر تنظيف محركات البحث.</value>
+  </data>
+  <data name="BrowserBackupService_VolumeShadowCopyIsUsed" xml:space="preserve">
+    <value>تُستخدم خدمة النسخ الاحتياطي لوحدات التخزين (Volume Shadow Copy) تلقائيًا عند توفرها.</value>
+  </data>
+  <data name="BrowserBackupService_BackupComplete" xml:space="preserve">
+    <value>اكتمل النسخ الاحتياطي.</value>
+  </data>
+  <data name="BrowserBackupService_WebDataSkippedFor" xml:space="preserve">
+    <value>تم تخطي Web Data لـ {0}: {1}</value>
+  </data>
+  <data name="BrowserBackupService_Compressing" xml:space="preserve">
+    <value>جارٍ ضغط {0}…</value>
+  </data>
+  <data name="BrowserModels_ProfileFolderNotFound" xml:space="preserve">
+    <value>لم يُعثر على مجلد ملف التعريف</value>
+  </data>
+  <data name="BrowserModels_NoProfilesFound" xml:space="preserve">
+    <value>لم يُعثر على ملفات تعريف</value>
+  </data>
+  <data name="BrowserModels_IsStillRunningCloseIt" xml:space="preserve">
+    <value>{0} لا يزال قيد التشغيل ({1}). أغلقه وحاول مرة أخرى.</value>
+  </data>
+  <data name="BrowserModels_TheseProfilesAlreadyExistChoose" xml:space="preserve">
+    <value>ملفات التعريف هذه موجودة بالفعل. اختر الاستبدال أو الاستعادة كملفات تعريف جديدة.</value>
+  </data>
+  <data name="InstallEngine_RunningElevated" xml:space="preserve">
+    <value>يعمل بصلاحيات مرتفعة.</value>
+  </data>
+  <data name="InstallEngine_RunningNotElevated" xml:space="preserve">
+    <value>يعمل دون صلاحيات مرتفعة.</value>
+  </data>
+  <data name="InstallEngine_AppsNeedAttention_One" xml:space="preserve">
+    <value>تطبيقات تحتاج إلى انتباه: {0}.</value>
+  </data>
+  <data name="InstallEngine_AppsNeedAttention_Other" xml:space="preserve">
+    <value>تطبيقات تحتاج إلى انتباه: {0}.</value>
+  </data>
+  <data name="PostInstallConsent_ProfileWillRun_One" xml:space="preserve">
+    <value>سيشغّل ملف التعريف هذا أوامر على هذا الكمبيوتر بعد تثبيت تطبيقاتها (العدد: {0}):
+
+{1}</value>
+  </data>
+  <data name="PostInstallConsent_ProfileWillRun_Other" xml:space="preserve">
+    <value>سيشغّل ملف التعريف هذا أوامر على هذا الكمبيوتر بعد تثبيت تطبيقاتها (العدد: {0}):
+
+{1}</value>
+  </data>
+  <data name="InstallerSignature_Valid" xml:space="preserve">
+    <value>التوقيع صالح: وقّعه {0}.</value>
+  </data>
+  <data name="InstallerSignature_Untrusted" xml:space="preserve">
+    <value>وقّعه {0}، والملف يطابق توقيعه، لكن الشهادة غير موثوق بها على هذا الكمبيوتر (0x{1:X8}).</value>
+  </data>
+  <data name="InstallerSignature_UnnamedPublisher" xml:space="preserve">
+    <value>ناشر غير مسمّى</value>
+  </data>
+  <data name="InstallPlanner_AppsHaveWarning_One" xml:space="preserve">
+    <value>تطبيقات عليها تحذير: {0} — راجعها قبل التشغيل.</value>
+  </data>
+  <data name="InstallPlanner_AppsHaveWarning_Other" xml:space="preserve">
+    <value>تطبيقات عليها تحذير: {0} — راجعها قبل التشغيل.</value>
+  </data>
+  <data name="ReadinessScanner_SaveFolders_One" xml:space="preserve">
+    <value>مجلدات حفظ شائعة موجودة: {0}</value>
+  </data>
+  <data name="ReadinessScanner_SaveFolders_Other" xml:space="preserve">
+    <value>مجلدات حفظ شائعة موجودة: {0}</value>
+  </data>
+  <data name="ReadinessScanner_AgeDays_One" xml:space="preserve">
+    <value>العمر: {0} يوم</value>
+  </data>
+  <data name="ReadinessScanner_AgeDays_Two" xml:space="preserve">
+    <value>العمر: {0} يومان</value>
+  </data>
+  <data name="ReadinessScanner_AgeDays_Few" xml:space="preserve">
+    <value>العمر: {0} أيام</value>
+  </data>
+  <data name="ReadinessScanner_AgeDays_Many" xml:space="preserve">
+    <value>العمر: {0} يومًا</value>
+  </data>
+  <data name="ReadinessScanner_AgeDays_Other" xml:space="preserve">
+    <value>العمر: {0} يوم</value>
+  </data>
+  <data name="ReadinessScanner_AppsSaved_One" xml:space="preserve">
+    <value>التطبيقات المحفوظة: {0}</value>
+  </data>
+  <data name="ReadinessScanner_AppsSaved_Other" xml:space="preserve">
+    <value>التطبيقات المحفوظة: {0}</value>
+  </data>
+  <data name="ReadinessScanner_SavedAppsMissing_One" xml:space="preserve">
+    <value>تطبيقات محفوظة مفقودة: {0}، </value>
+  </data>
+  <data name="ReadinessScanner_SavedAppsMissing_Other" xml:space="preserve">
+    <value>تطبيقات محفوظة مفقودة: {0}، </value>
+  </data>
+  <data name="ReadinessScanner_InstalledAppsNotSaved_One" xml:space="preserve">
+    <value>تطبيقات مثبّتة غير محفوظة: {0}</value>
+  </data>
+  <data name="ReadinessScanner_InstalledAppsNotSaved_Other" xml:space="preserve">
+    <value>تطبيقات مثبّتة غير محفوظة: {0}</value>
+  </data>
+  <data name="BrowserArchiveVerifier_Restorable_One" xml:space="preserve">
+    <value>قابل للاستعادة: {1}، ملفات التعريف: {0}، </value>
+  </data>
+  <data name="BrowserArchiveVerifier_Restorable_Other" xml:space="preserve">
+    <value>قابل للاستعادة: {1}، ملفات التعريف: {0}، </value>
+  </data>
+  <data name="BrowserArchiveVerifier_NotRestorable_One" xml:space="preserve">
+    <value>غير قابل للاستعادة: المشكلات التي عُثر عليها: {0}.</value>
+  </data>
+  <data name="BrowserArchiveVerifier_NotRestorable_Other" xml:space="preserve">
+    <value>غير قابل للاستعادة: المشكلات التي عُثر عليها: {0}.</value>
+  </data>
+  <data name="ProfileExport_AppsSaved_One" xml:space="preserve">
+    <value>ستُحفظ التطبيقات في ملف واحد: {0} (المفعّل منها {1}). </value>
+  </data>
+  <data name="ProfileExport_AppsSaved_Other" xml:space="preserve">
+    <value>ستُحفظ التطبيقات في ملف واحد: {0} (المفعّل منها {1}). </value>
+  </data>
+  <data name="ProfileExport_LocalInstallers_One" xml:space="preserve">
+    <value>تطبيقات تُثبَّت من ملف على هذا الكمبيوتر ({0}): {1}. انسخ ذلك المثبّت أيضًا ووجّه التطبيق إلى موقعه الجديد هناك.</value>
+  </data>
+  <data name="ProfileExport_LocalInstallers_Other" xml:space="preserve">
+    <value>تطبيقات تُثبَّت من ملفات على هذا الكمبيوتر ({0}): {1}. انسخ تلك المثبّتات أيضًا ووجّه كل تطبيق إلى موقعه الجديد هناك.</value>
+  </data>
+  <data name="ProfileExport_AppsWithCommand_One" xml:space="preserve">
+    <value>تطبيقات لها أمر ما بعد التثبيت: {0}. </value>
+  </data>
+  <data name="ProfileExport_AppsWithCommand_Other" xml:space="preserve">
+    <value>تطبيقات لها أمر ما بعد التثبيت: {0}. </value>
+  </data>
+  <data name="ProfileExport_AppsWithNote_One" xml:space="preserve">
+    <value>تطبيقات لها ملاحظة: {0}. قد تحتوي الملاحظات على مفاتيح تراخيص؛ </value>
+  </data>
+  <data name="ProfileExport_AppsWithNote_Other" xml:space="preserve">
+    <value>تطبيقات لها ملاحظة: {0}. قد تحتوي الملاحظات على مفاتيح تراخيص؛ </value>
+  </data>
+  <data name="Tweak_ShowFileExtensions_Title" xml:space="preserve">
+    <value>إظهار امتدادات الملفات</value>
+  </data>
+  <data name="Tweak_ShowFileExtensions_Description" xml:space="preserve">
+    <value>يعرض مستكشف الملفات امتدادات .exe و.pdf وغيرها، فلا يستطيع ملف إخفاء حقيقته.</value>
+  </data>
+  <data name="Tweak_ShowHiddenFiles_Title" xml:space="preserve">
+    <value>إظهار الملفات المخفية</value>
+  </data>
+  <data name="Tweak_ShowHiddenFiles_Description" xml:space="preserve">
+    <value>يعرض مستكشف الملفات الملفات والمجلدات المخفية مثل AppData.</value>
+  </data>
+  <data name="Tweak_ExplorerOpensThisPc_Title" xml:space="preserve">
+    <value>فتح مستكشف الملفات على «هذا الكمبيوتر»</value>
+  </data>
+  <data name="Tweak_ExplorerOpensThisPc_Description" xml:space="preserve">
+    <value>يبدأ مستكشف الملفات بمحركات الأقراص بدلاً من «الصفحة الرئيسية» أو «الوصول السريع».</value>
+  </data>
+  <data name="Tweak_DarkMode_Title" xml:space="preserve">
+    <value>الوضع الداكن للتطبيقات وWindows</value>
+  </data>
+  <data name="Tweak_DarkMode_Description" xml:space="preserve">
+    <value>تستخدم التطبيقات وشريط المهام وقائمة ابدأ في Windows السمة الداكنة.</value>
+  </data>
+  <data name="Tweak_TaskbarLeft_Title" xml:space="preserve">
+    <value>أيقونات شريط المهام على الطرف</value>
+  </data>
+  <data name="Tweak_TaskbarLeft_Description" xml:space="preserve">
+    <value>يضع Windows 11 زر ابدأ وأيقونات شريط المهام على طرف الشريط بدلاً من الوسط، كما في Windows 10.</value>
+  </data>
+  <data name="Tweak_NoWebSearchInStart_Title" xml:space="preserve">
+    <value>بلا نتائج ويب في بحث قائمة ابدأ</value>
+  </data>
+  <data name="Tweak_NoWebSearchInStart_Description" xml:space="preserve">
+    <value>البحث من قائمة ابدأ يشمل هذا الكمبيوتر فقط، وليس Bing.</value>
+  </data>
+  <data name="Tweak_ClassicContextMenu_Title" xml:space="preserve">
+    <value>قائمة النقر بزر الماوس الأيمن الكلاسيكية</value>
+  </data>
+  <data name="Tweak_ClassicContextMenu_Description" xml:space="preserve">
+    <value>يعرض Windows 11 قائمة النقر بزر الماوس الأيمن كاملة مباشرة، دون «إظهار المزيد من الخيارات».</value>
+  </data>
+  <data name="Tweak_NoStartRecommendations_Title" xml:space="preserve">
+    <value>توصيات أقل في قائمة ابدأ</value>
+  </data>
+  <data name="Tweak_NoStartRecommendations_Description" xml:space="preserve">
+    <value>تتوقف قائمة ابدأ عن اقتراح النصائح والاختصارات والتطبيقات الجديدة.</value>
+  </data>
+  <data name="Category_Browser" xml:space="preserve">
+    <value>المتصفحات</value>
+  </data>
+  <data name="Category_Communication" xml:space="preserve">
+    <value>التواصل</value>
+  </data>
+  <data name="Category_Development" xml:space="preserve">
+    <value>التطوير</value>
+  </data>
+  <data name="Category_Gaming" xml:space="preserve">
+    <value>الألعاب</value>
+  </data>
+  <data name="Category_Media" xml:space="preserve">
+    <value>الوسائط</value>
+  </data>
+  <data name="Category_Productivity" xml:space="preserve">
+    <value>الإنتاجية</value>
+  </data>
+  <data name="Category_Security" xml:space="preserve">
+    <value>الأمان</value>
+  </data>
+  <data name="Category_Utilities" xml:space="preserve">
+    <value>الأدوات المساعدة</value>
+  </data>
+  <data name="Category_Other" xml:space="preserve">
+    <value>أخرى</value>
+  </data>
+  <data name="Source_DirectLink" xml:space="preserve">
+    <value>رابط مباشر</value>
+  </data>
+  <data name="Source_LocalFile" xml:space="preserve">
+    <value>ملف محلي</value>
+  </data>
+  <data name="Source_Store" xml:space="preserve">
+    <value>المتجر</value>
+  </data>
+  <data name="AppEntry_LatestRelease" xml:space="preserve">
+    <value>أحدث إصدار</value>
+  </data>
+  <data name="AppEntry_MissingUrl" xml:space="preserve">
+    <value>الرابط مفقود</value>
+  </data>
+  <data name="AppEntry_MissingFile" xml:space="preserve">
+    <value>الملف مفقود</value>
+  </data>
+  <data name="AppEntry_UnknownSource" xml:space="preserve">
+    <value>مصدر غير معروف</value>
+  </data>
+  <data name="CommandPreview_OffInProfile" xml:space="preserve">
+    <value>متوقف في ملف التعريف - لن يُشغَّل</value>
+  </data>
+  <data name="FileInstallService_ZipHasNoInstaller" xml:space="preserve">
+    <value>لم يحتوِ ملف ZIP على setup.exe أو .msi يمكن التعرف عليه. ضع عليه علامة أرشيف محمول في «إضافة تطبيق»، أو ثبّته يدويًا.</value>
+  </data>
+  <data name="InstallEngine_ProfileMissing" xml:space="preserve">
+    <value>ملف التعريف المحفوظ لجلسة التثبيت هذه مفقود. ابدأ تثبيتًا جديدًا من «تطبيقاتي».</value>
+  </data>
+  <data name="ReadinessScanner_FolderMeaning" xml:space="preserve">
+    <value>هذه الملفات موجودة على هذا الكمبيوتر فقط. يزيلها التثبيت النظيف ما لم توجد نسخة منها في مكان آخر.</value>
+  </data>
+  <data name="ReadinessScanner_Today" xml:space="preserve">
+    <value>اليوم</value>
+  </data>
+  <data name="ReadinessScanner_Yesterday" xml:space="preserve">
+    <value>أمس</value>
+  </data>
+  <data name="DeveloperItems_SshKeys" xml:space="preserve">
+    <value>مفاتيح SSH</value>
+  </data>
+  <data name="DeveloperItems_SshKeysDetail" xml:space="preserve">
+    <value>توجد ملفات مفاتيح. لا ينسخها CTRL+Z احتياطيًا، ولا يقرؤها أبدًا.</value>
+  </data>
+  <data name="DeveloperItems_GitConfig" xml:space="preserve">
+    <value>إعدادات Git</value>
+  </data>
+  <data name="DeveloperItems_GitConfigDetail" xml:space="preserve">
+    <value>تتضمن اسمك وبريدك الإلكتروني وأي مستودعات بعيدة أو أدوات مساعدة لبيانات الاعتماد أعددتها.</value>
+  </data>
+  <data name="DeveloperItems_EnvFiles" xml:space="preserve">
+    <value>ملفات .env في مجلدات المشاريع</value>
+  </data>
+  <data name="DeveloperItems_EnvFilesDetail" xml:space="preserve">
+    <value>غالبًا ما تحتوي على مفاتيح API وكلمات مرور قواعد البيانات. لا ينسخها CTRL+Z احتياطيًا ولا يقرؤها.</value>
+  </data>
+  <data name="DeveloperItems_Wsl" xml:space="preserve">
+    <value>توزيعات WSL</value>
+  </data>
+  <data name="DeveloperItems_WslDetail" xml:space="preserve">
+    <value>تحتوي توزيعة WSL على نظام ملفات Linux كامل تزيله إعادة تثبيت Windows.</value>
+  </data>
+  <data name="DeveloperItems_NpmPackages" xml:space="preserve">
+    <value>حزم npm العامة</value>
+  </data>
+  <data name="DeveloperItems_NuGetCache" xml:space="preserve">
+    <value>ذاكرة NuGet المؤقتة</value>
+  </data>
+  <data name="DeveloperItems_CargoRegistry" xml:space="preserve">
+    <value>سجل Cargo</value>
+  </data>
+  <data name="DeveloperItems_GradleCache" xml:space="preserve">
+    <value>ذاكرة Gradle المؤقتة</value>
+  </data>
+  <data name="DeveloperItems_MavenRepository" xml:space="preserve">
+    <value>مستودع Maven</value>
+  </data>
+  <data name="DeveloperItems_PackageCaches" xml:space="preserve">
+    <value>ذاكرات الحزم المؤقتة العامة</value>
+  </data>
+  <data name="DeveloperItems_NoPackageCaches" xml:space="preserve">
+    <value>لم يُعثر على ذاكرات حزم مؤقتة عامة.</value>
+  </data>
+  <data name="DeveloperItems_PackageCachesDetected" xml:space="preserve">
+    <value>عُثر على: {0}. يمكن تنزيلها مرة أخرى.</value>
+  </data>
+  <data name="ReadinessScanner_BackupIsOld_One" xml:space="preserve">
+    <value>النسخة الاحتياطية قديمة: عمرها {0} يوم</value>
+  </data>
+  <data name="ReadinessScanner_BackupIsOld_Two" xml:space="preserve">
+    <value>النسخة الاحتياطية قديمة: عمرها {0} يومان</value>
+  </data>
+  <data name="ReadinessScanner_BackupIsOld_Few" xml:space="preserve">
+    <value>النسخة الاحتياطية قديمة: عمرها {0} أيام</value>
+  </data>
+  <data name="ReadinessScanner_BackupIsOld_Many" xml:space="preserve">
+    <value>النسخة الاحتياطية قديمة: عمرها {0} يومًا</value>
+  </data>
+  <data name="ReadinessScanner_BackupIsOld_Other" xml:space="preserve">
+    <value>النسخة الاحتياطية قديمة: عمرها {0} يوم</value>
+  </data>
+  <data name="ReadinessScanner_DaysAgo_One" xml:space="preserve">
+    <value>منذ {0} يوم</value>
+  </data>
+  <data name="ReadinessScanner_DaysAgo_Two" xml:space="preserve">
+    <value>منذ {0} يومين</value>
+  </data>
+  <data name="ReadinessScanner_DaysAgo_Few" xml:space="preserve">
+    <value>منذ {0} أيام</value>
+  </data>
+  <data name="ReadinessScanner_DaysAgo_Many" xml:space="preserve">
+    <value>منذ {0} يومًا</value>
+  </data>
+  <data name="ReadinessScanner_DaysAgo_Other" xml:space="preserve">
+    <value>منذ {0} يوم</value>
+  </data>
+</root>

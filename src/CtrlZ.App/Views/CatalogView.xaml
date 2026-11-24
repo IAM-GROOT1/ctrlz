@@ -35,7 +35,7 @@
                         </StackPanel>
                     </StackPanel>
                     <Border Grid.Column="2" Style="{StaticResource Border.Pill}" HorizontalAlignment="Left">
-                        <TextBlock Text="{Binding IdText}" FontFamily="{StaticResource Font.Mono}" FontSize="10"
+                        <TextBlock Text="{Binding IdText}" FontFamily="{StaticResource Font.Mono}" FlowDirection="LeftToRight" FontSize="10"
                                    Foreground="{DynamicResource Brush.TextSecondary}" TextTrimming="CharacterEllipsis"
                                    MaxWidth="194" />
                     </Border>

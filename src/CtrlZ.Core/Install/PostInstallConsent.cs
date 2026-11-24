@@ -53,7 +53,7 @@ public static class PostInstallConsent
 
         if (consent.NeedsFirstRunConfirmation)
         {
-            var list = string.Join("\n", consent.WillRun.Select(line => $"• {line.AppName}: {line.CommandText}"));
+            var list = string.Join("\n", consent.WillRun.Select(line => $"• {line.AppName}: {CoreText.LeftToRight(line.CommandText)}"));
             var count = consent.WillRun.Count;
             if (!confirm(
                     CoreText.Get("PostInstallConsent_RunPostInstallCommands"),
@@ -68,7 +68,7 @@ public static class PostInstallConsent
         {
             if (!confirm(
                     CoreText.Get("PostInstallConsent_RunARiskyCommand"),
-                    CoreText.Format("PostInstallConsent_WillRunACommandThat", risky.AppName, risky.CommandText) +
+                    CoreText.Format("PostInstallConsent_WillRunACommandThat", risky.AppName, CoreText.LeftToRight(risky.CommandText)) +
                     CoreText.Get("PostInstallConsent_ThisIsAskedOnEvery"),
                     true))
             {

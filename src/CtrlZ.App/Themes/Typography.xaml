@@ -89,6 +89,7 @@
 
     <Style x:Key="Text.Mono" TargetType="TextBlock">
         <Setter Property="FontFamily" Value="{StaticResource Font.Mono}" />
+        <Setter Property="FlowDirection" Value="LeftToRight" />
         <Setter Property="FontSize" Value="11.5" />
         <Setter Property="Foreground" Value="{DynamicResource Brush.TextSecondary}" />
     </Style>

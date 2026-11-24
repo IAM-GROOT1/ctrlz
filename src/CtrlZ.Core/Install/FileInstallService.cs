@@ -324,7 +324,7 @@ public sealed class FileInstallService
             if (installer is null)
             {
                 return InstallResult.NeedsAction(
-                    "The ZIP did not contain a recognizable setup.exe or .msi. Mark it as a portable archive in Add app, or install it manually.");
+                    CoreText.Get("FileInstallService_ZipHasNoInstaller"));
             }
 
             context.Line(CoreText.Format("FileInstallService_FoundBundledInstaller", Path.GetFileName(installer)));

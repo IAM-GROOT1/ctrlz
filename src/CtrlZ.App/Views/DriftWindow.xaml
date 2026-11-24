@@ -2,6 +2,7 @@
 <!-- Copyright (c) 2026 iam-groot1 -->
 
 <Window x:Class="CtrlZ.App.Views.DriftWindow"
+        FlowDirection="{x:Static l:AppLanguage.FlowDirection}"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:l="clr-namespace:CtrlZ.App.Localization"

@@ -79,7 +79,7 @@
                             </TextBlock>
                         </Border>
                         <TextBlock Text="{Binding PackageLabel}" Style="{StaticResource Text.Caption}"
-                                   FontFamily="{StaticResource Font.Mono}" FontSize="10" Margin="1,4,0,0"
+                                   FontFamily="{StaticResource Font.Mono}" FlowDirection="LeftToRight" FontSize="10" Margin="1,4,0,0"
                                    TextTrimming="CharacterEllipsis" MaxWidth="165" />
                     </StackPanel>
 
@@ -144,8 +144,9 @@
             <Button Command="{Binding CancelScanCommand}" Style="{StaticResource Button.Secondary}" MinWidth="116"
                     Content="{l:Tr Scan_CancelScan}" Visibility="{Binding IsScanning, Converter={StaticResource BoolToVisibility}}" />
 
-            <StackPanel Grid.Column="2" Orientation="Horizontal" VerticalAlignment="Center">
-                <Grid Width="190" Margin="0,0,8,0">
+            <!-- Wraps onto a second line when the labels do not fit (longer languages, narrow windows). -->
+            <WrapPanel Grid.Column="1" Grid.ColumnSpan="2" Margin="12,0,0,0" HorizontalAlignment="Right" VerticalAlignment="Center">
+                <Grid Width="190" Margin="0,2,8,2">
                     <TextBox x:Name="SearchBox" Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}"
                              Padding="30,7,10,7" MinHeight="34" AutomationProperties.Name="{l:Tr Scan_SearchPrograms}" />
                     <TextBlock Text="{StaticResource Icon.Search}" FontFamily="{StaticResource Font.Icons}" FontSize="12"
@@ -167,9 +168,9 @@
                 </Grid>
 
                 <ComboBox ItemsSource="{Binding Categories}" SelectedItem="{Binding SelectedCategory}"
-                          MinWidth="120" Margin="0,0,8,0" AutomationProperties.Name="{l:Tr Scan_FilterByCategory}" />
+                          MinWidth="120" Margin="0,2,8,2" AutomationProperties.Name="{l:Tr Scan_FilterByCategory}" />
 
-                <Border Style="{StaticResource Border.Inset}" Padding="2" Margin="0,0,8,0">
+                <Border Style="{StaticResource Border.Inset}" Padding="2" Margin="0,2,8,2">
                     <StackPanel Orientation="Horizontal">
                         <ToggleButton Content="{l:Tr Scan_Category}" Style="{StaticResource Toggle.Pill}"
                                       IsChecked="{Binding IsGroupedByCategory, Mode=OneWay}"
@@ -181,9 +182,9 @@
                 </Border>
 
                 <ComboBox ItemsSource="{Binding MatchFilters}" SelectedItem="{Binding SelectedMatchFilter}"
-                          MinWidth="106" VerticalAlignment="Center" AutomationProperties.Name="{l:Tr Scan_FilterByMatchStatus}"
+                          MinWidth="106" Margin="0,2,0,2" VerticalAlignment="Center" AutomationProperties.Name="{l:Tr Scan_FilterByMatchStatus}"
                           ToolTip="{l:Tr Scan_ShowAllAppsOnlyMatched}" />
-            </StackPanel>
+            </WrapPanel>
         </Grid>
 
         <!-- status strip -->

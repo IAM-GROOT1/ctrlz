@@ -66,6 +66,9 @@ translation is a copy of each named for the language, for example `Strings.fr.re
 - Add the language code to `AppLanguage.Supported` in `src/CtrlZ.App/Localization/AppLanguage.cs`
   and to `SatelliteResourceLanguages` in `build/publish.ps1`. A test checks that the three agree,
   and that every value keeps English's keys, placeholders and edge spacing.
+- A right-to-left language (such as Arabic) mirrors every window by itself. Paths, ids, commands
+  and logs stay left to right: give any new window `FlowDirection="{x:Static l:AppLanguage.FlowDirection}"`,
+  and any new text in the code font `FlowDirection="LeftToRight"`. A test checks both.
 
 ## What not to submit
 

@@ -25,8 +25,6 @@ public sealed record CommandPreviewLine(
 /// </summary>
 public static class CommandPreview
 {
-    public const string OffInProfileText = "Off in profile - will not run";
-
     /// <summary>The line for one app, or null when the app has no command.</summary>
     public static CommandPreviewLine? ForApp(AppEntry app, int order, ProfileOrigin origin, bool approved) =>
         ForApp(app, order, origin, approved ? ApprovalState.Current : ApprovalState.None);
@@ -56,7 +54,7 @@ public static class CommandPreview
         var willRun = allowed && command.Enabled;
 
         var text = allowed && !command.Enabled
-            ? OffInProfileText + (resolution.Risky ? CoreText.Get("CommandPreview_WarningRiskyPattern") : string.Empty)
+            ? CoreText.Get("CommandPreview_OffInProfile") + (resolution.Risky ? CoreText.Get("CommandPreview_WarningRiskyPattern") : string.Empty)
             : resolution.Text;
 
         return new CommandPreviewLine(

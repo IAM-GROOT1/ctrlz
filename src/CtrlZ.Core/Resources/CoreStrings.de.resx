@@ -760,9 +760,7 @@
   <data name="ReadinessScanner_NoMatchingArchiveInThe" xml:space="preserve">
     <value>Kein passendes Archiv im Sicherungsordner.</value>
   </data>
-  <data name="ReadinessScanner_BackupIsOld" xml:space="preserve">
-    <value>Die Sicherung ist {0} alt</value>
-  </data>
+  
   <data name="ReadinessScanner_BackedUp" xml:space="preserve">
     <value>Gesichert {0}</value>
   </data>
@@ -805,9 +803,7 @@
   <data name="ReadinessScanner_OpenDriftDetectionFromMy" xml:space="preserve">
     <value>Öffnen Sie die Abweichungsprüfung unter „Meine Apps“, um die Änderungen zu sehen.</value>
   </data>
-  <data name="ReadinessScanner_DaysAgo" xml:space="preserve">
-    <value>vor {0} Tagen</value>
-  </data>
+  
   <data name="ReadinessRequest_ExportYourPasswordManager" xml:space="preserve">
     <value>Passwort-Manager exportieren</value>
   </data>
@@ -1138,5 +1134,131 @@
   </data>
   <data name="Tweak_NoStartRecommendations_Description" xml:space="preserve">
     <value>Das Startmenü schlägt keine Tipps, Verknüpfungen und neuen Apps mehr vor.</value>
+  </data>
+  <data name="Category_Browser" xml:space="preserve">
+    <value>Browser</value>
+  </data>
+  <data name="Category_Communication" xml:space="preserve">
+    <value>Kommunikation</value>
+  </data>
+  <data name="Category_Development" xml:space="preserve">
+    <value>Entwicklung</value>
+  </data>
+  <data name="Category_Gaming" xml:space="preserve">
+    <value>Spiele</value>
+  </data>
+  <data name="Category_Media" xml:space="preserve">
+    <value>Medien</value>
+  </data>
+  <data name="Category_Productivity" xml:space="preserve">
+    <value>Produktivität</value>
+  </data>
+  <data name="Category_Security" xml:space="preserve">
+    <value>Sicherheit</value>
+  </data>
+  <data name="Category_Utilities" xml:space="preserve">
+    <value>Dienstprogramme</value>
+  </data>
+  <data name="Category_Other" xml:space="preserve">
+    <value>Sonstiges</value>
+  </data>
+  <data name="Source_DirectLink" xml:space="preserve">
+    <value>Direktlink</value>
+  </data>
+  <data name="Source_LocalFile" xml:space="preserve">
+    <value>Lokale Datei</value>
+  </data>
+  <data name="Source_Store" xml:space="preserve">
+    <value>Store</value>
+  </data>
+  <data name="AppEntry_LatestRelease" xml:space="preserve">
+    <value>neueste Version</value>
+  </data>
+  <data name="AppEntry_MissingUrl" xml:space="preserve">
+    <value>URL fehlt</value>
+  </data>
+  <data name="AppEntry_MissingFile" xml:space="preserve">
+    <value>Datei fehlt</value>
+  </data>
+  <data name="AppEntry_UnknownSource" xml:space="preserve">
+    <value>Unbekannte Quelle</value>
+  </data>
+  <data name="CommandPreview_OffInProfile" xml:space="preserve">
+    <value>Im Profil aus – wird nicht ausgeführt</value>
+  </data>
+  <data name="FileInstallService_ZipHasNoInstaller" xml:space="preserve">
+    <value>Das ZIP enthielt keine erkennbare setup.exe oder .msi. Markieren Sie es unter „App hinzufügen“ als portables Archiv, oder installieren Sie es manuell.</value>
+  </data>
+  <data name="InstallEngine_ProfileMissing" xml:space="preserve">
+    <value>Das gespeicherte Profil für diese Installationssitzung fehlt. Starten Sie unter „Meine Apps“ eine neue Installation.</value>
+  </data>
+  <data name="ReadinessScanner_FolderMeaning" xml:space="preserve">
+    <value>Diese Dateien gibt es nur auf diesem PC. Eine Neuinstallation entfernt sie, wenn es nicht anderswo eine Kopie gibt.</value>
+  </data>
+  <data name="ReadinessScanner_Today" xml:space="preserve">
+    <value>heute</value>
+  </data>
+  <data name="ReadinessScanner_Yesterday" xml:space="preserve">
+    <value>gestern</value>
+  </data>
+  <data name="DeveloperItems_SshKeys" xml:space="preserve">
+    <value>SSH-Schlüssel</value>
+  </data>
+  <data name="DeveloperItems_SshKeysDetail" xml:space="preserve">
+    <value>Schlüsseldateien sind vorhanden. CTRL+Z sichert sie nicht und liest sie nie.</value>
+  </data>
+  <data name="DeveloperItems_GitConfig" xml:space="preserve">
+    <value>Git-Konfiguration</value>
+  </data>
+  <data name="DeveloperItems_GitConfigDetail" xml:space="preserve">
+    <value>Enthält Ihren Namen, Ihre E-Mail-Adresse und alle Remotes oder Credential-Helper, die Sie eingerichtet haben.</value>
+  </data>
+  <data name="DeveloperItems_EnvFiles" xml:space="preserve">
+    <value>.env-Dateien in Projektordnern</value>
+  </data>
+  <data name="DeveloperItems_EnvFilesDetail" xml:space="preserve">
+    <value>Enthalten oft API-Schlüssel und Datenbankkennwörter. CTRL+Z sichert sie nicht und liest sie nicht.</value>
+  </data>
+  <data name="DeveloperItems_Wsl" xml:space="preserve">
+    <value>WSL-Distributionen</value>
+  </data>
+  <data name="DeveloperItems_WslDetail" xml:space="preserve">
+    <value>Eine WSL-Distribution enthält ein ganzes Linux-Dateisystem, das eine Windows-Neuinstallation entfernt.</value>
+  </data>
+  <data name="DeveloperItems_NpmPackages" xml:space="preserve">
+    <value>Globale npm-Pakete</value>
+  </data>
+  <data name="DeveloperItems_NuGetCache" xml:space="preserve">
+    <value>NuGet-Cache</value>
+  </data>
+  <data name="DeveloperItems_CargoRegistry" xml:space="preserve">
+    <value>Cargo-Registry</value>
+  </data>
+  <data name="DeveloperItems_GradleCache" xml:space="preserve">
+    <value>Gradle-Cache</value>
+  </data>
+  <data name="DeveloperItems_MavenRepository" xml:space="preserve">
+    <value>Maven-Repository</value>
+  </data>
+  <data name="DeveloperItems_PackageCaches" xml:space="preserve">
+    <value>Globale Paketcaches</value>
+  </data>
+  <data name="DeveloperItems_NoPackageCaches" xml:space="preserve">
+    <value>Keine globalen Paketcaches gefunden.</value>
+  </data>
+  <data name="DeveloperItems_PackageCachesDetected" xml:space="preserve">
+    <value>Gefunden: {0}. Diese lassen sich erneut herunterladen.</value>
+  </data>
+  <data name="ReadinessScanner_BackupIsOld_One" xml:space="preserve">
+    <value>Die Sicherung ist {0} Tag alt</value>
+  </data>
+  <data name="ReadinessScanner_BackupIsOld_Other" xml:space="preserve">
+    <value>Die Sicherung ist {0} Tage alt</value>
+  </data>
+  <data name="ReadinessScanner_DaysAgo_One" xml:space="preserve">
+    <value>vor {0} Tag</value>
+  </data>
+  <data name="ReadinessScanner_DaysAgo_Other" xml:space="preserve">
+    <value>vor {0} Tagen</value>
   </data>
 </root>

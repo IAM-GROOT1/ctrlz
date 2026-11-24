@@ -766,9 +766,7 @@
   <data name="ReadinessScanner_NoMatchingArchiveInThe" xml:space="preserve">
     <value>No matching archive in the backup folder.</value>
   </data>
-  <data name="ReadinessScanner_BackupIsOld" xml:space="preserve">
-    <value>Backup is {0} old</value>
-  </data>
+  
   <data name="ReadinessScanner_BackedUp" xml:space="preserve">
     <value>Backed up {0}</value>
   </data>
@@ -811,9 +809,7 @@
   <data name="ReadinessScanner_OpenDriftDetectionFromMy" xml:space="preserve">
     <value>Open drift detection from My Apps to review what changed.</value>
   </data>
-  <data name="ReadinessScanner_DaysAgo" xml:space="preserve">
-    <value>{0} days ago</value>
-  </data>
+  
   <data name="ReadinessRequest_ExportYourPasswordManager" xml:space="preserve">
     <value>Export your password manager</value>
   </data>
@@ -1149,5 +1145,131 @@
   </data>
   <data name="Tweak_NoStartRecommendations_Description" xml:space="preserve">
     <value>Start stops suggesting tips, shortcuts and new apps.</value>
+  </data>
+  <data name="Category_Browser" xml:space="preserve">
+    <value>Browsers</value>
+  </data>
+  <data name="Category_Communication" xml:space="preserve">
+    <value>Communication</value>
+  </data>
+  <data name="Category_Development" xml:space="preserve">
+    <value>Development</value>
+  </data>
+  <data name="Category_Gaming" xml:space="preserve">
+    <value>Gaming</value>
+  </data>
+  <data name="Category_Media" xml:space="preserve">
+    <value>Media</value>
+  </data>
+  <data name="Category_Productivity" xml:space="preserve">
+    <value>Productivity</value>
+  </data>
+  <data name="Category_Security" xml:space="preserve">
+    <value>Security</value>
+  </data>
+  <data name="Category_Utilities" xml:space="preserve">
+    <value>Utilities</value>
+  </data>
+  <data name="Category_Other" xml:space="preserve">
+    <value>Other</value>
+  </data>
+  <data name="Source_DirectLink" xml:space="preserve">
+    <value>Direct link</value>
+  </data>
+  <data name="Source_LocalFile" xml:space="preserve">
+    <value>Local file</value>
+  </data>
+  <data name="Source_Store" xml:space="preserve">
+    <value>Store</value>
+  </data>
+  <data name="AppEntry_LatestRelease" xml:space="preserve">
+    <value>latest release</value>
+  </data>
+  <data name="AppEntry_MissingUrl" xml:space="preserve">
+    <value>Missing URL</value>
+  </data>
+  <data name="AppEntry_MissingFile" xml:space="preserve">
+    <value>Missing file</value>
+  </data>
+  <data name="AppEntry_UnknownSource" xml:space="preserve">
+    <value>Unknown source</value>
+  </data>
+  <data name="CommandPreview_OffInProfile" xml:space="preserve">
+    <value>Off in profile - will not run</value>
+  </data>
+  <data name="FileInstallService_ZipHasNoInstaller" xml:space="preserve">
+    <value>The ZIP did not contain a recognizable setup.exe or .msi. Mark it as a portable archive in Add app, or install it manually.</value>
+  </data>
+  <data name="InstallEngine_ProfileMissing" xml:space="preserve">
+    <value>The saved profile for this install session is missing. Start a new install from My Apps.</value>
+  </data>
+  <data name="ReadinessScanner_FolderMeaning" xml:space="preserve">
+    <value>These files exist only on this PC. A clean install removes them unless a copy exists somewhere else.</value>
+  </data>
+  <data name="ReadinessScanner_Today" xml:space="preserve">
+    <value>today</value>
+  </data>
+  <data name="ReadinessScanner_Yesterday" xml:space="preserve">
+    <value>yesterday</value>
+  </data>
+  <data name="DeveloperItems_SshKeys" xml:space="preserve">
+    <value>SSH keys</value>
+  </data>
+  <data name="DeveloperItems_SshKeysDetail" xml:space="preserve">
+    <value>Key files are present. CTRL+Z does not back them up, and never reads them.</value>
+  </data>
+  <data name="DeveloperItems_GitConfig" xml:space="preserve">
+    <value>Git configuration</value>
+  </data>
+  <data name="DeveloperItems_GitConfigDetail" xml:space="preserve">
+    <value>Includes your name, e-mail and any remotes or credential helpers you configured.</value>
+  </data>
+  <data name="DeveloperItems_EnvFiles" xml:space="preserve">
+    <value>.env files in project folders</value>
+  </data>
+  <data name="DeveloperItems_EnvFilesDetail" xml:space="preserve">
+    <value>Often hold API keys and database passwords. CTRL+Z does not back them up and does not read them.</value>
+  </data>
+  <data name="DeveloperItems_Wsl" xml:space="preserve">
+    <value>WSL distributions</value>
+  </data>
+  <data name="DeveloperItems_WslDetail" xml:space="preserve">
+    <value>A WSL distribution contains a whole Linux filesystem that a Windows reinstall removes.</value>
+  </data>
+  <data name="DeveloperItems_NpmPackages" xml:space="preserve">
+    <value>npm global packages</value>
+  </data>
+  <data name="DeveloperItems_NuGetCache" xml:space="preserve">
+    <value>NuGet cache</value>
+  </data>
+  <data name="DeveloperItems_CargoRegistry" xml:space="preserve">
+    <value>Cargo registry</value>
+  </data>
+  <data name="DeveloperItems_GradleCache" xml:space="preserve">
+    <value>Gradle cache</value>
+  </data>
+  <data name="DeveloperItems_MavenRepository" xml:space="preserve">
+    <value>Maven repository</value>
+  </data>
+  <data name="DeveloperItems_PackageCaches" xml:space="preserve">
+    <value>Global package caches</value>
+  </data>
+  <data name="DeveloperItems_NoPackageCaches" xml:space="preserve">
+    <value>No global package caches found.</value>
+  </data>
+  <data name="DeveloperItems_PackageCachesDetected" xml:space="preserve">
+    <value>Detected: {0}. These are re-downloadable.</value>
+  </data>
+  <data name="ReadinessScanner_BackupIsOld_One" xml:space="preserve">
+    <value>Backup is {0} day old</value>
+  </data>
+  <data name="ReadinessScanner_BackupIsOld_Other" xml:space="preserve">
+    <value>Backup is {0} days old</value>
+  </data>
+  <data name="ReadinessScanner_DaysAgo_One" xml:space="preserve">
+    <value>{0} day ago</value>
+  </data>
+  <data name="ReadinessScanner_DaysAgo_Other" xml:space="preserve">
+    <value>{0} days ago</value>
   </data>
 </root>

@@ -174,6 +174,43 @@ public class LocalizationTests
         Assert.True(literals.Count == 0, "Use {l:Tr Key} for this text:\n" + string.Join("\n", literals));
     }
 
+    [Fact]
+    public void Windows_follow_the_language_direction_and_code_text_stays_left_to_right()
+    {
+        // Arabic mirrors every window; paths, ids, commands and logs must still read left to right.
+        var problems = new List<string>();
+        foreach (var file in SourceFiles("*.xaml"))
+        {
+            var root = XDocument.Load(file).Root!;
+            if (root.Name.LocalName == "Window" &&
+                (string?)root.Attribute("FlowDirection") != "{x:Static l:AppLanguage.FlowDirection}")
+            {
+                problems.Add($"{Path.GetFileName(file)}: the window does not set FlowDirection from AppLanguage");
+            }
+
+            foreach (var element in root.DescendantsAndSelf())
+            {
+                var font = (string?)element.Attribute("FontFamily");
+                var isMono = font == "{StaticResource Font.Mono}" ||
+                             element.Elements().Any(s => s.Name.LocalName == "Setter" && (string?)s.Attribute("Value") == "{StaticResource Font.Mono}");
+                // Translated text in the code font says so by following AppLanguage.FlowDirection explicitly.
+                var keepsLeftToRight = (string?)element.Attribute("FlowDirection") is "LeftToRight" or "{x:Static l:AppLanguage.FlowDirection}" ||
+                                       element.Elements().Any(s => s.Name.LocalName == "Setter" && (string?)s.Attribute("Property") == "FlowDirection");
+                if (isMono && element.Name.LocalName != "Run" && !keepsLeftToRight)
+                {
+                    problems.Add($"{Path.GetFileName(file)}: {element.Name.LocalName} uses Font.Mono but is not LeftToRight");
+                }
+
+                if (element.Name.LocalName == "Image" && (string?)element.Attribute("FlowDirection") != "LeftToRight")
+                {
+                    problems.Add($"{Path.GetFileName(file)}: an Image would be mirrored in right-to-left languages");
+                }
+            }
+        }
+
+        Assert.True(problems.Count == 0, string.Join("\n", problems));
+    }
+
     [Theory]
     [InlineData("app")]
     [InlineData("core")]

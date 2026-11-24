@@ -1,6 +1,8 @@
 // SPDX-License-Identifier: AGPL-3.0-only
 // Copyright (c) 2026 iam-groot1
 
+using CtrlZ.Core.Localization;
+
 namespace CtrlZ.Core.Models;
 
 /// <summary>A detected application before the user turns it into a profile entry.</summary>
@@ -28,7 +30,7 @@ public sealed class ScannedApp
 
     public bool IsMatched => !string.IsNullOrWhiteSpace(MatchedWingetId);
 
-    public string SourceLabel => IsStoreApp ? "Store" : Source.Display();
+    public string SourceLabel => IsStoreApp ? CoreText.Get("Source_Store") : Source.Display();
 
     public AppEntry ToProfileEntry() => new()
     {

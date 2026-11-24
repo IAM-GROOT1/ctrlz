@@ -70,6 +70,55 @@ public class LanguageSwitchTests
     }
 
     [Fact]
+    public void Arabic_lays_windows_out_right_to_left_with_its_own_plural_forms()
+    {
+        var before = CultureInfo.CurrentUICulture;
+        var beforeDefault = CultureInfo.DefaultThreadCurrentUICulture;
+        try
+        {
+            Assert.Equal("reg.exe /s a.reg", CoreText.LeftToRight("reg.exe /s a.reg"));
+            Assert.Equal("Backup is 60 days old", CoreText.Plural("ReadinessScanner_BackupIsOld", 60));
+            Assert.Equal(System.Windows.FlowDirection.LeftToRight, AppLanguage.FlowDirection);
+            AppLanguage.Apply("ar");
+            Assert.Equal(System.Windows.FlowDirection.RightToLeft, AppLanguage.FlowDirection);
+            Assert.Equal("اللغة", Loc.Get("Settings_Language"));
+            Assert.Equal("1 تطبيق", Loc.Plural("MyApps_AppCount", 1));
+            Assert.Equal("2 تطبيقان", Loc.Plural("MyApps_AppCount", 2));
+            Assert.Equal("3 تطبيقات", Loc.Plural("MyApps_AppCount", 3));
+            Assert.Equal("11 تطبيقًا", Loc.Plural("MyApps_AppCount", 11));
+            Assert.Equal("100 تطبيق", Loc.Plural("MyApps_AppCount", 100));
+            // No Zero form is written, so 0 uses Other rather than falling back to English.
+            Assert.Equal("0 تطبيق", Loc.Plural("MyApps_AppCount", 0));
+            Assert.Equal("العمر: 5 أيام", CoreText.Plural("ReadinessScanner_AgeDays", 5));
+            Assert.Equal("منذ 2 يومين", CoreText.Plural("ReadinessScanner_DaysAgo", 2));
+            // Commands inside a right-to-left sentence keep their own order.
+            Assert.Equal("⁦reg.exe /s a.reg⁩", CoreText.LeftToRight("reg.exe /s a.reg"));
+        }
+        finally
+        {
+            CoreText.Culture = null;
+            CultureInfo.CurrentUICulture = before;
+            CultureInfo.DefaultThreadCurrentUICulture = beforeDefault;
+        }
+    }
+
+    [Fact]
+    public void An_untranslated_right_to_left_Windows_language_keeps_English_left_to_right()
+    {
+        try
+        {
+            CoreText.Culture = CultureInfo.GetCultureInfo("he-IL");
+            Assert.Equal(System.Windows.FlowDirection.LeftToRight, AppLanguage.FlowDirection);
+            CoreText.Culture = CultureInfo.GetCultureInfo("ar-EG");
+            Assert.Equal(System.Windows.FlowDirection.RightToLeft, AppLanguage.FlowDirection);
+        }
+        finally
+        {
+            CoreText.Culture = null;
+        }
+    }
+
+    [Fact]
     public void An_unknown_language_leaves_the_current_one_alone()
     {
         var before = CultureInfo.CurrentUICulture;

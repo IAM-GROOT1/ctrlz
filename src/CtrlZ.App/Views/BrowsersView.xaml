@@ -202,7 +202,7 @@
                                 <TextBlock Text="{Binding EstimateText}" FontWeight="SemiBold" Foreground="{DynamicResource Brush.Accent}"
                                            TextWrapping="Wrap" />
                                 <TextBlock Text="{l:Tr Browsers_EstimatedBackupSizeActualZIP}" Style="{StaticResource Text.Caption}"
-                                           Margin="0,4,0,0" />
+                                           Margin="0,4,0,0" TextWrapping="Wrap" />
                             </StackPanel>
                         </Border>
 
@@ -255,7 +255,7 @@
                                 <ColumnDefinition Width="*" />
                                 <ColumnDefinition Width="Auto" />
                             </Grid.ColumnDefinitions>
-                            <TextBox AutomationProperties.Name="{l:Tr Browsers_BackupArchiveToRestore}" Text="{Binding ArchivePath, UpdateSourceTrigger=PropertyChanged}" />
+                            <TextBox AutomationProperties.Name="{l:Tr Browsers_BackupArchiveToRestore}" FlowDirection="LeftToRight" Text="{Binding ArchivePath, UpdateSourceTrigger=PropertyChanged}" />
                             <Button Grid.Column="1" Content="{l:Tr Browsers_Browse}" Style="{StaticResource Button.Secondary}"
                                     Margin="8,0,0,0" Command="{Binding BrowseArchiveCommand}" />
                         </Grid>

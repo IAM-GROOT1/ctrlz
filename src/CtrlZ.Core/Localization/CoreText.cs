@@ -35,6 +35,15 @@ public static class CoreText
     public static string Format(string key, params object?[] args) =>
         string.Format(CultureInfo.CurrentCulture, Get(key), args);
 
+    /// <summary>
+    /// Keeps <paramref name="text"/> (a command, path or id) in left-to-right order inside a sentence
+    /// in a right-to-left language, which could otherwise reorder the characters around it. There it
+    /// wraps the text in the Unicode left-to-right isolate marks, which take up no space on screen;
+    /// in a left-to-right language the text is returned unchanged.
+    /// </summary>
+    public static string LeftToRight(string text) =>
+        Current.TextInfo.IsRightToLeft ? "⁦" + text + "⁩" : text;
+
     /// <summary>Count-dependent text; see <see cref="PluralRules"/>. The count is <c>{0}</c>.</summary>
     public static string Plural(string key, long count, params object?[] args)
     {

@@ -114,8 +114,7 @@ public sealed class ReadinessScanner
         DateTimeOffset now)
     {
         var id = "folder." + Slug(folder.Id ?? folder.Label);
-        const string meaning =
-            "These files exist only on this PC. A clean install removes them unless a copy exists somewhere else.";
+        var meaning = CoreText.Get("ReadinessScanner_FolderMeaning");
 
         if (!usage.Exists)
         {
@@ -291,7 +290,7 @@ public sealed class ReadinessScanner
                 Title = browser.Name,
                 Status = stale ? ReadinessStatus.Warning : ReadinessStatus.Pass,
                 Summary = stale
-                    ? CoreText.Format("ReadinessScanner_BackupIsOld", DescribeAge(now - backup.CreatedUtc))
+                    ? CoreText.Plural("ReadinessScanner_BackupIsOld", age)
                     : CoreText.Format("ReadinessScanner_BackedUp", DescribeAge(now - backup.CreatedUtc)),
                 WhatItMeans =
                     CoreText.Get("ReadinessScanner_BrowserProfilesAreBackedUp") +
@@ -406,9 +405,9 @@ public sealed class ReadinessScanner
         var days = (int)age.TotalDays;
         return days switch
         {
-            0 => "today",
-            1 => "yesterday",
-            _ => CoreText.Format("ReadinessScanner_DaysAgo", days)
+            0 => CoreText.Get("ReadinessScanner_Today"),
+            1 => CoreText.Get("ReadinessScanner_Yesterday"),
+            _ => CoreText.Plural("ReadinessScanner_DaysAgo", days)
         };
     }
 
