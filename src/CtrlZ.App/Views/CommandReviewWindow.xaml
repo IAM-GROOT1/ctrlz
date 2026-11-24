@@ -84,7 +84,8 @@
                         <Button Content="{l:Tr CommandReview_Done}" Style="{StaticResource Button.Secondary}" MinWidth="96"
                                 IsCancel="True" Command="{Binding CloseCommand}" />
                         <Button Content="{l:Tr CommandReview_ApproveThisCommand}" Style="{StaticResource Button.Primary}" MinWidth="160"
-                                Margin="8,0,0,0" Command="{Binding ApproveCommand}" />
+                                Margin="8,0,0,0" Command="{Binding ApproveCommand}"
+                                Visibility="{Binding IsLocal, Converter={StaticResource InverseBoolToVisibility}}" />
                     </StackPanel>
                 </Grid>
             </Border>

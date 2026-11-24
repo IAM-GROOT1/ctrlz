@@ -66,6 +66,9 @@ public class InstallEngineOrderTests
         Assert.Contains("needs runtime", plugin.Error);
         Assert.Equal(InstallStatus.Failed, app.Status);
         Assert.Contains("needs plugin", app.Error);
+        Assert.True(plugin.NotAttempted);
+        Assert.True(app.NotAttempted);
+        Assert.False(result.Items.Single(item => item.AppId == "runtime").NotAttempted);
     }
 
     [Fact]
@@ -81,6 +84,7 @@ public class InstallEngineOrderTests
 
         Assert.Equal(new[] { "runtime", "app" }, installer.Installed);
         Assert.All(second.Items, item => Assert.Equal(InstallStatus.Success, item.Status));
+        Assert.All(second.Items, item => Assert.False(item.NotAttempted));
     }
 
     [Fact]
@@ -98,6 +102,7 @@ public class InstallEngineOrderTests
         {
             Assert.Equal(InstallStatus.Failed, item.Status);
             Assert.Contains("loop", item.Error);
+            Assert.True(item.NotAttempted);
         });
     }
 

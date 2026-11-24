@@ -1261,4 +1261,7 @@
   <data name="ReadinessScanner_DaysAgo_Other" xml:space="preserve">
     <value>vor {0} Tagen</value>
   </data>
+  <data name="InstallEngine_NotAttempted" xml:space="preserve">
+    <value>Nicht versucht: {0}</value>
+  </data>
 </root>

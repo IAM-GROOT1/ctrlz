@@ -48,6 +48,13 @@ public sealed class InstallItemState
     public int? ExitCode { get; set; }
     public string? Error { get; set; }
     public string? Detail { get; set; }
+
+    /// <summary>
+    /// True when the app was never started because a dependency did not install or it is part of an
+    /// install-order loop. The command line reports these with their own exit code; the text in
+    /// <see cref="Error"/> is translated, so it is never matched on.
+    /// </summary>
+    public bool NotAttempted { get; set; }
     public DateTimeOffset UpdatedUtc { get; set; } = DateTimeOffset.UtcNow;
 }
 
