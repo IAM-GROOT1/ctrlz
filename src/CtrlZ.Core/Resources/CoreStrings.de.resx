@@ -1296,6 +1296,7 @@
   </data>
   <data name="BrowserRestore_SafetyCopyFailed" xml:space="preserve">
     <value>Es konnte keine Sicherheitskopie des aktuellen Profils erstellt werden: {0}</value>
+  </data>
   <data name="InstallEngine_NotAttempted" xml:space="preserve">
     <value>Nicht versucht: {0}</value>
   </data>
