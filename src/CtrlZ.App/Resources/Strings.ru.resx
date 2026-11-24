@@ -2902,16 +2902,16 @@
     <value>{0} профиля · примерно {1}</value>
   </data>
   <data name="Catalog_AddedApps_One" xml:space="preserve">
-    <value>{0} приложение добавлено в «{1}»</value>
+    <value>Добавлено в «{1}»: {0}</value>
   </data>
   <data name="Catalog_AddedApps_Few" xml:space="preserve">
-    <value>{0} приложения добавлено в «{1}»</value>
+    <value>Добавлено в «{1}»: {0}</value>
   </data>
   <data name="Catalog_AddedApps_Many" xml:space="preserve">
-    <value>{0} приложений добавлено в «{1}»</value>
+    <value>Добавлено в «{1}»: {0}</value>
   </data>
   <data name="Catalog_AddedApps_Other" xml:space="preserve">
-    <value>{0} приложения добавлено в «{1}»</value>
+    <value>Добавлено в «{1}»: {0}</value>
   </data>
   <data name="CommandReview_TimeoutAdmin" xml:space="preserve">
     <value>Тайм-аут {0} с · от имени администратора</value>

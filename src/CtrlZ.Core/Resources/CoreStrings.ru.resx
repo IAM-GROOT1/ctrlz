@@ -944,7 +944,7 @@
     <value>winget {0} готов.</value>
   </data>
   <data name="ProfileExport_OnTheOtherPCOpen" xml:space="preserve">
-    <value>На другом компьютере откройте «Мои приложения» → «Импорт» и выберите его.</value>
+    <value>На другом компьютере откройте «Мои приложения» → «Импортировать профиль» и выберите его.</value>
   </data>
   <data name="ProfileExport_OnTheOtherPCThey" xml:space="preserve">
     <value>На другом компьютере они остаются заблокированными, пока вы не проверите и не одобрите каждую там.</value>
@@ -1044,16 +1044,16 @@
     <value>Сохранено приложений: {0}</value>
   </data>
   <data name="ReadinessScanner_SavedAppsMissing_One" xml:space="preserve">
-    <value>Нет сохранённых приложений: {0}, </value>
+    <value>Сохранённых, но не установленных: {0}, </value>
   </data>
   <data name="ReadinessScanner_SavedAppsMissing_Other" xml:space="preserve">
-    <value>Нет сохранённых приложений: {0}, </value>
+    <value>Сохранённых, но не установленных: {0}, </value>
   </data>
   <data name="ReadinessScanner_InstalledAppsNotSaved_One" xml:space="preserve">
-    <value>не сохранено установленных: {0}</value>
+    <value>установленных, но не сохранённых: {0}</value>
   </data>
   <data name="ReadinessScanner_InstalledAppsNotSaved_Other" xml:space="preserve">
-    <value>не сохранено установленных: {0}</value>
+    <value>установленных, но не сохранённых: {0}</value>
   </data>
   <data name="BrowserArchiveVerifier_Restorable_One" xml:space="preserve">
     <value>Можно восстановить: {1}, профилей: {0}, </value>
