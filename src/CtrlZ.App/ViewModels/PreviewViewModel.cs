@@ -74,10 +74,7 @@ public sealed partial class PreviewViewModel : ObservableObject
         _plan = new InstallPlanner(catalog: services.InstallEngine.Catalog).Build(profile, profileName);
         LoadCommands();
 
-        SummaryText = _plan.IsEmpty
-            ? Loc.Get("Preview_ThereIsNothingEnabledTo")
-            : Loc.Plural("Preview_AppsInRun", _plan.Count) +
-              Loc.Format("Preview_MayNeedAdminWithWarnings", _plan.AdminCount, _plan.WarningCount);
+        UpdateSummary();
 
         PlanWarnings = _plan.PlanWarnings;
     }
@@ -86,6 +83,27 @@ public sealed partial class PreviewViewModel : ObservableObject
 
     /// <summary>Every post-install command in this run, in install order.</summary>
     public IReadOnlyList<CommandPreviewLine> Commands { get; private set; } = [];
+
+    /// <summary>
+    /// The line above the list. Commands that are blocked until reviewed, or that match a risky
+    /// pattern, are counted here too, so the summary never reads as all clear while they wait.
+    /// </summary>
+    private void UpdateSummary() => SummaryText = Summary(_plan, Commands);
+
+    public static string Summary(InstallPlan plan, IReadOnlyList<CommandPreviewLine> commands)
+    {
+        if (plan.IsEmpty)
+        {
+            return Loc.Get("Preview_ThereIsNothingEnabledTo");
+        }
+
+        var toReview = commands.Count(line => !CommandStateResolver.MayRun(line.State));
+        var risky = commands.Count(line => line.Risky);
+        return Loc.Plural("Preview_AppsInRun", plan.Count) +
+               Loc.Format("Preview_MayNeedAdminWithWarnings", plan.AdminCount, plan.WarningCount) +
+               (toReview > 0 ? Loc.Plural("Preview_CommandsToReview", toReview) : string.Empty) +
+               (risky > 0 ? Loc.Plural("Preview_RiskyCommands", risky) : string.Empty);
+    }
 
     /// <summary>True when some command is blocked until it is reviewed.</summary>
     public bool HasCommandsToReview => Commands.Any(line => !CommandStateResolver.MayRun(line.State));
@@ -128,6 +146,7 @@ public sealed partial class PreviewViewModel : ObservableObject
         if (_dialogs.ShowCommandReview(_services, _profile))
         {
             LoadCommands();
+            UpdateSummary();
             StatusLine = Loc.Get("Preview_CommandReviewSavedOnThis");
         }
     }

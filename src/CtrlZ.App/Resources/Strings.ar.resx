@@ -3195,4 +3195,16 @@
   <data name="AddApp_InspectToPreviewCommand" xml:space="preserve">
     <value>افحص مثبّتًا لمعاينة الأمر.</value>
   </data>
+  <data name="Preview_CommandsToReview_One" xml:space="preserve">
+    <value> · أوامر تحتاج إلى مراجعة: {0}</value>
+  </data>
+  <data name="Preview_CommandsToReview_Other" xml:space="preserve">
+    <value> · أوامر تحتاج إلى مراجعة: {0}</value>
+  </data>
+  <data name="Preview_RiskyCommands_One" xml:space="preserve">
+    <value> · أوامر خطِرة: {0}</value>
+  </data>
+  <data name="Preview_RiskyCommands_Other" xml:space="preserve">
+    <value> · أوامر خطِرة: {0}</value>
+  </data>
 </root>
