@@ -3080,4 +3080,16 @@ Use the file from "winget export -o apps.json", "scoop export &gt; apps.json" or
   <data name="AddApp_InspectToPreviewCommand" xml:space="preserve">
     <value>Inspect an installer to preview the command.</value>
   </data>
+  <data name="Preview_CommandsToReview_One" xml:space="preserve">
+    <value> · {0} command needs review</value>
+  </data>
+  <data name="Preview_CommandsToReview_Other" xml:space="preserve">
+    <value> · {0} commands need review</value>
+  </data>
+  <data name="Preview_RiskyCommands_One" xml:space="preserve">
+    <value> · {0} risky command</value>
+  </data>
+  <data name="Preview_RiskyCommands_Other" xml:space="preserve">
+    <value> · {0} risky commands</value>
+  </data>
 </root>

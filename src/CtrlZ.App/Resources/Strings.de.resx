@@ -3078,4 +3078,16 @@ Verwenden Sie die Datei aus „winget export -o apps.json“, „scoop export &g
   <data name="AddApp_InspectToPreviewCommand" xml:space="preserve">
     <value>Prüfen Sie einen Installer, um den Befehl vorab zu sehen.</value>
   </data>
+  <data name="Preview_CommandsToReview_One" xml:space="preserve">
+    <value> · {0} Befehl muss geprüft werden</value>
+  </data>
+  <data name="Preview_CommandsToReview_Other" xml:space="preserve">
+    <value> · {0} Befehle müssen geprüft werden</value>
+  </data>
+  <data name="Preview_RiskyCommands_One" xml:space="preserve">
+    <value> · {0} riskanter Befehl</value>
+  </data>
+  <data name="Preview_RiskyCommands_Other" xml:space="preserve">
+    <value> · {0} riskante Befehle</value>
+  </data>
 </root>

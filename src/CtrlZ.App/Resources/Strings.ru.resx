@@ -3156,4 +3156,16 @@
   <data name="AddApp_InspectToPreviewCommand" xml:space="preserve">
     <value>Проверьте установщик, чтобы увидеть команду.</value>
   </data>
+  <data name="Preview_CommandsToReview_One" xml:space="preserve">
+    <value> · команд на проверку: {0}</value>
+  </data>
+  <data name="Preview_CommandsToReview_Other" xml:space="preserve">
+    <value> · команд на проверку: {0}</value>
+  </data>
+  <data name="Preview_RiskyCommands_One" xml:space="preserve">
+    <value> · опасных команд: {0}</value>
+  </data>
+  <data name="Preview_RiskyCommands_Other" xml:space="preserve">
+    <value> · опасных команд: {0}</value>
+  </data>
 </root>
