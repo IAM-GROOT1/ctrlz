@@ -487,6 +487,7 @@ old copy is removed by the next update.
 .\ctrlz.exe updates                           # app updates winget can apply, changes nothing
 .\ctrlz.exe updates --all --yes               # updates them, except pinned and ignored apps
 .\ctrlz.exe updates --id Mozilla.Firefox --yes
+.\ctrlz.exe version                           # prints the version, for example "ctrlz 1.4.0"
 ```
 
 The command line follows the app's safety rules:
