@@ -16,6 +16,10 @@ focus on Helium, Zen, and multiple profiles.
 | --- | --- | --- |
 | ![Scan](docs/screenshots/scan.png) | ![Add app](docs/screenshots/add-app.png) | ![Catalog](docs/screenshots/catalog.png) |
 
+A 25-second tour: a saved profile, the install preview, the pre-wipe check and a reversible tweak.
+
+![CTRL+Z in use: My Apps, install preview, Ready to wipe and Tweaks](docs/screenshots/demo.gif)
+
 ## Why this stack
 
 I chose **.NET 8 + WPF** with a custom Fluent-inspired theme rather than Tauri/Electron:

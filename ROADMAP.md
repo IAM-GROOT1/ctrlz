@@ -21,7 +21,7 @@ promise of a date, and a section can be reordered if a bug matters more.
 - [x] **3. App updates through winget** - done, shipping in v1.4.0
 - [x] **4. Reliability and security** - done, shipping in v1.4.0 (ARM64 builds deferred)
 - [ ] **5. Foundation for optional extras** - planned
-- [x] **6. UI polish and motion** - done, shipping in v1.4.0 (translations later)
+- [x] **6. UI polish and motion** - done, shipping in v1.4.0
 - [x] **7. Onboarding and sharing profiles** - done, shipping in v1.4.0
 - [ ] **8. Release and distribution** - planned
 - [ ] **9. Optional extra: scheduled and local backups** - planned
@@ -102,7 +102,7 @@ relicensed to AGPL-3.0-only for this (versions up to v1.1.3 remain MIT).
 ### 6. UI polish and motion
 
 Calm, Windows 11 style polish and motion across every page, full keyboard operation, sensible focus
-order and screen-reader labels, and translations later.
+order, screen-reader labels and translations.
 
 - [x] **A. Screen readers.** Every button, check box, field and list a user can reach has a name
   a screen reader can read; row buttons name their app ("Move Steam up"). A test reads every
@@ -111,7 +111,7 @@ order and screen-reader labels, and translations later.
   Esc closes every window (checked by a test); dialogs and the app editor open with focus in
   their first field.
 - [x] **C. Motion.** The page fade is skipped when Windows' *Animation effects* setting is off.
-- [ ] **D. Translations.** In progress. All of the app's text now comes from resource files
+- [x] **D. Translations.** All of the app's text now comes from resource files
   (`src/CtrlZ.App/Resources/Strings.resx` and `src/CtrlZ.Core/Resources/CoreStrings.resx`), with
   plural forms per language. Settings has a **Language** choice (Windows default or a listed
   language). Arabic (with right-to-left layout), Spanish, Russian and German are translated and
@@ -149,8 +149,11 @@ itself, smaller artifacts, a proper uninstall path, and a short demo.
   it), and the README explains how to remove a portable copy. CI now builds the installer on
   every pull request.
 - [ ] **C. Code signing.** Later.
-- [ ] **D. A winget listing for CTRL+Z.** After the next stable release.
-- [ ] **E. A short demo.** Later.
+- [ ] **D. A winget listing for CTRL+Z.** The manifests are ready: `build/winget-manifest.ps1 -Tag vX.Y.Z`
+  writes them from a published release (they pass `winget validate`). They are submitted to
+  winget-pkgs after the next stable release.
+- [x] **E. A short demo.** A short animated tour at the top of the README, recorded in Windows
+  Sandbox with a sample profile, so it shows no personal data.
 
 ### 9 to 12. Optional extras
 
