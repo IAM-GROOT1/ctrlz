@@ -3192,4 +3192,7 @@
   <data name="Catalog_SelectedCount" xml:space="preserve">
     <value>{0} محدد</value>
   </data>
+  <data name="AddApp_InspectToPreviewCommand" xml:space="preserve">
+    <value>افحص مثبّتًا لمعاينة الأمر.</value>
+  </data>
 </root>

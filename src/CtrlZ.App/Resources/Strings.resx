@@ -3077,4 +3077,7 @@ Use the file from "winget export -o apps.json", "scoop export &gt; apps.json" or
   <data name="Catalog_SelectedCount" xml:space="preserve">
     <value>{0} selected</value>
   </data>
+  <data name="AddApp_InspectToPreviewCommand" xml:space="preserve">
+    <value>Inspect an installer to preview the command.</value>
+  </data>
 </root>

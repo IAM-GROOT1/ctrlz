@@ -5,6 +5,7 @@ using CtrlZ.App.Localization;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using CtrlZ.Core.Install;
+using CtrlZ.Core.Localization;
 using CtrlZ.Core.Models;
 
 namespace CtrlZ.App.ViewModels;
@@ -130,7 +131,7 @@ public sealed partial class CommandReviewViewModel : ObservableObject
 
         if (item.IsRisky && !_confirmDanger(
                 Loc.Get("CommandReview_ApproveARiskyCommand"),
-                Loc.Format("CommandReview_ApproveItOnlyIfYou", item.RisksText, item.CommandText) +
+                Loc.Format("CommandReview_ApproveItOnlyIfYou", item.RisksText, CoreText.LeftToRight(item.CommandText)) +
                 Loc.Get("CommandReview_ItWillAlsoAskFor")))
         {
             return;

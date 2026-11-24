@@ -760,9 +760,7 @@
   <data name="ReadinessScanner_NoMatchingArchiveInThe" xml:space="preserve">
     <value>Kein passendes Archiv im Sicherungsordner.</value>
   </data>
-  <data name="ReadinessScanner_BackupIsOld" xml:space="preserve">
-    <value>Die Sicherung ist {0} alt</value>
-  </data>
+  
   <data name="ReadinessScanner_BackedUp" xml:space="preserve">
     <value>Gesichert {0}</value>
   </data>
@@ -805,9 +803,7 @@
   <data name="ReadinessScanner_OpenDriftDetectionFromMy" xml:space="preserve">
     <value>Öffnen Sie die Abweichungsprüfung unter „Meine Apps“, um die Änderungen zu sehen.</value>
   </data>
-  <data name="ReadinessScanner_DaysAgo" xml:space="preserve">
-    <value>vor {0} Tagen</value>
-  </data>
+  
   <data name="ReadinessRequest_ExportYourPasswordManager" xml:space="preserve">
     <value>Passwort-Manager exportieren</value>
   </data>
@@ -1252,5 +1248,17 @@
   </data>
   <data name="DeveloperItems_PackageCachesDetected" xml:space="preserve">
     <value>Gefunden: {0}. Diese lassen sich erneut herunterladen.</value>
+  </data>
+  <data name="ReadinessScanner_BackupIsOld_One" xml:space="preserve">
+    <value>Die Sicherung ist {0} Tag alt</value>
+  </data>
+  <data name="ReadinessScanner_BackupIsOld_Other" xml:space="preserve">
+    <value>Die Sicherung ist {0} Tage alt</value>
+  </data>
+  <data name="ReadinessScanner_DaysAgo_One" xml:space="preserve">
+    <value>vor {0} Tag</value>
+  </data>
+  <data name="ReadinessScanner_DaysAgo_Other" xml:space="preserve">
+    <value>vor {0} Tagen</value>
   </data>
 </root>

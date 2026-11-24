@@ -187,7 +187,7 @@
 
                         <TextBlock Text="{l:Tr AddApp_CommandPreview}" Style="{StaticResource Text.Label}" Margin="0,16,0,6" />
                         <Border Style="{StaticResource Border.Inset}" Background="{DynamicResource Brush.LogBackground}" Padding="10,8">
-                            <TextBlock Text="{Binding PreviewCommand, TargetNullValue='Inspect an installer to preview the command.'}"
+                            <TextBlock Text="{Binding PreviewCommand, TargetNullValue={l:Tr AddApp_InspectToPreviewCommand}}"
                                        FontFamily="{StaticResource Font.Mono}" FlowDirection="LeftToRight" FontSize="10.5" TextWrapping="Wrap"
                                        Foreground="{DynamicResource Brush.TextSecondary}" />
                         </Border>

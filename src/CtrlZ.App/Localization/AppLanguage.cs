@@ -35,6 +35,10 @@ public static class AppLanguage
             ? FlowDirection.RightToLeft
             : FlowDirection.LeftToRight;
 
+    /// <summary>Options that make a Windows message box read right to left when the windows do.</summary>
+    public static MessageBoxOptions MessageBoxOptions =>
+        FlowDirection == FlowDirection.RightToLeft ? MessageBoxOptions.RtlReading | MessageBoxOptions.RightAlign : MessageBoxOptions.None;
+
     /// <summary>Uses <paramref name="code"/> for all text from now on; empty or unknown follows Windows.</summary>
     public static void Apply(string? code)
     {

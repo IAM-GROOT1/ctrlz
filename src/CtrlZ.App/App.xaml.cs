@@ -75,7 +75,7 @@ public partial class App : Application
             MessageBox.Show(
                 Loc.Get("App_CTRLZCouldNotStart") + ex.Message +
                 (_services is null ? string.Empty : Loc.Format("App_Log", _services.Log.LogFilePath)),
-                "CTRL+Z", MessageBoxButton.OK, MessageBoxImage.Error);
+                "CTRL+Z", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK, AppLanguage.MessageBoxOptions);
             Shutdown(1);
         }
     }
@@ -222,8 +222,9 @@ public partial class App : Application
         {
             MessageBox.Show(
                 Loc.Get("App_CTRLZHitAnUnexpected") +
-                e.Exception.Message + $"\n\nLog: {_services?.Log.LogFilePath}",
-                "CTRL+Z", MessageBoxButton.OK, MessageBoxImage.Warning);
+                e.Exception.Message +
+                (_services is null ? string.Empty : Loc.Format("App_Log", _services.Log.LogFilePath)),
+                "CTRL+Z", MessageBoxButton.OK, MessageBoxImage.Warning, MessageBoxResult.OK, AppLanguage.MessageBoxOptions);
         }
         finally
         {

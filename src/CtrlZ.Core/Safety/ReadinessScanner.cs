@@ -290,7 +290,7 @@ public sealed class ReadinessScanner
                 Title = browser.Name,
                 Status = stale ? ReadinessStatus.Warning : ReadinessStatus.Pass,
                 Summary = stale
-                    ? CoreText.Format("ReadinessScanner_BackupIsOld", DescribeAge(now - backup.CreatedUtc))
+                    ? CoreText.Plural("ReadinessScanner_BackupIsOld", age)
                     : CoreText.Format("ReadinessScanner_BackedUp", DescribeAge(now - backup.CreatedUtc)),
                 WhatItMeans =
                     CoreText.Get("ReadinessScanner_BrowserProfilesAreBackedUp") +
@@ -407,7 +407,7 @@ public sealed class ReadinessScanner
         {
             0 => CoreText.Get("ReadinessScanner_Today"),
             1 => CoreText.Get("ReadinessScanner_Yesterday"),
-            _ => CoreText.Format("ReadinessScanner_DaysAgo", days)
+            _ => CoreText.Plural("ReadinessScanner_DaysAgo", days)
         };
     }
 

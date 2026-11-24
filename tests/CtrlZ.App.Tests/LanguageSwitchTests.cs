@@ -76,6 +76,8 @@ public class LanguageSwitchTests
         var beforeDefault = CultureInfo.DefaultThreadCurrentUICulture;
         try
         {
+            Assert.Equal("reg.exe /s a.reg", CoreText.LeftToRight("reg.exe /s a.reg"));
+            Assert.Equal("Backup is 60 days old", CoreText.Plural("ReadinessScanner_BackupIsOld", 60));
             Assert.Equal(System.Windows.FlowDirection.LeftToRight, AppLanguage.FlowDirection);
             AppLanguage.Apply("ar");
             Assert.Equal(System.Windows.FlowDirection.RightToLeft, AppLanguage.FlowDirection);
@@ -88,6 +90,9 @@ public class LanguageSwitchTests
             // No Zero form is written, so 0 uses Other rather than falling back to English.
             Assert.Equal("0 تطبيق", Loc.Plural("MyApps_AppCount", 0));
             Assert.Equal("العمر: 5 أيام", CoreText.Plural("ReadinessScanner_AgeDays", 5));
+            Assert.Equal("منذ 2 يومين", CoreText.Plural("ReadinessScanner_DaysAgo", 2));
+            // Commands inside a right-to-left sentence keep their own order.
+            Assert.Equal("⁦reg.exe /s a.reg⁩", CoreText.LeftToRight("reg.exe /s a.reg"));
         }
         finally
         {

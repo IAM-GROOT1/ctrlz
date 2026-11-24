@@ -766,9 +766,7 @@
   <data name="ReadinessScanner_NoMatchingArchiveInThe" xml:space="preserve">
     <value>No matching archive in the backup folder.</value>
   </data>
-  <data name="ReadinessScanner_BackupIsOld" xml:space="preserve">
-    <value>Backup is {0} old</value>
-  </data>
+  
   <data name="ReadinessScanner_BackedUp" xml:space="preserve">
     <value>Backed up {0}</value>
   </data>
@@ -811,9 +809,7 @@
   <data name="ReadinessScanner_OpenDriftDetectionFromMy" xml:space="preserve">
     <value>Open drift detection from My Apps to review what changed.</value>
   </data>
-  <data name="ReadinessScanner_DaysAgo" xml:space="preserve">
-    <value>{0} days ago</value>
-  </data>
+  
   <data name="ReadinessRequest_ExportYourPasswordManager" xml:space="preserve">
     <value>Export your password manager</value>
   </data>
@@ -1263,5 +1259,17 @@
   </data>
   <data name="DeveloperItems_PackageCachesDetected" xml:space="preserve">
     <value>Detected: {0}. These are re-downloadable.</value>
+  </data>
+  <data name="ReadinessScanner_BackupIsOld_One" xml:space="preserve">
+    <value>Backup is {0} day old</value>
+  </data>
+  <data name="ReadinessScanner_BackupIsOld_Other" xml:space="preserve">
+    <value>Backup is {0} days old</value>
+  </data>
+  <data name="ReadinessScanner_DaysAgo_One" xml:space="preserve">
+    <value>{0} day ago</value>
+  </data>
+  <data name="ReadinessScanner_DaysAgo_Other" xml:space="preserve">
+    <value>{0} days ago</value>
   </data>
 </root>

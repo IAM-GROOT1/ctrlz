@@ -101,7 +101,7 @@ public partial class WingetMatchWindow : Window
         if (string.IsNullOrWhiteSpace(id))
         {
             MessageBox.Show(this, Loc.Get("WingetMatch_SelectAResultOrPaste"), "CTRL+Z",
-                MessageBoxButton.OK, MessageBoxImage.Information);
+                MessageBoxButton.OK, MessageBoxImage.Information, MessageBoxResult.OK, AppLanguage.MessageBoxOptions);
             return;
         }
 

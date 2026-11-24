@@ -88,7 +88,7 @@
     <value>لا يطابق SHA-256 المحفوظ أحدث إصدار على GitHub. راجع بيانات التطبيق.</value>
   </data>
   <data name="GitHubSourceInstaller_ThisReleasePublishesNoSHA" xml:space="preserve">
-    <value>لا ينشر هذا الإصدار SHA-256 للملف؛ لذا لا يمكن التحقق من سلامته مقابل بصمة منشورة. أضف SHA-256 إلى بيانات التطبيق لتثبيته.</value>
+    <value>لا ينشر هذا الإصدار SHA-256 للملف؛ لذا لا يمكن التحقق من سلامته مقابل بصمة منشورة. أضف SHA-256 إلى بيانات التطبيق لتثبيت قيمته المتوقعة.</value>
   </data>
   <data name="GitHubSourceInstaller_Downloading" xml:space="preserve">
     <value>جارٍ تنزيل {0}…</value>
@@ -760,9 +760,7 @@
   <data name="ReadinessScanner_NoMatchingArchiveInThe" xml:space="preserve">
     <value>لا يوجد أرشيف مطابق في مجلد النسخ الاحتياطي.</value>
   </data>
-  <data name="ReadinessScanner_BackupIsOld" xml:space="preserve">
-    <value>عمر النسخة الاحتياطية {0}</value>
-  </data>
+  
   <data name="ReadinessScanner_BackedUp" xml:space="preserve">
     <value>نُسخ احتياطيًا {0}</value>
   </data>
@@ -805,9 +803,7 @@
   <data name="ReadinessScanner_OpenDriftDetectionFromMy" xml:space="preserve">
     <value>افتح اكتشاف الاختلافات من «تطبيقاتي» لمراجعة ما تغيّر.</value>
   </data>
-  <data name="ReadinessScanner_DaysAgo" xml:space="preserve">
-    <value>منذ {0} يوم</value>
-  </data>
+  
   <data name="ReadinessRequest_ExportYourPasswordManager" xml:space="preserve">
     <value>صدّر بيانات مدير كلمات المرور</value>
   </data>
@@ -1261,5 +1257,35 @@
   </data>
   <data name="DeveloperItems_PackageCachesDetected" xml:space="preserve">
     <value>عُثر على: {0}. يمكن تنزيلها مرة أخرى.</value>
+  </data>
+  <data name="ReadinessScanner_BackupIsOld_One" xml:space="preserve">
+    <value>النسخة الاحتياطية قديمة: عمرها {0} يوم</value>
+  </data>
+  <data name="ReadinessScanner_BackupIsOld_Two" xml:space="preserve">
+    <value>النسخة الاحتياطية قديمة: عمرها {0} يومان</value>
+  </data>
+  <data name="ReadinessScanner_BackupIsOld_Few" xml:space="preserve">
+    <value>النسخة الاحتياطية قديمة: عمرها {0} أيام</value>
+  </data>
+  <data name="ReadinessScanner_BackupIsOld_Many" xml:space="preserve">
+    <value>النسخة الاحتياطية قديمة: عمرها {0} يومًا</value>
+  </data>
+  <data name="ReadinessScanner_BackupIsOld_Other" xml:space="preserve">
+    <value>النسخة الاحتياطية قديمة: عمرها {0} يوم</value>
+  </data>
+  <data name="ReadinessScanner_DaysAgo_One" xml:space="preserve">
+    <value>منذ {0} يوم</value>
+  </data>
+  <data name="ReadinessScanner_DaysAgo_Two" xml:space="preserve">
+    <value>منذ {0} يومين</value>
+  </data>
+  <data name="ReadinessScanner_DaysAgo_Few" xml:space="preserve">
+    <value>منذ {0} أيام</value>
+  </data>
+  <data name="ReadinessScanner_DaysAgo_Many" xml:space="preserve">
+    <value>منذ {0} يومًا</value>
+  </data>
+  <data name="ReadinessScanner_DaysAgo_Other" xml:space="preserve">
+    <value>منذ {0} يوم</value>
   </data>
 </root>
