@@ -23,7 +23,8 @@ public enum CliCommand
     Install,
     DryRun,
     List,
-    Updates
+    Updates,
+    Version
 }
 
 /// <summary>Parsed command line.</summary>
@@ -54,6 +55,7 @@ public static class CliParser
           ctrlz dry-run <profile.json> [--silent] [--json <report.json>]
           ctrlz list
           ctrlz updates [--all | --id <winget id> ...] [--yes] [--silent]
+          ctrlz version
           ctrlz help
 
         install          Prints the full plan, including every post-install command. Installs only with --yes.
@@ -87,6 +89,7 @@ public static class CliParser
             "dry-run" or "dryrun" => CliCommand.DryRun,
             "list" => CliCommand.List,
             "updates" => CliCommand.Updates,
+            "version" or "--version" or "-v" => CliCommand.Version,
             "help" or "--help" or "-h" or "/?" => CliCommand.Help,
             _ => (CliCommand?)null
         };
