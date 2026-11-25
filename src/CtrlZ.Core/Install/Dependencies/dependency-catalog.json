@@ -1,5 +1,5 @@
 {
-  "$comment": "Known dependencies and the apps that need them. Data, not code: edit this file to add a dependency. matched by winget package id first, then by a whole-word match on the app name.",
+  "$comment": "Known dependencies and the apps that need them. Data, not code: edit this file to add a dependency. Matched by winget package id first, then by a whole-word match on the app name. List an app only when its installer really expects the runtime to be present already: most current apps (Electron apps, JetBrains IDEs, the Minecraft Launcher, PowerToys) bundle their own runtime, and listing them installs runtimes nobody needs. A dependency with no apps is kept so entries added by older versions stay recognised as 'added automatically' and can be turned off.",
   "dependencies": [
     {
       "id": "vcredist.x64",
@@ -23,28 +23,19 @@
       "id": "dotnet.desktop.8",
       "label": ".NET Desktop Runtime 8",
       "packageId": "Microsoft.DotNet.DesktopRuntime.8",
-      "neededBy": {
-        "packageIds": ["Microsoft.VisualStudioCode", "Obsidian.Obsidian"],
-        "nameWords": ["visual studio code", "obsidian"]
-      }
+      "neededBy": { "packageIds": [], "nameWords": [] }
     },
     {
       "id": "java.temurin.21",
       "label": "Eclipse Temurin JDK 21",
       "packageId": "EclipseAdoptium.Temurin.21.JDK",
-      "neededBy": {
-        "packageIds": ["JetBrains.IntelliJIDEA.Community", "MinecraftLauncher"],
-        "nameWords": ["intellij", "minecraft"]
-      }
+      "neededBy": { "packageIds": [], "nameWords": [] }
     },
     {
       "id": "webview2",
       "label": "Microsoft Edge WebView2 Runtime",
       "packageId": "Microsoft.EdgeWebView2Runtime",
-      "neededBy": {
-        "packageIds": ["Microsoft.PowerToys", "Notion.Notion"],
-        "nameWords": ["power toys", "powertoys", "notion"]
-      }
+      "neededBy": { "packageIds": [], "nameWords": [] }
     }
   ]
 }
