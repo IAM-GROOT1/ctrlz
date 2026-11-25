@@ -20,6 +20,7 @@ public partial class WingetMatchWindow : Window
         _winget = winget;
         _initialQuery = appName;
         InitializeComponent();
+        Services.TextScale.Apply(this);
         AppNameText.Text = appName;
         SearchBox.Text = appName;
         Loaded += async (_, _) =>

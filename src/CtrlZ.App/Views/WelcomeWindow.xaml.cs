@@ -23,6 +23,7 @@ public partial class WelcomeWindow : Window
     public WelcomeWindow()
     {
         InitializeComponent();
+        Services.TextScale.Apply(this);
         Loaded += (_, _) => StartButton.Focus();
     }
 

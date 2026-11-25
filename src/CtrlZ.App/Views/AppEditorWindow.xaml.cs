@@ -41,6 +41,7 @@ public partial class AppEditorWindow : Window
         _canEditCommand = canEditCommand;
         _confirmRisky = confirmRisky;
         InitializeComponent();
+        Services.TextScale.Apply(this);
         SourceBox.ItemsSource = SourceOptions;
         SourceBox.SelectedItem = SourceOptions.FirstOrDefault(s => s.Source == app.Source);
         CategoryBox.ItemsSource = Enum.GetValues<AppCategory>()

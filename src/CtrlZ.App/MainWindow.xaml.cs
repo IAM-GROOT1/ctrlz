@@ -22,6 +22,7 @@ public partial class MainWindow : Window
     public MainWindow()
     {
         InitializeComponent();
+        Services.TextScale.Apply(this);
         SourceInitialized += (_, _) =>
         {
             ApplyWindowAppearance();

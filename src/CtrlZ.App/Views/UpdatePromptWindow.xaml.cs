@@ -30,6 +30,7 @@ public partial class UpdatePromptWindow : Window
     public UpdatePromptWindow()
     {
         InitializeComponent();
+        Services.TextScale.Apply(this);
         KeyDown += OnKeyDown;
     }
 
