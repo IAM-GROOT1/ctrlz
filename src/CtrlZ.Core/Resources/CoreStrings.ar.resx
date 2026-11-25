@@ -1420,4 +1420,46 @@
   <data name="Catalog_OfflineBundled" xml:space="preserve">
     <value>أنت غير متصل أو GitHub غير متاح. يُعرض الكتالوج المضمّن في CTRL+Z.</value>
   </data>
+  <data name="Tweak_HideTaskViewButton_Title" xml:space="preserve">
+    <value>إخفاء زر عرض المهام</value>
+  </data>
+  <data name="Tweak_HideTaskViewButton_Description" xml:space="preserve">
+    <value>لا يظهر زر عرض المهام على شريط المهام بعد الآن. لا يزال Win+Tab يفتح عرض المهام.</value>
+  </data>
+  <data name="Tweak_SearchIconOnly_Title" xml:space="preserve">
+    <value>البحث كأيقونة على شريط المهام</value>
+  </data>
+  <data name="Tweak_SearchIconOnly_Description" xml:space="preserve">
+    <value>يعرض شريط المهام أيقونة بحث صغيرة بدلاً من مربع البحث العريض.</value>
+  </data>
+  <data name="Tweak_TaskbarEndTask_Title" xml:space="preserve">
+    <value>إنهاء المهمة من شريط المهام</value>
+  </data>
+  <data name="Tweak_TaskbarEndTask_Description" xml:space="preserve">
+    <value>النقر بزر الماوس الأيمن على تطبيق في شريط المهام يعرض "إنهاء المهمة" لإغلاق تطبيق توقف عن الاستجابة.</value>
+  </data>
+  <data name="Tweak_ClockSeconds_Title" xml:space="preserve">
+    <value>الثواني في ساعة شريط المهام</value>
+  </data>
+  <data name="Tweak_ClockSeconds_Description" xml:space="preserve">
+    <value>تعرض الساعة على شريط المهام الثواني.</value>
+  </data>
+  <data name="Tweak_CompactExplorer_Title" xml:space="preserve">
+    <value>عرض مضغوط في مستكشف الملفات</value>
+  </data>
+  <data name="Tweak_CompactExplorer_Description" xml:space="preserve">
+    <value>يقلل مستكشف الملفات المسافة بين الملفات، فتتسع الشاشة لعدد أكبر منها.</value>
+  </data>
+  <data name="Tweak_FewerTips_Title" xml:space="preserve">
+    <value>نصائح واقتراحات أقل</value>
+  </data>
+  <data name="Tweak_FewerTips_Description" xml:space="preserve">
+    <value>يتوقف Windows عن عرض النصائح والمحتوى المقترح في الإعدادات وشاشة "إنهاء الإعداد" بعد التحديثات.</value>
+  </data>
+  <data name="Tweak_NoRecentItems_Title" xml:space="preserve">
+    <value>عدم تتبع الملفات المفتوحة مؤخراً</value>
+  </data>
+  <data name="Tweak_NoRecentItems_Description" xml:space="preserve">
+    <value>تتوقف قائمة ابدأ وقوائم الانتقال ومستكشف الملفات عن عرض الملفات التي فتحتها مؤخراً.</value>
+  </data>
 </root>

@@ -170,9 +170,11 @@ this PC. Details will be published when each one is ready.
 
 Small, reversible Windows tweaks after a reinstall.
 
-- [x] **Tweaks page.** Eight per-user settings (file extensions, hidden files, Explorer opens to
+- [x] **Tweaks page.** Fifteen per-user settings (file extensions, hidden files, Explorer opens to
   This PC, dark mode, taskbar on the left, no web results in Start search, the classic right-click
-  menu, fewer Start recommendations). Each changes only fixed values under the current user's
+  menu, fewer Start recommendations, no Task View button, search as an icon, End task on the
+  taskbar, seconds in the clock, compact File Explorer, fewer tips and suggestions, no recent
+  files list). Each changes only fixed values under the current user's
   registry, needs no admin rights and runs no command. CTRL+Z saves the previous values first, so
   Undo restores them exactly, including removing keys the tweak created.
 - [x] **In the profile.** Applied tweaks are listed in the profile, so after a reinstall the Tweaks
