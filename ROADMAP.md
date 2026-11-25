@@ -150,13 +150,14 @@ Code signing so SmartScreen stops warning about an unsigned download, a winget l
 itself, smaller artifacts, a proper uninstall path, and a short demo.
 
 - [x] **A. Smaller artifacts.** The portable app drops the unused translated framework resources
-  (70.1 MB to 64.6 MB); the UI is English-only until translations land.
+  (70.1 MB to 64.6 MB) and keeps only the languages CTRL+Z itself is translated into.
 - [x] **B. Uninstall.** The uninstaller asks whether to also delete CTRL+Z's data (default: keep
   it), and the README explains how to remove a portable copy. CI now builds the installer on
   every pull request.
 - [ ] **C. Code signing.** Later.
 - [ ] **D. A winget listing for CTRL+Z.** The manifests are ready: `build/winget-manifest.ps1 -Tag vX.Y.Z`
-  writes them from a published release (they pass `winget validate`). v1.4.0 is the first stable release they can be submitted for.
+  writes them from a published release (they pass `winget validate`). v1.4.0 was submitted as
+  `IAMGROOT1.CTRLZ` and is waiting for review in winget-pkgs.
 - [x] **E. A short demo.** A short animated tour at the top of the README, recorded in Windows
   Sandbox with a sample profile, so it shows no personal data.
 
