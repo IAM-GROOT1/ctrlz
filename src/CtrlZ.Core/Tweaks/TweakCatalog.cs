@@ -40,6 +40,8 @@ public static class TweakCatalog
 {
     private const string Advanced = @"Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced";
     private const string Personalize = @"Software\Microsoft\Windows\CurrentVersion\Themes\Personalize";
+    private const string Search = @"Software\Microsoft\Windows\CurrentVersion\Search";
+    private const string ContentDelivery = @"Software\Microsoft\Windows\CurrentVersion\ContentDeliveryManager";
 
     /// <summary>Built on each read so the names follow the language chosen for this run.</summary>
     public static IReadOnlyList<TweakDefinition> All => Build();
@@ -73,7 +75,7 @@ public static class TweakCatalog
             CoreText.Get("Tweak_NoWebSearchInStart_Description"),
             // Not the DisableSearchBoxSuggestions policy: HKCU\Software\Policies is read-only for
             // the user, so writing it needs admin rights. This is the per-user switch.
-            [new(@"Software\Microsoft\Windows\CurrentVersion\Search", "BingSearchEnabled", TweakValueKind.DWord, 0)],
+            [new(Search, "BingSearchEnabled", TweakValueKind.DWord, 0)],
             NeedsExplorerRestart: true),
 
         new("classic-context-menu", CoreText.Get("Tweak_ClassicContextMenu_Title"),
@@ -84,7 +86,46 @@ public static class TweakCatalog
 
         new("no-start-recommendations", CoreText.Get("Tweak_NoStartRecommendations_Title"),
             CoreText.Get("Tweak_NoStartRecommendations_Description"),
-            [new(Advanced, "Start_IrisRecommendations", TweakValueKind.DWord, 0)], NeedsExplorerRestart: false, Windows11Only: true)
+            [new(Advanced, "Start_IrisRecommendations", TweakValueKind.DWord, 0)], NeedsExplorerRestart: false, Windows11Only: true),
+
+        new("hide-task-view-button", CoreText.Get("Tweak_HideTaskViewButton_Title"),
+            CoreText.Get("Tweak_HideTaskViewButton_Description"),
+            [new(Advanced, "ShowTaskViewButton", TweakValueKind.DWord, 0)], NeedsExplorerRestart: false),
+
+        new("search-icon-only", CoreText.Get("Tweak_SearchIconOnly_Title"),
+            CoreText.Get("Tweak_SearchIconOnly_Description"),
+            // 0 hides search, 1 is the icon, 2 the box (3 the Windows 11 icon with a label).
+            [new(Search, "SearchboxTaskbarMode", TweakValueKind.DWord, 1)], NeedsExplorerRestart: false),
+
+        new("taskbar-end-task", CoreText.Get("Tweak_TaskbarEndTask_Title"),
+            CoreText.Get("Tweak_TaskbarEndTask_Description"),
+            [new(Advanced + @"\TaskbarDeveloperSettings", "TaskbarEndTask", TweakValueKind.DWord, 1, OwnedBelow: Advanced)],
+            NeedsExplorerRestart: false, Windows11Only: true),
+
+        new("clock-seconds", CoreText.Get("Tweak_ClockSeconds_Title"),
+            CoreText.Get("Tweak_ClockSeconds_Description"),
+            [new(Advanced, "ShowSecondsInSystemClock", TweakValueKind.DWord, 1)], NeedsExplorerRestart: true),
+
+        new("compact-explorer", CoreText.Get("Tweak_CompactExplorer_Title"),
+            CoreText.Get("Tweak_CompactExplorer_Description"),
+            [new(Advanced, "UseCompactMode", TweakValueKind.DWord, 1)], NeedsExplorerRestart: false, Windows11Only: true),
+
+        new("fewer-tips", CoreText.Get("Tweak_FewerTips_Title"),
+            CoreText.Get("Tweak_FewerTips_Description"),
+            [
+                // Tips while using Windows; the welcome screen after updates; suggested content in
+                // Settings (three switches); "suggest ways to finish setting up my device".
+                new(ContentDelivery, "SubscribedContent-338389Enabled", TweakValueKind.DWord, 0),
+                new(ContentDelivery, "SubscribedContent-310093Enabled", TweakValueKind.DWord, 0),
+                new(ContentDelivery, "SubscribedContent-338393Enabled", TweakValueKind.DWord, 0),
+                new(ContentDelivery, "SubscribedContent-353694Enabled", TweakValueKind.DWord, 0),
+                new(ContentDelivery, "SubscribedContent-353696Enabled", TweakValueKind.DWord, 0),
+                new(@"Software\Microsoft\Windows\CurrentVersion\UserProfileEngagement", "ScoobeSystemSettingEnabled", TweakValueKind.DWord, 0)
+            ], NeedsExplorerRestart: false),
+
+        new("no-recent-items", CoreText.Get("Tweak_NoRecentItems_Title"),
+            CoreText.Get("Tweak_NoRecentItems_Description"),
+            [new(Advanced, "Start_TrackDocs", TweakValueKind.DWord, 0)], NeedsExplorerRestart: true)
     ];
 
     public static TweakDefinition? Find(string? id) =>

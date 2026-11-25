@@ -156,8 +156,8 @@ get a Start menu shortcut under **CTRL+Z apps**; turn this off in **Settings →
 - All logs written to `%LOCALAPPDATA%\CTRL+Z\logs` and openable from Settings.
 - Light/dark theme follows Windows by default.
 - No account, telemetry, or cloud service.
-- **Tweaks** (Ctrl+9): eight small Windows settings to set again after a reinstall, such as
-  showing file extensions, dark mode or the classic right-click menu.
+- **Tweaks** (Ctrl+9): fifteen small Windows settings to set again after a reinstall, such as
+  showing file extensions, dark mode, the classic right-click menu or End task on the taskbar.
   - Each changes only a few per-user registry values, needs no admin rights and runs no command.
   - CTRL+Z saves what was there first, so **Undo** puts it back exactly.
   - Applied tweaks are listed in your profile, so on the new PC the page offers to apply them

@@ -1391,4 +1391,46 @@
   <data name="Catalog_OfflineBundled" xml:space="preserve">
     <value>No hay conexión o GitHub no está disponible. Se muestra el catálogo incluido en CTRL+Z.</value>
   </data>
+  <data name="Tweak_HideTaskViewButton_Title" xml:space="preserve">
+    <value>Ocultar el botón Vista de tareas</value>
+  </data>
+  <data name="Tweak_HideTaskViewButton_Description" xml:space="preserve">
+    <value>La barra de tareas deja de mostrar el botón Vista de tareas. Win+Tab sigue abriendo la Vista de tareas.</value>
+  </data>
+  <data name="Tweak_SearchIconOnly_Title" xml:space="preserve">
+    <value>Búsqueda como icono en la barra de tareas</value>
+  </data>
+  <data name="Tweak_SearchIconOnly_Description" xml:space="preserve">
+    <value>La barra de tareas muestra un pequeño icono de búsqueda en lugar del cuadro de búsqueda ancho.</value>
+  </data>
+  <data name="Tweak_TaskbarEndTask_Title" xml:space="preserve">
+    <value>Finalizar tarea desde la barra de tareas</value>
+  </data>
+  <data name="Tweak_TaskbarEndTask_Description" xml:space="preserve">
+    <value>Al hacer clic con el botón derecho en una aplicación de la barra de tareas aparece Finalizar tarea, para cerrar una aplicación que no responde.</value>
+  </data>
+  <data name="Tweak_ClockSeconds_Title" xml:space="preserve">
+    <value>Segundos en el reloj de la barra de tareas</value>
+  </data>
+  <data name="Tweak_ClockSeconds_Description" xml:space="preserve">
+    <value>El reloj de la barra de tareas muestra los segundos.</value>
+  </data>
+  <data name="Tweak_CompactExplorer_Title" xml:space="preserve">
+    <value>Vista compacta en el Explorador de archivos</value>
+  </data>
+  <data name="Tweak_CompactExplorer_Description" xml:space="preserve">
+    <value>El Explorador de archivos deja menos espacio entre archivos, así caben más en la pantalla.</value>
+  </data>
+  <data name="Tweak_FewerTips_Title" xml:space="preserve">
+    <value>Menos consejos y sugerencias</value>
+  </data>
+  <data name="Tweak_FewerTips_Description" xml:space="preserve">
+    <value>Windows deja de mostrar consejos, contenido sugerido en Configuración y la pantalla "terminar de configurar" tras las actualizaciones.</value>
+  </data>
+  <data name="Tweak_NoRecentItems_Title" xml:space="preserve">
+    <value>No registrar los archivos abiertos recientemente</value>
+  </data>
+  <data name="Tweak_NoRecentItems_Description" xml:space="preserve">
+    <value>Inicio, las listas de accesos directos y el Explorador de archivos dejan de mostrar los archivos que abriste recientemente.</value>
+  </data>
 </root>

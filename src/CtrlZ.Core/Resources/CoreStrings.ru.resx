@@ -1409,4 +1409,46 @@
   <data name="Catalog_OfflineBundled" xml:space="preserve">
     <value>Нет подключения или GitHub недоступен. Показан каталог, встроенный в CTRL+Z.</value>
   </data>
+  <data name="Tweak_HideTaskViewButton_Title" xml:space="preserve">
+    <value>Скрыть кнопку «Представление задач»</value>
+  </data>
+  <data name="Tweak_HideTaskViewButton_Description" xml:space="preserve">
+    <value>Кнопка «Представление задач» больше не показывается на панели задач. Win+Tab по-прежнему открывает его.</value>
+  </data>
+  <data name="Tweak_SearchIconOnly_Title" xml:space="preserve">
+    <value>Поиск в виде значка на панели задач</value>
+  </data>
+  <data name="Tweak_SearchIconOnly_Description" xml:space="preserve">
+    <value>На панели задач показывается небольшой значок поиска вместо широкого поля поиска.</value>
+  </data>
+  <data name="Tweak_TaskbarEndTask_Title" xml:space="preserve">
+    <value>Завершение задачи с панели задач</value>
+  </data>
+  <data name="Tweak_TaskbarEndTask_Description" xml:space="preserve">
+    <value>При щелчке правой кнопкой по приложению на панели задач появляется «Завершить задачу», чтобы закрыть зависшее приложение.</value>
+  </data>
+  <data name="Tweak_ClockSeconds_Title" xml:space="preserve">
+    <value>Секунды в часах на панели задач</value>
+  </data>
+  <data name="Tweak_ClockSeconds_Description" xml:space="preserve">
+    <value>Часы на панели задач показывают секунды.</value>
+  </data>
+  <data name="Tweak_CompactExplorer_Title" xml:space="preserve">
+    <value>Компактный вид в проводнике</value>
+  </data>
+  <data name="Tweak_CompactExplorer_Description" xml:space="preserve">
+    <value>Проводник оставляет меньше места между файлами, и на экран помещается больше.</value>
+  </data>
+  <data name="Tweak_FewerTips_Title" xml:space="preserve">
+    <value>Меньше советов и предложений</value>
+  </data>
+  <data name="Tweak_FewerTips_Description" xml:space="preserve">
+    <value>Windows перестаёт показывать советы, рекомендуемое содержимое в параметрах и экран «Завершите настройку» после обновлений.</value>
+  </data>
+  <data name="Tweak_NoRecentItems_Title" xml:space="preserve">
+    <value>Не отслеживать недавно открытые файлы</value>
+  </data>
+  <data name="Tweak_NoRecentItems_Description" xml:space="preserve">
+    <value>Пуск, списки переходов и проводник перестают показывать недавно открытые файлы.</value>
+  </data>
 </root>
