@@ -29,7 +29,8 @@ public sealed record TweakDefinition(
     string Description,
     IReadOnlyList<TweakValue> Values,
     bool NeedsExplorerRestart,
-    bool Windows11Only = false);
+    bool Windows11Only = false,
+    string? SettingArea = null);
 
 /// <summary>
 /// The tweaks CTRL+Z offers. Each one is a handful of well-known per-user values, so it needs no
@@ -62,7 +63,7 @@ public static class TweakCatalog
             [
                 new(Personalize, "AppsUseLightTheme", TweakValueKind.DWord, 0),
                 new(Personalize, "SystemUsesLightTheme", TweakValueKind.DWord, 0)
-            ], NeedsExplorerRestart: false),
+            ], NeedsExplorerRestart: false, SettingArea: WindowsSettingChange.ColorSet),
 
         new("taskbar-left", CoreText.Get("Tweak_TaskbarLeft_Title"),
             CoreText.Get("Tweak_TaskbarLeft_Description"),

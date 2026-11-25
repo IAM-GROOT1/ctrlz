@@ -36,12 +36,36 @@ public sealed class TweakService
     private readonly string _undoPath;
     private readonly IAppLog _log;
     private readonly object _gate = new();
+    private readonly Action<string>? _announce;
 
-    public TweakService(IUserRegistry registry, string undoPath, IAppLog log)
+    /// <param name="announceSettingChange">
+    /// Tells Windows that a tweak's setting area changed (see <see cref="WindowsSettingChange"/>),
+    /// so it applies at once. Null in tests, which must never notify the real desktop.
+    /// </param>
+    public TweakService(IUserRegistry registry, string undoPath, IAppLog log, Action<string>? announceSettingChange = null)
     {
         _registry = registry;
         _undoPath = undoPath;
         _log = log;
+        _announce = announceSettingChange;
+    }
+
+    private void Announce(TweakDefinition tweak)
+    {
+        if (tweak.SettingArea is null || _announce is null)
+        {
+            return;
+        }
+
+        try
+        {
+            _announce(tweak.SettingArea);
+        }
+        catch (Exception ex)
+        {
+            // The setting is already saved; Windows picks it up at the next sign-in.
+            _log.Write(LogLevel.Debug, $"Could not announce the {tweak.SettingArea} change.", ex);
+        }
     }
 
     public TweakState StateOf(TweakDefinition tweak)
@@ -95,6 +119,7 @@ public sealed class TweakService
         }
 
         _log.Write(LogLevel.Info, $"Applied tweak {tweak.Id}.");
+        Announce(tweak);
     }
 
     /// <summary>
@@ -139,6 +164,7 @@ public sealed class TweakService
         }
 
         _log.Write(LogLevel.Info, $"Undid tweak {tweak.Id}.");
+        Announce(tweak);
     }
 
     /// <summary>The saved original for one catalog value; null-safe against a hand-edited file.</summary>
