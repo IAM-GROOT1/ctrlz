@@ -1332,4 +1332,58 @@
   <data name="Source_NotMatched" xml:space="preserve">
     <value>Not matched</value>
   </data>
+  <data name="UpdateApply_DownloadMissing" xml:space="preserve">
+    <value>The downloaded update is missing. Nothing was changed.</value>
+  </data>
+  <data name="UpdateApply_NotPutInPlace" xml:space="preserve">
+    <value>The new version could not be put in place. The previous version was restored.</value>
+  </data>
+  <data name="UpdateApply_NotRecorded" xml:space="preserve">
+    <value>The update could not be recorded. The previous version was restored.</value>
+  </data>
+  <data name="UpdateApply_InstallerMissing" xml:space="preserve">
+    <value>The downloaded installer is missing. Nothing was changed.</value>
+  </data>
+  <data name="UpdateApply_InstallerNotStarted" xml:space="preserve">
+    <value>The installer could not be started. Your previous version is still installed.</value>
+  </data>
+  <data name="UpdateApply_InstallerError" xml:space="preserve">
+    <value>The installer reported an error (code {0}). Your previous version is still installed.</value>
+  </data>
+  <data name="UpdateApply_RestoreFailed" xml:space="preserve">
+    <value>The new version failed to start, and the previous version could not be put back. It is kept as CTRL+Z.exe.old next to the app.</value>
+  </data>
+  <data name="UpdateApply_NotStartedRestored" xml:space="preserve">
+    <value>The new version could not be started. The previous version was restored.</value>
+  </data>
+  <data name="UpdateApply_ClosedRolledBack" xml:space="preserve">
+    <value>The new version closed unexpectedly, so CTRL+Z rolled back to the previous version.</value>
+  </data>
+  <data name="UpdateApply_CouldNotApply" xml:space="preserve">
+    <value>The update could not be applied: {0}</value>
+  </data>
+  <data name="UpdateCheck_Offline" xml:space="preserve">
+    <value>Could not reach GitHub. Check your connection and try again.</value>
+  </data>
+  <data name="UpdateCheck_RateLimited" xml:space="preserve">
+    <value>GitHub's hourly request limit was reached. Try again later.</value>
+  </data>
+  <data name="UpdateCheck_NotFound" xml:space="preserve">
+    <value>No releases were found for CTRL+Z yet.</value>
+  </data>
+  <data name="UpdateCheck_Malformed" xml:space="preserve">
+    <value>GitHub returned a response CTRL+Z could not read.</value>
+  </data>
+  <data name="UpdateCheck_Failed" xml:space="preserve">
+    <value>The update check failed. Try again later.</value>
+  </data>
+  <data name="UpdateFailure_Cancelled" xml:space="preserve">
+    <value>The update was cancelled. Nothing was changed.</value>
+  </data>
+  <data name="UpdateFailure_TimedOut" xml:space="preserve">
+    <value>The update could not be downloaded in time. Nothing was changed. Try again later.</value>
+  </data>
+  <data name="UpdateDownload_Failed" xml:space="preserve">
+    <value>The update could not be downloaded or checked, so nothing was changed: {0}</value>
+  </data>
 </root>

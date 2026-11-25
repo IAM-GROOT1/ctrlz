@@ -59,7 +59,7 @@ public sealed class UpdateApplier
         catch (Exception ex)
         {
             _log.Write(LogLevel.Error, "The update could not be applied.", ex);
-            result = UpdateApplyResult.Failed("The update could not be applied: " + ex.Message);
+            result = UpdateApplyResult.Failed("The update could not be applied: " + ex.Message, "UpdateApply_CouldNotApply", ex.Message);
         }
 
         if (!result.Success)
@@ -76,7 +76,7 @@ public sealed class UpdateApplier
     {
         if (!File.Exists(request.DownloadedFile))
         {
-            return UpdateApplyResult.Failed("The downloaded update is missing. Nothing was changed.");
+            return UpdateApplyResult.Failed("The downloaded update is missing. Nothing was changed.", "UpdateApply_DownloadMissing");
         }
 
         if (!string.IsNullOrWhiteSpace(request.ExpectedSha256))
@@ -103,7 +103,7 @@ public sealed class UpdateApplier
             _log.Write(LogLevel.Error, "Could not place the new executable in the target folder.", ex);
             companion?.Restore();
             Restore(backup, target);
-            return UpdateApplyResult.Failed("The new version could not be put in place. The previous version was restored.");
+            return UpdateApplyResult.Failed("The new version could not be put in place. The previous version was restored.", "UpdateApply_NotPutInPlace");
         }
 
         companion?.Swap();
@@ -120,7 +120,7 @@ public sealed class UpdateApplier
             _log.Write(LogLevel.Error, "Could not record the update probation; restoring the previous version.", ex);
             companion?.Restore();
             Restore(backup, target);
-            return UpdateApplyResult.Failed("The update could not be recorded. The previous version was restored.");
+            return UpdateApplyResult.Failed("The update could not be recorded. The previous version was restored.", "UpdateApply_NotRecorded");
         }
 
         var started = TryStart(target);
@@ -128,7 +128,7 @@ public sealed class UpdateApplier
         {
             companion?.Restore();
             return AfterFailedStart(Restore(backup, target),
-                "The new version could not be started. The previous version was restored.", request.Version);
+                "The new version could not be started. The previous version was restored.", request.Version, "UpdateApply_NotStartedRestored");
         }
 
         using (started)
@@ -140,7 +140,7 @@ public sealed class UpdateApplier
                 Stop(started);
                 companion?.Restore();
                 return AfterFailedStart(Restore(backup, target),
-                    "The new version closed unexpectedly, so CTRL+Z rolled back to the previous version.", request.Version);
+                    "The new version closed unexpectedly, so CTRL+Z rolled back to the previous version.", request.Version, "UpdateApply_ClosedRolledBack");
             }
 
             LogHealth(request.Version, health);
@@ -160,16 +160,17 @@ public sealed class UpdateApplier
     /// start of the new build is watched and rolls back if it fails to load again, and the user is
     /// told that the previous build is kept beside the app.
     /// </summary>
-    private UpdateApplyResult AfterFailedStart(bool restored, string message, string? version)
+    private UpdateApplyResult AfterFailedStart(bool restored, string message, string? version, string messageKey)
     {
         if (!restored)
         {
             return UpdateApplyResult.Failed(
-                "The new version failed to start, and the previous version could not be put back. It is kept as CTRL+Z.exe.old next to the app.");
+                "The new version failed to start, and the previous version could not be put back. It is kept as CTRL+Z.exe.old next to the app.",
+                "UpdateApply_RestoreFailed");
         }
 
         _probation.Clear();
-        return UpdateApplyResult.RolledBackFrom(message, version);
+        return UpdateApplyResult.RolledBackFrom(message, version, messageKey);
     }
 
     /// <summary>Ends a build that failed to start and waits until its file is no longer in use.</summary>
@@ -201,7 +202,7 @@ public sealed class UpdateApplier
     {
         if (!File.Exists(request.DownloadedFile))
         {
-            return UpdateApplyResult.Failed("The downloaded installer is missing. Nothing was changed.");
+            return UpdateApplyResult.Failed("The downloaded installer is missing. Nothing was changed.", "UpdateApply_InstallerMissing");
         }
 
         // /SILENT without /VERYSILENT still shows progress; /NORESTART avoids a reboot prompt;
@@ -235,7 +236,7 @@ public sealed class UpdateApplier
         if (installer is null)
         {
             DropInstalledBackup(target, companionBackedUp);
-            return UpdateApplyResult.Failed("The installer could not be started. Your previous version is still installed.");
+            return UpdateApplyResult.Failed("The installer could not be started. Your previous version is still installed.", "UpdateApply_InstallerNotStarted");
         }
 
         await installer.WaitForExitAsync(cancellationToken).ConfigureAwait(false);
@@ -246,7 +247,8 @@ public sealed class UpdateApplier
             DropInstalledBackup(target, companionBackedUp);
             _log.Write(LogLevel.Error, $"The installer exited with code {installer.ExitCode}.");
             return UpdateApplyResult.Failed(
-                $"The installer reported an error (code {installer.ExitCode}). Your previous version is still installed.");
+                $"The installer reported an error (code {installer.ExitCode}). Your previous version is still installed.",
+                "UpdateApply_InstallerError", installer.ExitCode.ToString(System.Globalization.CultureInfo.InvariantCulture));
         }
 
         if (!backedUp)
@@ -272,7 +274,7 @@ public sealed class UpdateApplier
         if (started is null)
         {
             return AfterFailedStart(RestoreInstalled(target, companionBackedUp),
-                "The new version could not be started. The previous version was restored.", request.Version);
+                "The new version could not be started. The previous version was restored.", request.Version, "UpdateApply_NotStartedRestored");
         }
 
         using (started)
@@ -283,7 +285,7 @@ public sealed class UpdateApplier
                 _log.Write(LogLevel.Error, "The updated build exited before showing its main window; rolling back.");
                 Stop(started);
                 return AfterFailedStart(RestoreInstalled(target, companionBackedUp),
-                    "The new version closed unexpectedly, so CTRL+Z rolled back to the previous version.", request.Version);
+                    "The new version closed unexpectedly, so CTRL+Z rolled back to the previous version.", request.Version, "UpdateApply_ClosedRolledBack");
             }
 
             LogHealth(request.Version, health);
