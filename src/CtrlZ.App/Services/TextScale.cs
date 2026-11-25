@@ -1,7 +1,9 @@
 // SPDX-License-Identifier: AGPL-3.0-only
 // Copyright (c) 2026 iam-groot1
 
+using System.Runtime.InteropServices;
 using System.Windows;
+using System.Windows.Interop;
 using System.Windows.Media;
 using System.Windows.Shell;
 using Microsoft.Win32;
@@ -33,7 +35,9 @@ public static class TextScale
         // At any text size, a window opened at its usual place (or at its saved size) can reach
         // past the edge of a small screen, such as a 1366 x 768 laptop; it is moved and, if it is
         // still too big, shrunk to fit.
-        window.Loaded += (_, _) => KeepOnScreen(window, SystemParameters.WorkArea);
+        // The work area is that of the monitor the window opened on, so a window on a second
+        // monitor stays there.
+        window.Loaded += (_, _) => KeepOnScreen(window, MonitorWorkArea(window) ?? SystemParameters.WorkArea);
 
         if (factor <= 1.0 || window.Content is not FrameworkElement root)
         {
@@ -136,6 +140,65 @@ public static class TextScale
             window.Top = workArea.Top;
         }
     }
+
+    /// <summary>
+    /// The work area (screen minus taskbar) of the monitor that holds most of <paramref name="window"/>,
+    /// in the window's own units, or null when it cannot be read.
+    /// </summary>
+    private static Rect? MonitorWorkArea(Window window)
+    {
+        try
+        {
+            var handle = new WindowInteropHelper(window).Handle;
+            if (handle == IntPtr.Zero)
+            {
+                return null;
+            }
+
+            var monitor = MonitorFromWindow(handle, MonitorDefaultToNearest);
+            var info = new MonitorInfo { Size = Marshal.SizeOf<MonitorInfo>() };
+            if (monitor == IntPtr.Zero || !GetMonitorInfo(monitor, ref info))
+            {
+                return null;
+            }
+
+            var fromDevice = PresentationSource.FromVisual(window)?.CompositionTarget?.TransformFromDevice ?? Matrix.Identity;
+            return new Rect(
+                fromDevice.Transform(new Point(info.Work.Left, info.Work.Top)),
+                fromDevice.Transform(new Point(info.Work.Right, info.Work.Bottom)));
+        }
+        catch
+        {
+            return null;
+        }
+    }
+
+    private const uint MonitorDefaultToNearest = 2;
+
+    [StructLayout(LayoutKind.Sequential)]
+    private struct NativeRect
+    {
+        public int Left;
+        public int Top;
+        public int Right;
+        public int Bottom;
+    }
+
+    [StructLayout(LayoutKind.Sequential)]
+    private struct MonitorInfo
+    {
+        public int Size;
+        public NativeRect Monitor;
+        public NativeRect Work;
+        public uint Flags;
+    }
+
+    [DllImport("user32.dll")]
+    private static extern IntPtr MonitorFromWindow(IntPtr window, uint flags);
+
+    [DllImport("user32.dll", SetLastError = true)]
+    [return: MarshalAs(UnmanagedType.Bool)]
+    private static extern bool GetMonitorInfo(IntPtr monitor, ref MonitorInfo info);
 
     private static object? ReadSetting()
     {
