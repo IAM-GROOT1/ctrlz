@@ -44,6 +44,30 @@ public class InstallOrderTests
         Assert.Empty(unrelated);
     }
 
+    [Theory]
+    [InlineData("Visual Studio Code", "Microsoft.VisualStudioCode")]
+    [InlineData("Obsidian", "Obsidian.Obsidian")]
+    [InlineData("Notion", "Notion.Notion")]
+    [InlineData("IntelliJ IDEA Community Edition", "JetBrains.IntelliJIDEA.Community")]
+    [InlineData("Minecraft Launcher", "Mojang.MinecraftLauncher")]
+    [InlineData("PowerToys", "Microsoft.PowerToys")]
+    public void Apps_that_bundle_their_own_runtime_add_nothing(string name, string packageId)
+    {
+        Assert.Empty(Catalog().For(App("x", name, packageId)));
+    }
+
+    [Theory]
+    [InlineData("dotnet.desktop.8", "Microsoft.DotNet.DesktopRuntime.8")]
+    [InlineData("java.temurin.21", "EclipseAdoptium.Temurin.21.JDK")]
+    [InlineData("webview2", "Microsoft.EdgeWebView2Runtime")]
+    public void Runtimes_added_by_older_versions_stay_marked_as_added_automatically(string id, string packageId)
+    {
+        var entry = App("dep:" + id, "Runtime", packageId);
+        entry.IsAutoDependency = true;
+
+        Assert.True(InstallOrderPlanner.IsKnownAutoDependency(entry, Catalog()));
+    }
+
     [Fact]
     public void Dependencies_come_before_the_apps_that_need_them()
     {
