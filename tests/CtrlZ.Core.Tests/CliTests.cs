@@ -351,6 +351,7 @@ public sealed class CliTests : IDisposable
     [InlineData("good.reg\r\n       Blocked - imported profile, review required")]
     [InlineData("good.reg\u001b[2K")]
     [InlineData("evil\u202Egnp.reg")]
+    [InlineData("good.reg\U000E0069\U000E0067\U000E006E")]
     public async Task Hidden_characters_are_printed_visibly_and_never_approved(string argument)
     {
         var command = new PostInstallCommand { Id = "c1", Executable = @"C:\Windows\System32\where.exe", Arguments = [argument], Enabled = true };
@@ -362,8 +363,26 @@ public sealed class CliTests : IDisposable
 
         Assert.Equal(ApprovalState.None, Approvals.StateOf("p1", "tool", command));
         Assert.Contains("hidden characters", _err.ToString());
-        Assert.DoesNotContain(argument, _out.ToString());
-        Assert.Contains("\\u", _out.ToString());
+        // Ordinal: a culture comparison treats invisible characters as absent and would match "good.reg".
+        Assert.DoesNotContain(argument, _out.ToString(), StringComparison.Ordinal);
+        Assert.Contains("\\u", _out.ToString(), StringComparison.OrdinalIgnoreCase);
+    }
+
+    [Fact]
+    public void Characters_beyond_U_FFFF_are_checked_as_whole_characters()
+    {
+        // Invisible tag characters (used to smuggle text past a reader) are escaped.
+        Assert.True(CliText.HasHidden("a\U000E0041b"));
+        Assert.Equal("a\\U000E0041b", CliText.Safe("a\U000E0041b"));
+
+        // Visible characters beyond U+FFFF, such as emoji, are kept as they are.
+        Assert.False(CliText.HasHidden("tool \U0001F680"));
+        Assert.Equal("tool \U0001F680", CliText.Safe("tool \U0001F680"));
+
+        // A lone surrogate cannot be shown and is escaped.
+        Assert.Equal("a\\uD800b", CliText.Safe("a\uD800b"));
+        Assert.Equal("a\\u202Eb", CliText.Safe("a\u202Eb"));
+        Assert.Equal("plain", CliText.Safe("plain"));
     }
 
     [Fact]

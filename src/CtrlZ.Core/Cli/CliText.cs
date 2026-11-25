@@ -14,8 +14,26 @@ namespace CtrlZ.Core.Cli;
 /// </summary>
 public static class CliText
 {
-    public static bool HasHidden(string? text) =>
-        !string.IsNullOrEmpty(text) && text.Any(IsHidden);
+    public static bool HasHidden(string? text)
+    {
+        if (string.IsNullOrEmpty(text))
+        {
+            return false;
+        }
+
+        for (var i = 0; i < text.Length;)
+        {
+            var (hidden, length, _) = Next(text, i);
+            if (hidden)
+            {
+                return true;
+            }
+
+            i += length;
+        }
+
+        return false;
+    }
 
     public static string Safe(string? text)
     {
@@ -25,23 +43,43 @@ public static class CliText
         }
 
         var builder = new StringBuilder(text.Length + 16);
-        foreach (var c in text)
+        for (var i = 0; i < text.Length;)
         {
-            if (IsHidden(c))
+            var (hidden, length, value) = Next(text, i);
+            if (!hidden)
             {
-                builder.Append("\\u").Append(((int)c).ToString("X4", CultureInfo.InvariantCulture));
+                builder.Append(text, i, length);
+            }
+            else if (value > 0xFFFF)
+            {
+                builder.Append("\\U").Append(value.ToString("X8", CultureInfo.InvariantCulture));
             }
             else
             {
-                builder.Append(c);
+                builder.Append("\\u").Append(value.ToString("X4", CultureInfo.InvariantCulture));
             }
+
+            i += length;
         }
 
         return builder.ToString();
     }
 
-    private static bool IsHidden(char c) =>
-        char.IsControl(c) ||
-        CharUnicodeInfo.GetUnicodeCategory(c) == UnicodeCategory.Format ||
-        c == (char)0x2028 || c == (char)0x2029;
+    /// <summary>
+    /// The character at <paramref name="index"/>, read as a whole Unicode scalar so characters
+    /// beyond U+FFFF are checked too: the invisible tag characters (U+E0000 to U+E007F) are Format
+    /// characters that a UTF-16 check misses. A lone surrogate is hidden as well.
+    /// </summary>
+    private static (bool Hidden, int Length, int Value) Next(string text, int index)
+    {
+        if (Rune.DecodeFromUtf16(text.AsSpan(index), out var rune, out var length) != System.Buffers.OperationStatus.Done)
+        {
+            return (true, 1, text[index]);
+        }
+
+        var hidden = Rune.IsControl(rune) ||
+                     Rune.GetUnicodeCategory(rune) == UnicodeCategory.Format ||
+                     rune.Value is 0x2028 or 0x2029;
+        return (hidden, length, rune.Value);
+    }
 }
