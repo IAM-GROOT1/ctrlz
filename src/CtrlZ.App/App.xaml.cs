@@ -67,6 +67,7 @@ public partial class App : Application
             MainWindow = window;
             window.ContentRendered += (_, _) => probation();
             window.Show();
+            InstalledIcons.StartLoading(_services.Log);
             await _main.InitializeAsync();
         }
         catch (Exception ex)

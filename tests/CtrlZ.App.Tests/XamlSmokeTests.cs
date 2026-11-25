@@ -126,6 +126,15 @@ public class XamlSmokeTests
         var tweaks = new TweaksView();
         Measure(tweaks);
         Assert.Contains("Set Windows up the way you like it", TextsIn(tweaks));
+
+        // App icons: a known winget id shows its brand logo, an unknown app its initials.
+        // (Steam: not installed on build machines, and not in AppIconSourceTests' sample list.)
+        var known = new CtrlZ.App.Controls.AppIcon { FallbackText = "Steam", PackageId = "Valve.Steam", Size = 30 };
+        Measure(known);
+        Assert.Equal("brand", known.Showing);
+        var unknown = new CtrlZ.App.Controls.AppIcon { FallbackText = "In-house Tool", Size = 30 };
+        Measure(unknown);
+        Assert.Equal("initials", unknown.Showing);
     }
 
     private static List<string> TextsIn(DependencyObject root)

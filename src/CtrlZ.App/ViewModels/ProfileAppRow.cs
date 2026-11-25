@@ -29,6 +29,7 @@ public sealed partial class ProfileAppRow : ObservableObject
     public string? Publisher => App.Publisher;
     public string? Version => App.Version;
     public string? IconPath => App.IconPath;
+    public string? PackageId => App.PackageId;
     public string SourceLabel => App.SourceLabel;
     public AppCategory Category => App.Category;
     public string CategoryLabel => App.Category.Display();

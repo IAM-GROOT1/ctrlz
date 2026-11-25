@@ -20,7 +20,7 @@
                         <ColumnDefinition Width="132" />
                         <ColumnDefinition Width="120" />
                     </Grid.ColumnDefinitions>
-                    <controls:AppIcon IconPath="{Binding IconPath}" FallbackText="{Binding Name, Converter={StaticResource UserText}}" Size="28" VerticalAlignment="Top" />
+                    <controls:AppIcon IconPath="{Binding IconPath}" PackageId="{Binding PackageId}" FallbackText="{Binding Name, Converter={StaticResource UserText}}" Size="28" VerticalAlignment="Top" />
                     <StackPanel Grid.Column="1" Margin="10,0,12,0" VerticalAlignment="Center">
                         <TextBlock Text="{Binding Name, Converter={StaticResource UserText}}" FontWeight="SemiBold" FontSize="12.5" TextTrimming="CharacterEllipsis" />
                         <TextBlock Text="{Binding Detail, Converter={StaticResource UserText}}" Style="{StaticResource Text.Caption}" Margin="0,2,0,0"

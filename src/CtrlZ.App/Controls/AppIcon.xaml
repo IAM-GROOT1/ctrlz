@@ -13,6 +13,9 @@
             <TextBlock x:Name="Initials" Text="?" FontFamily="{StaticResource Font.Text}" FontWeight="SemiBold"
                        Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" />
         </Border>
+        <Border x:Name="BrandTile" CornerRadius="6" Visibility="Collapsed" FlowDirection="LeftToRight">
+            <Path x:Name="BrandGlyph" Stretch="Uniform" HorizontalAlignment="Center" VerticalAlignment="Center" />
+        </Border>
         <Image FlowDirection="LeftToRight" x:Name="IconImage" Stretch="Uniform" RenderOptions.BitmapScalingMode="HighQuality"
                Visibility="Collapsed" />
     </Grid>

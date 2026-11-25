@@ -25,7 +25,7 @@
                               ToolTip="{l:Tr MyApps_IncludeInInstalls}" AutomationProperties.Name="{l:Tr MyApps_IncludeInInstalls}" />
 
                     <StackPanel Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center">
-                        <controls:AppIcon IconPath="{Binding IconPath}" FallbackText="{Binding Name, Converter={StaticResource UserText}}" Size="30" />
+                        <controls:AppIcon IconPath="{Binding IconPath}" PackageId="{Binding PackageId}" FallbackText="{Binding Name, Converter={StaticResource UserText}}" Size="30" />
                         <TextBlock Text="&#xE70B;" FontFamily="{StaticResource Font.Icons}" FontSize="11"
                                    VerticalAlignment="Center" Margin="6,0,0,0"
                                    Foreground="{DynamicResource Brush.TextTertiary}"

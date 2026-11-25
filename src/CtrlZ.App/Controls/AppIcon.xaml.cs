@@ -8,6 +8,10 @@ using CtrlZ.App.Services;
 
 namespace CtrlZ.App.Controls;
 
+/// <summary>
+/// An app's icon. In order: the icon file it was scanned with; the icon of a program with the same
+/// name installed on this PC; the app's brand logo bundled with CTRL+Z; its coloured initials.
+/// </summary>
 public partial class AppIcon : UserControl
 {
     public static readonly DependencyProperty IconPathProperty = DependencyProperty.Register(
@@ -18,6 +22,11 @@ public partial class AppIcon : UserControl
         nameof(FallbackText), typeof(string), typeof(AppIcon),
         new PropertyMetadata(string.Empty, (d, _) => ((AppIcon)d).Refresh()));
 
+    /// <summary>The app's winget id, if it has one; the surest way to find its brand logo.</summary>
+    public static readonly DependencyProperty PackageIdProperty = DependencyProperty.Register(
+        nameof(PackageId), typeof(string), typeof(AppIcon),
+        new PropertyMetadata(null, (d, _) => ((AppIcon)d).Refresh()));
+
     public static readonly DependencyProperty SizeProperty = DependencyProperty.Register(
         nameof(Size), typeof(double), typeof(AppIcon),
         new PropertyMetadata(32d, (d, _) => ((AppIcon)d).RefreshSize()));
@@ -27,9 +36,11 @@ public partial class AppIcon : UserControl
         InitializeComponent();
         Loaded += (_, _) =>
         {
+            InstalledIcons.Loaded += OnInstalledIconsLoaded;
             RefreshSize();
             Refresh();
         };
+        Unloaded += (_, _) => InstalledIcons.Loaded -= OnInstalledIconsLoaded;
     }
 
     public string? IconPath
@@ -44,11 +55,23 @@ public partial class AppIcon : UserControl
         set => SetValue(FallbackTextProperty, value);
     }
 
+    public string? PackageId
+    {
+        get => (string?)GetValue(PackageIdProperty);
+        set => SetValue(PackageIdProperty, value);
+    }
+
     public double Size
     {
         get => (double)GetValue(SizeProperty);
         set => SetValue(SizeProperty, value);
     }
+
+    /// <summary>What is showing: "file", "installed", "brand" or "initials" (for tests).</summary>
+    public string Showing { get; private set; } = "initials";
+
+    private void OnInstalledIconsLoaded(object? sender, EventArgs e) =>
+        Dispatcher.BeginInvoke(Refresh);
 
     private void RefreshSize()
     {
@@ -62,7 +85,10 @@ public partial class AppIcon : UserControl
         Root.Width = Size;
         Root.Height = Size;
         Initials.FontSize = Math.Max(9, Size * 0.34);
-        Fallback.CornerRadius = new CornerRadius(Math.Max(4, Size * 0.22));
+        var corner = new CornerRadius(Math.Max(4, Size * 0.22));
+        Fallback.CornerRadius = corner;
+        BrandTile.CornerRadius = corner;
+        BrandGlyph.Margin = new Thickness(Math.Round(Size * 0.2));
     }
 
     private void Refresh()
@@ -73,14 +99,34 @@ public partial class AppIcon : UserControl
         }
 
         var text = FallbackText;
-        Initials.Text = BuildInitials(text);
-        Initials.Foreground = Brushes.White;
-        Fallback.Background = IconLoader.FallbackBrush(text);
-
         var image = IconLoader.TryLoad(IconPath);
+        Showing = image is null ? "initials" : "file";
+        if (image is null)
+        {
+            image = IconLoader.TryLoad(InstalledIcons.Find(text));
+            Showing = image is null ? "initials" : "installed";
+        }
+
+        var brand = image is null ? BrandIcons.Find(PackageId, text) : null;
+        if (brand is not null)
+        {
+            Showing = "brand";
+            BrandTile.Background = brand.Background;
+            BrandGlyph.Fill = brand.Glyph;
+            BrandGlyph.Data = brand.Shape;
+        }
+
+        if (image is null && brand is null)
+        {
+            Initials.Text = BuildInitials(text);
+            Initials.Foreground = Brushes.White;
+            Fallback.Background = IconLoader.FallbackBrush(text);
+        }
+
         IconImage.Source = image;
         IconImage.Visibility = image is null ? Visibility.Collapsed : Visibility.Visible;
-        Fallback.Visibility = image is null ? Visibility.Visible : Visibility.Collapsed;
+        BrandTile.Visibility = brand is null ? Visibility.Collapsed : Visibility.Visible;
+        Fallback.Visibility = image is null && brand is null ? Visibility.Visible : Visibility.Collapsed;
     }
 
     private static string BuildInitials(string? name)

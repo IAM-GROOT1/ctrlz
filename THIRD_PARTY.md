@@ -61,8 +61,17 @@ license needs to be carried by this project.
 
 ## Icons and images
 
-No third-party icon set is bundled. Interface icons come from the Segoe Fluent Icons system font
-(see above), and `src/CtrlZ.App/Themes/Icons.xaml` contains first-party path geometry.
+Interface icons come from the Segoe Fluent Icons system font (see above), and
+`src/CtrlZ.App/Themes/Icons.xaml` contains first-party path geometry.
+
+| Asset | Origin | License | AGPL-3.0 compatible |
+| --- | --- | --- | --- |
+| `src/CtrlZ.App/Resources/brand-icons.json` | App logos from [Simple Icons](https://simpleicons.org) 16.37.0, picked for apps in the catalog by `build/brand-icons/make-brand-icons.js` | CC0 1.0 | Yes |
+
+The logos are shown only next to the app they belong to, to identify it, when that app has no icon
+of its own on the PC (an installed app shows its own icon). The marks remain the trademarks of
+their owners: as Simple Icons notes, CC0 covers the drawings, not trademark rights, and showing
+them does not imply endorsement.
 
 All images and icons under `src/CtrlZ.App/Assets/` and `branding/` are first-party project assets
 (see `branding/README.md`).
