@@ -35,23 +35,28 @@ public static class CoreText
     public static string Format(string key, params object?[] args) =>
         string.Format(CultureInfo.CurrentCulture, Get(key), args);
 
-    /// <summary>
-    /// Keeps <paramref name="text"/> (a command, path or id) in left-to-right order inside a sentence
-    /// in a right-to-left language, which could otherwise reorder the characters around it. There it
-    /// wraps the text in the Unicode left-to-right isolate marks, which take up no space on screen;
-    /// in a left-to-right language the text is returned unchanged.
-    /// </summary>
-    public static string LeftToRight(string text) =>
-        Current.TextInfo.IsRightToLeft ? "⁦" + text + "⁩" : text;
+    // WPF's text layout ignores the Unicode isolate marks (U+2066 to U+2069) and the embedding marks
+    // (U+202A to U+202E), as a test window in Windows Sandbox showed; only the plain direction marks
+    // work, so these helpers use those.
+    private const string LeftToRightMark = "‎";
+    private const string RightToLeftMark = "‏";
 
     /// <summary>
-    /// Keeps a name the user typed (a profile, an app) in its own direction inside a sentence in a
-    /// right-to-left language, so a Latin name does not pull the numbers next to it out of place.
-    /// Unlike <see cref="LeftToRight"/>, an Arabic name keeps reading right to left: the first-strong
-    /// isolate marks take the direction from the name itself.
+    /// Keeps <paramref name="text"/> (a command, path or id) in left-to-right order inside a sentence
+    /// in a right-to-left language, so punctuation at its ends stays with it instead of jumping to the
+    /// other side. There it is wrapped in left-to-right marks, which take up no space on screen; in a
+    /// left-to-right language the text is returned unchanged.
+    /// </summary>
+    public static string LeftToRight(string text) =>
+        Current.TextInfo.IsRightToLeft ? LeftToRightMark + text + LeftToRightMark : text;
+
+    /// <summary>
+    /// Keeps a name the user typed (a profile, an app) apart from the text around it in a
+    /// right-to-left language, so a Latin name does not pull the numbers next to it out of place
+    /// ("تطبيق 0 · My apps", not "تطبيق My apps · 0"). An Arabic name reads as before.
     /// </summary>
     public static string Isolate(string text) =>
-        Current.TextInfo.IsRightToLeft ? "⁨" + text + "⁩" : text;
+        Current.TextInfo.IsRightToLeft ? RightToLeftMark + text + RightToLeftMark : text;
 
     /// <summary>Count-dependent text; see <see cref="PluralRules"/>. The count is <c>{0}</c>.</summary>
     public static string Plural(string key, long count, params object?[] args)
