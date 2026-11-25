@@ -34,9 +34,9 @@
                     </Grid.ColumnDefinitions>
 
                     <StackPanel>
-                        <TextBlock Text="{Binding Name}" FontWeight="SemiBold" FontSize="12.5"
+                        <TextBlock Text="{Binding Name, Converter={StaticResource UserText}}" FontWeight="SemiBold" FontSize="12.5"
                                    Foreground="{DynamicResource Brush.TextPrimary}" TextWrapping="Wrap" />
-                        <TextBlock Text="{Binding Detail}" Style="{StaticResource Text.Caption}" TextWrapping="Wrap" />
+                        <TextBlock Text="{Binding Detail, Converter={StaticResource UserText}}" Style="{StaticResource Text.Caption}" TextWrapping="Wrap" />
                     </StackPanel>
 
                     <StackPanel Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center">

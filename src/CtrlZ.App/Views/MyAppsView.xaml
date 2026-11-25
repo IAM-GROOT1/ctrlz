@@ -25,7 +25,7 @@
                               ToolTip="{l:Tr MyApps_IncludeInInstalls}" AutomationProperties.Name="{l:Tr MyApps_IncludeInInstalls}" />
 
                     <StackPanel Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center">
-                        <controls:AppIcon IconPath="{Binding IconPath}" FallbackText="{Binding Name}" Size="30" />
+                        <controls:AppIcon IconPath="{Binding IconPath}" FallbackText="{Binding Name, Converter={StaticResource UserText}}" Size="30" />
                         <TextBlock Text="&#xE70B;" FontFamily="{StaticResource Font.Icons}" FontSize="11"
                                    VerticalAlignment="Center" Margin="6,0,0,0"
                                    Foreground="{DynamicResource Brush.TextTertiary}"
@@ -33,7 +33,7 @@
                                    Visibility="{Binding HasNotes, Converter={StaticResource BoolToVisibility}}" />
                         <StackPanel Margin="10,0,10,0" VerticalAlignment="Center">
                             <StackPanel Orientation="Horizontal">
-                                <TextBlock Text="{Binding Name}" FontWeight="SemiBold" FontSize="12.5"
+                                <TextBlock Text="{Binding Name, Converter={StaticResource UserText}}" FontWeight="SemiBold" FontSize="12.5"
                                            TextTrimming="CharacterEllipsis" />
                                 <Border Background="{DynamicResource Brush.WarningSoft}" CornerRadius="8" Padding="6,1"
                                         Margin="8,0,0,0" VerticalAlignment="Center"
@@ -41,7 +41,7 @@
                                     <TextBlock Text="{l:Tr MyApps_NeedsId}" FontSize="9.5" Foreground="{DynamicResource Brush.Warning}" />
                                 </Border>
                             </StackPanel>
-                            <TextBlock Text="{Binding Meta}" Style="{StaticResource Text.Caption}" Margin="0,2,0,0"
+                            <TextBlock Text="{Binding Meta, Converter={StaticResource UserText}}" Style="{StaticResource Text.Caption}" Margin="0,2,0,0"
                                        TextTrimming="CharacterEllipsis" />
                         </StackPanel>
                     </StackPanel>
@@ -50,7 +50,7 @@
                         <TextBlock Text="{Binding SourceLabel}" FontSize="10.5" Foreground="{DynamicResource Brush.TextSecondary}" />
                     </Border>
 
-                    <TextBlock Grid.Column="3" Text="{Binding InstallSummary}" Style="{StaticResource Text.Caption}"
+                    <TextBlock Grid.Column="3" Text="{Binding InstallSummary}" Style="{StaticResource Text.Caption}" FlowDirection="LeftToRight"
                                VerticalAlignment="Center" TextTrimming="CharacterEllipsis" Margin="0,0,10,0"
                                ToolTip="{Binding InstallSummary}" />
 
@@ -85,7 +85,7 @@
                 <DataTemplate>
                     <Grid Margin="4,12,4,5">
                         <StackPanel Orientation="Horizontal">
-                            <TextBlock Text="{Binding Name}" FontSize="11" FontWeight="SemiBold"
+                            <TextBlock Text="{Binding Name, Converter={StaticResource UserText}}" FontSize="11" FontWeight="SemiBold"
                                        Foreground="{DynamicResource Brush.TextSecondary}" />
                             <Border Background="{DynamicResource Brush.SurfacePressed}" CornerRadius="8" Padding="6,1"
                                     Margin="8,0,0,0" VerticalAlignment="Center">
@@ -126,7 +126,7 @@
                                     <ColumnDefinition Width="*" />
                                     <ColumnDefinition Width="Auto" />
                                 </Grid.ColumnDefinitions>
-                                <TextBlock Text="{Binding Name}" TextTrimming="CharacterEllipsis" />
+                                <TextBlock Text="{Binding Name, Converter={StaticResource UserText}}" TextTrimming="CharacterEllipsis" />
                                 <TextBlock Grid.Column="1" Text="{Binding AppCount}" Style="{StaticResource Text.Caption}"
                                            Margin="10,0,0,0" />
                             </Grid>

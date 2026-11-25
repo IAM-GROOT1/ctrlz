@@ -27,6 +27,7 @@
             <conv:StringToVisibilityConverter x:Key="StringToVisibilityInverse" Invert="True" />
             <conv:EnumToBoolConverter x:Key="EnumToBool" />
             <conv:BoolNegationConverter x:Key="BoolNegation" />
+            <conv:UserTextConverter x:Key="UserText" />
 
             <DataTemplate DataType="{x:Type vm:ScanViewModel}">
                 <views:ScanView />

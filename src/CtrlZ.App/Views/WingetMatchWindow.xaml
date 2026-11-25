@@ -70,8 +70,8 @@
                                         <ColumnDefinition Width="Auto" />
                                     </Grid.ColumnDefinitions>
                                     <StackPanel>
-                                        <TextBlock Text="{Binding Name}" FontWeight="SemiBold" TextTrimming="CharacterEllipsis" />
-                                        <TextBlock Text="{Binding Id}" Style="{StaticResource Text.Caption}"
+                                        <TextBlock Text="{Binding Name, Converter={StaticResource UserText}}" FontWeight="SemiBold" TextTrimming="CharacterEllipsis" />
+                                        <TextBlock Text="{Binding Id, Converter={StaticResource UserText}}" Style="{StaticResource Text.Caption}"
                                                    FontFamily="{StaticResource Font.Mono}" FlowDirection="LeftToRight" Margin="0,2,0,0" />
                                     </StackPanel>
                                     <TextBlock Grid.Column="1" Text="{Binding Version}" Style="{StaticResource Text.Caption}"

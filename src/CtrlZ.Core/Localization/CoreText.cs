@@ -51,12 +51,50 @@ public static class CoreText
         Current.TextInfo.IsRightToLeft ? LeftToRightMark + text + LeftToRightMark : text;
 
     /// <summary>
-    /// Keeps a name the user typed (a profile, an app) apart from the text around it in a
-    /// right-to-left language, so a Latin name does not pull the numbers next to it out of place
-    /// ("تطبيق 0 · My apps", not "تطبيق My apps · 0"). An Arabic name reads as before.
+    /// Shows a name that did not come from CTRL+Z's translations (a profile, an app, a publisher,
+    /// a winget id) in its own direction, whatever the language around it: the direction of its
+    /// first letter decides, as the Unicode "first strong isolate" would if WPF supported it. In
+    /// Arabic, "7-Zip" stays "7-Zip" and "(x64)" keeps its brackets, and a Latin profile name does
+    /// not pull the app count next to it out of place. Text that already reads in the language's
+    /// direction is returned unchanged.
     /// </summary>
-    public static string Isolate(string text) =>
-        Current.TextInfo.IsRightToLeft ? RightToLeftMark + text + RightToLeftMark : text;
+    public static string Isolate(string text)
+    {
+        if (string.IsNullOrEmpty(text))
+        {
+            return text;
+        }
+
+        var textIsRightToLeft = StartsRightToLeft(text);
+        if (Current.TextInfo.IsRightToLeft)
+        {
+            return textIsRightToLeft
+                ? RightToLeftMark + text + RightToLeftMark
+                : LeftToRightMark + text + LeftToRightMark;
+        }
+
+        return textIsRightToLeft ? RightToLeftMark + text + RightToLeftMark : text;
+    }
+
+    /// <summary>True when the first letter is Hebrew, Arabic or another right-to-left script.</summary>
+    private static bool StartsRightToLeft(string text)
+    {
+        foreach (var c in text)
+        {
+            if (c is (>= '֐' and <= 'ࣿ') or (>= 'יִ' and <= '﷿') or (>= 'ﹰ' and <= '﻿'))
+            {
+                return true;
+            }
+
+            if (char.IsLetter(c))
+            {
+                return false;
+            }
+        }
+
+        // Digits and symbols only, such as a version: left to right.
+        return false;
+    }
 
     /// <summary>Count-dependent text; see <see cref="PluralRules"/>. The count is <c>{0}</c>.</summary>
     public static string Plural(string key, long count, params object?[] args)
