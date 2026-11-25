@@ -1,9 +1,11 @@
 // SPDX-License-Identifier: AGPL-3.0-only
 // Copyright (c) 2026 iam-groot1
 
+using System.Globalization;
 using System.Reflection;
 using System.Text.Json;
 using CtrlZ.Core.Infrastructure;
+using CtrlZ.Core.Localization;
 using CtrlZ.Core.Logging;
 using CtrlZ.Core.Models;
 
@@ -31,11 +33,21 @@ public sealed record WinUtilCatalog(
     bool IsBundledFallback,
     string? Warning = null)
 {
+    /// <summary>Where the list came from, in English, for the log.</summary>
     public string StatusText => IsBundledFallback
         ? "Bundled snapshot"
         : FromCache
-            ? $"Cached {(FetchedUtc is null ? string.Empty : FetchedUtc.Value.ToLocalTime().ToString("MMM d, HH:mm"))}".Trim()
-            : $"Live · {FetchedUtc?.ToLocalTime():MMM d, HH:mm}";
+            ? $"Cached {(FetchedUtc is null ? string.Empty : FetchedUtc.Value.ToLocalTime().ToString("MMM d, HH:mm", CultureInfo.InvariantCulture))}".Trim()
+            : $"Live · {FetchedUtc?.ToLocalTime().ToString("MMM d, HH:mm", CultureInfo.InvariantCulture)}";
+
+    /// <summary>The same, in the user's language, for the Catalog page.</summary>
+    public string DisplayStatus => IsBundledFallback
+        ? CoreText.Get("Catalog_StatusBundled")
+        : FromCache
+            ? FetchedUtc is null
+                ? CoreText.Get("Catalog_StatusCachedUndated")
+                : CoreText.Format("Catalog_StatusCached", FetchedUtc.Value.ToLocalTime().ToString("g", CultureInfo.CurrentCulture))
+            : CoreText.Format("Catalog_StatusLive", FetchedUtc?.ToLocalTime().ToString("g", CultureInfo.CurrentCulture));
 }
 
 /// <summary>
@@ -60,9 +72,19 @@ public sealed class WinUtilCatalogService
         _log = log;
     }
 
-    public async Task<WinUtilCatalog> LoadAsync(bool forceRefresh, CancellationToken cancellationToken = default)
+    /// <summary>
+    /// The catalog. With <paramref name="autoRefresh"/> off (Settings), nothing is downloaded unless
+    /// <paramref name="forceRefresh"/> is set by the Refresh button: the copy saved on this PC is used
+    /// at any age, or the snapshot built into CTRL+Z when there is none.
+    /// </summary>
+    public async Task<WinUtilCatalog> LoadAsync(bool forceRefresh, bool autoRefresh = true, CancellationToken cancellationToken = default)
     {
         var cached = TryLoadCache();
+        if (!forceRefresh && !autoRefresh)
+        {
+            return cached ?? LoadBundled();
+        }
+
         if (cached is not null && !forceRefresh && cached.FetchedUtc is not null &&
             DateTimeOffset.UtcNow - cached.FetchedUtc.Value < CacheMaxAge)
         {
@@ -96,14 +118,14 @@ public sealed class WinUtilCatalogService
             {
                 return cached with
                 {
-                    Warning = "You are offline or GitHub is unavailable. Showing the last cached catalog."
+                    Warning = CoreText.Get("Catalog_OfflineCached")
                 };
             }
 
             var bundled = LoadBundled();
             return bundled with
             {
-                Warning = "You are offline or GitHub is unavailable. Showing the bundled catalog snapshot."
+                Warning = CoreText.Get("Catalog_OfflineBundled")
             };
         }
     }

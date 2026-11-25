@@ -3095,4 +3095,10 @@ Use el archivo de "winget export -o apps.json", "scoop export &gt; apps.json" o 
 
 La versión {0} no se volverá a ofrecer; las versiones más recientes se ofrecerán como siempre.</value>
   </data>
+  <data name="Settings_RefreshCatalogAutomatically" xml:space="preserve">
+    <value>Actualizar el catálogo de aplicaciones desde GitHub automáticamente</value>
+  </data>
+  <data name="Settings_RefreshCatalogAutomaticallyHelp" xml:space="preserve">
+    <value>Si está desactivado, la página Catálogo usa la copia guardada en este equipo, o la incluida en CTRL+Z, hasta que pulse Actualizar.</value>
+  </data>
 </root>

@@ -3095,4 +3095,10 @@ Verwenden Sie die Datei aus „winget export -o apps.json“, „scoop export &g
 
 Version {0} wird nicht erneut angeboten; eine neuere Version wird wie gewohnt angeboten.</value>
   </data>
+  <data name="Settings_RefreshCatalogAutomatically" xml:space="preserve">
+    <value>App-Katalog automatisch von GitHub aktualisieren</value>
+  </data>
+  <data name="Settings_RefreshCatalogAutomaticallyHelp" xml:space="preserve">
+    <value>Wenn dies aus ist, nutzt die Katalog-Seite die auf diesem PC gespeicherte Kopie oder die in CTRL+Z enthaltene, bis Sie auf „Aktualisieren“ klicken.</value>
+  </data>
 </root>

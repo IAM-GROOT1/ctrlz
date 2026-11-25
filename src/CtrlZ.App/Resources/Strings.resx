@@ -3097,4 +3097,10 @@ Use the file from "winget export -o apps.json", "scoop export &gt; apps.json" or
 
 Version {0} will not be offered again; a newer release will be offered as usual.</value>
   </data>
+  <data name="Settings_RefreshCatalogAutomatically" xml:space="preserve">
+    <value>Refresh the app catalog from GitHub automatically</value>
+  </data>
+  <data name="Settings_RefreshCatalogAutomaticallyHelp" xml:space="preserve">
+    <value>When this is off, the Catalog page uses the copy saved on this PC, or the one built into CTRL+Z, until you press Refresh.</value>
+  </data>
 </root>

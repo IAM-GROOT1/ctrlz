@@ -3212,4 +3212,10 @@
 
 لن يُعرض الإصدار {0} مرة أخرى؛ وسيُعرض أي إصدار أحدث كالمعتاد.</value>
   </data>
+  <data name="Settings_RefreshCatalogAutomatically" xml:space="preserve">
+    <value>تحديث كتالوج التطبيقات من GitHub تلقائيًا</value>
+  </data>
+  <data name="Settings_RefreshCatalogAutomaticallyHelp" xml:space="preserve">
+    <value>عند إيقاف هذا الخيار، تستخدم صفحة الكتالوج النسخة المحفوظة على هذا الكمبيوتر، أو النسخة المضمّنة في CTRL+Z، حتى تضغط «تحديث».</value>
+  </data>
 </root>

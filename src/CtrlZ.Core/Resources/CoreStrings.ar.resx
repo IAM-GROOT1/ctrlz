@@ -1402,4 +1402,22 @@
   <data name="UpdateDownload_Failed" xml:space="preserve">
     <value>تعذّر تنزيل التحديث أو التحقق منه، لذا لم يتغيّر أي شيء: {0}</value>
   </data>
+  <data name="Catalog_StatusBundled" xml:space="preserve">
+    <value>نسخة مضمّنة</value>
+  </data>
+  <data name="Catalog_StatusCachedUndated" xml:space="preserve">
+    <value>نسخة محفوظة</value>
+  </data>
+  <data name="Catalog_StatusCached" xml:space="preserve">
+    <value>نسخة محفوظة من {0}</value>
+  </data>
+  <data name="Catalog_StatusLive" xml:space="preserve">
+    <value>حُدّث {0}</value>
+  </data>
+  <data name="Catalog_OfflineCached" xml:space="preserve">
+    <value>أنت غير متصل أو GitHub غير متاح. يُعرض آخر كتالوج محفوظ.</value>
+  </data>
+  <data name="Catalog_OfflineBundled" xml:space="preserve">
+    <value>أنت غير متصل أو GitHub غير متاح. يُعرض الكتالوج المضمّن في CTRL+Z.</value>
+  </data>
 </root>

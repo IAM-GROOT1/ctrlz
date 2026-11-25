@@ -3173,4 +3173,10 @@
 
 Версия {0} больше не будет предлагаться; более новые выпуски будут предлагаться как обычно.</value>
   </data>
+  <data name="Settings_RefreshCatalogAutomatically" xml:space="preserve">
+    <value>Автоматически обновлять каталог приложений с GitHub</value>
+  </data>
+  <data name="Settings_RefreshCatalogAutomaticallyHelp" xml:space="preserve">
+    <value>Если выключено, страница каталога использует копию, сохранённую на этом ПК, или встроенную в CTRL+Z, пока вы не нажмёте «Обновить».</value>
+  </data>
 </root>

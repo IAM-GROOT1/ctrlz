@@ -1375,4 +1375,22 @@
   <data name="UpdateDownload_Failed" xml:space="preserve">
     <value>Das Update konnte nicht heruntergeladen oder geprüft werden, daher wurde nichts geändert: {0}</value>
   </data>
+  <data name="Catalog_StatusBundled" xml:space="preserve">
+    <value>Integrierte Kopie</value>
+  </data>
+  <data name="Catalog_StatusCachedUndated" xml:space="preserve">
+    <value>Gespeicherte Kopie</value>
+  </data>
+  <data name="Catalog_StatusCached" xml:space="preserve">
+    <value>Gespeicherte Kopie vom {0}</value>
+  </data>
+  <data name="Catalog_StatusLive" xml:space="preserve">
+    <value>Aktualisiert {0}</value>
+  </data>
+  <data name="Catalog_OfflineCached" xml:space="preserve">
+    <value>Sie sind offline oder GitHub ist nicht erreichbar. Der zuletzt gespeicherte Katalog wird angezeigt.</value>
+  </data>
+  <data name="Catalog_OfflineBundled" xml:space="preserve">
+    <value>Sie sind offline oder GitHub ist nicht erreichbar. Der in CTRL+Z enthaltene Katalog wird angezeigt.</value>
+  </data>
 </root>
