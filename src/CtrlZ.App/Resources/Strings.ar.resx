@@ -3215,4 +3215,10 @@
   <data name="CommandReview_InFolder" xml:space="preserve">
     <value> · في {0}</value>
   </data>
+  <data name="Settings_RefreshCatalogAutomatically" xml:space="preserve">
+    <value>تحديث كتالوج التطبيقات من GitHub تلقائيًا</value>
+  </data>
+  <data name="Settings_RefreshCatalogAutomaticallyHelp" xml:space="preserve">
+    <value>عند إيقاف هذا الخيار، تستخدم صفحة الكتالوج النسخة المحفوظة على هذا الكمبيوتر، أو النسخة المضمّنة في CTRL+Z، حتى تضغط «تحديث».</value>
+  </data>
 </root>

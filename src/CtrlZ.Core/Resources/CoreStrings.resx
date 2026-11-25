@@ -1386,4 +1386,22 @@
   <data name="UpdateDownload_Failed" xml:space="preserve">
     <value>The update could not be downloaded or checked, so nothing was changed: {0}</value>
   </data>
+  <data name="Catalog_StatusBundled" xml:space="preserve">
+    <value>Built-in copy</value>
+  </data>
+  <data name="Catalog_StatusCachedUndated" xml:space="preserve">
+    <value>Saved copy</value>
+  </data>
+  <data name="Catalog_StatusCached" xml:space="preserve">
+    <value>Saved copy from {0}</value>
+  </data>
+  <data name="Catalog_StatusLive" xml:space="preserve">
+    <value>Updated {0}</value>
+  </data>
+  <data name="Catalog_OfflineCached" xml:space="preserve">
+    <value>You are offline or GitHub is unavailable. Showing the last saved catalog.</value>
+  </data>
+  <data name="Catalog_OfflineBundled" xml:space="preserve">
+    <value>You are offline or GitHub is unavailable. Showing the catalog built into CTRL+Z.</value>
+  </data>
 </root>

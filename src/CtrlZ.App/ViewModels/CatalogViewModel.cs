@@ -108,9 +108,10 @@ public sealed partial class CatalogViewModel : PageViewModelBase
         if (!_loaded)
         {
             _loaded = true;
-            // First visit goes to the live source; the service falls back to the cache or
-            // embedded snapshot if GitHub is unavailable.
-            await LoadAsync(force: true);
+            // First visit goes to the live source when "Refresh the catalog automatically" is on;
+            // the service falls back to the cache or embedded snapshot if GitHub is unavailable.
+            // With it off, nothing is downloaded until Refresh is pressed.
+            await LoadAsync(force: _services.State.Settings.AutoRefreshCatalog);
         }
     }
 
@@ -213,7 +214,7 @@ public sealed partial class CatalogViewModel : PageViewModelBase
 
         try
         {
-            var catalog = await _services.Catalog.LoadAsync(force);
+            var catalog = await _services.Catalog.LoadAsync(force, _services.State.Settings.AutoRefreshCatalog);
             Items.Clear();
             foreach (var item in catalog.Items)
             {
@@ -231,7 +232,7 @@ public sealed partial class CatalogViewModel : PageViewModelBase
             }
 
             SelectedCategory = Loc.Get("Catalog_AllCategories");
-            CatalogStatus = catalog.StatusText;
+            CatalogStatus = catalog.DisplayStatus;
             WarningText = catalog.Warning;
             TotalCount = Items.Count;
             StatusMessage = catalog.Warning is null

@@ -3098,4 +3098,10 @@ Version {0} wird nicht erneut angeboten; eine neuere Version wird wie gewohnt an
   <data name="CommandReview_InFolder" xml:space="preserve">
     <value> · in {0}</value>
   </data>
+  <data name="Settings_RefreshCatalogAutomatically" xml:space="preserve">
+    <value>App-Katalog automatisch von GitHub aktualisieren</value>
+  </data>
+  <data name="Settings_RefreshCatalogAutomaticallyHelp" xml:space="preserve">
+    <value>Wenn dies aus ist, nutzt die Katalog-Seite die auf diesem PC gespeicherte Kopie oder die in CTRL+Z enthaltene, bis Sie auf „Aktualisieren“ klicken.</value>
+  </data>
 </root>

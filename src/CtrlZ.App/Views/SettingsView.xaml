@@ -75,6 +75,10 @@
                                   IsChecked="{Binding CreatePortableShortcuts, Mode=TwoWay}" />
                         <TextBlock Text="{l:Tr Settings_PortableAppsGetAShortcut}"
                                    Style="{StaticResource Text.Caption}" TextWrapping="Wrap" Margin="0,8,0,0" />
+                        <CheckBox Content="{l:Tr Settings_RefreshCatalogAutomatically}" Margin="0,14,0,0"
+                                  IsChecked="{Binding AutoRefreshCatalog, Mode=TwoWay}" />
+                        <TextBlock Text="{l:Tr Settings_RefreshCatalogAutomaticallyHelp}"
+                                   Style="{StaticResource Text.Caption}" TextWrapping="Wrap" Margin="0,8,0,0" />
                         <CheckBox Content="{l:Tr Settings_IncludeNotesInExports}" Margin="0,14,0,0"
                                   IsChecked="{Binding IncludeNotesInReports, Mode=TwoWay}" />
                         <TextBlock Text="{l:Tr Settings_OffByDefaultWhenOff}"

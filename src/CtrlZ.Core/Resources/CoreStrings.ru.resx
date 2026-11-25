@@ -1391,4 +1391,22 @@
   <data name="UpdateDownload_Failed" xml:space="preserve">
     <value>Не удалось скачать или проверить обновление, поэтому ничего не изменено: {0}</value>
   </data>
+  <data name="Catalog_StatusBundled" xml:space="preserve">
+    <value>Встроенная копия</value>
+  </data>
+  <data name="Catalog_StatusCachedUndated" xml:space="preserve">
+    <value>Сохранённая копия</value>
+  </data>
+  <data name="Catalog_StatusCached" xml:space="preserve">
+    <value>Сохранённая копия от {0}</value>
+  </data>
+  <data name="Catalog_StatusLive" xml:space="preserve">
+    <value>Обновлено {0}</value>
+  </data>
+  <data name="Catalog_OfflineCached" xml:space="preserve">
+    <value>Нет подключения или GitHub недоступен. Показан последний сохранённый каталог.</value>
+  </data>
+  <data name="Catalog_OfflineBundled" xml:space="preserve">
+    <value>Нет подключения или GitHub недоступен. Показан каталог, встроенный в CTRL+Z.</value>
+  </data>
 </root>
