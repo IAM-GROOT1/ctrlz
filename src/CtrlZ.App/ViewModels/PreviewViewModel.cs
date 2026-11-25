@@ -35,14 +35,14 @@ public sealed partial class PreviewRow : ObservableObject
     public bool CommandNeedsAttention => Command is { } line && (!line.WillRun || line.Risky);
 
     public InstallPlanItem Item { get; }
-    public string Name => Item.Name;
+    public string Name => CtrlZ.Core.Cli.CliText.Safe(Item.Name);
 
     /// <summary>What screen readers announce for this row.</summary>
     public override string ToString() => Name;
 
     public string OrderText => $"{Item.Order}.";
     public string SourceText => Item.SourceDescription;
-    public string SilentText => Item.SilentArgs;
+    public string SilentText => CtrlZ.Core.Cli.CliText.Safe(Item.SilentArgs);
     public string AdminText => Item.RequiresAdmin ? Loc.Get("Preview_MayNeedAdmin") : Loc.Get("Preview_NoAdminNeeded");
     public string WarningText { get; }
     public bool HasWarnings => Item.Warnings.Count > 0;

@@ -23,7 +23,7 @@ public sealed partial class CommandReviewItem : ObservableObject
     public AppEntry App { get; }
     public PostInstallCommand Command { get; }
     public IReadOnlyList<string> Risks { get; }
-    public string AppName => App.Name;
+    public string AppName => CtrlZ.Core.Cli.CliText.Safe(App.Name);
 
     /// <summary>What screen readers announce for this row.</summary>
     public override string ToString() => AppName;

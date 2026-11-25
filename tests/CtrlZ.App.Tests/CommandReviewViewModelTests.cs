@@ -59,8 +59,31 @@ public sealed class CommandReviewViewModelTests : IDisposable
         Assert.Contains("C:\\tools\\u202E", item.DetailsText);
 
         var line = new CommandPreviewLine("x", "X", 1, command.Describe(), CommandRunState.NeedsReview, false, false, "", "h");
-        var row = new PreviewRow(new CtrlZ.Core.Safety.InstallPlanItem { AppId = "x", Name = "X", Order = 1 }, line);
-        Assert.DoesNotContain('\u202E', row.CommandText);
+        var row = new PreviewRow(new CtrlZ.Core.Safety.InstallPlanItem { AppId = "x", Name = "X\u2029", Order = 1 }, line);
+        Assert.Contains("evil\\u202Egpj.exe", row.CommandText);
+        Assert.Equal("X\\u2029", row.Name);
+
+        // A name with a paragraph break could fake a second, harmless-looking line on the review screen.
+        var named = new CommandReviewItem(new AppEntry { Id = "y", Name = "Foo\u2029cmd.exe /c fine", PostInstall = command }, command);
+        Assert.Equal("Foo\\u2029cmd.exe /c fine", named.AppName);
+    }
+
+    [Fact]
+    public void Approving_a_command_with_hidden_characters_records_the_exact_text_not_the_escaped_one()
+    {
+        var profile = new AppProfile
+        {
+            Id = "p1",
+            Apps = [new AppEntry { Id = "x", Name = "X", PostInstall = new PostInstallCommand { Executable = "cmd.exe", Arguments = ["/c", "a\u202Eb"], Enabled = true } }]
+        };
+        var approvals = Approvals();
+        var review = Review(profile, approvals);
+
+        review.ApproveCommand.Execute(null);
+
+        Assert.True(approvals.IsApproved("p1", "x", profile.Apps[0].PostInstall!));
+        var escaped = new PostInstallCommand { Executable = "cmd.exe", Arguments = ["/c", "a\\u202Eb"], Enabled = true };
+        Assert.False(approvals.IsApproved("p1", "x", escaped));
     }
 
     [Fact]
