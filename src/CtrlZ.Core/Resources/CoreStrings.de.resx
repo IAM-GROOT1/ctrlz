@@ -1385,7 +1385,7 @@
     <value>Gespeicherte Kopie vom {0}</value>
   </data>
   <data name="Catalog_StatusLive" xml:space="preserve">
-    <value>Aktualisiert {0}</value>
+    <value>Aktualisiert am {0}</value>
   </data>
   <data name="Catalog_OfflineCached" xml:space="preserve">
     <value>Sie sind offline oder GitHub ist nicht erreichbar. Der zuletzt gespeicherte Katalog wird angezeigt.</value>

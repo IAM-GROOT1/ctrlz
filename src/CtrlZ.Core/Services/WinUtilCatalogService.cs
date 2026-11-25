@@ -46,8 +46,12 @@ public sealed record WinUtilCatalog(
         : FromCache
             ? FetchedUtc is null
                 ? CoreText.Get("Catalog_StatusCachedUndated")
-                : CoreText.Format("Catalog_StatusCached", FetchedUtc.Value.ToLocalTime().ToString("g", CultureInfo.CurrentCulture))
-            : CoreText.Format("Catalog_StatusLive", FetchedUtc?.ToLocalTime().ToString("g", CultureInfo.CurrentCulture));
+                : CoreText.Format("Catalog_StatusCached", When(FetchedUtc.Value))
+            : CoreText.Format("Catalog_StatusLive", FetchedUtc is null ? string.Empty : When(FetchedUtc.Value));
+
+    /// <summary>A date and time in the user's format, kept in order inside right-to-left text.</summary>
+    private static string When(DateTimeOffset utc) =>
+        CoreText.LeftToRight(utc.ToLocalTime().ToString("g", CultureInfo.CurrentCulture));
 }
 
 /// <summary>
