@@ -162,7 +162,7 @@ public sealed record DryRunReport
             builder.AppendLine(CoreText.Get("InstallPlanModels_PostInstallCommands"));
             foreach (var command in Commands)
             {
-                builder.AppendLine($"  {command.Order}. {command.AppName}: {command.CommandText}");
+                builder.AppendLine($"  {command.Order}. {Cli.CliText.Safe(command.AppName)}: {Cli.CliText.Safe(command.CommandText)}");
                 builder.AppendLine($"       {command.StateText}");
             }
 

@@ -67,7 +67,7 @@
                     <StackPanel Margin="26,6,0,0"
                                 Visibility="{Binding HasCommand, Converter={StaticResource BoolToVisibility}}">
                         <TextBlock Text="{l:Tr Preview_AfterInstallRuns}" Style="{StaticResource Text.Caption}" />
-                        <TextBlock Text="{Binding CommandText}" Style="{StaticResource Text.Caption}" TextWrapping="Wrap"
+                        <TextBlock Text="{Binding CommandText}" Style="{StaticResource Text.Caption}" TextWrapping="Wrap" FlowDirection="LeftToRight"
                                    Foreground="{DynamicResource Brush.TextPrimary}" />
                         <TextBlock Text="{Binding CommandStateText}" TextWrapping="Wrap">
                             <TextBlock.Style>
