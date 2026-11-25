@@ -59,7 +59,7 @@
                 <Border BorderBrush="{DynamicResource Brush.Border}" BorderThickness="1" Padding="12,10"
                         Background="{DynamicResource Brush.SurfaceAlt}" DataContext="{Binding Current}">
                     <StackPanel>
-                        <TextBlock Text="{Binding AppName}" FontWeight="SemiBold" FontSize="12.5" TextWrapping="Wrap" />
+                        <TextBlock Text="{Binding AppName, Converter={StaticResource UserText}}" FontWeight="SemiBold" FontSize="12.5" TextWrapping="Wrap" />
                         <TextBlock Text="{Binding CommandText}" FontFamily="{StaticResource Font.Mono}" FlowDirection="LeftToRight" TextWrapping="Wrap"
                                    Margin="0,6,0,0" Foreground="{DynamicResource Brush.TextPrimary}" />
                         <TextBlock Text="{Binding DetailsText}" Style="{StaticResource Text.Caption}" TextWrapping="Wrap" Margin="0,6,0,0" />

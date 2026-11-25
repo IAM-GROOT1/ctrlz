@@ -31,12 +31,12 @@
                               AutomationProperties.Name="{l:Tr Scan_IncludeApp}" />
 
                     <StackPanel Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center">
-                        <controls:AppIcon IconPath="{Binding IconPath}" FallbackText="{Binding Name}" Size="30"
+                        <controls:AppIcon IconPath="{Binding IconPath}" FallbackText="{Binding Name, Converter={StaticResource UserText}}" Size="30"
                                           VerticalAlignment="Center" />
                         <StackPanel Margin="10,0,8,0" VerticalAlignment="Center">
-                            <TextBlock Text="{Binding Name}" FontWeight="SemiBold" FontSize="12.5"
+                            <TextBlock Text="{Binding Name, Converter={StaticResource UserText}}" FontWeight="SemiBold" FontSize="12.5"
                                        TextTrimming="CharacterEllipsis" />
-                            <TextBlock Text="{Binding Meta}" Style="{StaticResource Text.Caption}" Margin="0,2,0,0"
+                            <TextBlock Text="{Binding Meta, Converter={StaticResource UserText}}" Style="{StaticResource Text.Caption}" Margin="0,2,0,0"
                                        TextTrimming="CharacterEllipsis" />
                         </StackPanel>
                     </StackPanel>
@@ -101,7 +101,7 @@
                             <ColumnDefinition Width="Auto" />
                         </Grid.ColumnDefinitions>
                         <StackPanel Orientation="Horizontal">
-                            <TextBlock Text="{Binding Name}" FontSize="11" FontWeight="SemiBold"
+                            <TextBlock Text="{Binding Name, Converter={StaticResource UserText}}" FontSize="11" FontWeight="SemiBold"
                                        Foreground="{DynamicResource Brush.TextSecondary}" />
                             <Border Background="{DynamicResource Brush.SurfacePressed}" CornerRadius="8" Padding="6,1"
                                     Margin="8,0,0,0" VerticalAlignment="Center">

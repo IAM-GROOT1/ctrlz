@@ -113,3 +113,17 @@ public sealed class EnumToBoolConverter : IValueConverter
     public object ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture) =>
         throw new NotSupportedException();
 }
+
+/// <summary>
+/// For names that do not come from CTRL+Z's translations (apps, publishers, profiles, winget ids,
+/// catalog descriptions): shows them in their own direction inside a right-to-left page, and an
+/// Arabic name inside an English one. Display only; the bound value itself is not changed.
+/// </summary>
+public sealed class UserTextConverter : IValueConverter
+{
+    public object? Convert(object? value, Type targetType, object? parameter, CultureInfo culture) =>
+        value is string text ? CtrlZ.Core.Localization.CoreText.Isolate(text) : value;
+
+    public object ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture) =>
+        throw new NotSupportedException();
+}

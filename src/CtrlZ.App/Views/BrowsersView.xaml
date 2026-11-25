@@ -23,10 +23,10 @@
                         <CheckBox AutomationProperties.Name="{Binding Name, StringFormat={l:Tr Browsers_BackUpName}}" IsChecked="{Binding IsSelected, Mode=TwoWay}" IsEnabled="{Binding CanSelect}"
                                   VerticalAlignment="Center" />
                         <StackPanel Grid.Column="1" Orientation="Horizontal">
-                            <controls:AppIcon IconPath="{Binding IconPath}" FallbackText="{Binding Name}" Size="28" />
+                            <controls:AppIcon IconPath="{Binding IconPath}" FallbackText="{Binding Name, Converter={StaticResource UserText}}" Size="28" />
                             <StackPanel Margin="9,0,8,0" VerticalAlignment="Center">
                                 <StackPanel Orientation="Horizontal">
-                                    <TextBlock Text="{Binding Name}" FontWeight="SemiBold" FontSize="12.5" />
+                                    <TextBlock Text="{Binding Name, Converter={StaticResource UserText}}" FontWeight="SemiBold" FontSize="12.5" />
                                     <Border Background="{DynamicResource Brush.AccentSoft}" CornerRadius="7" Padding="5,1"
                                             Margin="7,0,0,0" VerticalAlignment="Center">
                                         <TextBlock Text="{Binding FamilyLabel}" FontSize="9"
@@ -72,8 +72,8 @@
                                 <DataTemplate DataType="{x:Type vm:BrowserProfileChoiceViewModel}">
                                     <CheckBox IsChecked="{Binding IsSelected, Mode=TwoWay}" Margin="0,4">
                                         <StackPanel Orientation="Horizontal">
-                                            <TextBlock Text="{Binding Name}" FontSize="12" />
-                                            <TextBlock Text="{Binding Detail}" Style="{StaticResource Text.Caption}" Margin="8,0,0,0" />
+                                            <TextBlock Text="{Binding Name, Converter={StaticResource UserText}}" FontSize="12" />
+                                            <TextBlock Text="{Binding Detail, Converter={StaticResource UserText}}" Style="{StaticResource Text.Caption}" Margin="8,0,0,0" />
                                         </StackPanel>
                                     </CheckBox>
                                 </DataTemplate>
@@ -305,8 +305,8 @@
                                         <DataTemplate DataType="{x:Type vm:RestoreProfileChoiceViewModel}">
                                             <CheckBox IsChecked="{Binding IsSelected, Mode=TwoWay}" Margin="0,4">
                                                 <StackPanel Orientation="Horizontal">
-                                                    <TextBlock Text="{Binding Name}" FontSize="12" />
-                                                    <TextBlock Text="{Binding Detail}" Style="{StaticResource Text.Caption}"
+                                                    <TextBlock Text="{Binding Name, Converter={StaticResource UserText}}" FontSize="12" />
+                                                    <TextBlock Text="{Binding Detail, Converter={StaticResource UserText}}" Style="{StaticResource Text.Caption}"
                                                                Margin="8,0,0,0" />
                                                 </StackPanel>
                                             </CheckBox>

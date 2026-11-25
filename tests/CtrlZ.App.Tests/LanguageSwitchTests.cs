@@ -221,9 +221,13 @@ public class LanguageSwitchTests
         try
         {
             AppLanguage.Apply("ar");
-            // Right-to-left marks around the name: WPF ignores the Unicode isolate marks.
-            Assert.Equal("‏My apps‏", CoreText.Isolate("My apps"));
-            Assert.StartsWith("‏My apps‏ · 3", Loc.Plural("Main_ProfileLabel", 3, CoreText.Isolate("My apps")));
+            // The name's own direction on both sides, then the page's direction (WPF ignores the
+            // Unicode isolate marks). Rendered and checked in a WPF window in Windows Sandbox.
+            Assert.Equal("‎My apps‎‏", CoreText.Isolate("My apps"));
+            Assert.StartsWith("‎My apps‎‏ · 3", Loc.Plural("Main_ProfileLabel", 3, CoreText.Isolate("My apps")));
+            Assert.Equal("‎7-Zip‎‏", CoreText.Isolate("7-Zip"));
+            Assert.Equal("‎1.5.0‎‏", CoreText.Isolate("1.5.0"));
+            Assert.Equal("‏ملفي‏‏", CoreText.Isolate("ملفي"));
             Assert.DoesNotContain(CoreText.LeftToRight("a") + CoreText.Isolate("b"), c => c is >= '⁦' and <= '⁩');
         }
         finally
@@ -233,7 +237,10 @@ public class LanguageSwitchTests
             CultureInfo.DefaultThreadCurrentUICulture = beforeDefault;
         }
 
+        // In English, Latin text is unchanged and an Arabic name keeps reading right to left.
         Assert.Equal("My apps", CoreText.Isolate("My apps"));
+        Assert.Equal("‏ملفي 2‏‎", CoreText.Isolate("ملفي 2"));
+        Assert.Equal("", CoreText.Isolate(""));
     }
 
     [Fact]

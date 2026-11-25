@@ -105,9 +105,9 @@
                                                         <ColumnDefinition Width="Auto" />
                                                     </Grid.ColumnDefinitions>
                                                     <StackPanel>
-                                                        <TextBlock Text="{Binding Name}" FontWeight="SemiBold" FontSize="11.5"
+                                                        <TextBlock Text="{Binding Name, Converter={StaticResource UserText}}" FontWeight="SemiBold" FontSize="11.5"
                                                                    TextTrimming="CharacterEllipsis" />
-                                                        <TextBlock Text="{Binding Detail}" Style="{StaticResource Text.Caption}" />
+                                                        <TextBlock Text="{Binding Detail, Converter={StaticResource UserText}}" Style="{StaticResource Text.Caption}" />
                                                     </StackPanel>
                                                     <TextBlock Grid.Column="1" Text="{Binding SuggestedKind}"
                                                                Style="{StaticResource Text.Caption}" VerticalAlignment="Center"

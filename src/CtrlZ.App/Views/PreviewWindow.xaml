@@ -39,7 +39,7 @@
                                    VerticalAlignment="Top" Margin="0,2,0,0" />
 
                         <StackPanel Grid.Column="1">
-                            <TextBlock Text="{Binding Name}" FontWeight="SemiBold" FontSize="12.5"
+                            <TextBlock Text="{Binding Name, Converter={StaticResource UserText}}" FontWeight="SemiBold" FontSize="12.5"
                                        Foreground="{DynamicResource Brush.TextPrimary}" TextWrapping="Wrap" />
                             <TextBlock Text="{Binding SourceText}" Style="{StaticResource Text.Caption}"
                                        TextWrapping="Wrap" />
