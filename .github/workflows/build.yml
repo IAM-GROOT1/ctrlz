@@ -87,3 +87,12 @@ jobs:
           name: CTRL+Z-portable
           path: artifacts/CTRL+Z-Portable-*.exe
           if-no-files-found: error
+
+      # Kept for a few days so a pull request's installer can be tested in a VM before a release.
+      - name: Upload installer artifact
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: CTRL+Z-installer
+          path: artifacts/installer/CTRL+Z-Setup-*.exe
+          if-no-files-found: error
+          retention-days: 7
