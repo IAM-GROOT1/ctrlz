@@ -41,6 +41,29 @@ public sealed class CommandReviewViewModelTests : IDisposable
         new(profile, ProfileOrigin.Imported, approvals, (_, _) => confirm, markAsLocal ?? (() => { }));
 
     [Fact]
+    public void Hidden_direction_marks_in_a_command_are_shown_not_applied()
+    {
+        // U+202E would show "gpj.exe" as "exe.jpg"-style reversed text and hide what really runs.
+        var command = new PostInstallCommand
+        {
+            Executable = "cmd.exe",
+            Arguments = ["/c", "start", "evil\u202Egpj.exe"],
+            WorkingDirectory = "C:\\tools\u202E",
+            Enabled = true
+        };
+        var item = new CommandReviewItem(new AppEntry { Id = "x", Name = "X", PostInstall = command }, command);
+
+        Assert.DoesNotContain('\u202E', item.CommandText);
+        Assert.Contains("evil\\u202Egpj.exe", item.CommandText);
+        Assert.DoesNotContain('\u202E', item.DetailsText);
+        Assert.Contains("C:\\tools\\u202E", item.DetailsText);
+
+        var line = new CommandPreviewLine("x", "X", 1, command.Describe(), CommandRunState.NeedsReview, false, false, "", "h");
+        var row = new PreviewRow(new CtrlZ.Core.Safety.InstallPlanItem { AppId = "x", Name = "X", Order = 1 }, line);
+        Assert.DoesNotContain('\u202E', row.CommandText);
+    }
+
+    [Fact]
     public void Lists_only_apps_with_commands_and_shows_them_one_at_a_time_in_full()
     {
         var review = Review(Profile(), Approvals());

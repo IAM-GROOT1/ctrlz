@@ -28,7 +28,7 @@ public sealed partial class PreviewRow : ObservableObject
     /// <summary>The post-install command for this app, shown in full, or null.</summary>
     public CommandPreviewLine? Command { get; }
     public bool HasCommand => Command is not null;
-    public string CommandText => Command?.CommandText ?? string.Empty;
+    public string CommandText => CtrlZ.Core.Cli.CliText.Safe(Command?.CommandText);
     public string CommandStateText => Command?.StateText ?? string.Empty;
 
     /// <summary>True when the command will not run or matches a risky pattern.</summary>

@@ -28,7 +28,7 @@ public sealed partial class CommandReviewItem : ObservableObject
     /// <summary>What screen readers announce for this row.</summary>
     public override string ToString() => AppName;
 
-    public string CommandText => Command.Describe();
+    public string CommandText => CtrlZ.Core.Cli.CliText.Safe(Command.Describe());
     public bool IsRisky => Risks.Count > 0;
     public string RisksText => IsRisky ? Loc.Get("CommandReview_RiskyPattern") + string.Join(", ", Risks) : string.Empty;
     public string DetailsText =>
@@ -37,7 +37,7 @@ public sealed partial class CommandReviewItem : ObservableObject
             : Loc.Format("CommandReview_TimeoutNoAdmin", Command.TimeoutSeconds)) +
         (string.IsNullOrEmpty(Command.WorkingDirectory)
             ? string.Empty
-            : Loc.Format("CommandReview_InFolder", CtrlZ.Core.Localization.CoreText.LeftToRight(Command.WorkingDirectory)));
+            : Loc.Format("CommandReview_InFolder", CtrlZ.Core.Localization.CoreText.LeftToRight(CtrlZ.Core.Cli.CliText.Safe(Command.WorkingDirectory))));
 
     [ObservableProperty]
     private bool _isApproved;

@@ -78,7 +78,7 @@ public partial class AppEditorWindow : Window
     {
         CommandEditPanel.Visibility = _canEditCommand ? Visibility.Visible : Visibility.Collapsed;
         CommandReadOnlyPanel.Visibility = _canEditCommand ? Visibility.Collapsed : Visibility.Visible;
-        CommandReadOnlyText.Text = command?.Describe() ?? Loc.Get("AppEditor_NoCommand");
+        CommandReadOnlyText.Text = command is null ? Loc.Get("AppEditor_NoCommand") : CtrlZ.Core.Cli.CliText.Safe(command.Describe());
 
         var input = PostInstallCommandForm.From(command);
         CommandExeBox.Text = input.Executable;
