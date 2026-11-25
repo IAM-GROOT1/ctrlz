@@ -65,15 +65,20 @@ public static class CoreText
             return text;
         }
 
+        // The text's own direction is marked on both sides, then the page's direction is marked
+        // again so a number after the name (" · 12") belongs to the page, not to the name. Tested
+        // in a WPF window: "تطبيقًا 12 · Home PC", "7-Zip", "(x64)" and "ملفي 2 · 3 apps" all
+        // come out in the right order this way.
         var textIsRightToLeft = StartsRightToLeft(text);
-        if (Current.TextInfo.IsRightToLeft)
+        var pageIsRightToLeft = Current.TextInfo.IsRightToLeft;
+        if (textIsRightToLeft == pageIsRightToLeft && !pageIsRightToLeft)
         {
-            return textIsRightToLeft
-                ? RightToLeftMark + text + RightToLeftMark
-                : LeftToRightMark + text + LeftToRightMark;
+            return text;
         }
 
-        return textIsRightToLeft ? RightToLeftMark + text + RightToLeftMark : text;
+        var own = textIsRightToLeft ? RightToLeftMark : LeftToRightMark;
+        var page = pageIsRightToLeft ? RightToLeftMark : LeftToRightMark;
+        return own + text + own + page;
     }
 
     /// <summary>True when the first letter is Hebrew, Arabic or another right-to-left script.</summary>
