@@ -169,6 +169,8 @@ get a Start menu shortcut under **CTRL+Z apps**; turn this off in **Settings →
     field.
   - Every control has a name a screen reader can read.
   - With Windows' *Animation effects* turned off, pages switch without a fade.
+  - With a Windows contrast theme on, CTRL+Z uses its colours, and Windows' *Text size* setting
+    scales every window.
 
 ## Install from the built artifacts
 
