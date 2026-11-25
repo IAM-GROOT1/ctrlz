@@ -74,6 +74,32 @@ public sealed class TweakServiceTests : IDisposable
     private static TweakDefinition Tweak(string id) => TweakCatalog.Find(id)!;
 
     [Fact]
+    public void Dark_mode_tells_Windows_so_it_applies_without_signing_out()
+    {
+        var announced = new List<string>();
+        var service = new TweakService(new FakeRegistry(), _temp.PathOf(Path.Combine("state", "tweak-undo.json")), TestFactory.Log, announced.Add);
+
+        service.Apply(Tweak("dark-mode"));
+        service.Undo(Tweak("dark-mode"));
+        service.Apply(Tweak("show-file-extensions"));
+
+        // Windows Settings sends the same "ImmersiveColorSet" notice after a light/dark change.
+        Assert.Equal([WindowsSettingChange.ColorSet, WindowsSettingChange.ColorSet], announced);
+    }
+
+    [Fact]
+    public void A_failed_announcement_does_not_undo_the_tweak()
+    {
+        var registry = new FakeRegistry();
+        var service = new TweakService(registry, _temp.PathOf(Path.Combine("state", "tweak-undo.json")), TestFactory.Log,
+            _ => throw new InvalidOperationException("no desktop"));
+
+        service.Apply(Tweak("dark-mode"));
+
+        Assert.Equal(TweakState.On, service.StateOf(Tweak("dark-mode")));
+    }
+
+    [Fact]
     public void An_edited_undo_file_cannot_write_outside_the_tweaks_own_values()
     {
         const string run = @"Software\Microsoft\Windows\CurrentVersion\Run";

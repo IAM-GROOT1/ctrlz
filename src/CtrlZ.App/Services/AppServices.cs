@@ -119,7 +119,8 @@ public sealed class AppServices : IDisposable
             BrowserRestore = new BrowserRestoreService(paths, log, browserProcesses, archiveReader),
             Catalog = catalog,
             Tweaks = new CtrlZ.Core.Tweaks.TweakService(
-                new CtrlZ.Core.Tweaks.WindowsUserRegistry(), System.IO.Path.Combine(paths.State, "tweak-undo.json"), log)
+                new CtrlZ.Core.Tweaks.WindowsUserRegistry(), System.IO.Path.Combine(paths.State, "tweak-undo.json"), log,
+                CtrlZ.Core.Tweaks.WindowsSettingChange.Announce)
         };
     }
 
