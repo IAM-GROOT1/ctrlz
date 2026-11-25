@@ -26,6 +26,10 @@ public sealed partial class ReadinessRow : ObservableObject
 
     public string Id { get; }
     public string Title { get; }
+
+    /// <summary>What screen readers announce for this row.</summary>
+    public override string ToString() => Title;
+
     public ReadinessStatus Status { get; }
     public string Summary { get; }
     public string WhatItMeans { get; }

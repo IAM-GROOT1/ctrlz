@@ -202,7 +202,8 @@ public sealed partial class MainViewModel : ObservableObject, IDisposable
 
     public void RefreshProfileLabel()
     {
-        ProfileLabel = Loc.Plural("Main_ProfileLabel", _services.State.ActiveProfile.Apps.Count, _services.State.ActiveProfile.Name);
+        ProfileLabel = Loc.Plural("Main_ProfileLabel", _services.State.ActiveProfile.Apps.Count,
+            CtrlZ.Core.Localization.CoreText.Isolate(_services.State.ActiveProfile.Name));
     }
 
     private void SetCurrent(NavItem item)

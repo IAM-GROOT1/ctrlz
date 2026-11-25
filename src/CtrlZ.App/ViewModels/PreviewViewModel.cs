@@ -36,6 +36,10 @@ public sealed partial class PreviewRow : ObservableObject
 
     public InstallPlanItem Item { get; }
     public string Name => Item.Name;
+
+    /// <summary>What screen readers announce for this row.</summary>
+    public override string ToString() => Name;
+
     public string OrderText => $"{Item.Order}.";
     public string SourceText => Item.SourceDescription;
     public string SilentText => Item.SilentArgs;

@@ -18,6 +18,10 @@ public sealed partial class TweakRowViewModel : ObservableObject
 
     public TweakDefinition Tweak { get; }
     public string Title => Tweak.Title;
+
+    /// <summary>What screen readers announce for this row.</summary>
+    public override string ToString() => Title;
+
     public string Description => Tweak.Description;
 
     [ObservableProperty]

@@ -22,6 +22,10 @@ public sealed partial class ProfileAppRow : ObservableObject
     public AppEntry App { get; }
     public int Order { get; set; }
     public string Name => App.Name;
+
+    /// <summary>What screen readers announce for this row.</summary>
+    public override string ToString() => Name;
+
     public string? Publisher => App.Publisher;
     public string? Version => App.Version;
     public string? IconPath => App.IconPath;

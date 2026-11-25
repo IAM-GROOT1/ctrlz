@@ -1,7 +1,9 @@
 // SPDX-License-Identifier: AGPL-3.0-only
 // Copyright (c) 2026 iam-groot1
 
+using System.Runtime.InteropServices;
 using System.Windows;
+using System.Windows.Interop;
 using System.Windows.Media;
 using System.Windows.Shell;
 using Microsoft.Win32;
@@ -30,8 +32,16 @@ public static class TextScale
 
     public static void Apply(Window window, double factor, Size workArea)
     {
+        // At any text size, a window opened at its usual place (or at its saved size) can reach
+        // past the edge of a small screen, such as a 1366 x 768 laptop; it is moved and, if it is
+        // still too big, shrunk to fit.
+        // The work area is that of the monitor the window opened on, so a window on a second
+        // monitor stays there.
+        window.Loaded += (_, _) => KeepOnScreen(window, MonitorWorkArea(window) ?? SystemParameters.WorkArea);
+
         if (factor <= 1.0 || window.Content is not FrameworkElement root)
         {
+            FitSize(window, workArea);
             return;
         }
 
@@ -59,12 +69,33 @@ public static class TextScale
         {
             chrome.CaptionHeight *= factor;
         }
-
-        // A larger window opened at its usual place can reach past the screen's edge.
-        window.Loaded += (_, _) => KeepOnScreen(window, SystemParameters.WorkArea);
     }
 
-    /// <summary>Moves a window that reaches past the work area back inside it.</summary>
+    /// <summary>At 100 % text size: a window's size and minimum size never exceed the work area.</summary>
+    private static void FitSize(Window window, Size workArea)
+    {
+        window.MinWidth = Math.Min(window.MinWidth, workArea.Width);
+        window.MinHeight = Math.Min(window.MinHeight, workArea.Height);
+        if (!double.IsNaN(window.Width))
+        {
+            window.Width = Math.Min(window.Width, workArea.Width);
+        }
+
+        if (!double.IsNaN(window.Height) && window.SizeToContent is not (SizeToContent.Height or SizeToContent.WidthAndHeight))
+        {
+            window.Height = Math.Min(window.Height, workArea.Height);
+        }
+
+        if (window.SizeToContent is SizeToContent.Height or SizeToContent.WidthAndHeight)
+        {
+            window.MaxHeight = Math.Min(window.MaxHeight, workArea.Height);
+        }
+    }
+
+    /// <summary>
+    /// Moves a window that reaches past the work area back inside it, first shrinking one that is
+    /// larger than the work area (a saved size from a bigger screen, for example).
+    /// </summary>
     public static void KeepOnScreen(Window window, Rect workArea)
     {
         if (window.WindowState != WindowState.Normal)
@@ -72,8 +103,23 @@ public static class TextScale
             return;
         }
 
-        var width = window.ActualWidth;
-        var height = window.ActualHeight;
+        if (window.SizeToContent == SizeToContent.Manual)
+        {
+            if (window.ActualWidth > workArea.Width)
+            {
+                window.MinWidth = Math.Min(window.MinWidth, workArea.Width);
+                window.Width = workArea.Width;
+            }
+
+            if (window.ActualHeight > workArea.Height)
+            {
+                window.MinHeight = Math.Min(window.MinHeight, workArea.Height);
+                window.Height = workArea.Height;
+            }
+        }
+
+        var width = Math.Min(window.ActualWidth, workArea.Width);
+        var height = Math.Min(window.ActualHeight, workArea.Height);
         if (window.Left + width > workArea.Right)
         {
             window.Left = Math.Max(workArea.Left, workArea.Right - width);
@@ -94,6 +140,65 @@ public static class TextScale
             window.Top = workArea.Top;
         }
     }
+
+    /// <summary>
+    /// The work area (screen minus taskbar) of the monitor that holds most of <paramref name="window"/>,
+    /// in the window's own units, or null when it cannot be read.
+    /// </summary>
+    private static Rect? MonitorWorkArea(Window window)
+    {
+        try
+        {
+            var handle = new WindowInteropHelper(window).Handle;
+            if (handle == IntPtr.Zero)
+            {
+                return null;
+            }
+
+            var monitor = MonitorFromWindow(handle, MonitorDefaultToNearest);
+            var info = new MonitorInfo { Size = Marshal.SizeOf<MonitorInfo>() };
+            if (monitor == IntPtr.Zero || !GetMonitorInfo(monitor, ref info))
+            {
+                return null;
+            }
+
+            var fromDevice = PresentationSource.FromVisual(window)?.CompositionTarget?.TransformFromDevice ?? Matrix.Identity;
+            return new Rect(
+                fromDevice.Transform(new Point(info.Work.Left, info.Work.Top)),
+                fromDevice.Transform(new Point(info.Work.Right, info.Work.Bottom)));
+        }
+        catch
+        {
+            return null;
+        }
+    }
+
+    private const uint MonitorDefaultToNearest = 2;
+
+    [StructLayout(LayoutKind.Sequential)]
+    private struct NativeRect
+    {
+        public int Left;
+        public int Top;
+        public int Right;
+        public int Bottom;
+    }
+
+    [StructLayout(LayoutKind.Sequential)]
+    private struct MonitorInfo
+    {
+        public int Size;
+        public NativeRect Monitor;
+        public NativeRect Work;
+        public uint Flags;
+    }
+
+    [DllImport("user32.dll")]
+    private static extern IntPtr MonitorFromWindow(IntPtr window, uint flags);
+
+    [DllImport("user32.dll", SetLastError = true)]
+    [return: MarshalAs(UnmanagedType.Bool)]
+    private static extern bool GetMonitorInfo(IntPtr monitor, ref MonitorInfo info);
 
     private static object? ReadSetting()
     {

@@ -3097,4 +3097,7 @@ Use the file from "winget export -o apps.json", "scoop export &gt; apps.json" or
 
 Version {0} will not be offered again; a newer release will be offered as usual.</value>
   </data>
+  <data name="CommandReview_InFolder" xml:space="preserve">
+    <value> · in {0}</value>
+  </data>
 </root>

@@ -44,6 +44,15 @@ public static class CoreText
     public static string LeftToRight(string text) =>
         Current.TextInfo.IsRightToLeft ? "⁦" + text + "⁩" : text;
 
+    /// <summary>
+    /// Keeps a name the user typed (a profile, an app) in its own direction inside a sentence in a
+    /// right-to-left language, so a Latin name does not pull the numbers next to it out of place.
+    /// Unlike <see cref="LeftToRight"/>, an Arabic name keeps reading right to left: the first-strong
+    /// isolate marks take the direction from the name itself.
+    /// </summary>
+    public static string Isolate(string text) =>
+        Current.TextInfo.IsRightToLeft ? "⁨" + text + "⁩" : text;
+
     /// <summary>Count-dependent text; see <see cref="PluralRules"/>. The count is <c>{0}</c>.</summary>
     public static string Plural(string key, long count, params object?[] args)
     {

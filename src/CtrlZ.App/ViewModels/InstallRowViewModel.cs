@@ -17,6 +17,10 @@ public sealed partial class InstallRowViewModel : ObservableObject
     }
 
     public string Name { get; }
+
+    /// <summary>What screen readers announce for this row.</summary>
+    public override string ToString() => Name;
+
     public AppSource Source { get; }
     public string SourceLabel => Source.Display();
     public string? IconPath { get; }
