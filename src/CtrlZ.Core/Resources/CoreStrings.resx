@@ -1404,4 +1404,46 @@
   <data name="Catalog_OfflineBundled" xml:space="preserve">
     <value>You are offline or GitHub is unavailable. Showing the catalog built into CTRL+Z.</value>
   </data>
+  <data name="Tweak_HideTaskViewButton_Title" xml:space="preserve">
+    <value>Hide the Task View button</value>
+  </data>
+  <data name="Tweak_HideTaskViewButton_Description" xml:space="preserve">
+    <value>The taskbar no longer shows the Task View button. Win+Tab still opens Task View.</value>
+  </data>
+  <data name="Tweak_SearchIconOnly_Title" xml:space="preserve">
+    <value>Search as an icon on the taskbar</value>
+  </data>
+  <data name="Tweak_SearchIconOnly_Description" xml:space="preserve">
+    <value>The taskbar shows a small search icon instead of the wide search box.</value>
+  </data>
+  <data name="Tweak_TaskbarEndTask_Title" xml:space="preserve">
+    <value>End task from the taskbar</value>
+  </data>
+  <data name="Tweak_TaskbarEndTask_Description" xml:space="preserve">
+    <value>Right-clicking an app on the taskbar offers End task, to close an app that stopped responding.</value>
+  </data>
+  <data name="Tweak_ClockSeconds_Title" xml:space="preserve">
+    <value>Seconds in the taskbar clock</value>
+  </data>
+  <data name="Tweak_ClockSeconds_Description" xml:space="preserve">
+    <value>The clock on the taskbar shows seconds.</value>
+  </data>
+  <data name="Tweak_CompactExplorer_Title" xml:space="preserve">
+    <value>Compact view in File Explorer</value>
+  </data>
+  <data name="Tweak_CompactExplorer_Description" xml:space="preserve">
+    <value>File Explorer puts less space between files, so more fit on the screen.</value>
+  </data>
+  <data name="Tweak_FewerTips_Title" xml:space="preserve">
+    <value>Fewer tips and suggestions</value>
+  </data>
+  <data name="Tweak_FewerTips_Description" xml:space="preserve">
+    <value>Windows stops showing tips, suggested content in Settings and the "finish setting up" screen after updates.</value>
+  </data>
+  <data name="Tweak_NoRecentItems_Title" xml:space="preserve">
+    <value>Don't track recently opened files</value>
+  </data>
+  <data name="Tweak_NoRecentItems_Description" xml:space="preserve">
+    <value>Start, jump lists and File Explorer stop listing the files you opened recently.</value>
+  </data>
 </root>

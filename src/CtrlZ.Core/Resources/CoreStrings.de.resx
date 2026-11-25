@@ -1393,4 +1393,46 @@
   <data name="Catalog_OfflineBundled" xml:space="preserve">
     <value>Sie sind offline oder GitHub ist nicht erreichbar. Der in CTRL+Z enthaltene Katalog wird angezeigt.</value>
   </data>
+  <data name="Tweak_HideTaskViewButton_Title" xml:space="preserve">
+    <value>Schaltfläche „Aktive Anwendungen“ ausblenden</value>
+  </data>
+  <data name="Tweak_HideTaskViewButton_Description" xml:space="preserve">
+    <value>Die Taskleiste zeigt die Schaltfläche „Aktive Anwendungen“ nicht mehr. Win+Tab öffnet die Ansicht weiterhin.</value>
+  </data>
+  <data name="Tweak_SearchIconOnly_Title" xml:space="preserve">
+    <value>Suche als Symbol in der Taskleiste</value>
+  </data>
+  <data name="Tweak_SearchIconOnly_Description" xml:space="preserve">
+    <value>Die Taskleiste zeigt ein kleines Suchsymbol statt des breiten Suchfelds.</value>
+  </data>
+  <data name="Tweak_TaskbarEndTask_Title" xml:space="preserve">
+    <value>Task über die Taskleiste beenden</value>
+  </data>
+  <data name="Tweak_TaskbarEndTask_Description" xml:space="preserve">
+    <value>Ein Rechtsklick auf eine App in der Taskleiste bietet „Task beenden“, um eine App zu schließen, die nicht mehr reagiert.</value>
+  </data>
+  <data name="Tweak_ClockSeconds_Title" xml:space="preserve">
+    <value>Sekunden in der Taskleistenuhr</value>
+  </data>
+  <data name="Tweak_ClockSeconds_Description" xml:space="preserve">
+    <value>Die Uhr in der Taskleiste zeigt Sekunden an.</value>
+  </data>
+  <data name="Tweak_CompactExplorer_Title" xml:space="preserve">
+    <value>Kompakte Ansicht im Datei-Explorer</value>
+  </data>
+  <data name="Tweak_CompactExplorer_Description" xml:space="preserve">
+    <value>Der Datei-Explorer lässt weniger Abstand zwischen Dateien, sodass mehr auf den Bildschirm passen.</value>
+  </data>
+  <data name="Tweak_FewerTips_Title" xml:space="preserve">
+    <value>Weniger Tipps und Vorschläge</value>
+  </data>
+  <data name="Tweak_FewerTips_Description" xml:space="preserve">
+    <value>Windows zeigt keine Tipps mehr, keine vorgeschlagenen Inhalte in den Einstellungen und nach Updates nicht mehr den Bildschirm „Einrichtung abschließen“.</value>
+  </data>
+  <data name="Tweak_NoRecentItems_Title" xml:space="preserve">
+    <value>Zuletzt geöffnete Dateien nicht verfolgen</value>
+  </data>
+  <data name="Tweak_NoRecentItems_Description" xml:space="preserve">
+    <value>Start, Sprunglisten und der Datei-Explorer zeigen die zuletzt geöffneten Dateien nicht mehr an.</value>
+  </data>
 </root>

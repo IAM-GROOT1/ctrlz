@@ -218,6 +218,70 @@ public sealed class TweakServiceTests : IDisposable
     }
 
     [Fact]
+    public void End_task_removes_only_its_own_key_on_undo()
+    {
+        var registry = new FakeRegistry();
+        registry.Seed(Advanced, "HideFileExt", TweakValueKind.DWord, 0);
+        var service = Service(registry);
+
+        service.Apply(Tweak("taskbar-end-task"));
+        Assert.Equal(1, registry.Read(Advanced + @"\TaskbarDeveloperSettings", "TaskbarEndTask").Value);
+
+        service.Undo(Tweak("taskbar-end-task"));
+
+        Assert.False(registry.KeyExists(Advanced + @"\TaskbarDeveloperSettings"));
+        Assert.True(registry.KeyExists(Advanced));
+        Assert.Equal(0, registry.Read(Advanced, "HideFileExt").Value);
+    }
+
+    [Fact]
+    public void Fewer_tips_restores_each_switch_to_what_it_was()
+    {
+        const string cdm = @"Software\Microsoft\Windows\CurrentVersion\ContentDeliveryManager";
+        var registry = new FakeRegistry();
+        registry.Seed(cdm, "SubscribedContent-338389Enabled", TweakValueKind.DWord, 1);
+        registry.Seed(cdm, "SubscribedContent-353694Enabled", TweakValueKind.DWord, 0);
+        var service = Service(registry);
+        var tweak = Tweak("fewer-tips");
+        Assert.Equal(TweakState.Partly, service.StateOf(tweak));
+
+        service.Apply(tweak);
+        Assert.Equal(TweakState.On, service.StateOf(tweak));
+        Assert.All(tweak.Values, value => Assert.Equal(0, registry.Read(value.SubKey, value.Name).Value));
+
+        service.Undo(tweak);
+
+        Assert.Equal(1, registry.Read(cdm, "SubscribedContent-338389Enabled").Value);
+        Assert.Equal(0, registry.Read(cdm, "SubscribedContent-353694Enabled").Value);
+        Assert.False(registry.Read(cdm, "SubscribedContent-310093Enabled").Exists);
+        Assert.False(registry.KeyExists(@"Software\Microsoft\Windows\CurrentVersion\UserProfileEngagement"));
+    }
+
+    [Fact]
+    public void Every_tweak_has_its_text_in_every_language()
+    {
+        // Reads each language's own resources (no fallback), without changing the app's language,
+        // so tests running in parallel are not affected.
+        var manager = new System.Resources.ResourceManager("CtrlZ.Core.Resources.CoreStrings", typeof(TweakCatalog).Assembly);
+        var neutral = manager.GetResourceSet(System.Globalization.CultureInfo.InvariantCulture, true, false)!
+            .Cast<System.Collections.DictionaryEntry>().ToList();
+        var keys = TweakCatalog.All
+            .SelectMany(t => new[] { t.Title, t.Description })
+            .Select(text => (string)neutral.Single(entry => Equals(entry.Value, text) && ((string)entry.Key).StartsWith("Tweak_", StringComparison.Ordinal)).Key)
+            .ToList();
+        Assert.Equal(TweakCatalog.All.Count * 2, keys.Distinct().Count());
+
+        foreach (var culture in new[] { "ar", "es", "ru", "de" })
+        {
+            var own = manager.GetResourceSet(System.Globalization.CultureInfo.GetCultureInfo(culture), true, false)!;
+            foreach (var key in keys)
+            {
+                Assert.False(string.IsNullOrWhiteSpace(own.GetString(key)), $"{culture}: {key}");
+            }
+        }
+    }
+
+    [Fact]
     public void Apply_then_undo_restores_the_previous_value_exactly()
     {
         var registry = new FakeRegistry();
