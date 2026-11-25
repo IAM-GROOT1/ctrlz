@@ -30,8 +30,14 @@ public static class TextScale
 
     public static void Apply(Window window, double factor, Size workArea)
     {
+        // At any text size, a window opened at its usual place (or at its saved size) can reach
+        // past the edge of a small screen, such as a 1366 x 768 laptop; it is moved and, if it is
+        // still too big, shrunk to fit.
+        window.Loaded += (_, _) => KeepOnScreen(window, SystemParameters.WorkArea);
+
         if (factor <= 1.0 || window.Content is not FrameworkElement root)
         {
+            FitSize(window, workArea);
             return;
         }
 
@@ -59,12 +65,33 @@ public static class TextScale
         {
             chrome.CaptionHeight *= factor;
         }
-
-        // A larger window opened at its usual place can reach past the screen's edge.
-        window.Loaded += (_, _) => KeepOnScreen(window, SystemParameters.WorkArea);
     }
 
-    /// <summary>Moves a window that reaches past the work area back inside it.</summary>
+    /// <summary>At 100 % text size: a window's size and minimum size never exceed the work area.</summary>
+    private static void FitSize(Window window, Size workArea)
+    {
+        window.MinWidth = Math.Min(window.MinWidth, workArea.Width);
+        window.MinHeight = Math.Min(window.MinHeight, workArea.Height);
+        if (!double.IsNaN(window.Width))
+        {
+            window.Width = Math.Min(window.Width, workArea.Width);
+        }
+
+        if (!double.IsNaN(window.Height) && window.SizeToContent is not (SizeToContent.Height or SizeToContent.WidthAndHeight))
+        {
+            window.Height = Math.Min(window.Height, workArea.Height);
+        }
+
+        if (window.SizeToContent is SizeToContent.Height or SizeToContent.WidthAndHeight)
+        {
+            window.MaxHeight = Math.Min(window.MaxHeight, workArea.Height);
+        }
+    }
+
+    /// <summary>
+    /// Moves a window that reaches past the work area back inside it, first shrinking one that is
+    /// larger than the work area (a saved size from a bigger screen, for example).
+    /// </summary>
     public static void KeepOnScreen(Window window, Rect workArea)
     {
         if (window.WindowState != WindowState.Normal)
@@ -72,8 +99,23 @@ public static class TextScale
             return;
         }
 
-        var width = window.ActualWidth;
-        var height = window.ActualHeight;
+        if (window.SizeToContent == SizeToContent.Manual)
+        {
+            if (window.ActualWidth > workArea.Width)
+            {
+                window.MinWidth = Math.Min(window.MinWidth, workArea.Width);
+                window.Width = workArea.Width;
+            }
+
+            if (window.ActualHeight > workArea.Height)
+            {
+                window.MinHeight = Math.Min(window.MinHeight, workArea.Height);
+                window.Height = workArea.Height;
+            }
+        }
+
+        var width = Math.Min(window.ActualWidth, workArea.Width);
+        var height = Math.Min(window.ActualHeight, workArea.Height);
         if (window.Left + width > workArea.Right)
         {
             window.Left = Math.Max(workArea.Left, workArea.Right - width);

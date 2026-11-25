@@ -3212,4 +3212,7 @@
 
 لن يُعرض الإصدار {0} مرة أخرى؛ وسيُعرض أي إصدار أحدث كالمعتاد.</value>
   </data>
+  <data name="CommandReview_InFolder" xml:space="preserve">
+    <value> · في {0}</value>
+  </data>
 </root>

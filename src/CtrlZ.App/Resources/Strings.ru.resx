@@ -3173,4 +3173,7 @@
 
 Версия {0} больше не будет предлагаться; более новые выпуски будут предлагаться как обычно.</value>
   </data>
+  <data name="CommandReview_InFolder" xml:space="preserve">
+    <value> · в папке {0}</value>
+  </data>
 </root>

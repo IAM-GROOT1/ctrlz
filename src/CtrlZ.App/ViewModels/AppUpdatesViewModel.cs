@@ -24,6 +24,10 @@ public sealed partial class AppUpdateRow : ObservableObject
 
     public AppUpdate Update { get; }
     public string Name => Update.Name;
+
+    /// <summary>What screen readers announce for this row.</summary>
+    public override string ToString() => Name;
+
     public string Id => Update.Id;
     public string VersionsText => $"{Update.InstalledVersion ?? Loc.Get("AppUpdates_UnknownVersion")} → {Update.AvailableVersion}";
     public bool IsPinned => Update.RequiresExplicit;
@@ -45,6 +49,10 @@ public sealed partial class GitHubUpdateRow : ObservableObject
 
     public GitHubAppUpdate Update { get; }
     public string Name => Update.App.Name;
+
+    /// <summary>What screen readers announce for this row.</summary>
+    public override string ToString() => Name;
+
     public string Repository => Update.App.GitHubRepo ?? string.Empty;
     public string VersionsText => $"{Update.InstalledTag} → {Update.LatestTag}";
 

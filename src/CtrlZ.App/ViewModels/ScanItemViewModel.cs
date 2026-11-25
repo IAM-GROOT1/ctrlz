@@ -18,6 +18,10 @@ public sealed partial class ScanItemViewModel : ObservableObject
 
     public ScannedApp App { get; }
     public string Name => App.Name;
+
+    /// <summary>What screen readers announce for this row.</summary>
+    public override string ToString() => Name;
+
     public string? Publisher => App.Publisher;
     public string? Version => App.Version;
     public string? IconPath => App.IconPath;

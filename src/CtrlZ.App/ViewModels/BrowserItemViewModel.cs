@@ -26,6 +26,10 @@ public sealed partial class BrowserItemViewModel : ObservableObject
     public DetectedBrowser Browser { get; }
     public ObservableCollection<BrowserProfileChoiceViewModel> Profiles { get; }
     public string Name => Browser.DisplayName;
+
+    /// <summary>What screen readers announce for this row.</summary>
+    public override string ToString() => Name;
+
     public string Id => Browser.Id;
     public BrowserFamily Family => Browser.Family;
     public string FamilyLabel => Browser.FamilyLabel;
@@ -139,6 +143,10 @@ public sealed partial class BrowserProfileChoiceViewModel : ObservableObject
 
     public BrowserProfile Profile { get; }
     public string Name => Profile.DisplayName;
+
+    /// <summary>What screen readers announce for this row.</summary>
+    public override string ToString() => Name;
+
     public string Detail => Profile.UserName is null ? Profile.DirectoryName : $"{Profile.DirectoryName} · {Profile.UserName}";
     public bool IsDefault => Profile.IsDefault;
 
@@ -157,6 +165,10 @@ public sealed partial class RestoreProfileChoiceViewModel : ObservableObject
 
     public BrowserBackupProfileManifest Profile { get; }
     public string Name => string.IsNullOrWhiteSpace(Profile.DisplayName) ? Profile.DirectoryName : Profile.DisplayName;
+
+    /// <summary>What screen readers announce for this row.</summary>
+    public override string ToString() => Name;
+
     public string Detail => Profile.DirectoryName;
 
     [ObservableProperty]

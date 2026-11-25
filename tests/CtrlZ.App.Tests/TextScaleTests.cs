@@ -49,6 +49,20 @@ public class TextScaleTests
             TextScale.Apply(unscaled, 1.0, new Size(1000, 700));
             Assert.Equal(800, unscaled.Width);
             Assert.Null(((Grid)unscaled.Content).LayoutTransform as ScaleTransform);
+
+            // The main window (1180 x 760, at least 980 x 640) on a screen whose work area is
+            // 1366 x 720: it fits at 100 % too, instead of reaching under the taskbar.
+            var main = new Window { Width = 1180, Height = 760, MinWidth = 980, MinHeight = 640, Content = new Grid() };
+            TextScale.Apply(main, 1.0, new Size(1366, 720));
+            Assert.Equal(1180, main.Width);
+            Assert.Equal(720, main.Height);
+            Assert.Equal(640, main.MinHeight);
+
+            var tiny = new Window { Width = 1180, Height = 760, MinWidth = 980, MinHeight = 640, Content = new Grid() };
+            TextScale.Apply(tiny, 1.0, new Size(800, 600));
+            Assert.Equal(800, tiny.Width);
+            Assert.Equal(800, tiny.MinWidth);
+            Assert.Equal(600, tiny.MinHeight);
         });
     }
 
