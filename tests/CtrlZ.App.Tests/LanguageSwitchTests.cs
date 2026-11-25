@@ -96,7 +96,7 @@ public class LanguageSwitchTests
             Assert.Equal(["يُضعف إعدادات الأمان"], CtrlZ.Core.Install.PostInstallCommandRisk.Scan(
                 new CtrlZ.Core.Models.PostInstallCommand { Executable = "netsh.exe", Arguments = ["advfirewall", "set", "allprofiles", "state", "off"], Enabled = true }));
             // Commands inside a right-to-left sentence keep their own order.
-            Assert.Equal("⁦reg.exe /s a.reg⁩", CoreText.LeftToRight("reg.exe /s a.reg"));
+            Assert.Equal("‎reg.exe /s a.reg‎", CoreText.LeftToRight("reg.exe /s a.reg"));
         }
         finally
         {
@@ -221,9 +221,10 @@ public class LanguageSwitchTests
         try
         {
             AppLanguage.Apply("ar");
-            // First-strong isolate: the name's own letters decide its direction.
-            Assert.Equal("⁨My apps⁩", CoreText.Isolate("My apps"));
-            Assert.StartsWith("⁨My apps⁩ · 3", Loc.Plural("Main_ProfileLabel", 3, CoreText.Isolate("My apps")));
+            // Right-to-left marks around the name: WPF ignores the Unicode isolate marks.
+            Assert.Equal("‏My apps‏", CoreText.Isolate("My apps"));
+            Assert.StartsWith("‏My apps‏ · 3", Loc.Plural("Main_ProfileLabel", 3, CoreText.Isolate("My apps")));
+            Assert.DoesNotContain(CoreText.LeftToRight("a") + CoreText.Isolate("b"), c => c is >= '⁦' and <= '⁩');
         }
         finally
         {
