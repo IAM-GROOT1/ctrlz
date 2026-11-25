@@ -25,6 +25,7 @@ public sealed partial class ScanItemViewModel : ObservableObject
     public string? Publisher => App.Publisher;
     public string? Version => App.Version;
     public string? IconPath => App.IconPath;
+    public string? PackageId => App.MatchedWingetId ?? App.PackageId;
     public string SourceLabel => App.SourceLabel;
     public bool IsStore => App.IsStoreApp;
     public bool IsMatched => App.IsMatched;

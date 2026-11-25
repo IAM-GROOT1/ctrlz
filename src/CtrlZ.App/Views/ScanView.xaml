@@ -31,7 +31,7 @@
                               AutomationProperties.Name="{l:Tr Scan_IncludeApp}" />
 
                     <StackPanel Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center">
-                        <controls:AppIcon IconPath="{Binding IconPath}" FallbackText="{Binding Name, Converter={StaticResource UserText}}" Size="30"
+                        <controls:AppIcon IconPath="{Binding IconPath}" PackageId="{Binding PackageId}" FallbackText="{Binding Name, Converter={StaticResource UserText}}" Size="30"
                                           VerticalAlignment="Center" />
                         <StackPanel Margin="10,0,8,0" VerticalAlignment="Center">
                             <TextBlock Text="{Binding Name, Converter={StaticResource UserText}}" FontWeight="SemiBold" FontSize="12.5"

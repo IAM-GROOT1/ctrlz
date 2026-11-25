@@ -9,11 +9,12 @@ namespace CtrlZ.App.ViewModels;
 
 public sealed partial class InstallRowViewModel : ObservableObject
 {
-    public InstallRowViewModel(string name, AppSource source, string? iconPath)
+    public InstallRowViewModel(string name, AppSource source, string? iconPath, string? packageId = null)
     {
         Name = name;
         Source = source;
         IconPath = iconPath;
+        PackageId = packageId;
     }
 
     public string Name { get; }
@@ -24,6 +25,7 @@ public sealed partial class InstallRowViewModel : ObservableObject
     public AppSource Source { get; }
     public string SourceLabel => Source.Display();
     public string? IconPath { get; }
+    public string? PackageId { get; }
     public string FallbackText => Name;
 
     [ObservableProperty]

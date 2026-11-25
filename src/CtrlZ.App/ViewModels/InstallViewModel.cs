@@ -465,7 +465,7 @@ public sealed partial class InstallViewModel : PageViewModelBase
         var apps = _services.State.ActiveProfile.Apps.Where(a => a.Enabled).ToArray();
         foreach (var app in apps)
         {
-            var row = new InstallRowViewModel(app.Name, app.Source, app.IconPath)
+            var row = new InstallRowViewModel(app.Name, app.Source, app.IconPath, app.PackageId)
             {
                 Note = app.Notes,
                 Status = InstallStatus.Queued,
@@ -491,7 +491,7 @@ public sealed partial class InstallViewModel : PageViewModelBase
         foreach (var item in state.Items)
         {
             var app = profile?.Apps.FirstOrDefault(a => a.Id == item.AppId);
-            var row = new InstallRowViewModel(item.Name, item.Source, app?.IconPath)
+            var row = new InstallRowViewModel(item.Name, item.Source, app?.IconPath, app?.PackageId)
             {
                 Note = app?.Notes,
                 Status = item.Status,
