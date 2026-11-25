@@ -214,6 +214,28 @@ public class LanguageSwitchTests
     }
 
     [Fact]
+    public void A_typed_name_keeps_its_own_direction_in_right_to_left_text()
+    {
+        var before = CultureInfo.CurrentUICulture;
+        var beforeDefault = CultureInfo.DefaultThreadCurrentUICulture;
+        try
+        {
+            AppLanguage.Apply("ar");
+            // First-strong isolate: the name's own letters decide its direction.
+            Assert.Equal("⁨My apps⁩", CoreText.Isolate("My apps"));
+            Assert.StartsWith("⁨My apps⁩ · 3", Loc.Plural("Main_ProfileLabel", 3, CoreText.Isolate("My apps")));
+        }
+        finally
+        {
+            CoreText.Culture = null;
+            CultureInfo.CurrentUICulture = before;
+            CultureInfo.DefaultThreadCurrentUICulture = beforeDefault;
+        }
+
+        Assert.Equal("My apps", CoreText.Isolate("My apps"));
+    }
+
+    [Fact]
     public void Every_message_key_the_update_helper_writes_can_be_shown()
     {
         var directory = new DirectoryInfo(AppContext.BaseDirectory);

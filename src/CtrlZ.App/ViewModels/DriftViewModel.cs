@@ -32,6 +32,10 @@ public sealed class DriftRow
 
     public DriftEntry Entry { get; }
     public string Name => Entry.Name;
+
+    /// <summary>What screen readers announce for this row.</summary>
+    public override string ToString() => Name;
+
     public string Detail { get; }
     public string? PackageId => Entry.PackageId;
 

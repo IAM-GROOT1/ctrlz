@@ -141,4 +141,29 @@ public class AccessibilityTests
                    Attribute(element, "Text") ?? Attribute(element, "IsChecked") ?? Attribute(element, "Name") ?? string.Empty;
         return $"  line {line}: <{element.Name.LocalName}> {hint}";
     }
+
+    /// <summary>
+    /// A list item's screen-reader name comes from its object's <c>ToString()</c>. Without an
+    /// override, Narrator reads the .NET type name ("CtrlZ.App.ViewModels.NavItem") for every row.
+    /// </summary>
+    [Fact]
+    public void Every_list_row_has_a_readable_name()
+    {
+        var rows = typeof(CtrlZ.App.ViewModels.NavItem).Assembly.GetTypes()
+            .Where(type => type is { IsClass: true, IsAbstract: false, IsPublic: true } &&
+                           type.Namespace == "CtrlZ.App.ViewModels" &&
+                           (type.Name.EndsWith("Row", StringComparison.Ordinal) ||
+                            type.Name.EndsWith("Item", StringComparison.Ordinal) ||
+                            type.Name.EndsWith("RowViewModel", StringComparison.Ordinal) ||
+                            type.Name.EndsWith("ItemViewModel", StringComparison.Ordinal) ||
+                            type.Name.EndsWith("ChoiceViewModel", StringComparison.Ordinal)))
+            .ToList();
+
+        Assert.True(rows.Count >= 15, $"Only {rows.Count} row types found; the name filter may be out of date.");
+        var missing = rows
+            .Where(type => type.GetMethod(nameof(ToString), Type.EmptyTypes)!.DeclaringType != type)
+            .Select(type => type.Name)
+            .ToList();
+        Assert.True(missing.Count == 0, "Rows read as their type name: " + string.Join(", ", missing));
+    }
 }

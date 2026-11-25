@@ -21,6 +21,10 @@ public sealed partial class CatalogItemViewModel : ObservableObject
     public CatalogItemViewModel(WinUtilCatalogItem item) => Item = item;
     public WinUtilCatalogItem Item { get; }
     public string Name => Item.Name;
+
+    /// <summary>What screen readers announce for this row.</summary>
+    public override string ToString() => Name;
+
     public string? WingetId => Item.WingetId;
     public string Category => Item.CategoryLabel;
     public string? Description => Item.Description;

@@ -30,6 +30,10 @@ public sealed partial class NavItem : ObservableObject
 
     public string Key { get; }
     public string Label { get; }
+
+    /// <summary>What screen readers announce for this row.</summary>
+    public override string ToString() => Label;
+
     public string Glyph { get; }
     public PageViewModelBase Page { get; }
 

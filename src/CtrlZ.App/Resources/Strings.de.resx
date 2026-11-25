@@ -3095,6 +3095,9 @@ Verwenden Sie die Datei aus „winget export -o apps.json“, „scoop export &g
 
 Version {0} wird nicht erneut angeboten; eine neuere Version wird wie gewohnt angeboten.</value>
   </data>
+  <data name="CommandReview_InFolder" xml:space="preserve">
+    <value> · in {0}</value>
+  </data>
   <data name="Settings_RefreshCatalogAutomatically" xml:space="preserve">
     <value>App-Katalog automatisch von GitHub aktualisieren</value>
   </data>
