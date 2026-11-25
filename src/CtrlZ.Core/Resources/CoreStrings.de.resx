@@ -1340,7 +1340,7 @@
     <value>Das Installationsprogramm hat einen Fehler gemeldet (Code {0}). Ihre bisherige Version ist weiterhin installiert.</value>
   </data>
   <data name="UpdateApply_RestoreFailed" xml:space="preserve">
-    <value>Die neue Version ließ sich nicht starten, und die vorherige Version konnte nicht zurückgesetzt werden. Sie liegt als CTRL+Z.exe.old neben der App.</value>
+    <value>Die neue Version ließ sich nicht starten, und die vorherige Version konnte nicht wiederhergestellt werden. Sie liegt als CTRL+Z.exe.old neben der App.</value>
   </data>
   <data name="UpdateApply_NotStartedRestored" xml:space="preserve">
     <value>Die neue Version konnte nicht gestartet werden. Die vorherige Version wurde wiederhergestellt.</value>
@@ -1349,7 +1349,7 @@
     <value>Die neue Version wurde unerwartet beendet, daher ist CTRL+Z zur vorherigen Version zurückgekehrt.</value>
   </data>
   <data name="UpdateApply_CouldNotApply" xml:space="preserve">
-    <value>Das Update konnte nicht angewendet werden. Die Details stehen im Protokoll.</value>
+    <value>Das Update konnte nicht angewendet werden: {0}</value>
   </data>
   <data name="UpdateCheck_Offline" xml:space="preserve">
     <value>GitHub ist nicht erreichbar. Prüfen Sie Ihre Verbindung und versuchen Sie es erneut.</value>
@@ -1373,6 +1373,6 @@
     <value>Das Update konnte nicht rechtzeitig heruntergeladen werden. Es wurde nichts geändert. Versuchen Sie es später erneut.</value>
   </data>
   <data name="UpdateDownload_Failed" xml:space="preserve">
-    <value>Das Update konnte nicht heruntergeladen oder geprüft werden, daher wurde nichts geändert. Die Details stehen im Protokoll.</value>
+    <value>Das Update konnte nicht heruntergeladen oder geprüft werden, daher wurde nichts geändert: {0}</value>
   </data>
 </root>

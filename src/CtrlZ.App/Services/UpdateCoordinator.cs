@@ -324,8 +324,10 @@ public sealed class UpdateCoordinator
         catch (Exception ex) when (ex is UpdateVerificationException or UpdateCheckException or IOException or UnauthorizedAccessException)
         {
             _services.Log.Write(LogLevel.Error, "The update could not be applied.", ex);
-            // The English detail stays in the log; the user sees why in their own language.
-            window.ShowError(ex is UpdateCheckException failedCheck ? failedCheck.FriendlyMessage : CtrlZ.Core.Localization.CoreText.Get("UpdateDownload_Failed"));
+            // The sentence is in the user's language; the specific reason (a missing checksum, a
+            // server error) is kept so the user can tell whether trying again can help.
+            window.ShowError(CtrlZ.Core.Localization.CoreText.Format("UpdateDownload_Failed",
+                CtrlZ.Core.Localization.CoreText.LeftToRight(ex.Message)));
         }
     }
 

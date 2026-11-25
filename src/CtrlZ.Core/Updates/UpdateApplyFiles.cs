@@ -94,7 +94,8 @@ public sealed class UpdateApplyResult
 
             try
             {
-                return translate((MessageArgs ?? []).Cast<object?>().ToArray());
+                // Values (an exit code, an English reason) keep their order inside right-to-left text.
+                return translate((MessageArgs ?? []).Select(arg => (object?)(arg is null ? null : CoreText.LeftToRight(arg))).ToArray());
             }
             catch (FormatException)
             {

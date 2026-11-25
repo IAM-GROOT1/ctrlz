@@ -59,7 +59,7 @@ public sealed class UpdateApplier
         catch (Exception ex)
         {
             _log.Write(LogLevel.Error, "The update could not be applied.", ex);
-            result = UpdateApplyResult.Failed("The update could not be applied: " + ex.Message, "UpdateApply_CouldNotApply");
+            result = UpdateApplyResult.Failed("The update could not be applied: " + ex.Message, "UpdateApply_CouldNotApply", ex.Message);
         }
 
         if (!result.Success)

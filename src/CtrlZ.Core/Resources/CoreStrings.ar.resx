@@ -1376,7 +1376,7 @@
     <value>أُغلق الإصدار الجديد بشكل غير متوقع، لذا عاد CTRL+Z إلى الإصدار السابق.</value>
   </data>
   <data name="UpdateApply_CouldNotApply" xml:space="preserve">
-    <value>تعذّر تطبيق التحديث. التفاصيل موجودة في السجل.</value>
+    <value>تعذّر تطبيق التحديث: {0}</value>
   </data>
   <data name="UpdateCheck_Offline" xml:space="preserve">
     <value>تعذّر الوصول إلى GitHub. تحقق من اتصالك وحاول مرة أخرى.</value>
@@ -1400,6 +1400,6 @@
     <value>تعذّر تنزيل التحديث في الوقت المحدد. لم يتغيّر أي شيء. حاول مرة أخرى لاحقًا.</value>
   </data>
   <data name="UpdateDownload_Failed" xml:space="preserve">
-    <value>تعذّر تنزيل التحديث أو التحقق منه، لذا لم يتغيّر أي شيء. التفاصيل موجودة في السجل.</value>
+    <value>تعذّر تنزيل التحديث أو التحقق منه، لذا لم يتغيّر أي شيء: {0}</value>
   </data>
 </root>

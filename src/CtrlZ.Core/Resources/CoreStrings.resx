@@ -1360,7 +1360,7 @@
     <value>The new version closed unexpectedly, so CTRL+Z rolled back to the previous version.</value>
   </data>
   <data name="UpdateApply_CouldNotApply" xml:space="preserve">
-    <value>The update could not be applied. The details are in the log.</value>
+    <value>The update could not be applied: {0}</value>
   </data>
   <data name="UpdateCheck_Offline" xml:space="preserve">
     <value>Could not reach GitHub. Check your connection and try again.</value>
@@ -1384,6 +1384,6 @@
     <value>The update could not be downloaded in time. Nothing was changed. Try again later.</value>
   </data>
   <data name="UpdateDownload_Failed" xml:space="preserve">
-    <value>The update could not be downloaded or checked, so nothing was changed. The details are in the log.</value>
+    <value>The update could not be downloaded or checked, so nothing was changed: {0}</value>
   </data>
 </root>

@@ -1365,7 +1365,7 @@
     <value>Новая версия неожиданно закрылась, поэтому CTRL+Z вернулся к предыдущей версии.</value>
   </data>
   <data name="UpdateApply_CouldNotApply" xml:space="preserve">
-    <value>Не удалось применить обновление. Подробности в журнале.</value>
+    <value>Не удалось применить обновление: {0}</value>
   </data>
   <data name="UpdateCheck_Offline" xml:space="preserve">
     <value>Не удалось связаться с GitHub. Проверьте подключение и повторите попытку.</value>
@@ -1389,6 +1389,6 @@
     <value>Не удалось вовремя скачать обновление. Ничего не изменено. Повторите попытку позже.</value>
   </data>
   <data name="UpdateDownload_Failed" xml:space="preserve">
-    <value>Не удалось скачать или проверить обновление, поэтому ничего не изменено. Подробности в журнале.</value>
+    <value>Не удалось скачать или проверить обновление, поэтому ничего не изменено: {0}</value>
   </data>
 </root>

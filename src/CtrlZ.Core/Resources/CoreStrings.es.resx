@@ -1347,7 +1347,7 @@
     <value>La versión nueva se cerró de forma inesperada, así que CTRL+Z volvió a la versión anterior.</value>
   </data>
   <data name="UpdateApply_CouldNotApply" xml:space="preserve">
-    <value>No se pudo aplicar la actualización. Los detalles están en el registro.</value>
+    <value>No se pudo aplicar la actualización: {0}</value>
   </data>
   <data name="UpdateCheck_Offline" xml:space="preserve">
     <value>No se pudo conectar con GitHub. Compruebe su conexión y vuelva a intentarlo.</value>
@@ -1362,7 +1362,7 @@
     <value>GitHub devolvió una respuesta que CTRL+Z no pudo leer.</value>
   </data>
   <data name="UpdateCheck_Failed" xml:space="preserve">
-    <value>No se pudo buscar actualizaciones. Vuelva a intentarlo más tarde.</value>
+    <value>No se pudo comprobar si hay actualizaciones. Vuelva a intentarlo más tarde.</value>
   </data>
   <data name="UpdateFailure_Cancelled" xml:space="preserve">
     <value>Se canceló la actualización. No se cambió nada.</value>
@@ -1371,6 +1371,6 @@
     <value>No se pudo descargar la actualización a tiempo. No se cambió nada. Vuelva a intentarlo más tarde.</value>
   </data>
   <data name="UpdateDownload_Failed" xml:space="preserve">
-    <value>No se pudo descargar o comprobar la actualización, así que no se cambió nada. Los detalles están en el registro.</value>
+    <value>No se pudo descargar o comprobar la actualización, así que no se cambió nada: {0}</value>
   </data>
 </root>

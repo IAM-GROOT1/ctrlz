@@ -186,6 +186,11 @@ public class LanguageSwitchTests
                 error.DisplayMessage);
             Assert.StartsWith("The installer", error.Message);
 
+            // The specific reason is kept after the translated sentence.
+            Assert.Equal("Das Update konnte nicht angewendet werden: hash mismatch",
+                CtrlZ.Core.Updates.UpdateApplyResult.Failed(
+                    "The update could not be applied: hash mismatch", "UpdateApply_CouldNotApply", "hash mismatch").DisplayMessage);
+
             // A key the helper never writes (the result file can be edited) shows the English text.
             Assert.Equal("English", CtrlZ.Core.Updates.UpdateApplyResult.Failed("English", "Settings_Language").DisplayMessage);
             Assert.Equal("English", CtrlZ.Core.Updates.UpdateApplyResult.Failed("English").DisplayMessage);
