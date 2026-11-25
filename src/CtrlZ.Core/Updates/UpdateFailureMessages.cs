@@ -29,4 +29,10 @@ public static class UpdateFailureMessages
     /// </summary>
     public static string ForCancellation(bool userRequested) =>
         userRequested ? UserCancelled : TimedOut;
+
+    /// <summary>The same choice as <see cref="ForCancellation"/>, in the user's language, for display.</summary>
+    public static string ForCancellationDisplay(bool userRequested) =>
+        userRequested
+            ? Localization.CoreText.Get("UpdateFailure_Cancelled")
+            : Localization.CoreText.Get("UpdateFailure_TimedOut");
 }

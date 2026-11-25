@@ -2,6 +2,7 @@
 // Copyright (c) 2026 iam-groot1
 
 using System.Globalization;
+using System.IO;
 using CtrlZ.App.Localization;
 using CtrlZ.Core.Localization;
 using Xunit;
@@ -167,6 +168,64 @@ public class LanguageSwitchTests
             CultureInfo.CurrentUICulture = before;
             CultureInfo.DefaultThreadCurrentUICulture = beforeDefault;
         }
+    }
+
+    [Fact]
+    public void An_update_failure_is_shown_in_the_users_language_while_the_log_keeps_english()
+    {
+        var before = CultureInfo.CurrentUICulture;
+        var beforeDefault = CultureInfo.DefaultThreadCurrentUICulture;
+        try
+        {
+            AppLanguage.Apply("de");
+            var error = CtrlZ.Core.Updates.UpdateApplyResult.Failed(
+                "The installer reported an error (code 5). Your previous version is still installed.",
+                "UpdateApply_InstallerError", "5");
+            Assert.Equal(
+                "Das Installationsprogramm hat einen Fehler gemeldet (Code 5). Ihre bisherige Version ist weiterhin installiert.",
+                error.DisplayMessage);
+            Assert.StartsWith("The installer", error.Message);
+
+            // A key the helper never writes (the result file can be edited) shows the English text.
+            Assert.Equal("English", CtrlZ.Core.Updates.UpdateApplyResult.Failed("English", "Settings_Language").DisplayMessage);
+            Assert.Equal("English", CtrlZ.Core.Updates.UpdateApplyResult.Failed("English").DisplayMessage);
+
+            // Too few values for the placeholders falls back to the English text instead of throwing.
+            Assert.Equal("English", CtrlZ.Core.Updates.UpdateApplyResult.Failed("English", "UpdateApply_InstallerError").DisplayMessage);
+
+            Assert.Equal("Das Update wurde abgebrochen. Es wurde nichts geändert.",
+                CtrlZ.Core.Updates.UpdateFailureMessages.ForCancellationDisplay(userRequested: true));
+            Assert.Equal("The update was cancelled. Nothing was changed.",
+                CtrlZ.Core.Updates.UpdateFailureMessages.ForCancellation(userRequested: true));
+            Assert.Equal("GitHub ist nicht erreichbar. Prüfen Sie Ihre Verbindung und versuchen Sie es erneut.",
+                new CtrlZ.Core.Updates.UpdateCheckException(CtrlZ.Core.Updates.UpdateFailureKind.Offline, "x").FriendlyMessage);
+        }
+        finally
+        {
+            CoreText.Culture = null;
+            CultureInfo.CurrentUICulture = before;
+            CultureInfo.DefaultThreadCurrentUICulture = beforeDefault;
+        }
+    }
+
+    [Fact]
+    public void Every_message_key_the_update_helper_writes_can_be_shown()
+    {
+        var directory = new DirectoryInfo(AppContext.BaseDirectory);
+        while (directory is not null && !File.Exists(Path.Combine(directory.FullName, "src", "CtrlZ.Core", "Updates", "UpdateApplier.cs")))
+        {
+            directory = directory.Parent;
+        }
+
+        Assert.NotNull(directory);
+        var source = File.ReadAllText(Path.Combine(directory!.FullName, "src", "CtrlZ.Core", "Updates", "UpdateApplier.cs"));
+        var keys = System.Text.RegularExpressions.Regex.Matches(source, @"""(UpdateApply_[A-Za-z]+)""")
+            .Select(match => match.Groups[1].Value)
+            .Distinct()
+            .ToList();
+
+        Assert.Equal(10, keys.Count);
+        Assert.All(keys, key => Assert.True(CtrlZ.Core.Updates.UpdateApplyResult.IsKnownMessageKey(key), key));
     }
 
     [Fact]

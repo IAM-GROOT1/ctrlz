@@ -1348,4 +1348,58 @@
   <data name="Source_NotMatched" xml:space="preserve">
     <value>غير مطابق</value>
   </data>
+  <data name="UpdateApply_DownloadMissing" xml:space="preserve">
+    <value>التحديث المنزَّل مفقود. لم يتغيّر أي شيء.</value>
+  </data>
+  <data name="UpdateApply_NotPutInPlace" xml:space="preserve">
+    <value>تعذّر وضع الإصدار الجديد في مكانه. استُعيد الإصدار السابق.</value>
+  </data>
+  <data name="UpdateApply_NotRecorded" xml:space="preserve">
+    <value>تعذّر تسجيل التحديث. استُعيد الإصدار السابق.</value>
+  </data>
+  <data name="UpdateApply_InstallerMissing" xml:space="preserve">
+    <value>المثبّت المنزَّل مفقود. لم يتغيّر أي شيء.</value>
+  </data>
+  <data name="UpdateApply_InstallerNotStarted" xml:space="preserve">
+    <value>تعذّر بدء تشغيل المثبّت. لا يزال إصدارك السابق مثبّتًا.</value>
+  </data>
+  <data name="UpdateApply_InstallerError" xml:space="preserve">
+    <value>أبلغ المثبّت عن خطأ (الرمز {0}). لا يزال إصدارك السابق مثبّتًا.</value>
+  </data>
+  <data name="UpdateApply_RestoreFailed" xml:space="preserve">
+    <value>لم يبدأ الإصدار الجديد، وتعذّرت إعادة الإصدار السابق. إنه محفوظ باسم CTRL+Z.exe.old بجانب التطبيق.</value>
+  </data>
+  <data name="UpdateApply_NotStartedRestored" xml:space="preserve">
+    <value>تعذّر بدء تشغيل الإصدار الجديد. استُعيد الإصدار السابق.</value>
+  </data>
+  <data name="UpdateApply_ClosedRolledBack" xml:space="preserve">
+    <value>أُغلق الإصدار الجديد بشكل غير متوقع، لذا عاد CTRL+Z إلى الإصدار السابق.</value>
+  </data>
+  <data name="UpdateApply_CouldNotApply" xml:space="preserve">
+    <value>تعذّر تطبيق التحديث. التفاصيل موجودة في السجل.</value>
+  </data>
+  <data name="UpdateCheck_Offline" xml:space="preserve">
+    <value>تعذّر الوصول إلى GitHub. تحقق من اتصالك وحاول مرة أخرى.</value>
+  </data>
+  <data name="UpdateCheck_RateLimited" xml:space="preserve">
+    <value>بلغ GitHub الحد الأقصى للطلبات في الساعة. حاول مرة أخرى لاحقًا.</value>
+  </data>
+  <data name="UpdateCheck_NotFound" xml:space="preserve">
+    <value>لم يُعثر على أي إصدارات لـ CTRL+Z بعد.</value>
+  </data>
+  <data name="UpdateCheck_Malformed" xml:space="preserve">
+    <value>أرسل GitHub ردًا لم يتمكن CTRL+Z من قراءته.</value>
+  </data>
+  <data name="UpdateCheck_Failed" xml:space="preserve">
+    <value>فشل التحقق من التحديثات. حاول مرة أخرى لاحقًا.</value>
+  </data>
+  <data name="UpdateFailure_Cancelled" xml:space="preserve">
+    <value>أُلغي التحديث. لم يتغيّر أي شيء.</value>
+  </data>
+  <data name="UpdateFailure_TimedOut" xml:space="preserve">
+    <value>تعذّر تنزيل التحديث في الوقت المحدد. لم يتغيّر أي شيء. حاول مرة أخرى لاحقًا.</value>
+  </data>
+  <data name="UpdateDownload_Failed" xml:space="preserve">
+    <value>تعذّر تنزيل التحديث أو التحقق منه، لذا لم يتغيّر أي شيء. التفاصيل موجودة في السجل.</value>
+  </data>
 </root>

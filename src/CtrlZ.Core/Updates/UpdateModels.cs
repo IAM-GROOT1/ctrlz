@@ -41,11 +41,11 @@ public sealed class UpdateCheckException : Exception
     /// <summary>Message safe to show a user; never includes a raw exception body.</summary>
     public string FriendlyMessage => Kind switch
     {
-        UpdateFailureKind.Offline => "Could not reach GitHub. Check your connection and try again.",
-        UpdateFailureKind.RateLimited => "GitHub's hourly request limit was reached. Try again later.",
-        UpdateFailureKind.NotFound => "No releases were found for CTRL+Z yet.",
-        UpdateFailureKind.Malformed => "GitHub returned a response CTRL+Z could not read.",
-        _ => "The update check failed. Try again later."
+        UpdateFailureKind.Offline => Localization.CoreText.Get("UpdateCheck_Offline"),
+        UpdateFailureKind.RateLimited => Localization.CoreText.Get("UpdateCheck_RateLimited"),
+        UpdateFailureKind.NotFound => Localization.CoreText.Get("UpdateCheck_NotFound"),
+        UpdateFailureKind.Malformed => Localization.CoreText.Get("UpdateCheck_Malformed"),
+        _ => Localization.CoreText.Get("UpdateCheck_Failed")
     };
 }
 

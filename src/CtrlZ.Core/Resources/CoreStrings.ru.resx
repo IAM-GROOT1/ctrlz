@@ -1337,4 +1337,58 @@
   <data name="Source_NotMatched" xml:space="preserve">
     <value>Не сопоставлено</value>
   </data>
+  <data name="UpdateApply_DownloadMissing" xml:space="preserve">
+    <value>Скачанное обновление отсутствует. Ничего не изменено.</value>
+  </data>
+  <data name="UpdateApply_NotPutInPlace" xml:space="preserve">
+    <value>Не удалось установить новую версию на место старой. Предыдущая версия восстановлена.</value>
+  </data>
+  <data name="UpdateApply_NotRecorded" xml:space="preserve">
+    <value>Не удалось записать данные об обновлении. Предыдущая версия восстановлена.</value>
+  </data>
+  <data name="UpdateApply_InstallerMissing" xml:space="preserve">
+    <value>Скачанный установщик отсутствует. Ничего не изменено.</value>
+  </data>
+  <data name="UpdateApply_InstallerNotStarted" xml:space="preserve">
+    <value>Не удалось запустить установщик. Предыдущая версия по-прежнему установлена.</value>
+  </data>
+  <data name="UpdateApply_InstallerError" xml:space="preserve">
+    <value>Установщик сообщил об ошибке (код {0}). Предыдущая версия по-прежнему установлена.</value>
+  </data>
+  <data name="UpdateApply_RestoreFailed" xml:space="preserve">
+    <value>Новая версия не запустилась, а предыдущую вернуть не удалось. Она сохранена как CTRL+Z.exe.old рядом с приложением.</value>
+  </data>
+  <data name="UpdateApply_NotStartedRestored" xml:space="preserve">
+    <value>Не удалось запустить новую версию. Предыдущая версия восстановлена.</value>
+  </data>
+  <data name="UpdateApply_ClosedRolledBack" xml:space="preserve">
+    <value>Новая версия неожиданно закрылась, поэтому CTRL+Z вернулся к предыдущей версии.</value>
+  </data>
+  <data name="UpdateApply_CouldNotApply" xml:space="preserve">
+    <value>Не удалось применить обновление. Подробности в журнале.</value>
+  </data>
+  <data name="UpdateCheck_Offline" xml:space="preserve">
+    <value>Не удалось связаться с GitHub. Проверьте подключение и повторите попытку.</value>
+  </data>
+  <data name="UpdateCheck_RateLimited" xml:space="preserve">
+    <value>Достигнут часовой лимит запросов GitHub. Повторите попытку позже.</value>
+  </data>
+  <data name="UpdateCheck_NotFound" xml:space="preserve">
+    <value>Для CTRL+Z пока нет опубликованных выпусков.</value>
+  </data>
+  <data name="UpdateCheck_Malformed" xml:space="preserve">
+    <value>GitHub вернул ответ, который CTRL+Z не смог прочитать.</value>
+  </data>
+  <data name="UpdateCheck_Failed" xml:space="preserve">
+    <value>Не удалось проверить обновления. Повторите попытку позже.</value>
+  </data>
+  <data name="UpdateFailure_Cancelled" xml:space="preserve">
+    <value>Обновление отменено. Ничего не изменено.</value>
+  </data>
+  <data name="UpdateFailure_TimedOut" xml:space="preserve">
+    <value>Не удалось вовремя скачать обновление. Ничего не изменено. Повторите попытку позже.</value>
+  </data>
+  <data name="UpdateDownload_Failed" xml:space="preserve">
+    <value>Не удалось скачать или проверить обновление, поэтому ничего не изменено. Подробности в журнале.</value>
+  </data>
 </root>

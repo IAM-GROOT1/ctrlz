@@ -313,18 +313,19 @@ public sealed class UpdateCoordinator
         catch (OperationCanceledException) when (cts.IsCancellationRequested)
         {
             _services.Log.Write(LogLevel.Info, "The update download was cancelled by the user.");
-            window.ShowError(UpdateFailureMessages.ForCancellation(userRequested: true));
+            window.ShowError(UpdateFailureMessages.ForCancellationDisplay(userRequested: true));
         }
         catch (OperationCanceledException)
         {
             // A request timeout or a dropped connection lands here, not a user cancellation.
             _services.Log.Write(LogLevel.Warning, "The update download timed out.");
-            window.ShowError(UpdateFailureMessages.ForCancellation(userRequested: false));
+            window.ShowError(UpdateFailureMessages.ForCancellationDisplay(userRequested: false));
         }
         catch (Exception ex) when (ex is UpdateVerificationException or UpdateCheckException or IOException or UnauthorizedAccessException)
         {
             _services.Log.Write(LogLevel.Error, "The update could not be applied.", ex);
-            window.ShowError(ex.Message);
+            // The English detail stays in the log; the user sees why in their own language.
+            window.ShowError(ex is UpdateCheckException failedCheck ? failedCheck.FriendlyMessage : CtrlZ.Core.Localization.CoreText.Get("UpdateDownload_Failed"));
         }
     }
 
@@ -455,7 +456,7 @@ public sealed class UpdateCoordinator
         _services.Log.Write(LogLevel.Warning, $"The previous update did not complete: {result.Message}");
         var message = result.Message == App.UpdateRolledBackMessage
             ? Loc.Get("App_UpdateRolledBack")
-            : result.Message ?? Loc.Get("Update_ThePreviousUpdateDidNot");
+            : result.DisplayMessage ?? Loc.Get("Update_ThePreviousUpdateDidNot");
 
         // A build that failed to start would only fail again: treat it like "Skip this version",
         // so it is not offered until a newer release appears.

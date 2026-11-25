@@ -1321,4 +1321,58 @@
   <data name="Source_NotMatched" xml:space="preserve">
     <value>Nicht zugeordnet</value>
   </data>
+  <data name="UpdateApply_DownloadMissing" xml:space="preserve">
+    <value>Das heruntergeladene Update fehlt. Es wurde nichts geändert.</value>
+  </data>
+  <data name="UpdateApply_NotPutInPlace" xml:space="preserve">
+    <value>Die neue Version konnte nicht eingesetzt werden. Die vorherige Version wurde wiederhergestellt.</value>
+  </data>
+  <data name="UpdateApply_NotRecorded" xml:space="preserve">
+    <value>Das Update konnte nicht vermerkt werden. Die vorherige Version wurde wiederhergestellt.</value>
+  </data>
+  <data name="UpdateApply_InstallerMissing" xml:space="preserve">
+    <value>Das heruntergeladene Installationsprogramm fehlt. Es wurde nichts geändert.</value>
+  </data>
+  <data name="UpdateApply_InstallerNotStarted" xml:space="preserve">
+    <value>Das Installationsprogramm konnte nicht gestartet werden. Ihre bisherige Version ist weiterhin installiert.</value>
+  </data>
+  <data name="UpdateApply_InstallerError" xml:space="preserve">
+    <value>Das Installationsprogramm hat einen Fehler gemeldet (Code {0}). Ihre bisherige Version ist weiterhin installiert.</value>
+  </data>
+  <data name="UpdateApply_RestoreFailed" xml:space="preserve">
+    <value>Die neue Version ließ sich nicht starten, und die vorherige Version konnte nicht zurückgesetzt werden. Sie liegt als CTRL+Z.exe.old neben der App.</value>
+  </data>
+  <data name="UpdateApply_NotStartedRestored" xml:space="preserve">
+    <value>Die neue Version konnte nicht gestartet werden. Die vorherige Version wurde wiederhergestellt.</value>
+  </data>
+  <data name="UpdateApply_ClosedRolledBack" xml:space="preserve">
+    <value>Die neue Version wurde unerwartet beendet, daher ist CTRL+Z zur vorherigen Version zurückgekehrt.</value>
+  </data>
+  <data name="UpdateApply_CouldNotApply" xml:space="preserve">
+    <value>Das Update konnte nicht angewendet werden. Die Details stehen im Protokoll.</value>
+  </data>
+  <data name="UpdateCheck_Offline" xml:space="preserve">
+    <value>GitHub ist nicht erreichbar. Prüfen Sie Ihre Verbindung und versuchen Sie es erneut.</value>
+  </data>
+  <data name="UpdateCheck_RateLimited" xml:space="preserve">
+    <value>Das stündliche Anfragelimit von GitHub ist erreicht. Versuchen Sie es später erneut.</value>
+  </data>
+  <data name="UpdateCheck_NotFound" xml:space="preserve">
+    <value>Für CTRL+Z wurden noch keine Versionen gefunden.</value>
+  </data>
+  <data name="UpdateCheck_Malformed" xml:space="preserve">
+    <value>GitHub hat eine Antwort geliefert, die CTRL+Z nicht lesen konnte.</value>
+  </data>
+  <data name="UpdateCheck_Failed" xml:space="preserve">
+    <value>Die Suche nach Updates ist fehlgeschlagen. Versuchen Sie es später erneut.</value>
+  </data>
+  <data name="UpdateFailure_Cancelled" xml:space="preserve">
+    <value>Das Update wurde abgebrochen. Es wurde nichts geändert.</value>
+  </data>
+  <data name="UpdateFailure_TimedOut" xml:space="preserve">
+    <value>Das Update konnte nicht rechtzeitig heruntergeladen werden. Es wurde nichts geändert. Versuchen Sie es später erneut.</value>
+  </data>
+  <data name="UpdateDownload_Failed" xml:space="preserve">
+    <value>Das Update konnte nicht heruntergeladen oder geprüft werden, daher wurde nichts geändert. Die Details stehen im Protokoll.</value>
+  </data>
 </root>
