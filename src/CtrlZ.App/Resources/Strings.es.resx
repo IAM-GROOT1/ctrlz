@@ -3098,4 +3098,10 @@ La versión {0} no se volverá a ofrecer; las versiones más recientes se ofrece
   <data name="CommandReview_InFolder" xml:space="preserve">
     <value> · en {0}</value>
   </data>
+  <data name="Settings_RefreshCatalogAutomatically" xml:space="preserve">
+    <value>Actualizar el catálogo de aplicaciones desde GitHub automáticamente</value>
+  </data>
+  <data name="Settings_RefreshCatalogAutomaticallyHelp" xml:space="preserve">
+    <value>Si está desactivado, la página Catálogo usa la copia guardada en este equipo, o la incluida en CTRL+Z, hasta que pulse Actualizar.</value>
+  </data>
 </root>
