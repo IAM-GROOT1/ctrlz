@@ -120,6 +120,9 @@ order, screen-reader labels and translations.
 - [x] **E. Contrast themes.** With a Windows contrast theme on, every colour in CTRL+Z comes from
   that theme (window, text, selection, disabled text), and the current page, chosen toggles and
   selected rows use the selection colours. Turning the theme on or off applies at once.
+- [x] **F. Text size.** Windows' *Text size* setting (Accessibility) scales every CTRL+Z window, like
+  zooming the page, and the window grows to match without leaving the screen. It is read when a
+  window opens. Drop-down lists and tooltips keep their usual size.
 
 ### 7. Onboarding and sharing profiles
 

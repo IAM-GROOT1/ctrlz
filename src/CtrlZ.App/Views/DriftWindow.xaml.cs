@@ -11,6 +11,7 @@ public partial class DriftWindow : Window
     public DriftWindow()
     {
         InitializeComponent();
+        Services.TextScale.Apply(this);
 
         Loaded += async (_, _) =>
         {

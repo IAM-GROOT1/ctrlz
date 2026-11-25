@@ -25,6 +25,7 @@ public partial class DialogWindow : Window
     public DialogWindow()
     {
         InitializeComponent();
+        Services.TextScale.Apply(this);
         KeyDown += (_, e) =>
         {
             if (e.Key == Key.Escape)

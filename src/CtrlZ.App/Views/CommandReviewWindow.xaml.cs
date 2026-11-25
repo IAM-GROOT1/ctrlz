@@ -11,6 +11,7 @@ public partial class CommandReviewWindow : Window
     public CommandReviewWindow()
     {
         InitializeComponent();
+        Services.TextScale.Apply(this);
 
         Loaded += (_, _) =>
         {

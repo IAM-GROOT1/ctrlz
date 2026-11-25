@@ -11,6 +11,7 @@ public partial class PreviewWindow : Window
     public PreviewWindow()
     {
         InitializeComponent();
+        Services.TextScale.Apply(this);
 
         Loaded += (_, _) =>
         {
