@@ -127,11 +127,15 @@ public class XamlSmokeTests
         Measure(tweaks);
         Assert.Contains("Set Windows up the way you like it", TextsIn(tweaks));
 
-        // App icons: a known winget id shows its brand logo, an unknown app its initials.
-        // (Steam: not installed on build machines, and not in AppIconSourceTests' sample list.)
+        // App icons: a catalog app shows its bundled full-colour icon, one with only a logo shows
+        // that, and an unknown app its initials. (Steam and OpenVPN Connect: not installed on
+        // build machines.)
         var known = new CtrlZ.App.Controls.AppIcon { FallbackText = "Steam", PackageId = "Valve.Steam", Size = 30 };
         Measure(known);
-        Assert.Equal("brand", known.Showing);
+        Assert.Equal("catalog", known.Showing);
+        var logoOnly = new CtrlZ.App.Controls.AppIcon { FallbackText = "OpenVPN Connect", PackageId = "OpenVPNTechnologies.OpenVPNConnect", Size = 30 };
+        Measure(logoOnly);
+        Assert.Equal("brand", logoOnly.Showing);
         var unknown = new CtrlZ.App.Controls.AppIcon { FallbackText = "In-house Tool", Size = 30 };
         Measure(unknown);
         Assert.Equal("initials", unknown.Showing);

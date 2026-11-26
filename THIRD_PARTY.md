@@ -67,11 +67,15 @@ Interface icons come from the Segoe Fluent Icons system font (see above), and
 | Asset | Origin | License | AGPL-3.0 compatible |
 | --- | --- | --- | --- |
 | `src/CtrlZ.App/Resources/brand-icons.json` | App logos from [Simple Icons](https://simpleicons.org) 16.37.0, picked for apps in the catalog by `build/brand-icons/make-brand-icons.js` | CC0 1.0 | Yes |
+| `src/CtrlZ.App/Resources/app-icons.json` | Full-colour app icons, each taken from the app maker's own website or source repository, Wikimedia Commons, or the icon list kept by [UniGetUI](https://github.com/marticliment/UniGetUI); scaled to 64x64 by `build/app-icons/make-app-icons.js`. `build/app-icons/sources.json` lists where each came from | Owned by each app's maker | Not covered by this project's license (see below) |
 
-The logos are shown only next to the app they belong to, to identify it, when that app has no icon
-of its own on the PC (an installed app shows its own icon). The marks remain the trademarks of
-their owners: as Simple Icons notes, CC0 covers the drawings, not trademark rights, and showing
-them does not imply endorsement.
+The logos and icons are shown only next to the app they belong to, to identify it, when that app
+has no icon of its own on the PC (an installed app shows its own icon). The marks remain the
+trademarks of their owners: as Simple Icons notes, CC0 covers the drawings, not trademark rights,
+and showing them does not imply endorsement. The full-colour icons are not licensed under the
+AGPL-3.0 with the rest of this project; they are used only as each app's own identifying mark, as
+an app store or package manager shows them. An owner who asks for an icon to be removed will have
+it removed.
 
 All images and icons under `src/CtrlZ.App/Assets/` and `branding/` are first-party project assets
 (see `branding/README.md`).
