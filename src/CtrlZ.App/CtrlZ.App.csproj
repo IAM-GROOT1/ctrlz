@@ -25,6 +25,7 @@
     <Resource Include="Assets\ctrlz.ico" />
     <Resource Include="Assets\ctrlz.png" />
     <EmbeddedResource Include="Resources\brand-icons.json" LogicalName="CtrlZ.App.Resources.brand-icons.json" />
+    <EmbeddedResource Include="Resources\app-icons.json" LogicalName="CtrlZ.App.Resources.app-icons.json" />
   </ItemGroup>
 
 </Project>

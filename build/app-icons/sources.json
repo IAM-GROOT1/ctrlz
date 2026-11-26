@@ -1,0 +1,958 @@
+{
+ "1password": {
+  "name": "1Password",
+  "source": "https://upload.wikimedia.org/wikipedia/commons/5/5b/1Password_icon.png"
+ },
+ "7zip": {
+  "name": "7-Zip",
+  "source": "https://i.postimg.cc/CLMvJ2Fp/image.png"
+ },
+ "abdownloadmanager": {
+  "name": "AB Download Manager",
+  "source": "https://i.postimg.cc/Px4yR0tL/abdownloadmanager.png"
+ },
+ "adobe": {
+  "name": "Adobe Acrobat Reader",
+  "source": "https://community.chocolatey.org/content/packageimages/adobereader.2022.003.20322.png"
+ },
+ "advancedip": {
+  "name": "Advanced IP Scanner",
+  "source": "https://community.chocolatey.org/content/packageimages/advanced-ip-scanner.2.5.4594.1.png"
+ },
+ "aimp": {
+  "name": "AIMP (Music Player)",
+  "source": "https://cdn2.iconfinder.com/data/icons/flurry-for-audio/512/aimp2.png"
+ },
+ "angryipscanner": {
+  "name": "Angry IP Scanner",
+  "source": "https://angryip.org/images/icon.png"
+ },
+ "anydesk": {
+  "name": "AnyDesk",
+  "source": "https://img.icons8.com/fluency/512/anydesk.png"
+ },
+ "audacity": {
+  "name": "Audacity",
+  "source": "https://forum.audacityteam.org/uploads/default/original/1X/81a69b20bcd548215067cfaceccc8a10bfa2d176.png"
+ },
+ "autoruns": {
+  "name": "Autoruns",
+  "source": "https://i.ibb.co/hF170wpM/2021-12-16-ts3-thumbs-dfe-p-256.png"
+ },
+ "rdcman": {
+  "name": "RDCMan",
+  "source": "https://learn.microsoft.com/favicon.ico"
+ },
+ "autohotkey": {
+  "name": "AutoHotkey",
+  "source": "https://raw.githubusercontent.com/Ixiko/AHK-Forum/master/images/AHK%20main%20icon.png"
+ },
+ "battlenet": {
+  "name": "Battle.net",
+  "source": "https://download.battle.net (site icon)"
+ },
+ "bitwarden": {
+  "name": "Bitwarden",
+  "source": "https://raw.githubusercontent.com/bitwarden/brand/main/icons/256x256.png"
+ },
+ "blender": {
+  "name": "Blender (3D Graphics)",
+  "source": "https://upload.wikimedia.org/wikipedia/commons/0/0c/Blender_logo_no_text.svg"
+ },
+ "brave": {
+  "name": "Brave",
+  "source": "https://commons.wikimedia.org/wiki/File:Brave_lion_icon.svg"
+ },
+ "bruno": {
+  "name": "Bruno",
+  "source": "https://www.usebruno.com/favicon-48x48.png"
+ },
+ "bulkcrapuninstaller": {
+  "name": "Bulk Crap Uninstaller",
+  "source": "https://community.chocolatey.org/content/packageimages/bulk-crap-uninstaller.5.4.png"
+ },
+ "blurautoclicker": {
+  "name": "BlurAutoClicker",
+  "source": null
+ },
+ "calibre": {
+  "name": "Calibre",
+  "source": "https://i.postimg.cc/ZKZnJMkP/cal.png"
+ },
+ "cemu": {
+  "name": "Cemu",
+  "source": "https://cemu.info/favicon.ico"
+ },
+ "chatgpt": {
+  "name": "ChatGPT Desktop",
+  "source": "https://community.chocolatey.org/content/packageimages/chatgpt.0.10.3.png"
+ },
+ "chatterino": {
+  "name": "Chatterino",
+  "source": "https://www.chatterino.com/logo.svg"
+ },
+ "chrome": {
+  "name": "Chrome",
+  "source": "https://upload.wikimedia.org/wikipedia/commons/e/e1/Google_Chrome_icon_%28February_2022%29.svg"
+ },
+ "chromium": {
+  "name": "Chromium",
+  "source": "https://i.postimg.cc/FzjDb7vy/chromium-icon.png"
+ },
+ "cinebenchr23": {
+  "name": "Cinebench R23",
+  "source": "https://www.maxon.net/app-icons/favicon-196x196.png"
+ },
+ "claude": {
+  "name": "Claude Desktop",
+  "source": "https://claude.com/icon.svg"
+ },
+ "claude-code": {
+  "name": "Claude Code",
+  "source": "https://claude.com/icon.svg"
+ },
+ "cmake": {
+  "name": "CMake",
+  "source": "https://upload.wikimedia.org/wikipedia/commons/e/ef/CMake_logo.svg"
+ },
+ "codex": {
+  "name": "Codex",
+  "source": "https://learn.chatgpt.com/favicon.png"
+ },
+ "cpuz": {
+  "name": "CPU-Z",
+  "source": "https://i.postimg.cc/fWjrdd4c/cpu-z.png"
+ },
+ "crystaldiskinfo": {
+  "name": "Crystal Disk Info",
+  "source": "https://tweakers.net/ext/i/2004637378.png"
+ },
+ "crystaldiskmark": {
+  "name": "Crystal Disk Mark",
+  "source": "https://i.postimg.cc/NMsCG9zH/cmark-icon.png"
+ },
+ "cursor": {
+  "name": "Cursor",
+  "source": "https://cursor.com/marketing-static/favicon-light.svg"
+ },
+ "ddu": {
+  "name": "Display Driver Uninstaller",
+  "source": "https://www.wagnardsoft.com (site icon)"
+ },
+ "discord": {
+  "name": "Discord",
+  "source": "https://i.ibb.co/VJN801L/release-and-ptb.png"
+ },
+ "dismtools": {
+  "name": "DISMTools",
+  "source": "https://avatars.githubusercontent.com/u/101426328?s=128&v=4"
+ },
+ "ntlite": {
+  "name": "NTLite",
+  "source": "https://i.ibb.co/Zc7n1r1/ntliteicon.png"
+ },
+ "dorion": {
+  "name": "Dorion",
+  "source": "https://raw.githubusercontent.com/SpikeHD/Dorion/main/src-tauri/icons/icon.png"
+ },
+ "dockerdesktop": {
+  "name": "Docker Desktop",
+  "source": "https://commons.wikimedia.org/wiki/File:Docker_(container_engine)_logo_(cropped).png"
+ },
+ "dotnet6": {
+  "name": ".NET Desktop Runtime 6",
+  "source": "https://raw.githubusercontent.com/dotnetcore-chocolatey/dotnetcore-chocolateypackages/master/icons/dotnetcore.png"
+ },
+ "dotnet8": {
+  "name": ".NET Desktop Runtime 8",
+  "source": "https://i.ibb.co/sdzNm4Dp/image.png"
+ },
+ "dotnet9": {
+  "name": ".NET Desktop Runtime 9",
+  "source": "https://i.ibb.co/sdzNm4Dp/image.png"
+ },
+ "dotnet10": {
+  "name": ".NET Desktop Runtime 10",
+  "source": "https://i.ibb.co/sdzNm4Dp/image.png"
+ },
+ "dropbox": {
+  "name": "Dropbox",
+  "source": "https://i.postimg.cc/kgM4jKJ1/Dropbox-icon-icons-com-66767.png"
+ },
+ "eaapp": {
+  "name": "EA App",
+  "source": "https://community.chocolatey.org/content/packageimages/ea-app.13.218.0.5731.png"
+ },
+ "eartrumpet": {
+  "name": "EarTrumpet (Audio)",
+  "source": "https://raw.githubusercontent.com/File-New-Project/EarTrumpet/master/EarTrumpet/Assets/Logo-Light.png"
+ },
+ "edge": {
+  "name": "Edge",
+  "source": "https://community.chocolatey.org/content/packageimages/microsoft-edge.110.0.1587.57.png"
+ },
+ "es-de": {
+  "name": "EmulationStation Desktop Edition",
+  "source": "https://impro.usercontent.one/appid/oneComWsb/domain/es-de.org/media/es-de.org/onewebmedia/ES-DE_logo_small.png?etag=%22ba8-60428863%22&sourceContentType=image%2Fpng&resize=57,57&ignoreAspectRatio"
+ },
+ "enteauth": {
+  "name": "Ente Auth",
+  "source": "https://raw.githubusercontent.com/ente-io/ente/main/mobile/apps/auth/assets/icons/auth-icon.png"
+ },
+ "epicgames": {
+  "name": "Epic Games Launcher",
+  "source": "https://upload.wikimedia.org/wikipedia/commons/3/31/Epic_Games_logo.svg"
+ },
+ "files": {
+  "name": "Files",
+  "source": "https://community.chocolatey.org/content/packageimages/files.2.4.40.png"
+ },
+ "fileconverter": {
+  "name": "File Converter",
+  "source": "https://file-converter.io/images/application-icon.png"
+ },
+ "firefox": {
+  "name": "Firefox",
+  "source": "https://i.postimg.cc/RCLmpNTX/Firefox-icon.png"
+ },
+ "firefoxesr": {
+  "name": "Firefox ESR",
+  "source": "https://i.postimg.cc/RCLmpNTX/Firefox-icon.png"
+ },
+ "floorp": {
+  "name": "Floorp",
+  "source": "https://floorp.app/icon.svg?51b46abeef3fc9d9"
+ },
+ "flux": {
+  "name": "F.lux",
+  "source": "https://justgetflux.com/favicon.png"
+ },
+ "foobar": {
+  "name": "foobar2000 (Music Player)",
+  "source": "https://www.foobar2000.org/favicon.ico"
+ },
+ "fnm": {
+  "name": "Fast Node Manager",
+  "source": null
+ },
+ "foxpdfreader": {
+  "name": "Foxit PDF Reader",
+  "source": "https://img.utdstc.com/icon/aab/566/aab566ff80c739e8a4d06f1fee8f87fb93c845c92d05751d2e372bde3eb26480:200"
+ },
+ "geforcenow": {
+  "name": "GeForce NOW",
+  "source": "https://www.nvidia.com/favicon.ico"
+ },
+ "gimp": {
+  "name": "GIMP (Image Editor)",
+  "source": "https://www.gimp.org/images/wilber32.png"
+ },
+ "git": {
+  "name": "Git",
+  "source": "https://unigeticons.meowcat285.com/git.2.46.2.png"
+ },
+ "gitextensions": {
+  "name": "Git Extensions",
+  "source": "https://community.chocolatey.org/content/packageimages/gitextensions.portable.4.0.2.png"
+ },
+ "githubcli": {
+  "name": "GitHub CLI",
+  "source": "https://commons.wikimedia.org/wiki/File:Octicons-mark-github.svg"
+ },
+ "githubdesktop": {
+  "name": "GitHub Desktop",
+  "source": "https://upload.wikimedia.org/wikipedia/commons/a/ae/Github-desktop-logo-symbol.svg"
+ },
+ "gog": {
+  "name": "GOG Galaxy",
+  "source": "https://www.gogalaxy.com/favicons/android-icon-192x192.png"
+ },
+ "golang": {
+  "name": "Go",
+  "source": "https://go.dev/images/favicon-gopher.png"
+ },
+ "googledrive": {
+  "name": "Google Drive",
+  "source": "https://upload.wikimedia.org/wikipedia/commons/1/12/Google_Drive_icon_%282020%29.svg"
+ },
+ "gpuz": {
+  "name": "GPU-Z",
+  "source": "https://www.techpowerup.com/favicon.ico"
+ },
+ "gsudo": {
+  "name": "gsudo",
+  "source": "https://github.com/gerardog/gsudo/blob/HEAD/src/gsudo/icon/gsudo.svg"
+ },
+ "helium": {
+  "name": "Helium",
+  "source": "https://raw.githubusercontent.com/imputnet/helium/main/resources/branding/app_icon/raw.png"
+ },
+ "hugo": {
+  "name": "Hugo",
+  "source": "https://i.postimg.cc/zf0bKK5p/image.png"
+ },
+ "handbrake": {
+  "name": "HandBrake",
+  "source": "https://upload.wikimedia.org/wikipedia/commons/d/d9/HandBrake_Icon.png"
+ },
+ "heroiclauncher": {
+  "name": "Heroic Games Launcher",
+  "source": "https://github.com/Heroic-Games-Launcher/HeroicGamesLauncher/blob/HEAD/public/icon.png"
+ },
+ "hwinfo": {
+  "name": "HWiNFO",
+  "source": "https://i.postimg.cc/MKfynM2J/HWiNFO64.png"
+ },
+ "hwmonitor": {
+  "name": "HWMonitor",
+  "source": "https://i.postimg.cc/65W1fQwD/hwmonitor.png"
+ },
+ "imhex": {
+  "name": "ImHex",
+  "source": "https://community.chocolatey.org/content/packageimages/imhex.1.26.2.png"
+ },
+ "imageglass": {
+  "name": "ImageGlass (Image Viewer)",
+  "source": "https://i.postimg.cc/ncpmLSDW/imageglass.png"
+ },
+ "internetdownloadmanager": {
+  "name": "Internet Download Manager",
+  "source": "https://community.chocolatey.org/content/packageimages/internet-download-manager.6.41.7.png"
+ },
+ "irfanview": {
+  "name": "IrfanView",
+  "source": "https://www.irfanview.com/images/favicon.png"
+ },
+ "itch": {
+  "name": "Itch.io",
+  "source": "https://raw.githubusercontent.com/itchio/itch/master/src/static/images/tray/itch.png"
+ },
+ "itunes": {
+  "name": "iTunes",
+  "source": "https://developer.apple.com/assets/elements/icons/itunes/itunes-256x256.png"
+ },
+ "java8": {
+  "name": "Amazon Corretto 8 (LTS)",
+  "source": "https://a0.awsstatic.com/libra-css/images/site/touch-icon-ipad-144-smile.png"
+ },
+ "java21": {
+  "name": "Amazon Corretto 21 (LTS)",
+  "source": "https://a0.awsstatic.com/libra-css/images/site/touch-icon-ipad-144-smile.png"
+ },
+ "java25": {
+  "name": "Amazon Corretto 25 (LTS)",
+  "source": "https://a0.awsstatic.com/libra-css/images/site/touch-icon-ipad-144-smile.png"
+ },
+ "jellyfinmediaplayer": {
+  "name": "Jellyfin Media Player",
+  "source": "https://jellyfin.org/images/favicon.ico"
+ },
+ "jellyfinserver": {
+  "name": "Jellyfin Server",
+  "source": "https://jellyfin.org/images/favicon.ico"
+ },
+ "jetbrains": {
+  "name": "Jetbrains Toolbox",
+  "source": "https://www.jetbrains.com/icon-512.png"
+ },
+ "jpegview": {
+  "name": "JPEG View",
+  "source": "https://github.com/sylikc/jpegview/blob/HEAD/src/JPEGView/res/JPEGView.ico"
+ },
+ "joplin": {
+  "name": "Joplin",
+  "source": "https://community.chocolatey.org/content/packageimages/joplin.2.9.17.png"
+ },
+ "keepassxc": {
+  "name": "KeePassXC",
+  "source": "https://upload.wikimedia.org/wikipedia/commons/c/c1/KeePassXC.svg"
+ },
+ "klite": {
+  "name": "K-Lite Codec Standard",
+  "source": null
+ },
+ "kodi": {
+  "name": "Kodi Media Center",
+  "source": "https://i.postimg.cc/2yyqfsLK/icon.png"
+ },
+ "lazygit": {
+  "name": "Lazygit",
+  "source": "https://community.chocolatey.org/content/packageimages/lazygit.0.37.0.png"
+ },
+ "libreoffice": {
+  "name": "LibreOffice",
+  "source": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/48/LibreOffice_7.5_Main_Icon.svg/250px-LibreOffice_7.5_Main_Icon.svg.png"
+ },
+ "librewolf": {
+  "name": "LibreWolf",
+  "source": "https://upload.wikimedia.org/wikipedia/commons/d/d0/LibreWolf_icon.svg"
+ },
+ "localsend": {
+  "name": "LocalSend",
+  "source": "https://i.imgur.com/JZiGU2w.png"
+ },
+ "mpc-qt": {
+  "name": "mpc-qt",
+  "source": "https://community.chocolatey.org/content/packageimages/mpc-qt.23.02.png"
+ },
+ "mpv": {
+  "name": "mpv",
+  "source": "https://raw.githubusercontent.com/mpv-player/mpv.io/master/source/images/mpv-logo-128.png"
+ },
+ "matrix": {
+  "name": "Element",
+  "source": "https://element.io/assets-32bb636196f91ed59d7a49190e26b42c/5ef25c0d30ee3108da4c25e9/5f0e1775cd41ebe29c04cac1_webclip.png"
+ },
+ "minitoolpartitionwizard": {
+  "name": "MiniTool Partition Wizard",
+  "source": "https://www.partitionwizard.com/favicon.ico"
+ },
+ "modrinth": {
+  "name": "Modrinth App",
+  "source": "https://raw.githubusercontent.com/modrinth/code/main/apps/app/icons/icon.png"
+ },
+ "moonlight": {
+  "name": "Moonlight/GameStream Client",
+  "source": "https://github.com/moonlight-stream/moonlight-qt/blob/HEAD/app/deploy/steamlink/moonlight.png"
+ },
+ "mpchc": {
+  "name": "Media Player Classic - Home Cinema",
+  "source": "https://upload.wikimedia.org/wikipedia/commons/7/76/Media_Player_Classic_logo.png"
+ },
+ "msedgeredirect": {
+  "name": "MSEdgeRedirect",
+  "source": "https://unigeticons.meowcat285.com/msedgeredirect.0.7.5.3.png"
+ },
+ "msiafterburner": {
+  "name": "MSI Afterburner",
+  "source": null
+ },
+ "mullvadvpn": {
+  "name": "Mullvad VPN",
+  "source": "https://mullvad.net/favicon.svg"
+ },
+ "mullvadbrowser": {
+  "name": "Mullvad Browser",
+  "source": "https://upload.wikimedia.org/wikipedia/commons/7/70/Mullvad_Browser_logo.svg"
+ },
+ "nomacs": {
+  "name": "nomacs",
+  "source": "https://nomacs.org/apple-touch-icon.png"
+ },
+ "nanazip": {
+  "name": "NanaZip",
+  "source": "https://i.postimg.cc/QCMrRPpR/nana.png"
+ },
+ "netbird": {
+  "name": "NetBird",
+  "source": "https://netbird.io/icon.png"
+ },
+ "tailscale": {
+  "name": "Tailscale",
+  "source": "https://tailscale.com/favicon.png"
+ },
+ "naps2": {
+  "name": "NAPS2 (Scanner)",
+  "source": "https://www.naps2.com/images/favicon.ico"
+ },
+ "neovim": {
+  "name": "Neovim",
+  "source": "https://neovim.io/favicon.ico"
+ },
+ "nextclouddesktop": {
+  "name": "Nextcloud Desktop",
+  "source": "https://community.chocolatey.org/content/packageimages/nextcloud-client.3.7.3.png"
+ },
+ "nmap": {
+  "name": "Nmap",
+  "source": "https://nmap.org/shared/images/tiny-eyeicon.png"
+ },
+ "nodejs": {
+  "name": "NodeJS",
+  "source": "https://raw.githubusercontent.com/nodejs/nodejs.org/main/apps/site/public/static/images/favicons/android-chrome-192x192.png"
+ },
+ "nodejslts": {
+  "name": "NodeJS LTS",
+  "source": "https://raw.githubusercontent.com/nodejs/nodejs.org/main/apps/site/public/static/images/favicons/android-chrome-192x192.png"
+ },
+ "pnpm": {
+  "name": "pnpm",
+  "source": "https://pnpm.io/img/favicon.png"
+ },
+ "notepadplus": {
+  "name": "Notepad++",
+  "source": "https://i.postimg.cc/j5vJ5ys8/notepadplusplus.png"
+ },
+ "nuget": {
+  "name": "NuGet",
+  "source": "https://www.nuget.org/favicon.ico"
+ },
+ "nvclean": {
+  "name": "NVCleanstall",
+  "source": "https://www.techpowerup.com/favicon.ico"
+ },
+ "obs": {
+  "name": "OBS Studio",
+  "source": "https://obsproject.com/favicon-96x96.png"
+ },
+ "obsidian": {
+  "name": "Obsidian",
+  "source": "https://raw.githubusercontent.com/Fileover/Assets/main/Others/WingetUI/Obsidian/obsidian-icon.png"
+ },
+ "okular": {
+  "name": "Okular",
+  "source": "https://community.chocolatey.org/content/packageimages/okular.22.08.1.png"
+ },
+ "onedrive": {
+  "name": "OneDrive",
+  "source": "https://upload.wikimedia.org/wikipedia/commons/e/e7/Microsoft_OneDrive_Icon_%282025_-_present%29.svg"
+ },
+ "onlyoffice": {
+  "name": "ONLYOFFICE Desktop",
+  "source": "https://community.chocolatey.org/content/packageimages/onlyoffice.7.3.0.png"
+ },
+ "OPAutoClicker": {
+  "name": "OPAutoClicker",
+  "source": null
+ },
+ "opencode": {
+  "name": "OpenCode",
+  "source": "https://opencode.ai/apple-touch-icon-v3.png"
+ },
+ "openrgb": {
+  "name": "OpenRGB",
+  "source": "https://community.chocolatey.org/content/packageimages/openrgb.0.8.png"
+ },
+ "OpenVPN": {
+  "name": "OpenVPN Connect",
+  "source": null
+ },
+ "OVirtualBox": {
+  "name": "Oracle VirtualBox",
+  "source": "https://kids.kiddle.co/images/thumb/f/ff/VirtualBox_2024_Logo.svg/512px-VirtualBox_2024_Logo.svg.png"
+ },
+ "policyplus": {
+  "name": "Policy Plus",
+  "source": null
+ },
+ "processexplorer": {
+  "name": "Process Explorer",
+  "source": "https://learn.microsoft.com/en-us/sysinternals/media/index/sysinternals.png"
+ },
+ "Paintdotnet": {
+  "name": "Paint.NET",
+  "source": "https://i.postimg.cc/fRpJr36f/paintdotnet.png"
+ },
+ "parsec": {
+  "name": "Parsec",
+  "source": "https://community.chocolatey.org/content/packageimages/parsec.20221220.00.png"
+ },
+ "peazip": {
+  "name": "PeaZip",
+  "source": "https://upload.wikimedia.org/wikipedia/commons/f/fe/Peazip_ico.svg"
+ },
+ "pdf-xchange": {
+  "name": "PDF-XChange Editor",
+  "source": "https://cdn.pdf-xchange.com/static/common/images/apple-touch-icon-57x57.png"
+ },
+ "pdf24creator": {
+  "name": "PDF24 Creator",
+  "source": "https://i.postimg.cc/DfP15pB1/icon.png"
+ },
+ "pdfgear": {
+  "name": "PDFgear",
+  "source": null
+ },
+ "pdfsam": {
+  "name": "PDFsam Basic",
+  "source": "https://community.chocolatey.org/content/packageimages/pdfsam.install.5.0.3.png"
+ },
+ "playnite": {
+  "name": "Playnite",
+  "source": "https://playnite.link/applogo.png"
+ },
+ "plex": {
+  "name": "Plex Media Server",
+  "source": "https://community.chocolatey.org/content/packageimages/plexmediaserver.1.31.1.6733.png"
+ },
+ "plexdesktop": {
+  "name": "Plex Desktop",
+  "source": "https://watch.plex.tv/icons/icon-512x512.png"
+ },
+ "posh": {
+  "name": "Oh My Posh (Prompt)",
+  "source": "https://github.com/JanDeDobbeleer/oh-my-posh/blob/HEAD/src/winres/icon.png"
+ },
+ "postman": {
+  "name": "Postman",
+  "source": "https://assets.getpostman.com/common-share/postman-logo.png"
+ },
+ "powershell": {
+  "name": "PowerShell",
+  "source": "https://community.chocolatey.org/content/packageimages/powershell-core.7.3.3.png"
+ },
+ "powertoys": {
+  "name": "PowerToys",
+  "source": "https://i.postimg.cc/DfmW7XGy/pticon.png"
+ },
+ "prismlauncher": {
+  "name": "Prism Launcher",
+  "source": "https://unigeticons.meowcat285.com/prismlauncher.8.4.20240820.png"
+ },
+ "processlasso": {
+  "name": "Process Lasso",
+  "source": "https://bitsum.com/wp-content/uploads/favicon.png"
+ },
+ "protonauth": {
+  "name": "Proton Authenticator",
+  "source": "https://i.postimg.cc/BnByYH70/proton-auth.png"
+ },
+ "protonmail": {
+  "name": "Proton Mail",
+  "source": "https://i.postimg.cc/zGYnzbHJ/protonmail.png"
+ },
+ "protondrive": {
+  "name": "Proton Drive",
+  "source": "https://i.postimg.cc/RZpFXq57/Proton-Drive.png"
+ },
+ "protonpass": {
+  "name": "Proton Pass",
+  "source": "https://i.postimg.cc/8PvZmf2v/protonpass.png"
+ },
+ "protonvpn": {
+  "name": "Proton VPN",
+  "source": "https://raw.githubusercontent.com/ProtonVPN/proton-vpn-browser-extension/main/source/img/icon-256.png"
+ },
+ "processmonitor": {
+  "name": "Process Monitor",
+  "source": "https://learn.microsoft.com/en-us/sysinternals/media/index/sysinternals.png"
+ },
+ "pstools": {
+  "name": "PsTools",
+  "source": "https://learn.microsoft.com/favicon.ico"
+ },
+ "putty": {
+  "name": "PuTTY",
+  "source": "https://i.postimg.cc/WzjtrBVC/putty-icon.png"
+ },
+ "python3": {
+  "name": "Python3",
+  "source": "https://s3.dualstack.us-east-2.amazonaws.com/pythondotorg-assets/media/community/logos/python-logo-only.png"
+ },
+ "qbittorrent": {
+  "name": "qBittorrent",
+  "source": "https://i.ibb.co/9mQ0y0MX/Image.png"
+ },
+ "qownnotes": {
+  "name": "QOwnNotes",
+  "source": "https://www.qownnotes.org/favicon.png"
+ },
+ "qtox": {
+  "name": "QTox",
+  "source": "https://github.com/qTox/qTox/blob/HEAD/img/icons/256x256/qtox.png"
+ },
+ "revo": {
+  "name": "Revo Uninstaller",
+  "source": "https://i.postimg.cc/PqFKpK5s/Revouninstallerpro-512.png"
+ },
+ "WiseProgramUninstaller": {
+  "name": "Wise Program Uninstaller (WiseCleaner)",
+  "source": "https://i.postimg.cc/Jn61Yk6Q/wpu.png"
+ },
+ "rufus": {
+  "name": "Rufus Imager",
+  "source": "https://i.postimg.cc/VsS0dxJn/Rufus.png"
+ },
+ "rustlang": {
+  "name": "Rust",
+  "source": "https://www.rust-lang.org/logos/rust-logo-512x512.png"
+ },
+ "sdio": {
+  "name": "Snappy Driver Installer Origin",
+  "source": "https://community.chocolatey.org/content/packageimages/sdio.1.12.9.749.png"
+ },
+ "sharex": {
+  "name": "ShareX (Screenshots)",
+  "source": "https://community.chocolatey.org/content/packageimages/sharex.16.1.0.png"
+ },
+ "nilesoftShell": {
+  "name": "Nilesoft Shell",
+  "source": "https://nilesoft.org/images/favicon.png"
+ },
+ "systeminformer": {
+  "name": "System Informer",
+  "source": "https://community.chocolatey.org/content/packageimages/systeminformer-nightlybuilds.3.0.5727.png"
+ },
+ "signal": {
+  "name": "Signal",
+  "source": "https://raw.githubusercontent.com/signalapp/Signal-Desktop/main/images/tray-icons/base/signal-tray-icon-256x256-base.png"
+ },
+ "signalrgb": {
+  "name": "SignalRGB",
+  "source": "https://www.signalrgb.com/favicon.ico"
+ },
+ "simplenote": {
+  "name": "Simplenote",
+  "source": "https://simplenote.com/wp-content/uploads/2020/07/cropped-icon_512x512.png?w=192"
+ },
+ "simplewall": {
+  "name": "Simplewall",
+  "source": "https://avatars.githubusercontent.com/u/3902025?s=128&v=4"
+ },
+ "slack": {
+  "name": "Slack",
+  "source": "https://i.imgur.com/PHteKLC.png"
+ },
+ "startallback": {
+  "name": "StartAllBack",
+  "source": "https://i.postimg.cc/prC8r9DL/Start-All-Back.png"
+ },
+ "starship": {
+  "name": "Starship (Shell Prompt)",
+  "source": "https://raw.githubusercontent.com/starship/starship/master/media/icon.png"
+ },
+ "steam": {
+  "name": "Steam",
+  "source": "https://store.steampowered.com/favicon.ico"
+ },
+ "roblox": {
+  "name": "Roblox",
+  "source": "https://i.ibb.co/ddqFLQ9/roblox.png"
+ },
+ "sublimetext": {
+  "name": "Sublime Text",
+  "source": "https://www.sublimehq.com/images/sublime_text.png"
+ },
+ "sumatra": {
+  "name": "Sumatra PDF",
+  "source": "https://upload.wikimedia.org/wikipedia/commons/7/7b/Sumatra_PDF_logo.png"
+ },
+ "sunshine": {
+  "name": "Sunshine/GameStream Server",
+  "source": "https://app.lizardbyte.dev/favicon.ico"
+ },
+ "synctrayzor": {
+  "name": "SyncTrayzor",
+  "source": "https://community.chocolatey.org/content/packageimages/synctrayzor.1.1.29.png"
+ },
+ "syncthing": {
+  "name": "Syncthing (CLI / Web UI)",
+  "source": "https://community.chocolatey.org/content/packageimages/syncthing.1.23.1.png"
+ },
+ "tcpview": {
+  "name": "TCPView",
+  "source": "https://learn.microsoft.com/en-us/sysinternals/media/index/sysinternals.png"
+ },
+ "teams": {
+  "name": "Teams",
+  "source": "https://community.chocolatey.org/content/packageimages/microsoft-teams.install.1.6.00.1381.png"
+ },
+ "teamviewer": {
+  "name": "TeamViewer",
+  "source": "https://i.imgur.com/2UWkAjM.png"
+ },
+ "teamspeak3": {
+  "name": "TeamSpeak 3",
+  "source": "https://community.chocolatey.org/content/packageimages/teamspeak.3.5.6.png"
+ },
+ "teamspeak6": {
+  "name": "TeamSpeak 6",
+  "source": "https://www.teamspeak.com/user/themes/teamspeak/images/favicon.png"
+ },
+ "telegram": {
+  "name": "Telegram",
+  "source": "https://i.postimg.cc/t41FY2WT/Telegram-2019-Logo-svg.png"
+ },
+ "terminal": {
+  "name": "Windows Terminal",
+  "source": "https://winaero.com/blog/wp-content/uploads/2019/06/WIndows-Terminal-icon.png"
+ },
+ "thunderbird": {
+  "name": "Thunderbird",
+  "source": "https://i.ibb.co/NgwCjhjJ/image.png"
+ },
+ "betterbird": {
+  "name": "Betterbird",
+  "source": "https://avatars.githubusercontent.com/u/86832723"
+ },
+ "tor": {
+  "name": "Tor Browser",
+  "source": "https://commons.wikimedia.org/wiki/File:Tor_Browser_icon.svg"
+ },
+ "totalcommander": {
+  "name": "Total Commander",
+  "source": "https://tweakers.net/ext/i/2005046262.png"
+ },
+ "treesize": {
+  "name": "TreeSize Free",
+  "source": "https://i.postimg.cc/qq24JBMx/Tree-Size-Free.png"
+ },
+ "ttaskbar": {
+  "name": "TranslucentTB",
+  "source": "https://translucenttb.github.io/favicon.ico"
+ },
+ "ubisoft": {
+  "name": "Ubisoft Connect",
+  "source": "https://static-dm.ubisoft.com/ubisoft/prod/favicon-228x228.png"
+ },
+ "ungoogled": {
+  "name": "Ungoogled Chromium",
+  "source": "https://community.chocolatey.org/content/packageimages/ungoogled-chromium.110.0.5481.781.png"
+ },
+ "unity": {
+  "name": "Unity Game Engine",
+  "source": "https://community.chocolatey.org/content/packageimages/unity-hub.3.9.1.png"
+ },
+ "vagrant": {
+  "name": "Vagrant",
+  "source": "https://community.chocolatey.org/content/packageimages/vagrant.2.3.4.png"
+ },
+ "everything": {
+  "name": "Everything",
+  "source": "https://i.postimg.cc/rpwsh2hZ/everything-icon.png"
+ },
+ "vc2015_32": {
+  "name": "Visual C++ 2015-2022 32-bit",
+  "source": "https://i.postimg.cc/rwGzh5vf/Visual-Studio-Icon-2022.png"
+ },
+ "vc2015_64": {
+  "name": "Visual C++ 2015-2022 64-bit",
+  "source": "https://i.postimg.cc/rwGzh5vf/Visual-Studio-Icon-2022.png"
+ },
+ "ventoy": {
+  "name": "Ventoy",
+  "source": "https://pics.computerbase.de/9/3/5/0/1/logo-256.png"
+ },
+ "vesktop": {
+  "name": "Vesktop",
+  "source": "https://i.ibb.co/vGXwKRp/image.png"
+ },
+ "viber": {
+  "name": "Viber",
+  "source": "https://i.postimg.cc/5NFpY4wL/unnamed.jpg"
+ },
+ "visualstudio2022": {
+  "name": "Visual Studio 2022",
+  "source": "https://visualstudio.microsoft.com/wp-content/themes/Avada-Child-Theme/assets/img/favicon/favicon-512.png?ver=1789066767"
+ },
+ "visualstudio2026": {
+  "name": "Visual Studio 2026",
+  "source": "https://raw.githubusercontent.com/jberezanski/ChocolateyPackages/master/icons/vs2026.png"
+ },
+ "vivaldi": {
+  "name": "Vivaldi",
+  "source": "https://vivaldi.com/wp-content/uploads/cropped-viv_icon-500px.png"
+ },
+ "vlc": {
+  "name": "VLC (Video Player)",
+  "source": "https://i.imgur.com/k4W1Nm1.png"
+ },
+ "vrdesktopstreamer": {
+  "name": "Virtual Desktop Streamer",
+  "source": "https://unigeticons.meowcat285.com/VirtualDesktop.png"
+ },
+ "vscode": {
+  "name": "VS Code",
+  "source": "https://upload.wikimedia.org/wikipedia/commons/9/9a/Visual_Studio_Code_1.35_icon.svg"
+ },
+ "vscodium": {
+  "name": "VS Codium",
+  "source": "https://dl.flathub.org/media/com/vscodium/codium/6efa4be7fea2ee9f93db27a85f515cc3/icons/128x128/com.vscodium.codium.png"
+ },
+ "waterfox": {
+  "name": "Waterfox",
+  "source": "https://upload.wikimedia.org/wikipedia/commons/2/2a/Waterfox_logo_2019.png"
+ },
+ "whatsapp": {
+  "name": "WhatsApp Desktop",
+  "source": "https://i.postimg.cc/JnDKNM92/apps-8453-13655054093851568-4a371b72-2ce8-4bdb-9d83-be49894d3fa0.png"
+ },
+ "wingetui": {
+  "name": "UniGetUI",
+  "source": "https://raw.githubusercontent.com/Devolutions/UniGetUI/main/media/icon.png"
+ },
+ "winrar": {
+  "name": "WinRAR",
+  "source": "https://i.postimg.cc/mrqHDZxJ/winrar.png"
+ },
+ "winscp": {
+  "name": "WinSCP",
+  "source": "https://i.postimg.cc/3xtGsCtK/icon.png"
+ },
+ "wireguard": {
+  "name": "WireGuard",
+  "source": "https://community.chocolatey.org/content/packageimages/wireguard.0.5.3.png"
+ },
+ "wireshark": {
+  "name": "Wireshark",
+  "source": "https://upload.wikimedia.org/wikipedia/commons/d/df/Wireshark_icon.svg"
+ },
+ "wiztree": {
+  "name": "WizTree",
+  "source": "https://antibodysoftware-17031.kxcdn.com/images/wiztree445x.png"
+ },
+ "xeheditor": {
+  "name": "HxD Hex Editor",
+  "source": "https://community.chocolatey.org/content/packageimages/HxD.2.5.0.0.png"
+ },
+ "xournal": {
+  "name": "Xournal++",
+  "source": "https://raw.githubusercontent.com/xournalpp/xournalpp/master/ui/pixmaps/com.github.xournalpp.xournalpp.png"
+ },
+ "yarn": {
+  "name": "Yarn",
+  "source": "https://yarnpkg.com/img/yarn-favicon.svg"
+ },
+ "zoom": {
+  "name": "Zoom",
+  "source": "https://i.postimg.cc/NFd1Qg5d/zoom-logo.png"
+ },
+ "uv": {
+  "name": "uv",
+  "source": "https://docs.astral.sh/static/apple-touch-icon.png"
+ },
+ "tightvnc": {
+  "name": "TightVNC",
+  "source": "https://tweakers.net/ext/i/1278099200.png"
+ },
+ "glazewm": {
+  "name": "GlazeWM",
+  "source": "https://avatars.githubusercontent.com/u/67482629?s=128&v=4"
+ },
+ "Overwolf": {
+  "name": "CurseForge",
+  "source": "https://community.chocolatey.org/content/packageimages/overwolf.2.156.0.2.png"
+ },
+ "OFGB": {
+  "name": "OFGB (Oh Frick Go Back)",
+  "source": "https://github.com/xM4ddy/OFGB/blob/HEAD/Assets/icon.ico"
+ },
+ "ZenBrowser": {
+  "name": "Zen Browser",
+  "source": "https://raw.githubusercontent.com/zen-browser/desktop/dev/configs/branding/release/logo1024.png"
+ },
+ "Zed": {
+  "name": "Zed",
+  "source": "https://i.postimg.cc/qgVTHhyZ/zed.png"
+ },
+ "zotero": {
+  "name": "Zotero",
+  "source": "https://www.zotero.org/static/images/icons/zotero-app-icon-256.png"
+ },
+ "deskflow": {
+  "name": "Deskflow",
+  "source": "https://dl.flathub.org/media/org/deskflow/deskflow/d93533995feb3af980d1ee1ffc0bf6d6/icons/128x128/org.deskflow.deskflow.png"
+ },
+ "Ruby": {
+  "name": "Ruby",
+  "source": "https://commons.wikimedia.org/wiki/File:Ruby_logo.svg"
+ },
+ "Lua": {
+  "name": "Lua",
+  "source": "https://i.postimg.cc/jjhXJWkv/lua.png"
+ },
+ "CloudflareWARP": {
+  "name": "Cloudflare WARP",
+  "source": "https://i.postimg.cc/7Y3pjnfV/warp-logo.png"
+ }
+}

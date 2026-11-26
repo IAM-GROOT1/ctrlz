@@ -59,6 +59,50 @@ public class AppIconSourceTests
     }
 
     [Fact]
+    public void Almost_every_catalog_app_has_a_full_colour_icon()
+    {
+        using var catalog = JsonDocument.Parse(File.ReadAllText(RepoFile("src", "CtrlZ.Core", "Resources", "winutil-applications.json")));
+        var apps = catalog.RootElement.EnumerateObject().Select(app => app.Value).ToList();
+        var withIcon = apps.Count(app =>
+            CatalogIcons.Find(app.TryGetProperty("winget", out var id) ? id.GetString() : null,
+                app.TryGetProperty("content", out var name) ? name.GetString() : null) is not null);
+
+        Assert.True(CatalogIcons.Count > 220, $"only {CatalogIcons.Count} icons");
+        Assert.True(withIcon >= apps.Count - 10, $"{withIcon} of {apps.Count} catalog apps have an icon");
+    }
+
+    [Fact]
+    public void Bundled_icons_are_64_pixel_images()
+    {
+        var icon = CatalogIcons.Find("Mozilla.Firefox", null);
+
+        Assert.NotNull(icon);
+        Assert.True(icon!.IsFrozen);
+        Assert.Equal(64, ((System.Windows.Media.Imaging.BitmapSource)icon).PixelWidth);
+        Assert.Same(icon, CatalogIcons.Find(null, "Mozilla Firefox"));
+    }
+
+    [Theory]
+    [InlineData(null, "In-house Tool")]
+    [InlineData(null, "Files")]
+    [InlineData(null, "Go")]
+    [InlineData("Some.Unknown", "")]
+    public void Unknown_or_generic_names_get_no_bundled_icon(string? packageId, string name)
+    {
+        Assert.Null(CatalogIcons.Find(packageId, name));
+    }
+
+    [Fact]
+    public void Every_bundled_icon_says_where_it_came_from()
+    {
+        using var sources = JsonDocument.Parse(File.ReadAllText(RepoFile("build", "app-icons", "sources.json")));
+        var withSource = sources.RootElement.EnumerateObject()
+            .Count(app => app.Value.GetProperty("source").ValueKind == JsonValueKind.String);
+
+        Assert.Equal(CatalogIcons.Count, withSource);
+    }
+
+    [Fact]
     public void An_installed_program_lends_its_icon_to_the_same_app_by_name()
     {
         InstalledIcons.Use(

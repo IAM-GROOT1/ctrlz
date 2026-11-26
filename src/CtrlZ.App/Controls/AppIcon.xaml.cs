@@ -10,7 +10,8 @@ namespace CtrlZ.App.Controls;
 
 /// <summary>
 /// An app's icon. In order: the icon file it was scanned with; the icon of a program with the same
-/// name installed on this PC; the app's brand logo bundled with CTRL+Z; its coloured initials.
+/// name installed on this PC; the app's full-colour icon bundled with CTRL+Z; its one-colour brand
+/// logo bundled with CTRL+Z; its coloured initials.
 /// </summary>
 public partial class AppIcon : UserControl
 {
@@ -67,7 +68,7 @@ public partial class AppIcon : UserControl
         set => SetValue(SizeProperty, value);
     }
 
-    /// <summary>What is showing: "file", "installed", "brand" or "initials" (for tests).</summary>
+    /// <summary>What is showing: "file", "installed", "catalog", "brand" or "initials" (for tests).</summary>
     public string Showing { get; private set; } = "initials";
 
     private void OnInstalledIconsLoaded(object? sender, EventArgs e) =>
@@ -105,6 +106,12 @@ public partial class AppIcon : UserControl
         {
             image = IconLoader.TryLoad(InstalledIcons.Find(text));
             Showing = image is null ? "initials" : "installed";
+        }
+
+        if (image is null)
+        {
+            image = CatalogIcons.Find(PackageId, text);
+            Showing = image is null ? "initials" : "catalog";
         }
 
         var brand = image is null ? BrandIcons.Find(PackageId, text) : null;
